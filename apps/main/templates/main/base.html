@@ -12,6 +12,17 @@
 
 <body>
 
+{% if request.user.is_authenticated %}
+    <a href="/accounts/logout/">Logout</a>
+    {% if request.user.email %}
+        {{ request.user.email }}
+    {% endif %}
+    {% if request.user.profile.account_verified %} (verified) {% else %} (unverified) {% endif %}
+
+{% else %}
+    <a href="/accounts/login/">Login</a>
+{% endif %}
+
 {% block body %}
     Hello world, beach.
 {% endblock body %}
