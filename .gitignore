@@ -4,5 +4,4 @@ __pycache__
 *.pyc
 */settings/database.py
 */settings/security.py
-migrations
 local_*
