@@ -28,6 +28,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
 
+    'apps.game',
     'apps.main',
     'apps.motion',
     'apps.team',
