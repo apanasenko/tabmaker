@@ -32,6 +32,7 @@ INSTALLED_APPS = (
     'apps.main',
     'apps.motion',
     'apps.team',
+    'apps.tournament',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
