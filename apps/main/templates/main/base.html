@@ -24,6 +24,7 @@
 {% endif %}
 
 {% block body %}
+    <p><a href="{% url "tournament:new" %}">Создать новый турнир</a></p>
     {% for tournament in tournaments %}
         <p>
             <a href="{% url 'tournament:show' tournament.id %}">

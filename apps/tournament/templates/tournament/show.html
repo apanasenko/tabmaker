@@ -1,0 +1,27 @@
+{% extends "main/base.html" %}
+
+{% block body %}
+
+    <div>
+        <p><label for="id_name">Название:</label></p>
+        <p>{{ tournament.name }}</p>
+    </div>
+    <div>
+        <p><label for="id_location">Место проведения:</label></p>
+        <p>{{ tournament.location }}</p>
+    </div>
+    <div>
+        <p><label for="id_info">Описание:</label></p>
+        <p>{{ tournament.info }}</p>
+    </div>
+    <div>
+        <p><label for="id_reg">Периуд регистрации:</label></p>
+        <p>{{ tournament.open_reg }} - {{ tournament.close_reg }}</p>
+    </div>
+    <div>
+        <p><label for="id_start_tour">Начало турнира:</label></p>
+        <p>{{ tournament.start_tour }}</p>
+    </div>
+    <p> <a href="{% url "tournament:edit" tournament.id %}"> Редактировать </a> </p>
+
+{% endblock body %}

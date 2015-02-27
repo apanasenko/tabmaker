@@ -1,0 +1,29 @@
+{% csrf_token %}
+{{ form.non_field_errors }}
+<div>
+    <p>{{ form.name.errors }}</p>
+    <p><label for="id_name">Название:</label></p>
+    <p>{{ form.name }}</p>
+</div>
+<div>
+    <p>{{ form.location.errors }}</p>
+    <p><label for="id_location">Место проведения:</label></p>
+    <p>{{ form.location }}</p>
+</div>
+<div>
+    <p>{{ form.info.errors }}</p>
+    <p><label for="id_info">Описание:</label></p>
+    <p>{{ form.info }}</p>
+</div>
+<div>
+    <p>{{ form.open_reg.errors }}</p>
+    <p>{{ form.close_reg.errors }}</p>
+    <p><label for="id_reg">Периуд регистрации:</label></p>
+    <p>{{ form.open_reg }} - {{ form.close_reg }}</p>
+</div>
+<div>
+    <p>{{ form.start_tour.errors }}</p>
+    <p><label for="id_start_tour">Начало турнира:</label></p>
+    <p>{{ form.start_tour }}</p>
+</div>
+<input type="submit" value="Submit" />

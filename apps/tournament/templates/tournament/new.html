@@ -1,0 +1,11 @@
+{% extends "main/base.html" %}
+
+{% block body %}
+
+    <form action="{% url 'tournament:new' %}" method="post">
+
+        {% include "tournament/edit_form.html" %}
+
+    </form>
+
+{% endblock body %}

@@ -10,4 +10,5 @@ urlpatterns = patterns('',
     url(r'^$', 'apps.main.views.index', name='index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^tournament/', include('apps.tournament.urls', namespace='tournament')),
 )
