@@ -1,0 +1,61 @@
+﻿##  ROLES
+## =======
+- model: tournament.TournamentRole
+  pk: 1
+  fields:
+    role: owner
+
+- model: tournament.TournamentRole
+  pk: 2
+  fields:
+    role: admin
+
+- model: tournament.TournamentRole
+  pk: 3
+  fields:
+    role: registered
+
+- model: tournament.TournamentRole
+  pk: 4
+  fields:
+    role: in_tab
+
+- model: tournament.TournamentRole
+  pk: 5
+  fields:
+    role: wait_list
+
+- model: tournament.TournamentRole
+  pk: 6
+  fields:
+    role: verified
+
+- model: tournament.TournamentRole
+  pk: 7
+  fields:
+    role: approved
+
+- model: tournament.TournamentRole
+  pk: 8
+  fields:
+    role: member
+
+- model: tournament.TournamentRole
+  pk: 9
+  fields:
+    role: referee_registered
+
+- model: tournament.TournamentRole
+  pk: 10
+  fields:
+    role: referee_approved
+
+- model: tournament.TournamentRole
+  pk: 11
+  fields:
+    role: referee
+
+- model: tournament.TournamentRole
+  pk: 11
+  fields:
+    role: chief_referee
