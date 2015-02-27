@@ -6,7 +6,7 @@ from apps.motion.models import Motion
 
 class Tournament(models.Model):
     name = models.CharField(max_length=100)
-    location = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)  # TODO Посмотреть форма данный связанный с геолокацией
     open_reg = models.DateTimeField('open registration')
     close_reg = models.DateTimeField('close registration')
     start_tour = models.DateTimeField('start tournament')
@@ -15,14 +15,23 @@ class Tournament(models.Model):
     members = models.ManyToManyField(User, through='UserTournamentRel')
     info = models.TextField()
 
+    def __str__(self):
+        return self.name
+
 
 class Place(models.Model):
     tournament = models.ForeignKey(Tournament)
     place = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.place
+
 
 class TournamentRole(models.Model):
     name = models.CharField(max_length=100, name='role')
+
+    def __str__(self):
+        return self.role
 
 
 class UserTournamentRel(models.Model):
