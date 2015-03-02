@@ -7,7 +7,8 @@ from apps.tournament.models import Tournament
 
 
 def index(request):
-    raise Http404
+    # TODO придумать зачем эта страница
+    return show_message(request, 'Нужна ди эта страница?')
 
 
 def new(request):
@@ -17,7 +18,8 @@ def new(request):
             tournament_obj = tournament_form.save(commit=False)
             tournament_obj.count_rounds = 0
             tournament_obj.save()
-            return HttpResponseRedirect('/')  # TODO куда перекидывать
+            # TODO куда перекидывать
+            return show_message(request, 'Вы создали свой турнир')
 
     return render(request, 'tournament/new.html', {'form': TournamentForm()})
 
@@ -28,14 +30,18 @@ def show(request, tournament_id):
 
 
 def edit(request, tournament_id):
+    tournament = get_object_or_404(Tournament, pk=tournament_id)
+    if not user_can_edit_tournament(tournament, request.user):
+        # TODO страница ошибки доступа
+        return show_message(request, 'У вас нет прав для редактирования турнира')
+
     if request.method == 'POST':
-        tournament = get_object_or_404(Tournament, pk=tournament_id)
         tournament_form = TournamentForm(request.POST, instance=tournament)
         if tournament_form.is_valid():
             tournament_form.save()
-            return HttpResponseRedirect('/')
 
-    tournament = get_object_or_404(Tournament, pk=tournament_id)
+            return show_message(request, 'Турнир изменён')
+
     return render(
         request,
         'tournament/edit.html',
@@ -44,3 +50,5 @@ def edit(request, tournament_id):
             'id': tournament.id,
         }
     )
+def show_message(request, message):
+    return render(request, 'main/message.html', {'message': message})
