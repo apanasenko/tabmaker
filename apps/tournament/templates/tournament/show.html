@@ -22,6 +22,7 @@
         <p><label for="id_start_tour">Начало турнира:</label></p>
         <p>{{ tournament.start_tour }}</p>
     </div>
-    <p> <a href="{% url "tournament:edit" tournament.id %}"> Редактировать </a> </p>
-
+    {% if is_owner %}
+        <p> <a href="{% url "tournament:edit" tournament.id %}"> Редактировать </a> </p>
+    {% endif %}
 {% endblock body %}
