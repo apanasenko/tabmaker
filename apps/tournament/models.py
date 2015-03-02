@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from apps.game.models import Game
 from apps.motion.models import Motion
+from apps.team.models import Team
 
 
 class Tournament(models.Model):
@@ -12,7 +13,8 @@ class Tournament(models.Model):
     start_tour = models.DateTimeField('start tournament')
     count_rounds = models.IntegerField()
     is_closed = models.BooleanField(default=False)
-    members = models.ManyToManyField(User, through='UserTournamentRel')
+    user_members = models.ManyToManyField(User, through='UserTournamentRel')
+    team_members = models.ManyToManyField(Team, through='TeamTournamentRel')
     info = models.TextField()
 
     def __str__(self):
@@ -36,6 +38,12 @@ class TournamentRole(models.Model):
 
 class UserTournamentRel(models.Model):
     user = models.ForeignKey(User)
+    tournament = models.ForeignKey(Tournament)
+    role = models.ForeignKey(TournamentRole)
+
+
+class TeamTournamentRel(models.Model):
+    team = models.ForeignKey(Team)
     tournament = models.ForeignKey(Tournament)
     role = models.ForeignKey(TournamentRole)
 
