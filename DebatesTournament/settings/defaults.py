@@ -32,6 +32,7 @@ INSTALLED_APPS = (
     'apps.main',
     'apps.motion',
     'apps.team',
+    'apps.tester',
     'apps.tournament',
 )
 
