@@ -8,6 +8,8 @@ from apps.tournament.models import Tournament
 from apps.tournament.models import TournamentRole
 from apps.tournament.models import TeamTournamentRel
 from apps.tournament.models import UserTournamentRel
+import datetime
+import pytz
 
 
 def index(request):
@@ -81,6 +83,9 @@ def edit(request, tournament_id):
 @login_required
 def registration(request, tournament_id):
     tournament = get_object_or_404(Tournament, pk=tournament_id)
+    if not tournament.open_reg < datetime.datetime.now(tz=pytz.utc) < tournament.close_reg:
+        return show_message(request, 'Регистрация уже (ещё) закрыта ((')
+
     if request.method == 'POST':
         team_form = TeamRegistrationForm(request.POST)
         if team_form.is_valid():
