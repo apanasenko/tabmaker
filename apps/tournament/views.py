@@ -32,7 +32,10 @@ def new(request):
             # TODO куда перекидывать
             return show_message(request, 'Вы создали свой турнир')
 
-    return render(request, 'tournament/new.html', {'form': TournamentForm()})
+    else:
+        tournament_form = TournamentForm()
+
+    return render(request, 'tournament/new.html', {'form': tournament_form})
 
 
 def show(request, tournament_id):
@@ -62,11 +65,14 @@ def edit(request, tournament_id):
 
             return show_message(request, 'Турнир изменён')
 
+    else:
+        tournament_form = TournamentForm(instance=tournament)
+
     return render(
         request,
         'tournament/edit.html',
         {
-            'form': TournamentForm(instance=tournament),
+            'form': tournament_form,
             'id': tournament.id,
         }
     )
