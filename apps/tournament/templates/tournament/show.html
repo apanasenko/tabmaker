@@ -25,4 +25,5 @@
     {% if is_owner %}
         <p> <a href="{% url "tournament:edit" tournament.id %}"> Редактировать </a> </p>
     {% endif %}
+    <p><a href="{% url "tournament:registration" tournament.id %}"> Зарегестрировать команду </a></p>
 {% endblock body %}

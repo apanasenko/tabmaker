@@ -1,0 +1,28 @@
+{% extends "main/base.html" %}
+
+{% block body %}
+
+    <form action="{% url "tournament:registration" id %}" method="post">
+
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div>
+            <p>{{ form.name.errors }}</p>
+            <p><label for="id_name">Название:</label></p>
+            <p>{{ form.name }}</p>
+        </div>
+        <div>
+            <p>{{ form.speaker_2.errors }}</p>
+            <p><label for="id_speaker_2">Забей тима:</label></p>
+            <p>{{ form.speaker_2 }}</p>
+            <p>{{ form.speaker_1 }}</p>
+        </div>
+        <div>
+            <p>{{ form.info.errors }}</p>
+            <p><label for="id_info">Описание:</label></p>
+            <p>{{ form.info }}</p>
+        </div>
+        <input type="submit" value="Submit" />
+    </form>
+
+{% endblock body %}

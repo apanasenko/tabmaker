@@ -2,11 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.http import Http404
+from apps.team.forms import TeamRegistrationForm
 from apps.tournament.forms import TournamentForm
 from apps.tournament.models import Tournament
 from apps.tournament.models import TournamentRole
+from apps.tournament.models import TeamTournamentRel
 from apps.tournament.models import UserTournamentRel
 
 
@@ -74,6 +74,38 @@ def edit(request, tournament_id):
         {
             'form': tournament_form,
             'id': tournament.id,
+        }
+    )
+
+
+@login_required
+def registration(request, tournament_id):
+    tournament = get_object_or_404(Tournament, pk=tournament_id)
+    if request.method == 'POST':
+        team_form = TeamRegistrationForm(request.POST)
+        if team_form.is_valid():
+            team_obj = team_form.save(commit=False)
+            team_obj.speaker_1 = request.user
+            team_obj.speaker_2 = User.objects.get(email=team_form.cleaned_data['speaker_2'])
+            team_obj.save()
+            TeamTournamentRel.objects.create(
+                team=team_obj,
+                tournament=tournament,
+                role=TournamentRole.objects.get(role='registered'),
+            )
+
+            return show_message(request, 'Вы успешно зарегались в %s' % tournament.name)
+
+    else:
+        team_form = TeamRegistrationForm(initial={'speaker_1': request.user.email})
+
+    return render(
+        request,
+        'tournament/registration.html',
+        {
+            'form': team_form,
+            'id': tournament_id,
+            'user': request.user,
         }
     )
 
