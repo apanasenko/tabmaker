@@ -115,6 +115,18 @@ def registration(request, tournament_id):
     )
 
 
+def show_team_list(request, tournament_id):
+    tournament = get_object_or_404(Tournament, pk=tournament_id)
+
+    return render(
+        request,
+        'tournament/teamList.html',
+        {
+            'teams': tournament.team_members.all(),
+        }
+    )
+
+
 def user_can_edit_tournament(t: Tournament, u: User):
     # TODO добавить админов
     return u.is_authenticated() and 0 < len(UserTournamentRel.objects.filter(

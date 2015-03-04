@@ -1,0 +1,16 @@
+{% extends "main/base.html" %}
+
+{% block body %}
+    {% for team in teams %}
+        <p>
+            {{ team.name }}
+        </p>
+        <p>
+            {{ team.speaker_1.email }}
+        </p>
+        <p>
+            {{ team.speaker_2.email }}
+        </p>
+        ===================================================
+    {% endfor %}
+{% endblock body %}

@@ -26,4 +26,5 @@
         <p> <a href="{% url "tournament:edit" tournament.id %}"> Редактировать </a> </p>
     {% endif %}
     <p><a href="{% url "tournament:registration" tournament.id %}"> Зарегестрировать команду </a></p>
+    <p><a href="{% url "tournament:team_list" tournament.id %}"> Список зарегистрировавшихся </a></p>
 {% endblock body %}
