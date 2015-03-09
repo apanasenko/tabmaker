@@ -1,38 +1,32 @@
 <!DOCTYPE html>
 
 <html>
-
 <head lang="ru">
 
 {% block head %}
-    {% include "main/header.html" %}
+    {% include "main/head.html" %}
 {% endblock head %}
 
 </head>
-
+    
 <body>
+    
+{% block header %}
+    {% include "main/header.html" %}
+{% endblock %}
 
-{% if request.user.is_authenticated %}
-    <a href="/accounts/logout/">Logout</a>
-    {% if request.user.email %}
-        {{ request.user.email }}
-    {% endif %}
-    {% if request.user.profile.account_verified %} (verified) {% else %} (unverified) {% endif %}
+{% block sidebar%}
+    {% include "main/sidebar.html" %}
+{% endblock %}
 
-{% else %}
-    <a href="/accounts/login/">Login</a>
-{% endif %}
+{% block page %}
+    {% include "main/page.html" %}
+{% endblock %}
 
-{% block body %}
-    <p><a href="{% url "tournament:new" %}">Создать новый турнир</a></p>
-    {% for tournament in tournaments %}
-        <p>
-            <a href="{% url 'tournament:show' tournament.id %}">
-                {{ tournament.name }}
-            </a>
-        </p>
-    {% endfor %}
-{% endblock body %}
+{% block footer %}
+    {% include "main/footer.html" %}
+{% endblock footer %}
 
 </body>
 </html>
+

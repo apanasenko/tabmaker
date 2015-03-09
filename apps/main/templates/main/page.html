@@ -1,0 +1,7 @@
+{% for tournament in tournaments %}
+    <p>
+        <a href="{% url 'tournament:show' tournament.id %}">
+            {{ tournament.name }}
+        </a>
+    </p>
+{% endfor %}
