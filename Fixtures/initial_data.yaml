@@ -43,19 +43,24 @@
 - model: tournament.TournamentRole
   pk: 9
   fields:
-    role: referee_registered
+    role: registered_adjudicator
 
 - model: tournament.TournamentRole
   pk: 10
   fields:
-    role: referee_approved
+    role: approved_adjudicator
 
 - model: tournament.TournamentRole
   pk: 11
   fields:
-    role: referee
+    role: chair
 
 - model: tournament.TournamentRole
-  pk: 11
+  pk: 12
   fields:
-    role: chief_referee
+    role: wing
+
+- model: tournament.TournamentRole
+  pk: 13
+  fields:
+    role: chief_adjudicator
