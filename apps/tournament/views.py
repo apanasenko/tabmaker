@@ -5,9 +5,9 @@ from django.shortcuts import get_object_or_404
 from apps.team.forms import TeamRegistrationForm
 from apps.tournament.forms import TournamentForm
 from apps.tournament.models import Tournament
-from apps.tournament.models import TournamentRole
 from apps.tournament.models import TeamTournamentRel
 from apps.tournament.models import UserTournamentRel
+from .consts import *
 import datetime
 import pytz
 
@@ -28,7 +28,7 @@ def new(request):
             UserTournamentRel.objects.create(
                 user=request.user,
                 tournament=tournament_obj,
-                role=TournamentRole.objects.get(role='owner'),
+                role=ROLE_OWNER
             )
 
             # TODO куда перекидывать
@@ -96,7 +96,7 @@ def registration(request, tournament_id):
             TeamTournamentRel.objects.create(
                 team=team_obj,
                 tournament=tournament,
-                role=TournamentRole.objects.get(role='registered'),
+                role=ROLE_TEAM_REGISTERED
             )
 
             return show_message(request, 'Вы успешно зарегались в %s' % tournament.name)
@@ -132,7 +132,7 @@ def user_can_edit_tournament(t: Tournament, u: User):
     return u.is_authenticated() and 0 < len(UserTournamentRel.objects.filter(
         tournament=t,
         user=u,
-        role=TournamentRole.objects.get(role='owner')
+        role=ROLE_OWNER
     ))
 
 
