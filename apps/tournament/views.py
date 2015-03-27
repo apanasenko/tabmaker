@@ -115,6 +115,21 @@ def registration_team(request, tournament_id):
     )
 
 
+@login_required
+def registration_adjudicator(request, tournament_id):
+    tournament = get_object_or_404(Tournament, pk=tournament_id)
+    if not tournament.open_reg < datetime.datetime.now(tz=pytz.utc) < tournament.close_reg:
+        return show_message(request, 'Регистрация уже (ещё) закрыта ((')
+
+    # TODO: Добавить проверку уже зареганного судьи
+    UserTournamentRel.objects.create(
+        user=request.user,
+        tournament=tournament,
+        role=ROLE_ADJUDICATOR_REGISTERED[0]
+    )
+    return show_message(request, 'Вы успешно зарегались в %s как судья' % tournament.name)
+
+
 def show_team_list(request, tournament_id):
     tournament = get_object_or_404(Tournament, pk=tournament_id)
 
@@ -123,6 +138,22 @@ def show_team_list(request, tournament_id):
         'tournament/teamList.html',
         {
             'teams': tournament.team_members.all(),
+        }
+    )
+
+
+def show_adjudicator_list(request, tournament_id):
+    tournament = get_object_or_404(Tournament, pk=tournament_id)
+
+    return render(
+        request,
+        'tournament/adjudicatorList.html',
+        {
+            'adjudicators': tournament.usertournamentrel_set.filter(
+                role_id__in=[
+                    ROLE_ADJUDICATOR_REGISTERED[0],  # TODO Разобраться, почему тут приходит картеж
+                ]
+            ),
         }
     )
 

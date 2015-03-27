@@ -1,10 +1,11 @@
-from django.shortcuts import render
 from django.contrib.auth.models import User
 from allauth.account.models import EmailAddress
 from apps.team.models import Team
 from apps.tournament.models import Tournament
+
 from apps.tournament.models import TournamentRole
 from apps.tournament.models import TeamTournamentRel
+from apps.tournament.models import UserTournamentRel
 
 import random
 
@@ -57,6 +58,15 @@ def add_team_to_tournament(tournament: Tournament, count_team: int, role: Tourna
     for i in range(count_team):
         TeamTournamentRel.objects.create(
             team=generate_team(),
+            tournament=tournament,
+            role=role
+        )
+
+
+def add_adjudicator_to_tournament(tournament: Tournament, count_adjudicator: int, role: TournamentRole):
+    for i in range(count_adjudicator):
+        UserTournamentRel.objects.create(
+            user=generate_user(),
             tournament=tournament,
             role=role
         )
