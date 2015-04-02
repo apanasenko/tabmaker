@@ -20,7 +20,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
-# ACCOUNT_SIGNUP_FORM_CLASS = '' 
+# ACCOUNT_SIGNUP_FORM_CLASS = ''
 
 ACCOUNT_UNIQUE_EMAIL = True
 
@@ -28,4 +28,4 @@ ACCOUNT_USERNAME_REQUIRED = False
 
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
