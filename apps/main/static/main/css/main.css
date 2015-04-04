@@ -1,0 +1,16 @@
+header {
+  height: 80px; }
+  header h3 {
+    display: inline-block; }
+  header button {
+    float: right; }
+
+footer ul li {
+  display: block; }
+
+#logo {
+  height: 80px; }
+  #logo h3 {
+    vertical-align: middle; }
+
+/*# sourceMappingURL=main.css.map */

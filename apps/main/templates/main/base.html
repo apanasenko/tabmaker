@@ -10,22 +10,29 @@
 </head>
     
 <body>
-    
-{% block header %}
-    {% include "main/header.html" %}
-{% endblock %}
+<div class="container">
+
+<div class="row">
 
 {% block sidebar%}
     {% include "main/sidebar.html" %}
 {% endblock %}
 
-{% block page %}
-    {% include "main/page.html" %}
+{% block header %}
+    {% include "main/header.html" %}
 {% endblock %}
+
+{% block page %}
+    {% include "main/create_tournament.html" %}
+{% endblock %}
+
+</div>
 
 {% block footer %}
     {% include "main/footer.html" %}
 {% endblock footer %}
+
+</div>   
 
 </body>
 </html>

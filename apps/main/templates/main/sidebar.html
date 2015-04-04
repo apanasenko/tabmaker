@@ -1,23 +1,28 @@
-<aside>
-	<div>
-		<p>Лого</p>
+<aside class="col s3">
+	<div id="logo">
+		<h3>Лого</h3>
 	</div>
 	<div>
-		<ul>
-			<li>Профиль</li>
-			<li>Мои турниры</li>
-			<li>Мои заявки</li>
-			<li>
+		<ul class="">
+			<li class=""><a href="#">Профиль</a></li>
+			<li class=""><a href="#">Мои турниры</a></li>
+			<li class=""><a href="#">Мои заявки</a></li>
+			<li class="">
 				{% if request.user.is_authenticated %}
-				    <a href="/accounts/logout/">Logout</a>
-				    {% if request.user.email %}
-				        {{ request.user.email }}
-				    {% endif %}
-				    {% if request.user.profile.account_verified %} (verified) {% else %} (unverified) {% endif %}
+				    <a href="/accounts/logout/">Выйти</a>
 				{% else %}
-				    <a href="/accounts/login/">Login</a>
+				    <a href="/accounts/login/">Войти</a>
 				{% endif %}
 			</li>
 		</ul>
+		<div>
+			<h5>Tabmaker</h5>
+			<p>Второе пришествие Tournaman</p>
+			{% if request.user.is_authenticated %}
+				{% else %}
+				    <button><a href="main/registration">Зарегистрироваться</a></button>
+				{% endif %}
+
+		</div>
 	</div>
 </aside>
