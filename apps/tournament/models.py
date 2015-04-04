@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from apps.profile.models import User
 from django.db import models
 from apps.game.models import Game
 from apps.motion.models import Motion

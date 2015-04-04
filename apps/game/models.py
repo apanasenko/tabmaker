@@ -1,7 +1,7 @@
 from django.db import models
 from apps.motion.models import Motion
 from apps.team.models import Team
-from django.contrib.auth.models import User
+from apps.profile.models import User
 
 
 # OG = Opening Government (Prime Minister & Deputy Prime Minister)

@@ -28,6 +28,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
 
+    'apps.profile',
     'apps.game',
     'apps.main',
     'apps.motion',
@@ -84,3 +85,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Custom Auth model
+
+AUTH_USER_MODEL = 'profile.User'
