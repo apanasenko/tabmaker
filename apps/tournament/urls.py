@@ -1,7 +1,9 @@
 __author__ = 'Alexander'
 
-from django.conf.urls import patterns, url
-from apps.tournament import views
+from . import views
+from django.conf.urls import \
+    patterns, \
+    url
 
 
 urlpatterns = patterns('',

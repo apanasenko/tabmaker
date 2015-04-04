@@ -1,8 +1,8 @@
 __author__ = 'Alexander'
 
-from django import forms
-from apps.team.models import Team
 from django.contrib.auth.models import User
+from django import forms
+from .models import Team
 
 
 class TeamRegistrationForm(forms.ModelForm):

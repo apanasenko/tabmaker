@@ -1,6 +1,8 @@
 __author__ = 'Alexander'
 
-from django.forms import ModelForm, Select
+from django.forms import \
+    ModelForm, \
+    Select
 from .models import User
 
 

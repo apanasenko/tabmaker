@@ -2,7 +2,7 @@ __author__ = 'Alexander'
 
 from django.forms import ModelForm
 from django.contrib.admin import widgets
-from apps.tournament.models import Tournament
+from .models import Tournament
 
 
 class TournamentForm(ModelForm):

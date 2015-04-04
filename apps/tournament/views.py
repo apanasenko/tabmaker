@@ -1,15 +1,17 @@
+import datetime
+import pytz
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from apps.team.forms import TeamRegistrationForm
-from apps.tournament.forms import TournamentForm
-from apps.tournament.models import Tournament
-from apps.tournament.models import TeamTournamentRel
-from apps.tournament.models import UserTournamentRel
+from .forms import TournamentForm
 from .consts import *
-import datetime
-import pytz
+from .models import \
+    Tournament,\
+    TeamTournamentRel,\
+    UserTournamentRel
 
 
 def index(request):

@@ -1,11 +1,11 @@
 from django.contrib.auth.models import User
 from allauth.account.models import EmailAddress
 from apps.team.models import Team
-from apps.tournament.models import Tournament
-
-from apps.tournament.models import TournamentRole
-from apps.tournament.models import TeamTournamentRel
-from apps.tournament.models import UserTournamentRel
+from apps.tournament.models import \
+    Tournament, \
+    TournamentRole,\
+    TeamTournamentRel,\
+    UserTournamentRel
 
 import random
 
