@@ -1,6 +1,6 @@
 __author__ = 'Alexander'
 
-from django.forms import ModelForm
+from django.forms import ModelForm, Select
 from .models import User
 
 
@@ -12,7 +12,16 @@ class SignupForm(ModelForm):
             'last_name',
             'email',
             'phone',
+            'country_vk_id',
+            'city_vk_id',
+            'university_vk_id',
         ]
+
+        widgets = {
+            'country_vk_id': Select(),
+            'city_vk_id': Select(),
+            'university_vk_id': Select(),
+        }
 
     def signup(self, request, user):
         # TODO Добавить проверки (телефон)

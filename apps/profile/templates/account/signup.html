@@ -1,0 +1,30 @@
+{% extends "main/base.html" %}
+
+{% load staticfiles %}
+
+{% block head %}
+
+    {{ block.super }}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static "profile/js/vk_api.js" %}"></script>
+{% endblock %}
+
+{% block body %}
+<h1>Регистрация</h1>
+
+<p>Может у тебя уже есть аккаунт? <a href="{{ login_url }}">Вход</a></p>
+
+<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <button type="submit"> "Погнали" &raquo;</button>
+</form>
+
+
+{% endblock body %}
+
+
