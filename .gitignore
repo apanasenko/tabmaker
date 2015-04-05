@@ -6,3 +6,6 @@ __pycache__
 */settings/security.py
 */settings/smtp_email.py
 local_*
+*.sublime-project
+*.sublime-workspace
+*.sass-cache

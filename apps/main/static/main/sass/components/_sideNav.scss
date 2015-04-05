@@ -1,16 +1,16 @@
 ul.side-nav {
-  position: fixed;
+ // position: fixed; 
   width: 240px;
   left: -105%;
   top: 0;
   margin: 0;
-  height: 100%;
-  height: calc(100% + 60px);
+  // height: 100%;
+  // height: calc(100% + 60px);
   padding-bottom: 60px;
   background-color: #FFF;
   z-index: 999;
 
-  @extend .z-depth-1;
+  // @extend .z-depth-1;
   will-change: left;
 
   // Right Align
@@ -58,7 +58,7 @@ ul.side-nav.fixed {
 
 // Fixed side-nav shown
 ul.side-nav.fixed {
-  left: 0;
+  left: 100px;
   position: fixed;
 
   // Right Align

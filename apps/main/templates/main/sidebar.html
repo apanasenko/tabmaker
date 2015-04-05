@@ -1,28 +1,23 @@
 <aside class="col s3">
 	<div id="logo">
-		<h3>Лого</h3>
+		<img src="static/main/img/logo.png" alt="">
 	</div>
-	<div>
-		<ul class="">
-			<li class=""><a href="#">Профиль</a></li>
-			<li class=""><a href="#">Мои турниры</a></li>
-			<li class=""><a href="#">Мои заявки</a></li>
-			<li class="">
-				{% if request.user.is_authenticated %}
-				    <a href="/accounts/logout/">Выйти</a>
-				{% else %}
-				    <a href="/accounts/login/">Войти</a>
-				{% endif %}
-			</li>
-		</ul>
-		<div>
-			<h5>Tabmaker</h5>
-			<p>Второе пришествие Tournaman</p>
+	<ul class="side-nav">
+		<li class=""><a href="#">Профиль</a></li>
+		<li class=""><a href="#">Мои турниры</a></li>
+		<li class=""><a href="#">Мои заявки</a></li>
+		<li class="">
 			{% if request.user.is_authenticated %}
-				{% else %}
-				    <button><a href="main/registration">Зарегистрироваться</a></button>
-				{% endif %}
-
-		</div>
-	</div>
+			    <a href="/accounts/logout/">Выйти</a>
+			{% else %}
+			    <a href="/accounts/login/">Войти</a>
+			{% endif %}
+		</li>
+		<h5>Tabmaker</h5>
+		<p>Второе пришествие Tournaman</p>
+		{% if request.user.is_authenticated %}
+		{% else %}
+		    <button><a href="main/registration">Зарегистрироваться</a></button>
+		{% endif %}
+	</ul>
 </aside>
