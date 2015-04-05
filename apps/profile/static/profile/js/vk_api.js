@@ -34,7 +34,7 @@ function getUniversitiesFromVK(){
 }
 
 function loadCountries(result) {
-    updateOptionsList("#id_country_vk_id", result);
+    updateOptionsList("#id_country_vk_id", result, 'cid');
     $("#id_city_vk_id").empty();
     $("#id_university_vk_id").empty();
     $("#id_country_vk_id").change(function() {getCitiesFromVK();});
@@ -42,18 +42,18 @@ function loadCountries(result) {
 }
 
 function loadCities(result) {
-    updateOptionsList("#id_city_vk_id", result);
+    updateOptionsList("#id_city_vk_id", result, 'cid');
     $("#id_university_vk_id").empty();
     $("#id_city_vk_id").change(function() {getUniversitiesFromVK();});
     getUniversitiesFromVK();
 }
 
 function loadUniversities(result) {
-    updateOptionsList("#id_university_vk_id", result);
+    updateOptionsList("#id_university_vk_id", result, 'id');
 }
 
-function updateOptionsList(id, data){
-    $(id).empty();
+function updateOptionsList(select_id, data, id){
+    $(select_id).empty();
     for (var key in data.response)
-        $(id).append(new Option(data.response[key].title, data.response[key].cid));
+        $(select_id).append(new Option(data.response[key].title, data.response[key][id]));
 }
