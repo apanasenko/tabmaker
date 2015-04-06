@@ -19,7 +19,7 @@ function getCountriesFromVK(){
 function getCitiesFromVK(){
     getDataFromVK(
         "https://api.vk.com/method/database.getCities" +
-        "?country_id=" + $("#id_country_vk_id").val() +
+        "?country_id=" + $("#id_country_id").val() +
         "&callback=loadCities"
     );
 }
@@ -27,29 +27,42 @@ function getCitiesFromVK(){
 function getUniversitiesFromVK(){
     getDataFromVK(
         "https://api.vk.com/method/database.getUniversities?" +
-        "?country_id=" + $("#id_country_vk_id").val() +
-        "&city_id=" + $("#id_city_vk_id").val() +
+        "?country_id=" + $("#id_country_id").val() +
+        "&city_id=" + $("#id_city_id").val() +
         "&callback=loadUniversities"
     );
 }
 
 function loadCountries(result) {
-    updateOptionsList("#id_country_vk_id", result, 'cid');
-    $("#id_city_vk_id").empty();
-    $("#id_university_vk_id").empty();
-    $("#id_country_vk_id").change(function() {getCitiesFromVK();});
+    updateOptionsList("#id_country_id", result, 'cid');
+    $("#id_city_id").empty();
+    $("#id_university_id").empty();
+    $("#id_country_id").change(function() {
+        getCitiesFromVK();
+    });
     getCitiesFromVK();
 }
 
 function loadCities(result) {
-    updateOptionsList("#id_city_vk_id", result, 'cid');
-    $("#id_university_vk_id").empty();
-    $("#id_city_vk_id").change(function() {getUniversitiesFromVK();});
+    updateOptionsList("#id_city_id", result, 'cid');
+    $("#id_university_id").empty();
+    $("#id_city_id").change(function() {
+        getUniversitiesFromVK();
+    });
     getUniversitiesFromVK();
 }
 
 function loadUniversities(result) {
-    updateOptionsList("#id_university_vk_id", result, 'id');
+    updateOptionsList("#id_university_id", result, 'id');
+    $("#id_university_id").change(function () {
+        updateHiddenInput();
+    });
+}
+
+function updateHiddenInput(){
+    $("#id_country_name").val($("#id_country_id option:selected").text());
+    $("#id_city_name").val($("#id_city_id option:selected").text());
+    $("#id_university_name").val($("#id_university_id option:selected").text());
 }
 
 function updateOptionsList(select_id, data, id){
@@ -57,3 +70,5 @@ function updateOptionsList(select_id, data, id){
     for (var key in data.response)
         $(select_id).append(new Option(data.response[key].title, data.response[key][id]));
 }
+
+// TODO Добавить в combobox функцию ввода и автодополнеия http://jqueryui.com/autocomplete/#combobox
