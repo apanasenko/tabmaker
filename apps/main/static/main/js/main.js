@@ -1,9 +1,8 @@
-  $(document).ready(function() {
+$(document).ready(function() {
     $('select').material_select();
-  });
+});
 
-
-  $('.datepicker').pickadate({
-    selectMonths: true, 
+$('.datepicker').pickadate({
+    selectMonths: true,
     selectYears: 15
-  });
+});

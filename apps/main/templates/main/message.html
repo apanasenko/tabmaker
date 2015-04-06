@@ -1,7 +1,6 @@
-    <p>{{ message }}</p>
-    {% if url %}
-        <p> <a href="{{ url }}"> Назад </a> </p>
-    {% else %}
-        <p> <a href="{% url "main:index" %}"> Главная </a> </p>
-    {% endif %}
-
+<p>{{ message }}</p>
+{% if url %}
+    <p> <a href="{{ url }}"> Назад </a> </p>
+{% else %}
+    <p> <a href="{% url "main:index" %}"> Главная </a> </p>
+{% endif %}
