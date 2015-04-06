@@ -1,37 +1,18 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<html>
-<head lang="ru">
+{% load staticfiles %}
 
-{% block head %}
-    {% include "main/head.html" %}
-{% endblock head %}
+{% block extra_head %}
 
-</head>
+    <link rel="stylesheet" href="{% static "main/css/main.css" media="screen,projection" %}">
+    <script type="text/javascript" src="{% static "main/js/main.js" %}"></script>
 
-<body>
-<div class="container card-panel">
+{% endblock extra_head %}
 
-<div class="row" id="pagewrapper">
+{% block page_title %}
+    Новый турнир
+{% endblock page_title %}
 
-{% block sidebar%}
-    {% include "main/sidebar.html" %}
-{% endblock %}
-
-{% block header %}
-    {% include "main/header.html" %}
-{% endblock %}
-
-{% block page %}
+{% block content %}
     {% include "main/create_tournament.html" %}
-{% endblock %}
-
-</div>
-
-{% block footer %}
-    {% include "main/footer.html" %}
-{% endblock footer %}
-
-
-</body>
-</html>
+{% endblock content %}
