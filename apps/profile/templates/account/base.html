@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static "main/css/main.css" media="screen,projection" %}">
+{#    <script type="text/javascript" src="{% static "main/js/main.js" %}"></script>#}
+{% endblock extra_head %}
+
+{% block header %}
+    <h3>
+        {% block page_title %} Название страницы {% endblock page_title %}
+    </h3>
+{% endblock header %}
+
+{% block sidebar%}
+    <div id="logo">
+        <img src="{% static 'main/img/logo.png' %}"   alt="">
+    </div>
+    <ul class="side-nav">
+        <p>Cервис для регистрации и ведения турниров по дебатам</p>
+        {% if request.user.is_authenticated %}
+            <li class="">
+                <a href="{% url 'account_logout' %}">Выйти</a>
+            </li>
+        {% else %}
+            <li class="">
+                <a href="{% url 'account_login' %}">Войти</a>
+            </li>
+            <li class="">
+                <a href="{% url 'account_signup' %}">Зарегистрироваться</a>
+            </li>
+        {% endif %}
+        </li>
+    </ul>
+{% endblock sidebar %}
+

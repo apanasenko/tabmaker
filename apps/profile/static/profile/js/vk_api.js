@@ -41,6 +41,7 @@ function loadCountries(result) {
         getCitiesFromVK();
     });
     getCitiesFromVK();
+    $("#id_country_id").material_select();
 }
 
 function loadCities(result) {
@@ -50,6 +51,7 @@ function loadCities(result) {
         getUniversitiesFromVK();
     });
     getUniversitiesFromVK();
+    $("#id_city_id").material_select();
 }
 
 function loadUniversities(result) {
@@ -57,6 +59,7 @@ function loadUniversities(result) {
     $("#id_university_id").change(function () {
         updateHiddenInput();
     });
+    $('#id_university_id').material_select();
 }
 
 function updateHiddenInput(){

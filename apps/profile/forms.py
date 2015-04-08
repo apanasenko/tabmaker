@@ -11,13 +11,13 @@ from .models import \
 class SignupForm(forms.ModelForm):
 
     country_name = forms.CharField(widget=forms.HiddenInput())
-    country_id = forms.IntegerField(widget=forms.Select())
+    country_id = forms.IntegerField(widget=forms.Select(attrs={'class': 'col s4'}), label='Страна')
 
     city_name = forms.CharField(widget=forms.HiddenInput())
-    city_id = forms.IntegerField(widget=forms.Select())
+    city_id = forms.IntegerField(widget=forms.Select(attrs={'class': 'col s4'}), label='Город')
 
     university_name = forms.CharField(widget=forms.HiddenInput())
-    university_id = forms.IntegerField(widget=forms.Select())
+    university_id = forms.IntegerField(widget=forms.Select(attrs={'class': 'col s4'}), label='Университет')
 
     class Meta:
         model = User
@@ -26,7 +26,35 @@ class SignupForm(forms.ModelForm):
             'last_name',
             'email',
             'phone',
+            'player_experience',
+            'adjudicator_experience',
         ]
+
+        labels = {
+            'first_name': 'Имя',
+            'last_name': 'Фамилия',
+            'phone': 'Номер телефона',
+            'player_experience': 'Опыт в дебатах',
+            'adjudicator_experience': 'Судейский опыт',
+        }
+
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'validate'}),
+            'last_name': forms.TextInput(attrs={'class': 'validate'}),
+            'email': forms.TextInput(attrs={'class': 'validate'}),
+            'phone': forms.TextInput(attrs={'class': 'validate', 'type': 'tel'}),
+            'password': forms.PasswordInput(attrs={'class': 'validate'}),
+            'password2': forms.PasswordInput(attrs={'class': 'validate'}),
+            'player_experience': forms.Textarea(attrs={'class': 'materialize-textarea'}),
+            'adjudicator_experience': forms.Textarea(attrs={'class': 'materialize-textarea'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(SignupForm, self).__init__(*args, **kwargs)
+        # Этот костыль для того, что бы убрать дефолтные атрибут 'placeholder', просто задать его пустым не получилось
+        del self.fields['email'].widget.attrs['placeholder']
+        del self.fields['password1'].widget.attrs['placeholder']
+        del self.fields['password2'].widget.attrs['placeholder']
 
     def signup(self, request, user):
         # TODO Добавить проверки (телефон)
