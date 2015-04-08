@@ -1,5 +1,7 @@
 __author__ = 'Alexander'
 
+from allauth.account.forms import \
+    LoginForm as DefaultLoginForm
 from django import forms
 from .models import \
     User, \
@@ -77,3 +79,15 @@ class SignupForm(forms.ModelForm):
         user.email = self.cleaned_data['email']
         user.phone = self.cleaned_data['phone']
         user.save()
+
+
+class LoginForm(DefaultLoginForm):
+
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+
+        del self.fields['login'].widget.attrs['placeholder']
+        del self.fields['password'].widget.attrs['placeholder']
+
+        self.fields['login'].widget.attrs['class'] = u'validate'
+        self.fields['password'].widget.attrs['class'] = u'validate'
