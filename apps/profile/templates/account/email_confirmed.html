@@ -1,0 +1,17 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account %}
+
+{% block page_title %}
+    Подтверждение
+{% endblock page_title %}
+
+{% block content %}
+    <div class="page col s9">
+
+        {% user_display confirmation.email_address.user as user_display %}
+        <p> You have confirmed that <a href="mailto:{{email}}">{{ email }}</a> is an e-mail address</p>
+
+    </div>
+{% endblock %}
