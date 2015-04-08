@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from apps.profile.models import User
 from allauth.account.models import EmailAddress
 from apps.team.models import Team
 from apps.tournament.models import \
@@ -14,7 +14,7 @@ def generate_user(name_length=5):
     letters = list(map(chr, range(ord('a'), ord('z') + 1)))
 
     name = 'user_'
-    while name == '':
+    while name == 'user_':
         for i in range(name_length):
             name += random.choice(letters)
         if len(User.objects.filter(username=name)):
@@ -38,7 +38,7 @@ def generate_team(name_length=5):
     while name == '':
         for i in range(name_length):
             name += random.choice(letters)
-        print(name_length, name, Team.objects.filter(name=name))
+        # print(name_length, name, Team.objects.filter(name=name))
         if len(Team.objects.filter(name=name)):
             name_length += 1
             name = 'test_team_'
