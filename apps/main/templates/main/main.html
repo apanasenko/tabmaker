@@ -1,0 +1,11 @@
+{% extends "main/base.html" %}
+
+{% block page_title %}
+    Турниры
+{% endblock page_title %}
+
+{% block content %}
+    <section class="page col s9">
+        {% include "tournament/tournament_list.html" %}
+    </section>
+{% endblock content %}

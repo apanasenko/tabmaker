@@ -1,38 +1,10 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<html>
+{% load staticfiles %}
 
-<head lang="ru">
+{% block extra_head %}
 
-{% block head %}
-    {% include "main/header.html" %}
-{% endblock head %}
+    <link rel="stylesheet" href="{% static "main/css/main.css" media="screen,projection" %}">
+    <script type="text/javascript" src="{% static "main/js/main.js" %}"></script>
 
-</head>
-
-<body>
-
-{% if request.user.is_authenticated %}
-    <a href="/accounts/logout/">Logout</a>
-    {% if request.user.email %}
-        {{ request.user.email }}
-    {% endif %}
-    {% if request.user.profile.account_verified %} (verified) {% else %} (unverified) {% endif %}
-
-{% else %}
-    <a href="/accounts/login/">Login</a>
-{% endif %}
-
-{% block body %}
-    <p><a href="{% url "tournament:new" %}">Создать новый турнир</a></p>
-    {% for tournament in tournaments %}
-        <p>
-            <a href="{% url 'tournament:show' tournament.id %}">
-                {{ tournament.name }}
-            </a>
-        </p>
-    {% endfor %}
-{% endblock body %}
-
-</body>
-</html>
+{% endblock extra_head %}

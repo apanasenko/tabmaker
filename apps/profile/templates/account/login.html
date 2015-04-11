@@ -1,0 +1,36 @@
+{% extends "account/base.html" %}
+
+{% load account %}
+{% load url from future %}
+
+
+{% block page_title %}
+    Заходи
+{% endblock page_title %}
+
+{% block content %}
+    <div class="page col s9">
+    <form class="login" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="row">
+            <div class="input-field col s10">
+                {{ form.login.errors }}
+                {{ form.login.label_tag }}
+                {{ form.login }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s10">
+                {{ form.password.errors }}
+                {{ form.password.label_tag }}
+                {{ form.password }}
+            </div>
+        </div>
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <button class="primaryAction" type="submit"> Войти </button>
+    </form>
+</div>
+{% endblock content %}

@@ -1,32 +1,39 @@
 {% extends "main/base.html" %}
 
-{% block body %}
+{% block page_title %}
+    {{ tournament.name }}
+{% endblock page_title %}
 
-    <div>
-        <p><label for="id_name">Название:</label></p>
-        <p>{{ tournament.name }}</p>
+
+{% block content %}
+<div class="page col s9">
+    <div class="col s9">
+        <p>{{ tournament.start_tour|date:"M d, Y"}}</p>
+        <p>{{ tournament.location }}</p>  {# TODO получить адрес по координатам #}
+        {#<p> Посмотреть карту </p>#}
+        <p>Количество команд: {{ tournament.count_teams }}</p>
+        <p>Количество раундов: {{ tournament.count_rounds }}</p>
+        <p>Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
+        <p>Ссылка: {{ tournament.link }}</p>
+        <article>
+            {{ tournament.info }}
+        </article>
+        {% if tournament.open_reg > now %}
+            <h5>Регистрация ещё не открыта ((</h5>
+        {% elif tournament.close_reg < now %}
+            <h5>Регистрация уже закончилась ((</h5>
+        {% else %}
+            <h5>Регистрация до {{ tournament.close_reg|date:"M d, Y" }}</h5>
+            <div>
+                <button><a href="{% url "tournament:registration_team" tournament.id %}">Участовать</a></button>
+                <button><a href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a></button>
+            </div>
+        {% endif %}
+        <p><a href="{% url "tournament:team_list" tournament.id %}"> Список зарегистрировавшихся </a></p>
+        <p><a href="{% url "tournament:adjudicator_list" tournament.id %}"> Список зарегистрировавшихся судей </a></p>
+        {% if is_owner %}
+            <p> <a href="{% url "tournament:edit" tournament.id %}"> Редактировать </a> </p>
+        {% endif %}
     </div>
-    <div>
-        <p><label for="id_location">Место проведения:</label></p>
-        <p>{{ tournament.location }}</p>
-    </div>
-    <div>
-        <p><label for="id_info">Описание:</label></p>
-        <p>{{ tournament.info }}</p>
-    </div>
-    <div>
-        <p><label for="id_reg">Периуд регистрации:</label></p>
-        <p>{{ tournament.open_reg }} - {{ tournament.close_reg }}</p>
-    </div>
-    <div>
-        <p><label for="id_start_tour">Начало турнира:</label></p>
-        <p>{{ tournament.start_tour }}</p>
-    </div>
-    {% if is_owner %}
-        <p> <a href="{% url "tournament:edit" tournament.id %}"> Редактировать </a> </p>
-    {% endif %}
-    <p><a href="{% url "tournament:registration_team" tournament.id %}"> Зарегестрировать команду </a></p>
-    <p><a href="{% url "tournament:registration_adjudicator" tournament.id %}"> Зарегестрировать судью </a></p>
-    <p><a href="{% url "tournament:team_list" tournament.id %}"> Список зарегистрировавшихся </a></p>
-    <p><a href="{% url "tournament:adjudicator_list" tournament.id %}"> Список зарегистрировавшихся судей </a></p>
-{% endblock body %}
+</div>
+{% endblock content %}

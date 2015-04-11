@@ -25,17 +25,16 @@ INSTALLED_APPS = (
     'django.contrib.sites',
 
     'apps.profile',
-
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-
     'apps.game',
     'apps.main',
     'apps.motion',
     'apps.team',
     'apps.tester',
     'apps.tournament',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

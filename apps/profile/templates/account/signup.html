@@ -1,29 +1,100 @@
-{% extends "main/base.html" %}
+{% extends "account/base.html" %}
 
 {% load staticfiles %}
 
-{% block head %}
+{% block extra_head %}
+
     {{ block.super }}
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script type="text/javascript" src="{% static "profile/js/vk_api.js" %}"></script>
-{% endblock %}
 
-{% block body %}
-<h1>Регистрация</h1>
+{% endblock extra_head %}
 
-<p>Может у тебя уже есть аккаунт? <a href="{{ login_url }}">Вход</a></p>
+{% block page_title %}
+    Регистрация
+{% endblock page_title %}
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit"> "Погнали" &raquo;</button>
-</form>
+{% block content %}
+    <form class="page col s9" id="signup_form" method="post" action="{% url 'account_signup' %}">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
 
-
-{% endblock body %}
-
-
+        <div class="row">
+            <div class="input-field col s6">
+                {{ form.first_name.errors  }}
+                {{ form.first_name }}
+                {{ form.first_name.label_tag }}
+            </div>
+            <div class="input-field col s6">
+                {{ form.last_name.errors  }}
+                {{ form.last_name }}
+                {{ form.last_name.label_tag }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s4">
+                {{ form.country_id.errors }}
+                {{ form.country_id.label_tag }}
+                {{ form.country_id }}
+            </div>
+            <div class="col s4">
+                {{ form.city_id.errors }}
+                {{ form.city_id.label_tag }}
+                {{ form.city_id }}
+            </div>
+            <div class="col s4">
+                {{ form.university_id.errors }}
+                {{ form.university_id.label_tag }}
+                {{ form.university_id }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s4">
+                {{ form.email.errors }}
+                {{ form.email.label_tag }}
+                {{ form.email }}
+            </div>
+            <div class="input-field col s4">
+                {{ form.password1.errors }}
+                {{ form.password1.label_tag }}
+                {{ form.password1 }}
+            </div>
+            <div class="input-field col s4">
+                {{ form.password2.errors }}
+                {{ form.password2.label_tag }}
+                {{ form.password2 }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                {{ form.phone.errors }}
+                {{ form.phone.label_tag }}
+                {{ form.phone }}
+            </div>
+{#            <div class="input-field col s6">#}
+{#                <input id="url" type="url" class="validate">#}
+{#                <label for="url">Адрес в социальных сетях</label>#}
+{#            </div>#}
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                {{ form.player_experience.errors }}
+                {{ form.player_experience.label_tag }}
+                {{ form.player_experience }}
+            </div>
+            <div class="input-field col s6">
+                {{ form.adjudicator_experience.errors }}
+                {{ form.adjudicator_experience.label_tag }}
+                {{ form.adjudicator_experience }}
+            </div>
+        </div>
+        {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        {{ form.country_name }}
+        {{ form.city_name }}
+        {{ form.university_name }}
+        <div class="row">
+            <button type="submit" class="waves-effect waves-light btn"> Зарегистрироваться </button>
+        </div>
+    </form>
+{% endblock content %}

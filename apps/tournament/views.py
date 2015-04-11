@@ -1,6 +1,6 @@
 import datetime
 import pytz
-
+from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render
@@ -19,7 +19,7 @@ def index(request):
     return show_message(request, 'Нужна ди эта страница?')
 
 
-@login_required
+@login_required(login_url=reverse_lazy('account_login'))
 def new(request):
     if request.method == 'POST':
         tournament_form = TournamentForm(request.POST)
@@ -55,7 +55,7 @@ def show(request, tournament_id):
     )
 
 
-@login_required
+@login_required(login_url=reverse_lazy('account_login'))
 def edit(request, tournament_id):
     tournament = get_object_or_404(Tournament, pk=tournament_id)
     if not user_can_edit_tournament(tournament, request.user):
@@ -82,7 +82,7 @@ def edit(request, tournament_id):
     )
 
 
-@login_required
+@login_required(login_url=reverse_lazy('account_login'))
 def registration_team(request, tournament_id):
     tournament = get_object_or_404(Tournament, pk=tournament_id)
     if not tournament.open_reg < datetime.datetime.now(tz=pytz.utc) < tournament.close_reg:
@@ -117,7 +117,7 @@ def registration_team(request, tournament_id):
     )
 
 
-@login_required
+@login_required(login_url=reverse_lazy('account_login'))
 def registration_adjudicator(request, tournament_id):
     tournament = get_object_or_404(Tournament, pk=tournament_id)
     if not tournament.open_reg < datetime.datetime.now(tz=pytz.utc) < tournament.close_reg:

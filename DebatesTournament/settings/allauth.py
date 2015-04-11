@@ -22,6 +22,8 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 ACCOUNT_SIGNUP_FORM_CLASS = 'apps.profile.forms.SignupForm'
 
+ACCOUNT_FORMS = {'login': 'apps.profile.forms.LoginForm'}
+
 ACCOUNT_UNIQUE_EMAIL = True
 
 ACCOUNT_USERNAME_REQUIRED = False
