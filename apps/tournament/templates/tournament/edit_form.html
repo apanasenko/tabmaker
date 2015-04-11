@@ -1,29 +1,123 @@
 {% csrf_token %}
 {{ form.non_field_errors }}
-<div>
-    <p>{{ form.name.errors }}</p>
-    <p><label for="id_name">Название:</label></p>
-    <p>{{ form.name }}</p>
+
+<div class="row">
+    <div class="input-field col s6">
+        {{ form.name.errors }}
+        {{ form.name.label_tag }}
+        {{ form.name }}
+    </div>
 </div>
-<div>
-    <p>{{ form.location.errors }}</p>
-    <p><label for="id_location">Место проведения:</label></p>
-    <p>{{ form.location }}</p>
+{#<div class="row">#}
+{#    <div class="col s4">#}
+{#        <label>Страна</label>#}
+{#        <select class="col s4">#}
+{#            <option value="1">Россия</option>#}
+{#            <option value="2">Казахстан</option>#}
+{#            <option value="3">Китай</option>#}
+{#        </select>#}
+{#    </div>#}
+{#    <div class="col s4">#}
+{#        <label>Город</label>#}
+{#        <select class="col s4">#}
+{#            <option value="1">Владивосток</option>#}
+{#            <option value="2">Москва</option>#}
+{#            <option value="3">Казань</option>#}
+{#        </select>#}
+{#    </div>#}
+{#    <div class="col s4">#}
+{#        <label>Университет</label>#}
+{#        <select class="col s4">#}
+{#            <option value="1">ДВФУ</option>#}
+{#            <option value="2">НИУ ВШЭ</option>#}
+{#            <option value="3">МГУ</option>#}
+{#        </select>#}
+{#    </div>#}
+{#</div>#}
+{#<div class="row">#}
+{#    <div class="input-field col s4">#}
+{#        <input id="street" type="text" class="validate">#}
+{#        <label for="street">Улица</label>#}
+{#    </div>#}
+{#    <div class="input-field col s2">#}
+{#        <input id="house" type="text" class="validate">#}
+{#        <label for="house">Дом</label>#}
+{#    </div>#}
+{#</div>#}
+<div class="row">
+    <div class="input-field col s10">
+        {{ form.location.errors }}
+        {{ form.location.label_tag }}
+        {{ form.location }}
+    </div>
 </div>
-<div>
-    <p>{{ form.info.errors }}</p>
-    <p><label for="id_info">Описание:</label></p>
-    <p>{{ form.info }}</p>
+
+<div class="row">
+    <p><label for="id_reg">Регистрации:</label></p>
+    <p>{{ form.open_reg_time.errors }}</p>
+    <p>{{ form.close_reg_time.errors }}</p>
+    <p>{{ form.open_reg_date.errors }}</p>
+    <p>{{ form.close_reg_date.errors }}</p>
 </div>
-<div>
-    <p>{{ form.open_reg.errors }}</p>
-    <p>{{ form.close_reg.errors }}</p>
-    <p><label for="id_reg">Периуд регистрации:</label></p>
-    <p>{{ form.open_reg }} - {{ form.close_reg }}</p>
+<div class="row">
+    <div class="input-field col s1">
+        C
+    </div>
+    <div class="col s3">
+        {{ form.open_reg_date }}
+    </div>
+    <div class="col s2">
+        {{ form.open_reg_time }}
+    </div>
+    <div class="col s1">
+        по
+    </div>
+    <div class="col s3">
+        {{ form.close_reg_date }}
+    </div>
+    <div class="col s2">
+        {{ form.close_reg_time }}
+    </div>
 </div>
-<div>
-    <p>{{ form.start_tour.errors }}</p>
-    <p><label for="id_start_tour">Начало турнира:</label></p>
-    <p>{{ form.start_tour }}</p>
+
+<div class="row">
+    <p><label for="id_start">Начало турнира:</label></p>
+    <p>{{ form.start_tour_time.errors }}</p>
+    <p>{{ form.start_tour_date.errors }}</p>
+    <div class="input-field col s3">
+        {{ form.start_tour_date }}
+    </div>
+    <div class="input-field col s2">
+        {{ form.start_tour_time }}
+    </div>
 </div>
-<input type="submit" value="Submit" />
+<div class="row">
+    <div class="input-field col s3">
+        {{ form.count_rounds.errors }}
+        {{ form.count_rounds.label_tag }}
+        {{ form.count_rounds }}
+    </div>
+    <div class="input-field col s3">
+        {{ form.count_teams.errors }}
+        {{ form.count_teams.label_tag }}
+        {{ form.count_teams }}
+    </div>
+    <div class="input-field col s3">
+        {{ form.count_teams_in_break.errors }}
+        {{ form.count_teams_in_break.label_tag }}
+        {{ form.count_teams_in_break }}
+    </div>
+</div>
+<div class="row">
+    <div class="col s4">
+        {{ form.link.errors }}
+        {{ form.link.label_tag }}
+        {{ form.link }}
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s6">
+        {{ form.info.label_tag }}
+        {{ form.info }}
+    </div>
+</div>

@@ -1,11 +1,20 @@
 {% extends "main/base.html" %}
 
-{% block body %}
+{% block page_title %}
+    Новый турнир
+{% endblock page_title %}
 
-    <form action="{% url 'tournament:new' %}" method="post">
+
+{% block content %}
+
+    <form class="page col s9" action="{% url 'tournament:new' %}" method="post">
 
         {% include "tournament/edit_form.html" %}
 
+        <div class="row">
+            <button type="submit" class="waves-effect waves-light btn">Создать турнир</button>
+        </div>
+
     </form>
 
-{% endblock body %}
+{% endblock content %}
