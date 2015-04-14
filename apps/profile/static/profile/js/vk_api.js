@@ -72,6 +72,13 @@ function updateOptionsList(select_id, data, id){
     $(select_id).empty();
     for (var key in data.response)
         $(select_id).append(new Option(data.response[key].title, data.response[key][id]));
+
+    // ===================================================================================
+    // Костыль, нужно разобратья как исправить TODO исправить
+    $('#' + $(select_id).parent().children()[0].getAttribute("data-activates")).remove()
+    $(select_id).parent().children()[0].remove()
+    $(select_id).removeClass("initialized")
+    // ===================================================================================
 }
 
 // TODO Добавить в combobox функцию ввода и автодополнеия http://jqueryui.com/autocomplete/#combobox
