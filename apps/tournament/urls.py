@@ -18,5 +18,6 @@ urlpatterns = patterns('',
         name='registration_adjudicator'
     ),
     url(r'^(?P<tournament_id>\d+)/teams/list[/]$', views.show_team_list, name='team_list'),
+    url(r'^(?P<tournament_id>\d+)/teams/edit[/]$', views.edit_team_list, name='edit_team_list'),
     url(r'^(?P<tournament_id>\d+)/adjudicator/list[/]$', views.show_adjudicator_list, name='adjudicator_list'),
 )

@@ -6,7 +6,9 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from apps.team.forms import TeamRegistrationForm
-from .forms import TournamentForm
+from .forms import \
+    TournamentForm, \
+    TeamRoleForm
 from .consts import *
 from .models import \
     Tournament,\
@@ -140,6 +142,32 @@ def show_team_list(request, tournament_id):
         'tournament/teamList.html',
         {
             'teams': tournament.team_members.all(),
+        }
+    )
+
+
+def edit_team_list(request, tournament_id):
+    tournament = get_object_or_404(Tournament, pk=tournament_id)
+    forms = []
+    for team_rel in tournament.teamtournamentrel_set.all().order_by('team_id'):
+        if request.method == 'POST':
+            team = TeamRoleForm(request.POST, instance=team_rel, prefix=team_rel.team.id)
+            if team.is_valid():
+                team.save()
+
+        team = team_rel.team
+        form = TeamRoleForm(instance=team_rel, prefix=team.id)
+        forms.append({
+            'team': team,
+            'team_form': form
+        })
+
+    return render(
+        request,
+        'tournament/edit_team_list.html',
+        {
+            'forms': forms,
+            'id': tournament_id,
         }
     )
 

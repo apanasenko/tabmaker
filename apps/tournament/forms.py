@@ -5,6 +5,7 @@ import pytz
 from django import forms
 from datetime import datetime
 from . models import Tournament
+from . models import TeamTournamentRel
 
 
 class TournamentForm(forms.ModelForm):
@@ -103,3 +104,12 @@ class TournamentForm(forms.ModelForm):
         if commit:
             tournament.save()
         return tournament
+
+
+class TeamRoleForm(forms.ModelForm):
+    class Meta:
+        model = TeamTournamentRel
+        fields = [
+            'role'
+        ]
+#       TODO Добавить фильтр ролей и перевод
