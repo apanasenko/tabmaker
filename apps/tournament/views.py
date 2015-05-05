@@ -8,7 +8,8 @@ from django.shortcuts import get_object_or_404
 from apps.team.forms import TeamRegistrationForm
 from .forms import \
     TournamentForm, \
-    TeamRoleForm
+    TeamRoleForm, \
+    UserRoleForm
 from .consts import *
 from .models import \
     Tournament,\
@@ -172,6 +173,33 @@ def edit_team_list(request, tournament_id):
     )
 
 
+def edit_adjudicator_list(request, tournament_id):
+    tournament = get_object_or_404(Tournament, pk=tournament_id)
+    forms = []
+    # TODO Добавить фильтр
+    for user_rel in tournament.usertournamentrel_set.all().order_by('user_id'):
+        if request.method == 'POST':
+            adjudicator = UserRoleForm(request.POST, instance=user_rel, prefix=user_rel.user.id)
+            if adjudicator.is_valid():
+                adjudicator.save()
+
+        adjudicator = user_rel.user
+        form = UserRoleForm(instance=user_rel, prefix=adjudicator.id)
+        forms.append({
+            'adjudicator': adjudicator,
+            'adjudicator_form': form
+        })
+
+    return render(
+        request,
+        'tournament/edit_adjudicator_list.html',
+        {
+            'forms': forms,
+            'id': tournament_id,
+        }
+    )
+
+
 def show_adjudicator_list(request, tournament_id):
     tournament = get_object_or_404(Tournament, pk=tournament_id)
 
@@ -182,6 +210,8 @@ def show_adjudicator_list(request, tournament_id):
             'adjudicators': tournament.usertournamentrel_set.filter(
                 role_id__in=[
                     ROLE_ADJUDICATOR_REGISTERED[0],  # TODO Разобраться, почему тут приходит картеж
+                    ROLE_OWNER,
+                    ROLE_TEAM_REGISTERED,
                 ]
             ),
         }
