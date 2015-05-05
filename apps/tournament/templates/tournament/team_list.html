@@ -1,0 +1,22 @@
+{% extends "main/base.html" %}
+
+{% block page_title %}
+    Список команд
+{% endblock page_title %}
+
+{% block content %}
+    <div class="page col s9">
+        {% for team in teams %}
+            <p>
+                {{ team.name }}
+            </p>
+            <p>
+                {{ team.speaker_1.email }}
+            </p>
+            <p>
+                {{ team.speaker_2.email }}
+            </p>
+            <hr>
+        {% endfor %}
+    </div>
+{% endblock content %}

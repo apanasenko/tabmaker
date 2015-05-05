@@ -140,7 +140,7 @@ def show_team_list(request, tournament_id):
 
     return render(
         request,
-        'tournament/teamList.html',
+        'tournament/team_list.html',
         {
             'teams': tournament.team_members.all(),
         }
@@ -205,7 +205,7 @@ def show_adjudicator_list(request, tournament_id):
 
     return render(
         request,
-        'tournament/adjudicatorList.html',
+        'tournament/adjudicator_list.html',
         {
             'adjudicators': tournament.usertournamentrel_set.filter(
                 role_id__in=[
