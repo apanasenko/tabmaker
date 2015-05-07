@@ -4,13 +4,7 @@
 
 {% block extra_head %}
     {{ block.super }}
-{#    <script type="text/javascript" src="{% static "tournament/js/main.js" %}"></script>#}
-{#    TODO Разобраться, почему файл не находится   #}
-    <script>
-        $(document).ready(function() {
-            $('select').material_select();
-        });
-    </script>
+    <script type="text/javascript" src="{% static "tournament/js/main.js" %}"></script>
 {% endblock extra_head %}
 
 
