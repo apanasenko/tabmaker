@@ -28,7 +28,7 @@ def new(request):
         tournament_form = TournamentForm(request.POST)
         if tournament_form.is_valid():
             tournament_obj = tournament_form.save(commit=False)
-            tournament_obj.count_rounds = 0
+            tournament_obj.status = STATUS_REGISTRATION
             tournament_obj.save()
             UserTournamentRel.objects.create(
                 user=request.user,
