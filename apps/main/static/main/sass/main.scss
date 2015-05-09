@@ -1,47 +1,79 @@
+// colors
+
+$background: #272D4F;
+$main: #FBC02D;
+$background_content: #FFFBF5;
+$side-nav: #FFE17E;
+
+
+// переопределение стилей из css-фреймверка
+.btn {
+	padding: 0 0.8rem;
+}
+
 // general
 
 body {
-	background-color: #5CFFBD;
+	background-color: $background;
+}
+
+h1, h2, h3 {
+	font-weight: 500;
+	color: $background;
+}
+
+button {
+
+	a {
+		color: white;
+	}
 }
 
 header {
+	background-color: $main;
 	
 	h3 {
 		display: inline-block;
 	}
 	
-	button {
-		float: right;
+	#button-wrapper {
+		display:inline-block;
+    	vertical-align:middle;
+    	width: 70%;
+
+		button {
+			float: right;
+		}
 	}
 }
 
 aside.col.s3 {
 	padding: 0px;
-	position: absolute;
 	height: 100%;
-	background-color: white;
+	background-color: $side-nav;
 
 	ul.side-nav {
 		width: 90%;
 		left: 0%;
 		margin-right: 1.25em;
 		padding: 1.25em;
+		background-color: $side-nav;
 		// в sideNav.scss убрано position:fived (стр.2), т.к. fixed невозможно переопределить
 	}	
 }
 
 footer.page-footer {
 	margin-top: 0px;
-	margin-left: -1.25em;
-	margin-right: -1.25em;
+	margin-bottom: 0px;
+	background-color: $main;
+	height: 200px;
 
 	ul {
-		margin: 0px;
-		height: 240px;
+		margin: 0px 0px 0px 30px;
 
 		li {
 			display: inline;
-			margin-right: 3em;
+			margin-right: 1.5em;
 		}
 	}
 }
@@ -51,51 +83,64 @@ footer.page-footer {
 // layout
 
 .container {
-	margin: 0 auto;
-	background-color: #F4F5F6;
-	padding-top: 0px;
-	padding-bottom: 0px;
+	margin: 3em auto;
+	background-color: $background_content;
+	padding: 0px;
 	
 	.row {
-		margin-right: -1.25em;
-		margin-left: -1.25em;
+		margin: 0 auto;
 		position: relative;
+		margin-bottom: 0px;
 	}
 }
 
+.header.col.s12 {
+	padding: 0px;
+}
+
 .header.col.s9, {
-	background-color: blue;
 	height: 80px;
 	margin: 0;
 	margin-left: 25%;
 }
 
 .page.col.s9 {
-	padding: 2em;
 	margin-left: 25%;
 }
+	
+.btn {
+	background-color: $background;
+	
+	a {
+		color: white;
+	}
 
+}
 
 
 // modules
 
 #logo {
-	height: 80px;
-	background-color: blue;
 	margin: 0px;
-	
+	background-color: $main;
+
+
 	img {
-		margin: 10px;
-		margin-left: 30px;
+		display: block;
+		margin: 1em auto;
 	}
 }
 
-#pagewrapper {
-	margin-bottom: 0;
+#registration_btn {
+	display: block;
+	margin: 1.25em auto;
 }
-
 
 
 // states
 
+.btn:hover {
+	// добавить цвет по наведению
+	background-color: $background;
+}
 

@@ -11,8 +11,9 @@
 </title>
 
 {% block libs %}
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="{% static 'main/css/normalize.css' media='screen,projection' %}">
     <link rel="stylesheet" href="{% static 'main/css/materialize.css' media='screen,projection' %}">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="{% static 'main/js/materialize.min.js' %}"></script>
 {% endblock libs %}
 
@@ -27,23 +28,27 @@
     <div class="container card-panel">
         <div class="row" id="pagewrapper">
 
-            <header class="header col s9">
-            {% block header %}
-                <h3>
-                    {% block page_title %} Название страницы {% endblock page_title %}
-                </h3>
-                <button class="waves-effect waves-light btn">
-                    <a href="{% url 'tournament:new' %}"><i class="mdi-content-add left"></i>Создать турнир</a>
-                </button>
-            {% endblock header %}
+            <header class="header col s12">
+                <div id="logo" class="col s3">
+                    <img src="{% static 'main/img/logo.png' %}" alt="">
+                </div>
+                <div class="col s9">
+                {% block header %}
+                    <h3>
+                        {% block page_title %} Название страницы {% endblock page_title %}
+                    </h3>
+                    <div id="button-wrapper">
+                        <button class="waves-effect waves-light btn">
+                            <a href="{% url 'tournament:new' %}"><i class="mdi-content-add left"></i>Создать турнир</a>
+                        </button>
+                    </div>
+                </div>
+                {% endblock header %}
             </header>
-
-
+            
             <aside class="col s3">
             {% block sidebar%}
-                <div id="logo">
-                    <img src="{% static 'main/img/logo.png' %}"   alt="">
-                </div>
+                
                 <ul class="side-nav">
                     <li class=""><a href="#">Профиль</a></li>
                     <li class=""><a href="#">Мои турниры</a></li>
@@ -55,19 +60,17 @@
                             <a href="{% url 'account_login' %}">Войти</a>
                         {% endif %}
                     </li>
-                    <h5>Tabmaker</h5>
-                    <p>Cервис для регистрации и ведения турниров по дебатам</p>
-                    {% if request.user.is_authenticated %}
-                    {% else %}
-                        <button><a href="{% url 'account_signup' %}">Зарегистрироваться</a></button>
-                    {% endif %}
                 </ul>
+                {% if request.user.is_authenticated %}
+                    {% else %}
+                        <button class="btn" id="registration_btn"><a href="{% url 'account_signup' %}">Зарегистрироваться</a></button>
+                    {% endif %}
             {% endblock sidebar %}
             </aside>
-
+            
             {% block content %}
             {% endblock content %}
-
+            
         </div>
 
         <footer class="page-footer col s12">

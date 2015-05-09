@@ -14,11 +14,7 @@
 {% endblock header %}
 
 {% block sidebar%}
-    <div id="logo">
-        <img src="{% static 'main/img/logo.png' %}"   alt="">
-    </div>
     <ul class="side-nav">
-        <p>Cервис для регистрации и ведения турниров по дебатам</p>
         {% if request.user.is_authenticated %}
             <li class="">
                 <a href="{% url 'account_logout' %}">Выйти</a>
