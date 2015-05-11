@@ -21,7 +21,7 @@ body {
 
 header {
   height: 100px;
-  background-color: #0D8153;
+  background-color: #189A66;
   vertical-align: middle; }
   header #logo {
     display: inline-block;
@@ -40,7 +40,10 @@ header {
     header .header_container #page_title {
       display: inline-block;
       vertical-align: middle;
-      width: 75%; }
+      margin-left: 55px;
+      width: 70%; }
+      header .header_container #page_title h3 {
+        color: white; }
     header .header_container #header_button {
       display: inline-block; }
   header #create_cup {
@@ -60,7 +63,7 @@ header {
   padding: 10px;
   background-color: #F5F5F5;
   border-radius: 3px;
-  margin-top: 15px;
+  margin-top: 30px;
   vertical-align: top; }
   .sidebar ul {
     text-align: left;
@@ -74,8 +77,8 @@ header {
 .tournament_list {
   display: inline-block;
   max-width: 660px;
-  margin: 15px 0 0 15px;
-  padding: 20px 10px 10px 30px;
+  margin: 30px 10px;
+  padding: 20px 10px 0px 30px;
   background-color: #F5F5F5;
   border-radius: 3px;
   vertical-align: top; }
@@ -83,7 +86,7 @@ header {
     display: block;
     width: 100%;
     height: 70px;
-    margin: 0 0 10px 0; }
+    margin: 0 0 20px 0; }
     .tournament_list li .tournament_info {
       display: inline-block;
       width: 75%;
@@ -101,5 +104,24 @@ header {
   width: 100px;
   vertical-align: top;
   font-weight: bold; }
+
+footer {
+  background-color: #189A66;
+  height: 100px;
+  padding: 20px 40px; }
+  footer #footer_info {
+    display: inline-block;
+    width: 80%; }
+    footer #footer_info li {
+      color: white;
+      display: inline;
+      margin-right: 20px; }
+  footer #contact {
+    display: inline-block;
+    width: 15%; }
+    footer #contact li {
+      display: inline;
+      color: white;
+      margin-right: 20px; }
 
 /*# sourceMappingURL=main.css.map */
