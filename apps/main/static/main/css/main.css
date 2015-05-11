@@ -1,23 +1,56 @@
-/*
-Errno::ENOENT: No such file or directory @ rb_sysopen - sass/main.css
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
 
-Backtrace:
-/Users/user/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:482:in `read'
-/Users/user/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:482:in `update_stylesheet'
-/Users/user/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
-/Users/user/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:209:in `each'
-/Users/user/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
-/Users/user/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:293:in `watch'
-/Users/user/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/plugin.rb:108:in `method_missing'
-/Users/user/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/exec/sass_scss.rb:381:in `watch_or_update'
-/Users/user/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/exec/sass_scss.rb:51:in `process_result'
-/Users/user/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/exec/base.rb:52:in `parse'
-/Users/user/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/exec/base.rb:19:in `parse!'
-/Users/user/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/sass-3.4.13/bin/sass:13:in `<top (required)>'
-/Users/user/.rbenv/versions/2.2.2/bin/sass:23:in `load'
-/Users/user/.rbenv/versions/2.2.2/bin/sass:23:in `<main>'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Errno::ENOENT: No such file or directory @ rb_sysopen - sass/main.css"; }
+body {
+  background-color: #0C152A; }
+
+.page_wrapper {
+  width: 1024px;
+  margin: 0 auto;
+  background-color: #F5F5F5; }
+
+header {
+  height: 100px;
+  background-color: #0D8153;
+  vertical-align: middle; }
+  header #logo {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle; }
+    header #logo img {
+      display: inline-block;
+      vertical-align: middle;
+      height: 60%;
+      max-width: none;
+      max-height: 80px;
+      margin: 15px 30px 0 10px; }
+  header .header_container {
+    display: inline-block;
+    width: 75%; }
+    header .header_container #page_title {
+      display: inline-block;
+      vertical-align: middle;
+      width: 75%; }
+    header .header_container #header_button {
+      display: inline-block; }
+  header #create_cup {
+    margin-right: 10px;
+    text-decoration: none;
+    background-color: #0C152A;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 3px; }
+
+.content_conteiner {
+  padding: 0px 15px; }
+
+.sidebar {
+  display: inline-block;
+  width: 20%; }
+
+.tournament_list {
+  display: inline-block; }
+
+/*# sourceMappingURL=main.css.map */

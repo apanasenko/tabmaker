@@ -1,0 +1,99 @@
+// colors
+$background-page: #F5F5F5;
+
+$green: #0D8153;
+$dark-green: #055F3B;
+$light-green: #189A66;
+
+$deep-dark: #0C152A;
+
+// elements
+
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	}
+
+// header
+
+body {
+	background-color: $deep-dark;
+}
+
+.page_wrapper {
+	width: 1024px;
+	margin: 0 auto;
+	background-color: $background-page;
+}
+
+header {
+	height: 100px;
+	background-color: $green;
+	vertical-align: middle;
+
+	#logo {
+		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+
+		img {
+			display: inline-block;
+			vertical-align: middle;
+			height: 60%;
+			max-width: none;
+			max-height: 80px;
+			margin: 15px 30px 0 10px;
+		}
+		
+	}
+
+	.header_container {
+		display: inline-block;
+		width: 75%;
+
+		#page_title {
+			display: inline-block;
+			vertical-align: middle;
+			width: 75%;
+		}
+
+		#header_button {
+			display: inline-block;
+		}
+	}
+
+	#create_cup {
+		margin-right: 10px;
+		text-decoration: none;
+		background-color: $deep-dark;
+		color: white;
+		padding: 10px 20px;
+		border-radius: 3px;
+	}
+}
+
+// content section
+
+.content_conteiner {
+	padding: 0px 15px;
+}
+
+.sidebar {
+	display: inline-block;
+	width: 20%;
+}
+
+.tournament_list {
+	display: inline-block;
+}
+
+
+// footer section 
+
+footer {
+	
+	ul {
+
+	}
+}

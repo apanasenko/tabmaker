@@ -23,65 +23,67 @@
 
 <body>
 {% block body %}
-    <div class="container card-panel">
-        <div class="row" id="pagewrapper">
-
-            <header class="header col s12">
-                <div id="logo" class="col s3">
-                    <img src="{% static 'main/img/logo.png' %}" alt="">
-                </div>
-                <div class="col s9">
-                {% block header %}
+    <div class="page_wrapper">
+            
+        <header>
+            <div id="logo">
+                <a href="/"><img src="{% static 'main/img/logo.png' %}" alt=""></a>
+            </div>
+            
+            {% block header %}
+            <div class="header_container">
+                <div id="page_title">
                     <h3>
-                        {% block page_title %} Название страницы {% endblock page_title %}
-                    </h3>
-                    <div id="button-wrapper">
-                        <button class="waves-effect waves-light btn">
-                            <a href="{% url 'tournament:new' %}"><i class="mdi-content-add left"></i>Создать турнир</a>
-                        </button>
-                    </div>
+                    {% block page_title %} Название страницы {% endblock page_title %}
+                </h3>
                 </div>
-                {% endblock header %}
-            </header>
+                <div id="header_button">
+                    <a id="create_cup" href="{% url 'tournament:new' %}">Создать турнир</a>
+                </div>
+            </div>
+            {% endblock header %}
+        </header>
             
-            <aside class="col s3">
-            {% block sidebar%}
-                
-                <ul class="side-nav">
-                    <li class=""><a href="#">Профиль</a></li>
-                    <li class=""><a href="#">Мои турниры</a></li>
-                    <li class=""><a href="#">Мои заявки</a></li>
-                    <li class="">
-                        {% if request.user.is_authenticated %}
-                            <a href="{% url 'account_logout' %}">Выйти</a>
-                        {% else %}
-                            <a href="{% url 'account_login' %}">Войти</a>
-                        {% endif %}
-                    </li>
-                </ul>
-                {% if request.user.is_authenticated %}
-                    {% else %}
-                        <button class="btn" id="registration_btn"><a href="{% url 'account_signup' %}">Зарегистрироваться</a></button>
-                    {% endif %}
-            {% endblock sidebar %}
-            </aside>
-            
-            {% block content %}
-            {% endblock content %}
-            
-        </div>
+        <section class="content_conteiner">
 
-        <footer class="page-footer col s12">
-        {% block footer %}
-            <ul>
-                <li>О проекте</li>
-                <li>Список изменений</li>
-                <li>Помощь</li>
-                <li>Обратная связь</li>
-                <li>ВК</li>
+        <aside class="sidebar">
+        {% block sidebar%}
+            
+            <ul class="">
+                <li class=""><a href="#">Профиль</a></li>
+                <li class=""><a href="#">Мои турниры</a></li>
+                <li class=""><a href="#">Мои заявки</a></li>
+                <li class="">
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'account_logout' %}">Выйти</a>
+                    {% else %}
+                        <a href="{% url 'account_login' %}">Войти</a>
+                    {% endif %}
+                </li>
             </ul>
-        {% endblock footer %}
-        </footer>
+            {% if request.user.is_authenticated %}
+                {% else %}
+                    <button id="registration_btn"><a href="{% url 'account_signup' %}">Зарегистрироваться</a></button>
+                {% endif %}
+        {% endblock sidebar %}
+        </aside>
+        
+        {% block content %}
+        {% endblock content %}
+
+    </section>
+
+    <footer class="">
+    {% block footer %}
+        <ul>
+            <li>О проекте</li>
+            <li>Список изменений</li>
+            <li>Помощь</li>
+            <li>Обратная связь</li>
+            <li>ВК</li>
+        </ul>
+    {% endblock footer %}
+    </footer>
 
     </div>
 {% endblock body %}
