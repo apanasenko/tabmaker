@@ -3,13 +3,21 @@ ul {
   padding: 0;
   list-style: none; }
 
+h3, h5, p, a, li {
+  margin: 0;
+  padding: 0;
+  font-family: "PT Sans", Arial, sans-serif; }
+
+a {
+  text-decoration: none; }
+
 body {
   background-color: #0C152A; }
 
 .page_wrapper {
   width: 1024px;
   margin: 0 auto;
-  background-color: #F5F5F5; }
+  background-color: #ECEEF1; }
 
 header {
   height: 100px;
@@ -41,16 +49,57 @@ header {
     background-color: #0C152A;
     color: white;
     padding: 10px 20px;
-    border-radius: 3px; }
+    border-radius: 6px; }
 
 .content_conteiner {
   padding: 0px 15px; }
 
 .sidebar {
   display: inline-block;
-  width: 20%; }
+  width: 25%;
+  padding: 10px;
+  background-color: #F5F5F5;
+  border-radius: 3px;
+  margin-top: 15px;
+  vertical-align: top; }
+  .sidebar ul {
+    text-align: left;
+    padding-left: 20px; }
+    .sidebar ul li {
+      display: block;
+      width: 100%;
+      height: 35px;
+      vertical-align: middle; }
 
 .tournament_list {
-  display: inline-block; }
+  display: inline-block;
+  max-width: 660px;
+  margin: 15px 0 0 15px;
+  padding: 20px 10px 10px 30px;
+  background-color: #F5F5F5;
+  border-radius: 3px;
+  vertical-align: top; }
+  .tournament_list li {
+    display: block;
+    width: 100%;
+    height: 70px;
+    margin: 0 0 10px 0; }
+    .tournament_list li .tournament_info {
+      display: inline-block;
+      width: 75%;
+      padding-right: 20px; }
+      .tournament_list li .tournament_info h3 {
+        display: block; }
+      .tournament_list li .tournament_info ul {
+        margin: 5px 0 0 0; }
+        .tournament_list li .tournament_info ul li {
+          display: inline;
+          margin: 0px 30px 0 0; }
+
+.reg_date {
+  display: inline-block;
+  width: 100px;
+  vertical-align: top;
+  font-weight: bold; }
 
 /*# sourceMappingURL=main.css.map */

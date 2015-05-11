@@ -1,5 +1,18 @@
-<div>
-    {% for tournament in tournaments %}
-        <h5><a href="{% url 'tournament:show' tournament.id %}">{{ tournament.name }}</a></h5>
-    {% endfor %}
-</div>
+{% for tournament in tournaments %}
+    <li>
+    	
+		<div class="tournament_info">
+	    	<h3><a href="{% url 'tournament:show' tournament.id %}">{{ tournament.name }}</a></h3>
+			<ul>
+				<li>Москва</li>
+				<li>23 апреля 2015 года</li>
+				<li>18 заявок</li>
+			</ul>
+		</div>
+
+		<div class="reg_date">
+    		<p>Регистрация до 15 апреля</p>
+    	</div>
+    	
+    </li>
+{% endfor %}
