@@ -6,10 +6,19 @@ ul {
 h3, h5, p, a, li {
   margin: 0;
   padding: 0;
-  font-family: "PT Sans", Arial, sans-serif; }
+  font-family: "PT Sans", Arial, sans-serif;
+  color: #58697A; }
 
 a {
   text-decoration: none; }
+
+.button {
+  margin-right: 10px;
+  text-decoration: none;
+  background-color: #0C152A;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px; }
 
 body {
   background-color: #0C152A; }
@@ -46,13 +55,6 @@ header {
         color: white; }
     header .header_container #header_button {
       display: inline-block; }
-  header #create_cup {
-    margin-right: 10px;
-    text-decoration: none;
-    background-color: #0C152A;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 6px; }
 
 .content_conteiner {
   padding: 0px 15px; }
@@ -74,36 +76,59 @@ header {
       height: 35px;
       vertical-align: middle; }
 
-.tournament_list {
+.content {
   display: inline-block;
   max-width: 660px;
   margin: 30px 10px;
-  padding: 20px 10px 0px 30px;
+  padding: 20px 10px 20px 30px;
   background-color: #F5F5F5;
   border-radius: 3px;
   vertical-align: top; }
-  .tournament_list li {
+  .content .tournament_list {
     display: block;
     width: 100%;
     height: 70px;
     margin: 0 0 20px 0; }
-    .tournament_list li .tournament_info {
+    .content .tournament_list .list_item {
       display: inline-block;
       width: 75%;
       padding-right: 20px; }
-      .tournament_list li .tournament_info h3 {
+      .content .tournament_list .list_item h3 {
         display: block; }
-      .tournament_list li .tournament_info ul {
+      .content .tournament_list .list_item ul {
         margin: 5px 0 0 0; }
-        .tournament_list li .tournament_info ul li {
+        .content .tournament_list .list_item ul li {
           display: inline;
-          margin: 0px 30px 0 0; }
-
-.reg_date {
-  display: inline-block;
-  width: 100px;
-  vertical-align: top;
-  font-weight: bold; }
+          margin: 0px 30px 0 0;
+          max-width: 200px; }
+    .content .tournament_list .reg_date {
+      display: inline-block;
+      width: 100px;
+      vertical-align: top;
+      font-weight: bold; }
+  .content .tournament_info h3 {
+    margin-bottom: 20px; }
+  .content .tournament_info ul {
+    margin: 0 0 20px 0; }
+    .content .tournament_info ul li {
+      display: inline;
+      margin: 5px 20px 20px 0;
+      font-weight: bold; }
+  .content .tournament_info article {
+    max-width: 600px;
+    margin-bottom: 30px; }
+  .content .tournament_info .low-margin {
+    margin: 0 0 5px 0; }
+  .content .tournament_info .actives li {
+    display: inline;
+    background-color: #189A66;
+    margin: 0 10px 10px 0;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    line-height: 2.4; }
+  .content .tournament_info .button_wrapper {
+    height: 70px; }
 
 footer {
   background-color: #189A66;

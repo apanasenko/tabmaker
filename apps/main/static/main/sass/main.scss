@@ -8,6 +8,8 @@ $light-green: #189A66;
 
 $deep-dark: #0C152A;
 
+$grey: #58697A;
+
 // elements
 
 ul {
@@ -20,10 +22,21 @@ h3, h5, p, a, li {
 	margin: 0;
 	padding: 0;
 	font-family: "PT Sans", Arial, sans-serif;
+	color: $grey;
+
 }
 
 a {
 	text-decoration: none;
+}
+
+.button {
+	margin-right: 10px;
+	text-decoration: none;
+	background-color: $deep-dark;
+	color: white;
+	padding: 10px 20px;
+	border-radius: 6px;
 }
 
 // header
@@ -78,15 +91,6 @@ header {
 			display: inline-block;
 		}
 	}
-
-	#create_cup {
-		margin-right: 10px;
-		text-decoration: none;
-		background-color: $deep-dark;
-		color: white;
-		padding: 10px 20px;
-		border-radius: 6px;
-	}
 }
 
 // content section
@@ -121,22 +125,24 @@ header {
 	}
 }
 
-.tournament_list {
+.content {
 	display: inline-block;
 	max-width: 660px;
 	margin: 30px 10px;
-	padding: 20px 10px 0px 30px;
+	padding: 20px 10px 20px 30px;
 	background-color: $background-block;
 	border-radius: 3px;
 	vertical-align: top;
 
-	li {
+	// список турнирова на главной странице
+
+	.tournament_list {
 		display: block;
 		width: 100%;
 		height: 70px;
 		margin: 0 0 20px 0;
 
-		.tournament_info {
+		.list_item {
 			display: inline-block;
 			width: 75%;
 			padding-right: 20px;
@@ -151,21 +157,72 @@ header {
 				li {
 					display: inline;
 					margin: 0px 30px 0 0;
+					max-width: 200px;
 				}
 			}	
+		}
+
+		.reg_date {
+			display: inline-block;
+			width: 100px;
+			vertical-align: top;
+			font-weight: bold;
+		}	
+
+	}
+
+	// информация о турнире
+
+	.tournament_info {
+
+		h3 {
+			margin-bottom: 20px;
+		}
+
+		ul {
+			margin: 0 0 20px 0;	
+
+			li {
+				display: inline;
+				margin: 5px 20px 20px 0;
+				font-weight: bold;
+			}
+		}
+
+		article {
+			max-width: 600px;
+			margin-bottom: 30px;
+		}
+
+		.low-margin {
+			margin: 0 0 5px 0;
+		}
+
+		.actives {
+
+			li {
+				display: inline;
+				background-color: $light-green;
+				margin: 0 10px 10px 0;
+				color: white;
+				padding: 5px;
+				border-radius: 3px;
+				line-height: 2.4;
+			}
+		}
+
+		.button_wrapper {
+			height: 70px;
+
+			a {
+				
+			}
 		}
 	}
 }
 
 
-.reg_date {
-	display: inline-block;
-	width: 100px;
-	vertical-align: top;
-	font-weight: bold;
-}
 				
-
 
 // footer section 
 

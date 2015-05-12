@@ -1,7 +1,7 @@
 {% for tournament in tournaments %}
-    <li>
+    <li class="tournament_list">
     	
-		<div class="tournament_info">
+		<div class="list_item">
 	    	<h3><a href="{% url 'tournament:show' tournament.id %}">{{ tournament.name }}</a></h3>
 			<ul>
 				<li>Москва</li>

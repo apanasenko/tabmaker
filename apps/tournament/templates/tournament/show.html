@@ -1,39 +1,68 @@
 {% extends "main/base.html" %}
 
-{% block page_title %}
-    {{ tournament.name }}
-{% endblock page_title %}
-
-
 {% block content %}
-<div class="page col s9">
-    <div class="col s9">
-        <p>{{ tournament.start_tour|date:"M d, Y"}}</p>
-        <p>{{ tournament.location }}</p>  {# TODO получить адрес по координатам #}
-        {#<p> Посмотреть карту </p>#}
-        <p>Количество команд: {{ tournament.count_teams }}</p>
-        <p>Количество раундов: {{ tournament.count_rounds }}</p>
-        <p>Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
-        <p>Ссылка: {{ tournament.link }}</p>
+<div class="content">
+    <div class="tournament_info">
+        
+        {% block page_title %}
+        <h3>{{ tournament.name }}</h3>
+        {% endblock page_title %}
+
+        <ul class=".tournament_status">
+            <li>{{ tournament.start_tour|date:"M d, Y"}}</li>
+            <li>{{ tournament.location }} {# TODO получить адрес по координатам #}</li>
+            <li>Команды: {{ tournament.count_teams }}</li>
+            <li>Раунды: {{ tournament.count_rounds }}</li>
+            <li>Брейк: {{ tournament.count_teams_in_break }}</li>
+        </ul>
+
+        
         <article>
-            {{ tournament.info }}
+            <p>{{ tournament.info }}</p>
         </article>
+
+        <h3 class="low-margin">Участвуют</h3>
+        <ul class="actives">
+            <li>Имя Спикер1 и Имя Спикер2</li>
+            <li>Имя Спикер1 и Имя Спикер2</li>
+            <li>Имя Спикер1 и Имя Спикер2</li>
+            <li>Имя Спикер1 и Имя Спикер2</li>
+            <li>Имя Спикер1 и Имя Спикер2</li>
+            <li>Имя Спикер1 и Имя Спикер2</li>
+        </ul>
+
+        <h3 class="low-margin">Судят</h3>
+        <ul class="actives">
+            <li>Имя Судьи</li>
+            <li>Имя Судьи</li>
+            <li>Имя Судьи</li>
+            <li>Имя Судьи</li>
+            <li>Имя Судьи</li>
+            <li>Имя Судьи</li>
+        </ul>
+
         {% if tournament.open_reg > now %}
-            <h5>Регистрация ещё не открыта ((</h5>
+            <h3>Регистрация ещё не открыта ((</h3>
         {% elif tournament.close_reg < now %}
-            <h5>Регистрация уже закончилась ((</h5>
+            <h3>Регистрация уже закончилась ((</h3>
         {% else %}
-            <h5>Регистрация до {{ tournament.close_reg|date:"M d, Y" }}</h5>
-            <div>
-                <button><a href="{% url "tournament:registration_team" tournament.id %}">Участовать</a></button>
-                <button><a href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a></button>
+            <h3>Регистрация до {{ tournament.close_reg|date:"M d, Y" }}</h3>
+            
+            <div class="button_wrapper">
+                <a class="button" href="{% url "tournament:registration_team" tournament.id %}">Участовать</a>
+                <a class="button" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
             </div>
         {% endif %}
+
+
         <p><a href="{% url "tournament:team_list" tournament.id %}"> Список зарегистрировавшихся </a></p>
         <p><a href="{% url "tournament:adjudicator_list" tournament.id %}"> Список зарегистрировавшихся судей </a></p>
         {% if is_owner %}
             <p> <a href="{% url "tournament:edit" tournament.id %}"> Редактировать </a> </p>
         {% endif %}
+
+        {{ tournament.link }}
+
     </div>
 </div>
 {% endblock content %}
