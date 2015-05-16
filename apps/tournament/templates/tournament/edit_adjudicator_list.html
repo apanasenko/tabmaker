@@ -8,13 +8,23 @@
 {% endblock extra_head %}
 
 
-
 {% block page_title %}
     Список судей
 {% endblock page_title %}
 
+
 {% block content %}
-    <form class="page col s9" action="{% url "tournament:edit_adjudicator_list" id %}" method="post">
+    <form
+            class="page col s9"
+            action={% if is_check_page %}
+                "{% url "tournament:check_adjudicator_list" id %}"
+            {% else %}
+                "{% url "tournament:edit_adjudicator_list" id %}"
+            {% endif %}
+    method="post"
+    >
+
+    <form class="page col s9" action="" method="post">
         {% csrf_token %}
         {% for rel in forms %}
             <div class="row">
@@ -28,8 +38,23 @@
             </div>
             <hr>
         {% endfor %}
+        {% if is_check_page %}
+            <div class="row">
+                <div class="col s8">
+                    <label>Количество главный судей должно быть больше {{ chair_need }} (сейчас {{ chair_count }})</label>
+                    {# TODO Изменять в js кол-во команд #}
+                </div>
+            </div>
+        {% endif %}
         <div class="row">
-            <button type="submit" class="waves-effect waves-light btn">Сохранить</button>
+            <button type="submit" class="waves-effect waves-light btn">
+                {% if is_check_page %}
+                    Далее
+                {% else %}
+                    Сохранить
+                {% endif %}
+            </button>
+
         </div>
 
     </form>

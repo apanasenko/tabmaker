@@ -4,6 +4,7 @@ from .models import \
     TournamentRole, \
     TournamentStatus
 
+TEAM_IN_GAME = 4
 
 ROLE_OWNER = TournamentRole.objects.get(role='owner')
 ROLE_MEMBER = TournamentRole.objects.get(role='member')

@@ -1,10 +1,15 @@
 import datetime
 import pytz
-from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import \
+    reverse_lazy, \
+    reverse
+from django.shortcuts import \
+    render, \
+    get_object_or_404, \
+    redirect
+
 from apps.profile.models import User
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
 from apps.team.forms import TeamRegistrationForm
 from .forms import \
     TournamentForm, \
@@ -54,6 +59,19 @@ def show(request, tournament_id):
         {
             'tournament': tournament,
             'is_owner': user_can_edit_tournament(tournament, request.user)
+        }
+    )
+
+
+@login_required(login_url=reverse_lazy('account_login'))
+def play(request, tournament_id):
+    tournament = get_object_or_404(Tournament, pk=tournament_id)
+
+    return render(
+        request,
+        'tournament/play.html',
+        {
+            'tournament': tournament,
         }
     )
 
@@ -163,10 +181,17 @@ def edit_team_list(request, tournament_id):
             'team_form': form
         })
 
+    is_check_page = request.path == reverse('tournament:check_team_list', args=[tournament_id])
+    member_count = tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count()
+    if is_check_page and request.method == 'POST' and not member_count % TEAM_IN_GAME:
+        return redirect('tournament:check_adjudicator_list', tournament_id=tournament_id)
+
     return render(
         request,
         'tournament/edit_team_list.html',
         {
+            'is_check_page': is_check_page,
+            'member_count': member_count,
             'forms': forms,
             'id': tournament_id,
         }
@@ -190,10 +215,19 @@ def edit_adjudicator_list(request, tournament_id):
             'adjudicator_form': form
         })
 
+    is_check_page = request.path == reverse('tournament:check_adjudicator_list', args=[tournament_id])
+    member_count = tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count()
+    chair_count = tournament.usertournamentrel_set.filter(role=ROLE_CHAIR).count()
+    if is_check_page and request.method == 'POST' and chair_count >= member_count // TEAM_IN_GAME:
+        return redirect('tournament:play', tournament_id=tournament_id)
+
     return render(
         request,
         'tournament/edit_adjudicator_list.html',
         {
+            'is_check_page': is_check_page,
+            'chair_count': chair_count,
+            'chair_need': member_count // TEAM_IN_GAME,
             'forms': forms,
             'id': tournament_id,
         }

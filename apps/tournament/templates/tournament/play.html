@@ -1,0 +1,18 @@
+{% extends "main/base.html" %}
+
+{% block page_title %}
+    {{ tournament.name }}
+{% endblock page_title %}
+
+
+{% block content %}
+<div class="page col s9">
+    <div class="col s9">
+        <p>Количество команд: {{ tournament.count_teams }}</p>
+        <p>Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
+        <p>Количество сыграных раундов: {{ tournament.cur_round }}</p>
+        <p>Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
+        <p>Статус: {{ tournament.status.name }}</p>
+    </div>
+</div>
+{% endblock content %}
