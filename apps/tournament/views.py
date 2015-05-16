@@ -11,10 +11,13 @@ from django.shortcuts import \
 
 from apps.profile.models import User
 from apps.team.forms import TeamRegistrationForm
+from apps.motion.forms import MotionForm
 from .forms import \
     TournamentForm, \
     TeamRoleForm, \
-    UserRoleForm
+    UserRoleForm, \
+    RoundForm
+
 from .consts import *
 from .models import \
     Tournament,\
@@ -72,6 +75,38 @@ def play(request, tournament_id):
         'tournament/play.html',
         {
             'tournament': tournament,
+        }
+    )
+
+
+@login_required(login_url=reverse_lazy('account_login'))
+def next_round(request, tournament_id):
+    tournament = get_object_or_404(Tournament, pk=tournament_id)
+    # TODO Проверить статус турнира и выводить норм инфу
+    # if tournament.status != STATUS_STARTED:
+    #     return show_message(request, 'Проверте статус турнира, от должен быть "started"')
+
+    if request.method == 'POST':
+        motion_form = MotionForm(request.POST)
+        round_form = RoundForm(request.POST)
+        if motion_form.is_valid() and round_form.is_valid():
+            round_obj = round_form.save(commit=False)
+            round_obj.tournament = tournament
+            round_obj.number = tournament.round_number_inc()
+            round_obj.motion = motion_form.save()
+            round_obj.save()
+            return show_message(request, 'Раунд создан')
+    else:
+        motion_form = MotionForm()
+        round_form = RoundForm()
+
+    return render(
+        request,
+        'tournament/next_round.html',
+        {
+            'tournament_id': tournament_id,
+            'motion_form': motion_form,
+            'round_form': round_form,
         }
     )
 

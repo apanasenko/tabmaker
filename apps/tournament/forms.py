@@ -4,8 +4,10 @@ import pytz
 
 from django import forms
 from datetime import datetime
-from . models import Tournament
-from . models import TeamTournamentRel
+from . models import \
+    Tournament, \
+    TeamTournamentRel, \
+    Round
 
 
 class TournamentForm(forms.ModelForm):
@@ -121,3 +123,33 @@ class UserRoleForm(forms.ModelForm):
         fields = [
             'role'
         ]
+
+
+class RoundForm(forms.ModelForm):
+
+    start_round_time = forms.TimeField(
+        widget=forms.DateInput(attrs={'class': 'timepicker', 'type': 'time'}), label=u'Время начала раунда')
+
+    class Meta:
+        model = Round
+        fields = [
+            'is_closed'
+        ]
+
+        labels = {
+            'is_closed': 'Закрытый раунд'
+        }
+
+        widgets = {
+            'is_closed': forms.CheckboxInput(attrs={'type': 'checkbox'})
+        }
+
+    def save(self, commit=True):
+        round_obj = super(RoundForm, self).save(False)
+        round_obj.start_time = datetime.combine(
+            datetime.now().date(),
+            self.cleaned_data['start_round_time'].replace(tzinfo=pytz.utc)
+        )
+        if commit:
+            round_obj.save()
+        return round_obj

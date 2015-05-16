@@ -13,6 +13,7 @@
         <p>Количество сыграных раундов: {{ tournament.cur_round }}</p>
         <p>Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
         <p>Статус: {{ tournament.status.name }}</p>
+        <p><a href="{% url 'tournament:next_round' tournament.id%}"> Создать следующий раунд </a></p>
     </div>
 </div>
 {% endblock content %}

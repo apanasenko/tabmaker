@@ -36,6 +36,11 @@ class Tournament(models.Model):
         self.start_tour = self.start_tour.astimezone(pytz.utc)
         super(Tournament, self).save(*args, **kwargs)
 
+    def round_number_inc(self):
+        self.cur_round += 1
+        self.save()
+        return self.cur_round
+
     def __str__(self):
         return self.name
 
