@@ -11,10 +11,10 @@ from apps.profile.models import User
 
 
 class Game(models.Model):
-    og = models.ForeignKey(Team, name='Opening Government', related_name='OG')
-    oo = models.ForeignKey(Team, name='Opening Opposition', related_name='OO')
-    cg = models.ForeignKey(Team, name='Closing Government', related_name='CG')
-    co = models.ForeignKey(Team, name='Closing Opposition', related_name='CO')
+    og = models.ForeignKey(Team, related_name='OG')
+    oo = models.ForeignKey(Team, related_name='OO')
+    cg = models.ForeignKey(Team, related_name='CG')
+    co = models.ForeignKey(Team, related_name='CO')
     chair = models.ForeignKey(User, related_name='chair')
     wing_left = models.ForeignKey(User, related_name='wing_left', blank=True, null=True)
     wing_right = models.ForeignKey(User, related_name='wing_right', blank=True, null=True)

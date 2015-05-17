@@ -12,6 +12,8 @@ from django.shortcuts import \
 from apps.profile.models import User
 from apps.team.forms import TeamRegistrationForm
 from apps.motion.forms import MotionForm
+from apps.game.forms import GameForm
+
 from .forms import \
     TournamentForm, \
     TeamRoleForm, \
@@ -23,6 +25,8 @@ from .models import \
     Tournament,\
     TeamTournamentRel,\
     UserTournamentRel
+
+from .logic import get_or_generate_next_round
 
 
 def index(request):
@@ -95,7 +99,7 @@ def next_round(request, tournament_id):
             round_obj.number = tournament.round_number_inc()
             round_obj.motion = motion_form.save()
             round_obj.save()
-            return show_message(request, 'Раунд создан')
+            return redirect('tournament:edit_round', tournament_id=tournament_id)
     else:
         motion_form = MotionForm()
         round_form = RoundForm()
@@ -107,6 +111,40 @@ def next_round(request, tournament_id):
             'tournament_id': tournament_id,
             'motion_form': motion_form,
             'round_form': round_form,
+        }
+    )
+
+
+@login_required(login_url=reverse_lazy('account_login'))
+def edit_round(request, tournament_id):
+    tournament = get_object_or_404(Tournament, pk=tournament_id)
+
+    forms = []
+    all_is_valid = True
+    for room in get_or_generate_next_round(tournament):
+        if request.method == 'POST':
+            form = GameForm(request.POST, instance=room.game, prefix=room.game.id)
+            all_is_valid &= form.is_valid()
+            if form.is_valid():
+                form.save()
+        else:
+            form = GameForm(instance=room.game, prefix=room.game.id)
+
+        # TODO Добавить название в команд в форму и не передавать объект
+        forms.append({
+            'game': room.game,
+            'game_form': form
+        })
+
+    if all_is_valid and request.method == 'POST':
+        return redirect('tournament:play', tournament_id=tournament_id)
+
+    return render(
+        request,
+        'tournament/edit_round.html',
+        {
+            'tournament': tournament,
+            'forms': forms,
         }
     )
 
