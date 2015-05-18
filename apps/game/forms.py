@@ -1,7 +1,9 @@
 __author__ = 'Alexander'
 
 from django import forms
-from .models import Game
+from .models import \
+    Game, \
+    GameResult
 
 
 class GameForm(forms.ModelForm):
@@ -24,3 +26,37 @@ class GameForm(forms.ModelForm):
             'chair': forms.HiddenInput(attrs={'class': 'chair_id'}),
         }
 
+
+class ResultGameForm(forms.ModelForm):
+
+    class Meta:
+        model = GameResult
+
+        widgets = {
+            'og': forms.NumberInput(attrs={'min': 1, 'max': 4}),
+            'oo': forms.NumberInput(attrs={'min': 1, 'max': 4}),
+            'cg': forms.NumberInput(attrs={'min': 1, 'max': 4}),
+            'co': forms.NumberInput(attrs={'min': 1, 'max': 4}),
+            'og_rev': forms.CheckboxInput(attrs={'type': 'checkbox'}),
+            'oo_rev': forms.CheckboxInput(attrs={'type': 'checkbox'}),
+            'cg_rev': forms.CheckboxInput(attrs={'type': 'checkbox'}),
+            'co_rev': forms.CheckboxInput(attrs={'type': 'checkbox'}),
+            'game': forms.HiddenInput(),
+            'pm': forms.NumberInput(attrs={'min': '0', 'max': 100}),
+            'dpm': forms.NumberInput(attrs={'min': '0', 'max': 100}),
+            'lo': forms.NumberInput(attrs={'min': '0', 'max': 100}),
+            'dlo': forms.NumberInput(attrs={'min': '0', 'max': 100}),
+            'mg': forms.NumberInput(attrs={'min': '0', 'max': 100}),
+            'gw': forms.NumberInput(attrs={'min': '0', 'max': 100}),
+            'mo': forms.NumberInput(attrs={'min': '0', 'max': 100}),
+            'ow': forms.NumberInput(attrs={'min': '0', 'max': 100}),
+        }
+
+        labels = {
+            'og_rev': 'Спикеры выступали в обратном порядке',
+            'oo_rev': 'Спикеры выступали в обратном порядке',
+            'cg_rev': 'Спикеры выступали в обратном порядке',
+            'co_rev': 'Спикеры выступали в обратном порядке',
+        }
+
+#       TODO добавить проверку результатов

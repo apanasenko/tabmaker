@@ -3,7 +3,9 @@ __author__ = 'Alexander'
 import random
 import datetime
 from django.core.exceptions import ObjectDoesNotExist
-from apps.game.models import Game
+from apps.game.models import\
+    Game, \
+    GameResult
 from .consts import *
 from .models import \
     Tournament,\
@@ -68,3 +70,21 @@ def get_or_generate_next_round(tournament: Tournament):
     if not rooms:
         rooms = generate_random_round(tournament, cur_round)
     return rooms
+
+
+def get_last_round_games_and_results(tournament: Tournament):
+    last_round = get_last_round(tournament)
+    if not last_round:
+        return None
+    results = []
+    for room in Room.objects.filter(round=last_round):
+        try:
+            result = GameResult.objects.get(game=room.game)
+        except ObjectDoesNotExist:
+            result = None
+
+        results.append({
+            'game': room.game,
+            'result': result
+        })
+    return results

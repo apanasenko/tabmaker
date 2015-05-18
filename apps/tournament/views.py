@@ -12,7 +12,9 @@ from django.shortcuts import \
 from apps.profile.models import User
 from apps.team.forms import TeamRegistrationForm
 from apps.motion.forms import MotionForm
-from apps.game.forms import GameForm
+from apps.game.forms import \
+    GameForm, \
+    ResultGameForm
 
 from .forms import \
     TournamentForm, \
@@ -26,7 +28,9 @@ from .models import \
     TeamTournamentRel,\
     UserTournamentRel
 
-from .logic import get_or_generate_next_round
+from .logic import \
+    get_or_generate_next_round, \
+    get_last_round_games_and_results
 
 
 def index(request):
@@ -142,6 +146,41 @@ def edit_round(request, tournament_id):
     return render(
         request,
         'tournament/edit_round.html',
+        {
+            'tournament': tournament,
+            'forms': forms,
+        }
+    )
+
+
+@login_required(login_url=reverse_lazy('account_login'))
+def result_round(request, tournament_id):
+    tournament = get_object_or_404(Tournament, pk=tournament_id)
+    all_is_valid = True
+    forms = []
+    for room in get_last_round_games_and_results(tournament):
+        if request.method == 'POST':
+            form = ResultGameForm(request.POST, instance=room['result'], prefix=room['game'].id)
+            all_is_valid &= form.is_valid()
+            if form.is_valid():
+                form.save()
+        else:
+            form = ResultGameForm(instance=room['result'], prefix=room['game'].id)
+            form.initial['game'] = room['game'].id
+        # else:
+        #     form = ResultGameForm(instance=room['result'], prefix=room['game'].id)
+
+        forms.append({
+            'game': room['game'],
+            'result': form,
+        })
+
+    if all_is_valid and request.method == 'POST':
+        return redirect('tournament:play', tournament_id=tournament_id)
+
+    return render(
+        request,
+        'tournament/result_round.html',
         {
             'tournament': tournament,
             'forms': forms,

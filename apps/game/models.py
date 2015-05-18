@@ -39,17 +39,17 @@ class GameResult(models.Model):
 
     # Speaker's points
     # OG (Prime Minister & Deputy Prime Minister)
-    pm = models.IntegerField(name='Prime Minister')
-    dpm = models.IntegerField(name='Deputy Prime Minister')
+    pm = models.IntegerField()
+    dpm = models.IntegerField()
 
     # OO (Leader of Opposition & Deputy Leader of Opposition)
-    lo = models.IntegerField(name='Leader of Opposition')
-    dlo = models.IntegerField(name='Deputy Leader of Opposition')
+    lo = models.IntegerField()
+    dlo = models.IntegerField()
 
     # CG (Member of Government & Government Whip)
-    mg = models.IntegerField(name='Member of Government')
-    gw = models.IntegerField(name='Government Whip')
+    mg = models.IntegerField()
+    gw = models.IntegerField()
 
     # CO (Member of Opposition & Opposition Whip)
-    mo = models.IntegerField(name='Member of Opposition')
-    ow = models.IntegerField(name='Opposition Whip')
+    mo = models.IntegerField()
+    ow = models.IntegerField()
