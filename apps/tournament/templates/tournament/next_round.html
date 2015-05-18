@@ -1,0 +1,44 @@
+{% extends "main/base.html" %}
+
+{% block page_title %}
+    Тема на новый раунд
+{% endblock page_title %}
+
+
+{% block content %}
+    <form class="page col s9" action="{% url "tournament:next_round" tournament_id %}" method="post">
+        {% csrf_token %}
+        {{ motion_form.non_field_errors }}
+        {{ round_form.non_field_errors }}
+        <div class="row">
+            <div class="input-field col s8">
+                {{ motion_form.motion.errors }}
+                {{ motion_form.motion.label_tag }}
+                {{ motion_form.motion }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s8">
+                {{ motion_form.infoslide.errors }}
+                {{ motion_form.infoslide.label_tag }}
+                {{ motion_form.infoslide }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s3">
+                {{ round_form.start_round_time.errors }}
+                {{ round_form.start_round_time.label_tag }}
+                {{ round_form.start_round_time }}
+            </div>
+            <div class="input-field col s3">
+                {{ round_form.is_closed.errors }}
+                {{ round_form.is_closed }}
+                {{ round_form.is_closed.label_tag }}
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit" class="waves-effect waves-light btn">Далее</button>
+        </div>
+    </form>
+{% endblock content %}

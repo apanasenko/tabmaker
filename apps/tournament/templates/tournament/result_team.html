@@ -1,0 +1,32 @@
+{{ team.errors }}
+<div class="row">
+    <div class="col s8">
+        <br>{{ game.name }}
+    </div>
+    <div class="col s4">
+        {{ team }}
+    </div>
+</div>
+{{ speaker_1.errors }}
+<div class="row">
+    <div class="col s8 speaker_1">
+        <br>{{ game.speaker_1.email }}
+    </div>
+    <div class="col s4">
+        {{ speaker_1 }}
+    </div>
+</div>
+{{ speaker_2.errors }}
+<div class="row">
+    <div class="col s8 speaker_1">
+        <br>{{ game.speaker_2.email }}
+    </div>
+    <div class="col s4">
+        {{ speaker_2 }}
+    </div>
+</div>
+
+<div class="row">
+    {{ is_rev }}
+    {{ is_rev.label_tag }}
+</div>

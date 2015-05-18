@@ -7,6 +7,13 @@ from apps.team.models import Team
 import pytz
 
 
+class TournamentStatus(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class Tournament(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)  # TODO Посмотреть форма данный связанный с геолокацией
@@ -17,9 +24,10 @@ class Tournament(models.Model):
     count_teams = models.PositiveIntegerField()
     count_teams_in_break = models.PositiveIntegerField()
     link = models.URLField(blank=True, null=True)
-    is_closed = models.BooleanField(default=False)
     user_members = models.ManyToManyField(User, through='UserTournamentRel')
     team_members = models.ManyToManyField(Team, through='TeamTournamentRel')
+    status = models.ForeignKey(TournamentStatus, null=True)
+    cur_round = models.PositiveIntegerField(default=0)
     info = models.TextField()
 
     def save(self, *args, **kwargs):
@@ -27,6 +35,11 @@ class Tournament(models.Model):
         self.close_reg = self.close_reg.astimezone(pytz.utc)
         self.start_tour = self.start_tour.astimezone(pytz.utc)
         super(Tournament, self).save(*args, **kwargs)
+
+    def round_number_inc(self):
+        self.cur_round += 1
+        self.save()
+        return self.cur_round
 
     def __str__(self):
         return self.name

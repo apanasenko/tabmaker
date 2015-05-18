@@ -1,6 +1,6 @@
 __author__ = 'Alexander'
 
-from django.contrib.auth.models import User
+from apps.profile.models import User
 from django import forms
 from .models import Team
 

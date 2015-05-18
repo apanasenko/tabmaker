@@ -64,6 +64,9 @@
         <p><a href="{% url "tournament:adjudicator_list" tournament.id %}"> Список зарегистрировавшихся судей </a></p>
         {% if is_owner %}
             <p> <a href="{% url "tournament:edit" tournament.id %}"> Редактировать </a> </p>
+            <p> <a href="{% url "tournament:edit_team_list" tournament.id %}"> Редактировать список команд </a> </p>
+            <p> <a href="{% url "tournament:edit_adjudicator_list" tournament.id %}"> Редактировать список судей</a> </p>
+            <p> <a href="{% url "tournament:check_team_list" tournament.id %}"> Начать </a> </p>
         {% endif %}
 
     </div>

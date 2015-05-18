@@ -1,0 +1,73 @@
+{% extends "main/base.html" %}
+
+{% load staticfiles %}
+
+
+{% block extra_head %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static "tournament/js/main.js" %}"></script>
+{% endblock extra_head %}
+
+
+{% block page_title %}
+    Список команд
+{% endblock page_title %}
+
+
+{% block content %}
+
+        <form
+                class="page col s9"
+                action={% if is_check_page %}
+                            "{% url "tournament:check_team_list" id %}"
+                        {% else %}
+                            "{% url "tournament:edit_team_list" id %}"
+                        {% endif %}
+                method="post"
+        >
+        {% csrf_token %}
+        {% for rel in forms %}
+            <div class="row">
+                <div class="col s4">
+                    <label>Название команды</label>
+                    <p>{{ rel.team.name }}</p>
+                </div>
+                <div class=" col s4">
+                    {{ rel.team_form.role }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s3">
+                    <label>Первый спикер:</label>
+                    {{ rel.team.speaker_1.email }}
+                </div>
+                <div class="col s3">
+                    <label>Второй спикер:</label>
+                    {{ rel.team.speaker_2.email }}
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+
+        {% if is_check_page %}
+            <div class="row">
+                <div class="col s8">
+                    <label>Количество команд должно быть кратно 4 (сейчас {{ member_count }})</label>
+                    {# TODO Изменять в js кол-во команд #}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <button type="submit" class="waves-effect waves-light btn">
+                {% if is_check_page %}
+                    Далее
+                {% else %}
+                    Сохранить
+                {% endif %}
+            </button>
+        </div>
+
+    </form>
+
+{% endblock content %}

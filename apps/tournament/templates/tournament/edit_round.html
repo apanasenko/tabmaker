@@ -1,0 +1,66 @@
+{% extends "main/base.html" %}
+
+{% load staticfiles %}
+
+{% block extra_head %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static "tournament/js/swap_block.js" %}"></script>
+{% endblock extra_head %}
+
+
+{% block page_title %}
+    Редактирование румов
+{% endblock page_title %}
+
+
+{% block content %}
+    <form class="page col s9" action="{% url "tournament:edit_round" tournament.id %} " method="post">
+
+        {% csrf_token %}
+
+        {% for form in forms %}
+            {{ form.non_field_errors }}
+            {{ form.errors }}
+        <div class="row">
+            <div class="col s3">
+                <div class="row">
+                    <div class="team">
+                        {{ form.game_form.og }}
+                        <div class="team_name">{{ form.game.og.name }}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="team">
+                        {{ form.game_form.oo }}
+                        <div class="team_name">{{ form.game.oo.name }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s3">
+                <div class="row">
+                    <div class="team">
+                        {{ form.game_form.cg }}
+                        <div class="team_name">{{ form.game.cg.name }}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="team">
+                        {{ form.game_form.co }}
+                        <div class="team_name">{{ form.game.co.name }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s3">
+                <div class="chair">
+                    <p>Cудья</p>
+                    {{ form.game_form.chair }}
+                    <div class="chair_name">{{ form.game.chair.email }}</div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="row">
+            <button type="submit" class="waves-effect waves-light btn">Далее</button>
+        </div>
+    </form>
+{% endblock content %}

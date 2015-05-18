@@ -11,10 +11,10 @@ from apps.profile.models import User
 
 
 class Game(models.Model):
-    og = models.ForeignKey(Team, name='Opening Government', related_name='OG')
-    oo = models.ForeignKey(Team, name='Opening Opposition', related_name='OO')
-    cg = models.ForeignKey(Team, name='Closing Government', related_name='CG')
-    co = models.ForeignKey(Team, name='Closing Opposition', related_name='CO')
+    og = models.ForeignKey(Team, related_name='OG')
+    oo = models.ForeignKey(Team, related_name='OO')
+    cg = models.ForeignKey(Team, related_name='CG')
+    co = models.ForeignKey(Team, related_name='CO')
     chair = models.ForeignKey(User, related_name='chair')
     wing_left = models.ForeignKey(User, related_name='wing_left', blank=True, null=True)
     wing_right = models.ForeignKey(User, related_name='wing_right', blank=True, null=True)
@@ -39,17 +39,17 @@ class GameResult(models.Model):
 
     # Speaker's points
     # OG (Prime Minister & Deputy Prime Minister)
-    pm = models.IntegerField(name='Prime Minister')
-    dpm = models.IntegerField(name='Deputy Prime Minister')
+    pm = models.IntegerField()
+    dpm = models.IntegerField()
 
     # OO (Leader of Opposition & Deputy Leader of Opposition)
-    lo = models.IntegerField(name='Leader of Opposition')
-    dlo = models.IntegerField(name='Deputy Leader of Opposition')
+    lo = models.IntegerField()
+    dlo = models.IntegerField()
 
     # CG (Member of Government & Government Whip)
-    mg = models.IntegerField(name='Member of Government')
-    gw = models.IntegerField(name='Government Whip')
+    mg = models.IntegerField()
+    gw = models.IntegerField()
 
     # CO (Member of Opposition & Opposition Whip)
-    mo = models.IntegerField(name='Member of Opposition')
-    ow = models.IntegerField(name='Opposition Whip')
+    mo = models.IntegerField()
+    ow = models.IntegerField()
