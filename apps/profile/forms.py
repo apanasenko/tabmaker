@@ -13,13 +13,13 @@ from .models import \
 class SignupForm(forms.ModelForm):
 
     country_name = forms.CharField(widget=forms.HiddenInput())
-    country_id = forms.IntegerField(widget=forms.Select(attrs={'class': 'col s4'}), label='Страна')
+    country_id = forms.IntegerField(widget=forms.Select(), label='Страна')
 
     city_name = forms.CharField(widget=forms.HiddenInput())
-    city_id = forms.IntegerField(widget=forms.Select(attrs={'class': 'col s4'}), label='Город')
+    city_id = forms.IntegerField(widget=forms.Select(), label='Город')
 
     university_name = forms.CharField(widget=forms.HiddenInput())
-    university_id = forms.IntegerField(widget=forms.Select(attrs={'class': 'col s4'}), label='Университет')
+    university_id = forms.IntegerField(widget=forms.Select(), label='Университет')
 
     class Meta:
         model = User
