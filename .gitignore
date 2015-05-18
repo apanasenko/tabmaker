@@ -9,6 +9,8 @@ local_*
 *.sublime-project
 *.sublime-workspace
 *.sass-cache
-logs/
-media/
+/logs/
+/media/
 /static/
+.DS_Store
+debatetournament
