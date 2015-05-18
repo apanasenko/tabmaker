@@ -11,4 +11,4 @@ local_*
 *.sass-cache
 logs/
 media/
-static/
+/static/

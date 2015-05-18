@@ -1,7 +1,7 @@
 {% extends "main/base.html" %}
 
 {% block content %}
-<div class="content">
+
     <div class="tournament_info">
         
         {% block page_title %}
@@ -20,6 +20,11 @@
         <article>
             <p>{{ tournament.info }}</p>
         </article>
+
+        <div id="details">
+            <h3 class="low-margin">Подробности</h3>
+            <a>{{ tournament.link }}</a>
+        </div>
 
         <h3 class="low-margin">Участвуют</h3>
         <ul class="actives">
@@ -61,8 +66,6 @@
             <p> <a href="{% url "tournament:edit" tournament.id %}"> Редактировать </a> </p>
         {% endif %}
 
-        {{ tournament.link }}
-
     </div>
-</div>
+
 {% endblock content %}

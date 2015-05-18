@@ -10,6 +10,13 @@ $deep-dark: #0C152A;
 
 $grey: #58697A;
 
+// layout
+
+body {
+	font-family: "PT Sans", Arial, sans-serif;
+}
+
+
 // elements
 
 ul {
@@ -18,7 +25,7 @@ ul {
 	list-style: none;
 	}
 
-h3, h5, p, a, li {
+h3, h5, p, a, li, label {
 	margin: 0;
 	padding: 0;
 	font-family: "PT Sans", Arial, sans-serif;
@@ -30,13 +37,40 @@ a {
 	text-decoration: none;
 }
 
-.button {
-	margin-right: 10px;
+@mixin button() {
+	margin: 5px 10px 5px 0px;
 	text-decoration: none;
-	background-color: $deep-dark;
-	color: white;
 	padding: 10px 20px;
 	border-radius: 6px;
+	border: none;
+	color: white;
+}
+
+.button {
+	@include button;
+	background-color: $deep-dark;
+}
+
+input, select {
+	display: inline-block;
+	width: 200px;
+	border: 1px solid $grey;
+	border-radius: 3px;
+	margin: 0 0 10px 0;
+}
+
+select {
+	-webkit-appearance: none;
+}
+
+label {
+	display: inline;
+	padding-right: 10px;
+	margin: 0 0 10px 0;
+}
+
+.inlineInput {
+	display: inline;
 }
 
 // header
@@ -127,7 +161,7 @@ header {
 
 .content {
 	display: inline-block;
-	max-width: 660px;
+	width: 660px;
 	margin: 30px 10px;
 	padding: 20px 10px 20px 30px;
 	background-color: $background-block;
@@ -194,6 +228,10 @@ header {
 			margin-bottom: 30px;
 		}
 
+		#details {
+			margin-bottom: 20px;
+		}
+
 		.low-margin {
 			margin: 0 0 5px 0;
 		}
@@ -201,13 +239,13 @@ header {
 		.actives {
 
 			li {
-				display: inline;
+				display: inline-block;
 				background-color: $light-green;
 				margin: 0 10px 10px 0;
 				color: white;
 				padding: 5px;
-				border-radius: 3px;
-				line-height: 2.4;
+				border-radius: 6px;
+				line-height: 1;
 			}
 		}
 
