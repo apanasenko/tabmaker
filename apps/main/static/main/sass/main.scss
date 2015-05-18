@@ -1,101 +1,293 @@
-// general
+// colors
+$background-page: #ECEEF1;
+$background-block: #F5F5F5;
+
+$green: #0D8153;
+$dark-green: #055F3B;
+$light-green: #189A66;
+
+$deep-dark: #0C152A;
+
+$grey: #58697A;
+
+// layout
 
 body {
-	background-color: #5CFFBD;
+	font-family: "PT Sans", Arial, sans-serif;
+}
+
+
+// elements
+
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	}
+
+h3, h5, p, a, li, label {
+	margin: 0;
+	padding: 0;
+	font-family: "PT Sans", Arial, sans-serif;
+	color: $grey;
+
+}
+
+a {
+	text-decoration: none;
+}
+
+@mixin button() {
+	margin: 5px 10px 5px 0px;
+	text-decoration: none;
+	padding: 10px 20px;
+	border-radius: 6px;
+	border: none;
+	color: white;
+}
+
+.button {
+	@include button;
+	background-color: $deep-dark;
+}
+
+input, select {
+	display: inline-block;
+	width: 200px;
+	border: 1px solid $grey;
+	border-radius: 3px;
+	margin: 0 0 10px 0;
+}
+
+select {
+	-webkit-appearance: none;
+}
+
+label {
+	display: inline;
+	padding-right: 10px;
+	margin: 0 0 10px 0;
+}
+
+.inlineInput {
+	display: inline;
+}
+
+// header
+
+body {
+	background-color: $deep-dark;
+}
+
+.page_wrapper {
+	width: 1024px;
+	margin: 0 auto;
+	background-color: $background-page;
 }
 
 header {
-	
-	h3 {
+	height: 100px;
+	background-color: $light-green;
+	vertical-align: middle;
+
+	#logo {
 		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+
+		img {
+			display: inline-block;
+			vertical-align: middle;
+			height: 60%;
+			max-width: none;
+			max-height: 80px;
+			margin: 15px 30px 0 10px;
+		}
+		
 	}
-	
-	button {
-		float: right;
+
+	.header_container {
+		display: inline-block;
+		width: 75%;
+
+		#page_title {
+			display: inline-block;
+			vertical-align: middle;
+			margin-left: 55px;
+			width: 70%;
+
+			h3 {
+				color: white;
+			}
+		}
+
+		#header_button {
+			display: inline-block;
+		}
 	}
 }
 
-aside.col.s3 {
-	padding: 0px;
-	position: absolute;
-	height: 100%;
-	background-color: white;
+// content section
 
-	ul.side-nav {
-		width: 90%;
-		left: 0%;
-		margin-right: 1.25em;
-		padding: 1.25em;
-		// в sideNav.scss убрано position:fived (стр.2), т.к. fixed невозможно переопределить
-	}	
+.content_conteiner {
+	padding: 0px 15px;
 }
 
-footer.page-footer {
-	margin-top: 0px;
-	margin-left: -1.25em;
-	margin-right: -1.25em;
+.sidebar {
+	display: inline-block;
+	width: 25%;
+	padding: 10px;
+	background-color: $background-block;
+	border-radius: 3px;
+	margin-top: 30px;
+	vertical-align: top;
 
 	ul {
-		margin: 0px;
-		height: 240px;
-
+		text-align: left;
+		padding-left: 20px;
+	
 		li {
-			display: inline;
-			margin-right: 3em;
+			display: block;
+			width: 100%;
+			height: 35px;
+			vertical-align: middle;	
+		}
+
+		li:hover {
+
+		}
+	}
+}
+
+.content {
+	display: inline-block;
+	width: 660px;
+	margin: 30px 10px;
+	padding: 20px 10px 20px 30px;
+	background-color: $background-block;
+	border-radius: 3px;
+	vertical-align: top;
+
+	// список турнирова на главной странице
+
+	.tournament_list {
+		display: block;
+		width: 100%;
+		height: 70px;
+		margin: 0 0 20px 0;
+
+		.list_item {
+			display: inline-block;
+			width: 75%;
+			padding-right: 20px;
+
+			h3 {
+				display: block;
+			}
+
+			ul {
+				margin: 5px 0 0 0;
+
+				li {
+					display: inline;
+					margin: 0px 30px 0 0;
+					max-width: 200px;
+				}
+			}	
+		}
+
+		.reg_date {
+			display: inline-block;
+			width: 100px;
+			vertical-align: top;
+			font-weight: bold;
+		}	
+
+	}
+
+	// информация о турнире
+
+	.tournament_info {
+
+		h3 {
+			margin-bottom: 20px;
+		}
+
+		ul {
+			margin: 0 0 20px 0;	
+
+			li {
+				display: inline;
+				margin: 5px 20px 20px 0;
+				font-weight: bold;
+			}
+		}
+
+		article {
+			max-width: 600px;
+			margin-bottom: 30px;
+		}
+
+		#details {
+			margin-bottom: 20px;
+		}
+
+		.low-margin {
+			margin: 0 0 5px 0;
+		}
+
+		.actives {
+
+			li {
+				display: inline-block;
+				background-color: $light-green;
+				margin: 0 10px 10px 0;
+				color: white;
+				padding: 5px;
+				border-radius: 6px;
+				line-height: 1;
+			}
+		}
+
+		.button_wrapper {
+			height: 70px;
+
+			a {
+				
+			}
 		}
 	}
 }
 
 
+				
 
-// layout
+// footer section 
 
-.container {
-	margin: 0 auto;
-	background-color: #F4F5F6;
-	padding-top: 0px;
-	padding-bottom: 0px;
-	
-	.row {
-		margin-right: -1.25em;
-		margin-left: -1.25em;
-		position: relative;
+footer {
+	background-color: $light-green;
+	height: 100px;
+	padding: 20px 40px;
+
+	#footer_info {
+		display: inline-block;
+		width: 80%;
+
+		li {
+			color: white;
+			display: inline;
+			margin-right: 20px;
+		}
+	}
+
+	#contact {
+		display: inline-block;
+		width: 15%;
+		
+		li {
+			display: inline;
+			color: white;
+			margin-right: 20px;
+		}
 	}
 }
-
-.header.col.s9, {
-	background-color: blue;
-	height: 80px;
-	margin: 0;
-	margin-left: 25%;
-}
-
-.page.col.s9 {
-	padding: 2em;
-	margin-left: 25%;
-}
-
-
-
-// modules
-
-#logo {
-	height: 80px;
-	background-color: blue;
-	margin: 0px;
-	
-	img {
-		margin: 10px;
-		margin-left: 30px;
-	}
-}
-
-#pagewrapper {
-	margin-bottom: 0;
-}
-
-
-
-// states
-
-

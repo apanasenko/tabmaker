@@ -1,51 +1,49 @@
 {% csrf_token %}
 {{ form.non_field_errors }}
 
-<div class="row">
-    <div class="input-field col s6">
+<div class="">
+    <div class="">
         {{ form.name.errors }}
         {{ form.name.label_tag }}
         {{ form.name }}
     </div>
+<div class="">
+    <div class="">
+        <label>Страна</label>
+        <select class="">
+            <option value="1">Россия</option>
+            <option value="2">Казахстан</option>
+            <option value="3">Китай</option>
+        </select>
+    </div>
+    <div class="col s4">
+        <label>Город</label>
+        <select class="col s4">
+            <option value="1">Владивосток</option>
+            <option value="2">Москва</option>
+            <option value="3">Казань</option>
+        </select>
+    </div>
+    <div class="col s4">
+        <label>Университет</label>
+        <select class="col s4">
+            <option value="1">ДВФУ</option>
+            <option value="2">НИУ ВШЭ</option>
+            <option value="3">МГУ</option>
+        </select>
+    </div>
 </div>
-{#<div class="row">#}
-{#    <div class="col s4">#}
-{#        <label>Страна</label>#}
-{#        <select class="col s4">#}
-{#            <option value="1">Россия</option>#}
-{#            <option value="2">Казахстан</option>#}
-{#            <option value="3">Китай</option>#}
-{#        </select>#}
-{#    </div>#}
-{#    <div class="col s4">#}
-{#        <label>Город</label>#}
-{#        <select class="col s4">#}
-{#            <option value="1">Владивосток</option>#}
-{#            <option value="2">Москва</option>#}
-{#            <option value="3">Казань</option>#}
-{#        </select>#}
-{#    </div>#}
-{#    <div class="col s4">#}
-{#        <label>Университет</label>#}
-{#        <select class="col s4">#}
-{#            <option value="1">ДВФУ</option>#}
-{#            <option value="2">НИУ ВШЭ</option>#}
-{#            <option value="3">МГУ</option>#}
-{#        </select>#}
-{#    </div>#}
-{#</div>#}
-{#<div class="row">#}
-{#    <div class="input-field col s4">#}
-{#        <input id="street" type="text" class="validate">#}
-{#        <label for="street">Улица</label>#}
-{#    </div>#}
-{#    <div class="input-field col s2">#}
-{#        <input id="house" type="text" class="validate">#}
-{#        <label for="house">Дом</label>#}
-{#    </div>#}
-{#</div>#}
 <div class="row">
-    <div class="input-field col s10">
+    <div class="input-field col s4">
+        <input id="street" type="text" class="validate">
+        <label for="street">Улица</label>
+    </div>
+    <div class="input-field col s2">
+        <input id="house" type="text" class="validate">
+        <label for="house">Дом</label>
+    </div>
+</div>
+    <div class="input-field col s6">
         {{ form.location.errors }}
         {{ form.location.label_tag }}
         {{ form.location }}
@@ -53,11 +51,11 @@
 </div>
 
 <div class="row">
-    <p><label for="id_reg">Регистрации:</label></p>
-    <p>{{ form.open_reg_time.errors }}</p>
-    <p>{{ form.close_reg_time.errors }}</p>
-    <p>{{ form.open_reg_date.errors }}</p>
-    <p>{{ form.close_reg_date.errors }}</p>
+    <label for="id_reg">Регистрация</label>
+    {{ form.open_reg_time.errors }}
+    {{ form.close_reg_time.errors }}
+    {{ form.open_reg_date.errors }}
+    {{ form.close_reg_date.errors }}
 </div>
 <div class="row">
     <div class="input-field col s1">

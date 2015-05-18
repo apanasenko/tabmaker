@@ -11,9 +11,8 @@
 </title>
 
 {% block libs %}
+    <link rel="stylesheet" href="{% static 'main/css/normalize.css' media='screen,projection' %}">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <link rel="stylesheet" href="{% static 'main/css/materialize.css' media='screen,projection' %}">
-    <script type="text/javascript" src="{% static 'main/js/materialize.min.js' %}"></script>
 {% endblock libs %}
 
 {% block extra_head %}
@@ -21,30 +20,39 @@
 
 </head>
 
+{# скрипт liveReload #}
+
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>   
 
 <body>
 {% block body %}
-    <div class="container card-panel">
-        <div class="row" id="pagewrapper">
-
-            <header class="header col s9">
+    <div class="page_wrapper">
+            
+        <header>
+            <div id="logo">
+                <a href="/"><img src="{% static 'main/img/logo.png' %}" alt=""></a>
+            </div>
+            
             {% block header %}
-                <h3>
+            <div class="header_container">
+                <div id="page_title">
+                    <h3>
                     {% block page_title %} Название страницы {% endblock page_title %}
                 </h3>
-                <button class="waves-effect waves-light btn">
-                    <a href="{% url 'tournament:new' %}"><i class="mdi-content-add left"></i>Создать турнир</a>
-                </button>
-            {% endblock header %}
-            </header>
-
-
-            <aside class="col s3">
-            {% block sidebar%}
-                <div id="logo">
-                    <img src="{% static 'main/img/logo.png' %}"   alt="">
                 </div>
-                <ul class="side-nav">
+                <div id="header_button">
+                    <a id="create_cup" class="button" href="{% url 'tournament:new' %}">Создать турнир</a>
+                </div>
+            </div>
+            {% endblock header %}
+        </header>
+            
+        <section class="content_conteiner">
+
+            <aside class="sidebar">
+            {% block sidebar%}
+                
+                <ul class="">
                     <li class=""><a href="#">Профиль</a></li>
                     <li class=""><a href="#">Мои турниры</a></li>
                     <li class=""><a href="#">Мои заявки</a></li>
@@ -55,32 +63,35 @@
                             <a href="{% url 'account_login' %}">Войти</a>
                         {% endif %}
                     </li>
-                    <h5>Tabmaker</h5>
-                    <p>Cервис для регистрации и ведения турниров по дебатам</p>
-                    {% if request.user.is_authenticated %}
-                    {% else %}
-                        <button><a href="{% url 'account_signup' %}">Зарегистрироваться</a></button>
-                    {% endif %}
                 </ul>
+                {% if request.user.is_authenticated %}
+                    {% else %}
+                        <button id="registration_btn"><a href="{% url 'account_signup' %}">Зарегистрироваться</a></button>
+                    {% endif %}
             {% endblock sidebar %}
             </aside>
-
+            
+            <div class="content">
             {% block content %}
             {% endblock content %}
+            </div>
 
-        </div>
+        </section>
 
-        <footer class="page-footer col s12">
-        {% block footer %}
-            <ul>
-                <li>О проекте</li>
-                <li>Список изменений</li>
-                <li>Помощь</li>
-                <li>Обратная связь</li>
-                <li>ВК</li>
-            </ul>
-        {% endblock footer %}
-        </footer>
+    <footer class="">
+    {% block footer %}
+        <ul id="footer_info">
+            <li>О проекте</li>
+            <li>Список изменений</li>
+            <li>Помощь</li>
+            <li>Обратная связь</li>
+        </ul>
+        <ul id="contact">
+            <li>BK</li>
+            <li>FB</li>
+        </ul>
+    {% endblock footer %}
+    </footer>
 
     </div>
 {% endblock body %}

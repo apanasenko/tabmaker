@@ -1,62 +1,176 @@
 body {
-  background-color: #5CFFBD; }
+  font-family: "PT Sans", Arial, sans-serif; }
 
-header h3 {
-  display: inline-block; }
-header button {
-  float: right; }
-
-aside.col.s3 {
-  padding: 0px;
-  position: absolute;
-  height: 100%;
-  background-color: white; }
-  aside.col.s3 ul.side-nav {
-    width: 90%;
-    left: 0%;
-    margin-right: 1.25em;
-    padding: 1.25em; }
-
-footer.page-footer {
-  margin-top: 0px;
-  margin-left: -1.25em;
-  margin-right: -1.25em; }
-  footer.page-footer ul {
-    margin: 0px;
-    height: 240px; }
-    footer.page-footer ul li {
-      display: inline;
-      margin-right: 3em; }
-
-.container {
-  margin: 0 auto;
-  background-color: #F4F5F6;
-  padding-top: 0px;
-  padding-bottom: 0px; }
-  .container .row {
-    margin-right: -1.25em;
-    margin-left: -1.25em;
-    position: relative; }
-
-.header.col.s9 {
-  background-color: blue;
-  height: 80px;
+ul {
   margin: 0;
-  margin-left: 25%; }
+  padding: 0;
+  list-style: none; }
 
-.page.col.s9 {
-  padding: 2em;
-  margin-left: 25%; }
+h3, h5, p, a, li, label {
+  margin: 0;
+  padding: 0;
+  font-family: "PT Sans", Arial, sans-serif;
+  color: #58697A; }
 
-#logo {
-  height: 80px;
-  background-color: blue;
-  margin: 0px; }
-  #logo img {
-    margin: 10px;
-    margin-left: 30px; }
+a {
+  text-decoration: none; }
 
-#pagewrapper {
-  margin-bottom: 0; }
+.button {
+  margin: 5px 10px 5px 0px;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  color: white;
+  background-color: #0C152A; }
+
+input, select {
+  display: inline-block;
+  width: 200px;
+  border: 1px solid #58697A;
+  border-radius: 3px;
+  margin: 0 0 10px 0; }
+
+select {
+  -webkit-appearance: none; }
+
+label {
+  display: inline;
+  padding-right: 10px;
+  margin: 0 0 10px 0; }
+
+.inlineInput {
+  display: inline; }
+
+body {
+  background-color: #0C152A; }
+
+.page_wrapper {
+  width: 1024px;
+  margin: 0 auto;
+  background-color: #ECEEF1; }
+
+header {
+  height: 100px;
+  background-color: #189A66;
+  vertical-align: middle; }
+  header #logo {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle; }
+    header #logo img {
+      display: inline-block;
+      vertical-align: middle;
+      height: 60%;
+      max-width: none;
+      max-height: 80px;
+      margin: 15px 30px 0 10px; }
+  header .header_container {
+    display: inline-block;
+    width: 75%; }
+    header .header_container #page_title {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 55px;
+      width: 70%; }
+      header .header_container #page_title h3 {
+        color: white; }
+    header .header_container #header_button {
+      display: inline-block; }
+
+.content_conteiner {
+  padding: 0px 15px; }
+
+.sidebar {
+  display: inline-block;
+  width: 25%;
+  padding: 10px;
+  background-color: #F5F5F5;
+  border-radius: 3px;
+  margin-top: 30px;
+  vertical-align: top; }
+  .sidebar ul {
+    text-align: left;
+    padding-left: 20px; }
+    .sidebar ul li {
+      display: block;
+      width: 100%;
+      height: 35px;
+      vertical-align: middle; }
+
+.content {
+  display: inline-block;
+  width: 660px;
+  margin: 30px 10px;
+  padding: 20px 10px 20px 30px;
+  background-color: #F5F5F5;
+  border-radius: 3px;
+  vertical-align: top; }
+  .content .tournament_list {
+    display: block;
+    width: 100%;
+    height: 70px;
+    margin: 0 0 20px 0; }
+    .content .tournament_list .list_item {
+      display: inline-block;
+      width: 75%;
+      padding-right: 20px; }
+      .content .tournament_list .list_item h3 {
+        display: block; }
+      .content .tournament_list .list_item ul {
+        margin: 5px 0 0 0; }
+        .content .tournament_list .list_item ul li {
+          display: inline;
+          margin: 0px 30px 0 0;
+          max-width: 200px; }
+    .content .tournament_list .reg_date {
+      display: inline-block;
+      width: 100px;
+      vertical-align: top;
+      font-weight: bold; }
+  .content .tournament_info h3 {
+    margin-bottom: 20px; }
+  .content .tournament_info ul {
+    margin: 0 0 20px 0; }
+    .content .tournament_info ul li {
+      display: inline;
+      margin: 5px 20px 20px 0;
+      font-weight: bold; }
+  .content .tournament_info article {
+    max-width: 600px;
+    margin-bottom: 30px; }
+  .content .tournament_info #details {
+    margin-bottom: 20px; }
+  .content .tournament_info .low-margin {
+    margin: 0 0 5px 0; }
+  .content .tournament_info .actives li {
+    display: inline-block;
+    background-color: #189A66;
+    margin: 0 10px 10px 0;
+    color: white;
+    padding: 5px;
+    border-radius: 6px;
+    line-height: 1; }
+  .content .tournament_info .button_wrapper {
+    height: 70px; }
+
+footer {
+  background-color: #189A66;
+  height: 100px;
+  padding: 20px 40px; }
+  footer #footer_info {
+    display: inline-block;
+    width: 80%; }
+    footer #footer_info li {
+      color: white;
+      display: inline;
+      margin-right: 20px; }
+  footer #contact {
+    display: inline-block;
+    width: 15%; }
+    footer #contact li {
+      display: inline;
+      color: white;
+      margin-right: 20px; }
 
 /*# sourceMappingURL=main.css.map */
