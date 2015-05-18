@@ -7,7 +7,6 @@
         {{ form.name.label_tag }}
         {{ form.name }}
     </div>
-</div>
 {#<div class="row">#}
 {#    <div class="col s4">#}
 {#        <label>Страна</label>#}
@@ -44,8 +43,7 @@
 {#        <label for="house">Дом</label>#}
 {#    </div>#}
 {#</div>#}
-<div class="row">
-    <div class="input-field col s10">
+    <div class="input-field col s6">
         {{ form.location.errors }}
         {{ form.location.label_tag }}
         {{ form.location }}
@@ -53,11 +51,11 @@
 </div>
 
 <div class="row">
-    <p><label for="id_reg">Регистрации:</label></p>
-    <p>{{ form.open_reg_time.errors }}</p>
-    <p>{{ form.close_reg_time.errors }}</p>
-    <p>{{ form.open_reg_date.errors }}</p>
-    <p>{{ form.close_reg_date.errors }}</p>
+    <label for="id_reg">Регистрация:</label>ы
+    {{ form.open_reg_time.errors }}
+    {{ form.close_reg_time.errors }}
+    {{ form.open_reg_date.errors }}
+    {{ form.close_reg_date.errors }}
 </div>
 <div class="row">
     <div class="input-field col s1">

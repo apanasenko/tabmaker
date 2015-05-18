@@ -7,12 +7,12 @@
 
 {% block content %}
 
-    <form class="page col s9" action="{% url 'tournament:new' %}" method="post">
+    <form class="col s9" action="{% url 'tournament:new' %}" method="post">
 
         {% include "tournament/edit_form.html" %}
 
         <div class="row">
-            <button type="submit" class="waves-effect waves-light btn">Создать турнир</button>
+            <button type="submit" class="waves-effect waves-light btn">Подтвердить</button>
         </div>
 
     </form>
