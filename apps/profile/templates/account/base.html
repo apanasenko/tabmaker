@@ -8,9 +8,13 @@
 {% endblock extra_head %}
 
 {% block header %}
-    <h3>
-        {% block page_title %} Название страницы {% endblock page_title %}
-    </h3>
+    <div class="header_container">
+        <div id="page_title">
+            <h3>
+                {% block page_title %} Название страницы {% endblock page_title %}
+            </h3>
+        </div>
+    </div>
 {% endblock header %}
 
 {% block sidebar%}
