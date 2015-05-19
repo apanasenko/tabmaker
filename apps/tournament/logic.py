@@ -27,7 +27,7 @@ from .models import \
 def get_last_round(tournament: Tournament):
     try:
         return Round.objects.get(tournament=tournament, number=tournament.cur_round)
-    except Tournament.model.DoesNotExist:
+    except ObjectDoesNotExist:
         return None
 
 
