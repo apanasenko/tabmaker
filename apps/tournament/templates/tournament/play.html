@@ -1,8 +1,16 @@
 {% extends "main/base.html" %}
 
+{% load staticfiles %}
+
 {% block page_title %}
     {{ tournament.name }}
 {% endblock page_title %}
+
+
+{% block extra_head %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static "tournament/js/confirmation.js" %}"></script>
+{% endblock extra_head %}
 
 
 {% block content %}
@@ -13,7 +21,13 @@
         <p>Количество сыграных раундов: {{ tournament.cur_round }}</p>
         <p>Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
         <p>Статус: {{ tournament.status.name }}</p>
+        <br>
         <p><a href="{% url 'tournament:next_round' tournament.id%}"> Создать следующий раунд </a></p>
+        <br>
+        <input type="button"
+               onclick="confirm_remove_round('{% url 'tournament:remove_round' tournament.id %}')"
+               value="Удалить последний раунд"
+        >
     </div>
 </div>
 {% endblock content %}

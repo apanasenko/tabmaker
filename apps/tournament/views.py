@@ -30,7 +30,8 @@ from .models import \
 
 from .logic import \
     get_or_generate_next_round, \
-    get_last_round_games_and_results
+    get_last_round_games_and_results, \
+    remove_last_round
 
 
 def index(request):
@@ -186,6 +187,13 @@ def result_round(request, tournament_id):
             'forms': forms,
         }
     )
+
+
+@login_required(login_url=reverse_lazy('account_login'))
+def remove_round(request, tournament_id):
+    tournament = get_object_or_404(Tournament, pk=tournament_id)
+    remove_last_round(tournament)
+    return redirect('tournament:play', tournament_id=tournament_id)
 
 
 @login_required(login_url=reverse_lazy('account_login'))

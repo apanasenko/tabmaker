@@ -88,3 +88,14 @@ def get_last_round_games_and_results(tournament: Tournament):
             'result': result
         })
     return results
+
+
+def remove_last_round(tournament: Tournament):
+    last_round = get_last_round(tournament)
+    if not last_round:
+        return False
+    for room in Room.objects.filter(round=last_round):
+        room.game.delete()
+    last_round.delete()
+    tournament.round_number_dec()
+    return True

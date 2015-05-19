@@ -41,6 +41,11 @@ class Tournament(models.Model):
         self.save()
         return self.cur_round
 
+    def round_number_dec(self):
+        self.cur_round -= 1
+        self.save()
+        return self.cur_round
+
     def __str__(self):
         return self.name
 
