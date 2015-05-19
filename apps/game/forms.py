@@ -32,6 +32,8 @@ class ResultGameForm(forms.ModelForm):
     class Meta:
         model = GameResult
 
+        fields = '__all__'
+
         widgets = {
             'og': forms.NumberInput(attrs={'min': 1, 'max': 4}),
             'oo': forms.NumberInput(attrs={'min': 1, 'max': 4}),
