@@ -29,6 +29,7 @@ from .models import \
     UserTournamentRel
 
 from .logic import \
+    get_result_table, \
     get_or_generate_next_round, \
     get_last_round_games_and_results, \
     remove_last_round
@@ -84,6 +85,18 @@ def play(request, tournament_id):
         'tournament/play.html',
         {
             'tournament': tournament,
+        }
+    )
+
+
+def result(request, tournament_id):
+    tournament = get_object_or_404(Tournament, pk=tournament_id)
+    return render(
+        request,
+        'tournament/tab.html',
+        {
+            'tournament': tournament,
+            'tab': convert_result_table_to_tab(get_result_table(tournament), True),
         }
     )
 
@@ -379,6 +392,33 @@ def user_can_edit_tournament(t: Tournament, u: User):
         user=u,
         role=ROLE_OWNER
     ))
+
+
+def convert_result_table_to_tab(table: list, tournament_finished):
+    lines = []
+    count_rounds = max(list(map(lambda x: len(x.rounds), table)))
+    line = ['№', 'Команда', 'Сумма баллов', 'Сумма спикерских']
+
+    for i in range(1, count_rounds + 1):
+        line.append('Раунд %s' % i)
+    lines.append(line)
+
+    for team in table:
+        team.show_all = tournament_finished
+
+    table = list(reversed(sorted(table)))
+    for i in range(len(table)):
+        line = []
+        n = lines[-1][0] if i > 0 and table[i - 1] == table[i] else i + 1
+        line += [n, table[i].team.name, table[i].sum_points, table[i].sum_speakers]
+        for cur_round in table[i].rounds:
+            round_res = str(cur_round.points * (not cur_round.is_closed or tournament_finished))
+            if tournament_finished:
+                round_res += " / %s+%s" % (cur_round.speaker_1, cur_round.speaker_2)
+            line.append(round_res)
+        lines.append(line)
+
+    return lines
 
 
 def show_message(request, message):

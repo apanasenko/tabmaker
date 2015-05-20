@@ -23,6 +23,15 @@
         <p>Статус: {{ tournament.status.name }}</p>
         <br>
         <p><a href="{% url 'tournament:next_round' tournament.id%}"> Создать следующий раунд </a></p>
+        {% if tournament.cur_round > 0 %}
+
+            <br>
+            <p><a href="{% url 'tournament:result_round' tournament.id%}"> Ввести/исправить результат </a></p>
+
+            <br>
+            <p><a href="{% url 'tournament:result' tournament.id%}"> Теб </a></p>
+
+        {% endif %}
         <br>
         <input type="button"
                onclick="confirm_remove_round('{% url 'tournament:remove_round' tournament.id %}')"

@@ -1,10 +1,13 @@
 __author__ = 'Alexander'
 
+from enum import Enum
 from .models import \
     TournamentRole, \
     TournamentStatus
 
 TEAM_IN_GAME = 4
+
+Position = Enum('Position', 'OG OO CG CO NONE')
 
 ROLE_OWNER = TournamentRole.objects.get(role='owner')
 ROLE_MEMBER = TournamentRole.objects.get(role='member')

@@ -1,0 +1,20 @@
+{% extends "main/base.html" %}
+
+{% block page_title %}
+    Итог
+{% endblock page_title %}
+
+
+{% block content %}
+    <div class="page col s9">
+        <table>
+        {% for tr in tab %}
+            <tr>
+                {% for td in tr %}
+                    <td>{{ td }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+{% endblock content %}
