@@ -1,5 +1,13 @@
 {% extends "main/base.html" %}
 
+{% load staticfiles %}
+
+{% block extra_head %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static "tournament/js/reverse_speakers.js" %}"></script>
+{% endblock extra_head %}
+
+
 {% block page_title %}
     Итог
 {% endblock page_title %}
