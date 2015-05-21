@@ -26,10 +26,10 @@
         {% if tournament.cur_round > 0 %}
 
             <br>
-            <p><a href="{% url 'tournament:result_round' tournament.id%}"> Ввести/исправить результат </a></p>
+            <p><a class="button" href="{% url 'tournament:result_round' tournament.id%}"> Ввести/исправить результат </a></p>
 
             <br>
-            <p><a href="{% url 'tournament:result' tournament.id%}"> Теб </a></p>
+            <p><a class="button" href="{% url 'tournament:result' tournament.id%}"> Теб </a></p>
 
         {% endif %}
         <br>
