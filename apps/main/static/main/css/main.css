@@ -25,7 +25,7 @@ a {
   background-color: #0C152A; }
 
 input, select {
-  display: inline-block;
+  display: block;
   width: 200px;
   border: 1px solid #58697A;
   border-radius: 3px;
@@ -35,7 +35,7 @@ select {
   -webkit-appearance: none; }
 
 label {
-  display: inline;
+  display: block;
   padding-right: 10px;
   margin: 0 0 10px 0; }
 
