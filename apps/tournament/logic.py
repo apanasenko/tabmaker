@@ -85,7 +85,7 @@ class TeamResult:
 
 def get_last_round(tournament: Tournament):
     try:
-        return Round.objects.get(tournament=tournament, number=tournament.cur_round)
+        return Round.objects.get(tournament=tournament, number=tournament.cur_round, is_playoff=False)
     except ObjectDoesNotExist:
         return None
 

@@ -83,9 +83,11 @@ class Round(models.Model):
     number = models.IntegerField()
     start_time = models.DateTimeField()
     is_closed = models.BooleanField(default=False)
+    is_playoff = models.BooleanField(default=False)
 
 
 class Room(models.Model):
     round = models.ForeignKey(Round)
     game = models.ForeignKey(Game)
     place = models.ForeignKey(Place, blank=True, null=True, on_delete=models.SET_NULL)
+    number = models.IntegerField(blank=True)
