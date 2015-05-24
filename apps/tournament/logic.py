@@ -160,7 +160,7 @@ def remove_last_round(tournament: Tournament):
     return True
 
 
-def get_result_table(tournament: Tournament):
+def get_tab(tournament: Tournament):
     from .db_execute import get_teams_result_list
     positions = [
         ['og_id', 'og', 'pm', 'dpm', 'og_rev', Position.OG],

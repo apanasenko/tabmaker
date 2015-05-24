@@ -29,7 +29,7 @@ from .models import \
     UserTournamentRel
 
 from .logic import \
-    get_result_table, \
+    get_tab, \
     get_or_generate_next_round, \
     get_last_round_games_and_results, \
     remove_last_round
@@ -96,7 +96,7 @@ def result(request, tournament_id):
         'tournament/tab.html',
         {
             'tournament': tournament,
-            'tab': convert_result_table_to_tab(get_result_table(tournament), True),
+            'tab': convert_tab_to_table(get_tab(tournament), True),
         }
     )
 
@@ -394,7 +394,7 @@ def user_can_edit_tournament(t: Tournament, u: User):
     ))
 
 
-def convert_result_table_to_tab(table: list, tournament_finished):
+def convert_tab_to_table(table: list, tournament_finished):
     lines = []
     count_rounds = max(list(map(lambda x: len(x.rounds), table)))
     line = ['№', 'Команда', 'Сумма баллов', 'Сумма спикерских']
