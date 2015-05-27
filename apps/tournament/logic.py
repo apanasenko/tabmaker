@@ -85,13 +85,6 @@ class TeamResult:
 #     }
 
 
-def get_last_round(tournament: Tournament):
-    try:
-        return Round.objects.get(tournament=tournament, number=tournament.cur_round, is_playoff=False)
-    except ObjectDoesNotExist:
-        return None
-
-
 # TODO @check_tournament
 def generate_random_round(tournament: Tournament, cur_round: Round):
 
@@ -124,7 +117,11 @@ def generate_random_round(tournament: Tournament, cur_round: Round):
 
 
 def get_or_generate_next_round(tournament: Tournament):
-    cur_round = get_last_round(tournament)
+    cur_round = Round.objects.filter(
+        tournament=tournament,
+        is_playoff=(tournament.status == STATUS_PLAYOFF)
+    ).latest('number')
+
     if not cur_round:
         return None
     rooms = Room.objects.filter(round=cur_round)
@@ -134,7 +131,10 @@ def get_or_generate_next_round(tournament: Tournament):
 
 
 def get_last_round_games_and_results(tournament: Tournament):
-    last_round = get_last_round(tournament)
+    last_round = Round.objects.filter(
+        tournament=tournament,
+        is_playoff=(tournament.status == STATUS_PLAYOFF)
+    ).latest('number')
     if not last_round:
         return None
     results = []
@@ -152,7 +152,10 @@ def get_last_round_games_and_results(tournament: Tournament):
 
 
 def remove_last_round(tournament: Tournament):
-    last_round = get_last_round(tournament)
+    last_round = Round.objects.filter(
+        tournament=tournament,
+        is_playoff=(tournament.status == STATUS_PLAYOFF)
+    ).latest('number')
     if not last_round:
         return False
     for room in Room.objects.filter(round=last_round):
