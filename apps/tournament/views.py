@@ -20,6 +20,7 @@ from .forms import \
     TournamentForm, \
     TeamRoleForm, \
     UserRoleForm, \
+    CheckboxForm, \
     RoundForm
 
 from .consts import *
@@ -29,6 +30,7 @@ from .models import \
     UserTournamentRel
 
 from .logic import \
+    create_playoff,\
     create_next_round, \
     get_tab, \
     get_or_generate_next_round, \
@@ -98,6 +100,55 @@ def result(request, tournament_id):
         {
             'tournament': tournament,
             'tab': convert_tab_to_table(get_tab(tournament), True),
+        }
+    )
+
+
+@login_required(login_url=reverse_lazy('account_login'))
+def generate_break(request, tournament_id):
+    tournament = get_object_or_404(Tournament, pk=tournament_id)
+    # if tournament.status != STATUS_STARTED:
+    #     return show_message(request, 'Брейк уже объявлен')
+
+    tab = get_tab(tournament)
+    table = convert_tab_to_table(tab, True)
+    teams_in_break = []
+    teams = []
+    for i in range(len(tab)):
+        if request.method == 'POST':
+            form = CheckboxForm(request.POST, prefix=i)
+            if form.is_valid() and form.cleaned_data.get('is_check', False):
+                teams_in_break.append(tab[i].team)
+        else:
+            form = CheckboxForm(
+                initial={
+                    'id': tab[i].team.id,
+                    'is_check': i < tournament.count_teams_in_break
+                },
+                prefix=i
+            )
+        teams.append({
+            'checkbox': form,
+            'result': table[i + 1],
+        })
+
+    error_message = ''
+    if request.method == 'POST':
+        if len(teams_in_break) != tournament.count_teams_in_break:
+            error_message = 'Вы должны выбрать %s команд(ы), которые делают брейк' % tournament.count_teams_in_break
+        else:
+            create_playoff(tournament, teams_in_break)
+            tournament.set_status(STATUS_PLAYOFF)
+            return redirect('tournament:play', tournament_id=tournament_id)
+
+    return render(
+        request,
+        'tournament/break.html',
+        {
+            'error': error_message,
+            'tournament': tournament,
+            'header': table[0],
+            'teams': teams,
         }
     )
 

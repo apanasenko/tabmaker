@@ -7,6 +7,7 @@ from apps.game.models import\
     Game, \
     GameResult
 from apps.team.models import Team
+from apps.motion.models import Motion
 from .consts import *
 from .models import \
     Tournament,\
@@ -36,7 +37,7 @@ class TeamRoundResult:
 class TeamResult:
 
     def __init__(self, team_id):
-        self.show_all = False
+        self.show_all = True
         self.team = Team.objects.get(pk=team_id)
         self.rounds = []
 
@@ -187,6 +188,49 @@ def get_tab(tournament: Tournament):
             teams[team_id].add_round(team_result)
 
     return list(reversed(sorted(list(teams.values()))))
+
+
+def generate_playoff_position(count: int):
+    result = [1]
+    while len(result) != count:
+        print(result)
+        l = len(result)
+        new_l = l * 2
+        new_result = [0] * new_l
+        for i in range(l):
+            new_result[i * 2] = result[i]
+            new_result[i * 2 + 1] = new_l - result[i] + 1
+        result = new_result
+    return result
+
+
+def create_playoff(tournament: Tournament, teams: list):
+    positions = list(map(lambda x: x - 1, generate_playoff_position(tournament.count_teams_in_break)))
+    motion = Motion.objects.create(motion='temp')
+    chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
+    random.shuffle(chair)
+    new_round = Round.objects.create(
+        tournament=tournament,
+        motion=motion,
+        number=-1,
+        start_time=datetime.datetime.now(),
+        is_playoff=True,
+    )
+    for i in range(len(teams) // TEAM_IN_GAME):
+        game = Game.objects.create(
+            og=teams[positions[i * TEAM_IN_GAME]],
+            oo=teams[positions[i * TEAM_IN_GAME + 1]],
+            cg=teams[positions[i * TEAM_IN_GAME + 2]],
+            co=teams[positions[i * TEAM_IN_GAME + 3]],
+            chair=chair.pop().user,
+            date=datetime.datetime.now(),
+            motion=motion
+        )
+        Room.objects.create(
+            game=game,
+            round=new_round,
+            number=i
+        )
 
 
 def create_next_round(tournament: Tournament, round_obj):

@@ -153,3 +153,8 @@ class RoundForm(forms.ModelForm):
         if commit:
             round_obj.save()
         return round_obj
+
+
+class CheckboxForm(forms.Form):
+    is_check = forms.BooleanField()
+    id = forms.IntegerField(widget=forms.HiddenInput())
