@@ -29,6 +29,7 @@ from .models import \
     UserTournamentRel
 
 from .logic import \
+    create_next_round, \
     get_tab, \
     get_or_generate_next_round, \
     get_last_round_games_and_results, \
@@ -113,10 +114,10 @@ def next_round(request, tournament_id):
         round_form = RoundForm(request.POST)
         if motion_form.is_valid() and round_form.is_valid():
             round_obj = round_form.save(commit=False)
-            round_obj.tournament = tournament
-            round_obj.number = tournament.round_number_inc()
             round_obj.motion = motion_form.save()
-            round_obj.save()
+            error = create_next_round(tournament, round_obj)
+            if error:
+                show_message(request, error)
             return redirect('tournament:edit_round', tournament_id=tournament_id)
     else:
         motion_form = MotionForm()

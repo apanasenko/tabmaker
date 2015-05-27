@@ -187,3 +187,14 @@ def get_tab(tournament: Tournament):
             teams[team_id].add_round(team_result)
 
     return list(reversed(sorted(list(teams.values()))))
+
+
+def create_next_round(tournament: Tournament, round_obj):
+    # round_obj - не сохранённый объект из формы
+    if tournament.status == STATUS_STARTED:
+        round_obj.tournament = tournament
+        round_obj.number = tournament.round_number_inc()
+        round_obj.save()
+        return
+
+    return 'Что-то не то'
