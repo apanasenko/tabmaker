@@ -22,18 +22,18 @@
         <p>Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
         <p>Статус: {{ tournament.status.name }}</p>
         <br>
-        <p><a href="{% url 'tournament:next_round' tournament.id%}"> Создать следующий раунд </a></p>
+        <p><a class="button" href="{% url 'tournament:next_round' tournament.id%}"> Создать следующий раунд </a></p>
         {% if tournament.cur_round > 0 %}
 
             <br>
-            <p><a class="button" href="{% url 'tournament:result_round' tournament.id%}"> Ввести/исправить результат </a></p>
+            <a class="button" href="{% url 'tournament:result_round' tournament.id%}"> Ввести/исправить результат </a>
 
             <br>
-            <p><a class="button" href="{% url 'tournament:result' tournament.id%}"> Теб </a></p>
+            <a class="button" href="{% url 'tournament:result' tournament.id%}"> Теб </a>
 
         {% endif %}
         <br>
-        <input type="button"
+        <input type="button" class="button"
                onclick="confirm_remove_round('{% url 'tournament:remove_round' tournament.id %}')"
                value="Удалить последний раунд"
         >
