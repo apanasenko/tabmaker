@@ -72,7 +72,7 @@ class TeamResult:
             or self.sum_points() == other.sum_points() and self.sum_speakers() < other.sum_speakers()
 
     def __str__(self):
-        return "%s points:%s speakers:%s" % (self.team.name, self.sum_points(), self.sum_speakers())
+        return "(%s) %s points:%s speakers:%s" % (self.team.id, self.team.name, self.sum_points(), self.sum_speakers())
 
 # def get_member_from_tournament(tournament: Tournament):
 #     return tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER)
