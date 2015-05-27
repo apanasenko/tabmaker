@@ -8,6 +8,7 @@ from apps.game.models import\
     GameResult
 from apps.team.models import Team
 from apps.motion.models import Motion
+from .db_execute import get_teams_result_list
 from .consts import *
 from .models import \
     Tournament,\
@@ -162,7 +163,6 @@ def remove_last_round(tournament: Tournament):
 
 
 def get_tab(tournament: Tournament):
-    from .db_execute import get_teams_result_list
     positions = [
         ['og_id', 'og', 'pm', 'dpm', 'og_rev', Position.OG],
         ['oo_id', 'oo', 'lo', 'dlo', 'oo_rev', Position.OO],
@@ -170,7 +170,7 @@ def get_tab(tournament: Tournament):
         ['co_id', 'co', 'mo', 'ow', 'co_rev', Position.CO],
     ]
     teams = {}
-    for game in get_teams_result_list(tournament.id):
+    for game in get_teams_result_list('WHERE round.tournament_id = %s', [tournament.id]):
         for position in positions:
             team_result = TeamRoundResult(
                 4 - int(game[position[1]]),

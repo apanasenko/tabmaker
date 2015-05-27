@@ -12,12 +12,13 @@ def dictfetchall(cursor):
     ]
 
 
-def get_teams_result_list(tournament_id):
+def get_teams_result_list(where, params):
     # TODO Может быть возможно убрать названия таблиц и брать их из моделей Model._meta.db_table
     # пока как параметр вставить не получилось
 
     with connection.cursor() as cursor:
-        cursor.execute("""
+        cursor.execute(
+            """
             SELECT
                 round.number,
                 round.is_closed,
@@ -30,8 +31,7 @@ def get_teams_result_list(tournament_id):
             INNER JOIN tournament_room as room ON round.id = room.round_id
             INNER JOIN game_game as game ON room.game_id = game.id
             INNER JOIN game_gameresult as result ON result.game_id = game.id
-            WHERE round.tournament_id = %s
-            """,
-            [tournament_id]
+            """ + where,
+            params
         )
         return dictfetchall(cursor)
