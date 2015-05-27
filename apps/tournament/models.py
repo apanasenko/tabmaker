@@ -46,6 +46,10 @@ class Tournament(models.Model):
         self.save()
         return self.cur_round
 
+    def set_status(self, status: TournamentStatus):
+        self.status = status
+        self.save()
+
     def __str__(self):
         return self.name
 
