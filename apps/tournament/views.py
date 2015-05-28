@@ -330,13 +330,15 @@ def registration_adjudicator(request, tournament_id):
     if tournament.status != STATUS_REGISTRATION:
         return show_message(request, 'Регистрация уже закрыта ((')
 
-    # TODO: Добавить проверку уже зареганного судьи
-    UserTournamentRel.objects.create(
+    create = UserTournamentRel.objects.get_or_create(
         user=request.user,
         tournament=tournament,
         role=ROLE_ADJUDICATOR_REGISTERED[0]
     )
-    return show_message(request, 'Вы успешно зарегались в %s как судья' % tournament.name)
+    message = 'Вы успешно зарегались в %s как судья' % tournament.name if create[1] \
+        else 'Вы уже зарегались в %s как судья' % tournament.name
+
+    return show_message(request, message)
 
 
 def show_team_list(request, tournament_id):
