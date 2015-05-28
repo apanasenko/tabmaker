@@ -292,8 +292,8 @@ def edit(request, tournament_id):
 @login_required(login_url=reverse_lazy('account_login'))
 def registration_team(request, tournament_id):
     tournament = get_object_or_404(Tournament, pk=tournament_id)
-    if not tournament.open_reg < datetime.datetime.now(tz=pytz.utc) < tournament.close_reg:
-        return show_message(request, 'Регистрация уже (ещё) закрыта ((')
+    if tournament.status != STATUS_REGISTRATION:
+        return show_message(request, 'Регистрация уже закрыта ((')
 
     if request.method == 'POST':
         team_form = TeamRegistrationForm(request.POST)
@@ -327,8 +327,8 @@ def registration_team(request, tournament_id):
 @login_required(login_url=reverse_lazy('account_login'))
 def registration_adjudicator(request, tournament_id):
     tournament = get_object_or_404(Tournament, pk=tournament_id)
-    if not tournament.open_reg < datetime.datetime.now(tz=pytz.utc) < tournament.close_reg:
-        return show_message(request, 'Регистрация уже (ещё) закрыта ((')
+    if tournament.status != STATUS_REGISTRATION:
+        return show_message(request, 'Регистрация уже закрыта ((')
 
     # TODO: Добавить проверку уже зареганного судьи
     UserTournamentRel.objects.create(
