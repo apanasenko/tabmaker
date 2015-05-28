@@ -1,20 +1,27 @@
 {% extends "main/base.html" %}
 
 {% block page_title %}
-    Итог
+    Результаты
 {% endblock page_title %}
 
 
 {% block content %}
     <div class="page col s9">
-        <table>
-        {% for tr in tab %}
-            <tr>
-                {% for td in tr %}
-                    <td>{{ td }}</td>
-                {% endfor %}
-            </tr>
-        {% endfor %}
-        </table>
+
+        {% if tab|length > 1 %}
+            <table>
+            {% for tr in tab %}
+                <tr>
+                    {% for td in tr %}
+                        <td>{{ td }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </table>
+        {% else %}
+
+            <h4>Результатов нет</h4>
+
+        {% endif %}
     </div>
 {% endblock content %}

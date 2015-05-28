@@ -449,7 +449,7 @@ def user_can_edit_tournament(t: Tournament, u: User):
 
 def convert_tab_to_table(table: list, show_all):
     lines = []
-    count_rounds = max(list(map(lambda x: len(x.rounds), table)))
+    count_rounds = max(list(map(lambda x: len(x.rounds), table)) + [0])
     line = ['№', 'Команда', 'Сумма баллов', 'Сумма спикерских']
 
     for i in range(1, count_rounds + 1):
