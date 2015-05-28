@@ -94,12 +94,13 @@ def play(request, tournament_id):
 
 def result(request, tournament_id):
     tournament = get_object_or_404(Tournament, pk=tournament_id)
+    show_all = tournament.status == STATUS_FINISHED or user_can_edit_tournament(tournament, request.user)
     return render(
         request,
         'tournament/tab.html',
         {
             'tournament': tournament,
-            'tab': convert_tab_to_table(get_tab(tournament), True),
+            'tab': convert_tab_to_table(get_tab(tournament), show_all),
         }
     )
 
@@ -446,7 +447,7 @@ def user_can_edit_tournament(t: Tournament, u: User):
     ))
 
 
-def convert_tab_to_table(table: list, tournament_finished):
+def convert_tab_to_table(table: list, show_all):
     lines = []
     count_rounds = max(list(map(lambda x: len(x.rounds), table)))
     line = ['№', 'Команда', 'Сумма баллов', 'Сумма спикерских']
@@ -456,7 +457,7 @@ def convert_tab_to_table(table: list, tournament_finished):
     lines.append(line)
 
     for team in table:
-        team.show_all = tournament_finished
+        team.show_all = show_all
 
     table = list(reversed(sorted(table)))
     for i in range(len(table)):
@@ -464,8 +465,8 @@ def convert_tab_to_table(table: list, tournament_finished):
         n = lines[-1][0] if i > 0 and table[i - 1] == table[i] else i + 1
         line += [n, table[i].team.name, table[i].sum_points, table[i].sum_speakers]
         for cur_round in table[i].rounds:
-            round_res = str(cur_round.points * (not cur_round.is_closed or tournament_finished))
-            if tournament_finished:
+            round_res = str(cur_round.points * (not cur_round.is_closed or show_all))
+            if show_all:
                 round_res += " / %s+%s" % (cur_round.speaker_1, cur_round.speaker_2)
             line.append(round_res)
         lines.append(line)
