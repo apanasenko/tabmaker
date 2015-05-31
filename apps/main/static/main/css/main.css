@@ -332,6 +332,7 @@ form {
   max-width: 660px;
   margin-left: auto;
   margin-right: auto;
+  width: 660px;
 }
 /* line 12, ../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/susy-2.2.5/sass/susy/output/support/_clearfix.scss */
 form:after {
@@ -339,96 +340,96 @@ form:after {
   display: block;
   clear: both;
 }
-/* line 308, ../sass/main.scss */
+/* line 309, ../sass/main.scss */
 form h3 {
   clear: both;
   margin-bottom: 10px;
 }
 
-/* line 314, ../sass/main.scss */
+/* line 315, ../sass/main.scss */
 .formItem {
   margin: 0 30px 20px 0;
   width: 32.53012%;
   float: left;
   margin-right: 1.20482%;
 }
-/* line 318, ../sass/main.scss */
+/* line 319, ../sass/main.scss */
 .formItem > input, .formItem > label {
   display: inline-block;
 }
 
-/* line 323, ../sass/main.scss */
-#university, #adress, #count_teams_in_break {
+/* line 324, ../sass/main.scss */
+#university, #adress, #count_teams_in_break, .last {
   float: right;
   margin-right: 0;
 }
 
-/* line 327, ../sass/main.scss */
-#country, #street, #regdateOpen, #regdateClose, #link {
+/* line 328, ../sass/main.scss */
+#country, #street, #regdateOpen, #regdateClose, #link, .row {
   clear: both;
 }
 
-/* line 331, ../sass/main.scss */
+/* line 332, ../sass/main.scss */
 #tournamentName {
   width: 100%;
   float: left;
   margin-left: 0;
   margin-right: 0;
 }
-/* line 334, ../sass/main.scss */
+/* line 335, ../sass/main.scss */
 #tournamentName input {
   max-width: 660px;
   width: 600px;
 }
 
-/* line 340, ../sass/main.scss */
+/* line 341, ../sass/main.scss */
 #street {
   width: 66.26506%;
   float: left;
   margin-right: 1.20482%;
 }
-/* line 343, ../sass/main.scss */
+/* line 344, ../sass/main.scss */
 #street input {
   max-width: 370px;
   width: 370px;
 }
 
-/* line 349, ../sass/main.scss */
-#aboutTournament {
+/* line 350, ../sass/main.scss */
+#aboutTournament, #player_experience, #adjudicator_experience {
   width: 100%;
   float: left;
   margin-left: 0;
   margin-right: 0;
 }
-/* line 352, ../sass/main.scss */
-#aboutTournament textarea {
+/* line 353, ../sass/main.scss */
+#aboutTournament textarea, #player_experience textarea, #adjudicator_experience textarea {
   max-width: 660px;
   width: 600px;
-  min-height: 160px;
+  min-height: 100px;
   font-family: "PT Sans", Arial, sans-serif;
   font-weight: 14px;
 }
 
-/* line 361, ../sass/main.scss */
+/* line 362, ../sass/main.scss */
 #link {
   width: 100%;
   float: left;
   margin-left: 0;
   margin-right: 0;
 }
-/* line 364, ../sass/main.scss */
+/* line 365, ../sass/main.scss */
 #link input {
   width: 100%;
 }
 
-/* line 369, ../sass/main.scss */
+/* line 370, ../sass/main.scss */
 .button.formItem {
-  width: 24.09639%;
+  width: 32.53012%;
   float: left;
   margin-right: 1.20482%;
 }
 
-/* line 375, ../sass/main.scss */
+/* line 376, ../sass/main.scss */
 .errorlist li {
   color: red;
   font-size: 14px;
@@ -436,29 +437,29 @@ form h3 {
   margin: -5px 0 0 5px;
 }
 
-/* line 385, ../sass/main.scss */
+/* line 386, ../sass/main.scss */
 footer {
   background-color: #189A66;
   height: 100px;
   padding: 20px 40px;
 }
-/* line 390, ../sass/main.scss */
+/* line 391, ../sass/main.scss */
 footer #footer_info {
   display: inline-block;
   width: 80%;
 }
-/* line 394, ../sass/main.scss */
+/* line 395, ../sass/main.scss */
 footer #footer_info li {
   color: white;
   display: inline;
   margin-right: 20px;
 }
-/* line 401, ../sass/main.scss */
+/* line 402, ../sass/main.scss */
 footer #contact {
   display: inline-block;
   width: 15%;
 }
-/* line 405, ../sass/main.scss */
+/* line 406, ../sass/main.scss */
 footer #contact li {
   display: inline;
   color: white;

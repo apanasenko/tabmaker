@@ -43,12 +43,12 @@ class SignupForm(forms.ModelForm):
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'validate'}),
             'last_name': forms.TextInput(attrs={'class': 'validate'}),
-            'email': forms.TextInput(attrs={'class': 'validate'}),
-            'phone': forms.TextInput(attrs={'class': 'validate', 'type': 'tel'}),
+            'email': forms.TextInput(attrs={'class': 'validate', 'placeholder': 'ilove@debate.org'}),
+            'phone': forms.TextInput(attrs={'class': 'validate', 'type': 'tel', 'placeholder': '+79141234567'}),
             'password': forms.PasswordInput(attrs={'class': 'validate'}),
             'password2': forms.PasswordInput(attrs={'class': 'validate'}),
-            'player_experience': forms.Textarea(attrs={'class': 'materialize-textarea'}),
-            'adjudicator_experience': forms.Textarea(attrs={'class': 'materialize-textarea'}),
+            'player_experience': forms.Textarea(attrs={'placeholder': 'Опыт в дебатах'}),
+            'adjudicator_experience': forms.Textarea(attrs={'placeholder': 'Опыт судейства дебатов'}),
         }
 
     def __init__(self, *args, **kwargs):

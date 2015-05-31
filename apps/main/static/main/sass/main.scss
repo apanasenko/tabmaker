@@ -304,6 +304,7 @@ header {
 
 form {
 	@include container;
+	width: 660px;
 	
 	h3 {
 		clear: both;
@@ -320,11 +321,11 @@ form {
 	}
 }
 
-#university, #adress, #count_teams_in_break {
+#university, #adress, #count_teams_in_break, .last {
 	@include last;
 }
 
-#country, #street, #regdateOpen, #regdateClose, #link, .lastItem {
+#country, #street, #regdateOpen, #regdateClose, #link, .row {
 	clear: both;
 }
 
@@ -346,13 +347,13 @@ form {
 	}
 }
 
-#aboutTournament {
+#aboutTournament, #player_experience, #adjudicator_experience {
 	@include span(12 of 12);
 
 	textarea {
 		max-width: 660px;
 		width: 600px;
-		min-height: 160px;
+		min-height: 100px;
 		font-family: "PT Sans", Arial, sans-serif;
 		font-weight: 14px;
 	}
@@ -367,7 +368,7 @@ form {
 }
 
 .button.formItem {
-	@include span (3 of 12);
+	@include span (4 of 12);
 }
 
 .errorlist {

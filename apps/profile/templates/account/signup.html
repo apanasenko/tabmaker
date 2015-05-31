@@ -19,79 +19,75 @@
         {{ form.non_field_errors }}
 
             <div class="formItem">
-                {{ form.first_name.errors  }}
-                {{ form.first_name.label_tag }}
+                {{ form.first_name.label_tag}}
                 {{ form.first_name }}
+                {{ form.first_name.errors  }}
             </div>
-            <div class="formItem lastItem">
-                {{ form.last_name.errors  }}
-                {{ form.last_name.label_tag }}
+            <div class="formItem">
+                {{ form.last_name.label_tag}}
                 {{ form.last_name }}
+                {{ form.last_name.errors  }}
             </div>
 
-            <div class="formItem">
-                {{ form.country_id.errors }}
+            <div class="formItem row">
                 {{ form.country_id.label_tag }}
                 {{ form.country_id }}
+                {{ form.country_id.errors }}
             </div>
             <div class="formItem">
-                {{ form.city_id.errors }}
                 {{ form.city_id.label_tag }}
                 {{ form.city_id }}
+                {{ form.city_id.errors }}
             </div>
-            <div class="formItem lastItem">
-                {{ form.university_id.errors }}
-                {{ form.university_id.label_tag }}
+            <div class="formItem last">
+                {{ form.university_id.label_tag}}
                 {{ form.university_id }}
+                {{ form.university_id.errors }}
             </div>
 
-            <div class="input-field col s4">
-                {{ form.email.errors }}
+            <div class="formItem row">
                 {{ form.email.label_tag }}
                 {{ form.email }}
+                {{ form.email.errors }}
             </div>
-            <div class="input-field col s4">
-                {{ form.password1.errors }}
-                {{ form.password1.label_tag }}
-                {{ form.password1 }}
-            </div>
-            <div class="input-field col s4">
-                {{ form.password2.errors }}
-                {{ form.password2.label_tag }}
-                {{ form.password2 }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s6">
-                {{ form.phone.errors }}
+            <div class="formItem">
                 {{ form.phone.label_tag }}
                 {{ form.phone }}
+                {{ form.phone.errors }}
             </div>
+            <div class="formItem row">
+                {{ form.password1.label_tag }}
+                {{ form.password1 }}
+                {{ form.password1.errors }}
+            </div>
+            <div class="formItem">
+                {{ form.password2.label_tag }}
+                {{ form.password2 }}
+                {{ form.password2.errors }}
+            </div>
+
 {#            <div class="input-field col s6">#}
 {#                <input id="url" type="url" class="validate">#}
 {#                <label for="url">Адрес в социальных сетях</label>#}
 {#            </div>#}
-        </div>
-        <div class="row">
-            <div class="input-field col s6">
-                {{ form.player_experience.errors }}
-                {{ form.player_experience.label_tag }}
+        
+            <div class="formItem row" id="player_experience">
                 {{ form.player_experience }}
+                {{ form.player_experience.errors }}
             </div>
-            <div class="input-field col s6">
-                {{ form.adjudicator_experience.errors }}
-                {{ form.adjudicator_experience.label_tag }}
+            <div class="formItem" id="adjudicator_experience">
                 {{ form.adjudicator_experience }}
+                {{ form.adjudicator_experience.errors }}
             </div>
-        </div>
+    
         {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
         {{ form.country_name }}
         {{ form.city_name }}
         {{ form.university_name }}
-        <div class="row">
-            <button type="submit" class="waves-effect waves-light btn"> Зарегистрироваться </button>
-        </div>
+        
+        <button type="submit" class="button formItem"> Зарегистрироваться </button>
+
     </form>
 {% endblock content %}
