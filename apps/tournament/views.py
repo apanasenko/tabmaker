@@ -19,7 +19,7 @@ from apps.game.forms import \
 from .forms import \
     TournamentForm, \
     TeamRoleForm, \
-    UserRoleForm, \
+    AdjudicatorRoleForm, \
     CheckboxForm, \
     RoundForm
 
@@ -392,12 +392,12 @@ def edit_adjudicator_list(request, tournament_id):
     # TODO Добавить фильтр
     for user_rel in tournament.usertournamentrel_set.all().order_by('user_id'):
         if request.method == 'POST':
-            adjudicator = UserRoleForm(request.POST, instance=user_rel, prefix=user_rel.user.id)
+            adjudicator = AdjudicatorRoleForm(request.POST, instance=user_rel, prefix=user_rel.user.id)
             if adjudicator.is_valid():
                 adjudicator.save()
 
         adjudicator = user_rel.user
-        form = UserRoleForm(instance=user_rel, prefix=adjudicator.id)
+        form = AdjudicatorRoleForm(instance=user_rel, prefix=adjudicator.id)
         forms.append({
             'adjudicator': adjudicator,
             'adjudicator_form': form

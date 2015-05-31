@@ -117,7 +117,7 @@ class TeamRoleForm(forms.ModelForm):
 #       TODO Добавить фильтр ролей и перевод
 
 
-class UserRoleForm(forms.ModelForm):
+class AdjudicatorRoleForm(forms.ModelForm):
     class Meta:
         model = TeamTournamentRel
         fields = [
