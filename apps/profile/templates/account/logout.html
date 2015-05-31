@@ -5,16 +5,15 @@
 {% endblock page_title %}
 
 {% block content %}
-<div class="page col s9">
-<p> Выйдешь, я тебя по IP вычислю </p>
+
+<h3>Хорошенько подумай перед тем как разлогиниться</h3>
 
     <form method="post" action="{% url 'account_logout' %}">
       {% csrf_token %}
       {% if redirect_field_value %}
       <input type="hidden" name="{{redirect_field_name}}" value="{{redirect_field_value}}"/>
       {% endif %}
-      <button type="submit"> Выйти </button>
+      <button type="submit" class="button formItem"> Все, ухожу </button>
     </form>
 
-</div>
 {% endblock content %}
