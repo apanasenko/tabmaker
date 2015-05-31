@@ -14,40 +14,37 @@
 {% endblock page_title %}
 
 {% block content %}
-    <form class="page col s9" id="signup_form" method="post" action="{% url 'account_signup' %}">
+    <form class="" id="signup_form" method="post" action="{% url 'account_signup' %}">
         {% csrf_token %}
         {{ form.non_field_errors }}
 
-        <div class="row">
-            <div class="input-field col s6">
+            <div class="formItem">
                 {{ form.first_name.errors  }}
                 {{ form.first_name.label_tag }}
                 {{ form.first_name }}
             </div>
-            <div class="input-field col s6">
+            <div class="formItem lastItem">
                 {{ form.last_name.errors  }}
                 {{ form.last_name.label_tag }}
                 {{ form.last_name }}
             </div>
-        </div>
-        <div class="row">
-            <div class="col s4">
+
+            <div class="formItem">
                 {{ form.country_id.errors }}
                 {{ form.country_id.label_tag }}
                 {{ form.country_id }}
             </div>
-            <div class="col s4">
+            <div class="formItem">
                 {{ form.city_id.errors }}
                 {{ form.city_id.label_tag }}
                 {{ form.city_id }}
             </div>
-            <div class="col s4">
+            <div class="formItem lastItem">
                 {{ form.university_id.errors }}
                 {{ form.university_id.label_tag }}
                 {{ form.university_id }}
             </div>
-        </div>
-        <div class="row">
+
             <div class="input-field col s4">
                 {{ form.email.errors }}
                 {{ form.email.label_tag }}
