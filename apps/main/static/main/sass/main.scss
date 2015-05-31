@@ -1,3 +1,8 @@
+// imports
+
+@import "compass/reset";
+@import "susy";
+
 // colors
 $background-page: #ECEEF1;
 $background-block: #F5F5F5;
@@ -11,6 +16,12 @@ $deep-dark: #0C152A;
 $grey: #58697A;
 
 // layout
+
+$susy: (
+  columns: 12,
+  gutters: 1/4,
+  container: 660px,
+);
 
 body {
 	font-family: "PT Sans", Arial, sans-serif;
@@ -162,8 +173,8 @@ header {
 .content {
 	display: inline-block;
 	width: 660px;
-	margin: 30px 10px;
-	padding: 20px 10px 20px 30px;
+	margin: 30px 0px 30px 20px;
+	padding: 20px;
 	background-color: $background-block;
 	border-radius: 3px;
 	vertical-align: top;
