@@ -3,6 +3,7 @@
 // - layout
 // - elements
 // --- header
+// --- sidebar
 // --- content section
 // --- forms 
 // --- footer
@@ -83,6 +84,10 @@ a {
 	@include button;
 	background-color: $deep-dark;
 	width: 100%;
+
+	a {
+		color: white;
+	}
 }
 
 input, select, textarea {
@@ -168,11 +173,8 @@ header {
 	}
 }
 
-// content section
 
-.content_conteiner {
-	padding: 0px 15px;
-}
+// sidebar
 
 .sidebar {
 	display: inline-block;
@@ -198,6 +200,17 @@ header {
 
 		}
 	}
+
+	#registration_btn {
+		width: 80%;
+		margin: 0 0 20px 20px;
+	}
+}
+
+// content section
+
+.content_conteiner {
+	padding: 0px 15px;
 }
 
 .content {
@@ -368,6 +381,10 @@ form {
 }
 
 .button.formItem {
+	@include span (4 of 12);
+}
+
+#loginButton {
 	@include span (4 of 12);
 }
 
