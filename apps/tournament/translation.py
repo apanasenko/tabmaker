@@ -4,7 +4,9 @@ __author__ = 'Alexander'
 
 
 from modeltranslation.translator import translator, TranslationOptions
-from .models import TournamentRole
+from .models import \
+    TournamentRole, \
+    AccessToPage
 
 
 class RoleTranslationOptions(TranslationOptions):
@@ -15,4 +17,12 @@ class RoleTranslationOptions(TranslationOptions):
     fields = ('role', )
 
 
+class AccessTranslationOptions(TranslationOptions):
+    """
+    Класс настроек интернационализации полей модели AccessToPage.
+    """
+
+    fields = ('message', )
+
 translator.register(TournamentRole, RoleTranslationOptions)
+translator.register(AccessToPage, AccessTranslationOptions)
