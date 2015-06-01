@@ -1,53 +1,57 @@
 {% extends "main/base.html" %}
 
+{% load staticfiles %}
+
+{% block extra_head %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static "tournament/js/reverse_speakers.js" %}"></script>
+{% endblock extra_head %}
+
+
 {% block page_title %}
     Итог
 {% endblock page_title %}
 
 
 {% block content %}
-    <form class="page col s9" action="{% url "tournament:result_round" tournament.id %}" method="post">
+    <form action="{% url "tournament:result_round" tournament.id %}" method="post">
         {% csrf_token %}
         {% for room in forms %}
             {% with game=room.game res=room.result  %}
 
-
-            <div class="row">
+            <div>
                 <h5> {{ game.chair.email }} (аудитория)</h5>
                 {{ res.game.errors }}
                 {{ res.game }}
             </div>
-            <div class="row">
-                <div class="col s6">
-                    {# ======   OG   ====== #}
 
-                    {% include 'tournament/result_team.html' with team=res.og game=game.og speaker_1=res.pm speaker_2=res.dpm is_rev=res.og_rev%}
+            <div class="games">
 
-                    {# ======   CG   ====== #}
+                {# ======   OG   ====== #}
 
-                    {% include 'tournament/result_team.html' with team=res.cg game=game.cg speaker_1=res.mg speaker_2=res.gw is_rev=res.cg_rev%}
+                {% include 'tournament/result_team.html' with team=res.og game=game.og speaker_1=res.pm speaker_2=res.dpm is_rev=res.og_rev%}
 
-                </div>
-                <div class="col s1"></div>
-                <div class="col s6">
+                {# ======   OO   ====== #}
 
-                    {# ======   OO   ====== #}
+                {% include 'tournament/result_team.html' with team=res.oo game=game.oo speaker_1=res.lo speaker_2=res.dlo is_rev=res.oo_rev%}
 
-                    {% include 'tournament/result_team.html' with team=res.oo game=game.oo speaker_1=res.lo speaker_2=res.dlo is_rev=res.oo_rev%}
+                {# ======   CG   ====== #}
 
-                    {# ======   CO   ====== #}
+                {% include 'tournament/result_team.html' with team=res.cg game=game.cg speaker_1=res.mg speaker_2=res.gw is_rev=res.cg_rev%}
 
-                    {% include 'tournament/result_team.html' with team=res.co game=game.co speaker_1=res.mo speaker_2=res.ow is_rev=res.co_rev%}
+                {# ======   CO   ====== #}
 
-                </div>
+                {% include 'tournament/result_team.html' with team=res.co game=game.co speaker_1=res.mo speaker_2=res.ow is_rev=res.co_rev%}
+
             </div>
+
             <hr>
 
             {% endwith %}
         {% endfor %}
         {{ form }}
         <div class="row">
-            <button type="submit" class="waves-effect waves-light btn">Сохранить</button>
+            <button type="submit" class="button">Сохранить</button>
         </div>
     </form>
 {% endblock content %}

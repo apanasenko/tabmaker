@@ -7,3 +7,6 @@ class Team(models.Model):
     speaker_1 = models.ForeignKey(User, related_name='first_speaker')
     speaker_2 = models.ForeignKey(User, related_name='second_speaker')
     info = models.TextField()
+
+    def __str__(self):
+        return "%s  $s" % (self.id, self.name)

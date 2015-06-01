@@ -4,6 +4,7 @@ import pytz
 
 from django import forms
 from datetime import datetime
+from .consts import *
 from . models import \
     Tournament, \
     TeamTournamentRel, \
@@ -114,15 +115,24 @@ class TeamRoleForm(forms.ModelForm):
         fields = [
             'role'
         ]
-#       TODO Добавить фильтр ролей и перевод
+
+    def __init__(self, *args, **kwargs):
+        super(TeamRoleForm, self).__init__(*args, **kwargs)
+        self.fields['role'].empty_label = None
+        self.fields['role'].queryset = TEAM_ROLES
 
 
-class UserRoleForm(forms.ModelForm):
+class AdjudicatorRoleForm(forms.ModelForm):
     class Meta:
         model = TeamTournamentRel
         fields = [
             'role'
         ]
+
+    def __init__(self, *args, **kwargs):
+        super(AdjudicatorRoleForm, self).__init__(*args, **kwargs)
+        self.fields['role'].empty_label = None
+        self.fields['role'].queryset = ADJUDICATOR_ROLES
 
 
 class RoundForm(forms.ModelForm):
@@ -153,3 +163,8 @@ class RoundForm(forms.ModelForm):
         if commit:
             round_obj.save()
         return round_obj
+
+
+class CheckboxForm(forms.Form):
+    is_check = forms.BooleanField()
+    id = forms.IntegerField(widget=forms.HiddenInput())

@@ -19,7 +19,8 @@ from apps.game.forms import \
 from .forms import \
     TournamentForm, \
     TeamRoleForm, \
-    UserRoleForm, \
+    AdjudicatorRoleForm, \
+    CheckboxForm, \
     RoundForm
 
 from .consts import *
@@ -29,6 +30,9 @@ from .models import \
     UserTournamentRel
 
 from .logic import \
+    create_playoff,\
+    create_next_round, \
+    get_tab, \
     get_or_generate_next_round, \
     get_last_round_games_and_results, \
     remove_last_round
@@ -88,6 +92,68 @@ def play(request, tournament_id):
     )
 
 
+def result(request, tournament_id):
+    tournament = get_object_or_404(Tournament, pk=tournament_id)
+    show_all = tournament.status == STATUS_FINISHED or user_can_edit_tournament(tournament, request.user)
+    return render(
+        request,
+        'tournament/tab.html',
+        {
+            'tournament': tournament,
+            'tab': convert_tab_to_table(get_tab(tournament), show_all),
+        }
+    )
+
+
+@login_required(login_url=reverse_lazy('account_login'))
+def generate_break(request, tournament_id):
+    tournament = get_object_or_404(Tournament, pk=tournament_id)
+    # if tournament.status != STATUS_STARTED:
+    #     return show_message(request, 'Брейк уже объявлен')
+
+    tab = get_tab(tournament)
+    table = convert_tab_to_table(tab, True)
+    teams_in_break = []
+    teams = []
+    for i in range(len(tab)):
+        if request.method == 'POST':
+            form = CheckboxForm(request.POST, prefix=i)
+            if form.is_valid() and form.cleaned_data.get('is_check', False):
+                teams_in_break.append(tab[i].team)
+        else:
+            form = CheckboxForm(
+                initial={
+                    'id': tab[i].team.id,
+                    'is_check': i < tournament.count_teams_in_break
+                },
+                prefix=i
+            )
+        teams.append({
+            'checkbox': form,
+            'result': table[i + 1],
+        })
+
+    error_message = ''
+    if request.method == 'POST':
+        if len(teams_in_break) != tournament.count_teams_in_break:
+            error_message = 'Вы должны выбрать %s команд(ы), которые делают брейк' % tournament.count_teams_in_break
+        else:
+            create_playoff(tournament, teams_in_break)
+            tournament.set_status(STATUS_PLAYOFF)
+            return redirect('tournament:play', tournament_id=tournament_id)
+
+    return render(
+        request,
+        'tournament/break.html',
+        {
+            'error': error_message,
+            'tournament': tournament,
+            'header': table[0],
+            'teams': teams,
+        }
+    )
+
+
 @login_required(login_url=reverse_lazy('account_login'))
 def next_round(request, tournament_id):
     tournament = get_object_or_404(Tournament, pk=tournament_id)
@@ -100,10 +166,10 @@ def next_round(request, tournament_id):
         round_form = RoundForm(request.POST)
         if motion_form.is_valid() and round_form.is_valid():
             round_obj = round_form.save(commit=False)
-            round_obj.tournament = tournament
-            round_obj.number = tournament.round_number_inc()
             round_obj.motion = motion_form.save()
-            round_obj.save()
+            error = create_next_round(tournament, round_obj)
+            if error:
+                show_message(request, error)
             return redirect('tournament:edit_round', tournament_id=tournament_id)
     else:
         motion_form = MotionForm()
@@ -226,8 +292,8 @@ def edit(request, tournament_id):
 @login_required(login_url=reverse_lazy('account_login'))
 def registration_team(request, tournament_id):
     tournament = get_object_or_404(Tournament, pk=tournament_id)
-    if not tournament.open_reg < datetime.datetime.now(tz=pytz.utc) < tournament.close_reg:
-        return show_message(request, 'Регистрация уже (ещё) закрыта ((')
+    if tournament.status != STATUS_REGISTRATION:
+        return show_message(request, 'Регистрация уже закрыта ((')
 
     if request.method == 'POST':
         team_form = TeamRegistrationForm(request.POST)
@@ -261,16 +327,18 @@ def registration_team(request, tournament_id):
 @login_required(login_url=reverse_lazy('account_login'))
 def registration_adjudicator(request, tournament_id):
     tournament = get_object_or_404(Tournament, pk=tournament_id)
-    if not tournament.open_reg < datetime.datetime.now(tz=pytz.utc) < tournament.close_reg:
-        return show_message(request, 'Регистрация уже (ещё) закрыта ((')
+    if tournament.status != STATUS_REGISTRATION:
+        return show_message(request, 'Регистрация уже закрыта ((')
 
-    # TODO: Добавить проверку уже зареганного судьи
-    UserTournamentRel.objects.create(
+    create = UserTournamentRel.objects.get_or_create(
         user=request.user,
         tournament=tournament,
         role=ROLE_ADJUDICATOR_REGISTERED[0]
     )
-    return show_message(request, 'Вы успешно зарегались в %s как судья' % tournament.name)
+    message = 'Вы успешно зарегались в %s как судья' % tournament.name if create[1] \
+        else 'Вы уже зарегались в %s как судья' % tournament.name
+
+    return show_message(request, message)
 
 
 def show_team_list(request, tournament_id):
@@ -321,15 +389,14 @@ def edit_team_list(request, tournament_id):
 def edit_adjudicator_list(request, tournament_id):
     tournament = get_object_or_404(Tournament, pk=tournament_id)
     forms = []
-    # TODO Добавить фильтр
-    for user_rel in tournament.usertournamentrel_set.all().order_by('user_id'):
+    for user_rel in tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id'):
         if request.method == 'POST':
-            adjudicator = UserRoleForm(request.POST, instance=user_rel, prefix=user_rel.user.id)
+            adjudicator = AdjudicatorRoleForm(request.POST, instance=user_rel, prefix=user_rel.user.id)
             if adjudicator.is_valid():
                 adjudicator.save()
 
         adjudicator = user_rel.user
-        form = UserRoleForm(instance=user_rel, prefix=adjudicator.id)
+        form = AdjudicatorRoleForm(instance=user_rel, prefix=adjudicator.id)
         forms.append({
             'adjudicator': adjudicator,
             'adjudicator_form': form
@@ -361,13 +428,7 @@ def show_adjudicator_list(request, tournament_id):
         request,
         'tournament/adjudicator_list.html',
         {
-            'adjudicators': tournament.usertournamentrel_set.filter(
-                role_id__in=[
-                    ROLE_ADJUDICATOR_REGISTERED[0],  # TODO Разобраться, почему тут приходит картеж
-                    ROLE_OWNER,
-                    ROLE_TEAM_REGISTERED,
-                ]
-            ),
+            'adjudicators': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id')
         }
     )
 
@@ -379,6 +440,33 @@ def user_can_edit_tournament(t: Tournament, u: User):
         user=u,
         role=ROLE_OWNER
     ))
+
+
+def convert_tab_to_table(table: list, show_all):
+    lines = []
+    count_rounds = max(list(map(lambda x: len(x.rounds), table)) + [0])
+    line = ['№', 'Команда', 'Сумма баллов', 'Сумма спикерских']
+
+    for i in range(1, count_rounds + 1):
+        line.append('Раунд %s' % i)
+    lines.append(line)
+
+    for team in table:
+        team.show_all = show_all
+
+    table = list(reversed(sorted(table)))
+    for i in range(len(table)):
+        line = []
+        n = lines[-1][0] if i > 0 and table[i - 1] == table[i] else i + 1
+        line += [n, table[i].team.name, table[i].sum_points, table[i].sum_speakers]
+        for cur_round in table[i].rounds:
+            round_res = str(cur_round.points * (not cur_round.is_closed or show_all))
+            if show_all:
+                round_res += " / %s+%s" % (cur_round.speaker_1, cur_round.speaker_2)
+            line.append(round_res)
+        lines.append(line)
+
+    return lines
 
 
 def show_message(request, message):
