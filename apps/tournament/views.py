@@ -389,8 +389,7 @@ def edit_team_list(request, tournament_id):
 def edit_adjudicator_list(request, tournament_id):
     tournament = get_object_or_404(Tournament, pk=tournament_id)
     forms = []
-    # TODO Добавить фильтр
-    for user_rel in tournament.usertournamentrel_set.all().order_by('user_id'):
+    for user_rel in tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id'):
         if request.method == 'POST':
             adjudicator = AdjudicatorRoleForm(request.POST, instance=user_rel, prefix=user_rel.user.id)
             if adjudicator.is_valid():
@@ -429,13 +428,7 @@ def show_adjudicator_list(request, tournament_id):
         request,
         'tournament/adjudicator_list.html',
         {
-            'adjudicators': tournament.usertournamentrel_set.filter(
-                role_id__in=[
-                    ROLE_ADJUDICATOR_REGISTERED[0],  # TODO Разобраться, почему тут приходит картеж
-                    ROLE_OWNER,
-                    ROLE_TEAM_REGISTERED,
-                ]
-            ),
+            'adjudicators': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id')
         }
     )
 
