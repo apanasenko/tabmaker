@@ -108,7 +108,8 @@ def generate_random_round(tournament: Tournament, cur_round: Round):
         # game.save()
         room = Room.objects.create(
             game=game,
-            round=cur_round
+            round=cur_round,
+            number=i
         )
         # room.save()
         rooms.append(room)
