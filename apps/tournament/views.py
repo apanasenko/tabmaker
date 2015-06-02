@@ -25,12 +25,13 @@ from .forms import \
 
 from .consts import *
 from .models import \
-    Tournament,\
-    TeamTournamentRel,\
+    AccessToPage, \
+    Tournament, \
+    TeamTournamentRel, \
     UserTournamentRel
 
 from .logic import \
-    create_playoff,\
+    create_playoff, \
     create_next_round, \
     get_tab, \
     get_or_generate_next_round, \
