@@ -80,6 +80,17 @@ def show(request, tournament_id):
 
 
 @login_required(login_url=reverse_lazy('account_login'))
+def registration_action(request, tournament_id, action):
+    tournament = get_object_or_404(Tournament, pk=tournament_id)
+    if action == 'opening' and tournament.status == STATUS_PREPARATION:
+        tournament.set_status(STATUS_REGISTRATION)
+    elif action == 'closing' and tournament.status == STATUS_REGISTRATION:
+        tournament.set_status(STATUS_PREPARATION)
+
+    return redirect('tournament:show', tournament_id=tournament.id)
+
+
+@login_required(login_url=reverse_lazy('account_login'))
 def play(request, tournament_id):
     tournament = get_object_or_404(Tournament, pk=tournament_id)
 
