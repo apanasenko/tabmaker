@@ -43,13 +43,14 @@ def access_by_status(name_page=None):
     def decorator_maker(func):
         def check_access_to_page(request, tournament_id, *args, **kwargs):
             tournament = get_object_or_404(Tournament, pk=tournament_id)
-
-            if not name_page:
-                return func(request, tournament)
-
-            security = AccessToPage.objects.get(status=tournament.status, page__name=name_page)
-            if not security.access:
-                return show_message(request, security.message)
+            if name_page:
+                security = AccessToPage.objects.get(status=tournament.status, page__name=name_page)
+                if not security.page.is_public and not user_can_edit_tournament(tournament, request.user):
+                    return show_message(request, """
+                        У Вас нет прав для просмотра данной страницы, обратитесь к создателю турнира
+                    """)
+                if not security.access:
+                    return show_message(request, security.message)
 
             return func(request, tournament, *args, **kwargs)
 
@@ -102,7 +103,6 @@ def show(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='registration_action')
 def registration_action(request, tournament, action):
-
     if action == 'opening' and tournament.status == STATUS_PREPARATION:
         tournament.set_status(STATUS_REGISTRATION)
     elif action == 'closing' and tournament.status == STATUS_REGISTRATION:
@@ -126,7 +126,6 @@ def play(request, tournament):
 
 @access_by_status(name_page='result')
 def result(request, tournament):
-
     show_all = tournament.status == STATUS_FINISHED or user_can_edit_tournament(tournament, request.user)
     return render(
         request,
@@ -291,9 +290,6 @@ def remove_round(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='edit')
 def edit(request, tournament):
-    if not user_can_edit_tournament(tournament, request.user):
-        # TODO страница ошибки доступа
-        return show_message(request, 'У вас нет прав для редактирования турнира')
 
     if request.method == 'POST':
         tournament_form = TournamentForm(request.POST, instance=tournament)
@@ -459,11 +455,11 @@ def show_adjudicator_list(request, tournament):
 
 
 def user_can_edit_tournament(t: Tournament, u: User):
-    # TODO добавить админов
+
     return u.is_authenticated() and 0 < len(UserTournamentRel.objects.filter(
         tournament=t,
         user=u,
-        role=ROLE_OWNER
+        role__in=[ROLE_OWNER, ROLE_ADMIN, ROLE_CHIEF_ADJUDICATOR]
     ))
 
 
