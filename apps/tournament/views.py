@@ -396,7 +396,7 @@ def show_team_list(request, tournament):
         request,
         'tournament/team_list.html',
         {
-            'teams': tournament.team_members.all(),
+            'team_tournament_rels': tournament.teamtournamentrel_set.all().order_by('-role_id', '-id'),
         }
     )
 
