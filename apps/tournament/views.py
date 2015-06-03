@@ -19,6 +19,7 @@ from .forms import \
     TeamRoleForm, \
     AdjudicatorRoleForm, \
     CheckboxForm, \
+    СonfirmForm, \
     RoundForm
 
 from .consts import *
@@ -115,6 +116,32 @@ def registration_action(request, tournament, action):
         tournament.set_status(STATUS_PREPARATION)
 
     return redirect('tournament:show', tournament_id=tournament.id)
+
+
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='finished')
+def finished(request, tournament):
+    need_message = 'Завершить'
+    confirm_form = СonfirmForm(request.POST)
+    is_error = False
+    if request.method == 'POST' and confirm_form.is_valid():
+        message = confirm_form.cleaned_data.get('message', '')
+        is_error = not (message == need_message)
+        if not is_error:
+            tournament.set_status(STATUS_FINISHED)
+
+            return redirect('tournament:show', tournament_id=tournament.id)
+
+    return render(
+        request,
+        'tournament/finished.html',
+        {
+            'tournament': tournament,
+            'form': confirm_form,
+            'need_message': need_message,
+            'is_error': is_error,
+        }
+    )
 
 
 @login_required(login_url=reverse_lazy('account_login'))

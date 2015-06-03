@@ -5,6 +5,7 @@
 | play                    | -            | -            | +            | +            | -            |
 | break                   | -            | -            | +            | -            | -            |
 | result                  | -            | -            | +            | +            | +            |
+| finished                | -            | -            | +            | +            | -            |
 | round next              | -            | -            | +            | +            | -            |
 | round edit              | -            | -            | +            | +            | -            |
 | round result            | -            | -            | +            | +            | -            |

@@ -1,0 +1,27 @@
+{% extends "main/base.html" %}
+
+
+{% block page_title %}
+    Завершение турнира
+{% endblock page_title %}
+
+
+{% block content %}
+    <form action="{% url "tournament:finished" tournament.id %}" method="post">
+        {% csrf_token %}
+        <h4>Закончить турнир? </h4>
+        <p>После этого вы не сможете вносить никаких изменей в турнир, a его результаты будут опубликованы.</p>
+        <p>Это действие нельзя будет отменить. </p>
+        <br>
+        {% if is_error %}
+            <p>Вы ввели неправильное слово. Повторите попытку,
+        {% else %}
+            <p>Если вы уверены,
+        {% endif %}
+        введите слово "{{ need_message }}" </p>
+        {{ form.message }}
+        <button type="submit" class="button"> Завершить </button>
+        <a class="button" href="{% url 'tournament:play' tournament.id%}"> Отмена </a>
+    </form>
+
+{% endblock content %}
