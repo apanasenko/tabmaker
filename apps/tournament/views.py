@@ -122,24 +122,50 @@ def registration_action(request, tournament, action):
 @access_by_status(name_page='finished')
 def finished(request, tournament):
     need_message = 'Завершить'
+    redirect_to = 'tournament:show'
+    template_body = 'tournament/finished_message.html'
+    redirect_args = {'tournament_id': tournament.id}
+
+    def tournament_finished(tournament_):
+        tournament_.set_status(STATUS_FINISHED)
+
+    return confirm_page(request, tournament, need_message, template_body, redirect_to, tournament_finished, redirect_args)
+
+
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='remove')
+def remove(request, tournament):
+    need_message = 'Удалить'
+    redirect_to = 'main:index'
+    template_body = 'tournament/remove_message.html'
+
+    def tournament_delete(tournament_):
+        tournament_.delete()
+
+    return confirm_page(request, tournament, need_message, template_body, redirect_to, tournament_delete)
+
+
+def confirm_page(request, tournament, need_message, template_body, redirect_to, callback, redirect_args={}):
     confirm_form = СonfirmForm(request.POST)
     is_error = False
     if request.method == 'POST' and confirm_form.is_valid():
         message = confirm_form.cleaned_data.get('message', '')
         is_error = not (message == need_message)
         if not is_error:
-            tournament.set_status(STATUS_FINISHED)
+            callback(tournament)
 
-            return redirect('tournament:show', tournament_id=tournament.id)
+            return redirect(redirect_to, **redirect_args)
 
     return render(
         request,
-        'tournament/finished.html',
+        'tournament/confirm.html',
         {
             'tournament': tournament,
             'form': confirm_form,
             'need_message': need_message,
             'is_error': is_error,
+            'template_body': template_body,
+            'path': request.path
         }
     )
 

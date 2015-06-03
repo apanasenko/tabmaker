@@ -7,12 +7,9 @@
 
 
 {% block content %}
-    <form action="{% url "tournament:finished" tournament.id %}" method="post">
+    <form action="{{ path }}" method="post">
         {% csrf_token %}
-        <h4>Закончить турнир? </h4>
-        <p>После этого вы не сможете вносить никаких изменей в турнир, a его результаты будут опубликованы.</p>
-        <p>Это действие нельзя будет отменить. </p>
-        <br>
+        {% include template_body %}
         {% if is_error %}
             <p>Вы ввели неправильное слово. Повторите попытку,
         {% else %}
@@ -20,7 +17,7 @@
         {% endif %}
         введите слово "{{ need_message }}" </p>
         {{ form.message }}
-        <button type="submit" class="button"> Завершить </button>
+        <button type="submit" class="button"> Подтвердить </button>
         <a class="button" href="{% url 'tournament:play' tournament.id%}"> Отмена </a>
     </form>
 
