@@ -40,7 +40,9 @@ from .logic import \
 
 
 def access_by_status(name_page=None):
+
     def decorator_maker(func):
+
         def check_access_to_page(request, tournament_id, *args, **kwargs):
             tournament = get_object_or_404(Tournament, pk=tournament_id)
             if name_page:
@@ -49,6 +51,7 @@ def access_by_status(name_page=None):
                     return show_message(request, """
                         У Вас нет прав для просмотра данной страницы, обратитесь к создателю турнира
                     """)
+
                 if not security.access:
                     return show_message(request, security.message)
 
@@ -84,18 +87,23 @@ def new(request):
     else:
         tournament_form = TournamentForm()
 
-    return render(request, 'tournament/new.html', {'form': tournament_form})
+    return render(
+        request,
+        'tournament/new.html',
+        {
+            'form': tournament_form,
+        }
+    )
 
 
 @access_by_status()
 def show(request, tournament):
-
     return render(
         request,
         'tournament/show.html',
         {
             'tournament': tournament,
-            'is_owner': user_can_edit_tournament(tournament, request.user)
+            'is_owner': user_can_edit_tournament(tournament, request.user),
         }
     )
 
@@ -114,7 +122,6 @@ def registration_action(request, tournament, action):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='play')
 def play(request, tournament):
-
     return render(
         request,
         'tournament/play.html',
@@ -127,6 +134,7 @@ def play(request, tournament):
 @access_by_status(name_page='result')
 def result(request, tournament):
     show_all = tournament.status == STATUS_FINISHED or user_can_edit_tournament(tournament, request.user)
+
     return render(
         request,
         'tournament/tab.html',
@@ -169,6 +177,7 @@ def generate_break(request, tournament):
         else:
             create_playoff(tournament, teams_in_break)
             tournament.set_status(STATUS_PLAYOFF)
+
             return redirect('tournament:play', tournament_id=tournament.id)
 
     return render(
@@ -186,7 +195,6 @@ def generate_break(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='round_next')
 def next_round(request, tournament):
-
     if request.method == 'POST':
         motion_form = MotionForm(request.POST)
         round_form = RoundForm(request.POST)
@@ -196,6 +204,7 @@ def next_round(request, tournament):
             error = create_next_round(tournament, round_obj)
             if error:
                 show_message(request, error)
+
             return redirect('tournament:edit_round', tournament_id=tournament.id)
     else:
         motion_form = MotionForm()
@@ -284,13 +293,13 @@ def result_round(request, tournament):
 @access_by_status(name_page='round_remove')
 def remove_round(request, tournament):
     remove_last_round(tournament)
+
     return redirect('tournament:play', tournament_id=tournament.id)
 
 
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='edit')
 def edit(request, tournament):
-
     if request.method == 'POST':
         tournament_form = TournamentForm(request.POST, instance=tournament)
         if tournament_form.is_valid():
@@ -314,7 +323,6 @@ def edit(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. registration')
 def registration_team(request, tournament):
-
     if request.method == 'POST':
         team_form = TeamRegistrationForm(request.POST)
         if team_form.is_valid():
@@ -327,7 +335,6 @@ def registration_team(request, tournament):
                 tournament=tournament,
                 role=ROLE_TEAM_REGISTERED
             )
-
             return show_message(request, 'Вы успешно зарегались в %s' % tournament.name)
 
     else:
@@ -347,7 +354,6 @@ def registration_team(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. registration')
 def registration_adjudicator(request, tournament):
-
     create = UserTournamentRel.objects.get_or_create(
         user=request.user,
         tournament=tournament,
@@ -361,7 +367,6 @@ def registration_adjudicator(request, tournament):
 
 @access_by_status()
 def show_team_list(request, tournament):
-
     return render(
         request,
         'tournament/team_list.html',
@@ -427,6 +432,7 @@ def edit_adjudicator_list(request, tournament):
     chair_count = tournament.usertournamentrel_set.filter(role=ROLE_CHAIR).count()
     if is_check_page and request.method == 'POST' and chair_count >= member_count // TEAM_IN_GAME:
         tournament.set_status(STATUS_STARTED)
+
         return redirect('tournament:play', tournament_id=tournament.id)
 
     return render(
@@ -444,18 +450,16 @@ def edit_adjudicator_list(request, tournament):
 
 @access_by_status()
 def show_adjudicator_list(request, tournament):
-
     return render(
         request,
         'tournament/adjudicator_list.html',
         {
-            'adjudicators': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id')
+            'adjudicators': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id'),
         }
     )
 
 
 def user_can_edit_tournament(t: Tournament, u: User):
-
     return u.is_authenticated() and 0 < len(UserTournamentRel.objects.filter(
         tournament=t,
         user=u,
@@ -491,4 +495,10 @@ def convert_tab_to_table(table: list, show_all):
 
 
 def show_message(request, message):
-    return render(request, 'main/message.html', {'message': message})
+    return render(
+        request,
+        'main/message.html',
+        {
+            'message': message,
+        }
+    )
