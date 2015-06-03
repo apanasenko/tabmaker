@@ -201,7 +201,7 @@ def result(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='break')
 def generate_break(request, tournament):
-    tab = get_tab(tournament)
+    tab = list(reversed(sorted(get_tab(tournament))))
     table = convert_tab_to_table(tab, True)
     teams_in_break = []
     teams = []

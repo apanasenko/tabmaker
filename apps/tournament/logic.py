@@ -242,7 +242,7 @@ def get_tab(tournament: Tournament):
 
             teams[team_id].add_round(team_result)
 
-    return list(reversed(sorted(list(teams.values()))))
+    return list(teams.values())
 
 
 def generate_playoff_position(count: int):
