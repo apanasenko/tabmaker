@@ -8,7 +8,9 @@ from apps.game.models import\
     GameResult
 from apps.team.models import Team
 from apps.motion.models import Motion
-from .db_execute import get_teams_result_list
+from .db_execute import \
+    get_teams_result_list, \
+    get_motion_list
 from .consts import *
 from .models import \
     Tournament,\
@@ -363,3 +365,26 @@ def generate_playoff_round(tournament: Tournament, cur_round: Round):
         ))
 
     return rooms
+
+
+def get_tournament_motions(tournament: Tournament):
+    motions = {
+        'qualification': [],
+        'playoff': [],
+    }
+
+    for motion in get_motion_list(tournament.id):
+        new_motion = {
+            'motion': motion['motion'],
+            'infoslide': motion['infoslide'],
+        }
+        if motion['is_playoff']:
+            new_motion['number'] = 'Финал' \
+                if motion['count'] == 1 \
+                else '1/%s' % motion['count']
+            motions['playoff'].append(new_motion)
+        else:
+            new_motion['number'] = 'Раунд ' + str(motion['number'])
+            motions['qualification'].append(new_motion)
+
+    return motions['qualification'] + motions['playoff']

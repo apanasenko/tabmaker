@@ -36,6 +36,7 @@ from .logic import \
     get_tab, \
     get_or_generate_next_round, \
     get_last_round_games_and_results, \
+    get_tournament_motions, \
     remove_last_round
 
 
@@ -194,6 +195,7 @@ def result(request, tournament):
             'tournament': tournament,
             'team_tab': convert_tab_to_table(get_tab(tournament), show_all),
             'speaker_tab': convert_tab_to_speaker_table(get_tab(tournament), show_all),
+            'motions': get_tournament_motions(tournament)
         }
     )
 
