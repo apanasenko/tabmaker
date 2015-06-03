@@ -118,15 +118,6 @@ class SpeakerResult:
 
     def __str__(self):
         return "|%s| %s <%s> : %s" % (self.user.id, self.user.email, self.team.name, self.sum_points())
-# def get_member_from_tournament(tournament: Tournament):
-#     return tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER)
-#
-#
-# def get_adjudicator_from_tournament(tournament: Tournament):
-#     return {
-#         'chair': tournament.usertournamentrel_set.filter(role=ROLE_CHAIR),
-#         'wing': tournament.usertournamentrel_set.filter(role=ROLE_WING),
-#     }
 
 
 # TODO @check_tournament
@@ -134,7 +125,6 @@ def generate_random_round(tournament: Tournament, cur_round: Round):
 
     teams = list(tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER))
     chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
-    # wings = tournament.usertournamentrel_set.filter(role=ROLE_WING)
 
     rooms = []
     random.shuffle(chair)
@@ -149,13 +139,11 @@ def generate_random_round(tournament: Tournament, cur_round: Round):
             date=datetime.datetime.now(),
             motion=cur_round.motion
         )
-        # game.save()
         room = Room.objects.create(
             game=game,
             round=cur_round,
             number=i
         )
-        # room.save()
         rooms.append(room)
 
     return rooms
@@ -237,7 +225,7 @@ def get_tab(tournament: Tournament):
                 bool(game['is_closed'])
             )
             team_id = game[position[0]]
-            if not team_id in teams.keys():
+            if team_id not in teams.keys():
                 teams[team_id] = TeamResult(team_id)
 
             teams[team_id].add_round(team_result)
@@ -289,7 +277,9 @@ def create_playoff(tournament: Tournament, teams: list):
 
 
 def create_next_round(tournament: Tournament, round_obj):
-    # round_obj - не сохранённый объект из формы
+    """
+    round_obj - не сохранённый объект из формы
+    """
     if tournament.status == STATUS_STARTED:
         round_obj.tournament = tournament
         round_obj.number = tournament.round_number_inc()
