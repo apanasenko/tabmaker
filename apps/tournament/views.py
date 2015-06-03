@@ -1,3 +1,4 @@
+import random
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import \
     reverse_lazy, \
@@ -188,10 +189,11 @@ def result(request, tournament):
 
     return render(
         request,
-        'tournament/tab.html',
+        'tournament/result.html',
         {
             'tournament': tournament,
-            'tab': convert_tab_to_table(get_tab(tournament), show_all),
+            'team_tab': convert_tab_to_table(get_tab(tournament), show_all),
+            'speaker_tab': convert_tab_to_speaker_table(get_tab(tournament), show_all),
         }
     )
 
@@ -540,6 +542,35 @@ def convert_tab_to_table(table: list, show_all):
             if show_all:
                 round_res += " / %s+%s" % (cur_round.speaker_1, cur_round.speaker_2)
             line.append(round_res)
+        lines.append(line)
+
+    return lines
+
+
+def convert_tab_to_speaker_table(table: list, is_show):
+    speakers = []
+    for team_result in table:
+        speakers += team_result.extract_speakers_result()
+
+    if is_show:
+        speakers = list(reversed(sorted(speakers)))
+    else:
+        random.shuffle(speakers)
+
+    lines = []
+    count_rounds = max(list(map(lambda x: len(x.points), speakers)) + [0])
+    head = ['№', 'Спикер', 'Команда', 'Сумма баллов']
+
+    for i in range(1, count_rounds + 1):
+        head.append('Раунд %s' % i)
+    lines.append(head)
+
+    for i in range(len(speakers)):
+        line = []
+        n = lines[-1][0] if i > 0 and speakers[i - 1] == speakers[i] else i + 1
+        line += [n, speakers[i].user.email, speakers[i].team.name, speakers[i].sum_points() * int(is_show)]
+        for point in speakers[i].points:
+            line.append(point * int(is_show))
         lines.append(line)
 
     return lines

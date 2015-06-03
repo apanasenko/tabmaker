@@ -54,6 +54,16 @@ class TeamResult:
 
         return self.rounds
 
+    def extract_speakers_result(self):
+        speaker_1 = SpeakerResult(self.team, self.team.speaker_1)
+        speaker_2 = SpeakerResult(self.team, self.team.speaker_2)
+
+        for cur_round in self.rounds:
+            speaker_1.add_round(cur_round.speaker_1, cur_round.number)
+            speaker_2.add_round(cur_round.speaker_2, cur_round.number)
+
+        return [speaker_1, speaker_2]
+
     def sum_points(self):
         return sum(list(map(lambda x: x.points * int(self.show_all or not x.is_closed), self.rounds)))
 
@@ -74,6 +84,40 @@ class TeamResult:
     def __str__(self):
         return "(%s) %s points:%s speakers:%s" % (self.team.id, self.team.name, self.sum_points(), self.sum_speakers())
 
+
+class SpeakerResult:
+
+    def __init__(self, team, user):
+        self.team = team
+        self.user = user
+        self.points = []
+
+    def add_round(self, points, round_number):
+        if len(self.points) + 1 == round_number:
+            self.points.append(points)
+        elif len(self.points) + 1 < round_number:
+            for i in range(len(self.points) + 1, round_number):
+                self.points.append(0)
+            self.points.append(points)
+        elif len(self.points) + 1 > round_number:
+            self.points[round_number - 1] = points
+
+        return self
+
+    def sum_points(self):
+        return sum(self.points)
+
+    def __gt__(self, other):
+        return self.sum_points() > other.sum_points()
+
+    def __eq__(self, other):
+        return self.sum_points() == other.sum_points()
+
+    def __lt__(self, other):
+        return self.sum_points() < other.sum_points()
+
+    def __str__(self):
+        return "|%s| %s <%s> : %s" % (self.user.id, self.user.email, self.team.name, self.sum_points())
 # def get_member_from_tournament(tournament: Tournament):
 #     return tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER)
 #
