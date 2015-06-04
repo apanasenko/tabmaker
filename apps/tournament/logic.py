@@ -388,3 +388,20 @@ def get_tournament_motions(tournament: Tournament):
             motions['qualification'].append(new_motion)
 
     return motions['qualification'] + motions['playoff']
+
+
+def check_last_round_results(tournament: Tournament):
+    last_rounds = Round.objects.filter(
+        tournament=tournament,
+        is_playoff=(tournament.status == STATUS_PLAYOFF)
+    )
+    if not last_rounds:
+        return None
+
+    last_round = last_rounds.latest('number')
+
+    for room in Room.objects.filter(round=last_round):
+        if not GameResult.objects.filter(game=room.game).exists():
+            return 'Введите результаты последнего раунда'
+
+    return None

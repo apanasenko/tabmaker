@@ -33,6 +33,7 @@ from .models import \
 from .logic import \
     create_playoff, \
     create_next_round, \
+    check_last_round_results, \
     get_tab, \
     get_or_generate_next_round, \
     get_last_round_games_and_results, \
@@ -61,6 +62,18 @@ def access_by_status(name_page=None):
         return check_access_to_page
 
     return decorator_maker
+
+
+def check_results(func):
+
+    def decorator(request, tournament):
+        error = check_last_round_results(tournament)
+        if error:
+            return show_message(request, error)
+
+        return func(request, tournament)
+
+    return decorator
 
 
 def index(request):
@@ -249,6 +262,7 @@ def generate_break(request, tournament):
 
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='round_next')
+@check_results
 def next_round(request, tournament):
     if request.method == 'POST':
         motion_form = MotionForm(request.POST)
