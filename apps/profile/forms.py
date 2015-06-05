@@ -78,6 +78,8 @@ class SignupForm(forms.ModelForm):
         user.last_name = self.cleaned_data['last_name']
         user.email = self.cleaned_data['email']
         user.phone = self.cleaned_data['phone']
+        user.player_experience = self.cleaned_data['player_experience']
+        user.adjudicator_experience = self.cleaned_data['adjudicator_experience']
         user.save()
 
 
