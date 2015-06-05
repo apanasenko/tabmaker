@@ -1,7 +1,7 @@
 {% extends "main/base.html" %}
 
 {% load staticfiles %}
-
+{% load profile_extras %}
 
 {% block extra_head %}
     {{ block.super }}
@@ -39,11 +39,11 @@
             <div class="row">
                 <div class="col s3">
                     <label>Первый спикер:</label>
-                    {{ rel.team.speaker_1.email }}
+                    {{ rel.team.speaker_1|name }}
                 </div>
                 <div class="col s3">
                     <label>Второй спикер:</label>
-                    {{ rel.team.speaker_2.email }}
+                    {{ rel.team.speaker_2|name }}
                 </div>
             </div>
             <hr>

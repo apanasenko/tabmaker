@@ -119,7 +119,7 @@ class SpeakerResult:
         return self.sum_points() < other.sum_points()
 
     def __str__(self):
-        return "|%s| %s <%s> : %s" % (self.user.id, self.user.email, self.team.name, self.sum_points())
+        return "|%s| %s <%s> : %s" % (self.user.id, self.user.name(), self.team.name, self.sum_points())
 
 
 # TODO @check_tournament

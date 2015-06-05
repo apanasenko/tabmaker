@@ -584,7 +584,7 @@ def convert_tab_to_speaker_table(table: list, is_show):
     for i in range(len(speakers)):
         line = []
         n = lines[-1][0] if i > 0 and speakers[i - 1] == speakers[i] else i + 1
-        line += [n, speakers[i].user.email, speakers[i].team.name, speakers[i].sum_points() * int(is_show)]
+        line += [n, speakers[i].user.name(), speakers[i].team.name, speakers[i].sum_points() * int(is_show)]
         for point in speakers[i].points:
             line.append(point * int(is_show))
         lines.append(line)

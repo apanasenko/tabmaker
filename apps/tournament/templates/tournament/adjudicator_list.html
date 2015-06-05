@@ -1,5 +1,7 @@
 {% extends "main/base.html" %}
 
+{% load profile_extras %}
+
 {% block page_title %}
     Список судей
 {% endblock page_title %}
@@ -8,7 +10,7 @@
     <div class="page col s9">
     {% for adjudicator in adjudicators %}
         <p>
-            {{ adjudicator.user.email}} <{{ adjudicator.role.role }}>
+            {{ adjudicator.user|name }} <{{ adjudicator.role.role }}>
         </p>
         <hr>
     {% endfor %}

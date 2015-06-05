@@ -1,6 +1,7 @@
 {% extends "main/base.html" %}
 
 {% load staticfiles %}
+{% load profile_extras %}
 
 {% block extra_head %}
     {{ block.super }}
@@ -30,7 +31,7 @@
             <div class="row">
                 <div class="col s4">
                     <label>Судья</label>
-                    <p>{{ rel.adjudicator.email }}</p>
+                    <p>{{ rel.adjudicator|name }}</p>
                 </div>
                 <div class=" col s4">
                     {{ rel.adjudicator_form.role }}
