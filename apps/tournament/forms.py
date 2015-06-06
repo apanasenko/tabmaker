@@ -168,3 +168,7 @@ class RoundForm(forms.ModelForm):
 class CheckboxForm(forms.Form):
     is_check = forms.BooleanField()
     id = forms.IntegerField(widget=forms.HiddenInput())
+
+
+class СonfirmForm(forms.Form):
+    message = forms.CharField(widget=forms.TextInput())

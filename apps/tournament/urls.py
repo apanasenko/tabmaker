@@ -14,6 +14,13 @@ urlpatterns = patterns('',
     url(r'^(?P<tournament_id>\d+)/play[/]$', views.play, name='play'),
     url(r'^(?P<tournament_id>\d+)/break[/]$', views.generate_break, name='break'),
     url(r'^(?P<tournament_id>\d+)/result[/]$', views.result, name='result'),
+    url(r'^(?P<tournament_id>\d+)/finished[/]$', views.finished, name='finished'),
+    url(r'^(?P<tournament_id>\d+)/remove[/]$', views.remove, name='remove'),
+    url(
+        r'^(?P<tournament_id>\d+)/registration/(?P<action>(opening|closing))[/]$',
+        views.registration_action,
+        name='registration_action'
+    ),
     url(r'^(?P<tournament_id>\d+)/round/next[/]$', views.next_round, name='next_round'),
     url(r'^(?P<tournament_id>\d+)/round/edit[/]$', views.edit_round, name='edit_round'),
     url(r'^(?P<tournament_id>\d+)/round/result[/]$', views.result_round, name='result_round'),

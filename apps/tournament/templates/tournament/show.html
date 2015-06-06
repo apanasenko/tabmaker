@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="tournament_info">
-        
+
         {% block page_title %}
         <h3>{{ tournament.name }}</h3>
         {% endblock page_title %}
@@ -16,7 +16,7 @@
             <li>Брейк: {{ tournament.count_teams_in_break }}</li>
         </ul>
 
-        
+
         <article>
             <p>{{ tournament.info }}</p>
         </article>
@@ -52,7 +52,7 @@
             <h3>Регистрация уже закончилась ((</h3>
         {% else %}
             <h3>Регистрация до {{ tournament.close_reg|date:"M d, Y" }}</h3>
-            
+
             <div class="button_wrapper">
                 <a class="button" href="{% url "tournament:registration_team" tournament.id %}">Участовать</a>
                 <a class="button" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
@@ -67,6 +67,7 @@
             <p> <a href="{% url "tournament:edit_team_list" tournament.id %}"> Редактировать список команд </a> </p>
             <p> <a href="{% url "tournament:edit_adjudicator_list" tournament.id %}"> Редактировать список судей</a> </p>
             <p> <a href="{% url "tournament:check_team_list" tournament.id %}"> Начать </a> </p>
+            <p> <a href="{% url "tournament:remove" tournament.id %}"> Удалить </a> </p>
         {% endif %}
 
     </div>

@@ -1,0 +1,35 @@
+{% extends "main/base.html" %}
+
+{% load profile_extras %}
+
+{% block page_title %}
+    <h3>{{ user|name }}</h3>
+{% endblock page_title %}
+
+{% block content %}
+
+    <div class="tournament_info">
+
+        <div>
+            <div>Страна: {{ user.university.country.name}}</div>
+            <div>Город: {{ user.university.city.name }} </div>
+            <div>Университет: {{ user.university.name }}</div>
+        </div>
+
+        <div>
+            Email: {{ user.email }}
+        </div>
+        <div>
+            Телефон: {{ user.phone }}
+        </div>
+        <div>
+            Опыт в дебатах: {{ user.player_experience }}
+        </div>
+        <div>
+            Опыт в судействе: {{ user.adjudicator_experience }}
+        </div>
+        <br>
+        <h6>* Редактирование профиля пока недоступно</h6>
+    </div>
+
+{% endblock content %}

@@ -8,7 +8,9 @@ from apps.game.models import\
     GameResult
 from apps.team.models import Team
 from apps.motion.models import Motion
-from .db_execute import get_teams_result_list
+from .db_execute import \
+    get_teams_result_list, \
+    get_motion_list
 from .consts import *
 from .models import \
     Tournament,\
@@ -54,6 +56,16 @@ class TeamResult:
 
         return self.rounds
 
+    def extract_speakers_result(self):
+        speaker_1 = SpeakerResult(self.team, self.team.speaker_1)
+        speaker_2 = SpeakerResult(self.team, self.team.speaker_2)
+
+        for cur_round in self.rounds:
+            speaker_1.add_round(cur_round.speaker_1, cur_round.number)
+            speaker_2.add_round(cur_round.speaker_2, cur_round.number)
+
+        return [speaker_1, speaker_2]
+
     def sum_points(self):
         return sum(list(map(lambda x: x.points * int(self.show_all or not x.is_closed), self.rounds)))
 
@@ -74,15 +86,40 @@ class TeamResult:
     def __str__(self):
         return "(%s) %s points:%s speakers:%s" % (self.team.id, self.team.name, self.sum_points(), self.sum_speakers())
 
-# def get_member_from_tournament(tournament: Tournament):
-#     return tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER)
-#
-#
-# def get_adjudicator_from_tournament(tournament: Tournament):
-#     return {
-#         'chair': tournament.usertournamentrel_set.filter(role=ROLE_CHAIR),
-#         'wing': tournament.usertournamentrel_set.filter(role=ROLE_WING),
-#     }
+
+class SpeakerResult:
+
+    def __init__(self, team, user):
+        self.team = team
+        self.user = user
+        self.points = []
+
+    def add_round(self, points, round_number):
+        if len(self.points) + 1 == round_number:
+            self.points.append(points)
+        elif len(self.points) + 1 < round_number:
+            for i in range(len(self.points) + 1, round_number):
+                self.points.append(0)
+            self.points.append(points)
+        elif len(self.points) + 1 > round_number:
+            self.points[round_number - 1] = points
+
+        return self
+
+    def sum_points(self):
+        return sum(self.points)
+
+    def __gt__(self, other):
+        return self.sum_points() > other.sum_points()
+
+    def __eq__(self, other):
+        return self.sum_points() == other.sum_points()
+
+    def __lt__(self, other):
+        return self.sum_points() < other.sum_points()
+
+    def __str__(self):
+        return "|%s| %s <%s> : %s" % (self.user.id, self.user.name(), self.team.name, self.sum_points())
 
 
 # TODO @check_tournament
@@ -90,7 +127,6 @@ def generate_random_round(tournament: Tournament, cur_round: Round):
 
     teams = list(tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER))
     chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
-    # wings = tournament.usertournamentrel_set.filter(role=ROLE_WING)
 
     rooms = []
     random.shuffle(chair)
@@ -105,13 +141,11 @@ def generate_random_round(tournament: Tournament, cur_round: Round):
             date=datetime.datetime.now(),
             motion=cur_round.motion
         )
-        # game.save()
         room = Room.objects.create(
             game=game,
             round=cur_round,
             number=i
         )
-        # room.save()
         rooms.append(room)
 
     return rooms
@@ -193,12 +227,12 @@ def get_tab(tournament: Tournament):
                 bool(game['is_closed'])
             )
             team_id = game[position[0]]
-            if not team_id in teams.keys():
+            if team_id not in teams.keys():
                 teams[team_id] = TeamResult(team_id)
 
             teams[team_id].add_round(team_result)
 
-    return list(reversed(sorted(list(teams.values()))))
+    return list(teams.values())
 
 
 def generate_playoff_position(count: int):
@@ -245,7 +279,9 @@ def create_playoff(tournament: Tournament, teams: list):
 
 
 def create_next_round(tournament: Tournament, round_obj):
-    # round_obj - не сохранённый объект из формы
+    """
+    round_obj - не сохранённый объект из формы
+    """
     if tournament.status == STATUS_STARTED:
         round_obj.tournament = tournament
         round_obj.number = tournament.round_number_inc()
@@ -329,3 +365,43 @@ def generate_playoff_round(tournament: Tournament, cur_round: Round):
         ))
 
     return rooms
+
+
+def get_tournament_motions(tournament: Tournament):
+    motions = {
+        'qualification': [],
+        'playoff': [],
+    }
+
+    for motion in get_motion_list(tournament.id):
+        new_motion = {
+            'motion': motion['motion'],
+            'infoslide': motion['infoslide'],
+        }
+        if motion['is_playoff']:
+            new_motion['number'] = 'Финал' \
+                if motion['count'] == 1 \
+                else '1/%s' % motion['count']
+            motions['playoff'].append(new_motion)
+        else:
+            new_motion['number'] = 'Раунд ' + str(motion['number'])
+            motions['qualification'].append(new_motion)
+
+    return motions['qualification'] + motions['playoff']
+
+
+def check_last_round_results(tournament: Tournament):
+    last_rounds = Round.objects.filter(
+        tournament=tournament,
+        is_playoff=(tournament.status == STATUS_PLAYOFF)
+    )
+    if not last_rounds:
+        return None
+
+    last_round = last_rounds.latest('number')
+
+    for room in Room.objects.filter(round=last_round):
+        if not GameResult.objects.filter(game=room.game).exists():
+            return 'Введите результаты последнего раунда'
+
+    return None

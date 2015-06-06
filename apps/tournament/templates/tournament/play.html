@@ -37,6 +37,9 @@
                onclick="confirm_remove_round('{% url 'tournament:remove_round' tournament.id %}')"
                value="Удалить последний раунд"
         >
+        <br>
+        <br>
+        <a class="button" href="{% url 'tournament:finished' tournament.id%}"> Завершить турнир </a>
     </div>
 </div>
 {% endblock content %}

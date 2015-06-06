@@ -1,6 +1,7 @@
 {% extends "main/base.html" %}
 
 {% load staticfiles %}
+{% load profile_extras %}
 
 {% block extra_head %}
     {{ block.super }}
@@ -20,7 +21,7 @@
             {% with game=room.game res=room.result  %}
 
             <div>
-                <h5> {{ game.chair.email }} (аудитория)</h5>
+                <h5> {{ game.chair|name }} (аудитория)</h5>
                 {{ res.game.errors }}
                 {{ res.game }}
             </div>

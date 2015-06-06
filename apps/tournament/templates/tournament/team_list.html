@@ -1,20 +1,22 @@
 {% extends "main/base.html" %}
 
+{% load profile_extras %}
+
 {% block page_title %}
     Список команд
 {% endblock page_title %}
 
 {% block content %}
     <div class="page col s9">
-        {% for team in teams %}
+        {% for team_tournament_rel in team_tournament_rels %}
             <p>
-                {{ team.name }}
+                {{ team_tournament_rel.team.name }} {{ team_tournament_rel.role.role }}
             </p>
             <p>
-                {{ team.speaker_1.email }}
+                {{ team_tournament_rel.team.speaker_1|name }}
             </p>
             <p>
-                {{ team.speaker_2.email }}
+                {{ team_tournament_rel.team.speaker_2|name }}
             </p>
             <hr>
         {% endfor %}

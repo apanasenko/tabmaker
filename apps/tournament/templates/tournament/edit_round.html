@@ -1,6 +1,7 @@
 {% extends "main/base.html" %}
 
 {% load staticfiles %}
+{% load profile_extras %}
 
 {% block extra_head %}
     {{ block.super }}
@@ -54,7 +55,7 @@
                 <div class="chair">
                     <p>Cудья</p>
                     {{ form.game_form.chair }}
-                    <div class="chair_name">{{ form.game.chair.email }}</div>
+                    <div class="chair_name">{{ form.game.chair|name }}</div>
                 </div>
             </div>
         </div>
