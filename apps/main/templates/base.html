@@ -48,31 +48,30 @@
             </div>
             {% endblock header %}
         </header>
-            
+
         <section class="content_conteiner">
 
             <aside class="sidebar">
             {% block sidebar%}
-                
+
                 <ul class="">
-                    <li class=""><a href="#">Профиль</a></li>
-                    <li class=""><a href="#">Мои турниры</a></li>
-                    <li class=""><a href="#">Мои заявки</a></li>
-                    <li class="">
-                        {% if request.user.is_authenticated %}
-                            <a href="{% url 'account_logout' %}">Выйти</a>
-                        {% else %}
-                            <a href="{% url 'account_login' %}">Войти</a>
-                        {% endif %}
-                    </li>
-                </ul>
-                {% if request.user.is_authenticated %}
+                    {% if request.user.is_authenticated %}
+
+                        <li class=""><a href="#">Профиль</a></li>
+                        <li class=""><a href="#">Мои турниры</a></li>
+                        <li class=""><a href="#">Мои заявки</a></li>
+                        <li class=""><a href="{% url 'account_logout' %}">Выйти</a></li>
+
                     {% else %}
-                        <button id="registration_btn"><a href="{% url 'account_signup' %}">Зарегистрироваться</a></button>
+
+                        <li class=""><a href="{% url 'account_login' %}">Войти</a></li>
+                        <li class=""><a href="{% url 'account_signup' %}">Зарегистрироваться</a></li>
+
                     {% endif %}
+                </ul>
             {% endblock sidebar %}
             </aside>
-            
+
             <div class="content">
             {% block content %}
             {% endblock content %}
