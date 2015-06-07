@@ -3,22 +3,20 @@
 {% load profile_extras %}
 
 {% block page_title %}
-    Список команд
+    <a class="white" href="/">Назад</a>
 {% endblock page_title %}
 
 {% block content %}
-    <div class="page col s9">
+    
         {% for team_tournament_rel in team_tournament_rels %}
-            <p>
-                {{ team_tournament_rel.team.name }} {{ team_tournament_rel.role.role }}
-            </p>
-            <p>
-                {{ team_tournament_rel.team.speaker_1|name }}
-            </p>
-            <p>
-                {{ team_tournament_rel.team.speaker_2|name }}
-            </p>
-            <hr>
+        <div id="team_in_list" class="formItem full">
+            <h3>{{ team_tournament_rel.team.name }}</h3>
+            <p>Статус: {{ team_tournament_rel.role.role }}</p>
+            <ul>
+                <li>{{ team_tournament_rel.team.speaker_1|name }}</li>
+                <li>{{ team_tournament_rel.team.speaker_2|name }}</li>
+            </ul>
+        </div>
         {% endfor %}
-    </div>
+   
 {% endblock content %}

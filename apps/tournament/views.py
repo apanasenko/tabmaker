@@ -78,7 +78,7 @@ def check_results(func):
 
 def index(request):
     # TODO придумать зачем эта страница
-    return show_message(request, 'Нужна ди эта страница?')
+    return show_message(request, 'Нужна ли эта страница?')
 
 
 @login_required(login_url=reverse_lazy('account_login'))
@@ -404,7 +404,7 @@ def registration_team(request, tournament):
                 tournament=tournament,
                 role=ROLE_TEAM_REGISTERED
             )
-            return show_message(request, 'Вы успешно зарегались в %s' % tournament.name)
+            return show_message(request, 'Вы успешно зарегистрировались на %s' % tournament.name)
 
     else:
         team_form = TeamRegistrationForm(initial={'speaker_1': request.user.email})
@@ -428,8 +428,8 @@ def registration_adjudicator(request, tournament):
         tournament=tournament,
         role=ROLE_ADJUDICATOR_REGISTERED[0]
     )
-    message = 'Вы успешно зарегались в %s как судья' % tournament.name if create[1] \
-        else 'Вы уже зарегались в %s как судья' % tournament.name
+    message = 'Вы успешно зарегистрировались на %s как судья' % tournament.name if create[1] \
+        else 'Вы уже зарегистрировались на %s как судья' % tournament.name
 
     return show_message(request, message)
 

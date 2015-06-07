@@ -7,27 +7,27 @@
 
 {% block content %}
 
-    <form class="page col s9" action="{% url "tournament:registration_team" id %}" method="post">
+    <form action="{% url "tournament:registration_team" id %}" method="post">
 
         {% csrf_token %}
         {{ form.non_field_errors }}
-        <div>
-            <p>{{ form.name.errors }}</p>
-            <p><label for="id_name">Название:</label></p>
-            <p>{{ form.name }}</p>
+        <div class="formItem">
+            <label for="id_name">Название</label>
+            {{ form.name }}
+            {{ form.name.errors }}
         </div>
-        <div>
-            <p>{{ form.speaker_2.errors }}</p>
-            <p><label for="id_speaker_2">Забей тима:</label></p>
-            <p>{{ form.speaker_2 }}</p>
-            <p>{{ form.speaker_1 }}</p>
+        <div class="formItem">
+            <label for="id_speaker_2">E-mail вашего напарника</label>
+            {{ form.speaker_2 }}
+            {{ form.speaker_1 }}
+            {{ form.speaker_2.errors }}
         </div>
-        <div>
-            <p>{{ form.info.errors }}</p>
-            <p><label for="id_info">Описание:</label></p>
-            <p>{{ form.info }}</p>
+        <div class="textarea">
+            <label for="id_info">Описание</label>
+            {{ form.info }}
+            {{ form.info.errors }}
         </div>
-        <input type="submit" value="Submit" />
+        <input type="submit" class="button formItem" value="Отправить"/>
     </form>
 
 {% endblock content %}

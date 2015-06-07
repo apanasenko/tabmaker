@@ -10,24 +10,26 @@
 {% endblock page_title %}
 
 {% block content %}
-<div class="page col s9">
+<div id="email_confirm">
 
     {% if confirmation %}
 
     {% user_display confirmation.email_address.user as user_display %}
 
-    <p> Подтверите аккаунт <a href="mailto:{{email}}">{{ email }}</a></p>
+    <h3> Подтверите аккаунт <a href="mailto:{{email}}">{{ email }}</a></h3>
 
     <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
     {% csrf_token %}
-        <button type="submit"> Да, всё ровно, погнали</button>
+        <button class="button" type="submit">Да, погнали!</button>
     </form>
 
     {% else %}
 
     {% url 'account_email' as email_url %}
 
-    <p> Что-то не то. Давай ещё раз <a href="{{ email_url}}"> вышлем тебе подтверждение</a>.</p>
+    <h3> Что-то не то. Давай ещё раз вышлем тебе подтверждение.</h3> 
+    {# <a class="button" ><p>Отправить</p></a> #}
+    <button class="button formItem"> <a href="{{email_url}}">Отправить</a> </button>
 
     {% endif %}
 </div>

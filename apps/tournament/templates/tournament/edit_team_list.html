@@ -17,8 +17,7 @@
 {% block content %}
 
         <form
-                class="page col s9"
-                action={% if is_check_page %}
+                 action={% if is_check_page %}
                             "{% url "tournament:check_team_list" id %}"
                         {% else %}
                             "{% url "tournament:edit_team_list" id %}"

@@ -44,16 +44,16 @@
 
         <section class="content_conteiner">
 
-            <aside class="sidebar">
-            {% block sidebar%}
-
-                <ul  id="sidebarList">
+            <aside>
+            <div class="sidebar" id="sideba1">
+            {% block sidebar1%}
+                <ul>
                     {% if request.user.is_authenticated %}
 
-                        <li class=""><a href="#">Профиль</a></li>
-                        <li class=""><a href="#">Мои турниры</a></li>
-                        <li class=""><a href="#">Мои заявки</a></li>
-                        <li class=""><a href="{% url 'account_logout' %}">Выйти</a></li>
+                        <h3><a href="#">Профиль</a></h3>
+                        <li><a href="#">Мои турниры</a></li>
+                        <li><a href="#">Мои заявки</a></li>
+                        <li><a href="{% url 'account_logout' %}">Выйти</a></li>
 
                     {% else %}
 
@@ -62,7 +62,23 @@
 
                     {% endif %}
                 </ul>
-            {% endblock sidebar %}
+            {% endblock sidebar1 %}
+            </div>
+            
+            {% if is_owner %}
+            <div class="sidebar" id="sidebar2">
+            {% block sidebar2%}
+                <ul>
+                    <h3>Турнир</h3>
+                    <li><a href="{% url "tournament:check_team_list" tournament.id %}"> Начать </a></li>
+                    <li><a href="{% url "tournament:edit" tournament.id %}"> Параметры </a></li>
+                    <li><a href="{% url "tournament:edit_team_list" tournament.id %}"> Команды </a></li>
+                    <li><a href="{% url "tournament:edit_adjudicator_list" tournament.id %}"> Судьи</a></li>
+                    <li><a href="{% url "tournament:remove" tournament.id %}"> Удалить </a></li>
+                </ul>
+            {% endblock sidebar2 %}
+            </div>
+            {% endif %}
             </aside>
 
             <div class="content">
