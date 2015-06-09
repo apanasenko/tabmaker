@@ -9,7 +9,9 @@ from django.shortcuts import \
     redirect
 
 from apps.profile.models import User
-from apps.team.forms import TeamRegistrationForm
+from apps.team.forms import \
+    TeamRegistrationForm, \
+    TeamWithSpeakerRegistrationForm
 from apps.motion.forms import MotionForm
 from apps.game.forms import \
     GameForm, \
@@ -341,8 +343,6 @@ def result_round(request, tournament):
         else:
             form = ResultGameForm(instance=room['result'], prefix=room['game'].id)
             form.initial['game'] = room['game'].id
-        # else:
-        #     form = ResultGameForm(instance=room['result'], prefix=room['game'].id)
 
         forms.append({
             'game': room['game'],
@@ -397,29 +397,56 @@ def edit(request, tournament):
 @access_by_status(name_page='team/adju. registration')
 def registration_team(request, tournament):
     if request.method == 'POST':
-        team_form = TeamRegistrationForm(request.POST)
+        team_form = TeamWithSpeakerRegistrationForm(request.POST)
         if team_form.is_valid():
-            team_obj = team_form.save(commit=False)
-            team_obj.speaker_1 = request.user
-            team_obj.speaker_2 = User.objects.get(email=team_form.cleaned_data['speaker_2'])
-            team_obj.save()
+            team = team_form.save(speaker_1=request.user)
             TeamTournamentRel.objects.create(
-                team=team_obj,
+                team=team,
                 tournament=tournament,
                 role=ROLE_TEAM_REGISTERED
             )
             return show_message(request, 'Вы успешно зарегистрировались на %s' % tournament.name)
 
     else:
-        team_form = TeamRegistrationForm(initial={'speaker_1': request.user.email})
+        team_form = TeamWithSpeakerRegistrationForm(initial={'speaker_1': request.user.email})
 
     return render(
         request,
         'tournament/registration.html',
         {
             'form': team_form,
-            'id': tournament.id,
-            'user': request.user,
+            'tournament': tournament,
+            'show_speaker_1': False,
+        }
+    )
+
+
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='')
+def add_team(request, tournament):
+    saved_team = None
+    if request.method == 'POST':
+        team_form = TeamRegistrationForm(request.POST)
+        if team_form.is_valid():
+            team = team_form.save()
+            TeamTournamentRel.objects.create(
+                team=team,
+                tournament=tournament,
+                role=ROLE_TEAM_REGISTERED
+            )
+            saved_team = team.name
+            team_form = TeamRegistrationForm()
+    else:
+        team_form = TeamRegistrationForm()
+
+    return render(
+        request,
+        'tournament/registration.html',
+        {
+            'form': team_form,
+            'tournament': tournament,
+            'show_speaker_1': True,
+            'saved_team': saved_team,
         }
     )
 
