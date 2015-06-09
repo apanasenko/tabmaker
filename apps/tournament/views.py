@@ -117,6 +117,8 @@ def show(request, tournament):
         'tournament/show.html',
         {
             'tournament': tournament,
+            'team_tournament_rels': tournament.teamtournamentrel_set.all().order_by('-role_id', '-id'),
+            'adjudicators': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id'),
             'is_owner': user_can_edit_tournament(tournament, request.user),
         }
     )
@@ -434,17 +436,6 @@ def registration_adjudicator(request, tournament):
     return show_message(request, message)
 
 
-@access_by_status()
-def show_team_list(request, tournament):
-    return render(
-        request,
-        'tournament/team_list.html',
-        {
-            'team_tournament_rels': tournament.teamtournamentrel_set.all().order_by('-role_id', '-id'),
-        }
-    )
-
-
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. edit')
 def edit_team_list(request, tournament):
@@ -513,17 +504,6 @@ def edit_adjudicator_list(request, tournament):
             'chair_need': member_count // TEAM_IN_GAME,
             'forms': forms,
             'id': tournament.id,
-        }
-    )
-
-
-@access_by_status()
-def show_adjudicator_list(request, tournament):
-    return render(
-        request,
-        'tournament/adjudicator_list.html',
-        {
-            'adjudicators': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id'),
         }
     )
 
