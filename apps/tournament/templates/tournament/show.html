@@ -1,6 +1,12 @@
 {% extends "main/base.html" %}
 
 {% load profile_extras %}
+{% load staticfiles %}
+
+{% block extra_head %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static "tournament/js/tabs_init.js" %}"></script>
+{% endblock extra_head %}
 
 {% block sidebar2%}
     {% if is_owner %}
@@ -30,11 +36,5 @@
             {% include "tournament/adjudicator_list.html" with adjudicators=adjudicators %}
         </div>
     </div>
-
-    <script>
-        $(function() {
-            $( "#tabs" ).tabs();
-        });
-    </script>
 
 {% endblock content %}
