@@ -9,4 +9,4 @@ class Team(models.Model):
     info = models.TextField()
 
     def __str__(self):
-        return "%s  $s" % (self.id, self.name)
+        return "%s  %s" % (self.id, self.name)
