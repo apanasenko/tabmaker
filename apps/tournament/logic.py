@@ -2,6 +2,7 @@ __author__ = 'Alexander'
 
 import random
 import datetime
+import itertools
 from django.core.exceptions import ObjectDoesNotExist
 from apps.game.models import\
     Game, \
@@ -43,6 +44,7 @@ class TeamResult:
         self.show_all = True
         self.team = Team.objects.get(pk=team_id)
         self.rounds = []
+        self.position = [0, 0, 0, 0]
 
     def add_round(self, other: TeamRoundResult):
         if len(self.rounds) + 1 == other.number:
@@ -53,6 +55,9 @@ class TeamResult:
             self.rounds.append(other)
         elif len(self.rounds) + 1 > other.number:
             self.rounds[other.number - 1] = other
+
+        if other.position != Position.NONE:
+            self.position[other.position.value - 1] += 1
 
         return self.rounds
 
@@ -71,6 +76,9 @@ class TeamResult:
 
     def sum_speakers(self):
         return sum(list(map(lambda x: (x.speaker_1 + x.speaker_2) * int(self.show_all), self.rounds)))
+
+    def get_position_weight(self, position_index):
+        return self.position[position_index] * 2 + 1
 
     def __gt__(self, other):
         return self.sum_points() > other.sum_points() \
@@ -163,8 +171,11 @@ def get_or_generate_next_round(tournament: Tournament):
     if not rooms:
         if tournament.status == STATUS_PLAYOFF:
             rooms = generate_playoff_round(tournament, cur_round)
-        else:
+        elif tournament.cur_round == 1:
             rooms = generate_random_round(tournament, cur_round)
+        else:
+            rooms = generate_round(tournament, cur_round)
+
     return rooms
 
 
@@ -405,3 +416,128 @@ def check_last_round_results(tournament: Tournament):
             return 'Введите результаты последнего раунда'
 
     return None
+
+
+def generate_round(tournament: Tournament, cur_round: Round):
+
+    tab = sorted(get_tab(tournament), reverse=True)
+
+    def get_teams_with_eq_points(need_position):
+        k = 0
+        while k + 1 < len(tab) and tab[0].sum_points() == tab[k].sum_points():
+            k += 1
+
+        team_by_position = find_best_team_in_position(tab[:k], need_position)
+        cur_positions = []
+        cur_pool = []
+        for key, value in team_by_position.items():
+            cur_positions += [key]
+            cur_pool += [value]
+            tab.remove(value)
+
+        return cur_pool, cur_positions
+
+    games = []
+    while tab:
+
+        if len(tab) == 4 or tab[3].sum_points() > tab[4].sum_points():
+            pool = tab[:4]
+            tab = tab[4:]
+            positions = list(find_best_position(pool, (0, 1, 2, 3)))
+        elif tab[0].sum_points() > tab[4].sum_points():
+            i = 3
+            while tab[i - 1].sum_points() == tab[4].sum_points():
+                i -= 1
+            head_pool = tab[:i]
+            tab = tab[i:]
+            head_positions = find_best_position(head_pool, (0, 1, 2, 3))
+
+            tail_pool, tail_positions = get_teams_with_eq_points({0, 1, 2, 3} - set(head_positions))
+            positions = list(head_positions) + tail_positions
+            pool = head_pool + tail_pool
+        else:
+            pool, positions = get_teams_with_eq_points({0, 1, 2, 3})
+
+        games.append({
+            'pool': pool,
+            'positions': positions
+        })
+
+    rooms = []
+    chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
+    random.shuffle(chair)
+    for i in range(len(games)):
+        positions = dict(zip(games[i]['positions'], games[i]['pool']))
+        game = Game.objects.create(
+            og=positions[0].team,
+            oo=positions[1].team,
+            cg=positions[2].team,
+            co=positions[3].team,
+            chair=chair.pop().user,
+            date=datetime.datetime.now(),
+            motion=cur_round.motion
+        )
+        room = Room.objects.create(
+            game=game,
+            round=cur_round,
+            number=i
+        )
+        rooms.append(room)
+
+    return rooms
+
+
+def find_best_position(pool, need_position):
+    n = len(pool)
+    best_positions = list(range(n))
+    best_sum = sum(list(map(lambda x: pool[x].get_position_weight(best_positions[x]), range(n))))
+
+    for positions in itertools.permutations(need_position, n):
+        cur_sum = sum(list(map(lambda x: pool[x].get_position_weight(positions[x]), range(n))))
+        if cur_sum < best_sum:
+            best_sum = cur_sum
+            best_positions = positions
+
+    return best_positions
+
+
+def find_best_team_in_position(teams, need_positions):
+    positions_priority = {}
+    max_weight = 0
+
+    def a(positions, find_result):
+        if not positions:
+            find_teams = list(find_result.values())
+            for i in range(len(find_teams)):
+                for j in range(i + 1, len(find_teams)):
+                    if find_teams[i].team.id == find_teams[j].team.id:
+                        return 0, []
+
+            cur_sum = 0
+            for key, value in find_result.items():
+                cur_sum += value.get_position_weight(key)
+            return cur_sum, dict(find_result)
+
+        position = positions.pop()
+        best_sum = 0
+        best_position = []
+        for team in positions_priority[position]:
+            if team.get_position_weight(position) > max_weight:
+                break
+            find_result[position] = team
+            cur_sum, cur_position = a(set(positions), find_result)
+            if cur_sum and (not best_sum or best_sum > cur_sum):
+                best_sum = cur_sum
+                best_position = cur_position
+
+        return best_sum, best_position
+
+    for k in need_positions:
+        positions_priority[k] = sorted(teams, key=lambda x: x.get_position_weight(k))
+
+    find_sum = 0
+    find_position = []
+    while not find_sum:
+        max_weight = max_weight * 2 + 1
+        find_sum, find_position = a(set(need_positions), {})
+    return find_position

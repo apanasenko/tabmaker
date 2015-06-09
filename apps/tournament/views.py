@@ -216,7 +216,7 @@ def result(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='break')
 def generate_break(request, tournament):
-    tab = list(reversed(sorted(get_tab(tournament))))
+    tab = sorted(get_tab(tournament), reverse=True)
     table = convert_tab_to_table(tab, True)
     teams_in_break = []
     teams = []
@@ -548,7 +548,7 @@ def convert_tab_to_table(table: list, show_all):
     for team in table:
         team.show_all = show_all
 
-    table = list(reversed(sorted(table)))
+    table = sorted(table, reverse=True)
     for i in range(len(table)):
         line = []
         n = lines[-1][0] if i > 0 and table[i - 1] == table[i] else i + 1
@@ -569,7 +569,7 @@ def convert_tab_to_speaker_table(table: list, is_show):
         speakers += team_result.extract_speakers_result()
 
     if is_show:
-        speakers = list(reversed(sorted(speakers)))
+        speakers = sorted(speakers, reverse=True)
     else:
         random.shuffle(speakers)
 
