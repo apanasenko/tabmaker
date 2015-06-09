@@ -14,3 +14,4 @@ local_*
 /static/
 .DS_Store
 debatetournament
+*.codekit

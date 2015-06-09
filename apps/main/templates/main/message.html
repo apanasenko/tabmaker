@@ -1,6 +1,24 @@
-<p>{{ message }}</p>
-{% if url %}
-    <p> <a href="{{ url }}"> Назад </a> </p>
-{% else %}
-    <p> <a href="{% url "main:index" %}"> Главная </a> </p>
-{% endif %}
+{% extends "main/base.html" %}
+
+{% load profile_extras %}
+
+{% block page_title %}
+    Сообщение
+{% endblock page_title %}
+
+{% block content %}
+
+
+<div id="message" class="formItem full">
+	<p>{{ message }}</p>
+</div>
+
+<div id="message_back" class="formItem full">
+	{% if url %}
+	    <p><a class="button" href="{{ url }}">Назад</a></p>
+	{% else %}
+	    <p><a class="button" href="{% url "main:index" %}">На главную</a></p>
+	{% endif %}
+</div>
+
+{% endblock content %}

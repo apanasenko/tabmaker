@@ -1,3 +1,19 @@
+// - imports
+// - colors
+// - layout
+// - elements
+// --- header
+// --- sidebar
+// --- content section
+// --- forms 
+// --- footer
+
+
+// imports
+
+@import "compass/reset";
+@import "susy";
+
 // colors
 $background-page: #ECEEF1;
 $background-block: #F5F5F5;
@@ -11,6 +27,12 @@ $deep-dark: #0C152A;
 $grey: #58697A;
 
 // layout
+
+$susy: (
+  columns: 12,
+  gutters: 1/6,
+  container: 100%,
+);
 
 body {
 	font-family: "PT Sans", Arial, sans-serif;
@@ -26,15 +48,32 @@ ul {
 	}
 
 h3, h5, p, a, li, label {
-	margin: 0;
-	padding: 0;
-	font-family: "PT Sans", Arial, sans-serif;
 	color: $grey;
+}
 
+h1, h2, h3 {
+	font-weight: 700;
+	margin-bottom: 10px;
+}
+
+h1 {
+	font-size: 24px;
+}
+
+h3 {
+	font-size: 18px;
 }
 
 a {
 	text-decoration: none;
+}
+
+.white {
+	color: white;
+}
+
+@mixin link {
+	border-bottom: 2px solid $green;
 }
 
 @mixin button() {
@@ -44,27 +83,50 @@ a {
 	border-radius: 6px;
 	border: none;
 	color: white;
+	font-family: inherit;
+	font-size: 16px;
+	min-height: 45px;
 }
 
 .button {
 	@include button;
 	background-color: $deep-dark;
+	width: 100%;
+
+	a {
+		color: white;
+	}
 }
 
-input, select {
-	display: inline-block;
-	width: 200px;
-	border: 1px solid $grey;
-	border-radius: 3px;
-	margin: 0 0 10px 0;
+
+input, select, textarea {
+	max-width: 200px;
+	border: 0px;
+	padding: 5px 5px 5px 10px;
+	height: 25px;
+	border-radius: 5px;
+	line-height: 20px;
+	margin: 0 30px 10px 0;
+	font-size: 14px;
+	color: $grey;
+	background-color: white;
+}
+
+textarea {
+	min-height: 100px;
+	font-family: "PT Sans", Arial, sans-serif;
+	font-weight: 14px;
+	margin-bottom: 20px;
 }
 
 select {
 	-webkit-appearance: none;
+	height: 35px;
+	min-width: 170px;
 }
 
 label {
-	display: inline;
+	display: block;
 	padding-right: 10px;
 	margin: 0 0 10px 0;
 }
@@ -89,6 +151,7 @@ header {
 	height: 100px;
 	background-color: $light-green;
 	vertical-align: middle;
+	display: block;
 
 	#logo {
 		display: inline-block;
@@ -118,7 +181,9 @@ header {
 
 			h3 {
 				color: white;
-			}
+				font-size: 24px;
+				margin-bottom: 0px;
+				width: 90%;			}
 		}
 
 		#header_button {
@@ -127,52 +192,78 @@ header {
 	}
 }
 
+
+// sidebar
+
+aside {
+	display: inline-block;
+	width: 25%;
+}
+
+.sidebar {
+	display: block;
+	width: 90%;
+	background-color: $background-block;
+	border-radius: 3px;
+	margin: 30px 0 30px 0;
+	vertical-align: top;
+
+	ul {
+		text-align: left;
+		padding: 20px;
+		margin: 20px 0 0 0;
+
+		h3 {
+			margin: 10px 0 20px 0;
+		}
+	
+		li {
+			display: block;
+			font-weight: 700;
+			width: 100%;
+			height: 25px;
+			vertical-align: middle;
+			margin: 0 0 3px 0;
+			
+			a:hover {
+				@include link;
+			}
+		}
+	}
+
+	#registration_btn {
+		width: 80%;
+		margin: 0 0 20px 20px;
+	}
+}
+	
 // content section
 
 .content_conteiner {
 	padding: 0px 15px;
 }
 
-.sidebar {
-	display: inline-block;
-	width: 25%;
-	padding: 10px;
-	background-color: $background-block;
-	border-radius: 3px;
-	margin-top: 30px;
-	vertical-align: top;
-
-	ul {
-		text-align: left;
-		padding-left: 20px;
-	
-		li {
-			display: block;
-			width: 100%;
-			height: 35px;
-			vertical-align: middle;	
-		}
-
-		li:hover {
-
-		}
-	}
-}
-
 .content {
+	@include container;
 	display: inline-block;
-	width: 660px;
-	margin: 30px 10px;
-	padding: 20px 10px 20px 30px;
+	margin: 30px 0 30px 0;
+	width: 70%;
+	padding: 20px;
 	background-color: $background-block;
 	border-radius: 3px;
 	vertical-align: top;
 
 	// список турнирова на главной странице
+	
+	section {
+		ul {
+			margin: 10px 0 0 0;
+		}
+	}
 
 	.tournament_list {
 		display: block;
-		width: 100%;
+		@include span(12 of 12);
 		height: 70px;
 		margin: 0 0 20px 0;
 
@@ -219,7 +310,6 @@ header {
 			li {
 				display: inline;
 				margin: 5px 20px 20px 0;
-				font-weight: bold;
 			}
 		}
 
@@ -260,7 +350,119 @@ header {
 }
 
 
-				
+// forms
+
+form {
+	@include container;
+	width: 660px;
+	
+	h3 {
+		clear: both;
+	}
+}
+
+.formItem {
+	margin: 0 30px 20px 0;
+	@include span(4 of 12);
+
+	> input, > label {
+		display: inline-block;
+	}
+}
+
+#university, #adress, #count_teams_in_break, .last {
+	@include last;
+}
+
+.full {
+	@include span(12 of 12);
+}
+
+#country, #street, #regdateOpen, #regdateClose, #link, .row {
+	clear: both;
+}
+
+#tournamentName {
+	@include span(12 of 12);
+	
+	input {
+		max-width: 660px;
+		width: 600px;
+	}
+}
+
+#street {
+	@include span(8 of 12);
+
+	input {
+		max-width: 370px;
+		width: 370px;
+	}
+}
+
+#aboutTournament, #player_experience, #adjudicator_experience, .textarea {
+	@include span(12 of 12);
+
+	textarea {
+		max-width: 660px;
+		width: 600px;
+		min-height: 100px;
+		font-family: "PT Sans", Arial, sans-serif;
+		font-weight: 14px;
+	}
+}
+
+#link {
+	@include span(12 of 12);
+	
+	input {
+		width: 100%;
+	}
+}
+
+.button.formItem {
+	@include span (3 of 12);
+}
+
+#loginButton {
+	@include span (4 of 12);
+}
+
+.errorlist {
+	
+	li {
+		color: red;
+		font-size: 14px;
+		display: inline;
+		margin: -5px 0 0 5px;
+	}
+}
+
+
+// сommand-list
+
+#team_in_list {
+	margin-bottom: 20px;
+
+	ul {
+		margin: 5px 0 5px 0;
+		
+		li {
+			display: inline;
+		}
+	}
+}
+
+
+// email-confirms
+
+
+#email_confirm {
+	
+	h3 {
+		text-align: center;
+	}
+}
 
 // footer section 
 
@@ -268,6 +470,7 @@ footer {
 	background-color: $light-green;
 	height: 100px;
 	padding: 20px 40px;
+	display: block;
 
 	#footer_info {
 		display: inline-block;

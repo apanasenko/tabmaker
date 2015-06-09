@@ -1,121 +1,98 @@
 {% csrf_token %}
 {{ form.non_field_errors }}
 
-<div class="">
-    <div class="">
-        {{ form.name.errors }}
-        {{ form.name.label_tag }}
-        {{ form.name }}
-    </div>
-<div class="">
-    <div class="">
-        <label>Страна</label>
-        <select class="">
-            <option value="1">Россия</option>
-            <option value="2">Казахстан</option>
-            <option value="3">Китай</option>
-        </select>
-    </div>
-    <div class="col s4">
-        <label>Город</label>
-        <select class="col s4">
-            <option value="1">Владивосток</option>
-            <option value="2">Москва</option>
-            <option value="3">Казань</option>
-        </select>
-    </div>
-    <div class="col s4">
-        <label>Университет</label>
-        <select class="col s4">
-            <option value="1">ДВФУ</option>
-            <option value="2">НИУ ВШЭ</option>
-            <option value="3">МГУ</option>
-        </select>
-    </div>
-</div>
-<div class="row">
-    <div class="input-field col s4">
-        <input id="street" type="text" class="validate">
-        <label for="street">Улица</label>
-    </div>
-    <div class="input-field col s2">
-        <input id="house" type="text" class="validate">
-        <label for="house">Дом</label>
-    </div>
-</div>
-    <div class="input-field col s6">
-        {{ form.location.errors }}
-        {{ form.location.label_tag }}
-        {{ form.location }}
-    </div>
+<div class="formItem" id="tournamentName">
+    {{ form.name }}
+    {{ form.name.errors }}
 </div>
 
-<div class="row">
-    <label for="id_reg">Регистрация</label>
-    {{ form.open_reg_time.errors }}
-    {{ form.close_reg_time.errors }}
+<h3>Место проведения</h3>
+
+<div class="formItem" id="country">
+    <select class="" placeholder="Страна">
+        <option value="1">Россия</option>
+        <option value="2">Казахстан</option>
+        <option value="3">Китай</option>
+    </select>
+</div>
+<div class="formItem" id="city">
+    <select class="">
+        <option value="1">Владивосток</option>
+        <option value="2">Москва</option>
+        <option value="3">Казань</option>
+    </select>
+</div>
+<div class="formItem" id="university">
+    <select class="">
+        <option value="1">ДВФУ</option>
+        <option value="2">НИУ ВШЭ</option>
+        <option value="3">МГУ</option>
+    </select>
+</div>
+
+<div class="formItem" id="street">
+    <input id="street" type="text" class="validate" placeholder="Улица">
+</div>
+<div class="formItem" id="adress">
+    <input id="house" type="text" class="validate" placeholder="Дом">
+</div>
+
+<h3>Открытие регистрации</h3>
+
+<div class="formItem" id="regdateOpen">
+    {{ form.open_reg_date }}
     {{ form.open_reg_date.errors }}
+</div>
+
+<div class="formItem" id="regtimeOpen">
+    {{ form.open_reg_time }}
+    {{ form.open_reg_time.errors }}
+</div>
+
+
+<h3>Закрытие регистрации</h3>
+
+<div class="formItem" id="regdateClose">
+    {{ form.close_reg_date }}
     {{ form.close_reg_date.errors }}
 </div>
-<div class="row">
-    <div class="input-field col s1">
-        C
-    </div>
-    <div class="col s3">
-        {{ form.open_reg_date }}
-    </div>
-    <div class="col s2">
-        {{ form.open_reg_time }}
-    </div>
-    <div class="col s1">
-        по
-    </div>
-    <div class="col s3">
-        {{ form.close_reg_date }}
-    </div>
-    <div class="col s2">
-        {{ form.close_reg_time }}
-    </div>
+
+<div class="formItem" id="regtimeClose">
+    {{ form.close_reg_time }}
+    {{ form.close_reg_time.errors }}
 </div>
 
-<div class="row">
-    <p><label for="id_start">Начало турнира:</label></p>
-    <p>{{ form.start_tour_time.errors }}</p>
-    <p>{{ form.start_tour_date.errors }}</p>
-    <div class="input-field col s3">
-        {{ form.start_tour_date }}
-    </div>
-    <div class="input-field col s2">
-        {{ form.start_tour_time }}
-    </div>
+<h3>Начало турнира</h3>
+
+<div class="formItem" id="tournamentDate">
+    {{ form.start_tour_date }}
+    {{ form.start_tour_date.errors }}
 </div>
-<div class="row">
-    <div class="input-field col s3">
-        {{ form.count_rounds.errors }}
-        {{ form.count_rounds.label_tag }}
-        {{ form.count_rounds }}
-    </div>
-    <div class="input-field col s3">
-        {{ form.count_teams.errors }}
-        {{ form.count_teams.label_tag }}
-        {{ form.count_teams }}
-    </div>
-    <div class="input-field col s3">
-        {{ form.count_teams_in_break.errors }}
-        {{ form.count_teams_in_break.label_tag }}
-        {{ form.count_teams_in_break }}
-    </div>
+<div class="formItem" id="tournamentTime">
+    {{ form.start_tour_time }}
+    {{ form.start_tour_time.errors }}
 </div>
-<div class="row">
-    <div class="col s4">
-        {{ form.link.errors }}
-        {{ form.link.label_tag }}
-        {{ form.link }}
-    </div>
+
+<h3>Параметры турнира</h3>
+
+<div class="formItem">
+    {{ form.count_rounds }}
+    {{ form.count_rounds.errors }}
 </div>
-<div class="row">
-    <div class="input-field col s6">
-        {{ form.info.label_tag }}
-        {{ form.info }}
-    </div>
+<div class="formItem">
+    {{ form.count_teams }}
+    {{ form.count_teams.errors }}
+</div>
+<div class="formItem" id="count_teams_in_break">
+    {{ form.count_teams_in_break }}
+    {{ form.count_teams_in_break.errors }}
+</div>
+
+<div class="formItem" id="aboutTournament">
+    {{ form.info }}
+</div>
+
+<div class="formItem" id="link">
+    {{ form.link }}
+    {{ form.link.errors }}
 </div>

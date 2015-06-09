@@ -21,9 +21,9 @@ class TeamRegistrationForm(forms.ModelForm):
         speaker_2 = self.cleaned_data['speaker_2']
 
         if speaker_1 == speaker_2:  # TODO перевести сообщение об ошибки
-            raise forms.ValidationError(u'Ваш email и email вашего тимейта должны различаться')
+            raise forms.ValidationError(u'Ваш email и email вашего напарника должны различаться')
 
         if not len(User.objects.filter(email=speaker_2)):  # TODO перевести сообщение об ошибки
-            raise forms.ValidationError(u'Пользователя с таким email не существует')
+            raise forms.ValidationError(u'Пользователь с таким email не зарегистрировался на сайте')
 
         return speaker_2
