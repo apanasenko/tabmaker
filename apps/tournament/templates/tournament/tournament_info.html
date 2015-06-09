@@ -18,25 +18,27 @@
         <a href="{{ tournament.link }}">{{ tournament.link }}</a>
     </div>
 
-    <h3 class="low-margin">Участвуют</h3>
-    <ul class="actives">
-        <li>Имя Спикер1 и Имя Спикер2</li>
-        <li>Имя Спикер1 и Имя Спикер2</li>
-        <li>Имя Спикер1 и Имя Спикер2</li>
-        <li>Имя Спикер1 и Имя Спикер2</li>
-        <li>Имя Спикер1 и Имя Спикер2</li>
-        <li>Имя Спикер1 и Имя Спикер2</li>
-    </ul>
+{#    <h3 class="low-margin">Участвуют</h3>#}
+{#    <ul class="actives">#}
+{#        <li>Имя Спикер1 и Имя Спикер2</li>#}
+{#        <li>Имя Спикер1 и Имя Спикер2</li>#}
+{#        <li>Имя Спикер1 и Имя Спикер2</li>#}
+{#        <li>Имя Спикер1 и Имя Спикер2</li>#}
+{#        <li>Имя Спикер1 и Имя Спикер2</li>#}
+{#        <li>Имя Спикер1 и Имя Спикер2</li>#}
+{#    </ul>#}
+{##}
+{#    <h3 class="low-margin">Судят</h3>#}
+{#    <ul class="actives">#}
+{#        <li>Имя Судьи</li>#}
+{#        <li>Имя Судьи</li>#}
+{#        <li>Имя Судьи</li>#}
+{#        <li>Имя Судьи</li>#}
+{#        <li>Имя Судьи</li>#}
+{#        <li>Имя Судьи</li>#}
+{#    </ul>#}
 
-    <h3 class="low-margin">Судят</h3>
-    <ul class="actives">
-        <li>Имя Судьи</li>
-        <li>Имя Судьи</li>
-        <li>Имя Судьи</li>
-        <li>Имя Судьи</li>
-        <li>Имя Судьи</li>
-        <li>Имя Судьи</li>
-    </ul>
+
 
     {% if tournament.open_reg > now %}
         <h3>Регистрация ещё не открыта ((</h3>
@@ -50,5 +52,7 @@
             <a class="button" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
         </div>
     {% endif %}
+
+    {% include "tournament/map.html" %}
 
 </div>
