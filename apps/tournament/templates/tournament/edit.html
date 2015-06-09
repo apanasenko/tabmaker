@@ -1,4 +1,4 @@
-{% extends "main/base.html" %}
+{% extends "tournament/owner_base.html" %}
 
 {% block page_title %}
     {{ form.name }}
@@ -6,7 +6,7 @@
 
 {% block content %}
 
-    <form class="page col s9" action="{% url "tournament:edit" id %}" method="post">
+    <form class="page col s9" action="{% url "tournament:edit" tournament.id %}" method="post">
 
         {% include "tournament/edit_form.html" %}
 

@@ -201,7 +201,8 @@ def play(request, tournament):
 
 @access_by_status(name_page='result')
 def result(request, tournament):
-    show_all = tournament.status == STATUS_FINISHED or user_can_edit_tournament(tournament, request.user)
+    is_owner = user_can_edit_tournament(tournament, request.user)
+    show_all = tournament.status == STATUS_FINISHED or is_owner
 
     return render(
         request,
@@ -210,7 +211,8 @@ def result(request, tournament):
             'tournament': tournament,
             'team_tab': convert_tab_to_table(get_tab(tournament), show_all),
             'speaker_tab': convert_tab_to_speaker_table(get_tab(tournament), show_all),
-            'motions': get_tournament_motions(tournament)
+            'motions': get_tournament_motions(tournament),
+            'is_owner': is_owner,
         }
     )
 
@@ -386,7 +388,7 @@ def edit(request, tournament):
         'tournament/edit.html',
         {
             'form': tournament_form,
-            'id': tournament.id,
+            'tournament': tournament,
         }
     )
 
@@ -465,7 +467,7 @@ def edit_team_list(request, tournament):
             'is_check_page': is_check_page,
             'member_count': member_count,
             'forms': forms,
-            'id': tournament.id,
+            'tournament': tournament,
         }
     )
 
@@ -503,7 +505,7 @@ def edit_adjudicator_list(request, tournament):
             'chair_count': chair_count,
             'chair_need': member_count // TEAM_IN_GAME,
             'forms': forms,
-            'id': tournament.id,
+            'tournament': tournament,
         }
     )
 

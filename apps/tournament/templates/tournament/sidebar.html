@@ -1,0 +1,12 @@
+<div class="sidebar" id="sidebar2">
+
+    <ul>
+        <h3>Турнир</h3>
+        <li><a href="{% url "tournament:check_team_list" tournament.id %}"> Начать </a></li>
+        <li><a href="{% url "tournament:edit" tournament.id %}"> Редактировать </a></li>
+        <li><a href="{% url "tournament:edit_team_list" tournament.id %}"> Команды </a></li>
+        <li><a href="{% url "tournament:edit_adjudicator_list" tournament.id %}"> Судьи</a></li>
+        <li><a href="{% url "tournament:remove" tournament.id %}"> Удалить </a></li>
+    </ul>
+
+</div>
