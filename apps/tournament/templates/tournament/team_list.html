@@ -9,4 +9,6 @@
         <li>{{ team_tournament_rel.team.speaker_2|name }}</li>
     </ul>
 </div>
+{% empty %}
+    <h3>Нет зарегистрированных команд</h3>
 {% endfor %}

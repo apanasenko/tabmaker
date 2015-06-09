@@ -5,4 +5,6 @@
         <h3>{{ adjudicator.user|name }}</h3>
         <p>{{ adjudicator.role.role }}</p>
     </div>
+{% empty %}
+    <h3>Нет зарегистрированных судей</h3>
 {% endfor %}
