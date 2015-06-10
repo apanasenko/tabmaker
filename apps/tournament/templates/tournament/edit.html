@@ -1,18 +1,35 @@
-{% extends "main/base.html" %}
+{% extends "tournament/owner_base.html" %}
+{% load staticfiles %}
 
 {% block page_title %}
     {{ form.name }}
 {% endblock page_title %}
 
+{% block extra_head %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static "tournament/js/tabs_init.js" %}"></script>
+    <script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+{% endblock extra_head %}
+
+
 {% block content %}
 
-    <form class="page col s9" action="{% url "tournament:edit" id %}" method="post">
+    <form class="page col s9" action="{% url "tournament:edit" tournament.id %}" method="post">
 
-        {% include "tournament/edit_form.html" %}
-
-        <div class="row">
-            <button type="submit" class="waves-effect waves-light btn">Сохранить</button>
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">Информация</a></li>
+                <li><a href="#tabs-2">Карта</a></li>
+            </ul>
+            <div id="tabs-1">
+                {% include "tournament/edit_form.html" %}
+            </div>
+            <div id="tabs-2">
+                {% include "tournament/map.html" %}
+            </div>
         </div>
+
+        <button type="submit" class="button formItem">Сохранить</button>
 
     </form>
 

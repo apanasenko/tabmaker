@@ -9,7 +9,9 @@ from django.shortcuts import \
     redirect
 
 from apps.profile.models import User
-from apps.team.forms import TeamRegistrationForm
+from apps.team.forms import \
+    TeamRegistrationForm, \
+    TeamWithSpeakerRegistrationForm
 from apps.motion.forms import MotionForm
 from apps.game.forms import \
     GameForm, \
@@ -117,6 +119,8 @@ def show(request, tournament):
         'tournament/show.html',
         {
             'tournament': tournament,
+            'team_tournament_rels': tournament.teamtournamentrel_set.all().order_by('-role_id', '-id'),
+            'adjudicators': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id'),
             'is_owner': user_can_edit_tournament(tournament, request.user),
         }
     )
@@ -199,7 +203,8 @@ def play(request, tournament):
 
 @access_by_status(name_page='result')
 def result(request, tournament):
-    show_all = tournament.status == STATUS_FINISHED or user_can_edit_tournament(tournament, request.user)
+    is_owner = user_can_edit_tournament(tournament, request.user)
+    show_all = tournament.status == STATUS_FINISHED or is_owner
 
     return render(
         request,
@@ -208,7 +213,8 @@ def result(request, tournament):
             'tournament': tournament,
             'team_tab': convert_tab_to_table(get_tab(tournament), show_all),
             'speaker_tab': convert_tab_to_speaker_table(get_tab(tournament), show_all),
-            'motions': get_tournament_motions(tournament)
+            'motions': get_tournament_motions(tournament),
+            'is_owner': is_owner,
         }
     )
 
@@ -337,8 +343,6 @@ def result_round(request, tournament):
         else:
             form = ResultGameForm(instance=room['result'], prefix=room['game'].id)
             form.initial['game'] = room['game'].id
-        # else:
-        #     form = ResultGameForm(instance=room['result'], prefix=room['game'].id)
 
         forms.append({
             'game': room['game'],
@@ -384,7 +388,7 @@ def edit(request, tournament):
         'tournament/edit.html',
         {
             'form': tournament_form,
-            'id': tournament.id,
+            'tournament': tournament,
         }
     )
 
@@ -393,29 +397,56 @@ def edit(request, tournament):
 @access_by_status(name_page='team/adju. registration')
 def registration_team(request, tournament):
     if request.method == 'POST':
-        team_form = TeamRegistrationForm(request.POST)
+        team_form = TeamWithSpeakerRegistrationForm(request.POST)
         if team_form.is_valid():
-            team_obj = team_form.save(commit=False)
-            team_obj.speaker_1 = request.user
-            team_obj.speaker_2 = User.objects.get(email=team_form.cleaned_data['speaker_2'])
-            team_obj.save()
+            team = team_form.save(speaker_1=request.user)
             TeamTournamentRel.objects.create(
-                team=team_obj,
+                team=team,
                 tournament=tournament,
                 role=ROLE_TEAM_REGISTERED
             )
             return show_message(request, 'Вы успешно зарегистрировались на %s' % tournament.name)
 
     else:
-        team_form = TeamRegistrationForm(initial={'speaker_1': request.user.email})
+        team_form = TeamWithSpeakerRegistrationForm(initial={'speaker_1': request.user.email})
 
     return render(
         request,
         'tournament/registration.html',
         {
             'form': team_form,
-            'id': tournament.id,
-            'user': request.user,
+            'tournament': tournament,
+            'show_speaker_1': False,
+        }
+    )
+
+
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='')
+def add_team(request, tournament):
+    saved_team = None
+    if request.method == 'POST':
+        team_form = TeamRegistrationForm(request.POST)
+        if team_form.is_valid():
+            team = team_form.save()
+            TeamTournamentRel.objects.create(
+                team=team,
+                tournament=tournament,
+                role=ROLE_TEAM_REGISTERED
+            )
+            saved_team = team.name
+            team_form = TeamRegistrationForm()
+    else:
+        team_form = TeamRegistrationForm()
+
+    return render(
+        request,
+        'tournament/registration.html',
+        {
+            'form': team_form,
+            'tournament': tournament,
+            'show_speaker_1': True,
+            'saved_team': saved_team,
         }
     )
 
@@ -432,17 +463,6 @@ def registration_adjudicator(request, tournament):
         else 'Вы уже зарегистрировались на %s как судья' % tournament.name
 
     return show_message(request, message)
-
-
-@access_by_status()
-def show_team_list(request, tournament):
-    return render(
-        request,
-        'tournament/team_list.html',
-        {
-            'team_tournament_rels': tournament.teamtournamentrel_set.all().order_by('-role_id', '-id'),
-        }
-    )
 
 
 @login_required(login_url=reverse_lazy('account_login'))
@@ -474,7 +494,7 @@ def edit_team_list(request, tournament):
             'is_check_page': is_check_page,
             'member_count': member_count,
             'forms': forms,
-            'id': tournament.id,
+            'tournament': tournament,
         }
     )
 
@@ -512,18 +532,7 @@ def edit_adjudicator_list(request, tournament):
             'chair_count': chair_count,
             'chair_need': member_count // TEAM_IN_GAME,
             'forms': forms,
-            'id': tournament.id,
-        }
-    )
-
-
-@access_by_status()
-def show_adjudicator_list(request, tournament):
-    return render(
-        request,
-        'tournament/adjudicator_list.html',
-        {
-            'adjudicators': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id'),
+            'tournament': tournament,
         }
     )
 

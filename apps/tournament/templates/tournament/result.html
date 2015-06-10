@@ -1,9 +1,21 @@
 {% extends "main/base.html" %}
 
+{% load staticfiles %}
+
 {% block page_title %}
     Результаты
 {% endblock page_title %}
 
+{% block sidebar2%}
+    {% if is_owner %}
+        {% include 'tournament/sidebar.html' %}
+    {% endif %}
+{% endblock sidebar2 %}
+
+{% block extra_head %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static "tournament/js/tabs_init.js" %}"></script>
+{% endblock extra_head %}
 
 {% block content %}
     <div id="tabs">
@@ -32,10 +44,5 @@
             {% endfor %}
         </div>
     </div>
-    <script>
-        $(function() {
-            $( "#tabs" ).tabs();
-        });
-    </script>
 
 {% endblock content %}

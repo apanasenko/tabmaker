@@ -1,22 +1,14 @@
-{% extends "main/base.html" %}
-
 {% load profile_extras %}
 
-{% block page_title %}
-    <a class="white" href="/">Назад</a>
-{% endblock page_title %}
-
-{% block content %}
-    
-        {% for team_tournament_rel in team_tournament_rels %}
-        <div id="team_in_list" class="formItem full">
-            <h3>{{ team_tournament_rel.team.name }}</h3>
-            <p>Статус: {{ team_tournament_rel.role.role }}</p>
-            <ul>
-                <li>{{ team_tournament_rel.team.speaker_1|name }}</li>
-                <li>{{ team_tournament_rel.team.speaker_2|name }}</li>
-            </ul>
-        </div>
-        {% endfor %}
-   
-{% endblock content %}
+{% for team_tournament_rel in team_tournament_rels %}
+<div id="team_in_list" class="formItem full">
+    <h3>{{ team_tournament_rel.team.name }}</h3>
+    <p>Статус: {{ team_tournament_rel.role.role }}</p>
+    <ul>
+        <li>{{ team_tournament_rel.team.speaker_1|name }}</li>
+        <li>{{ team_tournament_rel.team.speaker_2|name }}</li>
+    </ul>
+</div>
+{% empty %}
+    <h3>Нет зарегистрированных команд</h3>
+{% endfor %}

@@ -1,18 +1,10 @@
-{% extends "main/base.html" %}
-
 {% load profile_extras %}
 
-{% block page_title %}
-    <a class="white" href="/">Назад</a>
-{% endblock page_title %}
-
-{% block content %}
-
-    {% for adjudicator in adjudicators %}
+{% for adjudicator in adjudicators %}
     <div id="team_in_list" class="formItem full">
         <h3>{{ adjudicator.user|name }}</h3>
         <p>{{ adjudicator.role.role }}</p>
     </div>
-    {% endfor %}
-    
-{% endblock content %}
+{% empty %}
+    <h3>Нет зарегистрированных судей</h3>
+{% endfor %}

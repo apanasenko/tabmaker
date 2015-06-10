@@ -1,4 +1,4 @@
-{% extends "main/base.html" %}
+{% extends "tournament/owner_base.html" %}
 
 {% load staticfiles %}
 
@@ -22,21 +22,24 @@
         <p>Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
         <p>Статус: {{ tournament.status.name }}</p>
         <br>
-        <p><a class="button" href="{% url 'tournament:next_round' tournament.id%}"> Создать следующий раунд </a></p>
+        <br>
+        <a class="button" href="{% url 'tournament:next_round' tournament.id%}"> Создать следующий раунд </a>
         {% if tournament.cur_round > 0 %}
-
+            <br>
+            <br>
             <br>
             <a class="button" href="{% url 'tournament:result_round' tournament.id%}"> Ввести/исправить результат </a>
-
             <br>
-            <a class="button" href="{% url 'tournament:result' tournament.id%}"> Теб </a>
-
+            <br>
+            <input type="button" class="button"
+                   onclick="confirm_remove_round('{% url 'tournament:remove_round' tournament.id %}')"
+                   value="Удалить последний раунд"
+                    >
         {% endif %}
         <br>
-        <input type="button" class="button"
-               onclick="confirm_remove_round('{% url 'tournament:remove_round' tournament.id %}')"
-               value="Удалить последний раунд"
-        >
+        <br>
+        <a class="button" href="{% url 'tournament:result' tournament.id%}"> Теб </a>
+        <br>
         <br>
         <br>
         <a class="button" href="{% url 'tournament:finished' tournament.id%}"> Завершить турнир </a>
