@@ -4,6 +4,7 @@ from django.shortcuts import \
     get_object_or_404, \
     render
 from . models import User
+from . forms import EditForm
 
 
 def profile(request, user_id):
@@ -25,16 +26,22 @@ def show_profile(request, user):
 
 
 def edit_profile(request, user):
-    # if request.method == 'POST':
-    #     pass
-    # else:
-    #     form = ProfileForm(instance=user)
-    # TODO Редактирование профиля
+    is_success = False
+    if request.method == 'POST':
+        form = EditForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            is_success = True
+    else:
+        form = EditForm(instance=user)
     return render(
         request,
-        'account/show.html',
+        'account/signup.html',
         {
+            'is_edit_form': True,
+            'is_success': is_success,
             'user': user,
+            'form': form,
         }
     )
 
