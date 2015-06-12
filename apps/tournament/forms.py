@@ -33,6 +33,8 @@ class TournamentForm(forms.ModelForm):
         fields = [
             'name',
             'location',
+            'location_lon',
+            'location_lat',
             'info',
             'count_rounds',
             'count_teams',
@@ -42,7 +44,13 @@ class TournamentForm(forms.ModelForm):
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'validate', 'placeholder': 'Название'}),
-            'location': forms.TextInput(attrs={'class': 'validate'}),
+            'location': forms.TextInput(attrs={
+                'class': 'validate',
+                'placeholder': 'Укажите место на карте',
+                'readonly': True,
+            }),
+            'location_lon': forms.HiddenInput(),
+            'location_lat': forms.HiddenInput(),
             'count_rounds': forms.NumberInput(attrs={'min': '0', 'placeholder': 'Количество раундов'}),
             'count_teams': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Количество команд'}),
             'count_teams_in_break': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Выходят в финал'}),
