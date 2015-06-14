@@ -6,7 +6,7 @@
 
 
 {% block content %}
-    <form class="page col s9" action="{% url "tournament:next_round" tournament_id %}" method="post">
+    <form class="page col s9" action="{% url "tournament:next_round" tournament.id %}" method="post">
         {% csrf_token %}
         {{ motion_form.non_field_errors }}
         {{ round_form.non_field_errors }}

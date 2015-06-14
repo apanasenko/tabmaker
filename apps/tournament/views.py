@@ -289,7 +289,7 @@ def next_round(request, tournament):
         request,
         'tournament/next_round.html',
         {
-            'tournament_id': tournament.id,
+            'tournament': tournament,
             'motion_form': motion_form,
             'round_form': round_form,
         }
