@@ -47,7 +47,7 @@ class TournamentForm(forms.ModelForm):
             'location': forms.TextInput(attrs={
                 'class': 'validate',
                 'placeholder': 'Укажите место на карте',
-                'readonly': True,
+                'readonly': 'True',
             }),
             'location_lon': forms.HiddenInput(),
             'location_lat': forms.HiddenInput(),
