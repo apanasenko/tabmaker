@@ -8,6 +8,7 @@ from apps.game.models import\
     Game, \
     GameResult
 from apps.team.models import Team
+from apps.profile.models import User
 from apps.motion.models import Motion
 from .db_execute import \
     get_teams_result_list, \
@@ -541,3 +542,12 @@ def find_best_team_in_position(teams, need_positions):
         max_weight = max_weight * 2 + 1
         find_sum, find_position = a(set(need_positions), {})
     return find_position
+
+
+def remove_team_from_tournament(tournament: Tournament, team_id):
+    try:
+        tournament.teamtournamentrel_set.get(team_id=team_id).delete()
+    except ObjectDoesNotExist:
+        return 'Не удалось удалить команду'
+
+    return 'Команда упешно удалена'

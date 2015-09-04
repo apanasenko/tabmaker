@@ -16,7 +16,9 @@ class TournamentStatus(models.Model):
 
 class Tournament(models.Model):
     name = models.CharField(max_length=100)
-    location = models.CharField(max_length=100)  # TODO Посмотреть форма данный связанный с геолокацией
+    location = models.CharField(max_length=100)
+    location_lon = models.FloatField(default=43.024658672481465)
+    location_lat = models.FloatField(default=131.89274039289919)
     open_reg = models.DateTimeField('open registration')
     close_reg = models.DateTimeField('close registration')
     start_tour = models.DateTimeField('start tournament')

@@ -23,13 +23,15 @@
             Телефон: {{ user.phone }}
         </div>
         <div>
+            Страница в соц.сети: <a href="{{ user.link }}">{{ user.link }}</a>
+        </div>
+        <div>
             Опыт в дебатах: {{ user.player_experience }}
         </div>
         <div>
             Опыт в судействе: {{ user.adjudicator_experience }}
         </div>
         <br>
-        <h6>* Редактирование профиля пока недоступно</h6>
     </div>
 
 {% endblock content %}

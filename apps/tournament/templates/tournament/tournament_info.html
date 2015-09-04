@@ -6,6 +6,8 @@
         <li>Команды: {{ tournament.count_teams }}</li>
         <li>Раунды: {{ tournament.count_rounds }}</li>
         <li>Брейк: {{ tournament.count_teams_in_break }}</li>
+        <input id="id_location_lon" type="hidden" value={{ tournament.location_lon }}>
+        <input id="id_location_lat" type="hidden" value={{ tournament.location_lat }}>
     </ul>
 
 
@@ -53,6 +55,6 @@
         </div>
     {% endif %}
 
-    {% include "tournament/map.html" %}
+    <div id="map" style="width: 600px; height: 400px"></div>
 
 </div>

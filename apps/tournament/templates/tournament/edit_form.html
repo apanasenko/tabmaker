@@ -8,33 +8,11 @@
 
 <h3>Место проведения</h3>
 
-<div class="formItem" id="country">
-    <select class="" placeholder="Страна">
-        <option value="1">Россия</option>
-        <option value="2">Казахстан</option>
-        <option value="3">Китай</option>
-    </select>
-</div>
-<div class="formItem" id="city">
-    <select class="">
-        <option value="1">Владивосток</option>
-        <option value="2">Москва</option>
-        <option value="3">Казань</option>
-    </select>
-</div>
-<div class="formItem" id="university">
-    <select class="">
-        <option value="1">ДВФУ</option>
-        <option value="2">НИУ ВШЭ</option>
-        <option value="3">МГУ</option>
-    </select>
-</div>
-
-<div class="formItem" id="street">
-    <input id="street" type="text" class="validate" placeholder="Улица">
-</div>
-<div class="formItem" id="adress">
-    <input id="house" type="text" class="validate" placeholder="Дом">
+<div class="formItem" id="address">
+    {{ form.location }}
+    {{ form.location.errors }}
+    {{ form.location_lon }} {# Hidden #}
+    {{ form.location_lat }} {# Hidden #}
 </div>
 
 <h3>Открытие регистрации</h3>

@@ -1,4 +1,4 @@
 pytz
-django >= 1.7
-django-allauth>=0.19
-django-modeltranslation>=0.9
+django >= 1.8
+django-allauth >= 0.23
+django-modeltranslation >= 0.10

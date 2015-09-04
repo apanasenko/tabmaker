@@ -14,7 +14,16 @@
 {% endblock page_title %}
 
 {% block content %}
-    <form class="" id="signup_form" method="post" action="{% url 'account_signup' %}">
+    {% if is_success %}
+        <div class="update_profile">
+            <h4>Профиль успешно обновлён</h4>
+        </div>
+    {% endif %}
+    <form class="" id="signup_form" method="post"
+            {% if is_edit_form %} action="{% url 'profile' user.id %}"
+            {% else %} action="{% url 'account_signup' %}"
+            {% endif %}
+    >
         {% csrf_token %}
         {{ form.non_field_errors }}
 
@@ -44,33 +53,36 @@
                 {{ form.university_id }}
                 {{ form.university_id.errors }}
             </div>
-
-            <div class="formItem row">
-                {{ form.email.label_tag }}
-                {{ form.email }}
-                {{ form.email.errors }}
-            </div>
+            {% if not is_edit_form %}
+                <div class="formItem row">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                    {{ form.email.errors }}
+                </div>
+            {% endif %}
             <div class="formItem">
                 {{ form.phone.label_tag }}
                 {{ form.phone }}
                 {{ form.phone.errors }}
             </div>
+            {% if not is_edit_form %}
+                <div class="formItem row">
+                    {{ form.password1.label_tag }}
+                    {{ form.password1 }}
+                    {{ form.password1.errors }}
+                </div>
+                <div class="formItem">
+                    {{ form.password2.label_tag }}
+                    {{ form.password2 }}
+                    {{ form.password2.errors }}
+                </div>
+            {% endif %}
             <div class="formItem row">
-                {{ form.password1.label_tag }}
-                {{ form.password1 }}
-                {{ form.password1.errors }}
-            </div>
-            <div class="formItem">
-                {{ form.password2.label_tag }}
-                {{ form.password2 }}
-                {{ form.password2.errors }}
+                {{ form.link.label_tag }}
+                {{ form.link }}
+                {{ form.link.errors }}
             </div>
 
-{#            <div class="input-field col s6">#}
-{#                <input id="url" type="url" class="validate">#}
-{#                <label for="url">Адрес в социальных сетях</label>#}
-{#            </div>#}
-        
             <div class="formItem row" id="player_experience">
                 {{ form.player_experience }}
                 {{ form.player_experience.errors }}
@@ -79,15 +91,21 @@
                 {{ form.adjudicator_experience }}
                 {{ form.adjudicator_experience.errors }}
             </div>
-    
+
         {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
         {{ form.country_name }}
         {{ form.city_name }}
         {{ form.university_name }}
-        
-        <button type="submit" class="button formItem"> Вперед! </button>
+
+        <button type="submit" class="button formItem">
+            {% if is_edit_form %}
+                Сохранить
+            {% else %}
+                Вперед!
+            {% endif %}
+        </button>
 
     </form>
 {% endblock content %}

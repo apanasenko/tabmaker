@@ -4,11 +4,19 @@
 # Settings to postgresql
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'debates_tournament',
-        'USER': 'user',
-        'PASSWORD': 'password',
-        'HOST': 'host',
-        'PORT': 'port',
+        'ENGINE': '<django.db.backends.postgresql>', #'django.db.backends.postgresql_psycopg2',
+        'NAME': '<database_name>',
+        'USER': '<user>',
+        'PASSWORD': '<password>',
+        'HOST': '<host>',
+        'PORT': '<port>',
+    }
+}
+
+# Settings to SQLite
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '<database_name>',
     }
 }

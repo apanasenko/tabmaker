@@ -1,12 +1,16 @@
 import random
+import json
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_protect
 from django.core.urlresolvers import \
     reverse_lazy, \
     reverse
 from django.shortcuts import \
     render, \
     get_object_or_404, \
-    redirect
+    redirect, \
+    HttpResponse, \
+    Http404
 
 from apps.profile.models import User
 from apps.team.forms import \
@@ -40,11 +44,11 @@ from .logic import \
     get_or_generate_next_round, \
     get_last_round_games_and_results, \
     get_tournament_motions, \
+    remove_team_from_tournament, \
     remove_last_round
 
 
 def access_by_status(name_page=None):
-
     def decorator_maker(func):
 
         def check_access_to_page(request, tournament_id, *args, **kwargs):
@@ -67,7 +71,6 @@ def access_by_status(name_page=None):
 
 
 def check_results(func):
-
     def decorator(request, tournament):
         error = check_last_round_results(tournament)
         if error:
@@ -148,7 +151,8 @@ def finished(request, tournament):
     def tournament_finished(tournament_):
         tournament_.set_status(STATUS_FINISHED)
 
-    return confirm_page(request, tournament, need_message, template_body, redirect_to, tournament_finished, redirect_args)
+    return confirm_page(request, tournament, need_message, template_body, redirect_to, tournament_finished,
+                        redirect_args)
 
 
 @login_required(login_url=reverse_lazy('account_login'))
@@ -289,7 +293,7 @@ def next_round(request, tournament):
         request,
         'tournament/next_round.html',
         {
-            'tournament_id': tournament.id,
+            'tournament': tournament,
             'motion_form': motion_form,
             'round_form': round_form,
         }
@@ -479,7 +483,7 @@ def edit_team_list(request, tournament):
         form = TeamRoleForm(instance=team_rel, prefix=team.id)
         forms.append({
             'team': team,
-            'team_form': form
+            'team_form': form,
         })
 
     is_check_page = request.path == reverse('tournament:check_team_list', args=[tournament.id])
@@ -495,6 +499,7 @@ def edit_team_list(request, tournament):
             'member_count': member_count,
             'forms': forms,
             'tournament': tournament,
+            'can_remove_teams': tournament.cur_round == 0,
         }
     )
 
@@ -535,6 +540,16 @@ def edit_adjudicator_list(request, tournament):
             'tournament': tournament,
         }
     )
+
+
+@csrf_protect
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='')  # TODO  Добавить в таблицу доступа
+def remove_team(request, tournament):
+    if request.method == 'POST' and request.is_ajax():
+        message = remove_team_from_tournament(tournament, request.POST['id'])
+        return HttpResponse(json.dumps({'message': message}), content_type="application/json")
+    raise Http404
 
 
 def user_can_edit_tournament(t: Tournament, u: User):

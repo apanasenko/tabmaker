@@ -16,6 +16,7 @@
 
 {% block content %}
 
+        <div id="message"></div>
         <form
                  action={% if is_check_page %}
                             "{% url "tournament:check_team_list" tournament.id %}"
@@ -34,6 +35,17 @@
                 <div class=" col s4">
                     {{ rel.team_form.role }}
                 </div>
+                {% if can_remove_teams %}
+                <div>
+                    <button
+                            type="button"
+                            onclick="remove_team('{% url 'tournament:remove_team' tournament.id %}', {{ rel.team.id }})"
+                            value="Удалить"
+                    >
+                        Удалить
+                    </button>
+                </div>
+                {% endif %}
             </div>
             <div class="row">
                 <div class="col s3">
