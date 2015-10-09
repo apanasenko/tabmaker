@@ -81,3 +81,11 @@ def generate(request, tournament_id: int, func: str, role_id: int, count: int):
     generate_func = add_team_to_tournament if func == 'team' else add_user_to_tournament
     generate_func(tournament, int(count), role)
     return redirect('/tournament/%s/%s/list/' % (tournament_id, func))
+
+
+def remove(request, actor: str, id: int):
+    if actor == 'user':
+        user = get_object_or_404(User, pk=id)
+        user.delete()
+
+    return redirect('main:index')

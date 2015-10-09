@@ -10,5 +10,9 @@ urlpatterns = patterns('',
    url(
        r'^generate/(?P<tournament_id>\d+)/(?P<func>(team|adjudicator))/(?P<role_id>\d+)/(?P<count>\d+)[/]$',
        views.generate
-   )
+   ),
+   url(
+       r'^remove/(?P<actor>(team|user))/(?P<id>\d+)[/]$',
+       views.remove
+   ),
 )

@@ -2,7 +2,7 @@
 
 {% for adjudicator in adjudicators %}
     <div id="team_in_list" class="formItem full">
-        <h3>{{ adjudicator.user|name }}</h3>
+        <h3><a href="{% url 'profile' adjudicator.user.id%}">{{ adjudicator.user|name }}</a></h3>
         <p>{{ adjudicator.role.role }}</p>
     </div>
 {% empty %}
