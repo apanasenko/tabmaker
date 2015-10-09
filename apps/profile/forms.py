@@ -93,6 +93,7 @@ class SignupForm(ProfileForm):
         user.phone = self.cleaned_data['phone']
         user.player_experience = self.cleaned_data['player_experience']
         user.adjudicator_experience = self.cleaned_data['adjudicator_experience']
+        user.link = self.cleaned_data['link']
         user.save()
 
 
