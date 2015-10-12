@@ -3,6 +3,8 @@ __author__ = 'Alexander'
 from django.shortcuts import \
     get_object_or_404, \
     render
+from apps.tournament.consts import *
+from apps.main.views import paging
 from . models import User
 from . forms import EditForm
 
@@ -43,5 +45,14 @@ def edit_profile(request, user):
             'user': user,
             'form': form,
         }
+    )
+
+
+def show_tournaments_of_user(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    return paging(
+        request,
+        list(map(lambda x: x.tournament, user.usertournamentrel_set.filter(role=ROLE_OWNER))),
+        'main/main.html'
     )
 
