@@ -5,10 +5,10 @@
     <h3>{{ team_tournament_rel.team.name }}</h3>
     <p>Статус: {{ team_tournament_rel.role.role }}</p>
     <ul>
-        <li><a href="{% url 'profile' team_tournament_rel.team.speaker_1.id%}">
+        <li><a href="{% url 'profile:main' team_tournament_rel.team.speaker_1.id%}">
             {{ team_tournament_rel.team.speaker_1|name }}
         </a></li>
-        <li><a href="{% url 'profile' team_tournament_rel.team.speaker_2.id%}">
+        <li><a href="{% url 'profile:main' team_tournament_rel.team.speaker_2.id%}">
             {{ team_tournament_rel.team.speaker_2|name }}
         </a></li>
     </ul>

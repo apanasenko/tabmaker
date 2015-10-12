@@ -22,7 +22,7 @@
         </div>
     {% endif %}
     <form class="" id="signup_form" method="post"
-            {% if is_edit_form %} action="{% url 'profile' user.id %}"
+            {% if is_edit_form %} action="{% url 'profile:main' user.id %}"
             {% else %} action="{% url 'account_signup' %}"
             {% endif %}
     >

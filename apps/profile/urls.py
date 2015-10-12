@@ -4,13 +4,13 @@ from allauth.account import views as allauth_views
 from django.views.generic import RedirectView
 from django.conf.urls import \
     patterns, \
-    url
-from . import views
+    url, \
+    include
 
 
 urlpatterns = patterns(
     "",
-    url(r"^(?P<user_id>\d+)[/]$", views.profile, name='profile'),
+    url(r"^", include('apps.profile.urls_profile', namespace='profile')),
     url(r"^signup/$", allauth_views.signup, name="account_signup"),
     url(r"^login/$", allauth_views.login, name="account_login"),
     url(r"^logout/$", allauth_views.logout, name="account_logout"),

@@ -65,7 +65,7 @@
                     {% if request.user.is_authenticated %}
 
                         <h3>Профиль</h3>
-                        <li><a href="{% url 'profile' request.user.id %}">Редактировать</a></li>
+                        <li><a href="{% url 'profile:main' request.user.id %}">Редактировать</a></li>
                         <li><a href="#">Мои турниры (скоро...)</a></li>
                         <li><a href="#">Мои заявки (скоро...)</a></li>
                         <li><a href="{% url 'account_logout' %}">Выйти</a></li>
