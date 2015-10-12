@@ -4,13 +4,17 @@ from apps.tournament.models import Tournament
 
 
 def index(request):
-    paginator = Paginator(Tournament.objects.all(), 10)
+    return paging(request, Tournament.objects.all(), 'main/main.html')
+
+
+def paging(request, objects, page_name, count_objects_in_page=10):
+    paginator = Paginator(objects, count_objects_in_page)
     page = request.GET.get('page')
     try:
-        tournaments = paginator.page(page)
+        objects_in_page = paginator.page(page)
     except PageNotAnInteger:
-        tournaments = paginator.page(1)
+        objects_in_page = paginator.page(1)
     except EmptyPage:
-        tournaments = paginator.page(paginator.num_pages)
+        objects_in_page = paginator.page(paginator.num_pages)
 
-    return render(request, 'main/main.html', {'tournaments': tournaments})
+    return render(request, page_name, {'objects': objects_in_page})
