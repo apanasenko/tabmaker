@@ -4,7 +4,7 @@ from django.shortcuts import \
     get_object_or_404, \
     render
 from apps.tournament.consts import *
-from apps.main.views import paging
+from apps.main.utils import paging
 from . models import User
 from . forms import EditForm
 
@@ -50,28 +50,42 @@ def edit_profile(request, user):
 
 def show_tournaments_of_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    return paging(
+    return render(
         request,
-        list(map(lambda x: x.tournament, user.usertournamentrel_set.filter(role=ROLE_OWNER))),
-        'main/main.html'
+        'main/main.html',
+        {
+            'objects': paging(
+                request,
+                list(map(lambda x: x.tournament, user.usertournamentrel_set.filter(role=ROLE_OWNER)))
+            )
+        }
     )
 
 
 def show_teams_of_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     teams = list(user.first_speaker.all()) + list(user.second_speaker.all())
-    objects = list(map(lambda x: {'team': x, 'rel': x.teamtournamentrel_set.first()}, teams))
-    return paging(
+    return render(
         request,
-        objects,
-        'tournament/teams_of_user.html'
+        'tournament/teams_of_user.html',
+        {
+            'objects': paging(
+                request,
+                list(map(lambda x: {'team': x, 'rel': x.teamtournamentrel_set.first()}, teams))
+            )
+        }
     )
 
 
 def show_adjudicator_of_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    return paging(
+    return render(
         request,
-        user.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES),
-        'tournament/adjudicators_of_user.html'
+        'tournament/adjudicators_of_user.html',
+        {
+            'objects': paging(
+                request,
+                user.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES),
+            )
+        }
     )
