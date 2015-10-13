@@ -8,7 +8,7 @@
 <link rel="shortcut icon" type="image/png" href="{% static 'main/img/favicon.ico'%}"/>
 
 <title>
-    {% block head_title %} Новый турноман {% endblock head_title %}
+    {% block head_title %} Tabmaker {% endblock head_title %}
 </title>
 
 {% block libs %}
@@ -61,22 +61,9 @@
             <aside>
             <div class="sidebar" id="sideba1">
             {% block sidebar1%}
-                <ul>
-                    {% if request.user.is_authenticated %}
 
-                        <h3>Профиль</h3>
-                        <li><a href="{% url 'profile' request.user.id %}">Редактировать</a></li>
-                        <li><a href="#">Мои турниры (скоро...)</a></li>
-                        <li><a href="#">Мои заявки (скоро...)</a></li>
-                        <li><a href="{% url 'account_logout' %}">Выйти</a></li>
+                {% include 'account/sidebar.html' %}
 
-                    {% else %}
-
-                        <li class=""><a href="{% url 'account_login' %}">Войти</a></li>
-                        <li class=""><a href="{% url 'account_signup' %}">Зарегистрироваться</a></li>
-
-                    {% endif %}
-                </ul>
             {% endblock sidebar1 %}
             </div>
 

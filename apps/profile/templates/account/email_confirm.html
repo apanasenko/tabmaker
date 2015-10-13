@@ -1,36 +1,31 @@
 {% extends "account/base.html" %}
 
-{% load url from future %}
-{% load i18n %}
-{% load account %}
-
-
 {% block page_title %}
     Подтверждение
 {% endblock page_title %}
 
 {% block content %}
-<div id="email_confirm">
 
-    {% if confirmation %}
+    <div id="email_confirm">
 
-    {% user_display confirmation.email_address.user as user_display %}
+        {% if confirmation %}
 
-    <h3> Подтверите аккаунт <a href="mailto:{{email}}">{{ email }}</a></h3>
+            <h3>
+                Подтвеждение аккаунта для
+                <a href="mailto:{{confirmation.email_address.email}}"> {{ confirmation.email_address.email }}</a>
+            </h3>
+            <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+            {% csrf_token %}
+                <button class="button" type="submit">Да, погнали!</button>
+            </form>
 
-    <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
-    {% csrf_token %}
-        <button class="button" type="submit">Да, погнали!</button>
-    </form>
+        {% else %}
 
-    {% else %}
+            <h3> Что-то не то. Свяжитесть с ними для устранения ошибки debate.tabmaker@gmail.com </h3>
+            {# TODO Форма для повторной отправки подтверждения #}
 
-    {% url 'account_email' as email_url %}
+        {% endif %}
 
-    <h3> Что-то не то. Давай ещё раз вышлем тебе подтверждение.</h3> 
-    {# <a class="button" ><p>Отправить</p></a> #}
-    <button class="button formItem"> <a href="{{email_url}}">Отправить</a> </button>
+    </div>
 
-    {% endif %}
-</div>
 {% endblock %}

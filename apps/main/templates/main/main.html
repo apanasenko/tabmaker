@@ -6,23 +6,11 @@
 
 {% block content %}
     <section>
-    	<ul>
+        <ul>
         {% include "tournament/tournament_list.html" %}
         </ul>
     </section>
-    <div>
 
-        {% if tournaments.has_previous %}
-            <a href="?page={{ tournaments.previous_page_number }}"> Предыдущая </a>
-        {% endif %}
+    {% include 'tournament/paging.html' %}
 
-        <span>
-             {{ tournaments.number }}
-        </span>
-
-        {% if tournaments.has_next %}
-            <a href="?page={{ tournaments.next_page_number }}"> Следующая </a>
-        {% endif %}
-
-    </div>
 {% endblock content %}

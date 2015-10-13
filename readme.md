@@ -36,7 +36,7 @@ For PostgreSQL:
 
 Firstly, run a clone:
 
-	git clone https://<your name in bitbucket>@bitbucket.org/apanasenko_aa/debatestournament.git
+    git clone https://<your name in bitbucket>@bitbucket.org/apanasenko_aa/debatestournament.git
 
 This will download the latest sources into a directory `DebatesTournament`.
 
@@ -50,7 +50,7 @@ Thirdly, copy all settings files from `DebatesTournament\settings\default` to `D
 
 *   `security.py` -- Set `SECRET_KEY` as random line and set `DEBUG` and `TEMPLATE_DEBUG` as `True`.
 
-*	`smtp_email.py` -- Set `EMAIL_HOST_USER` as your email and `EMAIL_HOST_PASSWORD` as password for this.
+*   `smtp_email.py` -- Set `EMAIL_HOST_USER` as your email and `EMAIL_HOST_PASSWORD` as password for this.
 
 Finaly, initiation database:
 

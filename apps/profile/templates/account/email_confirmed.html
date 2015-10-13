@@ -1,17 +1,11 @@
 {% extends "account/base.html" %}
 
-{% load i18n %}
-{% load account %}
-
 {% block page_title %}
-    Подтверждение
+    Email Confirmed
 {% endblock page_title %}
 
 {% block content %}
-    <div>
 
-        {% user_display confirmation.email_address.user as user_display %}
-        <p> You have confirmed that <a href="mailto:{{email}}">{{ email }}</a> is an e-mail address</p>
+    {% include "account/snippets/unknown_page.html" %}
 
-    </div>
-{% endblock %}
+{% endblock content %}

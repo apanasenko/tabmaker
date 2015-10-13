@@ -6,14 +6,16 @@
 
 {% block content %}
 
-<h3>Хорошенько подумай перед тем как разлогиниться</h3>
+    <h3>Хорошенько подумай перед тем как разлогиниться</h3>
 
     <form method="post" action="{% url 'account_logout' %}">
-      {% csrf_token %}
-      {% if redirect_field_value %}
-      <input type="hidden" name="{{redirect_field_name}}" value="{{redirect_field_value}}"/>
-      {% endif %}
-      <button type="submit" class="button formItem"> Все, ухожу </button>
+        {% csrf_token %}
+
+        {% if redirect_field_value %}
+            <input type="hidden" name="{{redirect_field_name}}" value="{{redirect_field_value}}"/>
+        {% endif %}
+
+        <button type="submit" class="button formItem"> Все, ухожу </button>
     </form>
 
 {% endblock content %}

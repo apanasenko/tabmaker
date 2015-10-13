@@ -16,13 +16,14 @@
 {% endblock page_title %}
 
 {% block content %}
+
     {% if is_success %}
         <div class="update_profile">
             <h4>Профиль успешно обновлён</h4>
         </div>
     {% endif %}
     <form class="" id="signup_form" method="post"
-            {% if is_edit_form %} action="{% url 'profile' user.id %}"
+            {% if is_edit_form %} action="{% url 'profile:main' user.id %}"
             {% else %} action="{% url 'account_signup' %}"
             {% endif %}
     >
@@ -109,5 +110,10 @@
             {% endif %}
         </button>
 
+        <button class="button formItem">
+            <a href="{% url 'account_change_password' %}">Изменить пароль</a>
+        </button>
+
     </form>
+
 {% endblock content %}

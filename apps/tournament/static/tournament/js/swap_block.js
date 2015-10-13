@@ -1,7 +1,3 @@
-/**
- * Created by Alexander on 17.05.2015.
- */
-
 function swap(element, buffer, element_name){
     if (!buffer){
         $(element).css('background', '#fff');

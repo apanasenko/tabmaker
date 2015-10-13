@@ -1,5 +1,3 @@
-__author__ = 'Alexander'
-
 from . import views
 from django.conf.urls import \
     patterns, \

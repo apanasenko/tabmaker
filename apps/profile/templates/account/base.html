@@ -8,6 +8,7 @@
 {% endblock extra_head %}
 
 {% block header %}
+
     <div class="header_container">
         <div id="page_title">
             <h3>
@@ -15,23 +16,31 @@
             </h3>
         </div>
     </div>
+
 {% endblock header %}
 
 {% block sidebar%}
+
     <ul class="side-nav">
+
         {% if request.user.is_authenticated %}
+
             <li class="">
                 <a href="{% url 'account_logout' %}">Выйти</a>
             </li>
+
         {% else %}
+
             <li class="">
                 <a href="{% url 'account_login' %}">Войти</a>
             </li>
             <li class="">
                 <a href="{% url 'account_signup' %}">Зарегистрироваться</a>
             </li>
+
         {% endif %}
-        </li>
+
     </ul>
+
 {% endblock sidebar %}
 

@@ -1,0 +1,29 @@
+{% extends "main/base.html" %}
+
+{% block page_title %}
+    Судейство в турнирах
+{% endblock page_title %}
+
+{% block content %}
+    <section>
+        <ul>
+            {% for rel in objects %}
+                <li class="tournament_list">
+
+                    <div class="list_item">
+                        <h3><a href="{% url 'tournament:show' rel.tournament.id %}">{{ rel.tournament.name }}</a></h3>
+                        <ul>
+                            <li>Статус: {{ rel.role.role }}</li>
+                        </ul>
+                    </div>
+                    {# TODO Кнопка "Удалить заявку" #}
+                    {# TODO Кнопка "Подтвердить участие" #}
+
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    {% include 'tournament/paging.html' %}
+
+{% endblock content %}

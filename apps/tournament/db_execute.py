@@ -1,5 +1,3 @@
-__author__ = 'Alexander'
-
 from django.db import connection
 
 

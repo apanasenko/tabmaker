@@ -1,20 +1,27 @@
 {% load tournament_extras %}
 
-{% for tournament in tournaments %}
+{% for tournament in objects %}
     <li class="tournament_list">
 
-		<div class="list_item">
-	    	<h3><a href="{% url 'tournament:show' tournament.id %}">{{ tournament.name }}</a></h3>
-			<ul>
-				<li>{{ tournament|address }}</li>
-				<li>{{ tournament.start_tour|date:"d E Y"}}</li>
-				<li>{{ tournament|registered_users }} заявок</li>
-			</ul>
-		</div>
+        <div class="list_item">
+            <h3><a href="{% url 'tournament:show' tournament.id %}">{{ tournament.name }}</a></h3>
+            <ul>
+                <li>{{ tournament|address }}</li>
+                <li>{{ tournament.start_tour|date:"d E Y"}}</li>
+                <li>{{ tournament|registered_users }} заявок</li>
+            </ul>
+        </div>
 
-		<div class="reg_date">
-            <p>Регистрация до {{ tournament.close_reg|date:"d E"}} </p>
-    	</div>
+        <div class="reg_date">
+            {% if tournament|is_status_registration %}
+                Регистрация открыта
+            {% elif tournament|is_status_preparation %}
+                Регистрация закрыта
+            {% else %}
+                <a class="button" href="{% url "tournament:result" tournament.id %}">Результаты</a>
+            {% endif %}
+{#            <p>Регистрация до {{ tournament.close_reg|date:"d E"}} </p>#}
+        </div>
 
     </li>
 {% endfor %}
