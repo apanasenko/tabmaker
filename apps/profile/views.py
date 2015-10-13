@@ -1,21 +1,15 @@
 from django.shortcuts import \
     get_object_or_404, \
     render
+from django.http import Http404
 from apps.tournament.consts import *
 from apps.main.utils import paging
 from . models import User
 from . forms import EditForm
 
 
-def profile(request, user_id):
+def show_profile(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    if not request.user.is_authenticated() or request.user != user:
-        return show_profile(request, user)
-    else:
-        return edit_profile(request, user)
-
-
-def show_profile(request, user):
     return render(
         request,
         'account/show.html',
@@ -25,7 +19,10 @@ def show_profile(request, user):
     )
 
 
-def edit_profile(request, user):
+def edit_profile(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    if not request.user.is_authenticated() or request.user != user:
+        raise Http404
     is_success = False
     if request.method == 'POST':
         form = EditForm(request.POST, instance=user)

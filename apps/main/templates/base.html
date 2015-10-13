@@ -65,7 +65,7 @@
                     {% if request.user.is_authenticated %}
 
                         <h3>Профиль</h3>
-                        <li><a href="{% url 'profile:main' request.user.id %}">Редактировать</a></li>
+                        <li><a href="{% url 'profile:main' request.user.id %}">Профиль</a></li>
                         <li><a href="{% url 'profile:teams' request.user.id %}">Участие в турнирах</a></li>
                         <li><a href="{% url 'profile:adjudicator' request.user.id %}">Судейство в турнирах</a></li>
                         <li><a href="{% url 'profile:tournaments' request.user.id %}">Мои турниры</a></li>
