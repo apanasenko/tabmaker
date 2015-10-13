@@ -1,5 +1,3 @@
-__author__ = 'Alexander'
-
 from allauth.account.forms import \
     LoginForm as DefaultLoginForm
 from django import forms

@@ -1,5 +1,3 @@
-__author__ = 'Alexander'
-
 from allauth.account import views as allauth_views
 from django.views.generic import RedirectView
 from django.conf.urls import \

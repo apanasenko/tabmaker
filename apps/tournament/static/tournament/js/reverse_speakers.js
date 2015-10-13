@@ -1,7 +1,3 @@
-/**
- * Created by Alexander on 21.05.2015.
- */
-
 var swap_speakers = function(block){
     var s1 = $(block).parents('.team').find('.speaker_1');
     var s2 = $(block).parents('.team').find('.speaker_2');

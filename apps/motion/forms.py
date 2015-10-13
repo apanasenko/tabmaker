@@ -1,5 +1,3 @@
-__author__ = 'Alexander'
-
 from django import forms
 from .models import Motion
 

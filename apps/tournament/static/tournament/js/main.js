@@ -1,8 +1,3 @@
-/**
- * Created by Alexander on 22.04.2015.
- */
-
-
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));

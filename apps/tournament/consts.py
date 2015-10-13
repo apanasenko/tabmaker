@@ -1,5 +1,3 @@
-__author__ = 'Alexander'
-
 from enum import Enum
 from .models import \
     TournamentRole, \

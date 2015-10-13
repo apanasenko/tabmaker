@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-
-__author__ = 'Alexander'
-
-
 from modeltranslation.translator import translator, TranslationOptions
 from .models import \
     TournamentRole, \

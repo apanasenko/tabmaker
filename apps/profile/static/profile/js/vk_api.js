@@ -1,6 +1,3 @@
-/**
- * Created by Alexander on 05.04.2015.
- */
 var is_init = false;
 
 $(document).ready(function() {

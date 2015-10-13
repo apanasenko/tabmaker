@@ -1,5 +1,3 @@
-__author__ = 'Alexander'
-
 import random
 import datetime
 import itertools

@@ -1,5 +1,3 @@
-__author__ = 'Alexander'
-
 import pytz
 
 from django import forms
