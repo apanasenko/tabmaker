@@ -13,7 +13,14 @@
 		</div>
 
 		<div class="reg_date">
-            <p>Регистрация до {{ tournament.close_reg|date:"d E"}} </p>
+            {% if tournament|is_status_registration %}
+                Регистрация открыта
+            {% elif tournament|is_status_preparation %}
+                Регистрация закрыта
+            {% else %}
+                <a class="button" href="{% url "tournament:result" tournament.id %}">Результаты</a>
+            {% endif %}
+{#            <p>Регистрация до {{ tournament.close_reg|date:"d E"}} </p>#}
     	</div>
 
     </li>
