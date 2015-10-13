@@ -1,0 +1,43 @@
+{% extends "main/base.html" %}
+
+{% load profile_extras %}
+
+{% block page_title %}
+    Участие в турнирах
+{% endblock page_title %}
+
+{% block content %}
+    <section>
+        <ul>
+            {% for object in objects %}
+                <li>
+                    <div class="list_item">
+                        <h2>Команда: {{ object.team.name }}</h2>
+                        {% if object.rel %}
+                            <h3><a href="{% url 'tournament:show' object.rel.tournament.id %}">
+                                Турнир: {{ object.rel.tournament.name }}
+                            </a></h3>
+                        {% else %}
+                            <h3>Эта команда не зарегистрирована в турнире</h3>
+                        {% endif %}
+                        <ul>
+                            <li><a href="{% url 'profile:main' object.team.speaker_1.id%}">
+                                Спикер 1 {{ object.team.speaker_1|name }}
+                            </a></li>
+                            <li><a href="{% url 'profile:main' object.team.speaker_2.id%}">
+                                Спикер 2 {{ object.team.speaker_2|name }}
+                            </a></li>
+                            <li>Статус: {{ object.rel.role.role }}</li>
+                        </ul>
+                    {# TODO Кнопка "Удалить команду" #}
+                    {# TODO Кнопка "Подтвердить участие" #}
+                    </div>
+
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    {% include 'tournament/paging.html' %}
+
+{% endblock content %}

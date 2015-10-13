@@ -56,3 +56,22 @@ def show_tournaments_of_user(request, user_id):
         'main/main.html'
     )
 
+
+def show_teams_of_user(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    teams = list(user.first_speaker.all()) + list(user.second_speaker.all())
+    objects = list(map(lambda x: {'team': x, 'rel': x.teamtournamentrel_set.first()}, teams))
+    return paging(
+        request,
+        objects,
+        'tournament/teams_of_user.html'
+    )
+
+
+def show_adjudicator_of_user(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    return paging(
+        request,
+        user.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES),
+        'tournament/adjudicators_of_user.html'
+    )
