@@ -16,6 +16,7 @@
 {% endblock page_title %}
 
 {% block content %}
+
     {% if is_success %}
         <div class="update_profile">
             <h4>Профиль успешно обновлён</h4>
@@ -112,5 +113,7 @@
         <button class="button formItem">
             <a href="{% url 'account_change_password' %}">Изменить пароль</a>
         </button>
+
     </form>
+
 {% endblock content %}

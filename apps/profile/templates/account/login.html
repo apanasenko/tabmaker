@@ -1,35 +1,35 @@
 {% extends "account/base.html" %}
 
-{% load account %}
-{% load url from future %}
-
-
 {% block page_title %}
     Заходи
 {% endblock page_title %}
 
 {% block content %}
-<form class="login" method="POST" action="{% url 'account_login' %}">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-    <div class="formItem">
-        {{ form.login.label_tag }}
-        {{ form.login }}
-        {{ form.login.errors }}
-    </div>
 
-    <div class="formItem">
-        {{ form.password.label_tag }}
-        {{ form.password }}
-        {{ form.password.errors }}
+    <form class="login" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="formItem">
+            {{ form.login.label_tag }}
+            {{ form.login }}
+            {{ form.login.errors }}
         </div>
+
+        <div class="formItem">
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            {{ form.password.errors }}
+        </div>
+
+        {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+
+        <button id="loginButton" class="primaryAction button formItem row" type="submit"> Войти </button>
+    </form>
+
     <div>
         <a href="{% url 'account_reset_password' %}">Забыли пароль?</a>
     </div>
 
-    {% if redirect_field_value %}
-    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-    {% endif %}
-    <button id="loginButton" class="primaryAction button formItem row" type="submit"> Войти </button>
-</form>
 {% endblock content %}
