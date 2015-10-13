@@ -16,6 +16,7 @@ urlpatterns = patterns(
     url(r"^confirm-email/$", allauth_views.email_verification_sent, name="account_email_verification_sent"),
     url(r"^confirm-email/(?P<key>\w+)/$", allauth_views.confirm_email, name="account_confirm_email"),
 
+    url(r"^password/change/$", allauth_views.password_change, name="account_change_password"),
     url(r"^password/reset/$", allauth_views.password_reset, name="account_reset_password"),
     url(r"^password/reset/done/$", allauth_views.password_reset_done, name="account_reset_password_done"),
     url(
