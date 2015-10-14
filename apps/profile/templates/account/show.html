@@ -32,9 +32,15 @@
             Опыт в судействе: {{ user.adjudicator_experience }}
         </div>
         <br>
-        <button class="button formItem">
-            <a href="{% url 'profile:edit' user.id%}">Редактировать</a>
-        </button>
+
+        {% if request.user == user %}
+
+            <button class="button formItem">
+                <a href="{% url 'profile:edit' user.id%}">Редактировать</a>
+            </button>
+
+        {% endif %}
+
     </div>
 
 {% endblock content %}
