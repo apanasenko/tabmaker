@@ -5,12 +5,13 @@
 {% endblock page_title %}
 
 {% block content %}
+
     <section>
         <ul>
         {% include "tournament/tournament_list.html" %}
         </ul>
     </section>
 
-    {% include 'main/paging.html' with objects=objects%}
+    {% include 'main/paging.html' with objects=objects %}
 
 {% endblock content %}
