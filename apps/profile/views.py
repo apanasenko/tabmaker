@@ -6,6 +6,7 @@ from apps.tournament.consts import *
 from apps.main.utils import paging
 from . models import User
 from . forms import EditForm
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 
 def show_profile(request, user_id):
@@ -57,6 +58,7 @@ def show_tournaments_of_user(request, user_id):
     )
 
 
+@ensure_csrf_cookie
 def show_teams_of_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     teams = list(user.first_speaker.all()) + list(user.second_speaker.all())
@@ -64,6 +66,7 @@ def show_teams_of_user(request, user_id):
         request,
         'account/teams_of_user.html',
         {
+            'is_owner': request.user == user,
             'objects': paging(
                 request,
                 list(map(lambda x: {'team': x, 'rel': x.teamtournamentrel_set.first()}, teams))
