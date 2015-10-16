@@ -62,7 +62,7 @@ def show_teams_of_user(request, user_id):
     teams = list(user.first_speaker.all()) + list(user.second_speaker.all())
     return render(
         request,
-        'tournament/teams_of_user.html',
+        'account/teams_of_user.html',
         {
             'objects': paging(
                 request,
@@ -76,7 +76,7 @@ def show_adjudicator_of_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     return render(
         request,
-        'tournament/adjudicators_of_user.html',
+        'account/adjudicators_of_user.html',
         {
             'objects': paging(
                 request,
