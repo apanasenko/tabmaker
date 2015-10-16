@@ -31,20 +31,22 @@
             {{ form.name }}
             {{ form.name.errors }}
         </div>
-        {% if show_speaker_1 %}
-            <div class="formItem">
+        <div class="formItem">
+
+            {% if show_speaker_1 %}
+
                 <label for="id_speaker_1">E-mail первого спикера</label>
                 {{ form.speaker_1 }}
                 {{ form.speaker_1.errors }}
-            </div>
-            <div class="formItem">
-            <label for="id_speaker_2">E-mail второго спикера</label>
-        {% else %}
+                </div>
+                <div class="formItem">
+                <label for="id_speaker_2">E-mail второго спикера</label>
+            {% else %}
 
                 {{ form.speaker_1 }}
-            <div class="formItem">
-            <label for="id_speaker_2">E-mail вашего напарника</label>
-        {% endif %}
+                <label for="id_speaker_2">E-mail вашего напарника</label>
+
+            {% endif %}
 
             {{ form.speaker_2 }}
             {{ form.speaker_2.errors }}
