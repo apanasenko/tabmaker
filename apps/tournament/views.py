@@ -547,7 +547,7 @@ def edit_adjudicator_list(request, tournament):
 @access_by_status(name_page='')  # TODO  Добавить в таблицу доступа
 def remove_team(request, tournament):
     if request.method == 'POST' and request.is_ajax():
-        message = remove_team_from_tournament(tournament, request.POST['id'])
+        message = remove_team_from_tournament(tournament, request.POST['team_id'])
         return HttpResponse(json.dumps({'message': message}), content_type="application/json")
     raise Http404
 
