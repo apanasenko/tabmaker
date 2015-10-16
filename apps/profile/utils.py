@@ -28,7 +28,7 @@ def can_remove_team(team: Team) -> bool:
 
 @csrf_protect
 @login_required(login_url=reverse_lazy('account_login'))
-def remove_team(request):
+def team_remove(request):
     if request.method != 'POST' or not request.is_ajax():
         return HttpResponseBadRequest
 
