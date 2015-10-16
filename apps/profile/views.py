@@ -50,6 +50,7 @@ def show_tournaments_of_user(request, user_id):
         request,
         'main/main.html',
         {
+            'is_owner': request.user == user,
             'objects': paging(
                 request,
                 list(map(lambda x: x.tournament, user.usertournamentrel_set.filter(role=ROLE_OWNER)))

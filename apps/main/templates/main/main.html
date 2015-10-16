@@ -1,7 +1,11 @@
 {% extends "main/base.html" %}
 
 {% block page_title %}
-    Турниры
+    {% if is_owner %}
+        Мои турниры
+    {% else %}
+        Турниры
+    {% endif %}
 {% endblock page_title %}
 
 {% block content %}
