@@ -29,34 +29,42 @@
         >
         {% csrf_token %}
         {% for rel in forms %}
-            <div class="row">
-                <div class="col s4">
-                    <label>Название команды</label>
-                    <p>{{ rel.team.name }}</p>
+            <div id="errors_{{ rel.team.id }}"></div>
+            <div id="team_{{ rel.team.id }}">
+                <div class="row">
+                    <div class="col s4">
+                        <label>Название команды</label>
+                        <p>{{ rel.team.name }}</p>
+                    </div>
+                    <div class=" col s4">
+                        {{ rel.team_form.role }}
+                    </div>
+                    {% if can_remove_teams %}
+                    <div>
+                        <button
+                                type="button"
+                                onclick="remove_team(
+                                        '{% url 'tournament:remove_team' tournament.id %}',
+                                        {{ rel.team.id }},
+                                        'team_{{ rel.team.id }}',
+                                        'errors_{{ rel.team.id }}'
+                                        )"
+                                value="Удалить"
+                        >
+                            Удалить
+                        </button>
+                    </div>
+                    {% endif %}
                 </div>
-                <div class=" col s4">
-                    {{ rel.team_form.role }}
-                </div>
-                {% if can_remove_teams %}
-                <div>
-                    <button
-                            type="button"
-                            onclick="remove_team('{% url 'tournament:remove_team' tournament.id %}', {{ rel.team.id }})"
-                            value="Удалить"
-                    >
-                        Удалить
-                    </button>
-                </div>
-                {% endif %}
-            </div>
-            <div class="row">
-                <div class="col s3">
-                    <label>Первый спикер:</label>
-                    {{ rel.team.speaker_1|name }}
-                </div>
-                <div class="col s3">
-                    <label>Второй спикер:</label>
-                    {{ rel.team.speaker_2|name }}
+                <div class="row">
+                    <div class="col s3">
+                        <label>Первый спикер:</label>
+                        {{ rel.team.speaker_1|name }}
+                    </div>
+                    <div class="col s3">
+                        <label>Второй спикер:</label>
+                        {{ rel.team.speaker_2|name }}
+                    </div>
                 </div>
             </div>
             <hr>
