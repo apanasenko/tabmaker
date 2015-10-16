@@ -14,5 +14,6 @@ urlpatterns = patterns(
     url(r"^(?P<user_id>\d+)/adjudicator[/]$", views.show_adjudicator_of_user, name='adjudicator'),
 
     url(r"^team/remove[/]$", utils.team_remove, name='team_remove'),
+    url(r"^adjudicator/remove[/]$", utils.adjudicator_remove, name='adjudicator_remove'),
 )
 

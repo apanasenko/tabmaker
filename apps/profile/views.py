@@ -76,12 +76,14 @@ def show_teams_of_user(request, user_id):
     )
 
 
+@ensure_csrf_cookie
 def show_adjudicator_of_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     return render(
         request,
         'account/adjudicators_of_user.html',
         {
+            'is_owner': request.user == user,
             'objects': paging(
                 request,
                 user.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES),
