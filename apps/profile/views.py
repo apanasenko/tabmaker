@@ -6,6 +6,7 @@ from apps.tournament.consts import *
 from apps.main.utils import paging
 from . models import User
 from . forms import EditForm
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 
 def show_profile(request, user_id):
@@ -49,6 +50,7 @@ def show_tournaments_of_user(request, user_id):
         request,
         'main/main.html',
         {
+            'is_owner': request.user == user,
             'objects': paging(
                 request,
                 list(map(lambda x: x.tournament, user.usertournamentrel_set.filter(role=ROLE_OWNER)))
@@ -57,13 +59,15 @@ def show_tournaments_of_user(request, user_id):
     )
 
 
+@ensure_csrf_cookie
 def show_teams_of_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     teams = list(user.first_speaker.all()) + list(user.second_speaker.all())
     return render(
         request,
-        'tournament/teams_of_user.html',
+        'account/teams_of_user.html',
         {
+            'is_owner': request.user == user,
             'objects': paging(
                 request,
                 list(map(lambda x: {'team': x, 'rel': x.teamtournamentrel_set.first()}, teams))
@@ -72,12 +76,14 @@ def show_teams_of_user(request, user_id):
     )
 
 
+@ensure_csrf_cookie
 def show_adjudicator_of_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     return render(
         request,
-        'tournament/adjudicators_of_user.html',
+        'account/adjudicators_of_user.html',
         {
+            'is_owner': request.user == user,
             'objects': paging(
                 request,
                 user.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES),

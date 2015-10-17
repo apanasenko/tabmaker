@@ -1,17 +1,26 @@
 {% extends "main/base.html" %}
 
 {% load profile_extras %}
+{% load staticfiles %}
 
 {% block page_title %}
     Участие в турнирах
 {% endblock page_title %}
+
+{% block extra_head %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static "main/js/cookie.js" %}"></script>
+    <script type="text/javascript" src="{% static "main/js/ajaxCSRF.js" %}"></script>
+    <script type="text/javascript" src="{% static "tournament/js/main.js" %}"></script>
+{% endblock extra_head %}
 
 {% block content %}
     <section>
         <ul>
             {% for object in objects %}
                 <li>
-                    <div class="list_item">
+                    <div id="errors_{{ object.team.id }}"></div>
+                    <div class="list_item" id="team_{{ object.team.id }}">
                         <h2>Команда: {{ object.team.name }}</h2>
                         {% if object.rel %}
                             <h3><a href="{% url 'tournament:show' object.rel.tournament.id %}">
@@ -29,8 +38,22 @@
                             </a></li>
                             <li>Статус: {{ object.rel.role.role }}</li>
                         </ul>
-                    {# TODO Кнопка "Удалить команду" #}
-                    {# TODO Кнопка "Подтвердить участие" #}
+
+                    {% if is_owner %}
+
+                        <button onclick="remove_team(
+                                '{% url 'profile:team_remove' %}',
+                                {{ object.team.id }},
+                                'team_{{ object.team.id }}',
+                                'errors_{{ object.team.id }}'
+                                )">
+                            Удалить команду
+                        </button>
+
+                        {# TODO Кнопка "Подтвердить участие" uu#}
+
+                    {% endif %}
+
                     </div>
 
                 </li>
@@ -38,6 +61,6 @@
         </ul>
     </section>
 
-    {% include 'tournament/paging.html' %}
+    {% include 'main/paging.html' with objects=objects %}
 
 {% endblock content %}

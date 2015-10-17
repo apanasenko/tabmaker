@@ -1,41 +1,25 @@
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-
-
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
+function show_message(data, div_id, errors_id){
+    if (data.status == 'ok') {
+        $('#' + div_id).html(data.message)
+    } else {
+        $('#' + errors_id).html(data.message)
     }
-    return cookieValue;
 }
 
 
-$(document).ready(function() {
-    $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-            }
-        }
-    });
-});
-
-
-function remove_team(url, id){
-    $.post(url, {id: id},
+function remove_team(url, id, div_team_id, div_errors_id){
+    $.post(url, {team_id: id},
         function(data, status){
-            $('#message').text(data.message);
+            show_message(data, div_team_id, div_errors_id);
+        }
+    );
+}
+
+
+function remove_adjudicator(url, id, div_adjudicator_id, div_errors_id){
+    $.post(url, {user_tournament_rel_id: id},
+        function(data, status){
+            show_message(data, div_adjudicator_id, div_errors_id);
         }
     );
 }

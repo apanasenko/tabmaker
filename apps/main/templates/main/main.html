@@ -1,16 +1,21 @@
 {% extends "main/base.html" %}
 
 {% block page_title %}
-    Турниры
+    {% if is_owner %}
+        Мои турниры
+    {% else %}
+        Турниры
+    {% endif %}
 {% endblock page_title %}
 
 {% block content %}
+
     <section>
         <ul>
         {% include "tournament/tournament_list.html" %}
         </ul>
     </section>
 
-    {% include 'tournament/paging.html' %}
+    {% include 'main/paging.html' with objects=objects %}
 
 {% endblock content %}
