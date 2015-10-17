@@ -1,4 +1,4 @@
-/* line 5, ../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
+/* line 5, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -20,93 +20,94 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
 
-/* line 37, ../sass/main.scss */
+/* line 7, ../sass/modules/_layout.scss */
 body {
   font-family: "PT Sans", Arial, sans-serif;
+  background-color: #0C152A;
 }
 
-/* line 44, ../sass/main.scss */
-ul {
+/* line 12, ../sass/modules/_layout.scss */
+ul, a {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-/* line 50, ../sass/main.scss */
+/* line 18, ../sass/modules/_layout.scss */
 h3, h5, p, a, li, label {
   color: #58697A;
 }
 
-/* line 54, ../sass/main.scss */
+/* line 22, ../sass/modules/_layout.scss */
 h1, h2, h3 {
   font-weight: 700;
   margin-bottom: 10px;
 }
 
-/* line 59, ../sass/main.scss */
+/* line 27, ../sass/modules/_layout.scss */
 h1 {
   font-size: 24px;
 }
 
-/* line 63, ../sass/main.scss */
+/* line 31, ../sass/modules/_layout.scss */
 h3 {
   font-size: 18px;
 }
 
-/* line 67, ../sass/main.scss */
+/* line 35, ../sass/modules/_layout.scss */
 a {
   text-decoration: none;
 }
 
-/* line 71, ../sass/main.scss */
+/* line 39, ../sass/modules/_layout.scss */
 .white {
   color: white;
 }
 
-/* line 91, ../sass/main.scss */
+/* line 44, ../sass/modules/_layout.scss */
 .button {
   margin: 5px 10px 5px 0px;
   text-decoration: none;
@@ -120,12 +121,12 @@ a {
   background-color: #0C152A;
   width: 100%;
 }
-/* line 96, ../sass/main.scss */
+/* line 49, ../sass/modules/_layout.scss */
 .button a {
   color: white;
 }
 
-/* line 102, ../sass/main.scss */
+/* line 54, ../sass/modules/_layout.scss */
 input, select, textarea {
   max-width: 200px;
   border: 0px;
@@ -139,7 +140,7 @@ input, select, textarea {
   background-color: white;
 }
 
-/* line 115, ../sass/main.scss */
+/* line 67, ../sass/modules/_layout.scss */
 textarea {
   min-height: 100px;
   font-family: "PT Sans", Arial, sans-serif;
@@ -147,51 +148,46 @@ textarea {
   margin-bottom: 20px;
 }
 
-/* line 122, ../sass/main.scss */
+/* line 74, ../sass/modules/_layout.scss */
 select {
   -webkit-appearance: none;
   height: 35px;
   min-width: 170px;
 }
 
-/* line 128, ../sass/main.scss */
+/* line 80, ../sass/modules/_layout.scss */
 label {
   display: block;
   padding-right: 10px;
   margin: 0 0 10px 0;
 }
 
-/* line 134, ../sass/main.scss */
+/* line 86, ../sass/modules/_layout.scss */
 .inlineInput {
   display: inline;
 }
 
-/* line 140, ../sass/main.scss */
-body {
-  background-color: #0C152A;
-}
-
-/* line 144, ../sass/main.scss */
+/* line 12, ../sass/main.scss */
 .page_wrapper {
   width: 1024px;
   margin: 0 auto;
   background-color: #ECEEF1;
 }
 
-/* line 150, ../sass/main.scss */
+/* line 18, ../sass/main.scss */
 header {
   height: 100px;
   background-color: #189A66;
   vertical-align: middle;
   display: block;
 }
-/* line 156, ../sass/main.scss */
+/* line 24, ../sass/main.scss */
 header #logo {
   display: inline-block;
   height: 100%;
   vertical-align: middle;
 }
-/* line 161, ../sass/main.scss */
+/* line 29, ../sass/main.scss */
 header #logo img {
   display: inline-block;
   vertical-align: middle;
@@ -200,37 +196,37 @@ header #logo img {
   max-height: 80px;
   margin: 15px 30px 0 10px;
 }
-/* line 172, ../sass/main.scss */
+/* line 40, ../sass/main.scss */
 header .header_container {
   display: inline-block;
   width: 75%;
 }
-/* line 176, ../sass/main.scss */
+/* line 44, ../sass/main.scss */
 header .header_container #page_title {
   display: inline-block;
   vertical-align: middle;
   margin-left: 55px;
   width: 70%;
 }
-/* line 182, ../sass/main.scss */
+/* line 50, ../sass/main.scss */
 header .header_container #page_title h3 {
   color: white;
   font-size: 24px;
   margin-bottom: 0px;
   width: 90%;
 }
-/* line 189, ../sass/main.scss */
+/* line 57, ../sass/main.scss */
 header .header_container #header_button {
   display: inline-block;
 }
 
-/* line 198, ../sass/main.scss */
+/* line 66, ../sass/main.scss */
 aside {
   display: inline-block;
   width: 25%;
 }
 
-/* line 203, ../sass/main.scss */
+/* line 71, ../sass/main.scss */
 .sidebar {
   display: block;
   width: 90%;
@@ -239,17 +235,17 @@ aside {
   margin: 30px 0 30px 0;
   vertical-align: top;
 }
-/* line 211, ../sass/main.scss */
+/* line 79, ../sass/main.scss */
 .sidebar ul {
   text-align: left;
   padding: 20px;
   margin: 20px 0 0 0;
 }
-/* line 216, ../sass/main.scss */
+/* line 84, ../sass/main.scss */
 .sidebar ul h3 {
   margin: 10px 0 20px 0;
 }
-/* line 220, ../sass/main.scss */
+/* line 88, ../sass/main.scss */
 .sidebar ul li {
   display: block;
   font-weight: 700;
@@ -258,22 +254,22 @@ aside {
   vertical-align: middle;
   margin: 0 0 3px 0;
 }
-/* line 228, ../sass/main.scss */
+/* line 96, ../sass/main.scss */
 .sidebar ul li a:hover {
   border-bottom: 2px solid #0D8153;
 }
-/* line 234, ../sass/main.scss */
+/* line 102, ../sass/main.scss */
 .sidebar #registration_btn {
   width: 80%;
   margin: 0 0 20px 20px;
 }
 
-/* line 242, ../sass/main.scss */
+/* line 110, ../sass/main.scss */
 .content_conteiner {
   padding: 0px 15px;
 }
 
-/* line 246, ../sass/main.scss */
+/* line 114, ../sass/main.scss */
 .content {
   max-width: 100%;
   margin-left: auto;
@@ -286,17 +282,17 @@ aside {
   border-radius: 3px;
   vertical-align: top;
 }
-/* line 12, ../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/susy-2.2.5/sass/susy/output/support/_clearfix.scss */
+/* line 12, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/susy-2.2.5/sass/susy/output/support/_clearfix.scss */
 .content:after {
   content: " ";
   display: block;
   clear: both;
 }
-/* line 259, ../sass/main.scss */
+/* line 127, ../sass/main.scss */
 .content section ul {
   margin: 10px 0 0 0;
 }
-/* line 264, ../sass/main.scss */
+/* line 132, ../sass/main.scss */
 .content .tournament_list {
   display: block;
   width: 100%;
@@ -306,60 +302,60 @@ aside {
   height: 70px;
   margin: 0 0 20px 0;
 }
-/* line 270, ../sass/main.scss */
+/* line 138, ../sass/main.scss */
 .content .tournament_list .list_item {
   display: inline-block;
   width: 75%;
   padding-right: 20px;
 }
-/* line 275, ../sass/main.scss */
+/* line 143, ../sass/main.scss */
 .content .tournament_list .list_item h3 {
   display: block;
 }
-/* line 279, ../sass/main.scss */
+/* line 147, ../sass/main.scss */
 .content .tournament_list .list_item ul {
   margin: 5px 0 0 0;
 }
-/* line 282, ../sass/main.scss */
+/* line 150, ../sass/main.scss */
 .content .tournament_list .list_item ul li {
   display: inline;
   margin: 0px 30px 0 0;
   max-width: 200px;
 }
-/* line 290, ../sass/main.scss */
+/* line 158, ../sass/main.scss */
 .content .tournament_list .reg_date {
   display: inline-block;
   width: 100px;
   vertical-align: top;
   font-weight: bold;
 }
-/* line 303, ../sass/main.scss */
+/* line 171, ../sass/main.scss */
 .content .tournament_info h3 {
   margin-bottom: 20px;
 }
-/* line 307, ../sass/main.scss */
+/* line 175, ../sass/main.scss */
 .content .tournament_info ul {
   margin: 0 0 20px 0;
 }
-/* line 310, ../sass/main.scss */
+/* line 178, ../sass/main.scss */
 .content .tournament_info ul li {
   display: inline;
   margin: 5px 20px 20px 0;
 }
-/* line 316, ../sass/main.scss */
+/* line 184, ../sass/main.scss */
 .content .tournament_info article {
   max-width: 600px;
   margin-bottom: 30px;
 }
-/* line 321, ../sass/main.scss */
+/* line 189, ../sass/main.scss */
 .content .tournament_info #details {
   margin-bottom: 20px;
 }
-/* line 325, ../sass/main.scss */
+/* line 193, ../sass/main.scss */
 .content .tournament_info .low-margin {
   margin: 0 0 5px 0;
 }
-/* line 331, ../sass/main.scss */
+/* line 199, ../sass/main.scss */
 .content .tournament_info .actives li {
   display: inline-block;
   background-color: #189A66;
@@ -369,48 +365,48 @@ aside {
   border-radius: 6px;
   line-height: 1;
 }
-/* line 342, ../sass/main.scss */
+/* line 210, ../sass/main.scss */
 .content .tournament_info .button_wrapper {
   height: 70px;
 }
 
-/* line 355, ../sass/main.scss */
+/* line 223, ../sass/main.scss */
 form {
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
   width: 660px;
 }
-/* line 12, ../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/susy-2.2.5/sass/susy/output/support/_clearfix.scss */
+/* line 12, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/susy-2.2.5/sass/susy/output/support/_clearfix.scss */
 form:after {
   content: " ";
   display: block;
   clear: both;
 }
-/* line 359, ../sass/main.scss */
+/* line 227, ../sass/main.scss */
 form h3 {
   clear: both;
 }
 
-/* line 364, ../sass/main.scss */
+/* line 232, ../sass/main.scss */
 .formItem {
   margin: 0 30px 20px 0;
   width: 32.53012%;
   float: left;
   margin-right: 1.20482%;
 }
-/* line 368, ../sass/main.scss */
+/* line 236, ../sass/main.scss */
 .formItem > input, .formItem > label {
   display: inline-block;
 }
 
-/* line 373, ../sass/main.scss */
+/* line 241, ../sass/main.scss */
 #university, #adress, #count_teams_in_break, .last {
   float: right;
   margin-right: 0;
 }
 
-/* line 377, ../sass/main.scss */
+/* line 245, ../sass/main.scss */
 .full {
   width: 100%;
   float: left;
@@ -418,44 +414,44 @@ form h3 {
   margin-right: 0;
 }
 
-/* line 381, ../sass/main.scss */
+/* line 249, ../sass/main.scss */
 #country, #street, #regdateOpen, #regdateClose, #link, .row {
   clear: both;
 }
 
-/* line 385, ../sass/main.scss */
+/* line 253, ../sass/main.scss */
 #tournamentName {
   width: 100%;
   float: left;
   margin-left: 0;
   margin-right: 0;
 }
-/* line 388, ../sass/main.scss */
+/* line 256, ../sass/main.scss */
 #tournamentName input {
   max-width: 660px;
   width: 600px;
 }
 
-/* line 394, ../sass/main.scss */
+/* line 262, ../sass/main.scss */
 #street {
   width: 66.26506%;
   float: left;
   margin-right: 1.20482%;
 }
-/* line 397, ../sass/main.scss */
+/* line 265, ../sass/main.scss */
 #street input {
   max-width: 370px;
   width: 370px;
 }
 
-/* line 403, ../sass/main.scss */
+/* line 271, ../sass/main.scss */
 #aboutTournament, #player_experience, #adjudicator_experience, .textarea {
   width: 100%;
   float: left;
   margin-left: 0;
   margin-right: 0;
 }
-/* line 406, ../sass/main.scss */
+/* line 274, ../sass/main.scss */
 #aboutTournament textarea, #player_experience textarea, #adjudicator_experience textarea, .textarea textarea {
   max-width: 660px;
   width: 600px;
@@ -464,33 +460,33 @@ form h3 {
   font-weight: 14px;
 }
 
-/* line 415, ../sass/main.scss */
+/* line 283, ../sass/main.scss */
 #link {
   width: 100%;
   float: left;
   margin-left: 0;
   margin-right: 0;
 }
-/* line 418, ../sass/main.scss */
+/* line 286, ../sass/main.scss */
 #link input {
   width: 100%;
 }
 
-/* line 423, ../sass/main.scss */
+/* line 291, ../sass/main.scss */
 .button.formItem {
   width: 24.09639%;
   float: left;
   margin-right: 1.20482%;
 }
 
-/* line 427, ../sass/main.scss */
+/* line 295, ../sass/main.scss */
 #loginButton {
   width: 32.53012%;
   float: left;
   margin-right: 1.20482%;
 }
 
-/* line 433, ../sass/main.scss */
+/* line 301, ../sass/main.scss */
 .errorlist li {
   color: red;
   font-size: 14px;
@@ -498,48 +494,48 @@ form h3 {
   margin: -5px 0 0 5px;
 }
 
-/* line 444, ../sass/main.scss */
+/* line 312, ../sass/main.scss */
 #team_in_list {
   margin-bottom: 20px;
 }
-/* line 447, ../sass/main.scss */
+/* line 315, ../sass/main.scss */
 #team_in_list ul {
   margin: 5px 0 5px 0;
 }
-/* line 450, ../sass/main.scss */
+/* line 318, ../sass/main.scss */
 #team_in_list ul li {
   display: inline;
 }
 
-/* line 462, ../sass/main.scss */
+/* line 330, ../sass/main.scss */
 #email_confirm h3 {
   text-align: center;
 }
 
-/* line 469, ../sass/main.scss */
+/* line 337, ../sass/main.scss */
 footer {
   background-color: #189A66;
   height: 100px;
   padding: 20px 40px;
   display: block;
 }
-/* line 475, ../sass/main.scss */
+/* line 343, ../sass/main.scss */
 footer #footer_info {
   display: inline-block;
   width: 80%;
 }
-/* line 479, ../sass/main.scss */
+/* line 347, ../sass/main.scss */
 footer #footer_info li {
   color: white;
   display: inline;
   margin-right: 20px;
 }
-/* line 486, ../sass/main.scss */
+/* line 354, ../sass/main.scss */
 footer #contact {
   display: inline-block;
   width: 15%;
 }
-/* line 490, ../sass/main.scss */
+/* line 358, ../sass/main.scss */
 footer #contact li {
   display: inline;
   color: white;

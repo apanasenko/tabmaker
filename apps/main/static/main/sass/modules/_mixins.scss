@@ -1,0 +1,15 @@
+@mixin link {
+	border-bottom: 2px solid $green;
+}
+
+@mixin button() {
+	margin: 5px 10px 5px 0px;
+	text-decoration: none;
+	padding: 10px 20px;
+	border-radius: 6px;
+	border: none;
+	color: white;
+	font-family: inherit;
+	font-size: 16px;
+	min-height: 45px;
+}
