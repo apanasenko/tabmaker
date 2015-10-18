@@ -1,6 +1,8 @@
 {% csrf_token %}
 {{ form.non_field_errors }}
 
+<h3>Название турнира</h3>
+
 <div class="formItem" id="tournamentName">
     {{ form.name }}
     {{ form.name.errors }}
