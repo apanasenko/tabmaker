@@ -1,9 +1,17 @@
 {% load profile_extras %}
 
 {% for adjudicator in adjudicators %}
-    <div id="team_in_list" class="formItem full">
-        <h3><a href="{% url 'profile:main' adjudicator.user.id%}">{{ adjudicator.user|name }}</a></h3>
-        <p>{{ adjudicator.role.role }}</p>
+    <div class="b-teamlist">
+
+    	<div class="b-teamlist__wrapper">
+	        
+	        <div class="b-teamlist__heading">
+	        	<h3><a href="{% url 'profile:main' adjudicator.user.id%}">{{ adjudicator.user|name }}</a></h3>
+	      	  	<span class="b-teamlist__status"><i class="fa fa-balance-scale"></i>{{ adjudicator.role.role }}</span>
+	        </div>
+
+        </div>
+
     </div>
 {% empty %}
     <h3>Нет зарегистрированных судей</h3>

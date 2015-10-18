@@ -6,6 +6,7 @@
 @import "modules/layout";
 @import "modules/header";
 @import "modules/tournamentlist";
+@import "modules/teamlist";
 @import "modules/sidebar";
 @import "modules/forms";
 @import "modules/profile";
@@ -47,21 +48,6 @@
 	margin-top: 30px;
 	min-height: 80px;
 }
-
-// сommand-list
-
-#team_in_list {
-	margin-bottom: 20px;
-
-	ul {
-		margin: 5px 0 5px 0;
-		
-		li {
-			display: inline;
-		}
-	}
-}
-
 
 // email-confirms
 

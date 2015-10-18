@@ -45,6 +45,10 @@ i {
 	margin-bottom: 2px;
 }
 
+p, li {
+	line-height: 1.5em;
+}
+
 
 .button {
 	@include button;
