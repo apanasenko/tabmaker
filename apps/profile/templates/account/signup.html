@@ -110,9 +110,11 @@
             {% endif %}
         </button>
 
-        <button class="button formItem">
-            <a href="{% url 'account_change_password' %}">Изменить пароль</a>
-        </button>
+        {% if is_edit_form %}
+            <button class="button formItem">
+                <a href="{% url 'account_change_password' %}">Изменить пароль</a>
+            </button>
+        {% endif %}
 
     </form>
 
