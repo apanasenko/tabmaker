@@ -14,35 +14,44 @@
 
 {% block extra_head %}
     {{ block.super }}
-    <script type="text/javascript" src="{% static "tournament/js/tabs_init.js" %}"></script>
+    {# <script type="text/javascript" src="{% static "tournament/js/tabs_init.js" %}"></script> #}
 {% endblock extra_head %}
 
 {% block content %}
-    <div id="tabs">
-        <ul>
-            <li><a href="#tabs-1">Теб</a></li>
-            <li><a href="#tabs-2">Спикерский теб</a></li>
-            <li><a href="#tabs-3">Резолюции</a></li>
-        </ul>
-        <div id="tabs-1">
-            {% include "tournament/tab.html" with tab=team_tab %}
-        </div>
-        <div id="tabs-2">
-            {% include "tournament/tab.html" with tab=speaker_tab %}
-        </div>
-        <div id="tabs-3">
-            {% for motion in motions %}
+    
+<div class="b-tabs">
+
+    <input id="tab1" type="radio" name="tabs" class="b-tabs__input" checked>
+    <label for="tab1" class="b-tabs__label">Команды</label>
+
+    <input id="tab2" type="radio" name="tabs" class="b-tabs__input">
+    <label for="tab2" class="b-tabs__label">Спикеры</label>
+
+    <input id="tab3" type="radio" name="tabs" class="b-tabs__input">
+    <label for="tab3" class="b-tabs__label">Резолюции</label>
+
+    <section class="b-tabs__one">
+        {% include "tournament/tab.html" with tab=team_tab %}
+    </section>
+
+    <section class="b-tabs__two">
+       {% include "tournament/tab.html" with tab=speaker_tab %}
+    </section>
+
+    <section class="b-tabs__three">
+        {% for motion in motions %}
             <h3>{{ motion.number }}</h3>
-                {% if motion.infoslide %}
-                    Инфослайд: <br>
-                    {{ motion.infoslide }}
-                    <br><br>
-                {% endif %}
-                Резолюция: <br>
-                {{ motion.motion }}
+            {% if motion.infoslide %}
+                Инфослайд: <br>
+                {{ motion.infoslide }}
                 <br><br>
-            {% endfor %}
-        </div>
-    </div>
+            {% endif %}
+            Резолюция: <br>
+            {{ motion.motion }}
+            <br><br>
+        {% endfor %}
+    </section>
+
+</div>
 
 {% endblock content %}

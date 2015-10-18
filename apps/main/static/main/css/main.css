@@ -591,26 +591,26 @@ footer #contact li {
   display: block;
 }
 
-/* line 62, ../sass/main.scss */
+/* line 54, ../sass/main.scss */
 .b-tournament-info-reg {
   margin-top: 30px;
   min-height: 80px;
 }
 
-/* line 79, ../sass/main.scss */
+/* line 61, ../sass/main.scss */
 #team_in_list {
   margin-bottom: 20px;
 }
-/* line 82, ../sass/main.scss */
+/* line 64, ../sass/main.scss */
 #team_in_list ul {
   margin: 5px 0 5px 0;
 }
-/* line 85, ../sass/main.scss */
+/* line 67, ../sass/main.scss */
 #team_in_list ul li {
   display: inline;
 }
 
-/* line 97, ../sass/main.scss */
+/* line 79, ../sass/main.scss */
 #email_confirm h3 {
   text-align: center;
 }
