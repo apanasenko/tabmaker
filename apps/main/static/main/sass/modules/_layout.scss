@@ -86,3 +86,9 @@ label {
 .inlineInput {
 	display: inline;
 }
+
+.page_wrapper {
+	width: 1024px;
+	margin: 0 auto;
+	background-color: $background-page;
+}

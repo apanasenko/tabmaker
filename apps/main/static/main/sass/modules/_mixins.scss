@@ -3,13 +3,16 @@
 }
 
 @mixin button() {
-	margin: 5px 10px 5px 0px;
+	margin: 20px 10px 5px 0px;
+	display: inline-block;
 	text-decoration: none;
 	padding: 10px 20px;
 	border-radius: 6px;
 	border: none;
-	color: white;
+	color: #ffffff;
 	font-family: inherit;
 	font-size: 16px;
-	min-height: 45px;
+	min-height: 20px;
+	background-color: $deep-dark;
+	box-sizing: border-box;
 }

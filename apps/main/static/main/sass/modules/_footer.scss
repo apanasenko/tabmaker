@@ -1,0 +1,28 @@
+footer {
+	background-color: $light-green;
+	height: 100px;
+	padding: 20px 40px;
+	display: block;
+
+	#footer_info {
+		display: inline-block;
+		width: 80%;
+
+		li {
+			color: white;
+			display: inline;
+			margin-right: 20px;
+		}
+	}
+
+	#contact {
+		display: inline-block;
+		width: 15%;
+		
+		li {
+			display: inline;
+			color: white;
+			margin-right: 20px;
+		}
+	}
+}
