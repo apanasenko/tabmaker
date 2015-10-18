@@ -18,20 +18,27 @@
 <div class="b-tabs">
 
     <input id="tab1" type="radio" name="tabs" class="b-tabs__input" checked>
-    <label for="tab1" class="b-tabs__label" title="Вкладка 1">Информация</label>
+    <label for="tab1" class="b-tabs__label" title="Информация">Информация</label>
 
-     <input id="tab2" type="radio" name="tabs" class="b-tabs__input" checked>
-    <label for="tab2" class="b-tabs__label" title="Вкладка 1">Карта</label>
+    <input id="tab2" type="radio" name="tabs" class="b-tabs__input">
+    <label for="tab2" class="b-tabs__label" title="Команды">Команды</label>
 
-    <section class="b-tabs__content1">
+    <input id="tab3" type="radio" name="tabs" class="b-tabs__input">
+    <label for="tab3" class="b-tabs__label" title="Судьи">Судьи</label>
+
+    <section class="b-tabs__one">
         <form class="form" action="{% url "tournament:edit" tournament.id %}" method="post">
              {% include "tournament/edit_form.html" %}
+             <button type="submit" class="button formItem">Сохранить</button>
         </form>
     </section>
 
-    <section class="b-tabs__content2">
-        <div id="map" style="width: 600px; height: 400px"></div>
-        <button type="submit" class="button formItem">Сохранить</button>
+    <section class="b-tabs__two">
+        {% include "tournament/team_list.html" %}
+    </section>
+
+    <section class="b-tabs__three">
+        {% include "tournament/adjudicator_list.html" %}
     </section>
 
 </div>

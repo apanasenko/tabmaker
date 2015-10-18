@@ -1,5 +1,4 @@
 input, select, textarea {
-	max-width: 200px;
 	padding: 5px 5px 5px 10px;
 	height: 25px;
 	border-radius: 5px;
@@ -52,12 +51,12 @@ form {
 	}
 }
 
-#university, #adress, #count_teams_in_break, .last {
-	@include last;
-}
-
 .full {
 	@include span(12 of 12);
+}
+
+#university, #adress, #count_teams_in_break, .last {
+	@include last;
 }
 
 #country, #street, #regdateOpen, #regdateClose, #link, .row {
@@ -65,11 +64,18 @@ form {
 }
 
 #tournamentName {
-	@include span(12 of 12);
-	
+	@include span(11 of 12);
+
 	input {
-		max-width: 660px;
-		width: 600px;
+		width: 100%;
+	}
+}
+
+#address {
+	@include span(11 of 12);
+
+	input {
+		width: 100%;
 	}
 }
 
@@ -95,7 +101,7 @@ form {
 }
 
 #link {
-	@include span(12 of 12);
+	@include span(11 of 12);
 	
 	input {
 		width: 100%;

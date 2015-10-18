@@ -225,7 +225,6 @@ aside {
 
 /* line 1, ../sass/modules/_forms.scss */
 input, select, textarea {
-  max-width: 200px;
   padding: 5px 5px 5px 10px;
   height: 25px;
   border-radius: 5px;
@@ -236,12 +235,12 @@ input, select, textarea {
   background-color: white;
   border: 2px solid #ECEEF1;
 }
-/* line 13, ../sass/modules/_forms.scss */
+/* line 12, ../sass/modules/_forms.scss */
 input:focus, select:focus, textarea:focus {
   border: 2px solid #0D8153;
 }
 
-/* line 18, ../sass/modules/_forms.scss */
+/* line 17, ../sass/modules/_forms.scss */
 textarea {
   min-height: 100px;
   font-family: "PT Sans", Arial, sans-serif;
@@ -249,21 +248,21 @@ textarea {
   margin-bottom: 20px;
 }
 
-/* line 25, ../sass/modules/_forms.scss */
+/* line 24, ../sass/modules/_forms.scss */
 select {
   -webkit-appearance: none;
   height: 35px;
   min-width: 170px;
 }
 
-/* line 31, ../sass/modules/_forms.scss */
+/* line 30, ../sass/modules/_forms.scss */
 label {
   display: block;
   padding-right: 10px;
   margin: 0 0 10px 0;
 }
 
-/* line 37, ../sass/modules/_forms.scss */
+/* line 36, ../sass/modules/_forms.scss */
 form {
   max-width: 100%;
   margin-left: auto;
@@ -276,30 +275,24 @@ form:after {
   display: block;
   clear: both;
 }
-/* line 41, ../sass/modules/_forms.scss */
+/* line 40, ../sass/modules/_forms.scss */
 form h3 {
   clear: both;
 }
 
-/* line 46, ../sass/modules/_forms.scss */
+/* line 45, ../sass/modules/_forms.scss */
 .formItem {
   margin: 0 30px 20px 0;
   width: 32.53012%;
   float: left;
   margin-right: 1.20482%;
 }
-/* line 50, ../sass/modules/_forms.scss */
+/* line 49, ../sass/modules/_forms.scss */
 .formItem > input, .formItem > label {
   display: inline-block;
 }
 
-/* line 55, ../sass/modules/_forms.scss */
-#university, #adress, #count_teams_in_break, .last {
-  float: right;
-  margin-right: 0;
-}
-
-/* line 59, ../sass/modules/_forms.scss */
+/* line 54, ../sass/modules/_forms.scss */
 .full {
   width: 100%;
   float: left;
@@ -307,44 +300,59 @@ form h3 {
   margin-right: 0;
 }
 
-/* line 63, ../sass/modules/_forms.scss */
+/* line 58, ../sass/modules/_forms.scss */
+#university, #adress, #count_teams_in_break, .last {
+  float: right;
+  margin-right: 0;
+}
+
+/* line 62, ../sass/modules/_forms.scss */
 #country, #street, #regdateOpen, #regdateClose, #link, .row {
   clear: both;
 }
 
-/* line 67, ../sass/modules/_forms.scss */
+/* line 66, ../sass/modules/_forms.scss */
 #tournamentName {
-  width: 100%;
+  width: 91.56627%;
   float: left;
-  margin-left: 0;
-  margin-right: 0;
+  margin-right: 1.20482%;
 }
-/* line 70, ../sass/modules/_forms.scss */
+/* line 69, ../sass/modules/_forms.scss */
 #tournamentName input {
-  max-width: 660px;
-  width: 600px;
+  width: 100%;
 }
 
-/* line 76, ../sass/modules/_forms.scss */
+/* line 74, ../sass/modules/_forms.scss */
+#address {
+  width: 91.56627%;
+  float: left;
+  margin-right: 1.20482%;
+}
+/* line 77, ../sass/modules/_forms.scss */
+#address input {
+  width: 100%;
+}
+
+/* line 82, ../sass/modules/_forms.scss */
 #street {
   width: 66.26506%;
   float: left;
   margin-right: 1.20482%;
 }
-/* line 79, ../sass/modules/_forms.scss */
+/* line 85, ../sass/modules/_forms.scss */
 #street input {
   max-width: 370px;
   width: 370px;
 }
 
-/* line 85, ../sass/modules/_forms.scss */
+/* line 91, ../sass/modules/_forms.scss */
 #aboutTournament, #player_experience, #adjudicator_experience, .textarea {
   width: 100%;
   float: left;
   margin-left: 0;
   margin-right: 0;
 }
-/* line 88, ../sass/modules/_forms.scss */
+/* line 94, ../sass/modules/_forms.scss */
 #aboutTournament textarea, #player_experience textarea, #adjudicator_experience textarea, .textarea textarea {
   max-width: 660px;
   width: 600px;
@@ -353,19 +361,18 @@ form h3 {
   font-weight: 14px;
 }
 
-/* line 97, ../sass/modules/_forms.scss */
+/* line 103, ../sass/modules/_forms.scss */
 #link {
-  width: 100%;
+  width: 91.56627%;
   float: left;
-  margin-left: 0;
-  margin-right: 0;
+  margin-right: 1.20482%;
 }
-/* line 100, ../sass/modules/_forms.scss */
+/* line 106, ../sass/modules/_forms.scss */
 #link input {
   width: 100%;
 }
 
-/* line 105, ../sass/modules/_forms.scss */
+/* line 111, ../sass/modules/_forms.scss */
 .button.formItem {
   width: 32.53012%;
   float: left;
@@ -373,14 +380,14 @@ form h3 {
   text-align: center;
 }
 
-/* line 110, ../sass/modules/_forms.scss */
+/* line 116, ../sass/modules/_forms.scss */
 #loginButton {
   width: 32.53012%;
   float: left;
   margin-right: 1.20482%;
 }
 
-/* line 116, ../sass/modules/_forms.scss */
+/* line 122, ../sass/modules/_forms.scss */
 .errorlist li {
   color: red;
   font-size: 14px;
@@ -438,16 +445,18 @@ form h3 {
   display: none;
 }
 /* line 32, ../sass/modules/_tabs.scss */
-.b-tabs__one, .b-tabs__two {
+.b-tabs__one, .b-tabs__two, .b-tabs__three, .b-tabs__four {
   display: none;
   padding: 15px;
   background: #fff;
   border: 1px solid #ddd;
 }
 
-/* line 49, ../sass/modules/_tabs.scss */
+/* line 41, ../sass/modules/_tabs.scss */
 #tab1:checked ~ .b-tabs__one,
-#tab2:checked ~ .b-tabs__two {
+#tab2:checked ~ .b-tabs__two,
+#tab3:checked ~ .b-tabs__three,
+#tab4:checked ~ .b-tabs__four {
   display: block;
 }
 
@@ -546,61 +555,36 @@ footer #contact li {
   vertical-align: top;
   font-weight: bold;
 }
+
 /* line 80, ../sass/main.scss */
-.content .tournament_info h3 {
-  margin-bottom: 20px;
+.b-tournament-info__heading {
+  margin-top: 25px;
 }
 /* line 84, ../sass/main.scss */
-.content .tournament_info ul {
-  margin: 0 0 20px 0;
-}
-/* line 87, ../sass/main.scss */
-.content .tournament_info ul li {
-  display: inline;
-  margin: 5px 20px 20px 0;
-}
-/* line 93, ../sass/main.scss */
-.content .tournament_info article {
-  max-width: 600px;
-  margin-bottom: 30px;
-}
-/* line 98, ../sass/main.scss */
-.content .tournament_info #details {
-  margin-bottom: 20px;
-}
-/* line 102, ../sass/main.scss */
-.content .tournament_info .low-margin {
-  margin: 0 0 5px 0;
-}
-/* line 108, ../sass/main.scss */
-.content .tournament_info .actives li {
-  display: inline-block;
-  background-color: #189A66;
-  margin: 0 10px 10px 0;
-  color: white;
-  padding: 5px;
-  border-radius: 6px;
-  line-height: 1;
-}
-/* line 119, ../sass/main.scss */
-.content .tournament_info .button_wrapper {
-  height: 70px;
+.b-tournament-info__status {
+  display: block;
 }
 
-/* line 132, ../sass/main.scss */
+/* line 98, ../sass/main.scss */
+.b-tournament-info-reg {
+  margin-top: 30px;
+  min-height: 80px;
+}
+
+/* line 115, ../sass/main.scss */
 #team_in_list {
   margin-bottom: 20px;
 }
-/* line 135, ../sass/main.scss */
+/* line 118, ../sass/main.scss */
 #team_in_list ul {
   margin: 5px 0 5px 0;
 }
-/* line 138, ../sass/main.scss */
+/* line 121, ../sass/main.scss */
 #team_in_list ul li {
   display: inline;
 }
 
-/* line 150, ../sass/main.scss */
+/* line 133, ../sass/main.scss */
 #email_confirm h3 {
   text-align: center;
 }

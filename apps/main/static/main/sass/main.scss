@@ -72,60 +72,43 @@
 		}	
 
 	}
-
-	// информация о турнире
-
-	.tournament_info {
-
-		h3 {
-			margin-bottom: 20px;
-		}
-
-		ul {
-			margin: 0 0 20px 0;	
-
-			li {
-				display: inline;
-				margin: 5px 20px 20px 0;
-			}
-		}
-
-		article {
-			max-width: 600px;
-			margin-bottom: 30px;
-		}
-
-		#details {
-			margin-bottom: 20px;
-		}
-
-		.low-margin {
-			margin: 0 0 5px 0;
-		}
-
-		.actives {
-
-			li {
-				display: inline-block;
-				background-color: $light-green;
-				margin: 0 10px 10px 0;
-				color: white;
-				padding: 5px;
-				border-radius: 6px;
-				line-height: 1;
-			}
-		}
-
-		.button_wrapper {
-			height: 70px;
-
-			a {
-				
-			}
-		}
-	}
 }
 
+
+.b-tournament-info {
+
+	&__heading {
+		margin-top: 25px;
+	}
+
+	&__status {
+		display: block;
+	}
+
+	&__description {
+
+	}
+
+	&__link {
+
+	}
+
+}
+
+.b-tournament-info-reg {
+
+	margin-top: 30px;
+	min-height: 80px;
+
+	&__regtime {
+
+	}
+
+	&__regbutton {
+
+	}
+
+}
 
 // сommand-list
 

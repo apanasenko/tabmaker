@@ -1,60 +1,33 @@
-<div class="tournament_info">
+<div class="b-tournament-info">
 
-    <ul class=".tournament_status">
-        <li>{{ tournament.start_tour|date:"M d, Y"}}</li>
-        <li>{{ tournament.location }} {# TODO получить адрес по координатам #}</li>
-        <li>Команды: {{ tournament.count_teams }}</li>
-        <li>Раунды: {{ tournament.count_rounds }}</li>
-        <li>Брейк: {{ tournament.count_teams_in_break }}</li>
+    <h3>Cтатус</h3>
+    <ul>
+        <li class="b-tournament-info__status">Начало турнира: {{ tournament.start_tour|date:"M d, Y"}} в {{ tournament.start_tour|time}} </li>
+        <li class="b-tournament-info__status">Место проведения: {{ tournament.location }} {# TODO получить адрес по координатам #}</li>
+        <li class="b-tournament-info__status">Команды: {{ tournament.count_teams }}</li>
+        <li class="b-tournament-info__status">Раунды: {{ tournament.count_rounds }}</li>
+        <li class="b-tournament-info__status">Брейк: {{ tournament.count_teams_in_break }}</li>
         <input id="id_location_lon" type="hidden" value={{ tournament.location_lon }}>
         <input id="id_location_lat" type="hidden" value={{ tournament.location_lat }}>
     </ul>
+    
+    <h3 class="b-tournament-info__heading">Описание</h3>
+    <p class="b-tournament-info__description">{{ tournament.info }}</p>
 
-
-    <article>
-        <p>{{ tournament.info }}</p>
-    </article>
-
-    <div id="details">
-        <h3 class="low-margin">Подробности</h3>
-        <a href="{{ tournament.link }}">{{ tournament.link }}</a>
-    </div>
-
-{#    <h3 class="low-margin">Участвуют</h3>#}
-{#    <ul class="actives">#}
-{#        <li>Имя Спикер1 и Имя Спикер2</li>#}
-{#        <li>Имя Спикер1 и Имя Спикер2</li>#}
-{#        <li>Имя Спикер1 и Имя Спикер2</li>#}
-{#        <li>Имя Спикер1 и Имя Спикер2</li>#}
-{#        <li>Имя Спикер1 и Имя Спикер2</li>#}
-{#        <li>Имя Спикер1 и Имя Спикер2</li>#}
-{#    </ul>#}
-{##}
-{#    <h3 class="low-margin">Судят</h3>#}
-{#    <ul class="actives">#}
-{#        <li>Имя Судьи</li>#}
-{#        <li>Имя Судьи</li>#}
-{#        <li>Имя Судьи</li>#}
-{#        <li>Имя Судьи</li>#}
-{#        <li>Имя Судьи</li>#}
-{#        <li>Имя Судьи</li>#}
-{#    </ul>#}
-
-
-
+    <h3 class="b-tournament-info__heading">Подробности</h3>
+    <a class="b-tournament-info__link" href="{{ tournament.link }}">{{ tournament.link }}</a>
+    
+    <div class="b-tournament-info-reg">
     {% if tournament.open_reg > now %}
-        <h3>Регистрация ещё не открыта ((</h3>
+        <h3 class="b-tournament-reg__regtime">Регистрация ещё не открыта</h3>
     {% elif tournament.close_reg < now %}
-        <h3>Регистрация уже закончилась ((</h3>
+        <h3 class="b-tournament-reg__regtime">Регистрация уже закончилась</h3>
     {% else %}
-        <h3>Регистрация до {{ tournament.close_reg|date:"M d, Y" }}</h3>
+        <h3 class="b-tournament-reg__regtime">Регистрация до {{ tournament.close_reg|date:"M d, Y" }}</h3>
 
-        <div class="button_wrapper">
-            <a class="button" href="{% url "tournament:registration_team" tournament.id %}">Участовать</a>
-            <a class="button" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
-        </div>
+        <a class="b-tournament-reg__regbutton button formItem" href="{% url "tournament:registration_team" tournament.id %}">Участовать</a>
+        <a class="b-tournament-reg__regbutton button formItem" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
     {% endif %}
-
-    <div id="map" style="width: 600px; height: 400px"></div>
+    </div>
 
 </div>
