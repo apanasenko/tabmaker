@@ -196,34 +196,33 @@ header .header_container #header_button {
 /* line 8, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current {
   display: inline-block;
-  width: 75%;
+  width: 66%;
   padding-right: 20px;
   vertical-align: top;
-  border-bottom: 1px solid #ffffff;
 }
-/* line 15, ../sass/modules/_tournamentlist.scss */
+/* line 14, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__heading {
   display: block;
   font-weight: bold;
 }
-/* line 20, ../sass/modules/_tournamentlist.scss */
+/* line 19, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__about {
   display: inline;
   margin: 0px 30px 0 0;
   max-width: 200px;
 }
 
-/* line 28, ../sass/modules/_tournamentlist.scss */
+/* line 27, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-status {
-  max-width: 25%;
+  max-width: 26%;
   float: right;
   margin-top: 10px;
 }
-/* line 33, ../sass/modules/_tournamentlist.scss */
+/* line 32, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-status__reg {
   margin-right: 30px;
 }
-/* line 37, ../sass/modules/_tournamentlist.scss */
+/* line 36, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-status__button {
   margin: 20px 10px 5px 0px;
   display: inline-block;
@@ -238,7 +237,7 @@ header .header_container #header_button {
   background-color: #0C152A;
   box-sizing: border-box;
   display: inline;
-  margin-right: -15px;
+  margin-right: 30px;
 }
 
 /* line 1, ../sass/modules/_sidebar.scss */

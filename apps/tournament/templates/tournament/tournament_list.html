@@ -15,7 +15,7 @@
         <div class="b-tournamentlist-status">
             <div class="b-tournamentlist-status__reg">
             {% if tournament|is_status_registration %}
-                <p>Регистрация </br> открыта</p>
+                <p>Регистрация открыта до {{ tournament.close_reg|date:"d E"}}</p>
             {% elif tournament|is_status_preparation %}
                 <p>Регистрация </br> закрыта</p>
              <div/>
@@ -23,11 +23,5 @@
                 <a class="b-tournamentlist-status__button" href="{% url "tournament:result" tournament.id %}">Результаты</a>
             {% endif %}
        
-
-        <div class="reg_date">
-            
-{# <p>Регистрация до {{ tournament.close_reg|date:"d E"}} </p>#}
-        </div>
-
     </li>
 {% endfor %}
