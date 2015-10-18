@@ -2,15 +2,16 @@
 	display: block;
 	@include span(12 of 12);
 	height: 70px;
-	margin: 0 0 30px 0;
+	margin: 15px 0 15px 0;
+	padding-bottom: 15px;
 	border-bottom: #E9EBEC 1px solid;
 }
 
 .b-tournamentlist-current {
 	display: inline-block;
-	width: 66%;
+	width: 97%;
 	padding-right: 20px;
-	vertical-align: top;
+	position: relative;
 
 	&__heading {
 		display: block;
@@ -26,22 +27,21 @@
 		font-size: 14px;
 	}
 
-}
-
-.b-tournamentlist-status {
-	max-width: 26%;
-	float: right;
-	margin-top: 10px;
-
-	&__reg {
-		margin-right: 30px;
+	&__registration {
+		font-weight: 700;
+		color: $grey;
+		margin: 7px 0 3px 0;
 	}
 
-	&__button {
-		@include button;
-		display: inline;
-		margin-right: 30px;
+	&__result {
+		position: absolute;
+		top: 47%;
+		left: 80%;
+
+		a {
+			@include buttontwo;
+			color: $grey;
+			font-weight: 700;
+		}
 	}
-
 }
-

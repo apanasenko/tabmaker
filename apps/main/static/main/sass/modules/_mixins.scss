@@ -6,13 +6,31 @@
 	margin: 20px 10px 5px 0px;
 	display: inline-block;
 	text-decoration: none;
-	padding: 10px 20px;
+	padding: 8px 16px;
 	border-radius: 6px;
 	border: none;
 	color: #ffffff;
 	font-family: inherit;
-	font-size: 16px;
+	font-size: 14px;
 	min-height: 20px;
 	background-color: $deep-dark;
 	box-sizing: border-box;
+}
+
+@mixin buttontwo() {
+	display: inline-block;
+	padding: 6px 12px;
+	border-radius: 6px;
+	color: $grey;
+	font-size: 14px;
+	min-height: 20px;
+	background-color: white;
+	box-sizing: border-box;
+	border: 1px solid $grey;
+
+	&:hover {
+		border: 1px solid $dark;
+		color: $dark;
+		transition: color 0.5s ease;
+	}
 }
