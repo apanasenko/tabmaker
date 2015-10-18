@@ -6,9 +6,9 @@
         <div class="b-tournamentlist-current">
             <h3 class="b-tournamentlist-current__heading"><a href="{% url 'tournament:show' tournament.id %}">{{ tournament.name }}</a></h3>
             <ul>
-                <li class="b-tournamentlist-current__about">{{ tournament|address }}</li>
-                <li class="b-tournamentlist-current__about">{{ tournament.start_tour|date:"d E Y"}}</li>
-                <li class="b-tournamentlist-current__about">{{ tournament|registered_users }} заявок</li>
+                <li class="b-tournamentlist-current__about"><i class="fa fa-compass"></i>{{ tournament|address }}</li>
+               <li class="b-tournamentlist-current__about"><i class="fa fa-calendar"></i>{{ tournament.start_tour|date:"d E Y"}}</li>
+                <li class="b-tournamentlist-current__about"><i class="fa fa-users"></i>{{ tournament|registered_users }} заявок</li>
             </ul>
         </div>
         

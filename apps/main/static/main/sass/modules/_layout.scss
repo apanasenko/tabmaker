@@ -16,7 +16,7 @@ ul, a {
 }
 
 h3, h5, p, a, li, label {
-	color: $grey;
+	color: $dark;
 }
 
 h1, h2, h3 {
@@ -25,19 +25,24 @@ h1, h2, h3 {
 }
 
 h1 {
-	font-size: 24px;
+	font-size: 28px;
 }
 
 h2 {
-	font-size: 20px;
+	font-size: 24px;
 }
 
 h3 {
-	font-size: 18px;
+	font-size: 20px;
 }
 
 a {
 	text-decoration: none;
+}
+
+i {
+	margin-right: 4px;
+	margin-bottom: 2px;
 }
 
 
