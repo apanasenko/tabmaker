@@ -1,0 +1,52 @@
+.b-tabs {
+	
+	&__label {
+		display: inline-block;
+  		margin: 0 0 -1px;
+  		padding: 15px 25px;
+ 		font-weight: 600;
+  		text-align: center;
+  		color: #aaa;
+  		border: 1px solid #ddd;
+  		background: #f1f1f1;
+ 		border-radius: 3px 3px 0 0;
+	}
+
+	&__label:hover {
+		color: #888;
+  		cursor: pointer;	
+	}
+
+	&__input:checked + label {
+		color: $green;
+  		border: 1px solid #ddd;
+  		border-top: 2px solid $green;
+  		border-bottom: 1px solid #fff;
+  		background: #fff;
+	}
+
+	&__input {
+		display: none;
+	}
+
+	&__one, &__two {
+		display: none;
+  		padding: 15px;
+  		background: #fff;
+  		border: 1px solid #ddd;
+	}
+	
+	&__one {
+		
+	}
+
+	&__two {
+		
+	}
+
+}
+
+#tab1:checked ~ .b-tabs__one,
+#tab2:checked ~ .b-tabs__two {
+	display: block;
+}
