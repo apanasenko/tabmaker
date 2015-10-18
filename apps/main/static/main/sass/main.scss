@@ -6,6 +6,7 @@
 @import "modules/layout";
 @import "modules/header";
 @import "modules/sidebar";
+@import "modules/forms";
 @import "modules/profile";
 @import "modules/footer";
 
@@ -121,95 +122,6 @@
 				
 			}
 		}
-	}
-}
-
-
-// forms
-
-form {
-	@include container;
-	width: 660px;
-	
-	h3 {
-		clear: both;
-	}
-}
-
-.formItem {
-	margin: 0 30px 20px 0;
-	@include span(4 of 12);
-
-	> input, > label {
-		display: inline-block;
-	}
-}
-
-#university, #adress, #count_teams_in_break, .last {
-	@include last;
-}
-
-.full {
-	@include span(12 of 12);
-}
-
-#country, #street, #regdateOpen, #regdateClose, #link, .row {
-	clear: both;
-}
-
-#tournamentName {
-	@include span(12 of 12);
-	
-	input {
-		max-width: 660px;
-		width: 600px;
-	}
-}
-
-#street {
-	@include span(8 of 12);
-
-	input {
-		max-width: 370px;
-		width: 370px;
-	}
-}
-
-#aboutTournament, #player_experience, #adjudicator_experience, .textarea {
-	@include span(12 of 12);
-
-	textarea {
-		max-width: 660px;
-		width: 600px;
-		min-height: 100px;
-		font-family: "PT Sans", Arial, sans-serif;
-		font-weight: 14px;
-	}
-}
-
-#link {
-	@include span(12 of 12);
-	
-	input {
-		width: 100%;
-	}
-}
-
-.button.formItem {
-	@include span (3 of 12);
-}
-
-#loginButton {
-	@include span (4 of 12);
-}
-
-.errorlist {
-	
-	li {
-		color: red;
-		font-size: 14px;
-		display: inline;
-		margin: -5px 0 0 5px;
 	}
 }
 

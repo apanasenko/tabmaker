@@ -28,16 +28,16 @@ h1 {
 	font-size: 24px;
 }
 
+h2 {
+	font-size: 20px;
+}
+
 h3 {
 	font-size: 18px;
 }
 
 a {
 	text-decoration: none;
-}
-
-.white {
-	color: white;
 }
 
 
@@ -49,42 +49,6 @@ a {
 	a {
 		color: white;
 	}
-}
-
-input, select, textarea {
-	max-width: 200px;
-	border: 0px;
-	padding: 5px 5px 5px 10px;
-	height: 25px;
-	border-radius: 5px;
-	line-height: 20px;
-	margin: 0 30px 10px 0;
-	font-size: 14px;
-	color: $grey;
-	background-color: white;
-}
-
-textarea {
-	min-height: 100px;
-	font-family: "PT Sans", Arial, sans-serif;
-	font-weight: 14px;
-	margin-bottom: 20px;
-}
-
-select {
-	-webkit-appearance: none;
-	height: 35px;
-	min-width: 170px;
-}
-
-label {
-	display: block;
-	padding-right: 10px;
-	margin: 0 0 10px 0;
-}
-
-.inlineInput {
-	display: inline;
 }
 
 .page_wrapper {
