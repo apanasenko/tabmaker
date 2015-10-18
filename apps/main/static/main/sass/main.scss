@@ -5,13 +5,12 @@
 @import "modules/mixins";
 @import "modules/layout";
 @import "modules/header";
+@import "modules/tournamentlist";
 @import "modules/sidebar";
 @import "modules/forms";
 @import "modules/profile";
 @import "modules/tabs";
 @import "modules/footer";
-
-
 
 
 // content section
@@ -36,41 +35,6 @@
 		ul {
 			margin: 10px 0 0 0;
 		}
-	}
-
-	.tournament_list {
-		display: block;
-		@include span(12 of 12);
-		height: 70px;
-		margin: 0 0 20px 0;
-
-		.list_item {
-			display: inline-block;
-			width: 75%;
-			padding-right: 20px;
-
-			h3 {
-				display: block;
-			}
-
-			ul {
-				margin: 5px 0 0 0;
-
-				li {
-					display: inline;
-					margin: 0px 30px 0 0;
-					max-width: 200px;
-				}
-			}	
-		}
-
-		.reg_date {
-			display: inline-block;
-			width: 100px;
-			vertical-align: top;
-			font-weight: bold;
-		}	
-
 	}
 }
 

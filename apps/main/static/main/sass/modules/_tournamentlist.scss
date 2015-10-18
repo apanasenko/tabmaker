@@ -1,0 +1,44 @@
+.b-tournamentlist-item {
+	display: block;
+	@include span(12 of 12);
+	height: 70px;
+	margin: 0 0 20px 0;
+}
+
+.b-tournamentlist-current {
+	display: inline-block;
+	width: 75%;
+	padding-right: 20px;
+	vertical-align: top;
+	border-bottom: 1px solid $background-block;
+
+	&__heading {
+		display: block;
+		font-weight: bold;
+	}
+
+	&__about {
+		display: inline;
+		margin: 0px 30px 0 0;
+		max-width: 200px;
+	}
+
+}
+
+.b-tournamentlist-status {
+	max-width: 25%;
+	float: right;
+	margin-top: 10px;
+
+	&__reg {
+		margin-right: 30px;
+	}
+
+	&__button {
+		@include button;
+		display: inline;
+		margin-right: -15px;
+	}
+
+}
+
