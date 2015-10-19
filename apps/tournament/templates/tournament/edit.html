@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block page_title %}
-    {{ form.name }}
+    {{ tournament.name }}
 {% endblock page_title %}
 
 {% block extra_head %}
@@ -26,6 +26,9 @@
     <input id="tab3" type="radio" name="tabs" class="b-tabs__input">
     <label for="tab3" class="b-tabs__label" title="Судьи">Судьи</label>
 
+    <input id="tab4" type="radio" name="tabs" class="b-tabs__input">
+    <label for="tab4" class="b-tabs__label" title="Место">Место</label>
+
     <section class="b-tabs__one">
         <form class="form" action="{% url "tournament:edit" tournament.id %}" method="post">
              {% include "tournament/edit_form.html" %}
@@ -34,11 +37,15 @@
     </section>
 
     <section class="b-tabs__two">
-        {% include "tournament/team_list.html" %}
+        {% include "tournament/team_list.html" with team_tournament_rel=team_tournament_rel %}
     </section>
 
     <section class="b-tabs__three">
-        {% include "tournament/adjudicator_list.html" %}
+        {% include "tournament/adjudicator_list.html" with adjudicators=adjudicators %}
+    </section>
+
+    <section class="b-tabs__four">
+        <div id="map" style="width: 660px; height: 400px"></div>
     </section>
 
 </div>

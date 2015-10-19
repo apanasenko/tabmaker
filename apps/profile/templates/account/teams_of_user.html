@@ -1,66 +1,11 @@
 {% extends "main/base.html" %}
 
-{% load profile_extras %}
-{% load staticfiles %}
-
 {% block page_title %}
     Участие в турнирах
 {% endblock page_title %}
 
-{% block extra_head %}
-    {{ block.super }}
-    <script type="text/javascript" src="{% static "main/js/cookie.js" %}"></script>
-    <script type="text/javascript" src="{% static "main/js/ajaxCSRF.js" %}"></script>
-    <script type="text/javascript" src="{% static "tournament/js/main.js" %}"></script>
-{% endblock extra_head %}
-
 {% block content %}
-    <section class="b-profile">
-        <ul>
-            {% for object in objects %}
-                <li>
-                    <div id="errors_{{ object.team.id }}"></div>
-                    <div class="list_item" id="team_{{ object.team.id }}">
-                        <h2>Команда: {{ object.team.name }}</h2>
-                        {% if object.rel %}
-                            <h3><a href="{% url 'tournament:show' object.rel.tournament.id %}">
-                                Турнир: {{ object.rel.tournament.name }}
-                            </a></h3>
-                        {% else %}
-                            <h3>Эта команда не зарегистрирована в турнире</h3>
-                        {% endif %}
-                        <ul>
-                            <li class="b-profile__item">
-                                <a href="{% url 'profile:main' object.team.speaker_1.id%}">{{ object.team.speaker_1|name }}</a>
-                            </li>
-                            <li class="b-profile__item">
-                                <a href="{% url 'profile:main' object.team.speaker_2.id%}">{{ object.team.speaker_2|name }}</a>
-                            </li>
-                            <li class="b-profile__item">Статус: {{ object.rel.role.role }}</li>
-                        </ul>
 
-                    {% if is_owner %}
-
-                        <button class="b-profile__button" onclick="remove_team(
-                                '{% url 'profile:team_remove' %}',
-                                {{ object.team.id }},
-                                'team_{{ object.team.id }}',
-                                'errors_{{ object.team.id }}'
-                                )">
-                            Удалить команду
-                        </button>
-
-                        {# TODO Кнопка "Подтвердить участие" uu#}
-
-                    {% endif %}
-
-                    </div>
-
-                </li>
-            {% endfor %}
-        </ul>
-    </section>
-
-    {% include 'main/paging.html' with objects=objects %}
+    {% include 'account/content_teams.html' with objects=objects is_owner=is_owner %}
 
 {% endblock content %}

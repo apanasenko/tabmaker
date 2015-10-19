@@ -1,0 +1,45 @@
+{% extends "main/base.html" %}
+
+{% load profile_extras %}
+
+{% block page_title %}
+    {% if round.is_playoff %}
+        {{ round.number }} раунд плейофф
+    {% else %}
+        Раунд {{ round.number }}
+    {% endif %}
+{% endblock page_title %}
+
+
+{% block content %}
+
+    <div class="b-tabs">
+
+        <input id="tab1" type="radio" name="tabs" class="b-tabs__input" checked>
+        <label for="tab1" class="b-tabs__label" title="Информация">Резолюция</label>
+
+        <input id="tab2" type="radio" name="tabs" class="b-tabs__input">
+        <label for="tab2" class="b-tabs__label" title="Команды">Румы</label>
+
+        <section class="b-tabs__one">
+            {% if round.motion.infoslide %}
+                Инфослайд: <br>
+                {{ motion.infoslide }}
+                <br><br>
+            {% endif %}
+            Резолюция: <br>
+            {{ round.motion.motion }}
+        </section>
+
+        <section class="b-tabs__two">
+            {% for game in games %}
+                <p>Cудья: {{ game.chair|name }}</p>
+                Первое правительство: {{ game.og.name }} <br>
+                Первая опозиция: {{ game.oo.name }} <br>
+                Второе правительство: {{ game.cg.name }} <br>
+                Вторая опозиция: {{ game.co.name }} <br>
+            {% endfor %}
+        </section>
+
+    </div>
+{% endblock content %}
