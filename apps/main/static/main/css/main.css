@@ -137,7 +137,6 @@ i {
 
 /* line 58, ../sass/modules/_layout.scss */
 .page_wrapper {
-  width: 1024px;
   margin: 0 auto;
   background-color: #ECEEF1;
 }
@@ -309,7 +308,7 @@ header .header_container #header_button {
 /* line 1, ../sass/modules/_sidebar.scss */
 aside {
   display: inline-block;
-  width: 25%;
+  width: 20%;
 }
 
 /* line 6, ../sass/modules/_sidebar.scss */
@@ -630,7 +629,7 @@ footer #contact li {
   margin-left: auto;
   margin-right: auto;
   display: inline-block;
-  width: 70%;
+  width: 55%;
   padding: 20px;
   background-color: #ffffff;
   border-radius: 3px;
