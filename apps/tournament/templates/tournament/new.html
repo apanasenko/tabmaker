@@ -7,27 +7,32 @@
 
 {% block extra_head %}
     {{ block.super }}
-    <script type="text/javascript" src="{% static "tournament/js/tabs_init.js" %}"></script>
+    {# // <script type="text/javascript" src="{% static "tournament/js/tabs_init.js" %}"></script> #}
     <script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script type="text/javascript" src="{% static "tournament/js/map.js" %}"></script>
 {% endblock extra_head %}
 
 {% block content %}
 
-    <form action="{% url 'tournament:new' %}" method="post">
-        <div id="tabs">
-            <ul>
-                <li><a href="#tabs-1">Информация</a></li>
-                <li><a href="#tabs-2">Карта</a></li>
-            </ul>
-            <div id="tabs-1">
+    <div class="b-tabs">
+
+        <input id="tab1" type="radio" name="tabs" class="b-tabs__input" checked>
+        <label for="tab1" class="b-tabs__label" title="Информация">Информация</label>
+
+        <input id="tab2" type="radio" name="tabs" class="b-tabs__input">
+        <label for="tab2" class="b-tabs__label" title="Карта">Карта</label>
+
+        <section class="b-tabs__one">
+            <form class="form" action="{% url 'tournament:new' %}" method="post">
                 {% include "tournament/edit_form.html" %}
-            </div>
-            <div id="tabs-2">
-                <div id="map" style="width: 600px; height: 400px"></div>
-            </div>
-        </div>
-        <button type="submit" class="button formItem">Подтвердить</button>
-    </form>
+                <button type="submit" class="button formItem">Подтвердить</button>
+            </form>
+        </section>
+
+        <section class="b-tabs__two">
+            <div id="map" style="width: 600px; height: 400px"></div>
+        </section>
+
+    </div>
 
 {% endblock content %}

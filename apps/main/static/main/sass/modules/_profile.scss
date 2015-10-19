@@ -1,0 +1,14 @@
+.b-profile {
+	
+	&__heading {
+		
+	}
+
+	&__item {
+		line-height: 1.4;
+	}
+	
+	&__button {
+		@include button;
+	}
+}

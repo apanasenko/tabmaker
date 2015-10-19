@@ -5,7 +5,7 @@
 
 {% block extra_head %}
     {{ block.super }}
-    <script type="text/javascript" src="{% static "tournament/js/tabs_init.js" %}"></script>
+    {# // <script type="text/javascript" src="{% static "tournament/js/tabs_init.js" %}"></script> #}
     <script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script type="text/javascript" src="{% static "tournament/js/map.js" %}"></script>
 {% endblock extra_head %}
@@ -22,21 +22,36 @@
 
 {% block content %}
 
-    <div id="tabs">
-        <ul>
-            <li><a href="#tabs-1">Информация</a></li>
-            <li><a href="#tabs-2">Команды</a></li>
-            <li><a href="#tabs-3">Судьи</a></li>
-        </ul>
-        <div id="tabs-1">
-            {% include "tournament/tournament_info.html" with tournament=tournament %}
-        </div>
-        <div id="tabs-2">
-            {% include "tournament/team_list.html" with team_tournament_rels=team_tournament_rels %}
-        </div>
-        <div id="tabs-3">
-            {% include "tournament/adjudicator_list.html" with adjudicators=adjudicators %}
-        </div>
-    </div>
+<div class="b-tabs">
+
+    <input id="tab1" type="radio" name="tabs" class="b-tabs__input" checked>
+    <label for="tab1" class="b-tabs__label" title="Информация">Информация</label>
+    
+    <input id="tab2" type="radio" name="tabs" class="b-tabs__input">
+    <label for="tab2" class="b-tabs__label" title="Команды">Команды</label>
+
+    <input id="tab3" type="radio" name="tabs" class="b-tabs__input">
+    <label for="tab3" class="b-tabs__label" title="Судьи">Судьи</label>
+
+    <input id="tab4" type="radio" name="tabs" class="b-tabs__input">
+    <label for="tab4" class="b-tabs__label" title="Место">Место</label>
+
+    <section class="b-tabs__one">
+       {% include "tournament/tournament_info.html" with tournament=tournament %}
+    </section>
+
+    <section class="b-tabs__two">
+        {% include "tournament/team_list.html" with team_tournament_rels=team_tournament_rels %}
+    </section>
+
+    <section class="b-tabs__three">
+        {% include "tournament/adjudicator_list.html" with adjudicators=adjudicators %}
+    </section>
+
+    <section class="b-tabs__four">
+        <div id="map" style="width: 660px; height: 400px"></div>
+    </section>
+
+</div>
 
 {% endblock content %}

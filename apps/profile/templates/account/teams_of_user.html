@@ -15,7 +15,7 @@
 {% endblock extra_head %}
 
 {% block content %}
-    <section>
+    <section class="b-profile">
         <ul>
             {% for object in objects %}
                 <li>
@@ -30,18 +30,18 @@
                             <h3>Эта команда не зарегистрирована в турнире</h3>
                         {% endif %}
                         <ul>
-                            <li><a href="{% url 'profile:main' object.team.speaker_1.id%}">
-                                Спикер 1 {{ object.team.speaker_1|name }}
-                            </a></li>
-                            <li><a href="{% url 'profile:main' object.team.speaker_2.id%}">
-                                Спикер 2 {{ object.team.speaker_2|name }}
-                            </a></li>
-                            <li>Статус: {{ object.rel.role.role }}</li>
+                            <li class="b-profile__item">
+                                <a href="{% url 'profile:main' object.team.speaker_1.id%}">{{ object.team.speaker_1|name }}</a>
+                            </li>
+                            <li class="b-profile__item">
+                                <a href="{% url 'profile:main' object.team.speaker_2.id%}">{{ object.team.speaker_2|name }}</a>
+                            </li>
+                            <li class="b-profile__item">Статус: {{ object.rel.role.role }}</li>
                         </ul>
 
                     {% if is_owner %}
 
-                        <button onclick="remove_team(
+                        <button class="b-profile__button" onclick="remove_team(
                                 '{% url 'profile:team_remove' %}',
                                 {{ object.team.id }},
                                 'team_{{ object.team.id }}',

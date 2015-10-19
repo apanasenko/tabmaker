@@ -1,12 +1,12 @@
 {% extends "account/base.html" %}
 
 {% block page_title %}
-    Уже уходишь?
+    Уже уходите?
 {% endblock page_title %}
 
 {% block content %}
 
-    <h3>Хорошенько подумай перед тем как разлогиниться</h3>
+    <h3>Всегда будем ждать вашего возвращения</h3>
 
     <form method="post" action="{% url 'account_logout' %}">
         {% csrf_token %}

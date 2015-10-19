@@ -1,0 +1,128 @@
+input, select, textarea {
+	padding: 5px 5px 5px 10px;
+	height: 25px;
+	border-radius: 5px;
+	line-height: 20px;
+	margin: 0 30px 10px 0;
+	font-size: 14px;
+	color: $dark;
+	background-color: white;
+	border: 2px solid $background-page;
+
+	&:focus {
+		border: 2px solid $green;
+	}
+}
+
+textarea {
+	min-height: 100px;
+	font-family: "PT Sans", Arial, sans-serif;
+	font-weight: 14px;
+	margin-bottom: 20px;
+}
+
+select {
+	-webkit-appearance: none;
+	height: 35px;
+	min-width: 170px;
+}
+
+label {
+	display: block;
+	padding-right: 10px;
+	margin: 0 0 10px 0;
+}
+
+form {
+	@include container;
+	width: 660px;
+	
+	h3 {
+		clear: both;
+	}
+}
+
+.formItem {
+	margin: 0 30px 20px 0;
+	@include span(4 of 12);	
+
+	> input, > label {
+		display: inline-block;
+	}
+}
+
+.full {
+	@include span(12 of 12);
+}
+
+#university, #adress, #count_teams_in_break, .last {
+	@include last;
+}
+
+#country, #street, #regdateOpen, #regdateClose, #link, .row {
+	clear: both;
+}
+
+#tournamentName {
+	@include span(11 of 12);
+
+	input {
+		width: 100%;
+	}
+}
+
+#address {
+	@include span(11 of 12);
+
+	input {
+		width: 100%;
+	}
+}
+
+#street {
+	@include span(8 of 12);
+
+	input {
+		max-width: 370px;
+		width: 370px;
+	}
+}
+
+#aboutTournament, #player_experience, #adjudicator_experience, .textarea {
+	@include span(12 of 12);
+
+	textarea {
+		max-width: 660px;
+		width: 600px;
+		min-height: 100px;
+		font-family: "PT Sans", Arial, sans-serif;
+		font-weight: 14px;
+	}
+}
+
+#link {
+	@include span(11 of 12);
+	
+	input {
+		width: 100%;
+	}
+}
+
+.button.formItem {
+	@include span (4 of 12);
+	text-align: center;
+}
+
+#loginButton {
+	@include span (4 of 12);
+}
+
+.errorlist {
+	
+	li {
+		color: red;
+		font-size: 14px;
+		display: inline;
+		margin: -5px 0 0 5px;
+	}
+}

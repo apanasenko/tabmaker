@@ -7,7 +7,7 @@
 
 {% block extra_head %}
     {{ block.super }}
-    <script type="text/javascript" src="{% static "tournament/js/tabs_init.js" %}"></script>
+    {# // <script type="text/javascript" src="{% static "tournament/js/tabs_init.js" %}"></script> #}
     <script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script type="text/javascript" src="{% static "tournament/js/map.js" %}"></script>
 {% endblock extra_head %}
@@ -15,23 +15,32 @@
 
 {% block content %}
 
-    <form class="page col s9" action="{% url "tournament:edit" tournament.id %}" method="post">
+<div class="b-tabs">
 
-        <div id="tabs">
-            <ul>
-                <li><a href="#tabs-1">Информация</a></li>
-                <li><a href="#tabs-2">Карта</a></li>
-            </ul>
-            <div id="tabs-1">
-                {% include "tournament/edit_form.html" %}
-            </div>
-            <div id="tabs-2">
-                <div id="map" style="width: 600px; height: 400px"></div>
-            </div>
-        </div>
+    <input id="tab1" type="radio" name="tabs" class="b-tabs__input" checked>
+    <label for="tab1" class="b-tabs__label" title="Информация">Информация</label>
 
-        <button type="submit" class="button formItem">Сохранить</button>
+    <input id="tab2" type="radio" name="tabs" class="b-tabs__input">
+    <label for="tab2" class="b-tabs__label" title="Команды">Команды</label>
 
-    </form>
+    <input id="tab3" type="radio" name="tabs" class="b-tabs__input">
+    <label for="tab3" class="b-tabs__label" title="Судьи">Судьи</label>
+
+    <section class="b-tabs__one">
+        <form class="form" action="{% url "tournament:edit" tournament.id %}" method="post">
+             {% include "tournament/edit_form.html" %}
+             <button type="submit" class="button formItem">Сохранить</button>
+        </form>
+    </section>
+
+    <section class="b-tabs__two">
+        {% include "tournament/team_list.html" %}
+    </section>
+
+    <section class="b-tabs__three">
+        {% include "tournament/adjudicator_list.html" %}
+    </section>
+
+</div>
 
 {% endblock content %}

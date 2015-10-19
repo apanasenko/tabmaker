@@ -1,0 +1,46 @@
+.b-teamlist {
+	padding: 30px 0 30px 0;
+	border-bottom: 1px $grey solid;
+
+	&:hover {
+		background-color: $hover;
+	}
+
+	&__wrapper {
+		margin: 0 20px 0 20px;
+	}
+
+	&__heading {
+		margin: 0 15px 0 0;
+
+		h3 {
+			display: inline;
+			margin-right: 15px;
+			margin-bottom: 0;
+
+			a {
+				display: inline;
+				border-bottom: 1px solid $grey;
+				padding-bottom: 3px;
+			}
+		}
+	}
+
+	&__status {
+		font-weight: 700;
+		color: $grey;
+		margin: 0 0 10px 0;
+	}
+
+	&__profile {
+		cursor: auto;
+		margin: 15px 0 0 0;
+		
+		a {
+			display: inline;
+			border-bottom: 1px solid $grey;
+			padding-bottom: 3px;
+		}
+	}
+
+}

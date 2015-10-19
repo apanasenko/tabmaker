@@ -14,9 +14,9 @@
 
     <div id="message_back" class="formItem full">
         {% if url %}
-            <p><a class="button" href="{{ url }}">Назад</a></p>
+            <a class="button formItem" href="{{ url }}">Назад</a>
         {% else %}
-            <p><a class="button" href="{% url "main:index" %}">На главную</a></p>
+            <a class="button formItem" href="{% url "main:index" %}">На главную</a>
         {% endif %}
     </div>
 

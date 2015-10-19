@@ -1,0 +1,62 @@
+$susy: (
+  columns: 12,
+  gutters: 1/6,
+  container: 100%,
+);
+
+body {
+	font-family: "PT Sans", Arial, sans-serif;
+	background-color: $deep-dark;
+}
+
+ul, a {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+h3, h5, p, a, li, label {
+	color: $dark;
+}
+
+h1, h2, h3 {
+	font-weight: 700;
+	margin-bottom: 10px;
+}
+
+h1 {
+	font-size: 28px;
+}
+
+h2 {
+	font-size: 24px;
+}
+
+h3 {
+	font-size: 20px;
+}
+
+a {
+	text-decoration: none;
+}
+
+i {
+	margin-right: 4px;
+	margin-bottom: 2px;
+}
+
+.button {
+	@include button;
+	background-color: $deep-dark;
+	width: 100%;
+
+	a {
+		color: white;
+	}
+}
+
+.page_wrapper {
+	// width: 1024px;
+	margin: 0 auto;
+	background-color: $background-page;
+}
