@@ -1,18 +1,10 @@
 {% extends "main/base.html" %}
 
 {% load profile_extras %}
-{% load staticfiles %}
 
 {% block page_title %}
     Участие в турнирах
 {% endblock page_title %}
-
-{% block extra_head %}
-    {{ block.super }}
-    <script type="text/javascript" src="{% static "main/js/cookie.js" %}"></script>
-    <script type="text/javascript" src="{% static "main/js/ajaxCSRF.js" %}"></script>
-    <script type="text/javascript" src="{% static "tournament/js/main.js" %}"></script>
-{% endblock extra_head %}
 
 {% block content %}
     <section class="b-profile">
