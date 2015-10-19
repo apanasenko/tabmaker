@@ -1,0 +1,39 @@
+{% extends "account/base_include_js.html" %}
+
+{% load profile_extras %}
+
+{% block page_title %}
+    <h3>{{ user|name }}</h3>
+{% endblock page_title %}
+
+{% block content %}
+
+    <div class="b-tabs">
+
+        <input id="tab1" type="radio" name="tabs" class="b-tabs__input" checked>
+        <label for="tab1" class="b-tabs__label" title="Информация">Информация</label>
+
+        <input id="tab2" type="radio" name="tabs" class="b-tabs__input">
+        <label for="tab2" class="b-tabs__label" title="Команды">Команды</label>
+
+        <input id="tab3" type="radio" name="tabs" class="b-tabs__input">
+        <label for="tab3" class="b-tabs__label" title="Судьи">Судейство</label>
+
+        <section class="b-tabs__one">
+            <div class="b-profile">
+                {% include 'account/content_info.html' with user=user %}
+            </div>
+        </section>
+
+        <section class="b-tabs__two">
+            {% include 'account/content_teams.html' with objects=teams_objects is_owner=is_owner %}
+        </section>
+
+        <section class="b-tabs__three">
+            {% include 'account/content_adjudicators.html' with objects=adjudicators_objects is_owner=is_owner %}
+        </section>
+
+    </div>
+
+
+{% endblock content %}

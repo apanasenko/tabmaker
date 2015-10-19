@@ -11,13 +11,26 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 
 def show_profile(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    return render(
-        request,
-        'account/show.html',
-        {
-            'user': user,
-        }
-    )
+    if request.user.is_authenticated() and user ==request.user:
+        return render(
+            request,
+            'account/show.html',
+            {
+                'user': user,
+            }
+        )
+    else:
+        teams = list(user.first_speaker.all()) + list(user.second_speaker.all())
+        return render(
+            request,
+            'account/other_profile.html',
+            {
+                'user': user,
+                'is_owner': False,
+                'teams_objects': list(map(lambda x: {'team': x, 'rel': x.teamtournamentrel_set.first()}, teams)),
+                'adjudicators_objects': user.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES),
+            }
+        )
 
 
 def edit_profile(request, user_id):
