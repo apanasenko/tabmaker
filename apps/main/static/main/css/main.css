@@ -114,11 +114,6 @@ i {
 }
 
 /* line 48, ../sass/modules/_layout.scss */
-p, li {
-  line-height: 1.5em;
-}
-
-/* line 53, ../sass/modules/_layout.scss */
 .button {
   margin: 20px 10px 5px 0px;
   display: inline-block;
@@ -135,12 +130,12 @@ p, li {
   background-color: #0C152A;
   width: 100%;
 }
-/* line 58, ../sass/modules/_layout.scss */
+/* line 53, ../sass/modules/_layout.scss */
 .button a {
   color: white;
 }
 
-/* line 63, ../sass/modules/_layout.scss */
+/* line 58, ../sass/modules/_layout.scss */
 .page_wrapper {
   width: 1024px;
   margin: 0 auto;
@@ -200,9 +195,9 @@ header .header_container #header_button {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  height: 70px;
-  margin: 15px 0 15px 0;
-  padding-bottom: 15px;
+  min-height: 50px;
+  margin: 30px 0 0 0;
+  padding-bottom: 20px;
   border-bottom: #E9EBEC 1px solid;
 }
 
@@ -212,34 +207,38 @@ header .header_container #header_button {
   width: 100%;
   padding-right: 20px;
   position: relative;
+  line-height: 0,7;
 }
-/* line 16, ../sass/modules/_tournamentlist.scss */
+/* line 17, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__heading {
   display: block;
   font-weight: bold;
+}
+/* line 21, ../sass/modules/_tournamentlist.scss */
+.b-tournamentlist-current__heading h3 {
   margin-bottom: 5px;
 }
-/* line 22, ../sass/modules/_tournamentlist.scss */
+/* line 26, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__about {
   display: inline;
-  margin: 0px 30px 0 0;
+  margin: 20px 30px 0 0;
   max-width: 200px;
   color: #aeb8bc;
   font-size: 14px;
 }
-/* line 30, ../sass/modules/_tournamentlist.scss */
+/* line 34, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__registration {
   font-weight: 700;
   color: #aeb8bc;
   margin: 7px 0 3px 0;
 }
-/* line 36, ../sass/modules/_tournamentlist.scss */
+/* line 40, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result {
   position: absolute;
-  top: 47%;
-  left: 80%;
+  top: 15%;
+  left: 81%;
 }
-/* line 41, ../sass/modules/_tournamentlist.scss */
+/* line 45, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result a {
   display: inline-block;
   padding: 6px 12px;
@@ -260,47 +259,47 @@ header .header_container #header_button {
   transition: color 0.5s ease;
 }
 
-/* line 1, ../sass/modules/teamlist.scss */
+/* line 1, ../sass/modules/_teamlist.scss */
 .b-teamlist {
   padding: 30px 0 30px 0;
   border-bottom: 1px #aeb8bc solid;
 }
-/* line 5, ../sass/modules/teamlist.scss */
+/* line 5, ../sass/modules/_teamlist.scss */
 .b-teamlist:hover {
   background-color: #fdf8d1;
 }
-/* line 9, ../sass/modules/teamlist.scss */
+/* line 9, ../sass/modules/_teamlist.scss */
 .b-teamlist__wrapper {
   margin: 0 20px 0 20px;
 }
-/* line 13, ../sass/modules/teamlist.scss */
+/* line 13, ../sass/modules/_teamlist.scss */
 .b-teamlist__heading {
   margin: 0 15px 0 0;
 }
-/* line 16, ../sass/modules/teamlist.scss */
+/* line 16, ../sass/modules/_teamlist.scss */
 .b-teamlist__heading h3 {
   display: inline;
   margin-right: 15px;
   margin-bottom: 0;
 }
-/* line 21, ../sass/modules/teamlist.scss */
+/* line 21, ../sass/modules/_teamlist.scss */
 .b-teamlist__heading h3 a {
   display: inline;
   border-bottom: 1px solid #aeb8bc;
   padding-bottom: 3px;
 }
-/* line 29, ../sass/modules/teamlist.scss */
+/* line 29, ../sass/modules/_teamlist.scss */
 .b-teamlist__status {
   font-weight: 700;
   color: #aeb8bc;
   margin: 0 0 10px 0;
 }
-/* line 35, ../sass/modules/teamlist.scss */
+/* line 35, ../sass/modules/_teamlist.scss */
 .b-teamlist__profile {
   cursor: auto;
   margin: 15px 0 0 0;
 }
-/* line 39, ../sass/modules/teamlist.scss */
+/* line 39, ../sass/modules/_teamlist.scss */
 .b-teamlist__profile a {
   display: inline;
   border-bottom: 1px solid #aeb8bc;
@@ -555,14 +554,13 @@ form h3 {
   color: #aaa;
   border: 1px solid #ddd;
   background: #f1f1f1;
-  border-radius: 3px 3px 0 0;
 }
-/* line 15, ../sass/modules/_tabs.scss */
+/* line 14, ../sass/modules/_tabs.scss */
 .b-tabs__label:hover {
   color: #888;
   cursor: pointer;
 }
-/* line 20, ../sass/modules/_tabs.scss */
+/* line 19, ../sass/modules/_tabs.scss */
 .b-tabs__input:checked + label {
   color: #0D8153;
   border: 1px solid #ddd;
@@ -570,11 +568,11 @@ form h3 {
   border-bottom: 1px solid #fff;
   background: #fff;
 }
-/* line 28, ../sass/modules/_tabs.scss */
+/* line 27, ../sass/modules/_tabs.scss */
 .b-tabs__input {
   display: none;
 }
-/* line 32, ../sass/modules/_tabs.scss */
+/* line 31, ../sass/modules/_tabs.scss */
 .b-tabs__one, .b-tabs__two, .b-tabs__three, .b-tabs__four {
   display: none;
   background: #fff;
@@ -583,7 +581,7 @@ form h3 {
   width: 100%;
 }
 
-/* line 42, ../sass/modules/_tabs.scss */
+/* line 41, ../sass/modules/_tabs.scss */
 #tab1:checked ~ .b-tabs__one,
 #tab2:checked ~ .b-tabs__two,
 #tab3:checked ~ .b-tabs__three,

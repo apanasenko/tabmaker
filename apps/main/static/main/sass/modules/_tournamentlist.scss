@@ -1,9 +1,9 @@
 .b-tournamentlist-item {
 	display: block;
 	@include span(12 of 12);
-	height: 70px;
-	margin: 15px 0 15px 0;
-	padding-bottom: 15px;
+	min-height: 50px;
+	margin: 30px 0 0 0;
+	padding-bottom: 20px;
 	border-bottom: #E9EBEC 1px solid;
 }
 
@@ -12,16 +12,20 @@
 	width: 100%;
 	padding-right: 20px;
 	position: relative;
+	line-height: 0,7;
 
 	&__heading {
 		display: block;
 		font-weight: bold;
-		margin-bottom: 5px;
+		
+		h3 {
+			margin-bottom: 5px;
+		}
 	}
 
 	&__about {
 		display: inline;
-		margin: 0px 30px 0 0;
+		margin: 20px 30px 0 0;
 		max-width: 200px;
 		color: $grey;
 		font-size: 14px;
@@ -35,8 +39,8 @@
 
 	&__result {
 		position: absolute;
-		top: 47%;
-		left: 80%;
+		top: 15%;
+		left: 81%;
 
 		a {
 			@include buttontwo;
