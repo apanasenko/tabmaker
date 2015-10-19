@@ -37,11 +37,11 @@
     </section>
 
     <section class="b-tabs__two">
-        {% include "tournament/team_list.html" %}
+        {% include "tournament/team_list.html" with team_tournament_rel=team_tournament_rel %}
     </section>
 
     <section class="b-tabs__three">
-        {% include "tournament/adjudicator_list.html" %}
+        {% include "tournament/adjudicator_list.html" with adjudicators=adjudicators %}
     </section>
 
     <section class="b-tabs__four">

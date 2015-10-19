@@ -393,6 +393,8 @@ def edit(request, tournament):
         {
             'form': tournament_form,
             'tournament': tournament,
+            'team_tournament_rels': tournament.teamtournamentrel_set.all().order_by('-role_id', '-id'),
+            'adjudicators': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id'),
         }
     )
 
