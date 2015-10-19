@@ -361,7 +361,8 @@ def generate_playoff_round(tournament: Tournament, cur_round: Round):
     chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
     random.shuffle(chair)
 
-    result_prev_round = get_teams_result_list("""
+    result_prev_round = get_teams_result_list(
+        """
         WHERE round.tournament_id = %s
           AND round.is_playoff = %s
           AND round.number = %s
