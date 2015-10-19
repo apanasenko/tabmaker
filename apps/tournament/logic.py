@@ -158,6 +158,32 @@ def generate_random_round(tournament: Tournament, cur_round: Round):
     return rooms
 
 
+def can_show_round(tournament):
+    if tournament.status in [STATUS_REGISTRATION, STATUS_PREPARATION] or tournament.cur_round == 0:
+        return [False, 'Турнир ещё не начался']
+
+    if tournament.status == STATUS_FINISHED:
+        return [False, 'Турнир уже закончился']
+
+    else:
+        return [True, '']
+
+
+def get_current_round_games(tournament: Tournament):
+    last_round = Round.objects.filter(
+        tournament=tournament,
+        is_playoff=(tournament.status == STATUS_PLAYOFF)
+    ).latest('number')
+
+    if not last_round:
+        return None
+
+    return {
+        'games': list(map(lambda x: x.game, Room.objects.filter(round=last_round))),
+        'round': last_round,
+    }
+
+
 def get_or_generate_next_round(tournament: Tournament):
     cur_round = Round.objects.filter(
         tournament=tournament,

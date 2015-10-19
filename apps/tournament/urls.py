@@ -20,6 +20,7 @@ urlpatterns = patterns('',
         name='registration_action'
     ),
     url(r'^(?P<tournament_id>\d+)/round/next[/]$', views.next_round, name='next_round'),
+    url(r'^(?P<tournament_id>\d+)/round/show[/]$', views.show_current_round, name='show_round'),
     url(r'^(?P<tournament_id>\d+)/round/edit[/]$', views.edit_round, name='edit_round'),
     url(r'^(?P<tournament_id>\d+)/round/result[/]$', views.result_round, name='result_round'),
     url(r'^(?P<tournament_id>\d+)/round/remove[/]$', views.remove_round, name='remove_round'),

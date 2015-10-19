@@ -45,7 +45,9 @@ from .logic import \
     get_last_round_games_and_results, \
     get_tournament_motions, \
     remove_team_from_tournament, \
-    remove_last_round
+    remove_last_round, \
+    get_current_round_games, \
+    can_show_round
 
 
 def access_by_status(name_page=None):
@@ -126,6 +128,19 @@ def show(request, tournament):
             'adjudicators': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id'),
             'is_owner': user_can_edit_tournament(tournament, request.user),
         }
+    )
+
+
+@access_by_status()
+def show_current_round(request, tournament):
+    check_result = can_show_round(tournament)
+    if not check_result[0]:
+        return show_message(request, check_result[1])
+
+    return render(
+        request,
+        'tournament/show_round.html',
+        get_current_round_games(tournament),
     )
 
 
