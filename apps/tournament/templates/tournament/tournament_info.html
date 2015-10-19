@@ -1,3 +1,5 @@
+{% load tournament_extras %}
+
 <div class="b-tournament-info">
 
     <h3>Cтатус</h3>
@@ -10,24 +12,44 @@
         <input id="id_location_lon" type="hidden" value={{ tournament.location_lon }}>
         <input id="id_location_lat" type="hidden" value={{ tournament.location_lat }}>
     </ul>
-    
+
     <h3 class="b-tournament-info__heading">Описание</h3>
     <p class="b-tournament-info__description">{{ tournament.info }}</p>
 
     <h3 class="b-tournament-info__heading">Подробности</h3>
     <a class="b-tournament-info__link" href="{{ tournament.link }}">{{ tournament.link }}</a>
-    
+
     <div class="b-tournament-info-reg">
     {% if tournament.open_reg > now %}
         <h3 class="b-tournament-reg__regtime">Регистрация ещё не открыта</h3>
     {% elif tournament.close_reg < now %}
-        <h3 class="b-tournament-reg__regtime">Регистрация уже закончилась</h3>
-    {% else %}
-        <h3 class="b-tournament-reg__regtime">Регистрация до {{ tournament.close_reg|date:"M d, Y" }}</h3>
 
-        <a class="b-tournament-reg__regbutton button formItem" href="{% url "tournament:registration_team" tournament.id %}">Участовать</a>
-        <a class="b-tournament-reg__regbutton button formItem" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
+    {% else %}
+
     {% endif %}
+
+        {% if tournament|is_status_registration %}
+
+            <h3 class="b-tournament-reg__regtime">Регистрация до {{ tournament.close_reg|date:"M d, Y" }}</h3>
+            <a class="b-tournament-reg__regbutton button formItem" href="{% url "tournament:registration_team" tournament.id %}">Участовать</a>
+            <a class="b-tournament-reg__regbutton button formItem" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
+
+        {% elif tournament|is_status_preparation %}
+
+            <h3 class="b-tournament-reg__regtime">Регистрация уже закончилась</h3>
+
+        {% else %}
+            {% if tournament|is_status_started or tournament|is_status_playoff%}
+
+                <a class="b-tournament-reg__regbutton button formItem" href="{% url "tournament:show_round" tournament.id %}">Текущий раунд</a>
+
+            {% endif %}
+
+            <a class="b-tournament-reg__regbutton button formItem" href="{% url "tournament:result" tournament.id %}">Результаты</a>
+
+        {% endif %}
+
+
     </div>
 
 </div>
