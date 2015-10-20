@@ -1,19 +1,28 @@
 {% load profile_extras %}
 
-<ul>
+<ul class="b-sidebar__list">
     {% if request.user.is_authenticated %}
 
-        <h3>{{ request.user|name }}</h3>
-        <li><a href="{% url 'profile:main' request.user.id %}">Профиль</a></li>
-        <li><a href="{% url 'profile:teams' request.user.id %}">Участие в турнирах</a></li>
-        <li><a href="{% url 'profile:adjudicator' request.user.id %}">Судейство в турнирах</a></li>
-        <li><a href="{% url 'profile:tournaments' request.user.id %}">Мои турниры</a></li>
-        <li><a href="{% url 'account_logout' %}">Выйти</a></li>
+        <h3 class="b-sidebar__heading">{{ request.user|name }}</h3>
+        <li class="b-sidebar__listitem">
+            <a href="{% url 'profile:main' request.user.id %}"><i class="fa fa-user"></i>Профиль</a>
+        </li>
+        <li class="b-sidebar__listitem">
+            <a href="{% url 'profile:teams' request.user.id %}"><i class="fa fa-trophy"></i>Участие в турнирах</a>
+        </li>
+        <li class="b-sidebar__listitem">
+            <a href="{% url 'profile:adjudicator' request.user.id %}"><i class="fa fa-gavel"></i>Судейство в турнирах</a>
+        </li>
+        <li class="b-sidebar__listitem">
+            <a href="{% url 'profile:tournaments' request.user.id %}"><i class="fa fa-flag"></i>Мои турниры</a></li>
+        <li class="b-sidebar__listitem">
+            <a href="{% url 'account_logout' %}"><i class="fa fa-sign-out"></i>Выйти</a>
+        </li>
 
     {% else %}
 
-        <li class=""><a href="{% url 'account_login' %}">Войти</a></li>
-        <li class=""><a href="{% url 'account_signup' %}">Зарегистрироваться</a></li>
+        <li class="b-sidebar__button"><a href="{% url 'account_login' %}">Войти</a></li>
+        <li class="b-sidebar__button"><a href="{% url 'account_signup' %}">Зарегистрироваться</a></li>
 
     {% endif %}
 </ul>

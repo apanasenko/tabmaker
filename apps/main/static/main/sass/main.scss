@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic);
+
 @import "compass/reset";
 @import "susy";
 @import "modules/colors";
@@ -18,21 +20,22 @@
 
 .content_conteiner {
 	padding: 30px 15px;
+	min-height: 68vh;
 }
 
 .content {
 	@include container;
+	@include shadow;
 	display: inline-block;
-	width: 55%;
-	padding: 20px;
+	width: 60%;
 	background-color: $background-block;
 	border-radius: 3px;
 	vertical-align: top;
-	min-height: 190px;
 }
 
 
 .b-tournament-info {
+	padding: 20px 0px;
 
 	&__heading {
 		margin-top: 25px;

@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic);
 /* line 5, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/compass-core-1.1.0.alpha.3/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -65,7 +66,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 
 /* line 7, ../sass/modules/_layout.scss */
 body {
-  font-family: "PT Sans", Arial, sans-serif;
+  font-family: "PT Sans", Arial,  sans-serif;
   background-color: #0C152A;
 }
 
@@ -109,26 +110,30 @@ a {
 
 /* line 43, ../sass/modules/_layout.scss */
 i {
-  margin-right: 4px;
+  margin-right: 8px;
   margin-bottom: 2px;
 }
 
 /* line 48, ../sass/modules/_layout.scss */
 .button {
-  margin: 20px 10px 5px 0px;
   display: inline-block;
   text-decoration: none;
   padding: 8px 16px;
-  border-radius: 6px;
+  border-radius: 5px;
   border: none;
   color: #ffffff;
   font-family: inherit;
   font-size: 14px;
   min-height: 20px;
-  background-color: #0C152A;
+  background-color: #424E5A;
   box-sizing: border-box;
   background-color: #0C152A;
   width: 100%;
+}
+/* line 18, ../sass/modules/_mixins.scss */
+.button:hover {
+  background-color: #0C152A;
+  transition: background-color 0.3s ease;
 }
 /* line 53, ../sass/modules/_layout.scss */
 .button a {
@@ -143,48 +148,69 @@ i {
 
 /* line 1, ../sass/modules/_header.scss */
 header {
-  height: 100px;
-  background-color: #189A66;
+  height: 70px;
+  background-color: white;
   vertical-align: middle;
   display: block;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
-/* line 7, ../sass/modules/_header.scss */
+/* line 8, ../sass/modules/_header.scss */
 header #logo {
   display: inline-block;
   height: 100%;
   vertical-align: middle;
+  width: 21%;
 }
-/* line 12, ../sass/modules/_header.scss */
+/* line 14, ../sass/modules/_header.scss */
 header #logo img {
   display: inline-block;
-  vertical-align: middle;
-  height: 60%;
+  height: 40%;
   max-width: none;
   max-height: 80px;
-  margin: 15px 30px 0 10px;
+  margin: 20px 30px 0 25px;
 }
-/* line 23, ../sass/modules/_header.scss */
+/* line 24, ../sass/modules/_header.scss */
 header .header_container {
   display: inline-block;
-  width: 75%;
+  width: 58%;
 }
-/* line 27, ../sass/modules/_header.scss */
+/* line 28, ../sass/modules/_header.scss */
 header .header_container #page_title {
   display: inline-block;
   vertical-align: middle;
-  margin-left: 55px;
-  width: 70%;
+  max-width: 80%;
 }
 /* line 33, ../sass/modules/_header.scss */
 header .header_container #page_title h3 {
-  color: white;
+  color: #58697A;
   font-size: 24px;
   margin-bottom: 0px;
-  width: 90%;
 }
 /* line 40, ../sass/modules/_header.scss */
 header .header_container #header_button {
   display: inline-block;
+  float: right;
+  display: inline-block;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: none;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  min-height: 20px;
+  background-color: #424E5A;
+  box-sizing: border-box;
+}
+/* line 18, ../sass/modules/_mixins.scss */
+header .header_container #header_button:hover {
+  background-color: #0C152A;
+  transition: background-color 0.3s ease;
+}
+/* line 45, ../sass/modules/_header.scss */
+header .header_container #header_button a {
+  text-align: center;
+  color: white;
 }
 
 /* line 1, ../sass/modules/_tournamentlist.scss */
@@ -195,29 +221,32 @@ header .header_container #header_button {
   margin-left: 0;
   margin-right: 0;
   min-height: 50px;
-  margin: 30px 0 0 0;
-  padding-bottom: 20px;
+  padding: 20px 0px 20px 0px;
   border-bottom: #E9EBEC 1px solid;
 }
+/* line 8, ../sass/modules/_tournamentlist.scss */
+.b-tournamentlist-item:hover {
+  background-color: #FEFFD9;
+  transition: background-color 0.2s ease;
+}
 
-/* line 10, ../sass/modules/_tournamentlist.scss */
+/* line 14, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current {
-  display: inline-block;
-  width: 100%;
-  padding-right: 20px;
+  display: block;
+  margin: 0 20px;
   position: relative;
   line-height: 0,7;
 }
-/* line 17, ../sass/modules/_tournamentlist.scss */
+/* line 20, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__heading {
   display: block;
   font-weight: bold;
 }
-/* line 21, ../sass/modules/_tournamentlist.scss */
+/* line 24, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__heading h3 {
   margin-bottom: 5px;
 }
-/* line 26, ../sass/modules/_tournamentlist.scss */
+/* line 29, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__about {
   display: inline;
   margin: 20px 30px 0 0;
@@ -225,19 +254,19 @@ header .header_container #header_button {
   color: #aeb8bc;
   font-size: 14px;
 }
-/* line 34, ../sass/modules/_tournamentlist.scss */
+/* line 37, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__registration {
   font-weight: 700;
   color: #aeb8bc;
   margin: 7px 0 3px 0;
 }
-/* line 40, ../sass/modules/_tournamentlist.scss */
+/* line 43, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result {
-  position: absolute;
-  top: 15%;
-  left: 81%;
+  float: right;
+  clear: right;
+  margin: -20px 10px 0 0;
 }
-/* line 45, ../sass/modules/_tournamentlist.scss */
+/* line 48, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result a {
   display: inline-block;
   padding: 6px 12px;
@@ -245,17 +274,16 @@ header .header_container #header_button {
   color: #aeb8bc;
   font-size: 14px;
   min-height: 20px;
-  background-color: white;
   box-sizing: border-box;
   border: 1px solid #aeb8bc;
   color: #aeb8bc;
   font-weight: 700;
 }
-/* line 31, ../sass/modules/_mixins.scss */
+/* line 34, ../sass/modules/_mixins.scss */
 .b-tournamentlist-current__result a:hover {
   border: 1px solid #58697A;
   color: #58697A;
-  transition: color 0.5s ease;
+  transition: color 0.3s ease;
 }
 
 /* line 1, ../sass/modules/_teamlist.scss */
@@ -265,43 +293,44 @@ header .header_container #header_button {
 }
 /* line 5, ../sass/modules/_teamlist.scss */
 .b-teamlist:hover {
-  background-color: #fdf8d1;
+  background-color: #FEFFD9;
+  transition: background-color 0.2s ease;
 }
-/* line 9, ../sass/modules/_teamlist.scss */
+/* line 10, ../sass/modules/_teamlist.scss */
 .b-teamlist__wrapper {
   margin: 0 20px 0 20px;
 }
-/* line 13, ../sass/modules/_teamlist.scss */
+/* line 14, ../sass/modules/_teamlist.scss */
 .b-teamlist__heading {
   margin: 0 15px 0 0;
 }
-/* line 16, ../sass/modules/_teamlist.scss */
+/* line 17, ../sass/modules/_teamlist.scss */
 .b-teamlist__heading h3 {
   display: inline;
   margin-right: 15px;
   margin-bottom: 0;
 }
-/* line 21, ../sass/modules/_teamlist.scss */
+/* line 22, ../sass/modules/_teamlist.scss */
 .b-teamlist__heading h3 a {
   display: inline;
-  border-bottom: 1px solid #aeb8bc;
+  border-bottom: 1px dashed #aeb8bc;
   padding-bottom: 3px;
 }
-/* line 29, ../sass/modules/_teamlist.scss */
+/* line 30, ../sass/modules/_teamlist.scss */
 .b-teamlist__status {
   font-weight: 700;
   color: #aeb8bc;
   margin: 0 0 10px 0;
 }
-/* line 35, ../sass/modules/_teamlist.scss */
+/* line 36, ../sass/modules/_teamlist.scss */
 .b-teamlist__profile {
   cursor: auto;
   margin: 15px 0 0 0;
 }
-/* line 39, ../sass/modules/_teamlist.scss */
+/* line 40, ../sass/modules/_teamlist.scss */
 .b-teamlist__profile a {
   display: inline;
-  border-bottom: 1px solid #aeb8bc;
+  border-bottom: 1px dashed #aeb8bc;
   padding-bottom: 3px;
 }
 
@@ -312,41 +341,47 @@ aside {
 }
 
 /* line 6, ../sass/modules/_sidebar.scss */
-.sidebar {
+.b-sidebar {
   display: block;
   width: 90%;
   background-color: #ffffff;
   border-radius: 3px;
   vertical-align: top;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
-/* line 13, ../sass/modules/_sidebar.scss */
-.sidebar ul {
+/* line 14, ../sass/modules/_sidebar.scss */
+.b-sidebar__list {
   text-align: left;
-  padding: 20px;
+  padding: 20px 0px;
 }
-/* line 17, ../sass/modules/_sidebar.scss */
-.sidebar ul h3 {
-  margin: 10px 0 20px 0;
+/* line 19, ../sass/modules/_sidebar.scss */
+.b-sidebar__heading {
+  margin: 10px 0 15px 20px;
 }
-/* line 21, ../sass/modules/_sidebar.scss */
-.sidebar ul li {
+/* line 23, ../sass/modules/_sidebar.scss */
+.b-sidebar__listitem {
   display: block;
-  width: 100%;
-  height: 25px;
-  vertical-align: middle;
-  margin: 0 0 3px 0;
+  padding: 8px 20px;
+  box-sizing: border-box;
 }
 /* line 28, ../sass/modules/_sidebar.scss */
-.sidebar ul li a:hover {
-  border-bottom: 2px solid #0D8153;
+.b-sidebar__listitem a {
+  display: block;
+  color: #aeb8bc;
+  font-weight: 700;
 }
 /* line 34, ../sass/modules/_sidebar.scss */
-.sidebar #registration_btn {
+.b-sidebar__listitem:hover {
+  background-color: #FEFFD9;
+  transition: background-color 0.3s ease;
+}
+/* line 41, ../sass/modules/_sidebar.scss */
+.b-sidebar__button {
   width: 80%;
   margin: 0 0 20px 20px;
 }
 
-/* line 40, ../sass/modules/_sidebar.scss */
+/* line 48, ../sass/modules/_sidebar.scss */
 #sidebar2 {
   margin-top: 30px;
 }
@@ -523,64 +558,68 @@ form h3 {
   margin: -5px 0 0 5px;
 }
 
-/* line 3, ../sass/modules/_profile.scss */
+/* line 7, ../sass/modules/_profile.scss */
 .b-profile__item {
   line-height: 1.4;
 }
-/* line 7, ../sass/modules/_profile.scss */
+/* line 11, ../sass/modules/_profile.scss */
 .b-profile__button {
-  margin: 20px 10px 5px 0px;
   display: inline-block;
   text-decoration: none;
   padding: 8px 16px;
-  border-radius: 6px;
+  border-radius: 5px;
   border: none;
   color: #ffffff;
   font-family: inherit;
   font-size: 14px;
   min-height: 20px;
-  background-color: #0C152A;
+  background-color: #424E5A;
   box-sizing: border-box;
 }
+/* line 18, ../sass/modules/_mixins.scss */
+.b-profile__button:hover {
+  background-color: #0C152A;
+  transition: background-color 0.3s ease;
+}
 
-/* line 3, ../sass/modules/_tabs.scss */
+/* line 1, ../sass/modules/_tabs.scss */
+.b-tabs {
+  background-color: #FEFFD9;
+}
+/* line 4, ../sass/modules/_tabs.scss */
 .b-tabs__label {
   display: inline-block;
   margin: 0 0 -1px;
-  padding: 15px 25px;
+  padding: 20px;
   font-weight: 600;
   text-align: center;
-  color: #aaa;
-  border: 1px solid #ddd;
-  background: #f1f1f1;
+  color: #aeb8bc;
 }
-/* line 14, ../sass/modules/_tabs.scss */
+/* line 13, ../sass/modules/_tabs.scss */
 .b-tabs__label:hover {
-  color: #888;
   cursor: pointer;
+  color: #58697A;
+  background-color: #FFEBA0;
+  transition: 0.2s ease color background-color;
 }
-/* line 19, ../sass/modules/_tabs.scss */
+/* line 20, ../sass/modules/_tabs.scss */
 .b-tabs__input:checked + label {
-  color: #0D8153;
-  border: 1px solid #ddd;
-  border-top: 2px solid #0D8153;
-  border-bottom: 1px solid #fff;
-  background: #fff;
+  background-color: #FFEBA0;
+  color: #58697A;
 }
-/* line 27, ../sass/modules/_tabs.scss */
+/* line 25, ../sass/modules/_tabs.scss */
 .b-tabs__input {
   display: none;
 }
-/* line 31, ../sass/modules/_tabs.scss */
+/* line 29, ../sass/modules/_tabs.scss */
 .b-tabs__one, .b-tabs__two, .b-tabs__three, .b-tabs__four {
   display: none;
-  background: #fff;
-  border: 1px solid #ddd;
+  background: white;
   float: left;
   width: 100%;
 }
 
-/* line 41, ../sass/modules/_tabs.scss */
+/* line 38, ../sass/modules/_tabs.scss */
 #tab1:checked ~ .b-tabs__one,
 #tab2:checked ~ .b-tabs__two,
 #tab3:checked ~ .b-tabs__three,
@@ -590,51 +629,57 @@ form h3 {
 
 /* line 1, ../sass/modules/_footer.scss */
 footer {
-  background-color: #189A66;
-  height: 100px;
-  padding: 20px 40px;
+  background-color: white;
+  padding: 60px 0px;
   display: block;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
-/* line 7, ../sass/modules/_footer.scss */
-footer #footer_info {
+
+/* line 8, ../sass/modules/_footer.scss */
+.b-footer {
+  width: 58%;
+  margin: 0 auto;
+}
+/* line 12, ../sass/modules/_footer.scss */
+.b-footer__info {
   display: inline-block;
-  width: 80%;
+  float: left;
 }
-/* line 11, ../sass/modules/_footer.scss */
-footer #footer_info li {
-  color: white;
+/* line 16, ../sass/modules/_footer.scss */
+.b-footer__info li {
+  color: #aeb8bc;
   display: inline;
   margin-right: 20px;
 }
-/* line 18, ../sass/modules/_footer.scss */
-footer #contact {
+/* line 23, ../sass/modules/_footer.scss */
+.b-footer__contact {
   display: inline-block;
-  width: 15%;
+  float: right;
 }
-/* line 22, ../sass/modules/_footer.scss */
-footer #contact li {
+/* line 27, ../sass/modules/_footer.scss */
+.b-footer__contact li {
   display: inline;
-  color: white;
+  color: #aeb8bc;
   margin-right: 20px;
 }
 
-/* line 19, ../sass/main.scss */
+/* line 21, ../sass/main.scss */
 .content_conteiner {
   padding: 30px 15px;
+  min-height: 68vh;
 }
 
-/* line 23, ../sass/main.scss */
+/* line 26, ../sass/main.scss */
 .content {
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   display: inline-block;
-  width: 55%;
-  padding: 20px;
+  width: 60%;
   background-color: #ffffff;
   border-radius: 3px;
   vertical-align: top;
-  min-height: 190px;
 }
 /* line 12, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/susy-2.2.5/sass/susy/output/support/_clearfix.scss */
 .content:after {
@@ -644,21 +689,25 @@ footer #contact li {
 }
 
 /* line 37, ../sass/main.scss */
+.b-tournament-info {
+  padding: 20px 0px;
+}
+/* line 40, ../sass/main.scss */
 .b-tournament-info__heading {
   margin-top: 25px;
 }
-/* line 41, ../sass/main.scss */
+/* line 44, ../sass/main.scss */
 .b-tournament-info__status {
   display: block;
 }
 
-/* line 47, ../sass/main.scss */
+/* line 50, ../sass/main.scss */
 .b-tournament-info-reg {
   margin-top: 30px;
   min-height: 80px;
 }
 
-/* line 57, ../sass/main.scss */
+/* line 60, ../sass/main.scss */
 #email_confirm h3 {
   text-align: center;
 }

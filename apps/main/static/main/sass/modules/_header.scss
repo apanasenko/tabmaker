@@ -1,44 +1,51 @@
 header {
-	height: 100px;
-	background-color: $light-green;
+	height: 70px;
+	background-color: white;
 	vertical-align: middle;
 	display: block;
+	@include shadow;
 
 	#logo {
 		display: inline-block;
 		height: 100%;
 		vertical-align: middle;
+		width: 21%;
 
 		img {
 			display: inline-block;
-			vertical-align: middle;
-			height: 60%;
+			height: 40%;
 			max-width: none;
 			max-height: 80px;
-			margin: 15px 30px 0 10px;
+			margin: 20px 30px 0 25px;
 		}
 		
 	}
 
 	.header_container {
 		display: inline-block;
-		width: 75%;
+		width: 58%;
 
 		#page_title {
 			display: inline-block;
 			vertical-align: middle;
-			margin-left: 55px;
-			width: 70%;
+			max-width: 80%;
 
 			h3 {
-				color: white;
+				color: $dark;
 				font-size: 24px;
 				margin-bottom: 0px;
-				width: 90%;			}
+			}
 		}
 
 		#header_button {
 			display: inline-block;
+			float: right;
+			@include button;
+
+			a {
+				text-align: center;
+				color: white;
+			}
 		}
 	}
 }

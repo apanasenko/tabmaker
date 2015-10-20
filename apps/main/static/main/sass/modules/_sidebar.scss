@@ -3,40 +3,48 @@ aside {
 	width: 20%;
 }
 
-.sidebar {
+.b-sidebar {
 	display: block;
 	width: 90%;
 	background-color: $background-block;
 	border-radius: 3px;
 	vertical-align: top;
-
-	ul {
-		text-align: left;
-		padding: 20px;
-
-		h3 {
-			margin: 10px 0 20px 0;
-		}
+	@include shadow;
 	
-		li {
-			display: block;
-			width: 100%;
-			height: 25px;
-			vertical-align: middle;
-			margin: 0 0 3px 0;
-			
-			a:hover {
-				@include link;
-			}
-		}
+	&__list {
+		text-align: left;
+		padding: 20px 0px;
 	}
 
-	#registration_btn {
+	&__heading {
+		margin: 10px 0 15px 20px;
+	}
+
+	&__listitem {
+		display: block;
+		padding: 8px 20px;
+		box-sizing: border-box;
+
+		a {
+			display: block;
+			color: $grey;
+			font-weight: 700;
+		}
+
+		&:hover {
+			background-color: $hover;
+			transition: background-color 0.3s ease;
+		}
+
+	}
+
+	&__button {
 		width: 80%;
 		margin: 0 0 20px 20px;
 	}
-}
 
+}
+	
 #sidebar2 {
 	margin-top: 30px;
 }

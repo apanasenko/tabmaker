@@ -1,13 +1,13 @@
-<div class="sidebar" id="sidebar2">
+<div class="b-sidebar" id="sidebar2">
 
-    <ul>
-        <h3>Турнир</h3>
-        <li><a href="{% url "tournament:check_team_list" tournament.id %}"> Начать </a></li>
-        <li><a href="{% url "tournament:edit" tournament.id %}"> Редактировать </a></li>
-        <li><a href="{% url "tournament:edit_team_list" tournament.id %}"> Команды </a></li>
-        <li><a href="{% url "tournament:add_team" tournament.id %}"> Добавить команду </a></li>
-        <li><a href="{% url "tournament:edit_adjudicator_list" tournament.id %}"> Судьи</a></li>
-        <li><a href="{% url "tournament:remove" tournament.id %}"> Удалить </a></li>
+    <ul class="b-sidebar__list">
+        <h3 class="b-sidebar__heading">Турнир</h3>
+        <li class="b-sidebar__listitem"><a href="{% url "tournament:check_team_list" tournament.id %}"><i class="fa fa-play-circle"></i>Начать</a></li>
+        <li class="b-sidebar__listitem"><a href="{% url "tournament:edit" tournament.id %}"><i class="fa fa-pencil"></i>Редактировать</a></li>
+        <li class="b-sidebar__listitem"><a href="{% url "tournament:edit_team_list" tournament.id %}"><i class="fa fa-users"></i>Команды</a></li>
+        <li class="b-sidebar__listitem"><a href="{% url "tournament:add_team" tournament.id %}"><i class="fa fa-plus-circle"></i>Добавить команду</a></li>
+        <li class="b-sidebar__listitem"><a href="{% url "tournament:edit_adjudicator_list" tournament.id %}"><i class="fa fa-gavel"></i>Судьи</a></li>
+        <li class="b-sidebar__listitem"><a href="{% url "tournament:remove" tournament.id %}"> <i class="fa fa-trash-o"></i>Удалить </a></li>
     </ul>
 
 </div>

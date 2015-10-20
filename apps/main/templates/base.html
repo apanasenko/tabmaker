@@ -52,7 +52,7 @@
                 </h3>
                 </div>
                 <div id="header_button">
-                    <a id="create_cup" class="button" href="{% url 'tournament:new' %}">Создать турнир</a>
+                    <a id="create_cup" href="{% url 'tournament:new' %}">Создать турнир</a>
                 </div>
             </div>
             {% endblock header %}
@@ -61,7 +61,7 @@
         <section class="content_conteiner">
 
             <aside>
-            <div class="sidebar" id="sidebar1">
+            <div class="b-sidebar" id="sidebar1">
             {% block sidebar1%}
 
                 {% include 'account/sidebar.html' %}
@@ -81,18 +81,20 @@
 
         </section>
 
-    <footer class="">
+    <footer>
     {% block footer %}
-        <ul id="footer_info">
-            <li>О проекте</li>
-            <li>Список изменений</li>
-            <li>Помощь</li>
-            <li>Обратная связь</li>
-        </ul>
-        <ul id="contact">
-            <li>BK</li>
-            <li>FB</li>
-        </ul>
+        <div class="b-footer">
+            <ul class="b-footer__info">
+                <li>О проекте</li>
+                <li>Список изменений</li>
+                <li>Помощь</li>
+                <li>Обратная связь</li>
+            </ul>
+            <ul class="b-footer__contact">
+                <li>BK</li>
+                <li>FB</li>
+            </ul>
+        </div>
     {% endblock footer %}
     </footer>
 

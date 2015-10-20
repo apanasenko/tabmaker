@@ -1,28 +1,34 @@
 footer {
-	background-color: $light-green;
-	height: 100px;
-	padding: 20px 40px;
+	background-color: white;
+	padding: 60px 0px;
 	display: block;
+	@include shadow;
+}
 
-	#footer_info {
+.b-footer {
+	width: 58%;
+	margin: 0 auto;
+	
+	&__info {
 		display: inline-block;
-		width: 80%;
+		float: left;
 
 		li {
-			color: white;
+			color: $grey;
 			display: inline;
 			margin-right: 20px;
 		}
 	}
 
-	#contact {
+	&__contact {
 		display: inline-block;
-		width: 15%;
+		float: right;
 		
 		li {
 			display: inline;
-			color: white;
+			color: $grey;
 			margin-right: 20px;
 		}
 	}
+
 }
