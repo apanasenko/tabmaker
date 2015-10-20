@@ -20,7 +20,7 @@
 
 			a {
 				display: inline;
-				border-bottom: 1px solid $grey;
+				border-bottom: 1px dashed $grey;
 				padding-bottom: 3px;
 			}
 		}
@@ -38,7 +38,7 @@
 		
 		a {
 			display: inline;
-			border-bottom: 1px solid $grey;
+			border-bottom: 1px dashed $grey;
 			padding-bottom: 3px;
 		}
 	}

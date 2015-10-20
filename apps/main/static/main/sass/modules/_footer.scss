@@ -1,15 +1,16 @@
 footer {
-	background-color: $light-green;
-	height: 100px;
+	background-color: white;
 	padding: 20px 40px;
 	display: block;
+	height: 10vh;
+	@include shadow;
 
 	#footer_info {
 		display: inline-block;
 		width: 80%;
 
 		li {
-			color: white;
+			color: $grey;
 			display: inline;
 			margin-right: 20px;
 		}
@@ -21,7 +22,7 @@ footer {
 		
 		li {
 			display: inline;
-			color: white;
+			color: $grey;
 			margin-right: 20px;
 		}
 	}

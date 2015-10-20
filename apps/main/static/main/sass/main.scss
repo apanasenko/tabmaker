@@ -18,10 +18,12 @@
 
 .content_conteiner {
 	padding: 30px 15px;
+	min-height: 79vh;
 }
 
 .content {
 	@include container;
+	@include shadow;
 	display: inline-block;
 	width: 55%;
 	padding: 20px;

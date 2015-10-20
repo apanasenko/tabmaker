@@ -9,6 +9,7 @@ aside {
 	background-color: $background-block;
 	border-radius: 3px;
 	vertical-align: top;
+	@include shadow;
 
 	ul {
 		text-align: left;
