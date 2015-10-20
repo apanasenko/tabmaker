@@ -3,18 +3,22 @@
 }
 
 @mixin button() {
-	margin: 20px 10px 5px 0px;
 	display: inline-block;
 	text-decoration: none;
 	padding: 8px 16px;
-	border-radius: 6px;
+	border-radius: 5px;
 	border: none;
 	color: #ffffff;
 	font-family: inherit;
 	font-size: 14px;
 	min-height: 20px;
-	background-color: $deep-dark;
+	background-color: $buttondark;
 	box-sizing: border-box;
+
+	&:hover {
+		background-color: $deep-dark;
+		transition: background-color 0.3s ease;
+	}
 }
 
 @mixin buttontwo() {
@@ -30,7 +34,7 @@
 	&:hover {
 		border: 1px solid $dark;
 		color: $dark;
-		transition: color 0.5s ease;
+		transition: color 0.3s ease;
 	}
 }
 

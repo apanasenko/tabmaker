@@ -33,6 +33,7 @@ aside {
 
 		&:hover {
 			background-color: $hover;
+			transition: background-color 0.3s ease;
 		}
 
 	}

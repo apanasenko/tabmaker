@@ -1,27 +1,27 @@
 .b-tabs {
-	
+	background-color: #FEFFD9;
+	border-bottom: 1px #aeb8bc solid;
+
 	&__label {
 		display: inline-block;
   		margin: 0 0 -1px;
-  		padding: 15px 25px;
+  		padding: 20px;
  		font-weight: 600;
   		text-align: center;
-  		color: #aaa;
-  		border: 1px solid #ddd;
-  		background: #f1f1f1;
+  		color: $grey;
+  		border-bottom: 2px solid transparent;
 	}
 
 	&__label:hover {
-		color: #888;
-  		cursor: pointer;	
+  		cursor: pointer;
+  		color: $dark;
+  		background-color: #FFEBA0;
+  		transition: 0.2s ease color background-color;
 	}
 
 	&__input:checked + label {
-		color: $green;
-  		border: 1px solid #ddd;
-  		border-top: 2px solid $green;
-  		border-bottom: 1px solid #fff;
-  		background: #fff;
+		background-color: #FFEBA0;
+		color: $dark;
 	}
 
 	&__input {
@@ -30,8 +30,7 @@
 
 	&__one, &__two, &__three, &__four {
 		display: none;
-  		background: #fff;
-  		border: 1px solid #ddd;
+  		background: white;
   		float: left;
   		width: 100%;
 	}

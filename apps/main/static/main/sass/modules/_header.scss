@@ -23,7 +23,7 @@ header {
 
 	.header_container {
 		display: inline-block;
-		width: 56%;
+		width: 58%;
 
 		#page_title {
 			display: inline-block;
@@ -40,7 +40,12 @@ header {
 		#header_button {
 			display: inline-block;
 			float: right;
-			margin-top: -23px;
+			@include button;
+
+			a {
+				text-align: center;
+				color: white;
+			}
 		}
 	}
 }
