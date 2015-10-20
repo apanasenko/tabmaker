@@ -2,8 +2,7 @@
 	display: block;
 	@include span(12 of 12);
 	min-height: 50px;
-	margin: 30px 0 0 0;
-	padding-bottom: 20px;
+	padding: 20px 0px;
 	border-bottom: #E9EBEC 1px solid;
 }
 
@@ -40,7 +39,7 @@
 	&__result {
 		position: absolute;
 		top: 15%;
-		left: 81%;
+		left: 80%;
 
 		a {
 			@include buttontwo;

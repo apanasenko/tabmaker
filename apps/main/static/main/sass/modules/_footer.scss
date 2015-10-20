@@ -1,13 +1,17 @@
 footer {
 	background-color: white;
-	padding: 20px 40px;
+	padding: 60px 0px;
 	display: block;
-	height: 10vh;
 	@include shadow;
+}
 
-	#footer_info {
+.b-footer {
+	width: 58%;
+	margin: 0 auto;
+	
+	&__info {
 		display: inline-block;
-		width: 80%;
+		float: left;
 
 		li {
 			color: $grey;
@@ -16,9 +20,9 @@ footer {
 		}
 	}
 
-	#contact {
+	&__contact {
 		display: inline-block;
-		width: 15%;
+		float: right;
 		
 		li {
 			display: inline;
@@ -26,4 +30,5 @@ footer {
 			margin-right: 20px;
 		}
 	}
+
 }
