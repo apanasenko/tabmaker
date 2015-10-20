@@ -1,6 +1,5 @@
 .b-tabs {
 	background-color: #FEFFD9;
-	border-bottom: 1px #aeb8bc solid;
 
 	&__label {
 		display: inline-block;
@@ -9,7 +8,6 @@
  		font-weight: 600;
   		text-align: center;
   		color: $grey;
-  		border-bottom: 2px solid transparent;
 	}
 
 	&__label:hover {

@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic);
+
 @import "compass/reset";
 @import "susy";
 @import "modules/colors";
@@ -18,7 +20,7 @@
 
 .content_conteiner {
 	padding: 30px 15px;
-	min-height: 79vh;
+	min-height: 68vh;
 }
 
 .content {
