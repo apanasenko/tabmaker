@@ -27,6 +27,7 @@ urlpatterns = patterns(
     url(r'^(?P<tournament_id>\d+)/round/remove[/]$', views.remove_round, name='remove_round'),
     url(r'^(?P<tournament_id>\d+)/team/add[/]$', views.add_team, name='add_team'),
     url(r'^(?P<tournament_id>\d+)/team/list[/]$', views.edit_team_list, name='edit_team_list'),
+    url(r'^(?P<tournament_id>\d+)/team/edit/role[/]$', views.team_role_update, name='update_team_role'),
     url(r'^(?P<tournament_id>\d+)/team/check[/]$', views.edit_team_list, name='check_team_list'),
     url(r'^(?P<tournament_id>\d+)/team/remove[/]$', views.remove_team, name='remove_team'),
     url(r'^(?P<tournament_id>\d+)/team/registration[/]$', views.registration_team, name='registration_team'),
