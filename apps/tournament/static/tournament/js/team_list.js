@@ -17,6 +17,8 @@ function update_team_status(url, select, team_tournament_rel_id, message_block_i
             if (data.status == 'bad'){
                 load_value(select);
             } else {
+                update_info_block(select.oldValue, -1);
+                update_info_block(select.value, 1);
                 save_value(select);
             }
         }
@@ -34,3 +36,14 @@ function save_value(select){
 function load_value(select){
     $(select).val(select.oldValue);
 }
+
+function update_info_block(id, value){
+    var a = $('div #message #' + id);
+    a.html(parseInt(a.html()) + value);
+}
+
+$(document).ready(function(){
+    $("select.roles").each(function(){
+        update_info_block(this.value, 1)
+    })
+});
