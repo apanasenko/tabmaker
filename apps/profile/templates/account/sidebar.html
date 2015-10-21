@@ -3,7 +3,7 @@
 <ul class="b-sidebar__list">
     {% if request.user.is_authenticated %}
 
-        <h3 class="b-sidebar__heading">{{ request.user|name }}</h3>
+        {# <h3 class="b-sidebar__heading">{{ request.user|name }}</h3> #}
         <li class="b-sidebar__listitem">
             <a href="{% url 'profile:main' request.user.id %}"><i class="fa fa-user"></i>Профиль</a>
         </li>

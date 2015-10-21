@@ -1,14 +1,38 @@
 .b-profile {
+
+	&__wrapper {
+		margin: 20px 20px;
+	}
+
+	&__group {
+		margin: 0 0 20px 0;
+	}
 	
+	&__listitem {
+		display: inline;
+		color: $grey;	
+		margin: 0 20px 0 0;
+	}
+
 	&__heading {
-		
+		margin: 0 0 7px 0;
 	}
 
 	&__item {
+		color: $grey;
 		line-height: 1.4;
+		margin: 0 0 20px 0;
 	}
 	
 	&__button {
 		@include button;
+	}
+
+	&__cup {
+
+	}
+
+	&__cupdata {
+
 	}
 }
