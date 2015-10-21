@@ -1,7 +1,9 @@
 import random
 import json
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import \
+    csrf_protect, \
+    ensure_csrf_cookie
 from django.core.urlresolvers import \
     reverse_lazy, \
     reverse
@@ -23,7 +25,6 @@ from apps.game.forms import \
 
 from .forms import \
     TournamentForm, \
-    TeamRoleForm, \
     AdjudicatorRoleForm, \
     CheckboxForm, \
     СonfirmForm, \
@@ -486,36 +487,18 @@ def registration_adjudicator(request, tournament):
     return show_message(request, message)
 
 
+@ensure_csrf_cookie
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. edit')
 def edit_team_list(request, tournament):
-    forms = []
-    for team_rel in tournament.teamtournamentrel_set.all().order_by('team_id'):
-        if request.method == 'POST':
-            team = TeamRoleForm(request.POST, instance=team_rel, prefix=team_rel.team.id)
-            if team.is_valid():
-                team.save()
-
-        team = team_rel.team
-        form = TeamRoleForm(instance=team_rel, prefix=team.id)
-        forms.append({
-            'team': team,
-            'team_form': form,
-        })
-
-    is_check_page = request.path == reverse('tournament:check_team_list', args=[tournament.id])
-    member_count = tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count()
-    if is_check_page and request.method == 'POST' and not member_count % TEAM_IN_GAME:
-        return redirect('tournament:check_adjudicator_list', tournament_id=tournament.id)
-
     return render(
         request,
         'tournament/edit_team_list.html',
         {
-            'is_check_page': is_check_page,
-            'member_count': member_count,
-            'forms': forms,
+            'is_check_page': request.path == reverse('tournament:check_team_list', args=[tournament.id]),
             'tournament': tournament,
+            'team_tournament_rels': tournament.teamtournamentrel_set.all().order_by('-role_id', '-id'),
+            'statuses': TEAM_ROLES,
             'can_remove_teams': tournament.cur_round == 0,
         }
     )

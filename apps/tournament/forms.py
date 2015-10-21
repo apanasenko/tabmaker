@@ -115,19 +115,6 @@ class TournamentForm(forms.ModelForm):
         return tournament
 
 
-class TeamRoleForm(forms.ModelForm):
-    class Meta:
-        model = TeamTournamentRel
-        fields = [
-            'role'
-        ]
-
-    def __init__(self, *args, **kwargs):
-        super(TeamRoleForm, self).__init__(*args, **kwargs)
-        self.fields['role'].empty_label = None
-        self.fields['role'].queryset = TEAM_ROLES
-
-
 class AdjudicatorRoleForm(forms.ModelForm):
     class Meta:
         model = TeamTournamentRel
