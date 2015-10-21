@@ -50,6 +50,7 @@ from .logic import \
     remove_team_from_tournament, \
     remove_last_round, \
     get_current_round_games, \
+    can_change_team_role, \
     can_show_round
 
 
@@ -517,6 +518,10 @@ def team_role_update(request, tournament):
     new_role = get_object_or_404(TournamentRole, pk=request.POST.get('new_role_id', '0'))
     if new_role not in TEAM_ROLES:
         return json_response('bad', 'Недопустимая роль команды')
+
+    can_change, message = can_change_team_role(rel, new_role)
+    if not can_change:
+        return json_response('bad', message)
 
     rel.role = new_role
     rel.save()
