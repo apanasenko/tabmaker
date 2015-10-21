@@ -49,23 +49,6 @@
                                 {% endfor %}
                             </select>
                         </div>
-
-                        {% if can_remove_teams %}
-                            <button
-                                    class="b-profile__button"
-                                    type="button"
-                                    onclick="remove_team(
-                                            '{% url 'tournament:remove_team' tournament.id %}',
-                                            {{ rel.team.id }},
-                                            'team_{{ rel.team.id }}',
-                                            'errors_{{ rel.team.id }}'
-                                            )"
-                                    value="Удалить"
-                                    >
-                                Удалить
-                            </button>
-                        {% endif %}
-
                     </div>
 
                     <div class="b-teamlist__profile">
