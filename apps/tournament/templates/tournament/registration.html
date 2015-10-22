@@ -22,6 +22,12 @@
         {% csrf_token %}
         {{ form.non_field_errors }}
 
+        {% if not show_speaker_1 %}
+            <br>
+            <p> * Для регистрации команды ваш тимейт должен быть зарегистрирован у нас на сайте. </p>
+            <br>
+        {% endif %}
+
         {% if saved_team %}
             <p><h5>Команда {{ saved_team }} была успешно добавлена в турнир {{ tournament.name }}</h5></p>
         {% endif %}
@@ -50,7 +56,10 @@
 
             {{ form.speaker_2 }}
             {{ form.speaker_2.errors }}
+
         </div>
+
+
         <div class="textarea">
             <label for="id_info">Описание</label>
             {{ form.info }}
