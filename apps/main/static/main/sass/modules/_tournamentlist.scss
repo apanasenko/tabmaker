@@ -110,6 +110,14 @@
 		margin: -20px 10px 0 0;
 		@include buttontwo;
 
+		a {
+			color: $grey;
+
+			&:hover {
+				color: $dark;
+			}
+		}
+
 		&_tounamentlist {
 			float: right;
 			margin: -25px 10px 0 0;
