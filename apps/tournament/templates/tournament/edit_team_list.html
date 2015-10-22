@@ -7,8 +7,7 @@
     {{ block.super }}
     <script type="text/javascript" src="{% static "main/js/cookie.js" %}"></script>
     <script type="text/javascript" src="{% static "main/js/ajaxCSRF.js" %}"></script>
-    <script type="text/javascript" src="{% static "tournament/js/main.js" %}"></script>
-    <script type="text/javascript" src="{% static "tournament/js/team_list.js" %}"></script>
+    <script type="text/javascript" src="{% static "tournament/js/edit_roles.js" %}"></script>
 {% endblock extra_head %}
 
 
@@ -19,52 +18,48 @@
 
 {% block content %}
 
-    <div id="message">
-    {% for status in statuses %}
-        <p>{{ status.role }}: <span id="{{ status.id }}">0</span></p>
-    {% endfor %}
+    {% include 'tournament/count_by_role.html' with statuses=statuses %}
 
-    </div>
     {% for rel in team_tournament_rels %}
         <div id="message_{{ rel.id }}"></div>
-        <div id="team_{{ rel.id }}">
-            <div class="b-teamlist">
-                <div class="b-teamlist__wrapper">
-                    <div class="b-teamlist__heading">
-                        <h3>{{ rel.team.name }}</h3>
-                        <div class="formItem last">
-                            <select class="roles"
-                                    onchange="update_team_status(
-                                            '{% url 'tournament:update_team_role' tournament.id%}',
-                                            this,
-                                            {{ rel.id }},
-                                            'message_{{ rel.id }}'
-                                            )"
-                                    onfocus="on_focus(this)"
-                                    >
-                                {% for status in statuses %}
-                                    <option {% if status.id == rel.role.id %} selected {% endif %} value="{{ status.id }}">
-                                        {{ status.role }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </div>
+        <div id="team_{{ rel.id }}" class="b-teamlist">
+            <div class="b-teamlist__wrapper">
+                <div class="b-teamlist__heading">
+                    <h3>{{ rel.team.name }}</h3>
+                    <div class="formItem last">
+                        <select class="roles"
+                                onchange="update_status(
+                                        '{% url 'tournament:update_team_role' tournament.id%}',
+                                        this,
+                                        {{ rel.id }},
+                                        'message_{{ rel.id }}'
+                                        )"
+                                onfocus="on_focus(this)"
+                                >
+                            {% for status in statuses %}
+                                <option {% if status.id == rel.role.id %} selected {% endif %} value="{{ status.id }}">
+                                    {{ status.role }}
+                                </option>
+                            {% endfor %}
+                        </select>
                     </div>
-
-                    <div class="b-teamlist__profile">
-                        <a href="{% url 'profile:main' rel.team.speaker_1.id%}">{{ rel.team.speaker_1|name }}</a>
-                        <span>  и  </span>
-                        <a href="{% url 'profile:main' rel.team.speaker_2.id%}">{{ rel.team.speaker_2|name }}</a>
-                    </div>
-
                 </div>
+
+                <div class="b-teamlist__profile">
+                    <a href="{% url 'profile:main' rel.team.speaker_1.id%}">{{ rel.team.speaker_1|name }}</a>
+                    <span>  и  </span>
+                    <a href="{% url 'profile:main' rel.team.speaker_2.id%}">{{ rel.team.speaker_2|name }}</a>
+                </div>
+
             </div>
         </div>
+    {% empty %}
+        <h3>Нет зарегистрированных команд</h3>
     {% endfor %}
 
     {% if is_check_page %}
         <div id="check_warning">
-            <p>Число команд со статусом "Участник" должно быть кратно 4</p>
+            <p>Число команд со статусом "{{ member_role.role }}" должно быть кратно 4</p>
         </div>
         <input id="member_id" value="{{ member_role.id }}" type="hidden">
         <button id="check_button" class="button formItem" disabled onclick="redirect('{% url 'tournament:check_adjudicator_list' tournament.id %}')">

@@ -515,7 +515,7 @@ def team_role_update(request, tournament):
     if request.method != 'POST' or not request.is_ajax():
         return HttpResponseBadRequest
 
-    rel = get_object_or_404(TeamTournamentRel, pk=request.POST.get('team_tournament_rel_id', '0'))
+    rel = get_object_or_404(TeamTournamentRel, pk=request.POST.get('rel_id', '0'))
     new_role = get_object_or_404(TournamentRole, pk=request.POST.get('new_role_id', '0'))
     if new_role not in TEAM_ROLES:
         return json_response('bad', 'Недопустимая роль команды')

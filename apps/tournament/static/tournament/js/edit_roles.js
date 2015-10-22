@@ -1,6 +1,6 @@
 var lastInfoBlock = null;
 
-function update_team_status(url, select, team_tournament_rel_id, message_block_id){
+function update_status(url, select, team_tournament_rel_id, message_block_id){
 
     if (lastInfoBlock){
         lastInfoBlock.html(null);
@@ -8,7 +8,7 @@ function update_team_status(url, select, team_tournament_rel_id, message_block_i
     $.post(
         url,
         {
-            team_tournament_rel_id: team_tournament_rel_id,
+            rel_id: team_tournament_rel_id,
             new_role_id: select.value
         },
         function(data, status){
@@ -41,9 +41,18 @@ function update_info_block(id, value){
     var a = $('div #message #' + id);
     a.html(parseInt(a.html()) + value);
 
-    b = $('#member_id');
+    var b = $('#member_id');
+    var c = $('#chair_id');
     if (b && id == $(b).val()){
         if (parseInt(a.html()) % 4 == 0){
+            $('#check_warning').hide();
+            $('#check_button').prop('disabled', false);
+        } else {
+            $('#check_warning').show();
+            $('#check_button').prop('disabled', true);
+        }
+    } else if (c && id == $(c).val()) {
+        if (parseInt(a.html()) >= parseInt($('#chair_need').val())) {
             $('#check_warning').hide();
             $('#check_button').prop('disabled', false);
         } else {
