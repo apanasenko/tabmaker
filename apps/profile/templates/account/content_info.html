@@ -1,131 +1,34 @@
-<div class="b-tabs">
-
-    <input id="tab1" type="radio" name="tabs" class="b-tabs__input" checked>
-    <label for="tab1" class="b-tabs__label">Информация</label>
-    
-    <input id="tab2" type="radio" name="tabs" class="b-tabs__input">
-    <label for="tab2" class="b-tabs__label">Участие в турнирах</label>
-
-    <input id="tab3" type="radio" name="tabs" class="b-tabs__input">
-    <label for="tab3" class="b-tabs__label">Судейство на турнирах</label>
-
-    <section class="b-tabs__one b-profile__section">
-      	
+    <section class="b-profile__section">
       	<div class="b-profile__wrapper">
-      	
-      	<h3 class="b-profile__heading">{{ user.name }}</h3>
+          	<h3 class="b-profile__heading">{{ user.name }}</h3>
 
-		<div class="b-profile__group">
-			<ul>
-				<li class="b-profile__listitem"><i class="fa fa-globe"></i>{{ user.university.country.name}}</li>
-				<li class="b-profile__listitem"><i class="fa fa-map-marker"></i>{{ user.university.city.name }}</li>
-				<li class="b-profile__listitem"><i class="fa fa-university"></i>{{ user.university.name }}</li>
-			</ul>
-		</div>
+    		<div class="b-profile__group">
+    			<ul>
+    				<li class="b-profile__listitem"><i class="fa fa-globe"></i>{{ user.university.country.name}}</li>
+    				<li class="b-profile__listitem"><i class="fa fa-map-marker"></i>{{ user.university.city.name }}</li>
+    				<li class="b-profile__listitem"><i class="fa fa-university"></i>{{ user.university.name }}</li>
+    			</ul>
+    		</div>
 
-		<div class="b-profile__group">
-			<h3 class="b-profile__heading">Контакты</h3>
-			<ul>
-                {% if request.user == user %}
-				<li class="b-profile__listitem"><i class="fa fa-envelope-o"></i>{{ user.email }}</li>
-				<li class="b-profile__listitem"><i class="fa fa-mobile"></i>{{ user.phone }}</li>
-                {% endif %}
-				<li class="b-profile__listitem"><i class="fa fa-facebook"></i><a href="{{ user.link }}">{{ user.link }}</li>
-			</ul>
-		</div>
+    		<div class="b-profile__group">
+    			<h3 class="b-profile__heading">Контакты</h3>
+    			<ul>
+                    {% if request.user == user %}
+    				<li class="b-profile__listitem"><i class="fa fa-envelope-o"></i>{{ user.email }}</li>
+    				<li class="b-profile__listitem"><i class="fa fa-mobile"></i>{{ user.phone }}</li>
+                    {% endif %}
+    				<li class="b-profile__listitem"><i class="fa fa-facebook"></i><a href="{{ user.link }}">{{ user.link }}</li>
+    			</ul>
+    		</div>
 
-		<div class="b-profile__group">
-			<h3 class="b-profile__heading">Опыт в дебатах</h3>
-			<p class="b-profile__item">{{ user.player_experience }}</p>
-			<h3 class="b-profile__heading">Опыт судейства</h3>
-			<p class="b-profile__item">{{ user.adjudicator_experience }}</p>
-		</div>
+    		<div class="b-profile__group">
+    			<h3 class="b-profile__heading">Опыт в дебатах</h3>
+    			<p class="b-profile__item">{{ user.player_experience }}</p>
+    			<h3 class="b-profile__heading">Опыт судейства</h3>
+    			<p class="b-profile__item">{{ user.adjudicator_experience }}</p>
+    		</div>
 
-		{% if request.user == user %}
-
-        	<a class="b-profile__button" href="{% url 'profile:edit' user.id%}">Редактировать</a>
-
-        {% endif %}
-
-        </div>
-
+    		{% if request.user == user %}
+            	<a class="b-profile__button" href="{% url 'profile:edit' user.id%}">Редактировать</a>
+            {% endif %}
     </section>
-
-    <section class="b-tabs__two b-profile__section">
-        
-        <table class="b-table">
-        	
-        	<tr class="b-table__headrow">
-        		<th class="b-table__headstring_half"><span class="wrap">Название турнира</span></th>
-        		<th class="b-table__headstring_thirty">Место спикера</th>
-        		<th class="b-table__headstring_thirty">Средний балл</th>
-        		<th class="b-table__headstring_thirty">Лучшая речь</th>
-        	</tr>
-
-        	<tr class="b-table__row">
-        		<td class="b-table__string_half"><span class="wrap">Первый кубок</td>
-        		<td class="b-table__string_thirty">11</td>
-        		<td class="b-table__string_thirty">72</td>
-        		<td class="b-table__string_thirty">74</td>
-        	</tr>
-
-        	<tr class="b-table__row">
-        		<td class="b-table__string_half"><span class="wrap">Первый кубок</td>
-        		<td class="b-table__string_thirty">11</td>
-        		<td class="b-table__string_thirty">72</td>
-        		<td class="b-table__string_thirty">74</td>
-        	</tr>
-      		
-			<tr class="b-table__row">
-        		<td class="b-table__string_half"><span class="wrap">Первый кубок</td>
-        		<td class="b-table__string_thirty">11</td>
-        		<td class="b-table__string_thirty">72</td>
-        		<td class="b-table__string_thirty">74</td>
-        	</tr>
-
-        	<tr class="b-table__row">
-        		<td class="b-table__string_half"><span class="wrap">Первый кубок</td>
-        		<td class="b-table__string_thirty">11</td>
-        		<td class="b-table__string_thirty">72</td>
-        		<td class="b-table__string_thirty">74</td>
-        	</tr>
-
-        	<tr class="b-table__row">
-        		<td class="b-table__string_half"><span class="wrap">Первый кубок</td>
-        		<td class="b-table__string_thirty">11</td>
-        		<td class="b-table__string_thirty">72</td>
-        		<td class="b-table__string_thirty">74</td>
-        	</tr>
-
-        </table>
-
-    </section>
-
-    <section class="b-tabs__three b-profile__section">
-			
-    	<table class="b-table">
-    	
-			<tr class="b-table__headrow">
-				<th class="b-table__headstring_half"><span class="wrap">Название турнира</span></th>
-				<th class="b-table__headstring_thirty">Дата</th>
-				<th class="b-table__headstring_thirty">Город</th>
-			</tr>
-
-			<tr class="b-table__row">
-				<td class="b-table__string_half"><span class="wrap">Первый кубок</td>
-				<td class="b-table__string_thirty">20 января 2014</td>
-				<td class="b-table__string_thirty">Владивосток</td>
-			</tr>
-
-			<tr class="b-table__row">
-				<td class="b-table__string_half"><span class="wrap">Первый кубок</td>
-				<td class="b-table__string_thirty">12 января 2014</td>
-				<td class="b-table__string_thirty">Москва</td>
-			</tr>
-
-        </table>
-
-    </section>
-
-</div>
-
