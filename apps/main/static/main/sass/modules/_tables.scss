@@ -3,9 +3,9 @@
 
 	&__headrow, &__row {
 		margin: 10px 0px;
-		text-align: left;
 		color: $grey;
 		border-bottom: 1px solid $background-page;
+		height: 40px;
 	}
 
 	&__headstring, &__string {
@@ -28,7 +28,6 @@
 	}
 
 	&__headrow {	
-		height: 40px;
 		background-color: $lightbeige;
 		color: $dark;
 
@@ -39,7 +38,6 @@
 	}
 
 	&__row {
-		height: 30px;
 
 		&:hover {
 			background-color: $hovergrey;
