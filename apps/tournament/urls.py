@@ -10,6 +10,7 @@ urlpatterns = patterns(
     url(r'^new[/]$', views.new, name='new'),
     url(r'^(?P<tournament_id>\d+)[/]$', views.show, name='show'),
     url(r'^(?P<tournament_id>\d+)/edit[/]$', views.edit, name='edit'),
+    url(r'^(?P<tournament_id>\d+)/start[/]$', views.start, name='start'),
     url(r'^(?P<tournament_id>\d+)/play[/]$', views.play, name='play'),
     url(r'^(?P<tournament_id>\d+)/break[/]$', views.generate_break, name='break'),
     url(r'^(?P<tournament_id>\d+)/result[/]$', views.result, name='result'),
@@ -31,8 +32,13 @@ urlpatterns = patterns(
     url(r'^(?P<tournament_id>\d+)/team/check[/]$', views.edit_team_list, name='check_team_list'),
     url(r'^(?P<tournament_id>\d+)/team/remove[/]$', views.remove_team, name='remove_team'),
     url(r'^(?P<tournament_id>\d+)/team/registration[/]$', views.registration_team, name='registration_team'),
-    url(r'^(?P<tournament_id>\d+)/adjudicator/edit[/]$', views.edit_adjudicator_list, name='edit_adjudicator_list'),
+    url(r'^(?P<tournament_id>\d+)/adjudicator/list[/]$', views.edit_adjudicator_list, name='edit_adjudicator_list'),
     url(r'^(?P<tournament_id>\d+)/adjudicator/check[/]$', views.edit_adjudicator_list, name='check_adjudicator_list'),
+    url(
+        r'^(?P<tournament_id>\d+)/adjudicator/edit/role[/]$',
+        views.adjudicator_role_update,
+        name='update_adjudicator_role'
+    ),
     url(
         r'^(?P<tournament_id>\d+)/adjudicator/registration[/]$',
         views.registration_adjudicator,

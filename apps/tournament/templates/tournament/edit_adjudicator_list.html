@@ -5,7 +5,9 @@
 
 {% block extra_head %}
     {{ block.super }}
-    <script type="text/javascript" src="{% static "tournament/js/main.js" %}"></script>
+    <script type="text/javascript" src="{% static "main/js/cookie.js" %}"></script>
+    <script type="text/javascript" src="{% static "main/js/ajaxCSRF.js" %}"></script>
+    <script type="text/javascript" src="{% static "tournament/js/edit_roles.js" %}"></script>
 {% endblock extra_head %}
 
 
@@ -15,49 +17,48 @@
 
 
 {% block content %}
-    <form
-            class="page col s9"
-            action={% if is_check_page %}
-                "{% url "tournament:check_adjudicator_list" tournament.id %}"
-            {% else %}
-                "{% url "tournament:edit_adjudicator_list" tournament.id %}"
-            {% endif %}
-    method="post"
-    >
 
-    <form class="page col s9" action="" method="post">
-        {% csrf_token %}
-        {% for rel in forms %}
-            <div class="row">
-                <div class="col s4">
-                    <label>Судья</label>
-                    <p>{{ rel.adjudicator|name }}</p>
-                </div>
-                <div class=" col s4">
-                    {{ rel.adjudicator_form.role }}
+    {% include 'tournament/count_by_role.html' with statuses=statuses %}
+
+    {% for rel in user_tournament_rels %}
+        <div id="message_{{ rel.id }}"></div>
+        <div id="user_{{ rel.id }}" class="b-teamlist">
+            <div class="b-teamlist__wrapper">
+                <div class="b-teamlist__heading">
+                    <h3><a href="{% url 'profile:main' rel.user.id%}">{{ rel.user|name }}</a></h3>
+                    <div class="formItem last">
+                        <select class="roles"
+                                onchange="update_status(
+                                        '{% url 'tournament:update_adjudicator_role' tournament.id%}',
+                                        this,
+                                        {{ rel.id }},
+                                        'message_{{ rel.id }}'
+                                        )"
+                                onfocus="on_focus(this)"
+                                >
+                            {% for status in statuses %}
+                                <option {% if status.id == rel.role.id %} selected {% endif %} value="{{ status.id }}">
+                                    {{ status.role }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
             </div>
-            <hr>
-        {% endfor %}
-        {% if is_check_page %}
-            <div class="row">
-                <div class="col s8">
-                    <label>Количество главный судей должно быть больше {{ chair_need }} (сейчас {{ chair_count }})</label>
-                    {# TODO Изменять в js кол-во команд #}
-                </div>
-            </div>
-        {% endif %}
-        <div class="row">
-            <button type="submit" class="waves-effect waves-light btn">
-                {% if is_check_page %}
-                    Далее
-                {% else %}
-                    Сохранить
-                {% endif %}
-            </button>
-
         </div>
+    {% empty %}
+        <h3>Нет зарегистрированных судей</h3>
+    {% endfor %}
 
-    </form>
+    {% if is_check_page %}
+        <div id="check_warning">
+            <p>Количество участников со статусом "{{ chair_role.role }}"  должно быть не меньше {{ chair_need }}</p>
+        </div>
+        <input id="chair_id" value="{{ chair_role.id }}" type="hidden">
+        <input id="chair_need" value="{{ chair_need }}" type="hidden">
+        <button id="check_button" class="button formItem" disabled onclick="redirect('{% url 'tournament:start' tournament.id %}')">
+            Начать турнир
+        </button>
+    {% endif %}
 
 {% endblock content %}

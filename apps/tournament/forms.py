@@ -115,19 +115,6 @@ class TournamentForm(forms.ModelForm):
         return tournament
 
 
-class AdjudicatorRoleForm(forms.ModelForm):
-    class Meta:
-        model = TeamTournamentRel
-        fields = [
-            'role'
-        ]
-
-    def __init__(self, *args, **kwargs):
-        super(AdjudicatorRoleForm, self).__init__(*args, **kwargs)
-        self.fields['role'].empty_label = None
-        self.fields['role'].queryset = ADJUDICATOR_ROLES
-
-
 class RoundForm(forms.ModelForm):
 
     start_round_time = forms.TimeField(

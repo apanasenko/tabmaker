@@ -27,7 +27,6 @@ from apps.game.forms import \
 
 from .forms import \
     TournamentForm, \
-    AdjudicatorRoleForm, \
     CheckboxForm, \
     СonfirmForm, \
     RoundForm
@@ -222,6 +221,13 @@ def play(request, tournament):
             'tournament': tournament,
         }
     )
+
+
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='team/adju. edit')  # TODO  Добавить в таблицу доступа
+def start(request, tournament):
+    tournament.set_status(STATUS_STARTED)
+    return redirect('tournament:play', tournament_id=tournament.id)
 
 
 @access_by_status(name_page='result')
@@ -533,36 +539,15 @@ def team_role_update(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. edit')
 def edit_adjudicator_list(request, tournament):
-    forms = []
-    for user_rel in tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id'):
-        if request.method == 'POST':
-            adjudicator = AdjudicatorRoleForm(request.POST, instance=user_rel, prefix=user_rel.user.id)
-            if adjudicator.is_valid():
-                adjudicator.save()
-
-        adjudicator = user_rel.user
-        form = AdjudicatorRoleForm(instance=user_rel, prefix=adjudicator.id)
-        forms.append({
-            'adjudicator': adjudicator,
-            'adjudicator_form': form
-        })
-
-    is_check_page = request.path == reverse('tournament:check_adjudicator_list', args=[tournament.id])
-    member_count = tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count()
-    chair_count = tournament.usertournamentrel_set.filter(role=ROLE_CHAIR).count()
-    if is_check_page and request.method == 'POST' and chair_count >= member_count // TEAM_IN_GAME:
-        tournament.set_status(STATUS_STARTED)
-
-        return redirect('tournament:play', tournament_id=tournament.id)
-
     return render(
         request,
         'tournament/edit_adjudicator_list.html',
         {
-            'is_check_page': is_check_page,
-            'chair_count': chair_count,
-            'chair_need': member_count // TEAM_IN_GAME,
-            'forms': forms,
+            'is_check_page': request.path == reverse('tournament:check_adjudicator_list', args=[tournament.id]),
+            'chair_need': tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count() // TEAM_IN_GAME,
+            'user_tournament_rels': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id'),
+            'statuses': ADJUDICATOR_ROLES,
+            'chair_role': ROLE_CHAIR,
             'tournament': tournament,
         }
     )
@@ -570,7 +555,25 @@ def edit_adjudicator_list(request, tournament):
 
 @csrf_protect
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='')  # TODO  Добавить в таблицу доступа
+@access_by_status(name_page='team/adju. edit')
+def adjudicator_role_update(request, tournament):
+    if request.method != 'POST' or not request.is_ajax():
+        return HttpResponseBadRequest
+
+    rel = get_object_or_404(UserTournamentRel, pk=request.POST.get('rel_id', '0'))
+    new_role = get_object_or_404(TournamentRole, pk=request.POST.get('new_role_id', '0'))
+    if new_role not in ADJUDICATOR_ROLES:
+        return json_response('bad', 'Недопустимая роль судьи')
+
+    rel.role = new_role
+    rel.save()
+
+    return json_response('ok', 'Статус судьи успешно изменён')
+
+
+@csrf_protect
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='')
 def remove_team(request, tournament):
     # TODO Добавить проверку на удаление
     if request.method == 'POST' and request.is_ajax():
