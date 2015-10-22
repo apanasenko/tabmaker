@@ -503,6 +503,7 @@ def edit_team_list(request, tournament):
             'team_tournament_rels': tournament.teamtournamentrel_set.all().order_by('-role_id', '-id'),
             'statuses': TEAM_ROLES,
             'can_remove_teams': tournament.cur_round == 0,
+            'member_role': ROLE_MEMBER,
         }
     )
 

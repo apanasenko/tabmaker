@@ -62,4 +62,14 @@
         </div>
     {% endfor %}
 
+    {% if is_check_page %}
+        <div id="check_warning">
+            <p>Число команд со статусом "Участник" должно быть кратно 4</p>
+        </div>
+        <input id="member_id" value="{{ member_role.id }}" type="hidden">
+        <button id="check_button" class="button formItem" disabled onclick="redirect('{% url 'tournament:check_adjudicator_list' tournament.id %}')">
+            Далее
+        </button>
+    {% endif %}
+
 {% endblock content %}

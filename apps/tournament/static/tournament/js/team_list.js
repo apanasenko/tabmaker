@@ -40,6 +40,17 @@ function load_value(select){
 function update_info_block(id, value){
     var a = $('div #message #' + id);
     a.html(parseInt(a.html()) + value);
+
+    b = $('#member_id');
+    if (b && id == $(b).val()){
+        if (parseInt(a.html()) % 4 == 0){
+            $('#check_warning').hide();
+            $('#check_button').prop('disabled', false);
+        } else {
+            $('#check_warning').show();
+            $('#check_button').prop('disabled', true);
+        }
+    }
 }
 
 $(document).ready(function(){
@@ -47,3 +58,7 @@ $(document).ready(function(){
         update_info_block(this.value, 1)
     })
 });
+
+function redirect(url){
+    window.location.href = url;
+}
