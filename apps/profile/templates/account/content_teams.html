@@ -17,20 +17,19 @@
                                 <a class="tournamentlist" href="{% url 'profile:main' object.team.speaker_2.id%}">{{ object.team.speaker_2|name }}</a>
                             </li>
                         </ul> 
-
+                        
+                        <div class="b-tournamentlist-current__column_twothird b-tournamentlist-current__column_rightcolumn">
+                            {% if object.rel %}
+                            <span><a class="b-tournamentlist-current__registration_mine tournamentlist" href="{% url 'tournament:show' object.rel.tournament.id %}">{{ object.rel.tournament.name }}<span class="nolink"> – {{ object.rel.role.role }}</a></span></span>
+                            {% else %}
+                            <span><span class="nolink"><p class="b-tournamentlist-current__registration_mine">Эта команда не зарегистрирована в турнире</p></span></span>
+                            {% endif %}
+                        </div>
+                        
                         <ul class="b-tournamentlist-current__column_twothird">
+                            
+                            {% if is_owner %}
                             <li class="b-tournamentlist-current__about_block_nomargin">
-                                <div>
-                                    {% if object.rel %}
-                                    <a class="b-tournamentlist-current__registration_mine" href="{% url 'tournament:show' object.rel.tournament.id %}">{{ object.rel.tournament.name }}<span> – {{ object.rel.role.role }}</span></a>
-                                    {% else %}
-                                    <p class="b-tournamentlist-current__registration">Эта команда не зарегистрирована в турнире</p>
-                                    {% endif %}
-                                </div>
-                            </li>
-
-                            <li class="b-tournamentlist-current__about_block_nomargin">
-                                 {% if is_owner %}
                                 <button class="b-tournamentlist-current__result_tounamentlist" onclick="remove_team(
                                         '{% url 'profile:team_remove' %}',
                                         {{ object.team.id }},
@@ -39,10 +38,20 @@
                                         )">
                                     <span>Удалить команду</span>
                                 </button>
+                        
+                                <button class="b-tournamentlist-current__result_tounamentlist">
+                                    <span>Подтвердить участие</span>
+                                </button>
                                 {# TODO Кнопка "Подтвердить участие" uu#}
-                                {% endif %}
                             </li>
+                            {% endif %}
+
                         </ul>
+
+
+        
+
+                                
 
                     </div>
                 </div>

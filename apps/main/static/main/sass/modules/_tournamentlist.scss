@@ -17,6 +17,8 @@
 	position: relative;
 	line-height: 0,7;
 
+
+
 	&__column {
 		
 		&_third {
@@ -25,6 +27,34 @@
 
 		&_twothird {
 			@include span(2 of 3 last);
+		}
+
+		&_rightcolumn {
+    		height: 50px;
+    		margin: -15px 0 0 0;
+
+    		span {
+    			float: right;
+    			margin-right: 6px;
+
+    			.nolink {
+					border-bottom: none;
+    			}
+    		}
+		}
+
+		&_rightcolumnbigmargin {
+    		height: 50px;
+    		margin: -32px 0 0 0;
+
+    		span {
+    			float: right;
+    			margin-right: 6px;
+
+    			.nolink {
+					border-bottom: none;
+    			}
+    		}
 		}
 	}
 
@@ -69,7 +99,6 @@
 		margin: 7px 0 3px 0;
 
 		&_mine {
-			display: block;
 			font-size: 16px;
 			font-weight: normal;
 			color: $grey;
@@ -92,10 +121,6 @@
 			&:hover {
 				color: $dark;
 				border: 1px solid $dark;
-			}
-
-			span {
-
 			}
 		}
 	}
