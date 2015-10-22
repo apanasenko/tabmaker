@@ -1,6 +1,7 @@
 import random
 import datetime
 import itertools
+from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from apps.game.models import\
     Game, \
@@ -13,8 +14,10 @@ from .db_execute import \
 from .consts import *
 from .models import \
     Tournament,\
+    TeamTournamentRel, \
     Round,\
     Room
+from apps.profile.models import User
 
 
 class TeamRoundResult:
@@ -575,3 +578,33 @@ def remove_team_from_tournament(tournament: Tournament, team_id):
         return 'Не удалось удалить команду'
 
     return 'Команда упешно удалена'
+
+
+def can_change_team_role(rel: TeamTournamentRel, role: TournamentRole) -> [bool, str]:
+    if role not in [ROLE_IN_TAB, ROLE_MEMBER]:
+        return [True, '']
+
+    if check_duplicate_role(role, rel, rel.team.speaker_1):
+        return [False, '%s уже участвует в турнире в другой команде' % rel.team.speaker_1.name()]
+
+    if check_duplicate_role(role, rel, rel.team.speaker_2):
+        return [False, '%s уже участвует в турнире в другой команде' % rel.team.speaker_1.name()]
+
+    return [True, '']
+
+
+def check_duplicate_role(role: TournamentRole, rel: TeamTournamentRel, user: User) -> [TeamTournamentRel]:
+    return TeamTournamentRel.objects.filter(
+        ~Q(id=rel.id),
+        Q(team__speaker_1=user) | Q(team__speaker_2=user),
+        tournament=rel.tournament,
+        role=role
+    )
+
+
+def get_teams_by_user(user: User, tournament: Tournament, roles=[ROLE_MEMBER]):
+    return TeamTournamentRel.objects.filter(
+        Q(team__speaker_1=user) | Q(team__speaker_2=user),
+        tournament=tournament,
+        role__in=roles
+    )

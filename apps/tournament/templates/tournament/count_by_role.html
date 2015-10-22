@@ -1,0 +1,5 @@
+<div id="message">
+    {% for status in statuses %}
+        <p>{{ status.role }}: <span id="{{ status.id }}">0</span></p>
+    {% endfor %}
+</div>

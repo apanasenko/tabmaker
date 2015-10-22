@@ -7,7 +7,7 @@
     {{ block.super }}
     <script type="text/javascript" src="{% static "main/js/cookie.js" %}"></script>
     <script type="text/javascript" src="{% static "main/js/ajaxCSRF.js" %}"></script>
-    <script type="text/javascript" src="{% static "tournament/js/main.js" %}"></script>
+    <script type="text/javascript" src="{% static "tournament/js/edit_roles.js" %}"></script>
 {% endblock extra_head %}
 
 
@@ -18,77 +18,53 @@
 
 {% block content %}
 
-        <div id="message"></div>
-        <form
-                 action={% if is_check_page %}
-                            "{% url "tournament:check_team_list" tournament.id %}"
-                        {% else %}
-                            "{% url "tournament:edit_team_list" tournament.id %}"
-                        {% endif %}
-                method="post"
-        >
-        {% csrf_token %}
-        {% for rel in forms %}
-            <div id="errors_{{ rel.team.id }}"></div>
-            <div id="team_{{ rel.team.id }}">
-                <div class="row">
-                    <div class="col s4">
-                        <label>Название команды</label>
-                        <p>{{ rel.team.name }}</p>
-                    </div>
-                    <div class=" col s4">
-                        {{ rel.team_form.role }}
-                    </div>
-                    {% if can_remove_teams %}
-                    <div>
-                        <button
-                                type="button"
-                                onclick="remove_team(
-                                        '{% url 'tournament:remove_team' tournament.id %}',
-                                        {{ rel.team.id }},
-                                        'team_{{ rel.team.id }}',
-                                        'errors_{{ rel.team.id }}'
+    {% include 'tournament/count_by_role.html' with statuses=statuses %}
+
+    {% for rel in team_tournament_rels %}
+        <div id="message_{{ rel.id }}"></div>
+        <div id="team_{{ rel.id }}" class="b-teamlist">
+            <div class="b-teamlist__wrapper">
+                <div class="b-teamlist__heading">
+                    <h3>{{ rel.team.name }}</h3>
+                    <div class="formItem last">
+                        <select class="roles"
+                                onchange="update_status(
+                                        '{% url 'tournament:update_team_role' tournament.id%}',
+                                        this,
+                                        {{ rel.id }},
+                                        'message_{{ rel.id }}'
                                         )"
-                                value="Удалить"
-                        >
-                            Удалить
-                        </button>
-                    </div>
-                    {% endif %}
-                </div>
-                <div class="row">
-                    <div class="col s3">
-                        <label>Первый спикер:</label>
-                        {{ rel.team.speaker_1|name }}
-                    </div>
-                    <div class="col s3">
-                        <label>Второй спикер:</label>
-                        {{ rel.team.speaker_2|name }}
+                                onfocus="on_focus(this)"
+                                >
+                            {% for status in statuses %}
+                                <option {% if status.id == rel.role.id %} selected {% endif %} value="{{ status.id }}">
+                                    {{ status.role }}
+                                </option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
-            </div>
-            <hr>
-        {% endfor %}
 
-        {% if is_check_page %}
-            <div class="row">
-                <div class="col s8">
-                    <label>Количество команд должно быть кратно 4 (сейчас {{ member_count }})</label>
-                    {# TODO Изменять в js кол-во команд #}
+                <div class="b-teamlist__profile">
+                    <a href="{% url 'profile:main' rel.team.speaker_1.id%}">{{ rel.team.speaker_1|name }}</a>
+                    <span>  и  </span>
+                    <a href="{% url 'profile:main' rel.team.speaker_2.id%}">{{ rel.team.speaker_2|name }}</a>
                 </div>
-            </div>
-        {% endif %}
 
-        <div class="row">
-            <button type="submit" class="waves-effect waves-light btn">
-                {% if is_check_page %}
-                    Далее
-                {% else %}
-                    Сохранить
-                {% endif %}
-            </button>
+            </div>
         </div>
+    {% empty %}
+        <h3>Нет зарегистрированных команд</h3>
+    {% endfor %}
 
-    </form>
+    {% if is_check_page %}
+        <div id="check_warning">
+            <p>Число команд со статусом "{{ member_role.role }}" должно быть кратно 4</p>
+        </div>
+        <input id="member_id" value="{{ member_role.id }}" type="hidden">
+        <button id="check_button" class="button formItem" disabled onclick="redirect('{% url 'tournament:check_adjudicator_list' tournament.id %}')">
+            Далее
+        </button>
+    {% endif %}
 
 {% endblock content %}
