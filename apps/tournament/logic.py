@@ -600,3 +600,11 @@ def check_duplicate_role(role: TournamentRole, rel: TeamTournamentRel, user: Use
         tournament=rel.tournament,
         role=role
     )
+
+
+def get_teams_by_user(user: User, tournament: Tournament, roles=[ROLE_MEMBER]):
+    return TeamTournamentRel.objects.filter(
+        Q(team__speaker_1=user) | Q(team__speaker_2=user),
+        tournament=tournament,
+        role__in=roles
+    )

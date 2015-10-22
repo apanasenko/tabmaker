@@ -50,6 +50,7 @@ from .logic import \
     remove_last_round, \
     get_current_round_games, \
     can_change_team_role, \
+    get_teams_by_user, \
     can_show_round
 
 
@@ -564,6 +565,12 @@ def adjudicator_role_update(request, tournament):
     new_role = get_object_or_404(TournamentRole, pk=request.POST.get('new_role_id', '0'))
     if new_role not in ADJUDICATOR_ROLES:
         return json_response('bad', 'Недопустимая роль судьи')
+
+    teams = get_teams_by_user(rel.user, rel.tournament)
+    if new_role in [ROLE_CHAIR, ROLE_CHIEF_ADJUDICATOR, ROLE_WING] and teams:
+        return json_response(
+            'bad', '%s из команды "%s" является участником турнира' % (rel.user.name(), teams[0].team.name)
+        )
 
     rel.role = new_role
     rel.save()
