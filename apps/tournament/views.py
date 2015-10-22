@@ -227,7 +227,8 @@ def play(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. edit')  # TODO  Добавить в таблицу доступа
 def start(request, tournament):
-    tournament.set_status(STATUS_STARTED)
+    if tournament.status in [STATUS_REGISTRATION, STATUS_PREPARATION]:
+        tournament.set_status(STATUS_STARTED)
     return redirect('tournament:play', tournament_id=tournament.id)
 
 
