@@ -47,23 +47,32 @@ class ProfileForm(forms.ModelForm):
             'adjudicator_experience': forms.Textarea(attrs={'placeholder': 'Опыт судейства дебатов'}),
         }
 
-    def save_university(self):
-        country = Country.objects.get_or_create(
-            country_id=self.cleaned_data['country_id'],
-            name=self.cleaned_data['country_name']
-        )[0]
-        city = City.objects.get_or_create(
-            city_id=self.cleaned_data['city_id'],
-            name=self.cleaned_data['city_name'],
-        )[0]
-        university = University.objects.get_or_create(
-            country=country,
-            city=city,
-            university_id=self.cleaned_data['university_id'],
-            name=self.cleaned_data['university_name']
-        )[0]
+    @staticmethod
+    def get_or_create_country(country_id, country_name):
+        country = Country.objects.filter(country_id=country_id)[0]
+        return country if country else Country.objects.create(country_id=country_id, name=country_name)
 
-        return university
+    @staticmethod
+    def get_or_create_city(city_id, city_name):
+        city = City.objects.filter(city_id=city_id)[0]
+        return city if city else City.objects.create(city_id=city_id, name=city_name)
+
+    @staticmethod
+    def get_or_create_university(country, city, university_id, university_name):
+        university = University.objects.filter(country=country, city=city, university_id=university_id)[0]
+        return university if university else University.objects.create(
+            country=country, city=city,
+            university_id=university_id,
+            name=university_name
+        )
+
+    def save_university(self):
+        return self.get_or_create_university(
+            self.get_or_create_country(self.cleaned_data['country_id'], self.cleaned_data['country_name']),
+            self.get_or_create_city(self.cleaned_data['city_id'], self.cleaned_data['city_name']),
+            self.cleaned_data['university_id'],
+            self.cleaned_data['university_name']
+        )
 
 
 class SignupForm(ProfileForm):
