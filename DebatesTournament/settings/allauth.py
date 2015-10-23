@@ -7,6 +7,10 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID = 1
 
+LOGIN_URL = '/profile/login/'
+
+LOGOUT_URL = '/profile/logout/'
+
 LOGIN_REDIRECT_URL = '/'
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
