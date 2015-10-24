@@ -47,12 +47,15 @@ class TeamResult:
         self.rounds = []
         self.position = [0, 0, 0, 0]
 
+    def add_empty_round(self, round_number):
+        self.rounds.append(TeamRoundResult(0, 0, 0, False, Position.NONE, round_number, False))
+
     def add_round(self, other: TeamRoundResult):
         if len(self.rounds) + 1 == other.number:
             self.rounds.append(other)
         elif len(self.rounds) + 1 < other.number:
             for i in range(len(self.rounds) + 1, other.number):
-                self.rounds.append(TeamRoundResult(0, 0, 0, False, Position.NONE, i, False))
+                self.add_empty_round(i)
             self.rounds.append(other)
         elif len(self.rounds) + 1 > other.number:
             self.rounds[other.number - 1] = other
@@ -446,9 +449,24 @@ def check_last_round_results(tournament: Tournament):
     return None
 
 
+def filter_tab(tab: [TeamResult], tournament: Tournament, roles: [TournamentRole]):
+    teams = list(map(lambda x: x.team, tournament.teamtournamentrel_set.filter(role__in=roles)))
+    new_tab = list(filter(lambda x: x.team in teams, tab))
+    teams_in_tab = list(map(lambda x: x.team, new_tab))
+    for team in teams:
+        if team in teams_in_tab:
+            continue
+        team_results = TeamResult(team.id)
+        for i in range(tournament.cur_round):
+            team_results.add_empty_round(i)
+        new_tab.append(team_results)
+
+    return new_tab
+
+
 def generate_round(tournament: Tournament, cur_round: Round):
 
-    tab = sorted(get_tab(tournament), reverse=True)
+    tab = sorted(filter_tab(get_tab(tournament), tournament, [ROLE_MEMBER]), reverse=True)
 
     def get_teams_with_eq_points(need_position):
         k = 0
