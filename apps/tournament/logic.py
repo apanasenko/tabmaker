@@ -170,11 +170,12 @@ def can_show_round(tournament):
 
 
 def _get_last_round(tournament: Tournament):
-    return Round.objects.filter(
+    last_rounds = Round.objects.filter(
         tournament=tournament,
         is_playoff=(tournament.status == STATUS_PLAYOFF),
         number__gt=0
-    ).latest('number')
+    ).order_by('-number')
+    return None if not last_rounds else last_rounds[0]
 
 
 def get_current_round_games(tournament: Tournament):
