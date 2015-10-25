@@ -135,12 +135,10 @@ class SpeakerResult:
 
 
 # TODO @check_tournament
-def generate_random_round(tournament: Tournament, cur_round: Round):
-
+def _generate_random_round(tournament: Tournament, cur_round: Round):
     teams = list(tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER))
     chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
 
-    rooms = []
     random.shuffle(chair)
     random.shuffle(teams)
     for i in range(len(teams) // TEAM_IN_GAME):
@@ -153,14 +151,11 @@ def generate_random_round(tournament: Tournament, cur_round: Round):
             date=datetime.datetime.now(),
             motion=cur_round.motion
         )
-        room = Room.objects.create(
+        Room.objects.create(
             game=game,
             round=cur_round,
             number=i
         )
-        rooms.append(room)
-
-    return rooms
 
 
 def can_show_round(tournament):
@@ -172,6 +167,14 @@ def can_show_round(tournament):
 
     else:
         return [True, '']
+
+
+def _get_last_round(tournament: Tournament):
+    return Round.objects.filter(
+        tournament=tournament,
+        is_playoff=(tournament.status == STATUS_PLAYOFF),
+        number__gt=0
+    ).latest('number')
 
 
 def get_current_round_games(tournament: Tournament):
@@ -189,24 +192,8 @@ def get_current_round_games(tournament: Tournament):
     }
 
 
-def get_or_generate_next_round(tournament: Tournament):
-    cur_round = Round.objects.filter(
-        tournament=tournament,
-        is_playoff=(tournament.status == STATUS_PLAYOFF)
-    ).latest('number')
-
-    if not cur_round:
-        return None
-    rooms = Room.objects.filter(round=cur_round)
-    if not rooms:
-        if tournament.status == STATUS_PLAYOFF:
-            rooms = generate_playoff_round(tournament, cur_round)
-        elif tournament.cur_round == 1:
-            rooms = generate_random_round(tournament, cur_round)
-        else:
-            rooms = generate_round(tournament, cur_round)
-
-    return rooms
+def get_next_round(tournament: Tournament):
+    return Room.objects.filter(round=_get_last_round(tournament))
 
 
 def get_last_round_games_and_results(tournament: Tournament):
@@ -319,43 +306,59 @@ def create_playoff(tournament: Tournament, teams: list):
         )
 
 
-def create_next_round(tournament: Tournament, round_obj):
+def _generate_first_playoff_round(tournament: Tournament, new_round: Round):
+    temp_round = Round.objects.filter(
+        tournament=tournament,
+        is_playoff=(tournament.status == STATUS_PLAYOFF),
+        number=-1
+    ).last()
+
+    if not temp_round:
+        return 'Нет команд, сделавших брейк. Объявите брейк'
+
+    for room in Room.objects.filter(round=temp_round):
+        game = room.game
+        game.pk = None
+        game.motion = new_round.motion
+        game.date = datetime.datetime.now()
+        game.save()
+        room.pk = None
+        room.round = new_round
+        room.game = game
+        room.save()
+
+
+def create_next_round(tournament: Tournament, new_round: Round):
     """
-    round_obj - не сохранённый объект из формы
+    round - не сохранённый объект из формы
     """
+    new_round.tournament = tournament
+    new_round.is_playoff = tournament.status == STATUS_PLAYOFF
+
     if tournament.status == STATUS_STARTED:
-        round_obj.tournament = tournament
-        round_obj.number = tournament.round_number_inc()
-        round_obj.save()
-        return
+        new_round.number = tournament.round_number_inc()
+        new_round.save()
+        if tournament.cur_round == 1:
+            return _generate_random_round(tournament, new_round)
+        else:
+            return _generate_round(tournament, new_round)
 
-    last_playoff_round = Round.objects.filter(tournament=tournament, is_playoff=True).last()
+    elif tournament.status == STATUS_PLAYOFF:
+        last_playoff_round = _get_last_round(tournament)
+        if last_playoff_round:
+            new_round.number = last_playoff_round.number + 1
+            new_round.save()
+            return _generate_playoff_round(tournament, new_round)
+        else:
+            new_round.number = 1
+            new_round.save()
+            return _generate_first_playoff_round(tournament, new_round)
 
-    if not last_playoff_round:
-        return 'Что-то не то 2'
-
-    if last_playoff_round.number == -1:
-        motion = last_playoff_round.motion
-        last_playoff_round.motion = round_obj.motion
-        Game.objects.filter(motion=motion).update(motion=round_obj.motion)
-        # motion.delete() при удалении темы, на кторую никто не ссылается пропадает рум
-        #  TODO разобраться и удалить временную тему
-
-        last_playoff_round.number = 1
-        last_playoff_round.save()
-        return
-
-    if last_playoff_round.number > 0:
-        round_obj.tournament = tournament
-        round_obj.number = last_playoff_round.number + 1
-        round_obj.is_playoff = True
-        round_obj.save()
-        return
-
-    return 'Что-то не то'
+    else:
+        return 'Неверный статус турнира'
 
 
-def generate_playoff_round(tournament: Tournament, cur_round: Round):
+def _generate_playoff_round(tournament: Tournament, cur_round: Round):
     positions = [
         ['og_id', 'og'],
         ['oo_id', 'oo'],
@@ -381,7 +384,7 @@ def generate_playoff_round(tournament: Tournament, cur_round: Round):
     )
 
     if len(result_prev_round) < 2:
-        return 'Финал уже был'
+        return 'Финал турнира уже сыгран. Завершите турнир и опубликуйте результаты'
 
     teams_id = []
     for room in result_prev_round:
@@ -389,7 +392,6 @@ def generate_playoff_round(tournament: Tournament, cur_round: Round):
             if room[position[1]] in [1, 2]:
                 teams_id.append(room[position[0]])
 
-    rooms = []
     for i in range(len(teams_id) // TEAM_IN_GAME):
         game = Game.objects.create(
             og_id=teams_id.pop(),
@@ -400,13 +402,11 @@ def generate_playoff_round(tournament: Tournament, cur_round: Round):
             date=datetime.datetime.now(),
             motion=cur_round.motion
         )
-        rooms.append(Room.objects.create(
+        Room.objects.create(
             game=game,
             round=cur_round,
             number=i
-        ))
-
-    return rooms
+        )
 
 
 def get_tournament_motions(tournament: Tournament):
@@ -464,7 +464,7 @@ def filter_tab(tab: [TeamResult], tournament: Tournament, roles: [TournamentRole
     return new_tab
 
 
-def generate_round(tournament: Tournament, cur_round: Round):
+def _generate_round(tournament: Tournament, cur_round: Round):
 
     tab = sorted(filter_tab(get_tab(tournament), tournament, [ROLE_MEMBER]), reverse=True)
 
@@ -509,7 +509,6 @@ def generate_round(tournament: Tournament, cur_round: Round):
             'positions': positions
         })
 
-    rooms = []
     chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
     random.shuffle(chair)
     for i in range(len(games)):
@@ -523,14 +522,11 @@ def generate_round(tournament: Tournament, cur_round: Round):
             date=datetime.datetime.now(),
             motion=cur_round.motion
         )
-        room = Room.objects.create(
+        Room.objects.create(
             game=game,
             round=cur_round,
             number=i
         )
-        rooms.append(room)
-
-    return rooms
 
 
 def find_best_position(pool, need_position):
