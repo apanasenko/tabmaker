@@ -393,11 +393,14 @@ def _generate_playoff_round(tournament: Tournament, cur_round: Round):
                 teams_id.append(room[position[0]])
 
     for i in range(len(teams_id) // TEAM_IN_GAME):
+        teams_id_in_room = teams_id[:4]
+        teams_id = teams_id[4:]
+        random.shuffle(teams_id_in_room)
         game = Game.objects.create(
-            og_id=teams_id.pop(),
-            oo_id=teams_id.pop(),
-            cg_id=teams_id.pop(),
-            co_id=teams_id.pop(),
+            og_id=teams_id_in_room.pop(),
+            oo_id=teams_id_in_room.pop(),
+            cg_id=teams_id_in_room.pop(),
+            co_id=teams_id_in_room.pop(),
             chair=chair.pop().user,
             date=datetime.datetime.now(),
             motion=cur_round.motion
