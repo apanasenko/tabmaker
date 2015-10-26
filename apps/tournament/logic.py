@@ -15,6 +15,7 @@ from .consts import *
 from .models import \
     Tournament,\
     TeamTournamentRel, \
+    UserTournamentRel, \
     Round,\
     Room
 from apps.profile.models import User
@@ -585,6 +586,14 @@ def remove_last_round(tournament: Tournament):
 
     last_round.delete()
     return True
+
+
+def user_can_edit_tournament(tournament: Tournament, user: User):
+    return user.is_authenticated() and 0 < len(UserTournamentRel.objects.filter(
+        tournament=tournament,
+        user=user,
+        role__in=[ROLE_OWNER, ROLE_ADMIN, ROLE_CHIEF_ADJUDICATOR]
+    ))
 
 
 # TODO Убрать в таблицу доступа
