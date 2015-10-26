@@ -43,7 +43,7 @@ from .logic import \
     create_next_round, \
     check_last_round_results, \
     get_tab, \
-    get_next_round, \
+    get_rooms_from_last_round, \
     get_last_round_games_and_results, \
     get_tournament_motions, \
     remove_team_from_tournament, \
@@ -332,7 +332,7 @@ def next_round(request, tournament):
 def edit_round(request, tournament):
     forms = []
     all_is_valid = True
-    for room in get_next_round(tournament):
+    for room in get_rooms_from_last_round(tournament):
         if request.method == 'POST':
             form = GameForm(request.POST, instance=room.game, prefix=room.game.id)
             all_is_valid &= form.is_valid()

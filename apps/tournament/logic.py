@@ -196,7 +196,7 @@ def get_current_round_games(tournament: Tournament):
     }
 
 
-def get_next_round(tournament: Tournament):
+def get_rooms_from_last_round(tournament: Tournament):
     return Room.objects.filter(round=_get_last_round(tournament))
 
 
