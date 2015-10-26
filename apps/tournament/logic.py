@@ -561,13 +561,7 @@ def find_best_team_in_position(teams, need_positions):
     return find_position
 
 
-def remove_team_from_tournament(tournament: Tournament, team_id):
-    try:
-        tournament.teamtournamentrel_set.get(team_id=team_id).delete()
-    except ObjectDoesNotExist:
-        return 'Не удалось удалить команду'
 
-    return 'Команда упешно удалена'
 
 
 def can_change_team_role(rel: TeamTournamentRel, role: TournamentRole) -> [bool, str]:

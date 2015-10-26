@@ -46,7 +46,6 @@ from .logic import \
     get_rooms_from_last_round, \
     get_last_round_games_and_results, \
     get_tournament_motions, \
-    remove_team_from_tournament, \
     remove_last_round, \
     can_change_team_role, \
     get_teams_by_user, \
@@ -580,17 +579,6 @@ def adjudicator_role_update(request, tournament):
     rel.save()
 
     return json_response('ok', 'Статус судьи успешно изменён')
-
-
-@csrf_protect
-@login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='')
-def remove_team(request, tournament):
-    # TODO Добавить проверку на удаление
-    if request.method == 'POST' and request.is_ajax():
-        message = remove_team_from_tournament(tournament, request.POST['team_id'])
-        return HttpResponse(json.dumps({'message': message}), content_type="application/json")
-    raise Http404
 
 
 def user_can_edit_tournament(t: Tournament, u: User):
