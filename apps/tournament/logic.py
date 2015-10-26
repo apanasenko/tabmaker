@@ -219,17 +219,14 @@ def get_last_round_games_and_results(tournament: Tournament):
 
 
 def remove_last_round(tournament: Tournament):
-    last_round = Round.objects.filter(
-        tournament=tournament,
-        is_playoff=(tournament.status == STATUS_PLAYOFF)
-    ).latest('number')
+    last_round = _get_last_round(tournament)
     if not last_round:
         return False
+
     for room in Room.objects.filter(round=last_round):
         room.game.delete()
-    if last_round.is_playoff and last_round.number < 2:
-        tournament.set_status(STATUS_STARTED)
-    elif not last_round.is_playoff:
+
+    if not last_round.is_playoff:
         tournament.round_number_dec()
 
     last_round.delete()
