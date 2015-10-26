@@ -134,6 +134,52 @@ class SpeakerResult:
         return "|%s| %s <%s> : %s" % (self.user.id, self.user.name(), self.team.name, self.sum_points())
 
 
+def _get_last_round(tournament: Tournament):
+    last_rounds = Round.objects.filter(
+        tournament=tournament,
+        is_playoff=(tournament.status == STATUS_PLAYOFF),
+        number__gt=0
+    ).order_by('-number')
+    return None if not last_rounds else last_rounds[0]
+
+
+def _get_temp_round(tournament: Tournament):
+    temp_round = Round.objects.filter(
+        tournament=tournament,
+        is_playoff=True,
+        number=-1
+    )
+    return None if not temp_round else temp_round[0]
+
+
+def _filter_tab(tab: [TeamResult], tournament: Tournament, roles: [TournamentRole]):
+    teams = list(map(lambda x: x.team, tournament.teamtournamentrel_set.filter(role__in=roles)))
+    new_tab = list(filter(lambda x: x.team in teams, tab))
+    teams_in_tab = list(map(lambda x: x.team, new_tab))
+    for team in teams:
+        if team in teams_in_tab:
+            continue
+        team_results = TeamResult(team.id)
+        for i in range(tournament.cur_round):
+            team_results.add_empty_round(i)
+        new_tab.append(team_results)
+
+    return new_tab
+
+
+def _check_duplicate_role(role: TournamentRole, rel: TeamTournamentRel, user: User) -> [TeamTournamentRel]:
+    return TeamTournamentRel.objects.filter(
+        ~Q(id=rel.id),
+        Q(team__speaker_1=user) | Q(team__speaker_2=user),
+        tournament=rel.tournament,
+        role=role
+    )
+
+
+##############################################
+#              Generate rounds              ##
+##############################################
+
 # TODO @check_tournament
 def _generate_random_round(tournament: Tournament, cur_round: Round):
     teams = list(tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER))
@@ -158,136 +204,121 @@ def _generate_random_round(tournament: Tournament, cur_round: Round):
         )
 
 
-def can_show_round(tournament):
-    if tournament.status in [STATUS_REGISTRATION, STATUS_PREPARATION] or tournament.cur_round == 0:
-        return [False, 'Турнир ещё не начался']
+def _generate_round(tournament: Tournament, cur_round: Round):
 
-    if tournament.status == STATUS_FINISHED:
-        return [False, 'Турнир уже закончился']
+    tab = sorted(_filter_tab(get_tab(tournament), tournament, [ROLE_MEMBER]), reverse=True)
 
-    else:
-        return [True, '']
+    def find_best_team_in_position(teams, need_positions):
+        positions_priority = {}
+        max_weight = 0
 
+        def a(_positions, find_result):
+            if not _positions:
+                find_teams = list(find_result.values())
+                for ii in range(len(find_teams)):
+                    for j in range(ii + 1, len(find_teams)):
+                        if find_teams[ii].team.id == find_teams[j].team.id:
+                            return 0, []
 
-def _get_last_round(tournament: Tournament):
-    last_rounds = Round.objects.filter(
-        tournament=tournament,
-        is_playoff=(tournament.status == STATUS_PLAYOFF),
-        number__gt=0
-    ).order_by('-number')
-    return None if not last_rounds else last_rounds[0]
+                cur_sum = 0
+                for key, value in find_result.items():
+                    cur_sum += value.get_position_weight(key)
+                return cur_sum, dict(find_result)
 
+            position = _positions.pop()
+            best_sum = 0
+            best_position = []
+            for team in positions_priority[position]:
+                if team.get_position_weight(position) > max_weight:
+                    break
+                find_result[position] = team
+                cur_sum, cur_position = a(set(_positions), find_result)
+                if cur_sum and (not best_sum or best_sum > cur_sum):
+                    best_sum = cur_sum
+                    best_position = cur_position
 
-def _get_temp_round(tournament: Tournament):
-    temp_round = Round.objects.filter(
-        tournament=tournament,
-        is_playoff=True,
-        number=-1
-    )
-    return None if not temp_round else temp_round[0]
+            return best_sum, best_position
 
+        for k in need_positions:
+            positions_priority[k] = sorted(teams, key=lambda x: x.get_position_weight(k))
 
-def get_rooms_from_last_round(tournament: Tournament):
-    return Room.objects.filter(round=_get_last_round(tournament))
+        find_sum = 0
+        find_position = []
+        while not find_sum:
+            max_weight = max_weight * 2 + 1
+            find_sum, find_position = a(set(need_positions), {})
+        return find_position
 
+    def _get_teams_with_eq_points(need_position):
+        k = 0
+        while k + 1 < len(tab) and tab[0].sum_points() == tab[k].sum_points():
+            k += 1
 
-def get_last_round_games_and_results(tournament: Tournament):
-    results = []
-    for room in Room.objects.filter(round=_get_last_round(tournament)):
-        try:
-            result = GameResult.objects.get(game=room.game)
-        except ObjectDoesNotExist:
-            result = None
+        team_by_position = find_best_team_in_position(tab[:k], need_position)
+        cur_positions = []
+        cur_pool = []
+        for key, value in team_by_position.items():
+            cur_positions += [key]
+            cur_pool += [value]
+            tab.remove(value)
 
-        results.append({
-            'game': room.game,
-            'result': result
+        return cur_pool, cur_positions
+
+    def _find_best_position(_pool, need_position):
+        n = len(_pool)
+        best_positions = list(range(n))
+        best_sum = sum(list(map(lambda x: _pool[x].get_position_weight(best_positions[x]), range(n))))
+
+        for _positions in itertools.permutations(need_position, n):
+            cur_sum = sum(list(map(lambda x: _pool[x].get_position_weight(_positions[x]), range(n))))
+            if cur_sum < best_sum:
+                best_sum = cur_sum
+                best_positions = _positions
+
+        return best_positions
+
+    games = []
+    while tab:
+
+        if len(tab) == 4 or tab[3].sum_points() > tab[4].sum_points():
+            pool = tab[:4]
+            tab = tab[4:]
+            positions = list(_find_best_position(pool, (0, 1, 2, 3)))
+        elif tab[0].sum_points() > tab[4].sum_points():
+            i = 3
+            while tab[i - 1].sum_points() == tab[4].sum_points():
+                i -= 1
+            head_pool = tab[:i]
+            tab = tab[i:]
+            head_positions = _find_best_position(head_pool, (0, 1, 2, 3))
+
+            tail_pool, tail_positions = _get_teams_with_eq_points({0, 1, 2, 3} - set(head_positions))
+            positions = list(head_positions) + tail_positions
+            pool = head_pool + tail_pool
+        else:
+            pool, positions = _get_teams_with_eq_points({0, 1, 2, 3})
+
+        games.append({
+            'pool': pool,
+            'positions': positions
         })
-    return results
 
-
-def remove_last_round(tournament: Tournament):
-    last_round = _get_last_round(tournament)
-    if not last_round:
-        return False
-
-    for room in Room.objects.filter(round=last_round):
-        room.game.delete()
-
-    if not last_round.is_playoff:
-        tournament.round_number_dec()
-
-    last_round.delete()
-    return True
-
-
-def get_tab(tournament: Tournament):
-    positions = [
-        ['og_id', 'og', 'pm', 'dpm', 'og_rev', Position.OG],
-        ['oo_id', 'oo', 'lo', 'dlo', 'oo_rev', Position.OO],
-        ['cg_id', 'cg', 'mg', 'gw', 'cg_rev', Position.CG],
-        ['co_id', 'co', 'mo', 'ow', 'co_rev', Position.CO],
-    ]
-    teams = {}
-    for game in get_teams_result_list('WHERE round.tournament_id = %s', [tournament.id]):
-        for position in positions:
-            team_result = TeamRoundResult(
-                4 - int(game[position[1]]),
-                int(game[position[2]]),
-                int(game[position[3]]),
-                bool(game[position[4]]),
-                position[5],
-                int(game['number']),
-                bool(game['is_closed'])
-            )
-            team_id = game[position[0]]
-            if team_id not in teams.keys():
-                teams[team_id] = TeamResult(team_id)
-
-            teams[team_id].add_round(team_result)
-
-    return list(teams.values())
-
-
-def generate_playoff_position(count: int):
-    result = [1]
-    while len(result) != count:
-        print(result)
-        l = len(result)
-        new_l = l * 2
-        new_result = [0] * new_l
-        for i in range(l):
-            new_result[i * 2] = result[i]
-            new_result[i * 2 + 1] = new_l - result[i] + 1
-        result = new_result
-    return result
-
-
-def create_playoff(tournament: Tournament, teams: list):
-    positions = list(map(lambda x: x - 1, generate_playoff_position(tournament.count_teams_in_break)))
-    motion = Motion.objects.create(motion='temp')
     chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
     random.shuffle(chair)
-    new_round = Round.objects.create(
-        tournament=tournament,
-        motion=motion,
-        number=-1,
-        start_time=datetime.datetime.now(),
-        is_playoff=True,
-    )
-    for i in range(len(teams) // TEAM_IN_GAME):
+    for i in range(len(games)):
+        positions = dict(zip(games[i]['positions'], games[i]['pool']))
         game = Game.objects.create(
-            og=teams[positions[i * TEAM_IN_GAME]],
-            oo=teams[positions[i * TEAM_IN_GAME + 1]],
-            cg=teams[positions[i * TEAM_IN_GAME + 2]],
-            co=teams[positions[i * TEAM_IN_GAME + 3]],
+            og=positions[0].team,
+            oo=positions[1].team,
+            cg=positions[2].team,
+            co=positions[3].team,
             chair=chair.pop().user,
             date=datetime.datetime.now(),
-            motion=motion
+            motion=cur_round.motion
         )
         Room.objects.create(
             game=game,
-            round=new_round,
+            round=cur_round,
             number=i
         )
 
@@ -308,36 +339,6 @@ def _generate_first_playoff_round(tournament: Tournament, new_round: Round):
         room.round = new_round
         room.game = game
         room.save()
-
-
-def create_next_round(tournament: Tournament, new_round: Round):
-    """
-    round - не сохранённый объект из формы
-    """
-    new_round.tournament = tournament
-    new_round.is_playoff = tournament.status == STATUS_PLAYOFF
-
-    if tournament.status == STATUS_STARTED:
-        new_round.number = tournament.round_number_inc()
-        new_round.save()
-        if tournament.cur_round == 1:
-            return _generate_random_round(tournament, new_round)
-        else:
-            return _generate_round(tournament, new_round)
-
-    elif tournament.status == STATUS_PLAYOFF:
-        last_playoff_round = _get_last_round(tournament)
-        if last_playoff_round:
-            new_round.number = last_playoff_round.number + 1
-            new_round.save()
-            return _generate_playoff_round(tournament, new_round)
-        else:
-            new_round.number = 1
-            new_round.save()
-            return _generate_first_playoff_round(tournament, new_round)
-
-    else:
-        return 'Неверный статус турнира'
 
 
 def _generate_playoff_round(tournament: Tournament, cur_round: Round):
@@ -362,7 +363,7 @@ def _generate_playoff_round(tournament: Tournament, cur_round: Round):
             tournament.id,
             True,
             cur_round.number - 1,
-        ]
+            ]
     )
 
     if len(result_prev_round) < 2:
@@ -394,7 +395,121 @@ def _generate_playoff_round(tournament: Tournament, cur_round: Round):
         )
 
 
-def get_tournament_motions(tournament: Tournament):
+##############################################
+#                  Public                   ##
+##############################################
+
+def can_change_team_role(rel: TeamTournamentRel, role: TournamentRole) -> [bool, str]:
+
+    if role not in [ROLE_IN_TAB, ROLE_MEMBER]:
+        return [True, '']
+
+    if _check_duplicate_role(role, rel, rel.team.speaker_1):
+        return [False, '%s уже участвует в турнире в другой команде' % rel.team.speaker_1.name()]
+
+    if _check_duplicate_role(role, rel, rel.team.speaker_2):
+        return [False, '%s уже участвует в турнире в другой команде' % rel.team.speaker_1.name()]
+
+    return [True, '']
+
+
+def check_last_round_results(tournament: Tournament):
+    for room in Room.objects.filter(round=_get_last_round(tournament)):
+        if not GameResult.objects.filter(game=room.game).exists():
+            return 'Введите результаты последнего раунда'
+
+    return None
+
+
+def generate_next_round(tournament: Tournament, new_round: Round):
+    """
+    round - не сохранённый объект из формы
+    """
+    new_round.tournament = tournament
+    new_round.is_playoff = tournament.status == STATUS_PLAYOFF
+
+    if tournament.status == STATUS_STARTED:
+        new_round.number = tournament.round_number_inc()
+        new_round.save()
+        if tournament.cur_round == 1:
+            return _generate_random_round(tournament, new_round)
+        else:
+            return _generate_round(tournament, new_round)
+
+    elif tournament.status == STATUS_PLAYOFF:
+        last_playoff_round = _get_last_round(tournament)
+        if last_playoff_round:
+            new_round.number = last_playoff_round.number + 1
+            new_round.save()
+            return _generate_playoff_round(tournament, new_round)
+        else:
+            new_round.number = 1
+            new_round.save()
+            return _generate_first_playoff_round(tournament, new_round)
+
+    else:
+        return 'Неверный статус турнира'
+
+
+def generate_playoff(tournament: Tournament, teams: list):
+
+    def _generate_playoff_position(count: int):
+        result = [1]
+        while len(result) != count:
+            print(result)
+            l = len(result)
+            new_l = l * 2
+            new_result = [0] * new_l
+            for i in range(l):
+                new_result[i * 2] = result[i]
+                new_result[i * 2 + 1] = new_l - result[i] + 1
+            result = new_result
+        return result
+
+    positions = list(map(lambda x: x - 1, _generate_playoff_position(tournament.count_teams_in_break)))
+    motion = Motion.objects.create(motion='temp')
+    chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
+    random.shuffle(chair)
+    new_round = Round.objects.create(
+        tournament=tournament,
+        motion=motion,
+        number=-1,
+        start_time=datetime.datetime.now(),
+        is_playoff=True,
+    )
+    for i in range(len(teams) // TEAM_IN_GAME):
+        game = Game.objects.create(
+            og=teams[positions[i * TEAM_IN_GAME]],
+            oo=teams[positions[i * TEAM_IN_GAME + 1]],
+            cg=teams[positions[i * TEAM_IN_GAME + 2]],
+            co=teams[positions[i * TEAM_IN_GAME + 3]],
+            chair=chair.pop().user,
+            date=datetime.datetime.now(),
+            motion=motion
+        )
+        Room.objects.create(
+            game=game,
+            round=new_round,
+            number=i
+        )
+
+
+def get_games_and_results_from_last_round(tournament: Tournament):
+    results = []
+    for room in Room.objects.filter(round=_get_last_round(tournament)):
+        try:
+            result = GameResult.objects.get(game=room.game)
+        except ObjectDoesNotExist:
+            result = None
+
+        results.append({
+            'game': room.game,
+            'result': result
+        })
+    return results
+
+
+def get_motions(tournament: Tournament):
     motions = {
         'qualification': [],
         'playoff': [],
@@ -417,173 +532,36 @@ def get_tournament_motions(tournament: Tournament):
     return motions['qualification'] + motions['playoff']
 
 
-def check_last_round_results(tournament: Tournament):
-    for room in Room.objects.filter(round=_get_last_round(tournament)):
-        if not GameResult.objects.filter(game=room.game).exists():
-            return 'Введите результаты последнего раунда'
-
-    return None
+def get_rooms_from_last_round(tournament: Tournament):
+    return Room.objects.filter(round=_get_last_round(tournament))
 
 
-def filter_tab(tab: [TeamResult], tournament: Tournament, roles: [TournamentRole]):
-    teams = list(map(lambda x: x.team, tournament.teamtournamentrel_set.filter(role__in=roles)))
-    new_tab = list(filter(lambda x: x.team in teams, tab))
-    teams_in_tab = list(map(lambda x: x.team, new_tab))
-    for team in teams:
-        if team in teams_in_tab:
-            continue
-        team_results = TeamResult(team.id)
-        for i in range(tournament.cur_round):
-            team_results.add_empty_round(i)
-        new_tab.append(team_results)
+def get_tab(tournament: Tournament):
+    positions = [
+        ['og_id', 'og', 'pm', 'dpm', 'og_rev', Position.OG],
+        ['oo_id', 'oo', 'lo', 'dlo', 'oo_rev', Position.OO],
+        ['cg_id', 'cg', 'mg', 'gw', 'cg_rev', Position.CG],
+        ['co_id', 'co', 'mo', 'ow', 'co_rev', Position.CO],
+    ]
+    teams = {}
+    for game in get_teams_result_list('WHERE round.tournament_id = %s', [tournament.id]):
+        for position in positions:
+            team_result = TeamRoundResult(
+                4 - int(game[position[1]]),
+                int(game[position[2]]),
+                int(game[position[3]]),
+                bool(game[position[4]]),
+                position[5],
+                int(game['number']),
+                bool(game['is_closed'])
+            )
+            team_id = game[position[0]]
+            if team_id not in teams.keys():
+                teams[team_id] = TeamResult(team_id)
 
-    return new_tab
+            teams[team_id].add_round(team_result)
 
-
-def _generate_round(tournament: Tournament, cur_round: Round):
-
-    tab = sorted(filter_tab(get_tab(tournament), tournament, [ROLE_MEMBER]), reverse=True)
-
-    def get_teams_with_eq_points(need_position):
-        k = 0
-        while k + 1 < len(tab) and tab[0].sum_points() == tab[k].sum_points():
-            k += 1
-
-        team_by_position = find_best_team_in_position(tab[:k], need_position)
-        cur_positions = []
-        cur_pool = []
-        for key, value in team_by_position.items():
-            cur_positions += [key]
-            cur_pool += [value]
-            tab.remove(value)
-
-        return cur_pool, cur_positions
-
-    games = []
-    while tab:
-
-        if len(tab) == 4 or tab[3].sum_points() > tab[4].sum_points():
-            pool = tab[:4]
-            tab = tab[4:]
-            positions = list(find_best_position(pool, (0, 1, 2, 3)))
-        elif tab[0].sum_points() > tab[4].sum_points():
-            i = 3
-            while tab[i - 1].sum_points() == tab[4].sum_points():
-                i -= 1
-            head_pool = tab[:i]
-            tab = tab[i:]
-            head_positions = find_best_position(head_pool, (0, 1, 2, 3))
-
-            tail_pool, tail_positions = get_teams_with_eq_points({0, 1, 2, 3} - set(head_positions))
-            positions = list(head_positions) + tail_positions
-            pool = head_pool + tail_pool
-        else:
-            pool, positions = get_teams_with_eq_points({0, 1, 2, 3})
-
-        games.append({
-            'pool': pool,
-            'positions': positions
-        })
-
-    chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
-    random.shuffle(chair)
-    for i in range(len(games)):
-        positions = dict(zip(games[i]['positions'], games[i]['pool']))
-        game = Game.objects.create(
-            og=positions[0].team,
-            oo=positions[1].team,
-            cg=positions[2].team,
-            co=positions[3].team,
-            chair=chair.pop().user,
-            date=datetime.datetime.now(),
-            motion=cur_round.motion
-        )
-        Room.objects.create(
-            game=game,
-            round=cur_round,
-            number=i
-        )
-
-
-def find_best_position(pool, need_position):
-    n = len(pool)
-    best_positions = list(range(n))
-    best_sum = sum(list(map(lambda x: pool[x].get_position_weight(best_positions[x]), range(n))))
-
-    for positions in itertools.permutations(need_position, n):
-        cur_sum = sum(list(map(lambda x: pool[x].get_position_weight(positions[x]), range(n))))
-        if cur_sum < best_sum:
-            best_sum = cur_sum
-            best_positions = positions
-
-    return best_positions
-
-
-def find_best_team_in_position(teams, need_positions):
-    positions_priority = {}
-    max_weight = 0
-
-    def a(positions, find_result):
-        if not positions:
-            find_teams = list(find_result.values())
-            for i in range(len(find_teams)):
-                for j in range(i + 1, len(find_teams)):
-                    if find_teams[i].team.id == find_teams[j].team.id:
-                        return 0, []
-
-            cur_sum = 0
-            for key, value in find_result.items():
-                cur_sum += value.get_position_weight(key)
-            return cur_sum, dict(find_result)
-
-        position = positions.pop()
-        best_sum = 0
-        best_position = []
-        for team in positions_priority[position]:
-            if team.get_position_weight(position) > max_weight:
-                break
-            find_result[position] = team
-            cur_sum, cur_position = a(set(positions), find_result)
-            if cur_sum and (not best_sum or best_sum > cur_sum):
-                best_sum = cur_sum
-                best_position = cur_position
-
-        return best_sum, best_position
-
-    for k in need_positions:
-        positions_priority[k] = sorted(teams, key=lambda x: x.get_position_weight(k))
-
-    find_sum = 0
-    find_position = []
-    while not find_sum:
-        max_weight = max_weight * 2 + 1
-        find_sum, find_position = a(set(need_positions), {})
-    return find_position
-
-
-
-
-
-def can_change_team_role(rel: TeamTournamentRel, role: TournamentRole) -> [bool, str]:
-    if role not in [ROLE_IN_TAB, ROLE_MEMBER]:
-        return [True, '']
-
-    if check_duplicate_role(role, rel, rel.team.speaker_1):
-        return [False, '%s уже участвует в турнире в другой команде' % rel.team.speaker_1.name()]
-
-    if check_duplicate_role(role, rel, rel.team.speaker_2):
-        return [False, '%s уже участвует в турнире в другой команде' % rel.team.speaker_1.name()]
-
-    return [True, '']
-
-
-def check_duplicate_role(role: TournamentRole, rel: TeamTournamentRel, user: User) -> [TeamTournamentRel]:
-    return TeamTournamentRel.objects.filter(
-        ~Q(id=rel.id),
-        Q(team__speaker_1=user) | Q(team__speaker_2=user),
-        tournament=rel.tournament,
-        role=role
-    )
+    return list(teams.values())
 
 
 def get_teams_by_user(user: User, tournament: Tournament, roles=[ROLE_MEMBER]):
@@ -592,3 +570,30 @@ def get_teams_by_user(user: User, tournament: Tournament, roles=[ROLE_MEMBER]):
         tournament=tournament,
         role__in=roles
     )
+
+
+def remove_last_round(tournament: Tournament):
+    last_round = _get_last_round(tournament)
+    if not last_round:
+        return False
+
+    for room in Room.objects.filter(round=last_round):
+        room.game.delete()
+
+    if not last_round.is_playoff:
+        tournament.round_number_dec()
+
+    last_round.delete()
+    return True
+
+
+# TODO Убрать в таблицу доступа
+def can_show_round(tournament):
+    if tournament.status in [STATUS_REGISTRATION, STATUS_PREPARATION] or tournament.cur_round == 0:
+        return [False, 'Турнир ещё не начался']
+
+    if tournament.status == STATUS_FINISHED:
+        return [False, 'Турнир уже закончился']
+
+    else:
+        return [True, '']

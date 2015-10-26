@@ -39,13 +39,13 @@ from .models import \
     UserTournamentRel
 
 from .logic import \
-    create_playoff, \
-    create_next_round, \
+    generate_playoff, \
+    generate_next_round, \
     check_last_round_results, \
     get_tab, \
     get_rooms_from_last_round, \
-    get_last_round_games_and_results, \
-    get_tournament_motions, \
+    get_games_and_results_from_last_round, \
+    get_motions, \
     remove_last_round, \
     can_change_team_role, \
     get_teams_by_user, \
@@ -246,7 +246,7 @@ def result(request, tournament):
             'tournament': tournament,
             'team_tab': convert_tab_to_table(get_tab(tournament), show_all),
             'speaker_tab': convert_tab_to_speaker_table(get_tab(tournament), show_all),
-            'motions': get_tournament_motions(tournament),
+            'motions': get_motions(tournament),
             'is_owner': is_owner,
         }
     )
@@ -282,7 +282,7 @@ def generate_break(request, tournament):
         if len(teams_in_break) != tournament.count_teams_in_break:
             error_message = 'Вы должны выбрать %s команд(ы), которые делают брейк' % tournament.count_teams_in_break
         else:
-            create_playoff(tournament, teams_in_break)
+            generate_playoff(tournament, teams_in_break)
             tournament.set_status(STATUS_PLAYOFF)
 
             return redirect('tournament:play', tournament_id=tournament.id)
@@ -309,7 +309,7 @@ def next_round(request, tournament):
         if motion_form.is_valid() and round_form.is_valid():
             round_obj = round_form.save(commit=False)
             round_obj.motion = motion_form.save()
-            error = create_next_round(tournament, round_obj)
+            error = generate_next_round(tournament, round_obj)
             if error:
                 show_message(request, error)
 
@@ -367,7 +367,7 @@ def edit_round(request, tournament):
 def result_round(request, tournament):
     all_is_valid = True
     forms = []
-    for room in get_last_round_games_and_results(tournament):
+    for room in get_games_and_results_from_last_round(tournament):
         if request.method == 'POST':
             form = ResultGameForm(request.POST, instance=room['result'], prefix=room['game'].id)
             all_is_valid &= form.is_valid()
