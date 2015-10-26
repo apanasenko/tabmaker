@@ -187,15 +187,6 @@ def _get_temp_round(tournament: Tournament):
     return None if not temp_round else temp_round[0]
 
 
-def get_current_round_games(tournament: Tournament):
-    last_round = _get_last_round(tournament)
-
-    return None if not last_round else {
-        'games': list(map(lambda x: x.game, Room.objects.filter(round=last_round))),
-        'round': last_round,
-    }
-
-
 def get_rooms_from_last_round(tournament: Tournament):
     return Room.objects.filter(round=_get_last_round(tournament))
 

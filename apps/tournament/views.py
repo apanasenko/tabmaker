@@ -48,7 +48,6 @@ from .logic import \
     get_tournament_motions, \
     remove_team_from_tournament, \
     remove_last_round, \
-    get_current_round_games, \
     can_change_team_role, \
     get_teams_by_user, \
     can_show_round
@@ -141,10 +140,14 @@ def show_current_round(request, tournament):
     if not check_result[0]:
         return show_message(request, check_result[1])
 
+    rooms = get_rooms_from_last_round(tournament)
     return render(
         request,
         'tournament/show_round.html',
-        get_current_round_games(tournament),
+        {
+            'rooms': rooms,
+            'round': None if not rooms else rooms[0].round
+        },
     )
 
 
