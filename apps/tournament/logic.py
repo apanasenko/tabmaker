@@ -178,16 +178,19 @@ def _get_last_round(tournament: Tournament):
     return None if not last_rounds else last_rounds[0]
 
 
-def get_current_round_games(tournament: Tournament):
-    last_round = Round.objects.filter(
+def _get_temp_round(tournament: Tournament):
+    temp_round = Round.objects.filter(
         tournament=tournament,
-        is_playoff=(tournament.status == STATUS_PLAYOFF)
-    ).latest('number')
+        is_playoff=True,
+        number=-1
+    )
+    return None if not temp_round else temp_round[0]
 
-    if not last_round:
-        return None
 
-    return {
+def get_current_round_games(tournament: Tournament):
+    last_round = _get_last_round(tournament)
+
+    return None if not last_round else {
         'games': list(map(lambda x: x.game, Room.objects.filter(round=last_round))),
         'round': last_round,
     }
@@ -198,14 +201,8 @@ def get_next_round(tournament: Tournament):
 
 
 def get_last_round_games_and_results(tournament: Tournament):
-    last_round = Round.objects.filter(
-        tournament=tournament,
-        is_playoff=(tournament.status == STATUS_PLAYOFF)
-    ).latest('number')
-    if not last_round:
-        return None
     results = []
-    for room in Room.objects.filter(round=last_round):
+    for room in Room.objects.filter(round=_get_last_round(tournament)):
         try:
             result = GameResult.objects.get(game=room.game)
         except ObjectDoesNotExist:
@@ -305,11 +302,7 @@ def create_playoff(tournament: Tournament, teams: list):
 
 
 def _generate_first_playoff_round(tournament: Tournament, new_round: Round):
-    temp_round = Round.objects.filter(
-        tournament=tournament,
-        is_playoff=(tournament.status == STATUS_PLAYOFF),
-        number=-1
-    ).last()
+    temp_round = _get_temp_round(tournament)
 
     if not temp_round:
         return 'Нет команд, сделавших брейк. Объявите брейк'
@@ -434,16 +427,7 @@ def get_tournament_motions(tournament: Tournament):
 
 
 def check_last_round_results(tournament: Tournament):
-    last_rounds = Round.objects.filter(
-        tournament=tournament,
-        is_playoff=(tournament.status == STATUS_PLAYOFF)
-    )
-    if not last_rounds:
-        return None
-
-    last_round = last_rounds.latest('number')
-
-    for room in Room.objects.filter(round=last_round):
+    for room in Room.objects.filter(round=_get_last_round(tournament)):
         if not GameResult.objects.filter(game=room.game).exists():
             return 'Введите результаты последнего раунда'
 
