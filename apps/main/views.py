@@ -8,6 +8,6 @@ def index(request):
         request,
         'main/main.html',
         {
-            'objects': paging(request, Tournament.objects.all())
+            'objects': paging(request, Tournament.objects.all().order_by('-start_tour'))
         }
     )
