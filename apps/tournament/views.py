@@ -28,6 +28,8 @@ from .forms import \
     RoundForm
 
 from .consts import *
+from .messages import *
+
 from .models import \
     AccessToPage, \
     Tournament, \
@@ -293,21 +295,40 @@ def remove(request, tournament):
 ##################################
 
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='registration_action')
-def registration_action(request, tournament, action):
-    if action == 'opening' and tournament.status == STATUS_PREPARATION:
-        tournament.set_status(STATUS_REGISTRATION)
-    elif action == 'closing' and tournament.status == STATUS_REGISTRATION:
-        tournament.set_status(STATUS_PREPARATION)
+@access_by_status(name_page='registration_action')  # TODO  Добавить в таблицу доступа
+def registration_opening(request, tournament):
+    tournament.set_status(STATUS_REGISTRATION)
+    return redirect('tournament:show', tournament_id=tournament.id)
 
+
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='registration_action')  # TODO  Добавить в таблицу доступа
+def registration_closing(request, tournament):
+    if tournament.status == STATUS_STARTED and tournament.cur_round > 0:
+        return _show_message(request, MSG_MUST_REMOVE_ROUNDS)
+
+    tournament.set_status(STATUS_PREPARATION)
     return redirect('tournament:show', tournament_id=tournament.id)
 
 
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. edit')  # TODO  Добавить в таблицу доступа
 def start(request, tournament):
-    if tournament.status in [STATUS_REGISTRATION, STATUS_PREPARATION]:
-        tournament.set_status(STATUS_STARTED)
+    if tournament.status == STATUS_PREPARATION:
+        count_teams = tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count()
+        count_adjudicator = tournament.usertournamentrel_set.filter(role=ROLE_CHAIR).count()
+
+        error_message = MSG_NEED_TEAMS if count_teams % TEAM_IN_GAME \
+            else MSG_NEED_ADJUDICATOR if count_teams // TEAM_IN_GAME > count_adjudicator \
+            else ''
+
+    else:
+        error_message = MSG_MUST_REMOVE_PLAYOFF_ROUNDS if get_rooms_from_last_round(tournament) else ''
+
+    if error_message:
+        return _show_message(request, error_message)
+
+    tournament.set_status(STATUS_STARTED)
     return redirect('tournament:play', tournament_id=tournament.id)
 
 
