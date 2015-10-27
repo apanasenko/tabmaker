@@ -7,10 +7,6 @@
 		transition: background-color 0.2s ease;
 	}
 
-	&__listitem {
-
-	}
-
 	&__wrapper {
 		margin: 0 20px 0 20px;
 	}
@@ -56,6 +52,44 @@
 			border-bottom: 1px dashed $grey;
 			padding-bottom: 3px;
 		}
+	}
+
+}
+
+.b-teamlist-tournament {
+	padding: 20px 0px 20px 0px;
+	border-bottom: 1px $background-page solid;
+	@include span(100% no-gutters);
+
+	&:hover {
+		background-color: $hover;
+		transition: background-color 0.2s ease;
+	}
+
+	&__wrapper {
+		margin: 0 20px;
+	}
+
+	&__team {
+		@include span(1 of 3 no-gutters);
+	}
+
+	&__actions {
+		@include span(2 of 3 last);
+		margin-top: 20px;
+	}
+
+	&__select {
+		float: right;
+		margin-left: 20px;
+	}
+
+	&__button {
+		float: right;
+	}
+
+	&__save {
+		padding: 20px 0 20px 0;
 	}
 
 }

@@ -30,7 +30,7 @@
     <label for="tab4" class="b-tabs__label" title="Место">Место</label>
 
     <section class="b-tabs__one">
-        <form class="form" action="{% url "tournament:edit" tournament.id %}" method="post">
+        <form class="b-form" action="{% url "tournament:edit" tournament.id %}" method="post">
              {% include "tournament/edit_form.html" %}
              <button type="submit" class="button formItem">Сохранить</button>
         </form>
