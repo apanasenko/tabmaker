@@ -967,13 +967,13 @@ footer {
   margin-right: 20px;
 }
 
-/* line 25, ../sass/main.scss */
+/* line 26, ../sass/main.scss */
 .content_conteiner {
   padding: 30px 15px;
   min-height: 68vh;
 }
 
-/* line 30, ../sass/main.scss */
+/* line 31, ../sass/main.scss */
 .content {
   max-width: 100%;
   margin-left: auto;
@@ -992,7 +992,7 @@ footer {
   clear: both;
 }
 
-/* line 45, ../sass/main.scss */
+/* line 46, ../sass/main.scss */
 #email_confirm h3 {
   text-align: center;
 }
