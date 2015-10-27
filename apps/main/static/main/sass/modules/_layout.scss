@@ -6,7 +6,7 @@ $susy: (
 
 body {
 	font-family: "PT Sans", Arial, "Helvetica Neue", sans-serif;
-	background-color: $deep-dark;
+	background-color: $background-page;
 }
 
 ul, a {
@@ -49,7 +49,6 @@ i {
 .button {
 	@include button;
 	background-color: $deep-dark;
-	width: 100%;
 
 	a {
 		color: white;

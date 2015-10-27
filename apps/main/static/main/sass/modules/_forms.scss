@@ -1,11 +1,11 @@
 input, select, textarea {
-	padding: 5px 5px 5px 10px;
+	padding: 5px 0px 5px 10px;
 	height: 25px;
-	border-radius: 5px;
+	border-radius: 4px;
 	line-height: 20px;
-	margin: 0 30px 10px 0;
+	margin: 0 0px 15px 0;
 	font-size: 14px;
-	color: $dark;
+	color: $grey;
 	background-color: white;
 	border: 2px solid $background-page;
 
@@ -14,11 +14,14 @@ input, select, textarea {
 	}
 }
 
+input[type=text] {
+	padding-left: 20px;
+}
+
 textarea {
 	min-height: 100px;
 	font-family: "PT Sans", Arial, sans-serif;
 	font-weight: 14px;
-	margin-bottom: 20px;
 }
 
 select {
@@ -31,22 +34,73 @@ label {
 	display: block;
 }
 
-form {
-	@include container;
-	width: 660px;
+.b-form {
+	@include container(90%);
 	padding: 40px 0 40px 0;
 	
-	h3 {
-		clear: both;
-	}
+	
 }
 
-.formItem {
-	margin: 0 30px 20px 0;
-	@include span(4 of 12);	
+.b-form-item {
+	margin-bottom: 20px;
+	@include span(100% no-gutters);
 
-	> input, > label {
+	&__heading {
+		@include span(12 of 12 no-gutters);
+	}
+
+	&__input, &__label {
 		display: inline-block;
+
+		&_full {
+			@include span(11 of 12 no-gutters);
+
+			&_last {
+				@include span(11 of 12);
+				@include last;
+			}
+		}
+
+		&_quarter {
+			@include span(3 of 12);
+
+			&_last {
+				@include span(3 of 12);
+				@include last;
+			}
+		}
+
+		&_third {
+			@include span(4 of 12);
+
+			&_last {
+				@include span(4 of 12);
+				@include last;
+			}
+		}
+
+		&_sixth {
+			@include span(2 of 12);
+
+			&_last {
+				@include span(2 of 12);
+				@include last;
+			}
+		}
+
+		&_ten {
+			@include span(10%);
+
+			&_last {
+				@include span(10%);
+				@include last;
+			}
+		}
+	}
+
+	&__map {
+		border: 1px solid $grey;
+		margin-top: 90px;
 	}
 }
 
@@ -62,41 +116,28 @@ form {
 	clear: both;
 }
 
-#tournamentName {
-	@include span(11 of 12);
+// #tournamentName {
+// }
 
-	input {
-		width: 100%;
-	}
-}
+// #address {
+// 	@include span(11 of 12);
 
-#address {
-	@include span(11 of 12);
+// 	input {
+// 		width: 100%;
+// 	}
+// }
 
-	input {
-		width: 100%;
-	}
-}
+// #street {
+// 	@include span(8 of 12);
 
-#street {
-	@include span(8 of 12);
+// 	input {
+// 		max-width: 370px;
+// 		width: 370px;
+// 	}
+// }
 
-	input {
-		max-width: 370px;
-		width: 370px;
-	}
-}
-
-#aboutTournament, #player_experience, #adjudicator_experience, .textarea {
+#player_experience, #adjudicator_experience, .textarea {
 	@include span(12 of 12);
-
-	textarea {
-		max-width: 660px;
-		width: 600px;
-		min-height: 100px;
-		font-family: "PT Sans", Arial, sans-serif;
-		font-weight: 14px;
-	}
 }
 
 #link {

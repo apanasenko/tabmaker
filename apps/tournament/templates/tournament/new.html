@@ -23,14 +23,10 @@
         <label for="tab2" class="b-tabs__label" title="Карта">Карта</label>
 
         <section class="b-tabs__one">
-            <form class="form" action="{% url 'tournament:new' %}" method="post">
+            <form class="b-form" action="{% url 'tournament:new' %}" method="post">
                 {% include "tournament/edit_form.html" %}
-                <button type="submit" class="button formItem">Подтвердить</button>
+                <button type="submit" class="button">Подтвердить</button>
             </form>
-        </section>
-
-        <section class="b-tabs__two">
-            <div id="map" style="width: 600px; height: 400px"></div>
         </section>
 
     </div>
