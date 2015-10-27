@@ -1,0 +1,84 @@
+.b-popup {
+	
+	&__checkbox, &__background {
+		display: none;
+	}	
+
+	&__background {
+		position: fixed;
+  		z-index: 10;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+
+		&:before {
+			display: block;
+			content: ' ';
+			position: absolute;
+			z-index: 1;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background-color: $dark;
+			opacity: .5;
+		}
+	}
+}
+
+.b-popup__checkbox:checked + .b-popup__background {
+	opacity: 1;
+	display: block;
+}
+
+.b-popup-window {
+	@include shadow;
+	width: 600px;
+	height: 20%;
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	background-color: white;
+	border-radius: 2px;
+	padding: 20px;
+	box-sizing: border-box;
+
+	&__heading {
+		color: $dark;
+	}
+
+	&__text {
+		color: $dark;
+		font-weight: 16px;
+	}
+
+	&__closer {
+		position: absolute;
+		top: 8px;
+		right: 8px;
+		color: $grey;
+		font-size: 20px;
+		display: block;
+		width: 20px;
+		height: 20px;
+		line-height: 20px;
+		text-align: center;
+		cursor: pointer;
+
+		&:hover {
+			color: $dark;
+			transition: .2 ease color;
+		}
+	}
+}
+
+.b-popup-top {
+
+}
+

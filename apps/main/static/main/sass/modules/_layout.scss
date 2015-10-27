@@ -15,7 +15,7 @@ ul, a {
 	list-style: none;
 }
 
-h3, h5, p, a, li, label {
+h3, h5, p, li {
 	color: $dark;
 }
 
@@ -38,6 +38,7 @@ h3 {
 
 a {
 	text-decoration: none;
+	color: $dark;
 }
 
 i {

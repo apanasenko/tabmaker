@@ -78,7 +78,7 @@ ul, a {
 }
 
 /* line 18, ../sass/modules/_layout.scss */
-h3, h5, p, a, li, label {
+h3, h5, p, li {
   color: #58697A;
 }
 
@@ -106,15 +106,16 @@ h3 {
 /* line 39, ../sass/modules/_layout.scss */
 a {
   text-decoration: none;
+  color: #58697A;
 }
 
-/* line 43, ../sass/modules/_layout.scss */
+/* line 44, ../sass/modules/_layout.scss */
 i {
   margin-right: 8px;
   margin-bottom: 2px;
 }
 
-/* line 48, ../sass/modules/_layout.scss */
+/* line 49, ../sass/modules/_layout.scss */
 .button {
   display: inline-block;
   text-decoration: none;
@@ -135,12 +136,12 @@ i {
   background-color: #0C152A;
   transition: background-color 0.3s ease;
 }
-/* line 53, ../sass/modules/_layout.scss */
+/* line 54, ../sass/modules/_layout.scss */
 .button a {
   color: white;
 }
 
-/* line 58, ../sass/modules/_layout.scss */
+/* line 59, ../sass/modules/_layout.scss */
 .page_wrapper {
   margin: 0 auto;
   background-color: #ECEEF1;
@@ -239,7 +240,7 @@ header .header_container #header_button a {
 }
 /* line 30, ../sass/modules/_tables.scss */
 .b-table__headrow {
-  background-color: #FDFDEE;
+  background-color: #EBE8E3;
   color: #58697A;
 }
 /* line 34, ../sass/modules/_tables.scss */
@@ -573,6 +574,7 @@ form {
   margin-left: auto;
   margin-right: auto;
   width: 660px;
+  padding: 40px 0 20px 0;
 }
 /* line 12, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/susy-2.2.5/sass/susy/output/support/_clearfix.scss */
 form:after {
@@ -580,24 +582,24 @@ form:after {
   display: block;
   clear: both;
 }
-/* line 38, ../sass/modules/_forms.scss */
+/* line 39, ../sass/modules/_forms.scss */
 form h3 {
   clear: both;
 }
 
-/* line 43, ../sass/modules/_forms.scss */
+/* line 44, ../sass/modules/_forms.scss */
 .formItem {
   margin: 0 30px 20px 0;
   width: 32.53012%;
   float: left;
   margin-right: 1.20482%;
 }
-/* line 47, ../sass/modules/_forms.scss */
+/* line 48, ../sass/modules/_forms.scss */
 .formItem > input, .formItem > label {
   display: inline-block;
 }
 
-/* line 52, ../sass/modules/_forms.scss */
+/* line 53, ../sass/modules/_forms.scss */
 .full {
   width: 100%;
   float: left;
@@ -605,59 +607,59 @@ form h3 {
   margin-right: 0;
 }
 
-/* line 56, ../sass/modules/_forms.scss */
+/* line 57, ../sass/modules/_forms.scss */
 #university, #adress, #count_teams_in_break, .last {
   float: right;
   margin-right: 0;
 }
 
-/* line 60, ../sass/modules/_forms.scss */
+/* line 61, ../sass/modules/_forms.scss */
 #country, #street, #regdateOpen, #regdateClose, #link, .row {
   clear: both;
 }
 
-/* line 64, ../sass/modules/_forms.scss */
+/* line 65, ../sass/modules/_forms.scss */
 #tournamentName {
   width: 91.56627%;
   float: left;
   margin-right: 1.20482%;
 }
-/* line 67, ../sass/modules/_forms.scss */
+/* line 68, ../sass/modules/_forms.scss */
 #tournamentName input {
   width: 100%;
 }
 
-/* line 72, ../sass/modules/_forms.scss */
+/* line 73, ../sass/modules/_forms.scss */
 #address {
   width: 91.56627%;
   float: left;
   margin-right: 1.20482%;
 }
-/* line 75, ../sass/modules/_forms.scss */
+/* line 76, ../sass/modules/_forms.scss */
 #address input {
   width: 100%;
 }
 
-/* line 80, ../sass/modules/_forms.scss */
+/* line 81, ../sass/modules/_forms.scss */
 #street {
   width: 66.26506%;
   float: left;
   margin-right: 1.20482%;
 }
-/* line 83, ../sass/modules/_forms.scss */
+/* line 84, ../sass/modules/_forms.scss */
 #street input {
   max-width: 370px;
   width: 370px;
 }
 
-/* line 89, ../sass/modules/_forms.scss */
+/* line 90, ../sass/modules/_forms.scss */
 #aboutTournament, #player_experience, #adjudicator_experience, .textarea {
   width: 100%;
   float: left;
   margin-left: 0;
   margin-right: 0;
 }
-/* line 92, ../sass/modules/_forms.scss */
+/* line 93, ../sass/modules/_forms.scss */
 #aboutTournament textarea, #player_experience textarea, #adjudicator_experience textarea, .textarea textarea {
   max-width: 660px;
   width: 600px;
@@ -666,18 +668,18 @@ form h3 {
   font-weight: 14px;
 }
 
-/* line 101, ../sass/modules/_forms.scss */
+/* line 102, ../sass/modules/_forms.scss */
 #link {
   width: 91.56627%;
   float: left;
   margin-right: 1.20482%;
 }
-/* line 104, ../sass/modules/_forms.scss */
+/* line 105, ../sass/modules/_forms.scss */
 #link input {
   width: 100%;
 }
 
-/* line 109, ../sass/modules/_forms.scss */
+/* line 110, ../sass/modules/_forms.scss */
 .button.formItem {
   width: 32.53012%;
   float: left;
@@ -685,14 +687,14 @@ form h3 {
   text-align: center;
 }
 
-/* line 114, ../sass/modules/_forms.scss */
+/* line 115, ../sass/modules/_forms.scss */
 #loginButton {
   width: 32.53012%;
   float: left;
   margin-right: 1.20482%;
 }
 
-/* line 120, ../sass/modules/_forms.scss */
+/* line 121, ../sass/modules/_forms.scss */
 .errorlist li {
   color: red;
   font-size: 14px;
@@ -792,6 +794,86 @@ form h3 {
 #tab3:checked ~ .b-tabs__three,
 #tab4:checked ~ .b-tabs__four {
   display: block;
+}
+
+/* line 3, ../sass/modules/_popups.scss */
+.b-popup__checkbox, .b-popup__background {
+  display: none;
+}
+/* line 7, ../sass/modules/_popups.scss */
+.b-popup__background {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+/* line 16, ../sass/modules/_popups.scss */
+.b-popup__background:before {
+  display: block;
+  content: ' ';
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #58697A;
+  opacity: .5;
+}
+
+/* line 31, ../sass/modules/_popups.scss */
+.b-popup__checkbox:checked + .b-popup__background {
+  opacity: 1;
+  display: block;
+}
+
+/* line 36, ../sass/modules/_popups.scss */
+.b-popup-window {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  width: 600px;
+  height: 20%;
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: white;
+  border-radius: 2px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+/* line 52, ../sass/modules/_popups.scss */
+.b-popup-window__heading {
+  color: #58697A;
+}
+/* line 56, ../sass/modules/_popups.scss */
+.b-popup-window__text {
+  color: #58697A;
+  font-weight: 16px;
+}
+/* line 61, ../sass/modules/_popups.scss */
+.b-popup-window__closer {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #aeb8bc;
+  font-size: 20px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+/* line 74, ../sass/modules/_popups.scss */
+.b-popup-window__closer:hover {
+  color: #58697A;
+  transition: .2 ease color;
 }
 
 /* line 1, ../sass/modules/_footer.scss */
