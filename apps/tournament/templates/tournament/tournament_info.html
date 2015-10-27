@@ -31,8 +31,8 @@
         {% if tournament|is_status_registration %}
 
             <h3 class="b-tournament-reg__regtime">Регистрация до {{ tournament.close_reg|date:"d M Y" }}</h3>
-            <a class="b-tournament-reg__button" href="{% url "tournament:registration_team" tournament.id %}">Участовать</a>
-            <a class="b-tournament-reg__button" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
+            <a class="b-tournament-reg__button button" href="{% url "tournament:registration_team" tournament.id %}">Участовать</a>
+            <a class="b-tournament-reg__button button" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
 
         {% elif tournament|is_status_preparation %}
 
@@ -41,11 +41,11 @@
         {% else %}
             {% if tournament|is_status_started or tournament|is_status_playoff%}
 
-                <a class="b-tournament-reg__regbutton button formItem" href="{% url "tournament:show_round" tournament.id %}">Текущий раунд</a>
+                <a class="b-tournament-reg__button button" href="{% url "tournament:show_round" tournament.id %}">Текущий раунд</a>
 
             {% endif %}
 
-            <a class="b-tournament-reg__regbutton button formItem" href="{% url "tournament:result" tournament.id %}">Теб</a>
+            <a class="b-tournament-reg__button button" href="{% url "tournament:result" tournament.id %}">Теб</a>
 
         {% endif %}
 

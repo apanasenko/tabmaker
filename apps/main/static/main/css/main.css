@@ -453,6 +453,25 @@ header .header_container #header_button a {
   margin-top: 30px;
   min-height: 80px;
 }
+/* line 28, ../sass/modules/_tournamentinfo.scss */
+.b-tournament-reg__button {
+  display: inline-block;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: none;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  min-height: 20px;
+  background-color: #424E5A;
+  box-sizing: border-box;
+}
+/* line 18, ../sass/modules/_mixins.scss */
+.b-tournament-reg__button:hover {
+  background-color: #0C152A;
+  transition: background-color 0.3s ease;
+}
 
 /* line 1, ../sass/modules/_teamlist.scss */
 .b-teamlist {
@@ -661,12 +680,25 @@ label {
   margin-right: 0;
 }
 /* line 62, ../sass/modules/_forms.scss */
+.b-form-item__input_six, .b-form-item__label_six {
+  width: 49.39759%;
+  float: left;
+}
+/* line 65, ../sass/modules/_forms.scss */
+.b-form-item__input_six_last, .b-form-item__label_six_last {
+  width: 49.39759%;
+  float: left;
+  margin-right: 1.20482%;
+  float: right;
+  margin-right: 0;
+}
+/* line 71, ../sass/modules/_forms.scss */
 .b-form-item__input_quarter, .b-form-item__label_quarter {
   width: 24.09639%;
   float: left;
   margin-right: 1.20482%;
 }
-/* line 65, ../sass/modules/_forms.scss */
+/* line 74, ../sass/modules/_forms.scss */
 .b-form-item__input_quarter_last, .b-form-item__label_quarter_last {
   width: 24.09639%;
   float: left;
@@ -674,13 +706,13 @@ label {
   float: right;
   margin-right: 0;
 }
-/* line 71, ../sass/modules/_forms.scss */
+/* line 80, ../sass/modules/_forms.scss */
 .b-form-item__input_third, .b-form-item__label_third {
   width: 32.53012%;
   float: left;
   margin-right: 1.20482%;
 }
-/* line 74, ../sass/modules/_forms.scss */
+/* line 83, ../sass/modules/_forms.scss */
 .b-form-item__input_third_last, .b-form-item__label_third_last {
   width: 32.53012%;
   float: left;
@@ -688,13 +720,13 @@ label {
   float: right;
   margin-right: 0;
 }
-/* line 80, ../sass/modules/_forms.scss */
+/* line 89, ../sass/modules/_forms.scss */
 .b-form-item__input_sixth, .b-form-item__label_sixth {
   width: 15.66265%;
   float: left;
   margin-right: 1.20482%;
 }
-/* line 83, ../sass/modules/_forms.scss */
+/* line 92, ../sass/modules/_forms.scss */
 .b-form-item__input_sixth_last, .b-form-item__label_sixth_last {
   width: 15.66265%;
   float: left;
@@ -702,13 +734,13 @@ label {
   float: right;
   margin-right: 0;
 }
-/* line 89, ../sass/modules/_forms.scss */
+/* line 98, ../sass/modules/_forms.scss */
 .b-form-item__input_ten, .b-form-item__label_ten {
   width: 10%;
   float: left;
   margin-right: 1.20482%;
 }
-/* line 92, ../sass/modules/_forms.scss */
+/* line 101, ../sass/modules/_forms.scss */
 .b-form-item__input_ten_last, .b-form-item__label_ten_last {
   width: 10%;
   float: left;
@@ -716,13 +748,13 @@ label {
   float: right;
   margin-right: 0;
 }
-/* line 99, ../sass/modules/_forms.scss */
+/* line 108, ../sass/modules/_forms.scss */
 .b-form-item__map {
   border: 1px solid #aeb8bc;
   margin-top: 90px;
 }
 
-/* line 105, ../sass/modules/_forms.scss */
+/* line 114, ../sass/modules/_forms.scss */
 .full {
   width: 100%;
   float: left;
@@ -730,12 +762,12 @@ label {
   margin-right: 0;
 }
 
-/* line 113, ../sass/modules/_forms.scss */
+/* line 122, ../sass/modules/_forms.scss */
 #country, #street, #regdateOpen, #regdateClose, #link, .row {
   clear: both;
 }
 
-/* line 137, ../sass/modules/_forms.scss */
+/* line 146, ../sass/modules/_forms.scss */
 #player_experience, #adjudicator_experience, .textarea {
   width: 100%;
   float: left;
@@ -743,14 +775,14 @@ label {
   margin-right: 0;
 }
 
-/* line 154, ../sass/modules/_forms.scss */
+/* line 163, ../sass/modules/_forms.scss */
 #loginButton {
   width: 32.53012%;
   float: left;
   margin-right: 1.20482%;
 }
 
-/* line 160, ../sass/modules/_forms.scss */
+/* line 169, ../sass/modules/_forms.scss */
 .errorlist li {
   color: red;
   font-size: 14px;
@@ -969,7 +1001,7 @@ footer {
 
 /* line 26, ../sass/main.scss */
 .content_conteiner {
-  padding: 30px 15px;
+  padding: 25px;
   min-height: 68vh;
 }
 

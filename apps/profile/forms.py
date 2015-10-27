@@ -39,12 +39,12 @@ class ProfileForm(forms.ModelForm):
         }
 
         widgets = {
-            'first_name': forms.TextInput(attrs={'class': 'validate'}),
-            'last_name': forms.TextInput(attrs={'class': 'validate'}),
-            'phone': forms.TextInput(attrs={'class': 'validate', 'type': 'tel', 'placeholder': '+79141234567'}),
-            'link': forms.URLInput(attrs={'class': 'validate', 'placeholder': 'http://vk.com/id0'}),
-            'player_experience': forms.Textarea(attrs={'placeholder': 'Опыт в дебатах'}),
-            'adjudicator_experience': forms.Textarea(attrs={'placeholder': 'Опыт судейства дебатов'}),
+            'first_name': forms.TextInput(attrs={'class': 'validate b-form-item__input_quarter'}),
+            'last_name': forms.TextInput(attrs={'class': 'validate b-form-item__input_quarter'}),
+            'phone': forms.TextInput(attrs={'class': 'validate b-form-item__input_quarter', 'type': 'tel', 'placeholder': '+79141234567'}),
+            'link': forms.URLInput(attrs={'class': 'validate b-form-item__input_quarter', 'placeholder': 'http://vk.com/id0'}),
+            'player_experience': forms.Textarea(attrs={'class': 'validate b-form-item__input_full', 'placeholder': 'Опыт в дебатах'}),
+            'adjudicator_experience': forms.Textarea(attrs={'class': 'validate b-form-item__input_full', 'placeholder': 'Опыт судейства дебатов'}),
         }
 
     @staticmethod

@@ -59,6 +59,15 @@ label {
 			}
 		}
 
+		&_six {
+			@include span(6 of 12 no-gutters);
+
+			&_last {
+				@include span(6 of 12);
+				@include last;
+			}
+		}
+
 		&_quarter {
 			@include span(3 of 12);
 

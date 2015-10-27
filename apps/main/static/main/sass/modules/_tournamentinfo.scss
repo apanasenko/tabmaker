@@ -24,4 +24,8 @@
 	&__regtime {
 
 	}
+
+	&__button {
+		@include button;
+	}
 }
