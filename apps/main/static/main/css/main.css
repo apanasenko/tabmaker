@@ -431,7 +431,7 @@ header .header_container #header_button a {
 
 /* line 1, ../sass/modules/_tournamentinfo.scss */
 .b-tournament-info {
-  padding: 30px 30px;
+  padding: 10px 30px 30px 30px;
 }
 /* line 4, ../sass/modules/_tournamentinfo.scss */
 .b-tournament-info__heading {
