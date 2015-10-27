@@ -192,8 +192,7 @@ def new(request):
                 role=ROLE_OWNER
             )
 
-            # TODO куда перекидывать
-            return _show_message(request, 'Вы создали свой турнир')
+            return redirect('tournament:show', tournament_id=tournament_obj.id)
 
     else:
         tournament_form = TournamentForm()
