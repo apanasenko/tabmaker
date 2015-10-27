@@ -9,6 +9,7 @@
 @import "modules/header";
 @import "modules/tables";
 @import "modules/tournamentlist";
+@import "modules/tournamentinfo";
 @import "modules/teamlist";
 @import "modules/sidebar";
 @import "modules/forms";
@@ -34,25 +35,6 @@
 	background-color: $background-block;
 	border-radius: 3px;
 	vertical-align: top;
-}
-
-
-.b-tournament-info {
-	padding: 20px 0px;
-
-	&__heading {
-		margin-top: 25px;
-	}
-
-	&__status {
-		display: block;
-	}
-
-}
-
-.b-tournament-info-reg {
-	margin-top: 30px;
-	min-height: 80px;
 }
 
 // email-confirms

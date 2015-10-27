@@ -5,17 +5,13 @@ input, select, textarea {
 	line-height: 20px;
 	margin: 0 0px 15px 0;
 	font-size: 14px;
-	color: $grey;
+	color: $dark;
 	background-color: white;
 	border: 2px solid $background-page;
 
 	&:focus {
 		border: 2px solid $green;
 	}
-}
-
-input[type=text] {
-	padding-left: 20px;
 }
 
 textarea {
@@ -38,7 +34,9 @@ label {
 	@include container(90%);
 	padding: 40px 0 40px 0;
 	
-	
+	&__button {
+		@include button;
+	}
 }
 
 .b-form-item {
@@ -109,7 +107,7 @@ label {
 }
 
 #university, #adress, #count_teams_in_break, .last {
-	@include last;
+	// @include last;
 }
 
 #country, #street, #regdateOpen, #regdateClose, #link, .row {
@@ -140,18 +138,18 @@ label {
 	@include span(12 of 12);
 }
 
-#link {
-	@include span(11 of 12);
+// #link {
+// 	@include span(11 of 12);
 	
-	input {
-		width: 100%;
-	}
-}
+// 	input {
+// 		width: 100%;
+// 	}
+// }
 
-.button.formItem {
-	@include span (4 of 12);
-	text-align: center;
-}
+// .button.formItem {
+// 	@include span (4 of 12);
+// 	text-align: center;
+// }
 
 #loginButton {
 	@include span (4 of 12);
@@ -163,6 +161,5 @@ label {
 		color: red;
 		font-size: 14px;
 		display: inline;
-		margin: -5px 0 0 5px;
 	}
 }

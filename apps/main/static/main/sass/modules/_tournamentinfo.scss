@@ -1,0 +1,27 @@
+.b-tournament-info {
+	padding: 30px 30px;
+
+	&__heading {
+		margin-top: 20px;
+		margin-bottom: 10px;
+
+		&_first {
+			margin-bottom: 10px
+		}
+	}
+
+	&__status {
+		display: block;
+		line-height: 1.5;
+	}
+
+}
+
+.b-tournament-reg {
+	margin-top: 30px;
+	min-height: 80px;
+
+	&__regtime {
+
+	}
+}
