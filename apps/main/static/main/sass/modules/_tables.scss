@@ -1,5 +1,6 @@
 .b-table {
 	width: 100%;
+	padding: 0 5px;
 
 	&__headrow, &__row {
 		margin: 10px 0px;
@@ -22,6 +23,11 @@
 
 		&_thirty {
 			width: 16%;
+			text-align: center;
+		}
+
+		&_narrow {
+			width: 70px;
 			text-align: center;
 		}
 
