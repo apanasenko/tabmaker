@@ -390,7 +390,7 @@ def finished(request, tournament):
         tournament_.set_status(STATUS_FINISHED)
 
     return _confirm_page(request, tournament, need_message, template_body, redirect_to, tournament_finished,
-                        redirect_args)
+                         redirect_args)
 
 
 ##################################
@@ -640,6 +640,7 @@ def registration_adjudicator(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. add')
 def add_adjudicator(request, tournament):
+    # TODO Добавление судьи
     return redirect('tournament:edit_adjudicator_list', tournament_id=tournament.id)
 
 
@@ -652,7 +653,8 @@ def edit_adjudicator_list(request, tournament):
         {
             'is_check_page': request.path == reverse('tournament:check_adjudicator_list', args=[tournament.id]),
             'chair_need': tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count() // TEAM_IN_GAME,
-            'user_tournament_rels': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id'),
+            'user_tournament_rels': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by(
+                'user_id'),
             'statuses': ADJUDICATOR_ROLES,
             'chair_role': ROLE_CHAIR,
             'tournament': tournament,
