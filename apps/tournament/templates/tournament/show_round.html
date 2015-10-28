@@ -49,16 +49,16 @@
                     <th class="b-table__headstring_thirty">Первая опозиция</th>
                     <th class="b-table__headstring_thirty">Второе правительство</th>
                     <th class="b-table__headstring_thirty">Вторая опозиция</th>
-                    <th class="b-table__headstring_thirty">Место</th>
+{#                    <th class="b-table__headstring_thirty">Место</th>#}
                 </tr>
-                {% for game in games %}
+                {% for room in rooms %}
                 <tr class="b-table__row">
-                    <td class="b-table__string_thirty"><span class="wrap">{{ game.chair|name }}</td>
-                    <td class="b-table__string_thirty">{{ game.og.name }}</td>
-                    <td class="b-table__string_thirty">{{ game.oo.name }}</td>
-                    <td class="b-table__string_thirty">{{ game.cg.name }}</td>
-                    <td class="b-table__string_thirty">{{ game.co.name }}</td>
-                    <td class="b-table__string_thirty">404 аудитория</td>
+                    <td class="b-table__string_thirty"><span class="wrap">{{ room.game.chair|name }}</span></td>
+                    <td class="b-table__string_thirty">{{ room.game.og.name }}</td>
+                    <td class="b-table__string_thirty">{{ room.game.oo.name }}</td>
+                    <td class="b-table__string_thirty">{{ room.game.cg.name }}</td>
+                    <td class="b-table__string_thirty">{{ room.game.co.name }}</td>
+{#                    <td class="b-table__string_thirty">404 аудитория</td>#}
                 </tr>
                 {% endfor %}
                 </tbody>
