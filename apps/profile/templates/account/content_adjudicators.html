@@ -4,23 +4,19 @@
             <li class="b-tournamentlist-item">
 
                 <div class="b-tournamentlist-current">
-                 
+
                     <div class="list_item" id="adjudicator_{{ rel.id }}">
                         <h3 class="b-tournamentlist-current__heading"><a href="{% url 'tournament:show' rel.tournament.id %}">{{ rel.tournament.name }}</a></h3>
-                        
-                        <ul class="b-tournamentlist-current__column_third">
-                            <li class="b-tournamentlist-current__about_block">{{ rel.role.role }}</li>
-                        </ul>
 
                         <div class="b-tournamentlist-current__column_twothird b-tournamentlist-current__column_rightcolumnbigmargin">
-                           <span><span class="nolink"><p class="b-tournamentlist-current__registration_mine">Вывести статус судьи</p></span></span>
+                           <span><span class="nolink"><p class="b-tournamentlist-current__registration_mine">{{ rel.role.role }}</p></span></span>
                         </div>
 
                         <ul class="b-tournamentlist-current__column_twothird">
-                            
+
                             {% if is_owner %}
                             <li class="b-tournamentlist-current__about_block_nomargin">
-                                
+
                                 <div class="b-popup">
                                     <div class="b-popup__wrapper">
                                         <input type="checkbox" class="b-popup__checkbox" id="popupcheckbox">
@@ -28,12 +24,12 @@
                                             <div class="b-popup-window">
                                                 <h3 class="b-popup-window__heading">Не получится</h3>
                                                 <label for="popupcheckbox" class="b-popup-window__closer"><i class="fa fa-times"></i></label>
-                                                
+
                                                 <p><div class="b-popup-window__text" id="errors_{{ rel.id }}"></div></p>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
 
                                 <button class="b-tournamentlist-current__result_tounamentlist" onclick="remove_adjudicator(
