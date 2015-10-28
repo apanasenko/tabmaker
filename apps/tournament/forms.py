@@ -12,19 +12,19 @@ from . models import \
 class TournamentForm(forms.ModelForm):
 
     open_reg_date = forms.DateField(
-        widget=forms.DateInput(attrs={'class': 'datepicker', 'type': 'date', 'placeholder': 'Дата'}), label=u'Дата открытия регистрации')
+        widget=forms.DateInput(attrs={'class': 'datepicker b-form-item__input_quarter', 'type': 'date', 'placeholder': 'Дата'}), label=u'Дата открытия регистрации')
     open_reg_time = forms.TimeField(
-        widget=forms.DateInput(attrs={'class': 'timepicker', 'type': 'time', 'placeholder': 'Время'}), label=u'Время открытия регистрации')
+        widget=forms.DateInput(attrs={'class': 'timepicker b-form-item__input_ten', 'type': 'time', 'placeholder': 'Время'}), label=u'Время открытия регистрации')
 
     close_reg_date = forms.DateField(
-        widget=forms.DateInput(attrs={'class': 'datepicker', 'type': 'date', 'placeholder': 'Дата'}), label=u'Дата закрытия регистрации')
+        widget=forms.DateInput(attrs={'class': 'datepicker b-form-item__input_quarter', 'type': 'date', 'placeholder': 'Дата'}), label=u'Дата закрытия регистрации')
     close_reg_time = forms.TimeField(
-        widget=forms.DateInput(attrs={'class': 'timepicker', 'type': 'time', 'placeholder': 'Время'}), label=u'Время закрытия регистрации')
+        widget=forms.DateInput(attrs={'class': 'timepicker b-form-item__input_ten', 'type': 'time', 'placeholder': 'Время'}), label=u'Время закрытия регистрации')
 
     start_tour_date = forms.DateField(
-        widget=forms.DateInput(attrs={'class': 'datepicker', 'type': 'date', 'placeholder': 'Дата'}), label=u'Дата начала турнира')
+        widget=forms.DateInput(attrs={'class': 'datepicker datepicker b-form-item__input_quarter', 'type': 'date', 'placeholder': 'Дата'}), label=u'Дата начала турнира')
     start_tour_time = forms.TimeField(
-        widget=forms.DateInput(attrs={'class': 'timepicker', 'type': 'time', 'placeholder': 'Время'}), label=u'Время начала турнира')
+        widget=forms.DateInput(attrs={'class': 'timepicker b-form-item__input_ten', 'type': 'time', 'placeholder': 'Время'}), label=u'Время начала турнира')
 
     class Meta:
         model = Tournament
@@ -41,19 +41,19 @@ class TournamentForm(forms.ModelForm):
         ]
 
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'validate', 'placeholder': 'Название'}),
+            'name': forms.TextInput(attrs={'class': 'validate b-form-item__input_full', 'placeholder': 'Название'}),
             'location': forms.TextInput(attrs={
-                'class': 'validate',
+                'class': 'validate b-form-item__input_full',
                 'placeholder': 'Укажите место на карте',
                 'readonly': 'True',
             }),
             'location_lon': forms.HiddenInput(),
             'location_lat': forms.HiddenInput(),
-            'count_rounds': forms.NumberInput(attrs={'min': '0', 'placeholder': 'Количество раундов'}),
-            'count_teams': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Количество команд'}),
-            'count_teams_in_break': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Выходят в финал'}),
-            'link': forms.URLInput(attrs={'class': 'validate', 'placeholder': 'Cсылка в социальных сетях'}),
-            'info': forms.Textarea(attrs={'placeholder': 'О турнире'}),
+            'count_rounds': forms.NumberInput(attrs={'min': '0', 'placeholder': 'Количество раундов', 'class': 'b-form-item__input_quarter'}),
+            'count_teams': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Количество команд', 'class': 'b-form-item__input_quarter'}),
+            'count_teams_in_break': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Выходят в финал', 'class': 'b-form-item__input_quarter'}),
+            'link': forms.URLInput(attrs={'class': 'validate b-form-item__input_full', 'placeholder': 'Cсылка в социальных сетях'}),
+            'info': forms.Textarea(attrs={'placeholder': 'О турнире', 'class': 'b-form-item__input_full'}),
         }
 
         labels = {

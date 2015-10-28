@@ -39,27 +39,27 @@ class ProfileForm(forms.ModelForm):
         }
 
         widgets = {
-            'first_name': forms.TextInput(attrs={'class': 'validate'}),
-            'last_name': forms.TextInput(attrs={'class': 'validate'}),
-            'phone': forms.TextInput(attrs={'class': 'validate', 'type': 'tel', 'placeholder': '+79141234567'}),
-            'link': forms.URLInput(attrs={'class': 'validate', 'placeholder': 'http://vk.com/id0'}),
-            'player_experience': forms.Textarea(attrs={'placeholder': 'Опыт в дебатах'}),
-            'adjudicator_experience': forms.Textarea(attrs={'placeholder': 'Опыт судейства дебатов'}),
+            'first_name': forms.TextInput(attrs={'class': 'validate b-form-item__input_quarter'}),
+            'last_name': forms.TextInput(attrs={'class': 'validate b-form-item__input_quarter'}),
+            'phone': forms.TextInput(attrs={'class': 'validate b-form-item__input_quarter', 'type': 'tel', 'placeholder': '+79141234567'}),
+            'link': forms.URLInput(attrs={'class': 'validate b-form-item__input_quarter', 'placeholder': 'http://vk.com/id0'}),
+            'player_experience': forms.Textarea(attrs={'class': 'validate b-form-item__input_full', 'placeholder': 'Опыт в дебатах'}),
+            'adjudicator_experience': forms.Textarea(attrs={'class': 'validate b-form-item__input_full', 'placeholder': 'Опыт судейства дебатов'}),
         }
 
     @staticmethod
     def get_or_create_country(country_id, country_name):
-        country = Country.objects.filter(country_id=country_id)[0]
+        country = Country.objects.filter(country_id=country_id).last()
         return country if country else Country.objects.create(country_id=country_id, name=country_name)
 
     @staticmethod
     def get_or_create_city(city_id, city_name):
-        city = City.objects.filter(city_id=city_id)[0]
+        city = City.objects.filter(city_id=city_id).last()
         return city if city else City.objects.create(city_id=city_id, name=city_name)
 
     @staticmethod
     def get_or_create_university(country, city, university_id, university_name):
-        university = University.objects.filter(country=country, city=city, university_id=university_id)[0]
+        university = University.objects.filter(country=country, city=city, university_id=university_id).last()
         return university if university else University.objects.create(
             country=country, city=city,
             university_id=university_id,

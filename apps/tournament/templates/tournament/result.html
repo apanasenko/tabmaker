@@ -39,17 +39,16 @@
     </section>
 
     <section class="b-tabs__three">
+        <div class="b-tournament-info">
         {% for motion in motions %}
-            <h3>{{ motion.number }}</h3>
+            <h3 class="b-tournament-info__heading">{{ motion.number }}</h3>
             {% if motion.infoslide %}
                 Инфослайд: <br>
-                {{ motion.infoslide }}
-                <br><br>
+                <p>{{ motion.infoslide }}</p>
             {% endif %}
-            Резолюция: <br>
-            {{ motion.motion }}
-            <br><br>
+            <p>{{ motion.motion }}</p>
         {% endfor %}
+        </div>
     </section>
 
 </div>

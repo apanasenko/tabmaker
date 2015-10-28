@@ -1,6 +1,6 @@
 .b-teamlist {
 	padding: 30px 0 30px 0;
-	border-bottom: 1px $grey solid;
+	border-bottom: 1px $background-page solid;
 
 	&:hover {
 		background-color: $hover;
@@ -12,12 +12,15 @@
 	}
 
 	&__heading {
-		margin: 0 15px 0 0;
+		
+		&_mine {
+			margin: 0 0 20px 0;
+			width: 50%;
+		}
 
 		h3 {
 			display: inline;
-			margin-right: 15px;
-			margin-bottom: 0;
+			margin-right: 20px;
 
 			a {
 				display: inline;
@@ -28,9 +31,16 @@
 	}
 
 	&__status {
-		font-weight: 700;
 		color: $grey;
 		margin: 0 0 10px 0;
+
+		a {
+			display: inline;
+			border-bottom: 1px dashed $grey;
+			padding-bottom: 3px;
+			color: $grey;
+			font-weight: 400;
+		}
 	}
 
 	&__profile {
@@ -42,6 +52,44 @@
 			border-bottom: 1px dashed $grey;
 			padding-bottom: 3px;
 		}
+	}
+
+}
+
+.b-teamlist-tournament {
+	padding: 20px 0px 20px 0px;
+	border-bottom: 1px $background-page solid;
+	@include span(100% no-gutters);
+
+	&:hover {
+		background-color: $hover;
+		transition: background-color 0.2s ease;
+	}
+
+	&__wrapper {
+		margin: 0 20px;
+	}
+
+	&__team {
+		@include span(1 of 3 no-gutters);
+	}
+
+	&__actions {
+		@include span(2 of 3 last);
+		margin-top: 20px;
+	}
+
+	&__select {
+		float: right;
+		margin-left: 20px;
+	}
+
+	&__button {
+		float: right;
+	}
+
+	&__save {
+		padding: 20px 0 20px 0;
 	}
 
 }

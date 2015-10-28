@@ -19,10 +19,10 @@
 
     {% if is_success %}
         <div class="update_profile">
-            <h4>Профиль успешно обновлён</h4>
+            <h3>Профиль успешно обновлён</h3>
         </div>
     {% endif %}
-    <form class="" id="signup_form" method="post"
+    <form class="b-form" id="signup_form" method="post"
             {% if is_edit_form %} action="{% url 'profile:edit' user.id %}"
             {% else %} action="{% url 'account_signup' %}"
             {% endif %}
@@ -30,67 +30,69 @@
         {% csrf_token %}
         {{ form.non_field_errors }}
 
-            <div class="formItem">
-                {{ form.first_name.label_tag}}
+            <div class="b-form-item">
+                <h3 class="b-form-item__heading">{{ form.first_name.label_tag}}</h3>
                 {{ form.first_name }}
-                {{ form.first_name.errors  }}
+                {{ form.first_name.errors }}
             </div>
-            <div class="formItem">
-                {{ form.last_name.label_tag}}
+            <div class="b-form-item">
+                <h3 class="b-form-item__heading">{{ form.last_name.label_tag}}</h3>
                 {{ form.last_name }}
-                {{ form.last_name.errors  }}
+                {{ form.last_name.errors }}
             </div>
 
-            <div class="formItem row">
-                {{ form.country_id.label_tag }}
+            <div class="b-form-item">
+                <h3 class="b-form-item__heading">{{ form.country_id.label_tag }}</h3>
                 {{ form.country_id }}
                 {{ form.country_id.errors }}
             </div>
-            <div class="formItem">
-                {{ form.city_id.label_tag }}
+            <div class="b-form-item">
+                <h3 class="b-form-item__heading">{{ form.city_id.label_tag }}</h3>
                 {{ form.city_id }}
                 {{ form.city_id.errors }}
             </div>
-            <div class="formItem last">
-                {{ form.university_id.label_tag}}
+            <div class="b-form-item">
+                <h3 class="b-form-item__heading">{{ form.university_id.label_tag}}</h3>
                 {{ form.university_id }}
                 {{ form.university_id.errors }}
             </div>
             {% if not is_edit_form %}
-                <div class="formItem row">
-                    {{ form.email.label_tag }}
+                <div class="b-form-item">
+                    <h3 class="b-form-item__heading">{{ form.email.label_tag }}</h3>
                     {{ form.email }}
                     {{ form.email.errors }}
                 </div>
             {% endif %}
-            <div class="formItem">
-                {{ form.phone.label_tag }}
+            <div class="b-form-item">
+                <h3 class="b-form-item__heading">{{ form.phone.label_tag }}</h3>
                 {{ form.phone }}
                 {{ form.phone.errors }}
             </div>
             {% if not is_edit_form %}
-                <div class="formItem row">
-                    {{ form.password1.label_tag }}
+                <div class="b-form-item">
+                    <h3 class="b-form-item__heading">{{ form.password1.label_tag }}</h3>
                     {{ form.password1 }}
                     {{ form.password1.errors }}
                 </div>
-                <div class="formItem">
+                <div class="b-form-item">
                     {{ form.password2.label_tag }}
                     {{ form.password2 }}
                     {{ form.password2.errors }}
                 </div>
             {% endif %}
-            <div class="formItem row">
-                {{ form.link.label_tag }}
+            <div class="b-form-item">
+                <h3 class="b-form-item__heading">{{ form.link.label_tag }}</h3>
                 {{ form.link }}
                 {{ form.link.errors }}
             </div>
 
-            <div class="formItem row" id="player_experience">
+            <div class="b-form-item" id="player_experience">
+                <h3 class="b-form-item__heading">Игровой опыт</h3>
                 {{ form.player_experience }}
                 {{ form.player_experience.errors }}
             </div>
-            <div class="formItem" id="adjudicator_experience">
+            <div class="b-form-item" id="adjudicator_experience">
+                <h3 class="b-form-item__heading">Судейский опыт</h3>
                 {{ form.adjudicator_experience }}
                 {{ form.adjudicator_experience.errors }}
             </div>
@@ -102,7 +104,7 @@
         {{ form.city_name }}
         {{ form.university_name }}
 
-        <button type="submit" class="button formItem">
+        <button type="submit" class="button">
             {% if is_edit_form %}
                 Сохранить
             {% else %}
@@ -111,7 +113,7 @@
         </button>
 
         {% if is_edit_form %}
-            <button class="button formItem">
+            <button class="button">
                 <a href="{% url 'account_change_password' %}">Изменить пароль</a>
             </button>
         {% endif %}

@@ -1,23 +1,53 @@
-{% extends "main/base.html" %}
+{% extends "account/base_include_js.html" %}
 
 {% load profile_extras %}
 
 {% block page_title %}
-    <h3>{{ user|name }}</h3>
+    {% if is_owner %}
+        <h3>Мой профиль</h3>
+    {% else %}
+        <h3>{{ user|name }}</h3>
+    {% endif %}
+
 {% endblock page_title %}
 
 {% block content %}
 
-    <div class="b-profile">
+<div class="b-profile">
 
-        {% include 'account/content_info.html' with user=user %}
+    <div class="b-tabs">
 
-        {% if request.user == user %}
+        <input id="tab1" type="radio" name="tabs" class="b-tabs__input" checked>
+        <label for="tab1" class="b-tabs__label" title="Информация">Информация</label>
 
-        <a class="b-profile__button" href="{% url 'profile:edit' user.id%}">Редактировать</a>
+        <input id="tab2" type="radio" name="tabs" class="b-tabs__input">
+        <label for="tab2" class="b-tabs__label" title="Команды">Команды</label>
 
-        {% endif %}
+{#        <input id="tab3" type="radio" name="tabs" class="b-tabs__input">#}
+{#        <label for="tab3" class="b-tabs__label">Результаты</label>#}
+
+        <input id="tab4" type="radio" name="tabs" class="b-tabs__input">
+        <label for="tab4" class="b-tabs__label">Судейство</label>
+
+        <section class="b-tabs__one">
+            {% include 'account/content_info.html' with user=user %}
+        </section>
+
+        <section class="b-tabs__two">
+            {% include 'account/content_teams.html' with objects=teams_objects is_owner=is_owner %}
+        </section>
+
+{#        <section class="b-tabs__three">#}
+{#            {% include 'account/user_result.html' with user=user %}#}
+{#        </section>#}
+
+        <section class="b-tabs__four">
+            {% include 'account/content_adjudicators.html' with objects=adjudicators_objects is_owner=is_owner %}
+        </section>
 
     </div>
+
+</div>
+
 
 {% endblock content %}

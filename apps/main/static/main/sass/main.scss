@@ -7,19 +7,24 @@
 @import "modules/mixins";
 @import "modules/layout";
 @import "modules/header";
+@import "modules/tables";
+@import "modules/rounds";
 @import "modules/tournamentlist";
+@import "modules/tournamentinfo";
 @import "modules/teamlist";
 @import "modules/sidebar";
 @import "modules/forms";
 @import "modules/profile";
 @import "modules/tabs";
+@import "modules/popups";
+@import "modules/tooltips";
 @import "modules/footer";
 
 
 // content section
 
 .content_conteiner {
-	padding: 30px 15px;
+	padding: 25px;
 	min-height: 68vh;
 }
 
@@ -31,25 +36,6 @@
 	background-color: $background-block;
 	border-radius: 3px;
 	vertical-align: top;
-}
-
-
-.b-tournament-info {
-	padding: 20px 0px;
-
-	&__heading {
-		margin-top: 25px;
-	}
-
-	&__status {
-		display: block;
-	}
-
-}
-
-.b-tournament-info-reg {
-	margin-top: 30px;
-	min-height: 80px;
 }
 
 // email-confirms

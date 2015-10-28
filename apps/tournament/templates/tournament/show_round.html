@@ -28,23 +28,42 @@
         <label for="tab2" class="b-tabs__label" title="Команды">Румы</label>
 
         <section class="b-tabs__one">
+        <div class="b-resolution">
             {% if round.motion.infoslide %}
                 Инфослайд: <br>
-                {{ motion.infoslide }}
+                <p class="b-resolution__infoslide">{{ motion.infoslide }}</p>
                 <br><br>
             {% endif %}
             Резолюция: <br>
-            {{ round.motion.motion }}
+            <p class="b-resolution__motion">{{ round.motion.motion }}</p>
+        </div>
         </section>
 
         <section class="b-tabs__two">
-            {% for room in rooms %}
-                <p>Cудья: {{ room.game.chair|name }}</p>
-                Первое правительство: {{ room.game.og.name }} <br>
-                Первая опозиция: {{ room.game.oo.name }} <br>
-                Второе правительство: {{ room.game.cg.name }} <br>
-                Вторая опозиция: {{ room.game.co.name }} <br>
-            {% endfor %}
+        <div class="b-rooms">
+            <table class="b-table">
+                <tbody>
+                <tr class="b-table__headrow">
+                    <th class="b-table__headstring_thirty"><span class="wrap">Cудья</span></th>
+                    <th class="b-table__headstring_thirty">Первое правительство</th>
+                    <th class="b-table__headstring_thirty">Первая опозиция</th>
+                    <th class="b-table__headstring_thirty">Второе правительство</th>
+                    <th class="b-table__headstring_thirty">Вторая опозиция</th>
+{#                    <th class="b-table__headstring_thirty">Место</th>#}
+                </tr>
+                {% for room in rooms %}
+                <tr class="b-table__row">
+                    <td class="b-table__string_thirty"><span class="wrap">{{ room.game.chair|name }}</span></td>
+                    <td class="b-table__string_thirty">{{ room.game.og.name }}</td>
+                    <td class="b-table__string_thirty">{{ room.game.oo.name }}</td>
+                    <td class="b-table__string_thirty">{{ room.game.cg.name }}</td>
+                    <td class="b-table__string_thirty">{{ room.game.co.name }}</td>
+{#                    <td class="b-table__string_thirty">404 аудитория</td>#}
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
         </section>
     </div>
 

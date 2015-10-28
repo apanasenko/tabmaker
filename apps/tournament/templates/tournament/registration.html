@@ -13,7 +13,7 @@
 
 {% block content %}
 
-    <form action="{% if show_speaker_1 %}
+    <form class="b-form" action="{% if show_speaker_1 %}
                         {% url "tournament:add_team" tournament.id %}
                   {% else %}
                         {% url "tournament:registration_team" tournament.id %}
@@ -29,43 +29,40 @@
         {% endif %}
 
         {% if saved_team %}
-            <p><h5>Команда {{ saved_team }} была успешно добавлена в турнир {{ tournament.name }}</h5></p>
+            <h3>Команда {{ saved_team }} была успешно добавлена в турнир {{ tournament.name }}</h3>
         {% endif %}
 
-        <div class="formItem">
-            <label for="id_name">Название</label>
+        <div class="b-form-item">
+            <label for="id_name"> <h3 class="b-form-item__heading">Название команды</h3></label>
             {{ form.name }}
             {{ form.name.errors }}
-        </div>
-        <div class="formItem">
 
             {% if show_speaker_1 %}
 
-                <label for="id_speaker_1">E-mail первого спикера</label>
+                <label for="id_speaker_1"><h3 class="b-form-item__heading">E-mail первого спикера</h3></label>
                 {{ form.speaker_1 }}
                 {{ form.speaker_1.errors }}
                 </div>
                 <div class="formItem">
-                <label for="id_speaker_2">E-mail второго спикера</label>
+                <label for="id_speaker_2"><h3 class="b-form-item__heading">E-mail второго спикера</h3></label>
             {% else %}
 
                 {{ form.speaker_1 }}
-                <label for="id_speaker_2">E-mail вашего напарника</label>
+                <label for="id_speaker_2"><h3 class="b-form-item__heading">E-mail вашего напарника</h3></label>
 
             {% endif %}
 
             {{ form.speaker_2 }}
             {{ form.speaker_2.errors }}
-
-        </div>
-
-
-        <div class="textarea">
-            <label for="id_info">Описание</label>
-            {{ form.info }}
-            {{ form.info.errors }}
-        </div>
-        <button type="submit" class="button formItem" value="Отправить">Отправить</button>
+            
+            <div class="textarea">
+                <label for="id_info"><h3 class="b-form-item__heading">Информация для организаторов</h3></label>
+                {{ form.info }}
+                {{ form.info.errors }}
+            </div>
+            
+         </div>
+        <button type="submit" class="button" value="Отправить">Отправить</button>
     </form>
 
 {% endblock content %}

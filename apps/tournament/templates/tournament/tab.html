@@ -1,15 +1,19 @@
 {% if tab|length > 1 %}
-    <table>
+    <table class="b-table">
+    <tbody>
+    
     {% for tr in tab %}
-        <tr>
+        <tr class="b-table__row">
             {% for td in tr %}
-                <td>{{ td }}</td>
+                <td class="b-table__string_narrow">{{ td }}</td>
             {% endfor %}
         </tr>
     {% endfor %}
+
+    </tbody>
     </table>
 {% else %}
 
-    <h4>Результатов нет</h4>
+    <h3>Результатов нет</h3>
 
 {% endif %}
