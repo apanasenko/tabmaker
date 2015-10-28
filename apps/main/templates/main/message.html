@@ -13,11 +13,8 @@
     </div>
 
     <div id="message_back" class="formItem full">
-        {% if url %}
-            <a class="button formItem" href="{{ url }}">Назад</a>
-        {% else %}
-            <a class="button formItem" href="{% url "main:index" %}">На главную</a>
-        {% endif %}
+        <a class="button formItem" href="{% if url %}{{ url }}{% else %}javascript:history.back(){% endif %}">Назад</a>
+        <a class="button formItem" href="{% url "main:index" %}">На главную</a>
     </div>
 
 {% endblock content %}

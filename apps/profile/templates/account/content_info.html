@@ -4,9 +4,13 @@
 
 <p class="b-profile__item">Университет: {{ user.university.name }}</p>
 
-<p class="b-profile__item">Email: {{ user.email }}</p>
+{% if request.user == user %}
 
-<p class="b-profile__item">Телефон: {{ user.phone }}</p>
+    <p class="b-profile__item">Email: {{ user.email }}</p>
+
+    <p class="b-profile__item">Телефон: {{ user.phone }}</p>
+
+{% endif %}
 
 <p class="b-profile__item">Страница в соц.сети: <a href="{{ user.link }}">{{ user.link }}</a></p>
 

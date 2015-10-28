@@ -26,7 +26,7 @@
 
     <input id="tab1" type="radio" name="tabs" class="b-tabs__input" checked>
     <label for="tab1" class="b-tabs__label" title="Информация">Информация</label>
-    
+
     <input id="tab2" type="radio" name="tabs" class="b-tabs__input">
     <label for="tab2" class="b-tabs__label" title="Команды">Команды</label>
 
@@ -37,7 +37,7 @@
     <label for="tab4" class="b-tabs__label" title="Место">Место</label>
 
     <section class="b-tabs__one">
-       {% include "tournament/tournament_info.html" with tournament=tournament %}
+       {% include "tournament/tournament_info.html" with tournament=tournament is_chair=is_chair %}
     </section>
 
     <section class="b-tabs__two">

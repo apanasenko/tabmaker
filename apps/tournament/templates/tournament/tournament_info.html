@@ -45,10 +45,15 @@
 
             {% endif %}
 
-            <a class="b-tournament-reg__regbutton button formItem" href="{% url "tournament:result" tournament.id %}">Результаты</a>
+            <a class="b-tournament-reg__regbutton button formItem" href="{% url "tournament:result" tournament.id %}">Теб</a>
 
         {% endif %}
 
+        {% if is_chair %}
+            <a class="b-tournament-reg__regbutton button formItem" href="{% url "tournament:result_round" tournament.id %}">
+                Ввести результаты
+            </a>
+        {% endif %}
 
     </div>
 
