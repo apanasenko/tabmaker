@@ -23,8 +23,8 @@
         <input id="tab2" type="radio" name="tabs" class="b-tabs__input">
         <label for="tab2" class="b-tabs__label" title="Команды">Команды</label>
 
-        <input id="tab3" type="radio" name="tabs" class="b-tabs__input">
-        <label for="tab3" class="b-tabs__label">Результаты</label>
+{#        <input id="tab3" type="radio" name="tabs" class="b-tabs__input">#}
+{#        <label for="tab3" class="b-tabs__label">Результаты</label>#}
 
         <input id="tab4" type="radio" name="tabs" class="b-tabs__input">
         <label for="tab4" class="b-tabs__label">Судейство</label>
@@ -37,9 +37,9 @@
             {% include 'account/content_teams.html' with objects=teams_objects is_owner=is_owner %}
         </section>
 
-        <section class="b-tabs__three">
-            {% include 'account/user_result.html' with user=user %}
-        </section>
+{#        <section class="b-tabs__three">#}
+{#            {% include 'account/user_result.html' with user=user %}#}
+{#        </section>#}
 
         <section class="b-tabs__four">
             {% include 'account/content_adjudicators.html' with objects=adjudicators_objects is_owner=is_owner %}
