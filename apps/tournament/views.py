@@ -38,7 +38,6 @@ from .models import \
 
 from .logic import \
     can_change_team_role, \
-    can_show_round, \
     check_last_round_results, \
     generate_next_round, \
     generate_playoff, \
@@ -208,7 +207,7 @@ def new(request):
     )
 
 
-@access_by_status()
+@access_by_status(name_page='show')
 def show(request, tournament):
     return render(
         request,
@@ -295,14 +294,14 @@ def remove(request, tournament):
 ##################################
 
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='registration_action')  # TODO  Добавить в таблицу доступа
+@access_by_status(name_page='registration opening')
 def registration_opening(request, tournament):
     tournament.set_status(STATUS_REGISTRATION)
     return redirect('tournament:show', tournament_id=tournament.id)
 
 
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='registration_action')  # TODO  Добавить в таблицу доступа
+@access_by_status(name_page='registration closing')
 def registration_closing(request, tournament):
     if tournament.status == STATUS_STARTED and tournament.cur_round > 0:
         return _show_message(request, MSG_MUST_REMOVE_ROUNDS)
@@ -312,7 +311,7 @@ def registration_closing(request, tournament):
 
 
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='team/adju. edit')  # TODO  Добавить в таблицу доступа
+@access_by_status(name_page='start')
 def start(request, tournament):
     if tournament.status == STATUS_PREPARATION:
         count_teams = tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count()
@@ -428,12 +427,8 @@ def next_round(request, tournament):
     )
 
 
-@access_by_status()  # TODO добавить в таблицу
+@access_by_status(name_page='round_show')
 def show_round(request, tournament):
-    check_result = can_show_round(tournament)
-    if not check_result[0]:
-        return _show_message(request, check_result[1])
-
     rooms = get_rooms_from_last_round(tournament)
     return render(
         request,
@@ -555,7 +550,7 @@ def registration_team(request, tournament):
 
 
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='')  # TODO добавить в таблицу
+@access_by_status(name_page='team/adju. add')
 def add_team(request, tournament):
     saved_team = None
     if request.method == 'POST':
@@ -643,7 +638,7 @@ def registration_adjudicator(request, tournament):
 
 
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='')  # TODO добавить в таблицу
+@access_by_status(name_page='team/adju. add')
 def add_adjudicator(request, tournament):
     return redirect('tournament:edit_adjudicator_list', tournament_id=tournament.id)
 

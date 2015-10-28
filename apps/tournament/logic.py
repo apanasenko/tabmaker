@@ -594,15 +594,3 @@ def user_can_edit_tournament(tournament: Tournament, user: User):
         user=user,
         role__in=[ROLE_OWNER, ROLE_ADMIN, ROLE_CHIEF_ADJUDICATOR]
     ))
-
-
-# TODO Убрать в таблицу доступа
-def can_show_round(tournament):
-    if tournament.status in [STATUS_REGISTRATION, STATUS_PREPARATION] or tournament.cur_round == 0:
-        return [False, 'Турнир ещё не начался']
-
-    if tournament.status == STATUS_FINISHED:
-        return [False, 'Турнир уже закончился']
-
-    else:
-        return [True, '']
