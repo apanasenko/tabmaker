@@ -37,7 +37,7 @@
     <label for="tab4" class="b-tabs__label" title="Место">Место</label>
 
     <section class="b-tabs__one">
-       {% include "tournament/tournament_info.html" with tournament=tournament %}
+       {% include "tournament/tournament_info.html" with tournament=tournament is_chair=is_chair %}
     </section>
 
     <section class="b-tabs__two">

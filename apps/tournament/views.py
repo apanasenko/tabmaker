@@ -41,9 +41,10 @@ from .logic import \
     check_last_round_results, \
     generate_next_round, \
     generate_playoff, \
-    get_games_and_results_from_last_round, \
+    get_games_and_results, \
     get_motions, \
     get_rooms_from_last_round, \
+    get_rooms_by_chair_from_last_round, \
     get_tab, \
     get_teams_by_user, \
     remove_last_round, \
@@ -174,6 +175,26 @@ def _convert_tab_to_speaker_table(table: list, is_show):
     return lines
 
 
+def _get_or_check_round_result_forms(request, rooms):
+    all_is_valid = True
+    forms = []
+    for room in get_games_and_results(rooms):
+        if request.method == 'POST':
+            form = ResultGameForm(request.POST, instance=room['result'], prefix=room['game'].id)
+            all_is_valid &= form.is_valid()
+            if form.is_valid():
+                form.save()
+        else:
+            form = ResultGameForm(instance=room['result'], prefix=room['game'].id)
+            form.initial['game'] = room['game'].id
+
+        forms.append({
+            'game': room['game'],
+            'result': form,
+        })
+    return all_is_valid, forms
+
+
 ##################################
 #    Management of tournament    #
 ##################################
@@ -208,6 +229,9 @@ def new(request):
 
 @access_by_status(name_page='show')
 def show(request, tournament):
+    is_chair = request.user.is_authenticated() \
+        and tournament.status in [STATUS_PLAYOFF, STATUS_STARTED] \
+        and get_rooms_by_chair_from_last_round(tournament, request.user)
     return render(
         request,
         'tournament/show.html',
@@ -216,6 +240,7 @@ def show(request, tournament):
             'team_tournament_rels': tournament.teamtournamentrel_set.all().order_by('-role_id', '-id'),
             'adjudicators': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id'),
             'is_owner': user_can_edit_tournament(tournament, request.user),
+            'is_chair': is_chair
         }
     )
 
@@ -475,25 +500,22 @@ def edit_round(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='round_result')
 def result_round(request, tournament):
-    all_is_valid = True
-    forms = []
-    for room in get_games_and_results_from_last_round(tournament):
-        if request.method == 'POST':
-            form = ResultGameForm(request.POST, instance=room['result'], prefix=room['game'].id)
-            all_is_valid &= form.is_valid()
-            if form.is_valid():
-                form.save()
+    is_owner = user_can_edit_tournament(tournament, request.user)
+    if is_owner:
+        rooms = get_rooms_from_last_round(tournament)
+    else:
+        rooms = get_rooms_by_chair_from_last_round(tournament, request.user)
+
+    if not is_owner and not rooms:
+        return _show_message(request, MSG_NO_ACCESS_IN_RESULT_PAGE)
+
+    is_valid, forms = _get_or_check_round_result_forms(request, rooms)
+
+    if is_valid and request.method == 'POST':
+        if is_owner:
+            return redirect('tournament:play', tournament_id=tournament.id)
         else:
-            form = ResultGameForm(instance=room['result'], prefix=room['game'].id)
-            form.initial['game'] = room['game'].id
-
-        forms.append({
-            'game': room['game'],
-            'result': form,
-        })
-
-    if all_is_valid and request.method == 'POST':
-        return redirect('tournament:play', tournament_id=tournament.id)
+            return redirect('tournament:show', tournament_id=tournament.id)
 
     return render(
         request,

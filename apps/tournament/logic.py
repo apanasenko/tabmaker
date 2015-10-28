@@ -495,9 +495,9 @@ def generate_playoff(tournament: Tournament, teams: list):
         )
 
 
-def get_games_and_results_from_last_round(tournament: Tournament):
+def get_games_and_results(rooms: [Room]):
     results = []
-    for room in Room.objects.filter(round=_get_last_round(tournament)):
+    for room in rooms:
         try:
             result = GameResult.objects.get(game=room.game)
         except ObjectDoesNotExist:
@@ -535,6 +535,10 @@ def get_motions(tournament: Tournament):
 
 def get_rooms_from_last_round(tournament: Tournament):
     return Room.objects.filter(round=_get_last_round(tournament))
+
+
+def get_rooms_by_chair_from_last_round(tournament: Tournament, user: User) -> Room:
+    return Room.objects.filter(round=_get_last_round(tournament), game__chair=user)
 
 
 def get_tab(tournament: Tournament):
