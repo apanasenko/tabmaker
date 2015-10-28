@@ -1,9 +1,14 @@
-{% extends "main/base.html" %}
+{% extends "account/base_include_js.html" %}
 
 {% load profile_extras %}
 
 {% block page_title %}
-    Ваш профиль
+    {% if is_owner %}
+        <h3>Мой профиль</h3>
+    {% else %}
+        <h3>{{ user|name }}</h3>
+    {% endif %}
+
 {% endblock page_title %}
 
 {% block content %}
@@ -31,7 +36,7 @@
         <section class="b-tabs__two">
             {% include 'account/content_teams.html' with objects=teams_objects is_owner=is_owner %}
         </section>
-        
+
         <section class="b-tabs__three">
             {% include 'account/user_result.html' with user=user %}
         </section>
