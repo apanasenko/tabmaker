@@ -1,26 +1,26 @@
 {% load profile_extras %}
 
-<div class="team">
-    <div class="team_place">
-        {{ team.errors }}
-        {{ game.name }}
+<div class="b-result-room__team">
+    <div class="b-result-room__teamresult">
+        <p>{{ team.errors }}</p>
+        <p>{{ game.name }}</p>
         {{ team }}
     </div>
 
-    <div class="speaker_1">
-        {{ speaker_1.errors }}
-        {{ game.speaker_1|name }}
+    <div class="b-result-room__speaker1">
+        <p>{{ speaker_1.errors }}</p>
+        <p>{{ game.speaker_1|name }}</p>
         {{ speaker_1 }}
     </div>
 
-    <div class="speaker_2">
-        {{ speaker_2.errors }}
-        {{ game.speaker_2|name }}
+    <div class="b-result-room__speaker2">
+        <p>{{ speaker_2.errors }}</p>
+        <p>{{ game.speaker_2|name }}</p>
         {{ speaker_2 }}
     </div>
 
-    <div class="is_rev">
+    <div class="b-result-room__reverse">
         {{ is_rev }}
-        {{ is_rev.label_tag }}
+        <p>{{ is_rev.label_tag }}</p>
     </div>
 </div>
