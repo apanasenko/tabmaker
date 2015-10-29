@@ -100,6 +100,9 @@ header .header_container #header_button a { text-align: center; color: white; }
 /* line 48, modules/_tables.scss */
 .b-table__row:hover { background-color: #F6F6F6; }
 
+/* line 1, modules/_rounds.scss */
+.b-resolution { padding: 20px; }
+
 /* line 1, modules/_tournamentlist.scss */
 .b-tournamentlist-item { display: block; width: 100%; float: left; margin-left: 0; margin-right: 0; min-height: 50px; padding: 20px 0px 20px 0px; border-bottom: #E9EBEC 1px solid; }
 /* line 8, modules/_tournamentlist.scss */
@@ -240,20 +243,20 @@ aside { display: inline-block; width: 20%; }
 .b-result-room__adjudicator { @iclude span(100% no-gutters); background-color: #E2DFDA; height: 40px; outline: 1px solid #ECEEF1; }
 /* line 11, modules/_result.scss */
 .b-result-room__adjudicator_heading { text-align: center; padding-top: 10px; }
-/* line 21, modules/_result.scss */
+/* line 17, modules/_result.scss */
 .b-result-room__og, .b-result-room__cg, .b-result-room__oo, .b-result-room__co { padding: 20px 0 20px 20px; outline: 1px solid #ECEEF1; outline-offset: 0px; }
-/* line 27, modules/_result.scss */
+/* line 23, modules/_result.scss */
 .b-result-room__og, .b-result-room__cg { width: 48%; float: left; }
-/* line 31, modules/_result.scss */
+/* line 27, modules/_result.scss */
 .b-result-room__oo, .b-result-room__co { width: 47%; float: right; margin-right: 0; }
-/* line 37, modules/_result.scss */
+/* line 33, modules/_result.scss */
 .b-result-room__teamresult p, .b-result-room__teamresult input, .b-result-room__teamresult label, .b-result-room__speaker1 p, .b-result-room__speaker1 input, .b-result-room__speaker1 label, .b-result-room__speaker2 p, .b-result-room__speaker2 input, .b-result-room__speaker2 label, .b-result-room__reverse p, .b-result-room__reverse input, .b-result-room__reverse label { display: inline; }
-/* line 41, modules/_result.scss */
+/* line 37, modules/_result.scss */
 .b-result-room__teamresult input, .b-result-room__speaker1 input, .b-result-room__speaker2 input, .b-result-room__reverse input { height: 15px; background-color: transparent; min-width: 80px; }
 
-/* line 51, modules/_result.scss */
+/* line 47, modules/_result.scss */
 .b-result-submit { padding: 0 0 20px 0; }
-/* line 54, modules/_result.scss */
+/* line 50, modules/_result.scss */
 .b-result-submit button { margin: 0 auto; display: block; }
 
 /* line 1, modules/_forms.scss */
