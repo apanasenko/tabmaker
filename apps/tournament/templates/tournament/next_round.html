@@ -6,39 +6,33 @@
 
 
 {% block content %}
-    <form class="page col s9" action="{% url "tournament:next_round" tournament.id %}" method="post">
+    <form class="b-next" action="{% url "tournament:next_round" tournament.id %}" method="post">
         {% csrf_token %}
         {{ motion_form.non_field_errors }}
         {{ round_form.non_field_errors }}
-        <div class="row">
-            <div class="input-field col s8">
-                {{ motion_form.motion.errors }}
-                {{ motion_form.motion.label_tag }}
-                {{ motion_form.motion }}
-            </div>
+        <div class="b-next-block">
+            {{ motion_form.motion.errors }}
+            <h3>{{ motion_form.motion.label_tag }}</h3>
+            {{ motion_form.motion }}
         </div>
-        <div class="row">
-            <div class="input-field col s8">
-                {{ motion_form.infoslide.errors }}
-                {{ motion_form.infoslide.label_tag }}
-                {{ motion_form.infoslide }}
-            </div>
+        <div class="b-next-block">
+            {{ motion_form.infoslide.errors }}
+            <h3>{{ motion_form.infoslide.label_tag }}</h3>
+            {{ motion_form.infoslide }}
         </div>
 
-        <div class="row">
-            <div class="input-field col s3">
-                {{ round_form.start_round_time.errors }}
-                {{ round_form.start_round_time.label_tag }}
-                {{ round_form.start_round_time }}
-            </div>
-            <div class="input-field col s3">
-                {{ round_form.is_closed.errors }}
-                {{ round_form.is_closed }}
-                {{ round_form.is_closed.label_tag }}
-            </div>
+        <div class="b-next-block">
+            {{ round_form.start_round_time.errors }}
+            {{ round_form.start_round_time.label_tag }}
+            {{ round_form.start_round_time }}
+            {{ round_form.is_closed.errors }}
+        <div class="b-next-block__closed">
+            {{ round_form.is_closed }}
+            {{ round_form.is_closed.label_tag }}
         </div>
-        <div class="row">
-            <button type="submit" class="waves-effect waves-light btn">Далее</button>
+        </div>
+        <div class="b-next-block__button">
+            <button type="submit" class="button">Далее</button>
         </div>
     </form>
 {% endblock content %}

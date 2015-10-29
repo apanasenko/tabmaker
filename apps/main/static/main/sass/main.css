@@ -103,6 +103,26 @@ header .header_container #header_button a { text-align: center; color: white; }
 /* line 1, modules/_rounds.scss */
 .b-resolution { padding: 20px; }
 
+/* line 5, modules/_rounds.scss */
+.b-next { padding: 20px; }
+
+/* line 9, modules/_rounds.scss */
+.b-next-block { width: 100%; float: left; margin-right: 1.20482%; }
+/* line 12, modules/_rounds.scss */
+.b-next-block input { margin: 0 0 10px 0; }
+/* line 16, modules/_rounds.scss */
+.b-next-block textarea { width: 98%; height: 60px; }
+/* line 21, modules/_rounds.scss */
+.b-next-block label { margin: 0 0 10px 0; }
+/* line 25, modules/_rounds.scss */
+.b-next-block__closed { padding: 20px 0 20px 0; }
+/* line 28, modules/_rounds.scss */
+.b-next-block__closed input { margin: 0; height: 14px; }
+/* line 33, modules/_rounds.scss */
+.b-next-block__closed label { display: inline; height: 20px; }
+/* line 39, modules/_rounds.scss */
+.b-next-block__button { padding: 10px 0; }
+
 /* line 1, modules/_tournamentlist.scss */
 .b-tournamentlist-item { display: block; width: 100%; float: left; margin-left: 0; margin-right: 0; min-height: 50px; padding: 20px 0px 20px 0px; border-bottom: #E9EBEC 1px solid; }
 /* line 8, modules/_tournamentlist.scss */
@@ -175,6 +195,17 @@ header .header_container #header_button a { text-align: center; color: white; }
 .b-tournament-reg__button { display: inline-block; text-decoration: none; padding: 8px 16px; border-radius: 5px; border: none; color: #ffffff; font-family: inherit; font-size: 14px; min-height: 20px; background-color: #424E5A; box-sizing: border-box; }
 /* line 18, modules/_mixins.scss */
 .b-tournament-reg__button:hover { background-color: #0C152A; transition: background-color 0.3s ease; }
+
+/* line 33, modules/_tournamentinfo.scss */
+.b-tournament-summary { padding: 20px; }
+
+/* line 37, modules/_tournamentinfo.scss */
+.b-tournament-summary-status { margin: 0 0 20px 0; }
+/* line 40, modules/_tournamentinfo.scss */
+.b-tournament-summary-status__info { display: block; line-height: 1.5; }
+
+/* line 48, modules/_tournamentinfo.scss */
+.b-tournament-summary-commands a, .b-tournament-summary-commands input { display: inline-block; }
 
 /* line 1, modules/_teamlist.scss */
 .b-teamlist { padding: 30px 0 30px 0; border-bottom: 1px #ECEEF1 solid; }
@@ -265,7 +296,7 @@ input, select, textarea { padding: 5px 0px 5px 10px; height: 25px; border-radius
 input:focus, select:focus, textarea:focus { border: 2px solid #0D8153; }
 
 /* line 17, modules/_forms.scss */
-textarea { min-height: 100px; font-family: "PT Sans", Arial, sans-serif; font-weight: 14px; }
+textarea { min-height: 30px; font-family: "PT Sans", Arial, sans-serif; font-weight: 14px; }
 
 /* line 23, modules/_forms.scss */
 select { -webkit-appearance: none; height: 35px; min-width: 170px; }
