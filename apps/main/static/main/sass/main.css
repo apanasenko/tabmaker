@@ -279,7 +279,7 @@ aside { display: inline-block; width: 20%; }
 /* line 23, modules/_result.scss */
 .b-result-room__og, .b-result-room__cg { width: 47%; float: left; }
 /* line 27, modules/_result.scss */
-.b-result-room__oo, .b-result-room__co { width: 47%; float: right; margin-right: 0; }
+.b-result-room__oo, .b-result-room__co { width: 48%; float: right; margin-right: 0; }
 /* line 33, modules/_result.scss */
 .b-result-room__teamresult p, .b-result-room__teamresult input, .b-result-room__teamresult label, .b-result-room__speaker1 p, .b-result-room__speaker1 input, .b-result-room__speaker1 label, .b-result-room__speaker2 p, .b-result-room__speaker2 input, .b-result-room__speaker2 label, .b-result-room__reverse p, .b-result-room__reverse input, .b-result-room__reverse label { display: inline; }
 /* line 37, modules/_result.scss */
@@ -427,13 +427,13 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 /* line 27, modules/_footer.scss */
 .b-footer__contact li { display: inline; color: #aeb8bc; margin-right: 20px; }
 
-/* line 27, main.scss */
+/* line 28, main.scss */
 .content_conteiner { padding: 25px; min-height: 68vh; }
 
-/* line 32, main.scss */
+/* line 33, main.scss */
 .content { max-width: 100%; margin-left: auto; margin-right: auto; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); display: inline-block; width: 60%; background-color: #ffffff; border-radius: 3px; vertical-align: top; }
 /* line 12, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/susy-2.2.5/sass/susy/output/support/_clearfix.scss */
 .content:after { content: " "; display: block; clear: both; }
 
-/* line 47, main.scss */
+/* line 48, main.scss */
 #email_confirm h3 { text-align: center; }

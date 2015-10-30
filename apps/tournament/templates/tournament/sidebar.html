@@ -2,6 +2,7 @@
 
     <ul class="b-sidebar__list">
         <h3 class="b-sidebar__heading">Турнир</h3>
+        <li class="b-sidebar__listitem"><a href="{% url "tournament:play" tournament.id %}"><i class="fa fa-play-circle"></i>Админка турнира</a></li>
         <li class="b-sidebar__listitem"><a href="{% url "tournament:check_team_list" tournament.id %}"><i class="fa fa-play-circle"></i>Начать</a></li>
         <li class="b-sidebar__listitem"><a href="{% url "tournament:edit" tournament.id %}"><i class="fa fa-pencil"></i>Редактировать</a></li>
         <li class="b-sidebar__listitem"><a href="{% url "tournament:edit_team_list" tournament.id %}"><i class="fa fa-users"></i>Команды</a></li>
