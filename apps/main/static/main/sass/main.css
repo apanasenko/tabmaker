@@ -207,6 +207,23 @@ header .header_container #header_button a { text-align: center; color: white; }
 /* line 48, modules/_tournamentinfo.scss */
 .b-tournament-summary-commands a, .b-tournament-summary-commands input { display: inline-block; }
 
+/* line 1, modules/_message.scss */
+.b-message { padding: 20px; }
+/* line 4, modules/_message.scss */
+.b-message__back { padding: 0 20px 20px 20px; }
+/* line 8, modules/_message.scss */
+.b-message__section { width: 100%; float: left; }
+/* line 11, modules/_message.scss */
+.b-message__section input { max-width: 200px; }
+/* line 16, modules/_message.scss */
+.b-message__loginbutton { display: block; }
+/* line 20, modules/_message.scss */
+.b-message__forgot { margin: 30px 0 10px 0; display: inline-block; border-bottom: 1px dashed #aeb8bc; padding-bottom: 2px; }
+/* line 27, modules/_message.scss */
+.b-message__article { margin-bottom: 10px; }
+/* line 31, modules/_message.scss */
+.b-message__confirm { padding: 10px 0; }
+
 /* line 1, modules/_teamlist.scss */
 .b-teamlist { padding: 30px 0 30px 0; border-bottom: 1px #ECEEF1 solid; }
 /* line 5, modules/_teamlist.scss */
@@ -291,74 +308,71 @@ aside { display: inline-block; width: 20%; }
 .b-result-submit button { margin: 0 auto; display: block; }
 
 /* line 1, modules/_forms.scss */
-input, select, textarea { padding: 5px 0px 5px 10px; height: 25px; border-radius: 4px; line-height: 20px; margin: 0 0px 15px 0; font-size: 14px; color: #58697A; background-color: white; border: 2px solid #ECEEF1; }
-/* line 12, modules/_forms.scss */
+input, select, textarea { padding: 5px 0px 5px 10px; border-radius: 4px; line-height: 20px; margin: 0 0px 15px 0; font-size: 14px; color: #58697A; background-color: transparent; border: 2px solid #ECEEF1; }
+/* line 11, modules/_forms.scss */
 input:focus, select:focus, textarea:focus { border: 2px solid #0D8153; }
 
-/* line 17, modules/_forms.scss */
+/* line 16, modules/_forms.scss */
 textarea { min-height: 30px; font-family: "PT Sans", Arial, sans-serif; font-weight: 14px; }
 
-/* line 23, modules/_forms.scss */
+/* line 22, modules/_forms.scss */
 select { -webkit-appearance: none; height: 35px; min-width: 170px; }
 
-/* line 29, modules/_forms.scss */
+/* line 28, modules/_forms.scss */
 label { display: block; }
 
-/* line 33, modules/_forms.scss */
+/* line 32, modules/_forms.scss */
 .b-form { max-width: 90%; margin-left: auto; margin-right: auto; padding: 40px 0 40px 0; }
 /* line 12, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/susy-2.2.5/sass/susy/output/support/_clearfix.scss */
 .b-form:after { content: " "; display: block; clear: both; }
-/* line 37, modules/_forms.scss */
+/* line 36, modules/_forms.scss */
 .b-form__button { display: inline-block; text-decoration: none; padding: 8px 16px; border-radius: 5px; border: none; color: #ffffff; font-family: inherit; font-size: 14px; min-height: 20px; background-color: #424E5A; box-sizing: border-box; }
 /* line 18, modules/_mixins.scss */
 .b-form__button:hover { background-color: #0C152A; transition: background-color 0.3s ease; }
 
-/* line 42, modules/_forms.scss */
+/* line 41, modules/_forms.scss */
 .b-form-item { margin-bottom: 20px; width: 100%; float: left; }
-/* line 46, modules/_forms.scss */
+/* line 45, modules/_forms.scss */
 .b-form-item__heading { width: 100%; float: left; margin-left: 0; margin-right: 0; }
-/* line 50, modules/_forms.scss */
+/* line 49, modules/_forms.scss */
 .b-form-item__input, .b-form-item__label { display: inline-block; }
-/* line 53, modules/_forms.scss */
+/* line 52, modules/_forms.scss */
 .b-form-item__input_full, .b-form-item__label_full { width: 91.56627%; float: left; }
-/* line 56, modules/_forms.scss */
+/* line 55, modules/_forms.scss */
 .b-form-item__input_full_last, .b-form-item__label_full_last { width: 91.56627%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
-/* line 62, modules/_forms.scss */
+/* line 61, modules/_forms.scss */
 .b-form-item__input_six, .b-form-item__label_six { width: 49.39759%; float: left; }
-/* line 65, modules/_forms.scss */
+/* line 64, modules/_forms.scss */
 .b-form-item__input_six_last, .b-form-item__label_six_last { width: 49.39759%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
-/* line 71, modules/_forms.scss */
+/* line 70, modules/_forms.scss */
 .b-form-item__input_quarter, .b-form-item__label_quarter { width: 24.09639%; float: left; margin-right: 1.20482%; }
-/* line 74, modules/_forms.scss */
+/* line 73, modules/_forms.scss */
 .b-form-item__input_quarter_last, .b-form-item__label_quarter_last { width: 24.09639%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
-/* line 80, modules/_forms.scss */
+/* line 79, modules/_forms.scss */
 .b-form-item__input_third, .b-form-item__label_third { width: 32.53012%; float: left; margin-right: 1.20482%; }
-/* line 83, modules/_forms.scss */
+/* line 82, modules/_forms.scss */
 .b-form-item__input_third_last, .b-form-item__label_third_last { width: 32.53012%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
-/* line 89, modules/_forms.scss */
+/* line 88, modules/_forms.scss */
 .b-form-item__input_sixth, .b-form-item__label_sixth { width: 15.66265%; float: left; margin-right: 1.20482%; }
-/* line 92, modules/_forms.scss */
+/* line 91, modules/_forms.scss */
 .b-form-item__input_sixth_last, .b-form-item__label_sixth_last { width: 15.66265%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
-/* line 98, modules/_forms.scss */
+/* line 97, modules/_forms.scss */
 .b-form-item__input_ten, .b-form-item__label_ten { width: 10%; float: left; margin-right: 1.20482%; }
-/* line 101, modules/_forms.scss */
+/* line 100, modules/_forms.scss */
 .b-form-item__input_ten_last, .b-form-item__label_ten_last { width: 10%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
-/* line 108, modules/_forms.scss */
+/* line 107, modules/_forms.scss */
 .b-form-item__map { border: 1px solid #aeb8bc; margin-top: 90px; }
 
-/* line 114, modules/_forms.scss */
+/* line 113, modules/_forms.scss */
 .full { width: 100%; float: left; margin-left: 0; margin-right: 0; }
 
-/* line 122, modules/_forms.scss */
+/* line 117, modules/_forms.scss */
 #country, #street, #regdateOpen, #regdateClose, #link, .row { clear: both; }
 
-/* line 146, modules/_forms.scss */
+/* line 121, modules/_forms.scss */
 #player_experience, #adjudicator_experience, .textarea { width: 100%; float: left; margin-left: 0; margin-right: 0; }
 
-/* line 163, modules/_forms.scss */
-#loginButton { width: 32.53012%; float: left; margin-right: 1.20482%; }
-
-/* line 169, modules/_forms.scss */
+/* line 127, modules/_forms.scss */
 .errorlist li { color: red; font-size: 14px; display: inline; }
 
 /* line 3, modules/_profile.scss */
@@ -419,19 +433,19 @@ label { display: block; }
 .b-presentation__room_og h3, .b-presentation__room_og p, .b-presentation__room_cg h3, .b-presentation__room_cg p { padding-right: 20%; text-align: right; }
 /* line 62, modules/_presentation.scss */
 .b-presentation__room_oo, .b-presentation__room_co { width: 50%; float: right; margin-right: 0; }
-/* line 66, modules/_presentation.scss */
+/* line 65, modules/_presentation.scss */
 .b-presentation__room_oo h3, .b-presentation__room_oo p, .b-presentation__room_co h3, .b-presentation__room_co p { padding-left: 20%; text-align: left; }
-/* line 72, modules/_presentation.scss */
+/* line 71, modules/_presentation.scss */
 .b-presentation__room_chair { width: 100%; float: left; text-align: center; font-size: 2em; font-weight: 700; margin-top: 1em; }
-/* line 79, modules/_presentation.scss */
+/* line 78, modules/_presentation.scss */
 .b-presentation__room_chair P { color: white; }
-/* line 89, modules/_presentation.scss */
+/* line 88, modules/_presentation.scss */
 .b-presentation__infoslide h3, .b-presentation__infoslide p { color: white; }
-/* line 93, modules/_presentation.scss */
+/* line 92, modules/_presentation.scss */
 .b-presentation__infoslide h3 { font-size: 3em; margin: 0 0 0.5em 0; }
-/* line 98, modules/_presentation.scss */
+/* line 97, modules/_presentation.scss */
 .b-presentation__infoslide p { font-size: 2em; color: white; text-align: center; max-width: 80%; margin: 0 auto; line-height: 1.2; }
-/* line 110, modules/_presentation.scss */
+/* line 109, modules/_presentation.scss */
 .b-presentation__motion p { font-size: 3.5em; color: white; text-align: center; max-width: 80%; margin: 0 auto; line-height: 1.5; }
 
 /* line 3, modules/_popups.scss */
@@ -469,13 +483,13 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 /* line 27, modules/_footer.scss */
 .b-footer__contact li { display: inline; color: #aeb8bc; margin-right: 20px; }
 
-/* line 28, main.scss */
+/* line 29, main.scss */
 .content_conteiner { padding: 25px; min-height: 68vh; }
 
-/* line 33, main.scss */
+/* line 34, main.scss */
 .content { max-width: 100%; margin-left: auto; margin-right: auto; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); display: inline-block; width: 60%; background-color: #ffffff; border-radius: 3px; vertical-align: top; }
 /* line 12, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/susy-2.2.5/sass/susy/output/support/_clearfix.scss */
 .content:after { content: " "; display: block; clear: both; }
 
-/* line 48, main.scss */
+/* line 49, main.scss */
 #email_confirm h3 { text-align: center; }

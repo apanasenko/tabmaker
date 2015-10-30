@@ -1,0 +1,34 @@
+.b-message {
+	padding: 20px;
+
+	&__back {
+		padding: 0 20px 20px 20px;
+	}
+
+	&__section {
+		@include span(100% no-gutters);
+
+		input {
+			max-width: 200px;
+		}
+	}
+
+	&__loginbutton {
+		display: block;
+	}
+
+	&__forgot {
+		margin: 30px 0 10px 0;
+		display: inline-block;
+		border-bottom: 1px dashed $grey;
+		padding-bottom: 2px;
+	}
+
+	&__article {
+		margin-bottom: 10px;
+	}
+
+	&__confirm {
+		padding: 10px 0;
+	}
+}

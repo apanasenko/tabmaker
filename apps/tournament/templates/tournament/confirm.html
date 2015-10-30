@@ -7,18 +7,21 @@
 
 
 {% block content %}
-    <form action="{{ path }}" method="post">
+    <form class="b-message" action="{{ path }}" method="post">
         {% csrf_token %}
         {% include template_body %}
         {% if is_error %}
-            <p>Вы ввели неправильное слово. Повторите попытку,
+            <p>Вы ввели неправильное слово. Повторите попытку
         {% else %}
+        
             <p>Если вы уверены,
         {% endif %}
         введите слово "{{ need_message }}" </p>
         {{ form.message }}
-        <button type="submit" class="button"> Подтвердить </button>
-        <a class="button" href="{% url 'tournament:play' tournament.id%}"> Отмена </a>
+        <div class="b-message__confirm">
+            <button type="submit" class="button"> Подтвердить </button>
+            <a class="button" href="{% url 'tournament:play' tournament.id%}"> Отмена </a>
+        </div>
     </form>
 
 {% endblock content %}
