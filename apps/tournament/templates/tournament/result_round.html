@@ -20,7 +20,7 @@
         {% for room in forms %}
             {% with game=room.game res=room.result  %}
             <div class="b-result-room">
-                
+
                 <div class="b-result-room__adjudicator">
                     <h3 class="b-result-room__adjudicator_heading">{{ game.chair|name }}</h3> {# добавить аудиторию #}
                     {{ res.game.errors }}
@@ -30,25 +30,25 @@
                 <div class="b-result-room__games">
 
                     {# ======   OG   ====== #}
-                    <div class="b-result-room__og">
+                    <div class="b-result-room__og team">
                     <h3>Первое правительство</h3>
                     {% include 'tournament/result_team.html' with team=res.og game=game.og speaker_1=res.pm speaker_2=res.dpm is_rev=res.og_rev%}
                     </div>
 
                     {# ======   OO   ====== #}
-                    <div class="b-result-room__oo">
+                    <div class="b-result-room__oo team">
                     <h3>Первая оппозиция</h3>
                     {% include 'tournament/result_team.html' with team=res.oo game=game.oo speaker_1=res.lo speaker_2=res.dlo is_rev=res.oo_rev%}
                     </div>
 
                     {# ======   CG   ====== #}
-                    <div class="b-result-room__cg">
+                    <div class="b-result-room__cg team">
                     <h3>Второе правительство</h3>
                     {% include 'tournament/result_team.html' with team=res.cg game=game.cg speaker_1=res.mg speaker_2=res.gw is_rev=res.cg_rev%}
                     </div>
 
                     {# ======   CO   ====== #}
-                    <div class="b-result-room__co">
+                    <div class="b-result-room__co team">
                     <h3>Вторая оппозиция</h3>
                     {% include 'tournament/result_team.html' with team=res.co game=game.co speaker_1=res.mo speaker_2=res.ow is_rev=res.co_rev%}
                     </div>

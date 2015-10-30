@@ -23,31 +23,31 @@
             {{ form.non_field_errors }}
             {{ form.errors }}
         <div class="b-result-room">
-            
-            <div class="b-result-room__adjudicator">
+
+            <div class="b-result-room__adjudicator chair">
                 {{ form.game_form.chair }}
-                <h3 class="b-result-room__adjudicator_heading">Судья - {{ form.game.chair|name }}</h3>
+                <h3 class="b-result-room__adjudicator_heading">Судья: <span class="chair_name">{{ form.game.chair|name }}</span></h3>
             </div>
 
             <div class="b-result-room__games">
-                <div class="b-result-room__og">
+                <div class="b-result-room__og team">
                     {{ form.game_form.og }}
-                    <p>1П: {{ form.game.og.name }}</p>
+                    <p>1П: <span class="team_name">{{ form.game.og.name }}</span></p>
                 </div>
-                <div class="b-result-room__oo">
+                <div class="b-result-room__oo team">
                     {{ form.game_form.oo }}
-                    <p>1O: {{ form.game.oo.name }}</p>
+                    <p>1O: <span class="team_name">{{ form.game.oo.name }}</span></p>
                 </div>
-                <div class="b-result-room__cg">
+                <div class="b-result-room__cg team">
                     {{ form.game_form.cg }}
-                   <p>2П: {{ form.game.cg.name }}</p>
+                   <p>2П: <span class="team_name">{{ form.game.cg.name }}</span></p>
                 </div>
-                <div class="b-result-room__co">
+                <div class="b-result-room__co team">
                     {{ form.game_form.co }}
-                    <p>2O: {{ form.game.co.name }}</p>
+                    <p>2O: <span class="team_name">{{ form.game.co.name }}</span></p>
                 </div>
             </div>
-               
+
         </div>
         {% endfor %}
         <div class="b-result-submit">
