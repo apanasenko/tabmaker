@@ -14,6 +14,7 @@ urlpatterns = patterns(
     url(r'^(?P<tournament_id>\d+)/play[/]$', views.play, name='play'),
     url(r'^(?P<tournament_id>\d+)/result[/]$', views.result, name='result'),
     url(r'^(?P<tournament_id>\d+)/remove[/]$', views.remove, name='remove'),
+    url(r'^(?P<tournament_id>\d+)/print[/]$', views.print_users, name='print'),
 
     # Change status of tournament
     url(r'^(?P<tournament_id>\d+)/registration/opening[/]$', views.registration_opening, name='registration_opening'),

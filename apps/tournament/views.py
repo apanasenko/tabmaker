@@ -316,6 +316,18 @@ def remove(request, tournament):
     return _confirm_page(request, tournament, need_message, template_body, redirect_to, tournament_delete)
 
 
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='finished')  # TODO Добавить в таблицу
+def print_users(request, tournament):
+    return render(
+        request,
+        'tournament/users_list_for_print.html',
+        {
+            'teams': tournament.team_members.all()
+        }
+    )
+
+
 ##################################
 #   Change status of tournament  #
 ##################################

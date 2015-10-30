@@ -18,6 +18,7 @@
 
 {% block content %}
 
+    <a class="button" href="{% url 'tournament:print' tournament.id %}">Версия для печати</a>
     {% include 'tournament/count_by_role.html' with statuses=statuses %}
 
     {% for rel in team_tournament_rels %}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список участников турнира</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.23.5/js/jquery.tablesorter.min.js"></script>
+    <script>
+        $(document).ready(function()
+            {
+                $("#users_list").tablesorter();
+            }
+        );
+    </script>
+</head>
+<body>
+
+<table id="users_list" class="tablesorter">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Команда</th>
+        <th>Университет</th>
+        <th>Телефон</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+
+    {% for team in teams %}
+        <tr>
+            <th><input type="checkbox"></th>
+            <td>{{ team.speaker_1.first_name }}</td>
+            <td>{{ team.speaker_1.last_name }}</td>
+            <td>{{ team.name }}</td>
+            <td>{{ team.speaker_1.university.name }}</td>
+            <td>{{ team.speaker_1.phone }}</td>
+            <td>{{ team.speaker_1.email }}</td>
+        </tr>
+        <tr>
+            <th><input type="checkbox"></th>
+            <td>{{ team.speaker_2.first_name }}</td>
+            <td>{{ team.speaker_2.last_name }}</td>
+            <td>{{ team.name }}</td>
+            <td>{{ team.speaker_2.university.name }}</td>
+            <td>{{ team.speaker_2.phone }}</td>
+            <td>{{ team.speaker_2.email }}</td>
+        </tr>
+
+    {% endfor %}
+</table>
+
+</body>
+</html>
