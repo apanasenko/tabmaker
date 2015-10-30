@@ -22,16 +22,15 @@
         <p class="b-tournament-summary-status__info">Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
         <p class="b-tournament-summary-status__info">Статус: {{ tournament.status.name }}</p>
     </div>
-        
+
     <div class="b-tournament-summary-commands">
         <a class="button" href="{% url 'tournament:next_round' tournament.id%}"> Создать следующий раунд </a>
         <a class="button" href="{% url 'tournament:result' tournament.id%}"> Опубликовать тему и румы </a>
         {% if tournament.cur_round > 0 %}
             <a class="button" href="{% url 'tournament:result_round' tournament.id%}"> Ввести/исправить результат </a>
-            <input type="button" class="button"
-                   onclick="confirm_remove_round('{% url 'tournament:remove_round' tournament.id %}')"
-                   value="Удалить последний раунд"
-                    >
+            <a class="button" onclick="confirm_remove_round('{% url 'tournament:remove_round' tournament.id %}')">
+                Удалить последний раунд
+            </a>
         {% endif %}
         <a class="button" href="{% url 'tournament:result' tournament.id%}"> Теб </a>
         <a class="button" href="{% url 'tournament:finished' tournament.id%}"> Завершить турнир </a>
