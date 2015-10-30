@@ -89,7 +89,12 @@ class Round(models.Model):
     number = models.IntegerField()
     start_time = models.DateTimeField()
     is_closed = models.BooleanField(default=False)
+    is_public = models.BooleanField(default=True)
     is_playoff = models.BooleanField(default=False)
+
+    def publish(self):
+        self.is_public = True
+        self.save()
 
 
 class Room(models.Model):

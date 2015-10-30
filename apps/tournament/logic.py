@@ -427,6 +427,7 @@ def generate_next_round(tournament: Tournament, new_round: Round):
     round - не сохранённый объект из формы
     """
     new_round.tournament = tournament
+    new_round.is_public = False
     new_round.is_playoff = tournament.status == STATUS_PLAYOFF
 
     if tournament.status == STATUS_STARTED:
@@ -575,6 +576,15 @@ def get_teams_by_user(user: User, tournament: Tournament, roles=[ROLE_MEMBER]):
         tournament=tournament,
         role__in=roles
     )
+
+
+def publish_last_round(tournament: Tournament):
+    last_round = _get_last_round(tournament)
+    if not last_round:
+        return False
+
+    last_round.publish()
+    return True
 
 
 def remove_last_round(tournament: Tournament):

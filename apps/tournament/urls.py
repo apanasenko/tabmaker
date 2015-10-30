@@ -27,6 +27,7 @@ urlpatterns = patterns(
     url(r'^(?P<tournament_id>\d+)/round/show[/]$', views.show_round, name='show_round'),
     url(r'^(?P<tournament_id>\d+)/round/presentation[/]$', views.presentation_round, name='presentation_round'),
     url(r'^(?P<tournament_id>\d+)/round/edit[/]$', views.edit_round, name='edit_round'),
+    url(r'^(?P<tournament_id>\d+)/round/publish[/]$', views.publish_round, name='publish_round'),
     url(r'^(?P<tournament_id>\d+)/round/result[/]$', views.result_round, name='result_round'),
     url(r'^(?P<tournament_id>\d+)/round/remove[/]$', views.remove_round, name='remove_round'),
 

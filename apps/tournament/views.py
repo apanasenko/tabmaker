@@ -47,6 +47,7 @@ from .logic import \
     get_rooms_by_chair_from_last_round, \
     get_tab, \
     get_teams_by_user, \
+    publish_last_round, \
     remove_last_round, \
     user_can_edit_tournament
 
@@ -456,6 +457,9 @@ def next_round(request, tournament):
 @access_by_status(name_page='round_show')
 def show_round(request, tournament):
     rooms = get_rooms_from_last_round(tournament)
+    if not rooms or not rooms[0].round.is_public:
+        return _show_message(request, MSG_ROUND_NOT_PUBLIC)
+
     return render(
         request,
         'tournament/show_round.html',
@@ -478,6 +482,15 @@ def presentation_round(request, tournament):
             'round': None if not rooms else rooms[0].round
         },
     )
+
+
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='round_edit')
+def publish_round(request, tournament):
+    if not publish_last_round(tournament):
+        _show_message(request, MSG_ROUND_NOT_EXIST)
+
+    return redirect('tournament:play', tournament_id=tournament.id)
 
 
 @login_required(login_url=reverse_lazy('account_login'))
