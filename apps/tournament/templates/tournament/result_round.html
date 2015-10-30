@@ -6,6 +6,7 @@
 {% block extra_head %}
     {{ block.super }}
     <script type="text/javascript" src="{% static "tournament/js/reverse_speakers.js" %}"></script>
+    <script type="text/javascript" src="{% static "tournament/js/check_result.js" %}"></script>
 {% endblock extra_head %}
 
 
@@ -15,40 +16,43 @@
 
 
 {% block content %}
-    <form class="b-result" action="{% url "tournament:result_round" tournament.id %}" method="post">
+    <form class="b-result" id="result_form" action="{% url "tournament:result_round" tournament.id %}" method="post">
         {% csrf_token %}
         {% for room in forms %}
             {% with game=room.game res=room.result  %}
-            <div class="b-result-room">
+            <div class="b-result-room room">
 
                 <div class="b-result-room__adjudicator">
                     <h3 class="b-result-room__adjudicator_heading">{{ game.chair|name }}</h3> {# добавить аудиторию #}
                     {{ res.game.errors }}
                     {{ res.game }}
                 </div>
+                <div class="errors">
 
-                <div class="b-result-room__games">
+                </div>
+
+                <div class="b-result-room__games game">
 
                     {# ======   OG   ====== #}
-                    <div class="b-result-room__og team">
+                    <div class="b-result-room__og team og">
                     <h3>Первое правительство</h3>
                     {% include 'tournament/result_team.html' with team=res.og game=game.og speaker_1=res.pm speaker_2=res.dpm is_rev=res.og_rev%}
                     </div>
 
                     {# ======   OO   ====== #}
-                    <div class="b-result-room__oo team">
+                    <div class="b-result-room__oo team oo">
                     <h3>Первая оппозиция</h3>
                     {% include 'tournament/result_team.html' with team=res.oo game=game.oo speaker_1=res.lo speaker_2=res.dlo is_rev=res.oo_rev%}
                     </div>
 
                     {# ======   CG   ====== #}
-                    <div class="b-result-room__cg team">
+                    <div class="b-result-room__cg team cg">
                     <h3>Второе правительство</h3>
                     {% include 'tournament/result_team.html' with team=res.cg game=game.cg speaker_1=res.mg speaker_2=res.gw is_rev=res.cg_rev%}
                     </div>
 
                     {# ======   CO   ====== #}
-                    <div class="b-result-room__co team">
+                    <div class="b-result-room__co team co">
                     <h3>Вторая оппозиция</h3>
                     {% include 'tournament/result_team.html' with team=res.co game=game.co speaker_1=res.mo speaker_2=res.ow is_rev=res.co_rev%}
                     </div>
@@ -58,7 +62,6 @@
 
             {% endwith %}
         {% endfor %}
-        {{ form }}
         <div class="b-result-submit">
             <button type="submit" class="button">Сохранить</button>
         </div>
