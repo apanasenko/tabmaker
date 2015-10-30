@@ -317,7 +317,7 @@ def remove(request, tournament):
 
 
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='finished')  # TODO Добавить в таблицу
+@access_by_status(name_page='edit')  # TODO Добавить в таблицу
 def print_users(request, tournament):
     return render(
         request,
