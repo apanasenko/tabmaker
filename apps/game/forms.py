@@ -29,27 +29,31 @@ class ResultGameForm(forms.ModelForm):
 
     class Meta:
         model = GameResult
+        speaker_1_attrs = {'min': '50', 'max': 100, 'class': 'speaker_1_points'}
+        speaker_2_attrs = {'min': '50', 'max': 100, 'class': 'speaker_2_points'}
+        team_attrs = {'min': 1, 'max': 4, 'class': 'place'}
+        reverse_checkbox_attrs = {'type': 'checkbox', 'class': 'reverse_speakers'}
 
         fields = '__all__'
 
         widgets = {
-            'og': forms.NumberInput(attrs={'min': 1, 'max': 4}),
-            'oo': forms.NumberInput(attrs={'min': 1, 'max': 4}),
-            'cg': forms.NumberInput(attrs={'min': 1, 'max': 4}),
-            'co': forms.NumberInput(attrs={'min': 1, 'max': 4}),
-            'og_rev': forms.CheckboxInput(attrs={'type': 'checkbox', 'class': 'reverse_speakers'}),
-            'oo_rev': forms.CheckboxInput(attrs={'type': 'checkbox', 'class': 'reverse_speakers'}),
-            'cg_rev': forms.CheckboxInput(attrs={'type': 'checkbox', 'class': 'reverse_speakers'}),
-            'co_rev': forms.CheckboxInput(attrs={'type': 'checkbox', 'class': 'reverse_speakers'}),
+            'og': forms.NumberInput(attrs=team_attrs),
+            'oo': forms.NumberInput(attrs=team_attrs),
+            'cg': forms.NumberInput(attrs=team_attrs),
+            'co': forms.NumberInput(attrs=team_attrs),
+            'og_rev': forms.CheckboxInput(attrs=reverse_checkbox_attrs),
+            'oo_rev': forms.CheckboxInput(attrs=reverse_checkbox_attrs),
+            'cg_rev': forms.CheckboxInput(attrs=reverse_checkbox_attrs),
+            'co_rev': forms.CheckboxInput(attrs=reverse_checkbox_attrs),
             'game': forms.HiddenInput(),
-            'pm': forms.NumberInput(attrs={'min': '0', 'max': 100}),
-            'dpm': forms.NumberInput(attrs={'min': '0', 'max': 100}),
-            'lo': forms.NumberInput(attrs={'min': '0', 'max': 100}),
-            'dlo': forms.NumberInput(attrs={'min': '0', 'max': 100}),
-            'mg': forms.NumberInput(attrs={'min': '0', 'max': 100}),
-            'gw': forms.NumberInput(attrs={'min': '0', 'max': 100}),
-            'mo': forms.NumberInput(attrs={'min': '0', 'max': 100}),
-            'ow': forms.NumberInput(attrs={'min': '0', 'max': 100}),
+            'pm': forms.NumberInput(attrs=speaker_1_attrs),
+            'dpm': forms.NumberInput(attrs=speaker_2_attrs),
+            'lo': forms.NumberInput(attrs=speaker_1_attrs),
+            'dlo': forms.NumberInput(attrs=speaker_2_attrs),
+            'mg': forms.NumberInput(attrs=speaker_1_attrs),
+            'gw': forms.NumberInput(attrs=speaker_2_attrs),
+            'mo': forms.NumberInput(attrs=speaker_1_attrs),
+            'ow': forms.NumberInput(attrs=speaker_2_attrs),
         }
 
         labels = {

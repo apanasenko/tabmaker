@@ -1,10 +1,10 @@
 function swap(element, buffer, element_name){
     if (!buffer){
         $(element).css('background', '#fff');
-        return element
+        return element;
     } else {
         var class_id = '.' + element_name + '_id';
-        var class_name = '.' + element_name + '_name'
+        var class_name = '.' + element_name + '_name';
         $(buffer).css('background', $(element).parent().css('background'));
 
         var team_name = $(element).find(class_name).html();
