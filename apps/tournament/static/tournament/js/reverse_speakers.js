@@ -8,11 +8,11 @@ var swap_speakers = function(block){
 
 
 $(document).ready(function(){
-    var blocks = $('.reverse_speakers')
-    for (var i = 0; i < blocks.length; i++) if ($(blocks[i]).is(':checked')) {
-        swap_speakers(blocks[i]);
-    }
-    $('.reverse_speakers').change(function(){
-        swap_speakers(this);
+    $('.reverse_speakers').each(function () {
+        $(this).change(function(){
+            swap_speakers(this);
+        });
+        if ($(this).is(':checked'))
+            swap_speakers(this);
     });
 });
