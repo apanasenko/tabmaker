@@ -18,6 +18,7 @@
 
 {% block content %}
 
+    <li class="b-sidebar__listitem"><a href="{% url "tournament:add_team" tournament.id %}"><i class="fa fa-plus-circle"></i>Добавить команду</a></li>
     <a class="button" href="{% url 'tournament:print' tournament.id %}">Версия для печати</a>
     {% include 'tournament/count_by_role.html' with statuses=statuses %}
 
