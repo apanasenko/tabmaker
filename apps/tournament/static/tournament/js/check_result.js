@@ -41,7 +41,7 @@ function check_results(){
             $.each([4, 3, 2], function(key, value) {
                 if (speakers_point[value] > speakers_point[value - 1]) {
                     errors_block.append(
-                        '<p>Сумма спикерских у ' + value + 'команды должна быть не больше чем у ' + value + ' команды</p>'
+                        '<p>Сумма спикерских у ' + value - 1 + 'команды должны быть не больше чем у ' + value + ' команды</p>'
                     );
                     checked_room = false;
                 }
