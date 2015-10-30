@@ -84,7 +84,9 @@ def check_results(func):
     return decorator
 
 
-def _confirm_page(request, tournament, need_message, template_body, redirect_to, callback, redirect_args={}):
+def _confirm_page(request, tournament, need_message, template_body, redirect_to, callback, redirect_args=None):
+    if not redirect_args:
+        redirect_args = {}
     confirm_form = СonfirmForm(request.POST)
     is_error = False
     if request.method == 'POST' and confirm_form.is_valid():
@@ -463,7 +465,9 @@ def show_round(request, tournament):
         },
     )
 
-@access_by_status(name_page='round_next')
+
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='round_next')  # TODO Добавить в таблицу доступа
 def presentation_round(request, tournament):
     rooms = get_rooms_from_last_round(tournament)
     return render(
