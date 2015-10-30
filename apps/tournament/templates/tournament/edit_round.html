@@ -15,53 +15,43 @@
 
 
 {% block content %}
-    <form class="page col s9" action="{% url "tournament:edit_round" tournament.id %} " method="post">
+    <form class="b-result" action="{% url "tournament:edit_round" tournament.id %} " method="post">
 
         {% csrf_token %}
 
         {% for form in forms %}
             {{ form.non_field_errors }}
             {{ form.errors }}
-        <div class="row">
-            <div class="col s3">
-                <div class="row">
-                    <div class="team">
-                        {{ form.game_form.og }}
-                        <div class="team_name">{{ form.game.og.name }}</div>
-                    </div>
+        <div class="b-result-room">
+            
+            <div class="b-result-room__adjudicator">
+                {{ form.game_form.chair }}
+                <h3 class="b-result-room__adjudicator_heading">Судья - {{ form.game.chair|name }}</h3>
+            </div>
+
+            <div class="b-result-room__games">
+                <div class="b-result-room__og">
+                    {{ form.game_form.og }}
+                    <p>1П: {{ form.game.og.name }}</p>
                 </div>
-                <div class="row">
-                    <div class="team">
-                        {{ form.game_form.oo }}
-                        <div class="team_name">{{ form.game.oo.name }}</div>
-                    </div>
+                <div class="b-result-room__oo">
+                    {{ form.game_form.oo }}
+                    <p>1O: {{ form.game.oo.name }}</p>
+                </div>
+                <div class="b-result-room__cg">
+                    {{ form.game_form.cg }}
+                   <p>2П: {{ form.game.cg.name }}</p>
+                </div>
+                <div class="b-result-room__co">
+                    {{ form.game_form.co }}
+                    <p>2O: {{ form.game.co.name }}</p>
                 </div>
             </div>
-            <div class="col s3">
-                <div class="row">
-                    <div class="team">
-                        {{ form.game_form.cg }}
-                        <div class="team_name">{{ form.game.cg.name }}</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="team">
-                        {{ form.game_form.co }}
-                        <div class="team_name">{{ form.game.co.name }}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col s3">
-                <div class="chair">
-                    <p>Cудья</p>
-                    {{ form.game_form.chair }}
-                    <div class="chair_name">{{ form.game.chair|name }}</div>
-                </div>
-            </div>
+               
         </div>
         {% endfor %}
-        <div class="row">
-            <button type="submit" class="waves-effect waves-light btn">Далее</button>
+        <div class="b-result-submit">
+            <button type="submit" class="button">Далее</button>
         </div>
     </form>
 {% endblock content %}

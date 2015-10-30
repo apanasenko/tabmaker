@@ -14,34 +14,25 @@
 
 
 {% block content %}
-<div class="page col s9">
-    <div class="col s9">
-        <p>Количество команд: {{ tournament.count_teams }}</p>
-        <p>Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
-        <p>Количество сыграных раундов: {{ tournament.cur_round }}</p>
-        <p>Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
-        <p>Статус: {{ tournament.status.name }}</p>
-        <br>
-        <br>
+<div class="b-tournament-summary">
+    <div class="b-tournament-summary-status">
+        <p class="b-tournament-summary-status__info">Количество команд: {{ tournament.count_teams }}</p>
+        <p class="b-tournament-summary-status__info">Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
+        <p class="b-tournament-summary-status__info">Количество сыграных раундов: {{ tournament.cur_round }}</p>
+        <p class="b-tournament-summary-status__info">Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
+        <p class="b-tournament-summary-status__info">Статус: {{ tournament.status.name }}</p>
+    </div>
+        
+    <div class="b-tournament-summary-commands">
         <a class="button" href="{% url 'tournament:next_round' tournament.id%}"> Создать следующий раунд </a>
         {% if tournament.cur_round > 0 %}
-            <br>
-            <br>
-            <br>
             <a class="button" href="{% url 'tournament:result_round' tournament.id%}"> Ввести/исправить результат </a>
-            <br>
-            <br>
             <input type="button" class="button"
                    onclick="confirm_remove_round('{% url 'tournament:remove_round' tournament.id %}')"
                    value="Удалить последний раунд"
                     >
         {% endif %}
-        <br>
-        <br>
         <a class="button" href="{% url 'tournament:result' tournament.id%}"> Теб </a>
-        <br>
-        <br>
-        <br>
         <a class="button" href="{% url 'tournament:finished' tournament.id%}"> Завершить турнир </a>
     </div>
 </div>

@@ -1,23 +1,42 @@
 .b-resolution {
-
-	&__infoslide {
-
-	}
-
-	&__motion {
-
-	}
-
+	padding: 20px;
 }
 
-.b-rooms {
-	
+.b-next {
+	padding: 20px;
 }
 
-.b-rooms-item {
+.b-next-block {
+	@include span(100%);
 
-	&__item {
-
+	input {
+		margin: 0 0 10px 0;
 	}
 
+	textarea {
+		width: 98%;
+		height: 60px;
+	}
+
+	label {
+		margin: 0 0 10px 0;
+	}
+
+	&__closed {
+		padding: 20px 0 20px 0;
+
+		input {
+			margin: 0;
+			height: 14px;
+		}
+
+		label {
+			display: inline;
+			height: 20px;
+		}
+	}
+
+	&__button {
+		padding: 10px 0;
+	}
 }

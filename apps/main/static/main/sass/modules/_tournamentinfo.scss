@@ -29,3 +29,25 @@
 		@include button;
 	}
 }
+
+.b-tournament-summary {
+	padding: 20px;
+}
+
+.b-tournament-summary-status {
+	margin: 0 0 20px 0;
+
+	&__info {
+		display: block;
+		line-height: 1.5;
+	}
+}
+
+.b-tournament-summary-commands {
+	
+	& a, & input {
+		display: inline-block;
+
+	}
+
+}

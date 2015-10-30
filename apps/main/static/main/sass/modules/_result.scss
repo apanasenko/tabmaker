@@ -1,0 +1,54 @@
+.b-result-room {
+	@include container;
+	margin-bottom: 20px;
+
+	&__adjudicator {
+		@iclude span(100% no-gutters);
+		background-color: $beige;
+		height: 40px;
+		outline: 1px solid $background-page;
+
+		&_heading {
+			text-align: center;
+			padding-top: 10px;
+		}
+	}
+
+	&__og, &__cg, &__oo, &__co {
+		padding: 20px 0 20px 20px;
+		outline: 1px solid $background-page;
+		outline-offset: 0px;
+	}
+
+	&__og, &__cg {
+		@include span(47% no-gutters);
+	}
+
+	&__oo, &__co {
+		@include span(48% last no-gutters);
+	}
+
+	&__teamresult, &__speaker1, &__speaker2, &__reverse {
+
+		p, input, label {
+			display: inline;
+		}
+
+		input {
+			height: 15px;
+			background-color: transparent;
+			min-width: 80px;
+		}
+
+	}
+
+}
+
+.b-result-submit {
+	padding: 0 0 20px 0;
+
+	button {
+		margin: 0 auto;
+		display: block;
+	}
+}
