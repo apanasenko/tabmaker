@@ -34,6 +34,7 @@
         {% endif %}
         <a class="button" href="{% url 'tournament:result' tournament.id%}"> Теб </a>
         <a class="button" href="{% url 'tournament:finished' tournament.id%}"> Завершить турнир </a>
+        <a class="button" href="{% url 'tournament:presentation_round' tournament.id %}"> Презентация раунда </a>
     </div>
 </div>
 {% endblock content %}

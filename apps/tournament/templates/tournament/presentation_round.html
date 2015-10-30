@@ -1,0 +1,88 @@
+{% load staticfiles %}
+
+{% load profile_extras %}
+
+{% block page_title %}
+{% endblock page_title %}
+
+{% block extra_head %}
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.fullpage/2.5.9/jquery.fullPage.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.fullpage/2.5.9/jquery.fullPage.min.js"></script>
+    <script type="text/javascript" src="{% static "tournament/js/fullpage.js" %}"></script>
+
+    <link rel="stylesheet" href="{% static "main/sass/main.css" media="screen,projection" %}">
+   
+
+{% endblock extra_head %}
+
+{% block presentation %}
+
+    <div id="fullpage" class="b-presentation">
+        
+        <section class="section active b-presentation__round">
+            {% if not round %}
+                <h3 class="b-presentation__round_heading"> К сожалению, раунд ещё не объявлен </h3>
+            {% else %}
+
+            {% if round.is_playoff %}
+                <h3 class="b-presentation__round_heading">{{ round.number }} раунд плейофф</h3>
+            {% elif not round %}
+                <h3 class="b-presentation__round_heading">Раунд ещё не объявлен</h3>
+            {% else %}
+                <h3 class="b-presentation__round_heading">Раунд {{ round.number }}</h3>
+            {% endif %}
+        </section>
+        
+        <section class="section b-presentation__room">    
+        {% for room in rooms %}
+            
+            <div class="slide">
+                
+                <div class="b-presentation__room_teams">
+                    <div class="b-presentation__room_chair">
+                        <p>Судья - {{ room.game.chair|name }}</p>
+                    </div>
+                    <div class="b-presentation__room_og">
+                         <p>Первое правительство</p>
+                         <h3>{{ room.game.og.name }}</h3>
+                    </div>
+                    <div class="b-presentation__room_oo">
+                        <p>Первая оппозиция</p>
+                        <h3>{{ room.game.oo.name }}</h3>
+                    </div>
+                    <div class="b-presentation__room_cg">
+                        <p>Второе правительство</p>
+                        <h3>{{ room.game.cg.name }}</h3>
+                    </div>
+                    <div class="b-presentation__room_co">
+                        <p>Вторая оппозиция</p>
+                        <h3>{{ room.game.co.name }}</h3>
+                    </div>
+                </div>
+
+            </div>
+        
+        {% endfor %}
+        </section>
+
+        {% if round.motion.infoslide %}
+        <section class="section b-presentation__infoslide">
+            <h3>Инфослайд</h3>
+            <p>{{ round.motion.infoslide }}</p>
+        </section>
+        {% endif %}
+
+        <section class="section b-presentation__resolution">
+            <h3>Резолюция</h3>
+        </section>
+
+        <section class="section b-presentation__motion">
+            <p>{{ round.motion.motion }}</p>
+        </section>
+                
+    {% endif %}
+
+    </div>
+{% endblock presentation %}

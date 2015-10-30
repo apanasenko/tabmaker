@@ -2,12 +2,14 @@
 
     <ul class="b-sidebar__list">
         <h3 class="b-sidebar__heading">Турнир</h3>
-        <li class="b-sidebar__listitem"><a href="{% url "tournament:check_team_list" tournament.id %}"><i class="fa fa-play-circle"></i>Начать</a></li>
-        <li class="b-sidebar__listitem"><a href="{% url "tournament:edit" tournament.id %}"><i class="fa fa-pencil"></i>Редактировать</a></li>
-        <li class="b-sidebar__listitem"><a href="{% url "tournament:edit_team_list" tournament.id %}"><i class="fa fa-users"></i>Команды</a></li>
+        <li class="b-sidebar__listitem"><a href="{% url "tournament:play" tournament.id %}"><i class="fa fa-play-circle"></i>Управление раундами</a></li>
+        <li class="b-sidebar__listitem"><a href="{% url "tournament:result" tournament.id %}"><i class="fa fa-play-circle"></i>Тэб</a></li>
+        <li class="b-sidebar__listitem"><a href="{% url "tournament:check_team_list" tournament.id %}"><i class="fa fa-play-circle"></i>Начать турнир</a></li>
+        <li class="b-sidebar__listitem"><a href="{% url "tournament:edit" tournament.id %}"><i class="fa fa-pencil"></i>Редактировать турнир</a></li>
+        <li class="b-sidebar__listitem"><a href="{% url "tournament:edit_team_list" tournament.id %}"><i class="fa fa-users"></i>Отобрать команды</a></li>
         <li class="b-sidebar__listitem"><a href="{% url "tournament:add_team" tournament.id %}"><i class="fa fa-plus-circle"></i>Добавить команду</a></li>
-        <li class="b-sidebar__listitem"><a href="{% url "tournament:edit_adjudicator_list" tournament.id %}"><i class="fa fa-gavel"></i>Судьи</a></li>
-        <li class="b-sidebar__listitem"><a href="{% url "tournament:remove" tournament.id %}"> <i class="fa fa-trash-o"></i>Удалить </a></li>
+        <li class="b-sidebar__listitem"><a href="{% url "tournament:edit_adjudicator_list" tournament.id %}"><i class="fa fa-gavel"></i>Отобрать судей</a></li>
+        <li class="b-sidebar__listitem"><a href="{% url "tournament:remove" tournament.id %}"> <i class="fa fa-trash-o"></i>Удалить турнир</a></li>
     </ul>
 
 </div>
