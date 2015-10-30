@@ -463,6 +463,18 @@ def show_round(request, tournament):
         },
     )
 
+@access_by_status(name_page='round_next')
+def presentation_round(request, tournament):
+    rooms = get_rooms_from_last_round(tournament)
+    return render(
+        request,
+        'tournament/presentation_round.html',
+        {
+            'rooms': rooms,
+            'round': None if not rooms else rooms[0].round
+        },
+    )
+
 
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='round_edit')

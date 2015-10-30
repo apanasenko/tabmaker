@@ -1,0 +1,35 @@
+{% extends "main/base.html" %}
+
+{% load profile_extras %}
+
+{% block page_title %}
+   {{ tournament.name }} - Презентация раунда {{ round.number }}
+{% endblock page_title %}
+
+{% block extra_head %}
+    {{ block.super }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.fullpage/2.5.9/jquery.fullPage.min.css">
+    <script src="https://cdn.jsdelivr.net/jquery.fullpage/2.5.9/jquery.fullPage.min.js"></script>
+{% endblock extra_head %}
+
+{% block presentation %}
+
+    {% if not round %}
+        <p> К сожалению, раунд ещё не объявлен </p>
+    {% else %}
+
+    {% for room in rooms %}
+    <p>{{ room.game.chair|name }}</p>
+    <p>{{ room.game.og.name }}</p>
+    <p>{{ room.game.oo.name }}</p>
+    <p>{{ room.game.cg.name }}</p>
+    <p>{{ room.game.co.name }}</p>
+    {% endfor %}    
+
+    <p>{{ motion.infoslide }}</p>
+    <p>{{ round.motion.motion }}</p>
+
+    {% endif %}
+
+{% endblock presentation %}
+
