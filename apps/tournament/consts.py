@@ -4,7 +4,8 @@ from .models import \
     TournamentStatus
 
 TEAM_IN_GAME = 4
-POINTS_OF_WIN = 3
+POINTS_OF_FIRST_PLACE = 3
+POINTS_OF_SECOND_PLACE = 2
 
 Position = Enum('Position', 'OG OO CG CO NONE')
 

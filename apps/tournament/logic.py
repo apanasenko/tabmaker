@@ -57,7 +57,9 @@ class TeamResult:
 
     def add_round(self, other: TeamRoundResult):
         if other.is_playoff:
-            self.playoff_position = max(self.playoff_position, other.number + int(other.points == POINTS_OF_WIN))
+            is_inc_position = other.number < self.count_playoff_rounds and other.points >= POINTS_OF_SECOND_PLACE \
+                or other.points == POINTS_OF_FIRST_PLACE
+            self.playoff_position = max(self.playoff_position, other.number + int(is_inc_position))
             return self.rounds
 
         if len(self.rounds) + 1 == other.number:
