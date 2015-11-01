@@ -602,6 +602,18 @@ def remove_last_round(tournament: Tournament):
     return True
 
 
+def remove_playoff(tournament: Tournament):
+    last_round = _get_last_round(tournament)
+    if last_round:
+        return False
+
+    temp_round = _get_temp_round(tournament)
+    if temp_round:
+        temp_round.delete()
+
+    return True
+
+
 def user_can_edit_tournament(tournament: Tournament, user: User):
     return user.is_authenticated() and 0 < len(UserTournamentRel.objects.filter(
         tournament=tournament,

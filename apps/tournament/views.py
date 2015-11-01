@@ -49,6 +49,7 @@ from .logic import \
     get_teams_by_user, \
     publish_last_round, \
     remove_last_round, \
+    remove_playoff, \
     user_can_edit_tournament
 
 
@@ -361,7 +362,7 @@ def start(request, tournament):
             else ''
 
     else:
-        error_message = MSG_MUST_REMOVE_PLAYOFF_ROUNDS if get_rooms_from_last_round(tournament) else ''
+        error_message = '' if remove_playoff(tournament) else MSG_MUST_REMOVE_PLAYOFF_ROUNDS
 
     if error_message:
         return _show_message(request, error_message)
