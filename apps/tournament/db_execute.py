@@ -20,6 +20,7 @@ def get_teams_result_list(where, params):
             SELECT
                 round.number,
                 round.is_closed,
+                round.is_playoff,
                 game.og_id,
                 game.oo_id,
                 game.cg_id,

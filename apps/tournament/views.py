@@ -124,9 +124,20 @@ def _show_message(request, message):
 
 
 def _convert_tab_to_table(table: list, show_all):
+
+    def _playoff_position(res):
+        if res.playoff_position > res.count_playoff_rounds:
+            return 'Победители'
+        elif res.playoff_position == res.count_playoff_rounds:
+            return 'Финалисты'
+        elif res.playoff_position == 0:
+            return '-'
+        else:
+            return '1/' + str(2 ** (res.count_playoff_rounds - res.playoff_position))
+
     lines = []
     count_rounds = max(list(map(lambda x: len(x.rounds), table)) + [0])
-    line = ['№', 'Команда', 'Сумма баллов', 'Сумма спикерских']
+    line = ['№', 'Команда', 'Сумма баллов', 'Плейофф', 'Сумма спикерских']
 
     for i in range(1, count_rounds + 1):
         line.append('Раунд %s' % i)
@@ -139,7 +150,7 @@ def _convert_tab_to_table(table: list, show_all):
     for i in range(len(table)):
         line = []
         n = lines[-1][0] if i > 0 and table[i - 1] == table[i] else i + 1
-        line += [n, table[i].team.name, table[i].sum_points, table[i].sum_speakers]
+        line += [n, table[i].team.name, table[i].sum_points, _playoff_position(table[i]), table[i].sum_speakers]
         for cur_round in table[i].rounds:
             round_res = str(cur_round.points * (not cur_round.is_closed or show_all))
             if show_all:

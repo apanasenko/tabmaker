@@ -29,7 +29,8 @@ class TeamRoundResult:
                  is_reversed: bool,
                  position: Position,
                  number: int,
-                 is_closed: bool
+                 is_closed: bool,
+                 is_playoff: bool,
                  ):
         self.points = points
         self.speaker_1 = speaker_1
@@ -38,20 +39,27 @@ class TeamRoundResult:
         self.position = position
         self.number = number
         self.is_closed = is_closed
+        self.is_playoff = is_playoff
 
 
 class TeamResult:
 
-    def __init__(self, team_id):
+    def __init__(self, team_id, count_playoff_rounds):
+        self.playoff_position = 0
+        self.count_playoff_rounds = count_playoff_rounds
         self.show_all = True
         self.team = Team.objects.get(pk=team_id)
         self.rounds = []
         self.position = [0, 0, 0, 0]
 
     def add_empty_round(self, round_number):
-        self.rounds.append(TeamRoundResult(0, 0, 0, False, Position.NONE, round_number, False))
+        self.rounds.append(TeamRoundResult(0, 0, 0, False, Position.NONE, round_number, False, False))
 
     def add_round(self, other: TeamRoundResult):
+        if other.is_playoff:
+            self.playoff_position = max(self.playoff_position, other.number + int(other.points == POINTS_OF_WIN))
+            return self.rounds
+
         if len(self.rounds) + 1 == other.number:
             self.rounds.append(other)
         elif len(self.rounds) + 1 < other.number:
@@ -153,6 +161,14 @@ def _get_temp_round(tournament: Tournament):
     return None if not temp_round else temp_round[0]
 
 
+def _count_playoff_rounds_in_tournament(teams_in_round: int):
+    result = 0
+    while teams_in_round // 2 >= 2:
+        result += 1
+        teams_in_round /= 2
+    return result
+
+
 def _filter_tab(tab: [TeamResult], tournament: Tournament, roles: [TournamentRole]):
     teams = list(map(lambda x: x.team, tournament.teamtournamentrel_set.filter(role__in=roles)))
     new_tab = list(filter(lambda x: x.team in teams, tab))
@@ -160,7 +176,7 @@ def _filter_tab(tab: [TeamResult], tournament: Tournament, roles: [TournamentRol
     for team in teams:
         if team in teams_in_tab:
             continue
-        team_results = TeamResult(team.id)
+        team_results = TeamResult(team.id, _count_playoff_rounds_in_tournament(tournament.count_teams_in_break))
         for i in range(tournament.cur_round):
             team_results.add_empty_round(i)
         new_tab.append(team_results)
@@ -559,11 +575,12 @@ def get_tab(tournament: Tournament):
                 bool(game[position[4]]),
                 position[5],
                 int(game['number']),
-                bool(game['is_closed'])
+                bool(game['is_closed']),
+                bool(game['is_playoff'])
             )
             team_id = game[position[0]]
             if team_id not in teams.keys():
-                teams[team_id] = TeamResult(team_id)
+                teams[team_id] = TeamResult(team_id, _count_playoff_rounds_in_tournament(tournament.count_teams_in_break))
 
             teams[team_id].add_round(team_result)
 
