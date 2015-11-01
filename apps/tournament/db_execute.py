@@ -51,6 +51,8 @@ def get_motion_list(tournament_id):
             INNER JOIN motion_motion AS motion ON round.motion_id = motion.id
             INNER JOIN tournament_room AS room ON room.round_id = round.id
             WHERE
+                round.number != -1
+                AND
                 tournament_id = %s
             GROUP BY
                 round.id,
