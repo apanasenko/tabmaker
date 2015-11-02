@@ -24,7 +24,7 @@
         {% elif tournament|is_status_playoff %}
 
             <li class="b-sidebar__listitem"><a href="{% url "tournament:play" tournament.id %}"><i class="fa fa-play-circle"></i>Управление раундами</a></li>
-            <li class="b-sidebar__listitem"><a href="{% url "tournament:break" tournament.id %}"><i class="fa fa-play-circle"></i>Завершить турнир</a></li>
+            <li class="b-sidebar__listitem"><a href="{% url "tournament:finished" tournament.id %}"><i class="fa fa-play-circle"></i>Завершить турнир</a></li>
             <li class="b-sidebar__listitem"><a href="{% url "tournament:start" tournament.id %}"><i class="fa fa-play-circle"></i>Отменить брейк</a></li>
 
         {% endif %}
