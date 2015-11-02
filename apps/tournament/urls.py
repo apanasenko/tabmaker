@@ -60,4 +60,8 @@ urlpatterns = patterns(
     url(r'^(?P<tournament_id>\d+)/admin/add[/]$', views.add_admin, name='admin_add'),
     url(r'^(?P<tournament_id>\d+)/admin/remove[/]$', views.remove_admin, name='admin_remove'),
     url(r'^(?P<tournament_id>\d+)/owner/change[/]$', views.change_owner, name='owner_change'),
+
+    # Places
+    url(r'^(?P<tournament_id>\d+)/place/add[/]', views.place_add, name='add_place'),
+    url(r'^(?P<tournament_id>\d+)/place/update[/]', views.place_update, name='update_place'),
 )

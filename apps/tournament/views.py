@@ -885,3 +885,15 @@ def change_owner(request, tournament):
     return json_response(
         MSG_JSON_OK, MSG_OWNER_CHANGED_p % admin_rel.first().user.name()
     )
+
+
+##################################
+#             Places             #
+##################################
+
+def place_add(request, tournament):
+    return _show_message(request, 'Упс, скоро будет')
+
+
+def place_update(request, tournament):
+    return _show_message(request, 'Упс, скоро будет')
