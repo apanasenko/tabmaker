@@ -480,7 +480,7 @@ def next_round(request, tournament):
 
 @access_by_status(name_page='round_show')
 def show_round(request, tournament):
-    rooms = get_rooms_from_last_round(tournament)
+    rooms = get_rooms_from_last_round(tournament, True)
     if not rooms or not rooms[0].round.is_public:
         return _show_message(request, MSG_ROUND_NOT_PUBLIC)
 
@@ -497,7 +497,7 @@ def show_round(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='round_next')  # TODO Добавить в таблицу доступа
 def presentation_round(request, tournament):
-    rooms = get_rooms_from_last_round(tournament)
+    rooms = get_rooms_from_last_round(tournament, True)
     return render(
         request,
         'tournament/presentation_round.html',

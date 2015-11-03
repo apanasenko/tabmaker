@@ -549,8 +549,9 @@ def get_motions(tournament: Tournament):
     return motions['qualification'] + motions['playoff']
 
 
-def get_rooms_from_last_round(tournament: Tournament):
-    return Room.objects.filter(round=_get_last_round(tournament))
+def get_rooms_from_last_round(tournament: Tournament, shuffle=False):
+    room = Room.objects.filter(round=_get_last_round(tournament))
+    return room if not shuffle else room.order_by('?')
 
 
 def get_rooms_by_chair_from_last_round(tournament: Tournament, user: User) -> Room:
