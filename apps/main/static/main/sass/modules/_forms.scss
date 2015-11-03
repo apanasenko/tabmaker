@@ -1,12 +1,11 @@
 input, select, textarea {
 	padding: 5px 0px 5px 10px;
-	height: 25px;
 	border-radius: 4px;
 	line-height: 20px;
 	margin: 0 0px 15px 0;
 	font-size: 14px;
 	color: $dark;
-	background-color: white;
+	background-color: transparent;
 	border: 2px solid $background-page;
 
 	&:focus {
@@ -115,53 +114,12 @@ label {
 	@include span(12 of 12);
 }
 
-#university, #adress, #count_teams_in_break, .last {
-	// @include last;
-}
-
 #country, #street, #regdateOpen, #regdateClose, #link, .row {
 	clear: both;
 }
 
-// #tournamentName {
-// }
-
-// #address {
-// 	@include span(11 of 12);
-
-// 	input {
-// 		width: 100%;
-// 	}
-// }
-
-// #street {
-// 	@include span(8 of 12);
-
-// 	input {
-// 		max-width: 370px;
-// 		width: 370px;
-// 	}
-// }
-
 #player_experience, #adjudicator_experience, .textarea {
 	@include span(12 of 12);
-}
-
-// #link {
-// 	@include span(11 of 12);
-	
-// 	input {
-// 		width: 100%;
-// 	}
-// }
-
-// .button.formItem {
-// 	@include span (4 of 12);
-// 	text-align: center;
-// }
-
-#loginButton {
-	@include span (4 of 12);
 }
 
 .errorlist {

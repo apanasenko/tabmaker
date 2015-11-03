@@ -26,9 +26,6 @@
     <input id="tab3" type="radio" name="tabs" class="b-tabs__input">
     <label for="tab3" class="b-tabs__label" title="Судьи">Судьи</label>
 
-    <input id="tab4" type="radio" name="tabs" class="b-tabs__input">
-    <label for="tab4" class="b-tabs__label" title="Место">Место</label>
-
     <section class="b-tabs__one">
         <form class="b-form" action="{% url "tournament:edit" tournament.id %}" method="post">
              {% include "tournament/edit_form.html" %}

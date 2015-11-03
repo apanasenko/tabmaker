@@ -8,13 +8,13 @@
 
 {% block content %}
 
-    <div id="message" class="formItem full">
+    <div id="message" class="b-message">
         <p>{{ message }}</p>
     </div>
 
-    <div id="message_back" class="formItem full">
-        <a class="button formItem" href="{% if url %}{{ url }}{% else %}javascript:history.back(){% endif %}">Назад</a>
-        <a class="button formItem" href="{% url "main:index" %}">На главную</a>
+    <div id="message_back" class="b-message__back">
+        <a class="button" href="{% if url %}{{ url }}{% else %}javascript:history.back(){% endif %}">Назад</a>
+        <a class="button" href="{% url "main:index" %}">На главную</a>
     </div>
 
 {% endblock content %}

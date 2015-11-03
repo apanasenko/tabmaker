@@ -6,17 +6,17 @@
 
 {% block content %}
 
-    <form class="login" method="POST" action="{% url 'account_login' %}">
+    <form class="login b-message" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
         {{ form.non_field_errors }}
-        <div class="formItem">
-            {{ form.login.label_tag }}
+        <div class="b-message__section">
+            <h3>{{ form.login.label_tag }}</h3>
             {{ form.login }}
             {{ form.login.errors }}
         </div>
 
-        <div class="formItem">
-            {{ form.password.label_tag }}
+        <div class="b-message__section">
+            <h3>{{ form.password.label_tag }}</h3>
             {{ form.password }}
             {{ form.password.errors }}
         </div>
@@ -25,11 +25,13 @@
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
 
-        <button id="loginButton" class="primaryAction button formItem row" type="submit"> Войти </button>
+        <button id="loginButton" class="primaryAction button b-message__loginbutton" type="submit"> Войти </button>
+
+        <a class="b-message__forgot" href="{% url 'account_reset_password' %}">Забыли пароль?</a>
     </form>
 
     <div>
-        <a href="{% url 'account_reset_password' %}">Забыли пароль?</a>
+        
     </div>
 
 {% endblock content %}

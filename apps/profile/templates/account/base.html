@@ -20,20 +20,20 @@
 
 {% block sidebar%}
 
-    <ul class="side-nav">
+    <ul class="b-sidebar__list">
 
         {% if request.user.is_authenticated %}
 
-            <li class="">
+            <li class="b-sidebar__listitem">
                 <a href="{% url 'account_logout' %}">Выйти</a>
             </li>
 
         {% else %}
 
-            <li class="">
+            <li class="b-sidebar__listitem">
                 <a href="{% url 'account_login' %}">Войти</a>
             </li>
-            <li class="">
+            <li class="b-sidebar__listitem">
                 <a href="{% url 'account_signup' %}">Зарегистрироваться</a>
             </li>
 

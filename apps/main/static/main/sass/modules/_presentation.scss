@@ -26,38 +26,46 @@
 		&_teams {
 			margin: 0 auto;
 			height: 80%;
-			@include container(75%);
+			@include container(60%);
 		}
 
 		&_og, &_cg, &_oo, &_co {
-			height: 15%;
-			padding-top: 7em;
+			min-height: 15%;
+			padding-top: 6em;
 			
 
 			h3, p {
 				color: white;
-				text-align: left;
+				margin: 0 auto;
 			}
 
 			h3 {
-				font-size: 3.5em;
+				font-size: 3em;
 				height: auto;
 			}
 
 			p {
-				font-size: 2em;
+				font-size: 1.6em;
 				margin-bottom: 0.4em;
 			}
 		}
 
 		&_og, &_cg {
-			@include span(40% no-gutters);
-			padding-left: 3em;
+			@include span(50% no-gutters);
+			
+			h3, p {
+				padding-right: 20%;
+				text-align: right;
+			}
 		}
 
 		&_oo, &_co {
-			@include span(40% last no-gutters);
-			padding-right: 3em;
+			@include span(50% last no-gutters);
+			
+			h3, p {
+				padding-left: 20%;
+				text-align: left;
+			}
 		}
 
 		&_chair {
