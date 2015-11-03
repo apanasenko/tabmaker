@@ -12,6 +12,7 @@ from .db_execute import \
     get_teams_result_list, \
     get_motion_list
 from .consts import *
+from .messages import *
 from .models import \
     Tournament,\
     TeamTournamentRel, \
@@ -196,7 +197,6 @@ def _check_duplicate_role(role: TournamentRole, rel: TeamTournamentRel, user: Us
 #              Generate rounds              ##
 ##############################################
 
-# TODO @check_tournament
 def _generate_random_round(tournament: Tournament, cur_round: Round):
     teams = list(tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER))
     chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
@@ -435,6 +435,15 @@ def check_last_round_results(tournament: Tournament):
             return 'Введите результаты последнего раунда'
 
     return None
+
+
+def check_teams_and_adjudicators(tournament: Tournament):
+    count_teams = tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count()
+    count_adjudicator = tournament.usertournamentrel_set.filter(role=ROLE_CHAIR).count()
+
+    return MSG_NEED_TEAMS if count_teams % TEAM_IN_GAME \
+        else MSG_NEED_ADJUDICATOR if count_teams // TEAM_IN_GAME > count_adjudicator \
+        else None
 
 
 def generate_next_round(tournament: Tournament, new_round: Round):

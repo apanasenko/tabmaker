@@ -39,6 +39,7 @@ from .models import \
 from .logic import \
     can_change_team_role, \
     check_last_round_results, \
+    check_teams_and_adjudicators, \
     generate_next_round, \
     generate_playoff, \
     get_games_and_results, \
@@ -75,9 +76,13 @@ def access_by_status(name_page=None):
     return decorator_maker
 
 
-def check_results(func):
+def check_tournament(func):
     def decorator(request, tournament):
         error = check_last_round_results(tournament)
+        if error:
+            return _show_message(request, error)
+
+        error = check_teams_and_adjudicators(tournament)
         if error:
             return _show_message(request, error)
 
@@ -365,13 +370,7 @@ def registration_closing(request, tournament):
 @access_by_status(name_page='start')
 def start(request, tournament):
     if tournament.status == STATUS_PREPARATION:
-        count_teams = tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count()
-        count_adjudicator = tournament.usertournamentrel_set.filter(role=ROLE_CHAIR).count()
-
-        error_message = MSG_NEED_TEAMS if count_teams % TEAM_IN_GAME \
-            else MSG_NEED_ADJUDICATOR if count_teams // TEAM_IN_GAME > count_adjudicator \
-            else ''
-
+        error_message = check_teams_and_adjudicators(tournament)
     else:
         error_message = '' if remove_playoff(tournament) else MSG_MUST_REMOVE_PLAYOFF_ROUNDS
 
@@ -450,7 +449,7 @@ def finished(request, tournament):
 
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='round_next')
-@check_results
+@check_tournament
 def next_round(request, tournament):
     if request.method == 'POST':
         motion_form = MotionForm(request.POST)
