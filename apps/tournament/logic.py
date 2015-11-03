@@ -99,9 +99,6 @@ class TeamResult:
         return self.sum_points() > other.sum_points() \
             or self.sum_points() == other.sum_points() and self.sum_speakers() > other.sum_speakers()
 
-    def __eq__(self, other):
-        return self.sum_points() == other.sum_points() and self.sum_speakers() == other.sum_speakers()
-
     def __lt__(self, other):
         return self.sum_points() < other.sum_points() \
             or self.sum_points() == other.sum_points() and self.sum_speakers() < other.sum_speakers()
