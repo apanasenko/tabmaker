@@ -38,6 +38,7 @@ from .models import \
 
 from .logic import \
     can_change_team_role, \
+    check_final, \
     check_last_round_results, \
     check_teams_and_adjudicators, \
     generate_next_round, \
@@ -83,6 +84,10 @@ def check_tournament(func):
             return _show_message(request, error)
 
         error = check_teams_and_adjudicators(tournament)
+        if error:
+            return _show_message(request, error)
+
+        error = check_final(tournament)
         if error:
             return _show_message(request, error)
 

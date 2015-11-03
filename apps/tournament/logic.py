@@ -429,6 +429,13 @@ def can_change_team_role(rel: TeamTournamentRel, role: TournamentRole) -> [bool,
     return [True, '']
 
 
+def check_final(tournament: Tournament):
+    if tournament.status == STATUS_PLAYOFF and len(get_rooms_from_last_round(tournament)) == 1:
+        return MSG_FINAL_ALREADY_EXIST
+
+    return None
+
+
 def check_last_round_results(tournament: Tournament):
     for room in Room.objects.filter(round=_get_last_round(tournament)):
         if not GameResult.objects.filter(game=room.game).exists():
