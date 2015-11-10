@@ -18,6 +18,7 @@ from apps.team.forms import \
     TeamWithSpeakerRegistrationForm
 from apps.motion.forms import MotionForm
 from apps.game.forms import \
+    ActivateResultForm, \
     GameForm, \
     ResultGameForm
 
@@ -200,22 +201,25 @@ def _convert_tab_to_speaker_table(table: list, is_show):
     return lines
 
 
-def _get_or_check_round_result_forms(request, rooms):
+def _get_or_check_round_result_forms(request, rooms, is_admin=False):
     all_is_valid = True
     forms = []
     for room in get_games_and_results(rooms):
-        if request.method == 'POST':
-            form = ResultGameForm(request.POST, instance=room['result'], prefix=room['game'].id)
-            all_is_valid &= form.is_valid()
-            if form.is_valid():
-                form.save()
-        else:
-            form = ResultGameForm(instance=room['result'], prefix=room['game'].id)
-            form.initial['game'] = room['game'].id
+        result_form = ResultGameForm(request.POST or None, instance=room['result'], prefix='rf_%s' % room['game'].id)
+        activate_form = ActivateResultForm(request.POST or None, prefix='af_%s' % room['game'].id)
+        if request.method == 'POST' and activate_form.is_valid() and activate_form.is_active():
+            all_is_valid &= result_form.is_valid()
+            if result_form.is_valid():
+                result_form.save()
+        elif request.method != 'POST':
+            activate_form.init(is_admin)
+            result_form.initial['game'] = room['game'].id
 
         forms.append({
             'game': room['game'],
-            'result': form,
+            'result': result_form,
+            'activate_result': activate_form,
+            'show_checkbox': is_admin,
         })
     return all_is_valid, forms
 
@@ -513,7 +517,7 @@ def presentation_round(request, tournament):
 
 
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='round_edit')
+@access_by_status(name_page='round_edit') # TODO Добавить в таблицу доступа
 def publish_round(request, tournament):
     if not publish_last_round(tournament):
         _show_message(request, MSG_ROUND_NOT_EXIST)
@@ -557,19 +561,19 @@ def edit_round(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='round_result')
 def result_round(request, tournament):
-    is_owner = user_can_edit_tournament(tournament, request.user)
-    if is_owner:
+    is_admin = user_can_edit_tournament(tournament, request.user)
+    if is_admin:
         rooms = get_rooms_from_last_round(tournament)
     else:
         rooms = get_rooms_by_chair_from_last_round(tournament, request.user)
 
-    if not is_owner and not rooms:
+    if not is_admin and not rooms:
         return _show_message(request, MSG_NO_ACCESS_IN_RESULT_PAGE)
 
-    is_valid, forms = _get_or_check_round_result_forms(request, rooms)
+    is_valid, forms = _get_or_check_round_result_forms(request, rooms, is_admin)
 
     if is_valid and request.method == 'POST':
-        if is_owner:
+        if is_admin:
             return redirect('tournament:play', tournament_id=tournament.id)
         else:
             return redirect('tournament:show', tournament_id=tournament.id)

@@ -19,7 +19,7 @@
     <form class="b-result" id="result_form" action="{% url "tournament:result_round" tournament.id %}" method="post">
         {% csrf_token %}
         {% for room in forms %}
-            {% with game=room.game res=room.result  %}
+            {% with game=room.game res=room.result is_active=room.activate_result %}
             <div class="b-result-room room">
 
                 <div class="b-result-room__adjudicator">
@@ -27,6 +27,15 @@
                     {{ res.game.errors }}
                     {{ res.game }}
                 </div>
+
+                <div class="activate_form_checkbox">
+                    {% if room.show_checkbox %}
+                        <input class="is_check_game_checkbox" id="id_is_check_game_{{ game.id }}" type="checkbox">
+                        <p><label for="id_is_check_game_{{ game.id }}">Ввести результаты игры</label></p>
+                    {% endif %}
+                    {{ is_active.check_game }}
+                </div>
+
                 <div class="errors">
 
                 </div>

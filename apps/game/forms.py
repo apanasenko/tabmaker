@@ -25,7 +25,7 @@ class GameForm(forms.ModelForm):
         }
 
 
-class ResultGameForm(forms.ModelForm):
+class ResultGameForm(forms.ModelForm):  # TODO добавить проверку результатов
 
     class Meta:
         model = GameResult
@@ -33,6 +33,7 @@ class ResultGameForm(forms.ModelForm):
         speaker_2_attrs = {'min': '50', 'max': 100, 'class': 'speaker_2_points'}
         team_attrs = {'min': 1, 'max': 4, 'class': 'place'}
         reverse_checkbox_attrs = {'type': 'checkbox', 'class': 'reverse_speakers'}
+        game_attrs = {'class': 'game_id'}
 
         fields = '__all__'
 
@@ -45,7 +46,7 @@ class ResultGameForm(forms.ModelForm):
             'oo_rev': forms.CheckboxInput(attrs=reverse_checkbox_attrs),
             'cg_rev': forms.CheckboxInput(attrs=reverse_checkbox_attrs),
             'co_rev': forms.CheckboxInput(attrs=reverse_checkbox_attrs),
-            'game': forms.HiddenInput(),
+            'game': forms.HiddenInput(attrs=game_attrs),
             'pm': forms.NumberInput(attrs=speaker_1_attrs),
             'dpm': forms.NumberInput(attrs=speaker_2_attrs),
             'lo': forms.NumberInput(attrs=speaker_1_attrs),
@@ -63,4 +64,12 @@ class ResultGameForm(forms.ModelForm):
             'co_rev': 'Спикеры выступали в обратном порядке',
         }
 
-#       TODO добавить проверку результатов
+
+class ActivateResultForm(forms.Form):
+    check_game = forms.BooleanField(widget=forms.HiddenInput(attrs={'class': 'is_check_game_input'}))
+
+    def init(self, is_admin):
+        self.initial['check_game'] = not is_admin
+
+    def is_active(self):
+        return self.cleaned_data['check_game']

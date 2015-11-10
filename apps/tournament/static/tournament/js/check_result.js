@@ -14,6 +14,9 @@ function get_sum_speaker(block, position){
 function check_results(){
     var checked = true;
     $('.room').each(function(){
+        if (!parseBool($(this).find('.is_check_game_input').val()))
+            return;
+
         var checked_room = true;
         var errors_block = $(this).find('.errors');
         errors_block.html('');
@@ -41,7 +44,7 @@ function check_results(){
             $.each([4, 3, 2], function(key, value) {
                 if (speakers_point[value] > speakers_point[value - 1]) {
                     errors_block.append(
-                        '<p>Сумма спикерских у ' + value - 1 + 'команды должны быть не больше чем у ' + value + ' команды</p>'
+                        '<p>Сумма спикерских у ' + (value - 1).toString() + ' команды не должна быть больше чем у ' + value.toString() + ' команды</p>'
                     );
                     checked_room = false;
                 }
@@ -50,4 +53,35 @@ function check_results(){
         checked = checked && checked_room;
     });
     return checked;
+}
+
+
+$(document).ready(function(){
+    $('.room').each(function(){
+        var room = this;
+        var checkbox = $(room).find('.is_check_game_checkbox');
+        if (!checkbox.length)
+            return;
+
+        var input = $(room).find('.is_check_game_input');
+        $(checkbox).prop('checked', parseBool($(input).val()));
+        $(checkbox).change(function(){
+            activate_input(room, input, checkbox);
+        });
+        activate_input(room, input, checkbox);
+    });
+});
+
+
+function activate_input(room, input, checkbox){
+    $(input).val($(checkbox).is(':checked'));
+    $(room).find('.speaker_1_points, .speaker_2_points, .place, .reverse_speakers, .game_id').prop(
+        'disabled',
+        !parseBool($(input).val())
+    );
+}
+
+
+function parseBool(str){
+    return $.parseJSON(str.toLowerCase())
 }
