@@ -29,10 +29,11 @@ class ResultGameForm(forms.ModelForm):  # TODO добавить проверку
 
     class Meta:
         model = GameResult
-        speaker_1_attrs = {'min': '50', 'max': 100, 'class': 'speaker_1_points'}
-        speaker_2_attrs = {'min': '50', 'max': 100, 'class': 'speaker_2_points'}
+        speaker_1_attrs = {'min': 0, 'max': 100, 'class': 'speaker_1_points points_input'}
+        speaker_2_attrs = {'min': 0, 'max': 100, 'class': 'speaker_2_points points_input'}
         team_attrs = {'min': 1, 'max': 4, 'class': 'place'}
         reverse_checkbox_attrs = {'type': 'checkbox', 'class': 'reverse_speakers'}
+        exist_speaker_attrs = {'type': 'checkbox', 'class': 'exist_speaker'}
         game_attrs = {'class': 'game_id'}
 
         fields = '__all__'
@@ -55,6 +56,15 @@ class ResultGameForm(forms.ModelForm):  # TODO добавить проверку
             'gw': forms.NumberInput(attrs=speaker_2_attrs),
             'mo': forms.NumberInput(attrs=speaker_1_attrs),
             'ow': forms.NumberInput(attrs=speaker_2_attrs),
+            'pm_exist': forms.CheckboxInput(attrs=exist_speaker_attrs),
+            'dpm_exist': forms.CheckboxInput(attrs=exist_speaker_attrs),
+            'lo_exist': forms.CheckboxInput(attrs=exist_speaker_attrs),
+            'dlo_exist': forms.CheckboxInput(attrs=exist_speaker_attrs),
+            'mg_exist': forms.CheckboxInput(attrs=exist_speaker_attrs),
+            'gw_exist': forms.CheckboxInput(attrs=exist_speaker_attrs),
+            'mo_exist': forms.CheckboxInput(attrs=exist_speaker_attrs),
+            'ow_exist': forms.CheckboxInput(attrs=exist_speaker_attrs),
+
         }
 
         labels = {

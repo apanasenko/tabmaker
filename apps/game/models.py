@@ -40,16 +40,24 @@ class GameResult(models.Model):
     # Speaker's points
     # OG (Prime Minister & Deputy Prime Minister)
     pm = models.IntegerField()
+    pm_exist = models.BooleanField(default=True)
     dpm = models.IntegerField()
+    dpm_exist = models.BooleanField(default=True)
 
     # OO (Leader of Opposition & Deputy Leader of Opposition)
     lo = models.IntegerField()
+    lo_exist = models.BooleanField(default=True)
     dlo = models.IntegerField()
+    dlo_exist = models.BooleanField(default=True)
 
     # CG (Member of Government & Government Whip)
     mg = models.IntegerField()
+    mg_exist = models.BooleanField(default=True)
     gw = models.IntegerField()
+    gw_exist = models.BooleanField(default=True)
 
     # CO (Member of Opposition & Opposition Whip)
     mo = models.IntegerField()
+    mo_exist = models.BooleanField(default=True)
     ow = models.IntegerField()
+    ow_exist = models.BooleanField(default=True)

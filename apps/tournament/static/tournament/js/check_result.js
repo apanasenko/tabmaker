@@ -42,6 +42,7 @@ function check_results(){
             speakers_point[cg] = get_sum_speaker(this, 'cg');
             speakers_point[co] = get_sum_speaker(this, 'co');
             $.each([4, 3, 2], function(key, value) {
+
                 if (speakers_point[value] > speakers_point[value - 1]) {
                     errors_block.append(
                         '<p>Сумма спикерских у ' + (value - 1).toString() + ' команды не должна быть больше чем у ' + value.toString() + ' команды</p>'
@@ -70,6 +71,19 @@ $(document).ready(function(){
         });
         activate_input(room, input, checkbox);
     });
+
+    $('.exist_speaker').each(function () {
+        var speaker_1 = $(this).parents('.speaker_1');
+        var speaker_2 = $(this).parents('.speaker_2');
+        var speaker = speaker_1.length ? speaker_1 : speaker_2;
+        var label = $(speaker).find('.speaker_name');
+        var input = $(speaker).find('.points_input');
+        $(this).change(function(){
+            activate_speaker(this, label, input);
+        });
+        activate_speaker(this, label, input);
+
+    })
 });
 
 
@@ -79,6 +93,18 @@ function activate_input(room, input, checkbox){
         'disabled',
         !parseBool($(input).val())
     );
+}
+
+
+function activate_speaker(checkbox, label, input){
+    if ( ! $(checkbox).is(':checked')){
+        $(label).attr('style', 'text-decoration:line-through');
+        $(input).prop('readonly', true);
+        $(input).val('0');
+    } else {
+        $(label).removeAttr('style');
+        $(input).prop('readonly', false);
+    }
 }
 
 
