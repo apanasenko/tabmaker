@@ -85,7 +85,7 @@ function check_results(){
 
 function activate_input(room, input, checkbox){
     $(input).val($(checkbox).is(':checked'));
-    $(room).find('.speaker_1_points, .speaker_2_points, .place, .reverse_speakers, .game_id').prop(
+    $(room).find('.speaker_1_points, .speaker_2_points, .place, .reverse_speakers, .game_id, .exist_speaker').prop(
         'disabled',
         !parseBool($(input).val())
     );
