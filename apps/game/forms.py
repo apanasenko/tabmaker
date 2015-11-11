@@ -25,7 +25,9 @@ class GameForm(forms.ModelForm):
         }
 
 
-class ResultGameForm(forms.ModelForm):  # TODO добавить проверку результатов
+class ResultGameForm(forms.ModelForm):
+
+    min_speaker_points = 50
 
     class Meta:
         model = GameResult
@@ -52,6 +54,23 @@ class ResultGameForm(forms.ModelForm):  # TODO добавить проверку
 
         for i in ['pm_exist', 'lo_exist', 'mg_exist', 'mo_exist', 'dpm_exist', 'dlo_exist', 'gw_exist', 'ow_exist']:
             widgets[i] = forms.CheckboxInput(attrs={'type': 'checkbox', 'class': 'exist_speaker'})
+
+    def clean(self):
+        super(ResultGameForm, self).clean()
+        for i in ['pm', 'lo', 'mg', 'mo', 'dpm', 'dlo', 'gw', 'ow']:
+            if self.cleaned_data[i + '_exist']:
+                if self.cleaned_data[i] < self.min_speaker_points:
+                    self.add_error(i, 'Спикерский балл не должен быть меньше %s' % self.min_speaker_points)
+
+            else:
+                self.cleaned_data[i] = 0
+
+        places = sorted(list(map(lambda x: self.cleaned_data[x], ['og', 'oo', 'cg', 'co'])))
+        a = [1, 2, 3, 4]
+        if places != a:
+            for i in a:
+                if i not in places:
+                    self.add_error('__all__', 'Не указана команда, занявшая %s место' % i)
 
 
 class ActivateResultForm(forms.Form):
