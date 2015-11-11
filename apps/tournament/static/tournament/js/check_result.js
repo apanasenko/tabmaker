@@ -1,14 +1,40 @@
 $(document).ready(function(){
+
     $('#result_form').submit(function(){
         return check_results()
     });
-});
 
+    $('.room').each(function(){
+        var room = this;
+        var checkbox = $(room).find('.is_check_game_checkbox');
+        if (!checkbox.length)
+            return;
 
 function get_sum_speaker(block, position){
     var team =$(block).find('.' + position);
     return parseInt($(team).find('.speaker_1_points').val()) + parseInt($(team).find('.speaker_2_points').val())
 }
+        var input = $(room).find('.is_check_game_input');
+        $(checkbox).prop('checked', parseBool($(input).val()));
+        $(checkbox).change(function(){
+            activate_input(room, input, checkbox);
+        });
+        activate_input(room, input, checkbox);
+    });
+
+    $('.exist_speaker').each(function () {
+        var speaker_1 = $(this).parents('.speaker_1');
+        var speaker_2 = $(this).parents('.speaker_2');
+        var speaker = speaker_1.length ? speaker_1 : speaker_2;
+        var label = $(speaker).find('.speaker_name');
+        var input = $(speaker).find('.points_input');
+        $(this).change(function(){
+            activate_speaker(this, label, input);
+        });
+        activate_speaker(this, label, input);
+
+    })
+});
 
 
 function check_results(){
@@ -55,36 +81,6 @@ function check_results(){
     });
     return checked;
 }
-
-
-$(document).ready(function(){
-    $('.room').each(function(){
-        var room = this;
-        var checkbox = $(room).find('.is_check_game_checkbox');
-        if (!checkbox.length)
-            return;
-
-        var input = $(room).find('.is_check_game_input');
-        $(checkbox).prop('checked', parseBool($(input).val()));
-        $(checkbox).change(function(){
-            activate_input(room, input, checkbox);
-        });
-        activate_input(room, input, checkbox);
-    });
-
-    $('.exist_speaker').each(function () {
-        var speaker_1 = $(this).parents('.speaker_1');
-        var speaker_2 = $(this).parents('.speaker_2');
-        var speaker = speaker_1.length ? speaker_1 : speaker_2;
-        var label = $(speaker).find('.speaker_name');
-        var input = $(speaker).find('.points_input');
-        $(this).change(function(){
-            activate_speaker(this, label, input);
-        });
-        activate_speaker(this, label, input);
-
-    })
-});
 
 
 function activate_input(room, input, checkbox){
