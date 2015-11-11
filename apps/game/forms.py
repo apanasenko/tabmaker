@@ -29,50 +29,29 @@ class ResultGameForm(forms.ModelForm):  # TODO добавить проверку
 
     class Meta:
         model = GameResult
-        speaker_1_attrs = {'min': 0, 'max': 100, 'class': 'speaker_1_points points_input'}
-        speaker_2_attrs = {'min': 0, 'max': 100, 'class': 'speaker_2_points points_input'}
-        team_attrs = {'min': 1, 'max': 4, 'class': 'place'}
-        reverse_checkbox_attrs = {'type': 'checkbox', 'class': 'reverse_speakers'}
-        exist_speaker_attrs = {'type': 'checkbox', 'class': 'exist_speaker'}
-        game_attrs = {'class': 'game_id'}
 
         fields = '__all__'
 
+        labels = {}
         widgets = {
-            'og': forms.NumberInput(attrs=team_attrs),
-            'oo': forms.NumberInput(attrs=team_attrs),
-            'cg': forms.NumberInput(attrs=team_attrs),
-            'co': forms.NumberInput(attrs=team_attrs),
-            'og_rev': forms.CheckboxInput(attrs=reverse_checkbox_attrs),
-            'oo_rev': forms.CheckboxInput(attrs=reverse_checkbox_attrs),
-            'cg_rev': forms.CheckboxInput(attrs=reverse_checkbox_attrs),
-            'co_rev': forms.CheckboxInput(attrs=reverse_checkbox_attrs),
-            'game': forms.HiddenInput(attrs=game_attrs),
-            'pm': forms.NumberInput(attrs=speaker_1_attrs),
-            'dpm': forms.NumberInput(attrs=speaker_2_attrs),
-            'lo': forms.NumberInput(attrs=speaker_1_attrs),
-            'dlo': forms.NumberInput(attrs=speaker_2_attrs),
-            'mg': forms.NumberInput(attrs=speaker_1_attrs),
-            'gw': forms.NumberInput(attrs=speaker_2_attrs),
-            'mo': forms.NumberInput(attrs=speaker_1_attrs),
-            'ow': forms.NumberInput(attrs=speaker_2_attrs),
-            'pm_exist': forms.CheckboxInput(attrs=exist_speaker_attrs),
-            'dpm_exist': forms.CheckboxInput(attrs=exist_speaker_attrs),
-            'lo_exist': forms.CheckboxInput(attrs=exist_speaker_attrs),
-            'dlo_exist': forms.CheckboxInput(attrs=exist_speaker_attrs),
-            'mg_exist': forms.CheckboxInput(attrs=exist_speaker_attrs),
-            'gw_exist': forms.CheckboxInput(attrs=exist_speaker_attrs),
-            'mo_exist': forms.CheckboxInput(attrs=exist_speaker_attrs),
-            'ow_exist': forms.CheckboxInput(attrs=exist_speaker_attrs),
-
+            'game': forms.HiddenInput(attrs={'class': 'game_id'}),
         }
 
-        labels = {
-            'og_rev': 'Спикеры выступали в обратном порядке',
-            'oo_rev': 'Спикеры выступали в обратном порядке',
-            'cg_rev': 'Спикеры выступали в обратном порядке',
-            'co_rev': 'Спикеры выступали в обратном порядке',
-        }
+        for i in ['og', 'oo', 'cg', 'co']:
+            widgets[i] = forms.NumberInput(attrs={'min': 1, 'max': 4, 'class': 'place'})
+
+        for i in ['og_rev', 'oo_rev', 'cg_rev', 'co_rev']:
+            widgets[i] = forms.CheckboxInput(attrs={'type': 'checkbox', 'class': 'reverse_speakers'})
+            labels[i] = 'Спикеры выступали в обратном порядке'
+
+        for i in ['pm', 'lo', 'mg', 'mo']:
+            widgets[i] = forms.NumberInput(attrs={'min': 0, 'max': 100, 'class': 'speaker_1_points points_input'})
+
+        for i in ['dpm', 'dlo', 'gw', 'ow']:
+            widgets[i] = forms.NumberInput(attrs={'min': 0, 'max': 100, 'class': 'speaker_2_points points_input'})
+
+        for i in ['pm_exist', 'lo_exist', 'mg_exist', 'mo_exist', 'dpm_exist', 'dlo_exist', 'gw_exist', 'ow_exist']:
+            widgets[i] = forms.CheckboxInput(attrs={'type': 'checkbox', 'class': 'exist_speaker'})
 
 
 class ActivateResultForm(forms.Form):
