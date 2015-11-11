@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     $('#result_form').submit(function(){
-        return check_results()
+        return check_results();
     });
 
     $('.room').each(function(){
@@ -84,17 +84,13 @@ function check_results(){
             });
 
             $.each([4, 3, 2], function(key, value) {
-
                 for(var i = value - 1; i > 0; i--){
 
                     if(!speakers[value].is_all || !speakers[i].is_all)
                         continue;
 
                     if (speakers[value].sum > speakers[i].sum){
-                        errors_block.append(
-                            '<p>Сумма спикерских у ' + (value).toString() + ' команды не должна быть больше чем у ' + i.toString() + ' команды</p>'
-                        );
-                        checked_room = false;
+                        checked_room = checked_room && confirm('Сумма спикерских у ' + (value).toString() + ' команды больше чем у ' + i.toString() + ' команды. Продолжить?');
                     }
                 }
             });
