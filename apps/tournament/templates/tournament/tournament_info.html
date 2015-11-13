@@ -36,6 +36,10 @@
 
                 <a class="b-tournament-reg__button button" href="{% url "tournament:show_round" tournament.id %}">Текущий раунд</a>
 
+            {% else %}
+
+                <a class="b-tournament-reg__button button" href="{% url 'tournament:result_all' tournament.id%}">Подробные результаты по румам</a>
+
             {% endif %}
 
             <a class="b-tournament-reg__button button" href="{% url "tournament:result" tournament.id %}">Теб</a>

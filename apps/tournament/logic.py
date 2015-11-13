@@ -565,6 +565,39 @@ def get_motions(tournament: Tournament):
     return motions['qualification'] + motions['playoff']
 
 
+def get_all_rounds_and_rooms(tournament: Tournament):
+    results = []
+    games = []
+
+    # Выборка всех связных объектов
+    # >>>
+    # TODO Добавить .only() и убрать ненужные поля
+    queryset = Room.objects.filter(round__tournament=tournament, round__is_playoff=False)
+    for i in ['round', 'game', 'game__chair']:
+        queryset = queryset.select_related(i)
+    for i in ['og', 'oo', 'cg', 'co']:
+        queryset = queryset.select_related('game__%s' % i)
+        for j in ['speaker_1', 'speaker_2']:
+            queryset = queryset.select_related('game__%s__%s' % (i, j))
+    queryset = queryset.select_related('game__gameresult')
+    # <<<
+    for i in queryset.order_by('round_id', 'number'):
+
+        if not results or results[-1]['round'] != i.round:
+            results.append({
+                'round': i.round,
+                'rooms': [],
+            })
+
+        results[-1]['rooms'].append({
+            'game': i.game,
+            'result': i.game.gameresult,
+        })
+        games.append(i.game)
+
+    return results
+
+
 def get_rooms_from_last_round(tournament: Tournament, shuffle=False):
     room = Room.objects.filter(round=_get_last_round(tournament))
     return room if not shuffle else room.order_by('?')

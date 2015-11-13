@@ -44,6 +44,7 @@ from .logic import \
     check_teams_and_adjudicators, \
     generate_next_round, \
     generate_playoff, \
+    get_all_rounds_and_rooms, \
     get_games_and_results, \
     get_motions, \
     get_rooms_from_last_round, \
@@ -324,6 +325,21 @@ def result(request, tournament):
             'team_tab': _convert_tab_to_table(get_tab(tournament), show_all),
             'speaker_tab': _convert_tab_to_speaker_table(get_tab(tournament), show_all),
             'motions': get_motions(tournament),
+            'is_owner': is_owner,
+        }
+    )
+
+
+@access_by_status(name_page='')  # TODO Добавить в таблицу доступа
+def result_all_rounds(request, tournament):
+    is_owner = user_can_edit_tournament(tournament, request.user)
+
+    return render(
+        request,
+        'tournament/round_results_show.html',
+        {
+            'tournament': tournament,
+            'results': get_all_rounds_and_rooms(tournament),
             'is_owner': is_owner,
         }
     )
