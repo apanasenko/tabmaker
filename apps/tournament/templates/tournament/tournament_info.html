@@ -43,7 +43,7 @@
         {% endif %}
 
         {% if is_chair %}
-            <a class="b-tournament-reg__regbutton button formItem" href="{% url "tournament:result_round" tournament.id %}">
+            <a class="b-tournament-reg__button button" href="{% url "tournament:result_round" tournament.id %}">
                 Ввести результаты
             </a>
         {% endif %}
