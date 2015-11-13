@@ -20,13 +20,6 @@
     <a class="b-tournament-info__link" href="{{ tournament.link }}">{{ tournament.link }}</a>
 
     <div class="b-tournament-reg">
-    {% if tournament.open_reg > now %}
-        <h3 class="b-tournament-reg__regtime">Регистрация ещё не открыта</h3>
-    {% elif tournament.close_reg < now %}
-
-    {% else %}
-
-    {% endif %}
 
         {% if tournament|is_status_registration %}
 
