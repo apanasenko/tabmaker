@@ -44,11 +44,11 @@ class TeamRoundResult:
 
 class TeamResult:
 
-    def __init__(self, team_id, count_playoff_rounds):
+    def __init__(self, team, count_playoff_rounds):
         self.playoff_position = 0
         self.count_playoff_rounds = count_playoff_rounds
         self.show_all = True
-        self.team = Team.objects.get(pk=team_id)
+        self.team = team
         self.rounds = []
         self.position = [0, 0, 0, 0]
 
@@ -175,7 +175,7 @@ def _filter_tab(tab: [TeamResult], tournament: Tournament, roles: [TournamentRol
     for team in teams:
         if team in teams_in_tab:
             continue
-        team_results = TeamResult(team.id, _count_playoff_rounds_in_tournament(tournament.count_teams_in_break))
+        team_results = TeamResult(team, _count_playoff_rounds_in_tournament(tournament.count_teams_in_break))
         for i in range(tournament.cur_round):
             team_results.add_empty_round(i)
         new_tab.append(team_results)
@@ -572,14 +572,14 @@ def get_all_rounds_and_rooms(tournament: Tournament):
     # >>>
     # TODO Добавить .only() и убрать ненужные поля
     queryset = Room.objects.filter(round__tournament=tournament, round__is_playoff=False)
-    for i in ['round', 'game', 'game__chair']:
+    for i in ['round', 'game', 'game__chair', 'game__gameresult']:
         queryset = queryset.select_related(i)
     for i in ['og', 'oo', 'cg', 'co']:
         queryset = queryset.select_related('game__%s' % i)
         for j in ['speaker_1', 'speaker_2']:
             queryset = queryset.select_related('game__%s__%s' % (i, j))
-    queryset = queryset.select_related('game__gameresult')
     # <<<
+
     for i in queryset.order_by('round_id', 'number'):
 
         if not results or results[-1]['round'] != i.round:
@@ -607,28 +607,45 @@ def get_rooms_by_chair_from_last_round(tournament: Tournament, user: User) -> Ro
 
 
 def get_tab(tournament: Tournament):
-    positions = [
-        ['og_id', 'og', 'pm', 'dpm', 'og_rev', Position.OG],
-        ['oo_id', 'oo', 'lo', 'dlo', 'oo_rev', Position.OO],
-        ['cg_id', 'cg', 'mg', 'gw', 'cg_rev', Position.CG],
-        ['co_id', 'co', 'mo', 'ow', 'co_rev', Position.CO],
-    ]
     teams = {}
-    for game in get_teams_result_list('WHERE round.tournament_id = %s', [tournament.id]):
-        for position in positions:
+
+    # Выборка всех игр и результатов
+    # >>>
+    queryset = Room.objects.filter(round__tournament=tournament)
+    for i in ['round', 'game', 'game__gameresult']:
+        queryset = queryset.select_related(i)
+    for i in ['og', 'oo', 'cg', 'co']:
+        queryset = queryset.select_related('game__%s' % i)
+        for j in ['speaker_1', 'speaker_2']:
+            queryset = queryset.select_related('game__%s__%s' % (i, j))
+    # <<<
+
+    for room in queryset.order_by('round_id', 'number'):
+
+        try:  # TODO Убрать это
+            room.game.gameresult
+        except AttributeError:
+            continue
+
+        for position in [
+            [room.game.gameresult.get_og_result(), Position.OG],
+            [room.game.gameresult.get_oo_result(), Position.OO],
+            [room.game.gameresult.get_cg_result(), Position.CG],
+            [room.game.gameresult.get_co_result(), Position.CO],
+        ]:
             team_result = TeamRoundResult(
-                4 - int(game[position[1]]),
-                int(game[position[2]]),
-                int(game[position[3]]),
-                bool(game[position[4]]),
-                position[5],
-                int(game['number']),
-                bool(game['is_closed']),
-                bool(game['is_playoff'])
+                4 - position[0]['place'],
+                position[0]['speaker_1'],
+                position[0]['speaker_2'],
+                position[0]['revert'],
+                position[1],
+                room.round.number,
+                room.round.is_closed,
+                room.round.is_playoff
             )
-            team_id = game[position[0]]
+            team_id = position[0]['team'].id
             if team_id not in teams.keys():
-                teams[team_id] = TeamResult(team_id, _count_playoff_rounds_in_tournament(tournament.count_teams_in_break))
+                teams[team_id] = TeamResult(position[0]['team'], _count_playoff_rounds_in_tournament(tournament.count_teams_in_break))
 
             teams[team_id].add_round(team_result)
 

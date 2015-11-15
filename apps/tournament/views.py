@@ -316,14 +316,15 @@ def play(request, tournament):
 def result(request, tournament):
     is_owner = user_can_edit_tournament(tournament, request.user)
     show_all = tournament.status == STATUS_FINISHED or is_owner
+    tab = get_tab(tournament)
 
     return render(
         request,
         'tournament/result.html',
         {
             'tournament': tournament,
-            'team_tab': _convert_tab_to_table(get_tab(tournament), show_all),
-            'speaker_tab': _convert_tab_to_speaker_table(get_tab(tournament), show_all),
+            'team_tab': _convert_tab_to_table(tab, show_all),
+            'speaker_tab': _convert_tab_to_speaker_table(tab, show_all),
             'motions': get_motions(tournament),
             'is_owner': is_owner,
         }
