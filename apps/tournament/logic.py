@@ -16,7 +16,6 @@ from .messages import *
 from .models import \
     Tournament,\
     TeamTournamentRel, \
-    UserTournamentRel, \
     Round,\
     Room
 from apps.profile.models import User
@@ -170,7 +169,7 @@ def _count_playoff_rounds_in_tournament(teams_in_round: int):
 
 
 def _filter_tab(tab: [TeamResult], tournament: Tournament, roles: [TournamentRole]):
-    teams = list(map(lambda x: x.team, tournament.teamtournamentrel_set.filter(role__in=roles)))
+    teams = list(map(lambda x: x.team, tournament.get_teams(roles)))
     new_tab = list(filter(lambda x: x.team in teams, tab))
     teams_in_tab = list(map(lambda x: x.team, new_tab))
     for team in teams:
@@ -198,8 +197,8 @@ def _check_duplicate_role(role: TournamentRole, rel: TeamTournamentRel, user: Us
 ##############################################
 
 def _generate_random_round(tournament: Tournament, cur_round: Round):
-    teams = list(tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER))
-    chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
+    teams = list(tournament.get_teams([ROLE_MEMBER]))
+    chair = list(tournament.gey_users([ROLE_CHAIR]))
 
     random.shuffle(chair)
     random.shuffle(teams)
@@ -319,7 +318,7 @@ def _generate_round(tournament: Tournament, cur_round: Round):
             'positions': positions
         })
 
-    chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
+    chair = list(tournament.get_users([ROLE_CHAIR]))
     random.shuffle(chair)
     for i in range(len(games)):
         positions = dict(zip(games[i]['positions'], games[i]['pool']))
@@ -365,7 +364,7 @@ def _generate_playoff_round(tournament: Tournament, cur_round: Round):
         ['co_id', 'co'],
     ]
 
-    chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
+    chair = list(tournament.get_users([ROLE_CHAIR]))
     random.shuffle(chair)
 
     result_prev_round = get_teams_result_list(
@@ -501,7 +500,7 @@ def generate_playoff(tournament: Tournament, teams: list):
 
     positions = list(map(lambda x: x - 1, _generate_playoff_position(tournament.count_teams_in_break)))
     motion = Motion.objects.create(motion='temp')
-    chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
+    chair = list(tournament.get_users([ROLE_CHAIR]))
     random.shuffle(chair)
     new_round = Round.objects.create(
         tournament=tournament,
@@ -681,8 +680,7 @@ def remove_playoff(tournament: Tournament):
 
 
 def user_can_edit_tournament(tournament: Tournament, user: User):
-    return user.is_authenticated() and 0 < len(UserTournamentRel.objects.filter(
-        tournament=tournament,
+    return user.is_authenticated() and tournament.usertournamentrel_set.filter(
         user=user,
         role__in=[ROLE_OWNER, ROLE_ADMIN, ROLE_CHIEF_ADJUDICATOR]
-    ))
+    ).count()

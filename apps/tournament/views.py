@@ -267,8 +267,8 @@ def show(request, tournament):
         'tournament/show.html',
         {
             'tournament': tournament,
-            'team_tournament_rels': tournament.teamtournamentrel_set.all().order_by('-role_id', '-id'),
-            'adjudicators': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id'),
+            'team_tournament_rels': tournament.get_teams(),
+            'adjudicators': tournament.get_users(ADJUDICATOR_ROLES),
             'is_owner': user_can_edit_tournament(tournament, request.user),
             'is_chair': is_chair
         }
@@ -294,8 +294,8 @@ def edit(request, tournament):
         {
             'form': tournament_form,
             'tournament': tournament,
-            'team_tournament_rels': tournament.teamtournamentrel_set.all().order_by('-role_id', '-id'),
-            'adjudicators': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id'),
+            'team_tournament_rels': tournament.get_teams(),
+            'adjudicators': tournament.get_users(ADJUDICATOR_ROLES),
         }
     )
 
@@ -687,7 +687,7 @@ def edit_team_list(request, tournament):
         {
             'is_check_page': request.path == reverse('tournament:check_team_list', args=[tournament.id]),
             'tournament': tournament,
-            'team_tournament_rels': tournament.teamtournamentrel_set.all().order_by('-role_id', '-id'),
+            'team_tournament_rels': tournament.get_teams(),
             'statuses': TEAM_ROLES,
             'can_remove_teams': tournament.cur_round == 0,
             'member_role': ROLE_MEMBER,
@@ -751,8 +751,7 @@ def edit_adjudicator_list(request, tournament):
         {
             'is_check_page': request.path == reverse('tournament:check_adjudicator_list', args=[tournament.id]),
             'chair_need': tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count() // TEAM_IN_GAME,
-            'user_tournament_rels': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by(
-                'user_id'),
+            'user_tournament_rels': tournament.get_users(ADJUDICATOR_ROLES),
             'statuses': ADJUDICATOR_ROLES,
             'chair_role': ROLE_CHAIR,
             'tournament': tournament,
