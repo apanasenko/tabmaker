@@ -13,7 +13,7 @@ def json_response(status: str, message):
     return HttpResponse(
         json.dumps({
             'status': status,
-            "message": message,
+            'message': message,
         }),
         content_type="application/json"
     )
