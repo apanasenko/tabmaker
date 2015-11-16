@@ -96,6 +96,16 @@ def check_tournament(func):
     return decorator
 
 
+def ajax_request(func):
+    def decorator(request, *args, **kwargs):
+        if request.method != 'POST' or not request.is_ajax():
+            return HttpResponseBadRequest
+
+        return func(request, *args, **kwargs)
+
+    return decorator
+
+
 def _confirm_page(request, tournament, need_message, template_body, redirect_to, callback, redirect_args=None):
     if not redirect_args:
         redirect_args = {}
@@ -695,12 +705,10 @@ def edit_team_list(request, tournament):
 
 
 @csrf_protect
+@ajax_request
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. edit')
 def team_role_update(request, tournament):
-    if request.method != 'POST' or not request.is_ajax():
-        return HttpResponseBadRequest
-
     rel = get_object_or_404(TeamTournamentRel, pk=request.POST.get('rel_id', '0'))
     new_role = get_object_or_404(TournamentRole, pk=request.POST.get('new_role_id', '0'))
     if new_role not in TEAM_ROLES:
@@ -759,12 +767,10 @@ def edit_adjudicator_list(request, tournament):
 
 
 @csrf_protect
+@ajax_request
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. edit')
 def adjudicator_role_update(request, tournament):
-    if request.method != 'POST' or not request.is_ajax():
-        return HttpResponseBadRequest
-
     rel = get_object_or_404(UserTournamentRel, pk=request.POST.get('rel_id', '0'))
     new_role = get_object_or_404(TournamentRole, pk=request.POST.get('new_role_id', '0'))
     if new_role not in ADJUDICATOR_ROLES:
