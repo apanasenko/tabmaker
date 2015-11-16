@@ -65,9 +65,7 @@ def access_by_status(name_page=None):
             if name_page:
                 security = AccessToPage.objects.get(status=tournament.status, page__name=name_page)
                 if not security.page.is_public and not user_can_edit_tournament(tournament, request.user):
-                    return _show_message(request, """
-                        У Вас нет прав для просмотра данной страницы, обратитесь к создателю турнира
-                    """)
+                    return _show_message(request, MSG_ERROR_TO_ACCESS)
 
                 if not security.access:
                     return _show_message(request, security.message)
@@ -139,20 +137,20 @@ def _convert_tab_to_table(table: list, show_all):
 
     def _playoff_position(res):
         if res.playoff_position > res.count_playoff_rounds:
-            return 'Победители'
+            return LBL_WINNER
         elif res.playoff_position == res.count_playoff_rounds:
-            return 'Финалисты'
+            return LBL_FINALISTS
         elif res.playoff_position == 0:
-            return '-'
+            return LBL_NOT_IN_BREAK
         else:
-            return '1/' + str(2 ** (res.count_playoff_rounds - res.playoff_position))
+            return LBL_ONE_p % str(2 ** (res.count_playoff_rounds - res.playoff_position))
 
     lines = []
     count_rounds = max(list(map(lambda x: len(x.rounds), table)) + [0])
-    line = ['№', 'Команда', 'Сумма баллов', 'Плейофф', 'Сумма спикерских']
+    line = [LBL_N, LBL_TEAM, LBL_SUM_POINTS, LBL_PLAYOFF, LBL_SUM_SPEAKERS]
 
     for i in range(1, count_rounds + 1):
-        line.append('Раунд %s' % i)
+        line.append(LBL_ROUND_p % i)
     lines.append(line)
 
     for team in table:
@@ -185,10 +183,10 @@ def _convert_tab_to_speaker_table(table: list, is_show):
 
     lines = []
     count_rounds = max(list(map(lambda x: len(x.points), speakers)) + [0])
-    head = ['№', 'Спикер', 'Команда', 'Сумма баллов']
+    head = [LBL_N, LBL_SPEAKER, LBL_TEAM, LBL_SUM_SPEAKERS]
 
     for i in range(1, count_rounds + 1):
-        head.append('Раунд %s' % i)
+        head.append(LBL_ROUND_p % i)
     lines.append(head)
 
     for i in range(len(speakers)):
@@ -283,7 +281,7 @@ def edit(request, tournament):
         if tournament_form.is_valid():
             tournament_form.save()
 
-            return _show_message(request, 'Турнир изменён')
+            return _show_message(request, MSG_TOURNAMENT_CHANGED)
 
     else:
         tournament_form = TournamentForm(instance=tournament)
@@ -349,7 +347,7 @@ def result_all_rounds(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='remove')
 def remove(request, tournament):
-    need_message = 'Удалить'
+    need_message = CONFIRM_MSG_REMOVE
     redirect_to = 'main:index'
     template_body = 'tournament/remove_message.html'
 
@@ -435,7 +433,7 @@ def generate_break(request, tournament):
     error_message = ''
     if request.method == 'POST':
         if len(teams_in_break) != tournament.count_teams_in_break:
-            error_message = 'Вы должны выбрать %s команд(ы), которые делают брейк' % tournament.count_teams_in_break
+            error_message = MSG_SELECT_N_TEAMS_TO_BREAK_p % tournament.count_teams_in_break
         else:
             generate_playoff(tournament, teams_in_break)
             tournament.set_status(STATUS_PLAYOFF)
@@ -457,7 +455,7 @@ def generate_break(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='finished')
 def finished(request, tournament):
-    need_message = 'Завершить'
+    need_message = CONFIRM_MSG_FINISHED
     redirect_to = 'tournament:show'
     template_body = 'tournament/finished_message.html'
     redirect_args = {'tournament_id': tournament.id}
@@ -611,9 +609,9 @@ def remove_round(request, tournament):
     if remove_last_round(tournament):
         return redirect('tournament:play', tournament_id=tournament.id)
     elif tournament.status == STATUS_PLAYOFF:
-        return _show_message(request, 'Нет сыграных раундов плейофф. Для удаления отборочных раундов отмените брейк')
+        return _show_message(request, MSG_NO_ROUND_IN_PLAYOFF_FOR_REMOVE)
     else:
-        return _show_message(request, 'Нет сыграных раундов.')
+        return _show_message(request, MSG_ROUND_NOT_EXIST)
 
 
 ##################################
@@ -632,7 +630,7 @@ def registration_team(request, tournament):
                 tournament=tournament,
                 role=ROLE_TEAM_REGISTERED
             )
-            return _show_message(request, 'Вы успешно зарегистрировались на %s' % tournament.name)
+            return _show_message(request, MSG_TEAM_SUCCESS_REGISTERED_pp % (team.name, tournament.name))
 
     else:
         team_form = TeamWithSpeakerRegistrationForm(initial={'speaker_1': request.user.email})
@@ -706,16 +704,16 @@ def team_role_update(request, tournament):
     rel = get_object_or_404(TeamTournamentRel, pk=request.POST.get('rel_id', '0'))
     new_role = get_object_or_404(TournamentRole, pk=request.POST.get('new_role_id', '0'))
     if new_role not in TEAM_ROLES:
-        return json_response('bad', 'Недопустимая роль команды')
+        return json_response(MSG_JSON_BAD, MSG_BAD_TEAM_ROLE)
 
     can_change, message = can_change_team_role(rel, new_role)
     if not can_change:
-        return json_response('bad', message)
+        return json_response(MSG_JSON_BAD, message)
 
     rel.role = new_role
     rel.save()
 
-    return json_response('ok', 'Статус команды успешно изменён')
+    return json_response(MSG_JSON_OK, MSG_TEAM_ROLE_CHANGE)
 
 
 ##################################
@@ -730,8 +728,8 @@ def registration_adjudicator(request, tournament):
         tournament=tournament,
         role=ROLE_ADJUDICATOR_REGISTERED[0]
     )
-    message = 'Вы успешно зарегистрировались на %s как судья' % tournament.name if create[1] \
-        else 'Вы уже зарегистрировались на %s как судья' % tournament.name
+    message = MSG_ADJUDICATOR_SUCCESS_REGISTERED_p % tournament.name if create[1] \
+        else MSG_ADJUDICATOR_ALREADY_REGISTERED_p % tournament.name
 
     return _show_message(request, message)
 
@@ -770,15 +768,15 @@ def adjudicator_role_update(request, tournament):
     rel = get_object_or_404(UserTournamentRel, pk=request.POST.get('rel_id', '0'))
     new_role = get_object_or_404(TournamentRole, pk=request.POST.get('new_role_id', '0'))
     if new_role not in ADJUDICATOR_ROLES:
-        return json_response('bad', 'Недопустимая роль судьи')
+        return json_response(MSG_JSON_BAD, MSG_BAD_ADJUDICATOR_ROLE)
 
     teams = get_teams_by_user(rel.user, rel.tournament)
     if new_role in [ROLE_CHAIR, ROLE_CHIEF_ADJUDICATOR, ROLE_WING] and teams:
         return json_response(
-            'bad', '%s из команды "%s" является участником турнира' % (rel.user.name(), teams[0].team.name)
+            MSG_JSON_BAD, MSG_USER_ALREADY_IS_MEMBER_pp % (rel.user.name(), teams[0].team.name)
         )
 
     rel.role = new_role
     rel.save()
 
-    return json_response('ok', 'Статус судьи успешно изменён')
+    return json_response(MSG_JSON_OK, MSG_ADJUDICATOR_ROLE_CHANGE)
