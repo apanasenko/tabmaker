@@ -9,7 +9,7 @@ from apps.tournament.models import UserTournamentRel
 from apps.tournament.consts import STATUS_REGISTRATION
 
 
-def json_response(status: str, message: str):
+def json_response(status: str, message):
     return HttpResponse(
         json.dumps({
             'status': status,
