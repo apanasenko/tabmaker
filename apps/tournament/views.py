@@ -57,7 +57,7 @@ from .logic import \
     user_can_edit_tournament
 
 
-def access_by_status(name_page=None):
+def access_by_status(name_page=None, only_owner=False):
     def decorator_maker(func):
 
         def check_access_to_page(request, tournament_id, *args, **kwargs):
@@ -65,7 +65,7 @@ def access_by_status(name_page=None):
             if name_page:
                 security = AccessToPage.objects.filter(status=tournament.status, page__name=name_page)\
                     .select_related('page').first()
-                if not security.page.is_public and not user_can_edit_tournament(tournament, request.user):
+                if not security.page.is_public and not user_can_edit_tournament(tournament, request.user, only_owner):
                     return _show_message(request, MSG_ERROR_TO_ACCESS)
 
                 if not security.access:
