@@ -18,7 +18,10 @@
                 <li class="b-profile__listitem"><i class="fa fa-envelope-o"></i>{{ user.email }}</li>
                 <li class="b-profile__listitem"><i class="fa fa-mobile"></i>{{ user.phone }}</li>
                 {% endif %}
-                <li class="b-profile__listitem"><i class="fa fa-facebook"></i><a href="{{ user.link }}">{{ user.link }}</li>
+                <li class="b-profile__listitem">
+                    <i class="fa fa-facebook"></i>
+                    <a href="{{ user.link }}">{{ user.link }}</a>
+                </li>
             </ul>
         </div>
 
@@ -32,4 +35,5 @@
         {% if request.user == user %}
             <a class="b-profile__button" href="{% url 'profile:edit' user.id%}">Редактировать</a>
         {% endif %}
+    </div>
 </section>
