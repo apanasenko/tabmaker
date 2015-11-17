@@ -339,9 +339,11 @@ def result(request, tournament):
     )
 
 
-@access_by_status(name_page='')  # TODO Добавить в таблицу доступа
+@access_by_status(name_page='result_all')
 def result_all_rounds(request, tournament):
     is_owner = user_can_edit_tournament(tournament, request.user)
+    if not is_owner and tournament.status != STATUS_FINISHED:
+        return _show_message(request, MSG_RESULT_NOT_PUBLISHED)
 
     return render(
         request,
@@ -368,7 +370,7 @@ def remove(request, tournament):
 
 
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='edit')  # TODO Добавить в таблицу
+@access_by_status(name_page='edit')
 def print_users(request, tournament):
     return render(
         request,
@@ -528,7 +530,7 @@ def show_round(request, tournament):
 
 
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='round_next')  # TODO Добавить в таблицу доступа
+@access_by_status(name_page='round_next')
 def presentation_round(request, tournament):
     rooms = get_rooms_from_last_round(tournament, True)
     return render(
@@ -542,7 +544,7 @@ def presentation_round(request, tournament):
 
 
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='round_edit') # TODO Добавить в таблицу доступа
+@access_by_status(name_page='round_edit')
 def publish_round(request, tournament):
     if not publish_last_round(tournament):
         _show_message(request, MSG_ROUND_NOT_EXIST)
@@ -794,7 +796,7 @@ def adjudicator_role_update(request, tournament):
 
 @ensure_csrf_cookie
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='edit', only_owner=True)  # TODO Добавить в таблицу
+@access_by_status(name_page='admin edit', only_owner=True)
 def list_admin(request, tournament: Tournament):
     return render(
         request,
@@ -810,7 +812,7 @@ def list_admin(request, tournament: Tournament):
 @csrf_protect
 @ajax_request
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='edit', only_owner=True)  # TODO Добавить в таблицу
+@access_by_status(name_page='admin edit', only_owner=True)
 def add_admin(request, tournament):
     user = User.objects.filter(email=request.POST.get('email', '')).first()
 
@@ -836,7 +838,7 @@ def add_admin(request, tournament):
 @csrf_protect
 @ajax_request
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='edit', only_owner=True)  # TODO Добавить в таблицу
+@access_by_status(name_page='admin edit', only_owner=True)
 def remove_admin(request, tournament):
     rel_id = request.POST.get('rel_id', '0')
     admin_rel = UserTournamentRel.objects.filter(pk=rel_id, role=ROLE_ADMIN).select_related('user')
@@ -855,7 +857,7 @@ def remove_admin(request, tournament):
 @csrf_protect
 @ajax_request
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='edit', only_owner=True)  # TODO Добавить в таблицу
+@access_by_status(name_page='admin edit', only_owner=True)
 def change_owner(request, tournament):
     owner_rel = UserTournamentRel.objects.filter(user=request.user, tournament=tournament, role=ROLE_OWNER)
     admin_rel = UserTournamentRel.objects.filter(pk=request.POST.get('rel_id', '0'))
