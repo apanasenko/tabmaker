@@ -13,6 +13,7 @@ from django.shortcuts import \
     redirect
 
 from apps.profile.utils import json_response
+from apps.profile.models import User
 from apps.team.forms import \
     TeamRegistrationForm, \
     TeamWithSpeakerRegistrationForm
@@ -787,3 +788,86 @@ def adjudicator_role_update(request, tournament):
     rel.save()
 
     return json_response(MSG_JSON_OK, MSG_ADJUDICATOR_ROLE_CHANGE)
+
+
+##################################
+#   Management of adjudicator    #
+##################################
+
+@ensure_csrf_cookie
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='edit', only_owner=True)  # TODO Добавить в таблицу
+def list_admin(request, tournament: Tournament):
+    return render(
+        request,
+        'tournament/admin_list.html',
+        {
+            'admins': tournament.get_users([ROLE_ADMIN]),
+            'owner': request.user,
+            'tournament': tournament,
+        }
+    )
+
+
+@csrf_protect
+@ajax_request
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='edit', only_owner=True)  # TODO Добавить в таблицу
+def add_admin(request, tournament):
+    user = User.objects.filter(email=request.POST.get('email', '')).first()
+
+    if not user:
+        return json_response(
+            MSG_JSON_BAD, MSG_USER_NOT_EXIST_p % request.POST.get('email', '')
+        )
+
+    admin_rel = UserTournamentRel.objects.get_or_create(user=user, tournament=tournament, role=ROLE_ADMIN)
+    if not admin_rel[1]:
+        return json_response(
+            MSG_JSON_BAD, MSG_ADMIN_ALREADY_ADD_p % user.name()
+        )
+
+    return json_response(
+        MSG_JSON_OK, {
+            'rel_id': admin_rel[0].id,
+            'name': user.name(),
+        }
+    )
+
+
+@csrf_protect
+@ajax_request
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='edit', only_owner=True)  # TODO Добавить в таблицу
+def remove_admin(request, tournament):
+    rel_id = request.POST.get('rel_id', '0')
+    admin_rel = UserTournamentRel.objects.filter(pk=rel_id, role=ROLE_ADMIN).select_related('user')
+
+    if not admin_rel.first():
+        return json_response(MSG_JSON_BAD, MSG_ADMIN_NOT_EXIST)
+
+    admin = admin_rel.first().user
+    admin_rel.delete()
+
+    return json_response(
+        MSG_JSON_OK, MSG_ADMIN_REMOVE_p % admin.name()
+    )
+
+
+@csrf_protect
+@ajax_request
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='edit', only_owner=True)  # TODO Добавить в таблицу
+def change_owner(request, tournament):
+    owner_rel = UserTournamentRel.objects.filter(user=request.user, tournament=tournament, role=ROLE_OWNER)
+    admin_rel = UserTournamentRel.objects.filter(pk=request.POST.get('rel_id', '0'))
+
+    if not admin_rel.first():
+        return json_response(MSG_JSON_BAD, MSG_ADMIN_NOT_EXIST)
+
+    owner_rel.update(role=ROLE_ADMIN)
+    admin_rel.update(role=ROLE_OWNER)
+
+    return json_response(
+        MSG_JSON_OK, MSG_OWNER_CHANGED_p % admin_rel.first().user.name()
+    )
