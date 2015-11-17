@@ -175,8 +175,6 @@ def _convert_tab_to_table(table: list, show_all):
         line += [n, table[i].team.name, table[i].sum_points, _playoff_position(table[i]), table[i].sum_speakers]
         for cur_round in table[i].rounds:
             round_res = str(cur_round.points * (not cur_round.is_closed or show_all))
-            if show_all:
-                round_res += " / %s+%s" % (cur_round.speaker_1, cur_round.speaker_2)
             line.append(round_res)
         lines.append(line)
 
