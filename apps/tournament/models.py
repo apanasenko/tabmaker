@@ -52,6 +52,20 @@ class Tournament(models.Model):
         self.status = status
         self.save()
 
+    def get_users(self, roles=None):
+        return self.usertournamentrel_set \
+            .filter(role__in=roles) \
+            .order_by('user_id') \
+            .select_related('user') \
+            .select_related('role')
+
+    def get_teams(self, roles=None):
+            q = self.teamtournamentrel_set
+            q = q.filter(role__in=roles) if roles else q.all()
+            for i in ['team', 'role', 'team__speaker_1', 'team__speaker_2']:
+                q = q.select_related(i)
+            return q.order_by('-role_id', '-id')
+
     def __str__(self):
         return self.name
 

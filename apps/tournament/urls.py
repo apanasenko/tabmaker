@@ -13,6 +13,7 @@ urlpatterns = patterns(
     url(r'^(?P<tournament_id>\d+)/edit[/]$', views.edit, name='edit'),
     url(r'^(?P<tournament_id>\d+)/play[/]$', views.play, name='play'),
     url(r'^(?P<tournament_id>\d+)/result[/]$', views.result, name='result'),
+    url(r'^(?P<tournament_id>\d+)/result/all[/]$', views.result_all_rounds, name='result_all'),
     url(r'^(?P<tournament_id>\d+)/remove[/]$', views.remove, name='remove'),
     url(r'^(?P<tournament_id>\d+)/print[/]$', views.print_users, name='print'),
 
@@ -53,4 +54,10 @@ urlpatterns = patterns(
         views.adjudicator_role_update,
         name='update_adjudicator_role'
     ),
+
+    # Management of admin
+    url(r'^(?P<tournament_id>\d+)/admin/edit[/]$', views.list_admin, name='admin_list'),
+    url(r'^(?P<tournament_id>\d+)/admin/add[/]$', views.add_admin, name='admin_add'),
+    url(r'^(?P<tournament_id>\d+)/admin/remove[/]$', views.remove_admin, name='admin_remove'),
+    url(r'^(?P<tournament_id>\d+)/owner/change[/]$', views.change_owner, name='owner_change'),
 )

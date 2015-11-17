@@ -20,13 +20,6 @@
     <a class="b-tournament-info__link" href="{{ tournament.link }}">{{ tournament.link }}</a>
 
     <div class="b-tournament-reg">
-    {% if tournament.open_reg > now %}
-        <h3 class="b-tournament-reg__regtime">Регистрация ещё не открыта</h3>
-    {% elif tournament.close_reg < now %}
-
-    {% else %}
-
-    {% endif %}
 
         {% if tournament|is_status_registration %}
 
@@ -43,6 +36,10 @@
 
                 <a class="b-tournament-reg__button button" href="{% url "tournament:show_round" tournament.id %}">Текущий раунд</a>
 
+            {% else %}
+
+                <a class="b-tournament-reg__button button" href="{% url 'tournament:result_all' tournament.id%}">Подробные результаты по румам</a>
+
             {% endif %}
 
             <a class="b-tournament-reg__button button" href="{% url "tournament:result" tournament.id %}">Теб</a>
@@ -50,7 +47,7 @@
         {% endif %}
 
         {% if is_chair %}
-            <a class="b-tournament-reg__regbutton button formItem" href="{% url "tournament:result_round" tournament.id %}">
+            <a class="b-tournament-reg__button button" href="{% url "tournament:result_round" tournament.id %}">
                 Ввести результаты
             </a>
         {% endif %}

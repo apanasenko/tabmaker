@@ -12,10 +12,10 @@ from .db_execute import \
     get_teams_result_list, \
     get_motion_list
 from .consts import *
+from .messages import *
 from .models import \
     Tournament,\
     TeamTournamentRel, \
-    UserTournamentRel, \
     Round,\
     Room
 from apps.profile.models import User
@@ -44,11 +44,11 @@ class TeamRoundResult:
 
 class TeamResult:
 
-    def __init__(self, team_id, count_playoff_rounds):
+    def __init__(self, team, count_playoff_rounds):
         self.playoff_position = 0
         self.count_playoff_rounds = count_playoff_rounds
         self.show_all = True
-        self.team = Team.objects.get(pk=team_id)
+        self.team = team
         self.rounds = []
         self.position = [0, 0, 0, 0]
 
@@ -98,9 +98,6 @@ class TeamResult:
     def __gt__(self, other):
         return self.sum_points() > other.sum_points() \
             or self.sum_points() == other.sum_points() and self.sum_speakers() > other.sum_speakers()
-
-    def __eq__(self, other):
-        return self.sum_points() == other.sum_points() and self.sum_speakers() == other.sum_speakers()
 
     def __lt__(self, other):
         return self.sum_points() < other.sum_points() \
@@ -172,13 +169,13 @@ def _count_playoff_rounds_in_tournament(teams_in_round: int):
 
 
 def _filter_tab(tab: [TeamResult], tournament: Tournament, roles: [TournamentRole]):
-    teams = list(map(lambda x: x.team, tournament.teamtournamentrel_set.filter(role__in=roles)))
+    teams = list(map(lambda x: x.team, tournament.get_teams(roles)))
     new_tab = list(filter(lambda x: x.team in teams, tab))
     teams_in_tab = list(map(lambda x: x.team, new_tab))
     for team in teams:
         if team in teams_in_tab:
             continue
-        team_results = TeamResult(team.id, _count_playoff_rounds_in_tournament(tournament.count_teams_in_break))
+        team_results = TeamResult(team, _count_playoff_rounds_in_tournament(tournament.count_teams_in_break))
         for i in range(tournament.cur_round):
             team_results.add_empty_round(i)
         new_tab.append(team_results)
@@ -199,10 +196,9 @@ def _check_duplicate_role(role: TournamentRole, rel: TeamTournamentRel, user: Us
 #              Generate rounds              ##
 ##############################################
 
-# TODO @check_tournament
 def _generate_random_round(tournament: Tournament, cur_round: Round):
-    teams = list(tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER))
-    chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
+    teams = list(tournament.get_teams([ROLE_MEMBER]))
+    chair = list(tournament.gey_users([ROLE_CHAIR]))
 
     random.shuffle(chair)
     random.shuffle(teams)
@@ -322,7 +318,7 @@ def _generate_round(tournament: Tournament, cur_round: Round):
             'positions': positions
         })
 
-    chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
+    chair = list(tournament.get_users([ROLE_CHAIR]))
     random.shuffle(chair)
     for i in range(len(games)):
         positions = dict(zip(games[i]['positions'], games[i]['pool']))
@@ -368,7 +364,7 @@ def _generate_playoff_round(tournament: Tournament, cur_round: Round):
         ['co_id', 'co'],
     ]
 
-    chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
+    chair = list(tournament.get_users([ROLE_CHAIR]))
     random.shuffle(chair)
 
     result_prev_round = get_teams_result_list(
@@ -432,12 +428,28 @@ def can_change_team_role(rel: TeamTournamentRel, role: TournamentRole) -> [bool,
     return [True, '']
 
 
+def check_final(tournament: Tournament):
+    if tournament.status == STATUS_PLAYOFF and len(get_rooms_from_last_round(tournament)) == 1:
+        return MSG_FINAL_ALREADY_EXIST
+
+    return None
+
+
 def check_last_round_results(tournament: Tournament):
     for room in Room.objects.filter(round=_get_last_round(tournament)):
         if not GameResult.objects.filter(game=room.game).exists():
             return 'Введите результаты последнего раунда'
 
     return None
+
+
+def check_teams_and_adjudicators(tournament: Tournament):
+    count_teams = tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count()
+    count_adjudicator = tournament.usertournamentrel_set.filter(role=ROLE_CHAIR).count()
+
+    return MSG_NEED_TEAMS if count_teams % TEAM_IN_GAME \
+        else MSG_NEED_ADJUDICATOR if count_teams // TEAM_IN_GAME > count_adjudicator \
+        else None
 
 
 def generate_next_round(tournament: Tournament, new_round: Round):
@@ -488,7 +500,7 @@ def generate_playoff(tournament: Tournament, teams: list):
 
     positions = list(map(lambda x: x - 1, _generate_playoff_position(tournament.count_teams_in_break)))
     motion = Motion.objects.create(motion='temp')
-    chair = list(tournament.usertournamentrel_set.filter(role=ROLE_CHAIR))
+    chair = list(tournament.get_users([ROLE_CHAIR]))
     random.shuffle(chair)
     new_round = Round.objects.create(
         tournament=tournament,
@@ -552,8 +564,42 @@ def get_motions(tournament: Tournament):
     return motions['qualification'] + motions['playoff']
 
 
-def get_rooms_from_last_round(tournament: Tournament):
-    return Room.objects.filter(round=_get_last_round(tournament))
+def get_all_rounds_and_rooms(tournament: Tournament):
+    results = []
+    games = []
+
+    # Выборка всех связных объектов
+    # >>>
+    # TODO Добавить .only() и убрать ненужные поля
+    queryset = Room.objects.filter(round__tournament=tournament, round__is_playoff=False)
+    for i in ['round', 'game', 'game__chair', 'game__gameresult']:
+        queryset = queryset.select_related(i)
+    for i in ['og', 'oo', 'cg', 'co']:
+        queryset = queryset.select_related('game__%s' % i)
+        for j in ['speaker_1', 'speaker_2']:
+            queryset = queryset.select_related('game__%s__%s' % (i, j))
+    # <<<
+
+    for i in queryset.order_by('round_id', 'number'):
+
+        if not results or results[-1]['round'] != i.round:
+            results.append({
+                'round': i.round,
+                'rooms': [],
+            })
+
+        results[-1]['rooms'].append({
+            'game': i.game,
+            'result': i.game.gameresult,
+        })
+        games.append(i.game)
+
+    return results
+
+
+def get_rooms_from_last_round(tournament: Tournament, shuffle=False):
+    room = Room.objects.filter(round=_get_last_round(tournament))
+    return room if not shuffle else room.order_by('?')
 
 
 def get_rooms_by_chair_from_last_round(tournament: Tournament, user: User) -> Room:
@@ -561,28 +607,45 @@ def get_rooms_by_chair_from_last_round(tournament: Tournament, user: User) -> Ro
 
 
 def get_tab(tournament: Tournament):
-    positions = [
-        ['og_id', 'og', 'pm', 'dpm', 'og_rev', Position.OG],
-        ['oo_id', 'oo', 'lo', 'dlo', 'oo_rev', Position.OO],
-        ['cg_id', 'cg', 'mg', 'gw', 'cg_rev', Position.CG],
-        ['co_id', 'co', 'mo', 'ow', 'co_rev', Position.CO],
-    ]
     teams = {}
-    for game in get_teams_result_list('WHERE round.tournament_id = %s', [tournament.id]):
-        for position in positions:
+
+    # Выборка всех игр и результатов
+    # >>>
+    queryset = Room.objects.filter(round__tournament=tournament)
+    for i in ['round', 'game', 'game__gameresult']:
+        queryset = queryset.select_related(i)
+    for i in ['og', 'oo', 'cg', 'co']:
+        queryset = queryset.select_related('game__%s' % i)
+        for j in ['speaker_1', 'speaker_2']:
+            queryset = queryset.select_related('game__%s__%s' % (i, j))
+    # <<<
+
+    for room in queryset.order_by('round_id', 'number'):
+
+        try:  # TODO Убрать это
+            room.game.gameresult
+        except AttributeError:
+            continue
+
+        for position in [
+            [room.game.gameresult.get_og_result(), Position.OG],
+            [room.game.gameresult.get_oo_result(), Position.OO],
+            [room.game.gameresult.get_cg_result(), Position.CG],
+            [room.game.gameresult.get_co_result(), Position.CO],
+        ]:
             team_result = TeamRoundResult(
-                4 - int(game[position[1]]),
-                int(game[position[2]]),
-                int(game[position[3]]),
-                bool(game[position[4]]),
-                position[5],
-                int(game['number']),
-                bool(game['is_closed']),
-                bool(game['is_playoff'])
+                4 - position[0]['place'],
+                position[0]['speaker_1'],
+                position[0]['speaker_2'],
+                position[0]['revert'],
+                position[1],
+                room.round.number,
+                room.round.is_closed,
+                room.round.is_playoff
             )
-            team_id = game[position[0]]
+            team_id = position[0]['team'].id
             if team_id not in teams.keys():
-                teams[team_id] = TeamResult(team_id, _count_playoff_rounds_in_tournament(tournament.count_teams_in_break))
+                teams[team_id] = TeamResult(position[0]['team'], _count_playoff_rounds_in_tournament(tournament.count_teams_in_break))
 
             teams[team_id].add_round(team_result)
 
@@ -633,9 +696,9 @@ def remove_playoff(tournament: Tournament):
     return True
 
 
-def user_can_edit_tournament(tournament: Tournament, user: User):
-    return user.is_authenticated() and 0 < len(UserTournamentRel.objects.filter(
-        tournament=tournament,
+def user_can_edit_tournament(tournament: Tournament, user: User, only_owner=False):
+    roles = [ROLE_OWNER] if only_owner else [ROLE_OWNER, ROLE_ADMIN, ROLE_CHIEF_ADJUDICATOR]
+    return user.is_authenticated() and tournament.usertournamentrel_set.filter(
         user=user,
-        role__in=[ROLE_OWNER, ROLE_ADMIN, ROLE_CHIEF_ADJUDICATOR]
-    ))
+        role__in=roles
+    ).count()

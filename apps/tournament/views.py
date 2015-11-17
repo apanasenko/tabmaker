@@ -13,11 +13,13 @@ from django.shortcuts import \
     redirect
 
 from apps.profile.utils import json_response
+from apps.profile.models import User
 from apps.team.forms import \
     TeamRegistrationForm, \
     TeamWithSpeakerRegistrationForm
 from apps.motion.forms import MotionForm
 from apps.game.forms import \
+    ActivateResultForm, \
     GameForm, \
     ResultGameForm
 
@@ -38,9 +40,12 @@ from .models import \
 
 from .logic import \
     can_change_team_role, \
+    check_final, \
     check_last_round_results, \
+    check_teams_and_adjudicators, \
     generate_next_round, \
     generate_playoff, \
+    get_all_rounds_and_rooms, \
     get_games_and_results, \
     get_motions, \
     get_rooms_from_last_round, \
@@ -53,17 +58,16 @@ from .logic import \
     user_can_edit_tournament
 
 
-def access_by_status(name_page=None):
+def access_by_status(name_page=None, only_owner=False):
     def decorator_maker(func):
 
         def check_access_to_page(request, tournament_id, *args, **kwargs):
             tournament = get_object_or_404(Tournament, pk=tournament_id)
             if name_page:
-                security = AccessToPage.objects.get(status=tournament.status, page__name=name_page)
-                if not security.page.is_public and not user_can_edit_tournament(tournament, request.user):
-                    return _show_message(request, """
-                        У Вас нет прав для просмотра данной страницы, обратитесь к создателю турнира
-                    """)
+                security = AccessToPage.objects.filter(status=tournament.status, page__name=name_page)\
+                    .select_related('page').first()
+                if not security.page.is_public and not user_can_edit_tournament(tournament, request.user, only_owner):
+                    return _show_message(request, MSG_ERROR_TO_ACCESS)
 
                 if not security.access:
                     return _show_message(request, security.message)
@@ -75,13 +79,31 @@ def access_by_status(name_page=None):
     return decorator_maker
 
 
-def check_results(func):
+def check_tournament(func):
     def decorator(request, tournament):
         error = check_last_round_results(tournament)
         if error:
             return _show_message(request, error)
 
+        error = check_teams_and_adjudicators(tournament)
+        if error:
+            return _show_message(request, error)
+
+        error = check_final(tournament)
+        if error:
+            return _show_message(request, error)
+
         return func(request, tournament)
+
+    return decorator
+
+
+def ajax_request(func):
+    def decorator(request, *args, **kwargs):
+        if request.method != 'POST' or not request.is_ajax():
+            return HttpResponseBadRequest
+
+        return func(request, *args, **kwargs)
 
     return decorator
 
@@ -127,20 +149,20 @@ def _convert_tab_to_table(table: list, show_all):
 
     def _playoff_position(res):
         if res.playoff_position > res.count_playoff_rounds:
-            return 'Победители'
+            return LBL_WINNER
         elif res.playoff_position == res.count_playoff_rounds:
-            return 'Финалисты'
+            return LBL_FINALISTS
         elif res.playoff_position == 0:
-            return '-'
+            return LBL_NOT_IN_BREAK
         else:
-            return '1/' + str(2 ** (res.count_playoff_rounds - res.playoff_position))
+            return LBL_ONE_p % str(2 ** (res.count_playoff_rounds - res.playoff_position))
 
     lines = []
     count_rounds = max(list(map(lambda x: len(x.rounds), table)) + [0])
-    line = ['№', 'Команда', 'Сумма баллов', 'Плейофф', 'Сумма спикерских']
+    line = [LBL_N, LBL_TEAM, LBL_SUM_POINTS, LBL_PLAYOFF, LBL_SUM_SPEAKERS]
 
     for i in range(1, count_rounds + 1):
-        line.append('Раунд %s' % i)
+        line.append(LBL_ROUND_p % i)
     lines.append(line)
 
     for team in table:
@@ -153,8 +175,6 @@ def _convert_tab_to_table(table: list, show_all):
         line += [n, table[i].team.name, table[i].sum_points, _playoff_position(table[i]), table[i].sum_speakers]
         for cur_round in table[i].rounds:
             round_res = str(cur_round.points * (not cur_round.is_closed or show_all))
-            if show_all:
-                round_res += " / %s+%s" % (cur_round.speaker_1, cur_round.speaker_2)
             line.append(round_res)
         lines.append(line)
 
@@ -173,10 +193,10 @@ def _convert_tab_to_speaker_table(table: list, is_show):
 
     lines = []
     count_rounds = max(list(map(lambda x: len(x.points), speakers)) + [0])
-    head = ['№', 'Спикер', 'Команда', 'Сумма баллов']
+    head = [LBL_N, LBL_SPEAKER, LBL_TEAM, LBL_SUM_SPEAKERS]
 
     for i in range(1, count_rounds + 1):
-        head.append('Раунд %s' % i)
+        head.append(LBL_ROUND_p % i)
     lines.append(head)
 
     for i in range(len(speakers)):
@@ -190,22 +210,25 @@ def _convert_tab_to_speaker_table(table: list, is_show):
     return lines
 
 
-def _get_or_check_round_result_forms(request, rooms):
+def _get_or_check_round_result_forms(request, rooms, is_admin=False):
     all_is_valid = True
     forms = []
     for room in get_games_and_results(rooms):
-        if request.method == 'POST':
-            form = ResultGameForm(request.POST, instance=room['result'], prefix=room['game'].id)
-            all_is_valid &= form.is_valid()
-            if form.is_valid():
-                form.save()
-        else:
-            form = ResultGameForm(instance=room['result'], prefix=room['game'].id)
-            form.initial['game'] = room['game'].id
+        result_form = ResultGameForm(request.POST or None, instance=room['result'], prefix='rf_%s' % room['game'].id)
+        activate_form = ActivateResultForm(request.POST or None, prefix='af_%s' % room['game'].id)
+        if request.method == 'POST' and activate_form.is_valid() and activate_form.is_active():
+            all_is_valid &= result_form.is_valid()
+            if result_form.is_valid():
+                result_form.save()
+        elif request.method != 'POST':
+            activate_form.init(is_admin)
+            result_form.initial['game'] = room['game'].id
 
         forms.append({
             'game': room['game'],
-            'result': form,
+            'result': result_form,
+            'activate_result': activate_form,
+            'show_checkbox': is_admin,
         })
     return all_is_valid, forms
 
@@ -252,8 +275,8 @@ def show(request, tournament):
         'tournament/show.html',
         {
             'tournament': tournament,
-            'team_tournament_rels': tournament.teamtournamentrel_set.all().order_by('-role_id', '-id'),
-            'adjudicators': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id'),
+            'team_tournament_rels': tournament.get_teams(),
+            'adjudicators': tournament.get_users(ADJUDICATOR_ROLES),
             'is_owner': user_can_edit_tournament(tournament, request.user),
             'is_chair': is_chair
         }
@@ -268,7 +291,7 @@ def edit(request, tournament):
         if tournament_form.is_valid():
             tournament_form.save()
 
-            return _show_message(request, 'Турнир изменён')
+            return _show_message(request, MSG_TOURNAMENT_CHANGED)
 
     else:
         tournament_form = TournamentForm(instance=tournament)
@@ -279,8 +302,8 @@ def edit(request, tournament):
         {
             'form': tournament_form,
             'tournament': tournament,
-            'team_tournament_rels': tournament.teamtournamentrel_set.all().order_by('-role_id', '-id'),
-            'adjudicators': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by('user_id'),
+            'team_tournament_rels': tournament.get_teams(),
+            'adjudicators': tournament.get_users(ADJUDICATOR_ROLES),
         }
     )
 
@@ -301,15 +324,33 @@ def play(request, tournament):
 def result(request, tournament):
     is_owner = user_can_edit_tournament(tournament, request.user)
     show_all = tournament.status == STATUS_FINISHED or is_owner
+    tab = get_tab(tournament)
 
     return render(
         request,
         'tournament/result.html',
         {
             'tournament': tournament,
-            'team_tab': _convert_tab_to_table(get_tab(tournament), show_all),
-            'speaker_tab': _convert_tab_to_speaker_table(get_tab(tournament), show_all),
+            'team_tab': _convert_tab_to_table(tab, show_all),
+            'speaker_tab': _convert_tab_to_speaker_table(tab, show_all),
             'motions': get_motions(tournament),
+            'is_owner': is_owner,
+        }
+    )
+
+
+@access_by_status(name_page='result_all')
+def result_all_rounds(request, tournament):
+    is_owner = user_can_edit_tournament(tournament, request.user)
+    if not is_owner and tournament.status != STATUS_FINISHED:
+        return _show_message(request, MSG_RESULT_NOT_PUBLISHED)
+
+    return render(
+        request,
+        'tournament/round_results_show.html',
+        {
+            'tournament': tournament,
+            'results': get_all_rounds_and_rooms(tournament),
             'is_owner': is_owner,
         }
     )
@@ -318,7 +359,7 @@ def result(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='remove')
 def remove(request, tournament):
-    need_message = 'Удалить'
+    need_message = CONFIRM_MSG_REMOVE
     redirect_to = 'main:index'
     template_body = 'tournament/remove_message.html'
 
@@ -329,7 +370,7 @@ def remove(request, tournament):
 
 
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='edit')  # TODO Добавить в таблицу
+@access_by_status(name_page='edit')
 def print_users(request, tournament):
     return render(
         request,
@@ -365,13 +406,7 @@ def registration_closing(request, tournament):
 @access_by_status(name_page='start')
 def start(request, tournament):
     if tournament.status == STATUS_PREPARATION:
-        count_teams = tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count()
-        count_adjudicator = tournament.usertournamentrel_set.filter(role=ROLE_CHAIR).count()
-
-        error_message = MSG_NEED_TEAMS if count_teams % TEAM_IN_GAME \
-            else MSG_NEED_ADJUDICATOR if count_teams // TEAM_IN_GAME > count_adjudicator \
-            else ''
-
+        error_message = check_teams_and_adjudicators(tournament)
     else:
         error_message = '' if remove_playoff(tournament) else MSG_MUST_REMOVE_PLAYOFF_ROUNDS
 
@@ -410,7 +445,7 @@ def generate_break(request, tournament):
     error_message = ''
     if request.method == 'POST':
         if len(teams_in_break) != tournament.count_teams_in_break:
-            error_message = 'Вы должны выбрать %s команд(ы), которые делают брейк' % tournament.count_teams_in_break
+            error_message = MSG_SELECT_N_TEAMS_TO_BREAK_p % tournament.count_teams_in_break
         else:
             generate_playoff(tournament, teams_in_break)
             tournament.set_status(STATUS_PLAYOFF)
@@ -432,7 +467,7 @@ def generate_break(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='finished')
 def finished(request, tournament):
-    need_message = 'Завершить'
+    need_message = CONFIRM_MSG_FINISHED
     redirect_to = 'tournament:show'
     template_body = 'tournament/finished_message.html'
     redirect_args = {'tournament_id': tournament.id}
@@ -450,7 +485,7 @@ def finished(request, tournament):
 
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='round_next')
-@check_results
+@check_tournament
 def next_round(request, tournament):
     if request.method == 'POST':
         motion_form = MotionForm(request.POST)
@@ -480,7 +515,7 @@ def next_round(request, tournament):
 
 @access_by_status(name_page='round_show')
 def show_round(request, tournament):
-    rooms = get_rooms_from_last_round(tournament)
+    rooms = get_rooms_from_last_round(tournament, True)
     if not rooms or not rooms[0].round.is_public:
         return _show_message(request, MSG_ROUND_NOT_PUBLIC)
 
@@ -495,9 +530,9 @@ def show_round(request, tournament):
 
 
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='round_next')  # TODO Добавить в таблицу доступа
+@access_by_status(name_page='round_next')
 def presentation_round(request, tournament):
-    rooms = get_rooms_from_last_round(tournament)
+    rooms = get_rooms_from_last_round(tournament, True)
     return render(
         request,
         'tournament/presentation_round.html',
@@ -553,19 +588,19 @@ def edit_round(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='round_result')
 def result_round(request, tournament):
-    is_owner = user_can_edit_tournament(tournament, request.user)
-    if is_owner:
+    is_admin = user_can_edit_tournament(tournament, request.user)
+    if is_admin:
         rooms = get_rooms_from_last_round(tournament)
     else:
         rooms = get_rooms_by_chair_from_last_round(tournament, request.user)
 
-    if not is_owner and not rooms:
+    if not is_admin and not rooms:
         return _show_message(request, MSG_NO_ACCESS_IN_RESULT_PAGE)
 
-    is_valid, forms = _get_or_check_round_result_forms(request, rooms)
+    is_valid, forms = _get_or_check_round_result_forms(request, rooms, is_admin)
 
     if is_valid and request.method == 'POST':
-        if is_owner:
+        if is_admin:
             return redirect('tournament:play', tournament_id=tournament.id)
         else:
             return redirect('tournament:show', tournament_id=tournament.id)
@@ -586,9 +621,9 @@ def remove_round(request, tournament):
     if remove_last_round(tournament):
         return redirect('tournament:play', tournament_id=tournament.id)
     elif tournament.status == STATUS_PLAYOFF:
-        return _show_message(request, 'Нет сыграных раундов плейофф. Для удаления отборочных раундов отмените брейк')
+        return _show_message(request, MSG_NO_ROUND_IN_PLAYOFF_FOR_REMOVE)
     else:
-        return _show_message(request, 'Нет сыграных раундов.')
+        return _show_message(request, MSG_ROUND_NOT_EXIST)
 
 
 ##################################
@@ -607,7 +642,7 @@ def registration_team(request, tournament):
                 tournament=tournament,
                 role=ROLE_TEAM_REGISTERED
             )
-            return _show_message(request, 'Вы успешно зарегистрировались на %s' % tournament.name)
+            return _show_message(request, MSG_TEAM_SUCCESS_REGISTERED_pp % (team.name, tournament.name))
 
     else:
         team_form = TeamWithSpeakerRegistrationForm(initial={'speaker_1': request.user.email})
@@ -663,7 +698,7 @@ def edit_team_list(request, tournament):
         {
             'is_check_page': request.path == reverse('tournament:check_team_list', args=[tournament.id]),
             'tournament': tournament,
-            'team_tournament_rels': tournament.teamtournamentrel_set.all().order_by('-role_id', '-id'),
+            'team_tournament_rels': tournament.get_teams(),
             'statuses': TEAM_ROLES,
             'can_remove_teams': tournament.cur_round == 0,
             'member_role': ROLE_MEMBER,
@@ -672,25 +707,23 @@ def edit_team_list(request, tournament):
 
 
 @csrf_protect
+@ajax_request
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. edit')
 def team_role_update(request, tournament):
-    if request.method != 'POST' or not request.is_ajax():
-        return HttpResponseBadRequest
-
     rel = get_object_or_404(TeamTournamentRel, pk=request.POST.get('rel_id', '0'))
     new_role = get_object_or_404(TournamentRole, pk=request.POST.get('new_role_id', '0'))
     if new_role not in TEAM_ROLES:
-        return json_response('bad', 'Недопустимая роль команды')
+        return json_response(MSG_JSON_BAD, MSG_BAD_TEAM_ROLE)
 
     can_change, message = can_change_team_role(rel, new_role)
     if not can_change:
-        return json_response('bad', message)
+        return json_response(MSG_JSON_BAD, message)
 
     rel.role = new_role
     rel.save()
 
-    return json_response('ok', 'Статус команды успешно изменён')
+    return json_response(MSG_JSON_OK, MSG_TEAM_ROLE_CHANGE)
 
 
 ##################################
@@ -705,8 +738,8 @@ def registration_adjudicator(request, tournament):
         tournament=tournament,
         role=ROLE_ADJUDICATOR_REGISTERED[0]
     )
-    message = 'Вы успешно зарегистрировались на %s как судья' % tournament.name if create[1] \
-        else 'Вы уже зарегистрировались на %s как судья' % tournament.name
+    message = MSG_ADJUDICATOR_SUCCESS_REGISTERED_p % tournament.name if create[1] \
+        else MSG_ADJUDICATOR_ALREADY_REGISTERED_p % tournament.name
 
     return _show_message(request, message)
 
@@ -727,8 +760,7 @@ def edit_adjudicator_list(request, tournament):
         {
             'is_check_page': request.path == reverse('tournament:check_adjudicator_list', args=[tournament.id]),
             'chair_need': tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count() // TEAM_IN_GAME,
-            'user_tournament_rels': tournament.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES).order_by(
-                'user_id'),
+            'user_tournament_rels': tournament.get_users(ADJUDICATOR_ROLES),
             'statuses': ADJUDICATOR_ROLES,
             'chair_role': ROLE_CHAIR,
             'tournament': tournament,
@@ -737,24 +769,105 @@ def edit_adjudicator_list(request, tournament):
 
 
 @csrf_protect
+@ajax_request
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. edit')
 def adjudicator_role_update(request, tournament):
-    if request.method != 'POST' or not request.is_ajax():
-        return HttpResponseBadRequest
-
     rel = get_object_or_404(UserTournamentRel, pk=request.POST.get('rel_id', '0'))
     new_role = get_object_or_404(TournamentRole, pk=request.POST.get('new_role_id', '0'))
     if new_role not in ADJUDICATOR_ROLES:
-        return json_response('bad', 'Недопустимая роль судьи')
+        return json_response(MSG_JSON_BAD, MSG_BAD_ADJUDICATOR_ROLE)
 
     teams = get_teams_by_user(rel.user, rel.tournament)
     if new_role in [ROLE_CHAIR, ROLE_CHIEF_ADJUDICATOR, ROLE_WING] and teams:
         return json_response(
-            'bad', '%s из команды "%s" является участником турнира' % (rel.user.name(), teams[0].team.name)
+            MSG_JSON_BAD, MSG_USER_ALREADY_IS_MEMBER_pp % (rel.user.name(), teams[0].team.name)
         )
 
     rel.role = new_role
     rel.save()
 
-    return json_response('ok', 'Статус судьи успешно изменён')
+    return json_response(MSG_JSON_OK, MSG_ADJUDICATOR_ROLE_CHANGE)
+
+
+##################################
+#   Management of adjudicator    #
+##################################
+
+@ensure_csrf_cookie
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='admin edit', only_owner=True)
+def list_admin(request, tournament: Tournament):
+    return render(
+        request,
+        'tournament/admin_list.html',
+        {
+            'admins': tournament.get_users([ROLE_ADMIN]),
+            'owner': request.user,
+            'tournament': tournament,
+        }
+    )
+
+
+@csrf_protect
+@ajax_request
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='admin edit', only_owner=True)
+def add_admin(request, tournament):
+    user = User.objects.filter(email=request.POST.get('email', '')).first()
+
+    if not user:
+        return json_response(
+            MSG_JSON_BAD, MSG_USER_NOT_EXIST_p % request.POST.get('email', '')
+        )
+
+    admin_rel = UserTournamentRel.objects.get_or_create(user=user, tournament=tournament, role=ROLE_ADMIN)
+    if not admin_rel[1]:
+        return json_response(
+            MSG_JSON_BAD, MSG_ADMIN_ALREADY_ADD_p % user.name()
+        )
+
+    return json_response(
+        MSG_JSON_OK, {
+            'rel_id': admin_rel[0].id,
+            'name': user.name(),
+        }
+    )
+
+
+@csrf_protect
+@ajax_request
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='admin edit', only_owner=True)
+def remove_admin(request, tournament):
+    rel_id = request.POST.get('rel_id', '0')
+    admin_rel = UserTournamentRel.objects.filter(pk=rel_id, role=ROLE_ADMIN).select_related('user')
+
+    if not admin_rel.first():
+        return json_response(MSG_JSON_BAD, MSG_ADMIN_NOT_EXIST)
+
+    admin = admin_rel.first().user
+    admin_rel.delete()
+
+    return json_response(
+        MSG_JSON_OK, MSG_ADMIN_REMOVE_p % admin.name()
+    )
+
+
+@csrf_protect
+@ajax_request
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='admin edit', only_owner=True)
+def change_owner(request, tournament):
+    owner_rel = UserTournamentRel.objects.filter(user=request.user, tournament=tournament, role=ROLE_OWNER)
+    admin_rel = UserTournamentRel.objects.filter(pk=request.POST.get('rel_id', '0'))
+
+    if not admin_rel.first():
+        return json_response(MSG_JSON_BAD, MSG_ADMIN_NOT_EXIST)
+
+    owner_rel.update(role=ROLE_ADMIN)
+    admin_rel.update(role=ROLE_OWNER)
+
+    return json_response(
+        MSG_JSON_OK, MSG_OWNER_CHANGED_p % admin_rel.first().user.name()
+    )

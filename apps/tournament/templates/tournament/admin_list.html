@@ -1,0 +1,58 @@
+{% extends "tournament/owner_base.html" %}
+
+{% load staticfiles %}
+{% load profile_extras %}
+
+{% block page_title %}
+    Список администраторов турнира
+{% endblock page_title %}
+
+
+{% block extra_head %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static "main/js/cookie.js" %}"></script>
+    <script type="text/javascript" src="{% static "main/js/ajaxCSRF.js" %}"></script>
+    <script type="text/javascript" src="{% static "tournament/js/edit_admins.js" %}"></script>
+{% endblock extra_head %}
+
+
+{% block content %}
+<div class="">
+
+    <div class="owner">
+        <p class="owner_name">{{ owner|name }}</p>
+    </div>
+
+    <div class="admin" id="temp">
+        <div class="errors"></div>
+        <input id="rel_id" type="hidden">
+        <p class="admin_name"></p>
+        <a onclick="remove_admin(this, '{% url 'tournament:admin_remove' tournament.id %}')">Удалить</a>
+        <a
+                onclick="improve_to_owner(
+                        this,
+                        '{% url 'tournament:owner_change' tournament.id %}',
+                        '{% url 'tournament:show' tournament.id %}')"
+        >
+            Передать турнир
+        </a>
+    </div>
+
+    <script>
+    function init() {
+        {% for admin in admins %}
+        generate_admin_block('{{ admin.user|name }}', '{{ admin.id }}');
+        {% endfor %}
+    }
+    </script>
+
+
+    <div id="new_admin">
+        <div class="errors"></div>
+        <input id="add_admin_input" type="email">
+        <label for="add_admin_input">Добавить администратора</label>
+        <a onclick="save_admin('{% url 'tournament:admin_add' tournament.id %}')">Добавить</a>
+    </div>
+
+</div>
+{% endblock content %}
