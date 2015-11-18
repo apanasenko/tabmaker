@@ -6,21 +6,21 @@
 {% endblock page_title %}
 
 {% block extra_head %}
-    
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.fullpage/2.5.9/jquery.fullPage.min.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.fullpage/2.5.9/jquery.fullPage.min.js"></script>
     <script type="text/javascript" src="{% static "tournament/js/fullpage.js" %}"></script>
 
     <link rel="stylesheet" href="{% static "main/sass/main.css" media="screen,projection" %}">
-   
+
 
 {% endblock extra_head %}
 
 {% block presentation %}
 
     <div id="fullpage" class="b-presentation">
-        
+
         <section class="section active b-presentation__round">
             {% if not round %}
                 <h3 class="b-presentation__round_heading"> К сожалению, раунд ещё не объявлен </h3>
@@ -34,15 +34,18 @@
                 <h3 class="b-presentation__round_heading">Раунд {{ round.number }}</h3>
             {% endif %}
         </section>
-        
-        <section class="section b-presentation__room">    
+
+        <section class="section b-presentation__room">
         {% for room in rooms %}
-            
+
             <div class="slide">
-                
+
                 <div class="b-presentation__room_teams">
                     <div class="b-presentation__room_chair">
                         <p>Судья - {{ room.game.chair|name }}</p>
+                    </div>
+                    <div class="b-presentation__room_chair">
+                        <p>{{ room.place.place }}</p>
                     </div>
                     <div class="b-presentation__room_og">
                          <p>Первое правительство</p>
@@ -63,7 +66,7 @@
                 </div>
 
             </div>
-        
+
         {% endfor %}
         </section>
 
@@ -81,7 +84,7 @@
         <section class="section b-presentation__motion">
             <p>{{ round.motion.motion }}</p>
         </section>
-                
+
     {% endif %}
 
     </div>

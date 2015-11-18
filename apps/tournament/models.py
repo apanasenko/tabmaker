@@ -73,6 +73,7 @@ class Tournament(models.Model):
 class Place(models.Model):
     tournament = models.ForeignKey(Tournament)
     place = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.place
@@ -90,11 +91,17 @@ class UserTournamentRel(models.Model):
     tournament = models.ForeignKey(Tournament)
     role = models.ForeignKey(TournamentRole)
 
+    def __str__(self):
+        return '%s: %s - %s' % (self.id, self.user.name(), self.role.role)
+
 
 class TeamTournamentRel(models.Model):
     team = models.ForeignKey(Team)
     tournament = models.ForeignKey(Tournament)
     role = models.ForeignKey(TournamentRole)
+
+    def __str__(self):
+        return '%s: %s - %s' % (self.id, self.team.name, self.role.role)
 
 
 class Round(models.Model):

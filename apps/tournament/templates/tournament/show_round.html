@@ -44,20 +44,21 @@
                 <tbody>
                 <tr class="b-table__headrow">
                     <th class="b-table__headstring_thirty"><span class="wrap">Cудья</span></th>
+                    <th class="b-table__headstring_thirty">Место</th>
                     <th class="b-table__headstring_thirty">Первое правительство</th>
                     <th class="b-table__headstring_thirty">Первая опозиция</th>
                     <th class="b-table__headstring_thirty">Второе правительство</th>
                     <th class="b-table__headstring_thirty">Вторая опозиция</th>
-{#                    <th class="b-table__headstring_thirty">Место</th>#}
                 </tr>
                 {% for room in rooms %}
                 <tr class="b-table__row">
                     <td class="b-table__string_thirty"><span class="wrap">{{ room.game.chair|name }}</span></td>
+                    <td class="b-table__string_thirty">{{ room.place.place }}</td>
                     <td class="b-table__string_thirty">{{ room.game.og.name }}</td>
                     <td class="b-table__string_thirty">{{ room.game.oo.name }}</td>
                     <td class="b-table__string_thirty">{{ room.game.cg.name }}</td>
                     <td class="b-table__string_thirty">{{ room.game.co.name }}</td>
-{#                    <td class="b-table__string_thirty">404 аудитория</td>#}
+
                 </tr>
                 {% endfor %}
                 </tbody>

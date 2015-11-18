@@ -52,6 +52,7 @@ function improve_to_owner(block, url, redirect_to){
 function save_admin(url){
     var new_admin_block = $('#new_admin');
     var name_input = new_admin_block.find('#add_admin_input');
+    new_admin_block.find('.errors').html('');
     $.post(
         url,
         {

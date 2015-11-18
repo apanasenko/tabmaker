@@ -6,7 +6,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from apps.game.models import\
     Game, \
     GameResult
-from apps.team.models import Team
 from apps.motion.models import Motion
 from .db_execute import \
     get_teams_result_list, \
@@ -143,21 +142,19 @@ class SpeakerResult:
 
 
 def _get_last_round(tournament: Tournament):
-    last_rounds = Round.objects.filter(
+    return Round.objects.filter(
         tournament=tournament,
         is_playoff=(tournament.status == STATUS_PLAYOFF),
         number__gt=0
-    ).order_by('-number')
-    return None if not last_rounds else last_rounds[0]
+    ).order_by('-number').first()
 
 
 def _get_temp_round(tournament: Tournament):
-    temp_round = Round.objects.filter(
+    return Round.objects.filter(
         tournament=tournament,
         is_playoff=True,
         number=-1
-    )
-    return None if not temp_round else temp_round[0]
+    ).first()
 
 
 def _count_playoff_rounds_in_tournament(teams_in_round: int):
@@ -197,11 +194,10 @@ def _check_duplicate_role(role: TournamentRole, rel: TeamTournamentRel, user: Us
 ##############################################
 
 def _generate_random_round(tournament: Tournament, cur_round: Round):
-    teams = list(tournament.get_teams([ROLE_MEMBER]))
-    chair = list(tournament.gey_users([ROLE_CHAIR]))
+    teams = list(tournament.get_teams([ROLE_MEMBER]).order_by('?'))
+    chair = list(tournament.gey_users([ROLE_CHAIR]).order_by('?'))
+    place = list(tournament.place_set.filter(is_active=True).order_by('?'))
 
-    random.shuffle(chair)
-    random.shuffle(teams)
     for i in range(len(teams) // TEAM_IN_GAME):
         game = Game.objects.create(
             og=teams.pop().team,
@@ -215,7 +211,8 @@ def _generate_random_round(tournament: Tournament, cur_round: Round):
         Room.objects.create(
             game=game,
             round=cur_round,
-            number=i
+            number=i,
+            place=place.pop()
         )
 
 
@@ -318,8 +315,8 @@ def _generate_round(tournament: Tournament, cur_round: Round):
             'positions': positions
         })
 
-    chair = list(tournament.get_users([ROLE_CHAIR]))
-    random.shuffle(chair)
+    chair = list(tournament.get_users([ROLE_CHAIR]).order_by('?'))
+    place = list(tournament.place_set.filter(is_active=True).order_by('?'))
     for i in range(len(games)):
         positions = dict(zip(games[i]['positions'], games[i]['pool']))
         game = Game.objects.create(
@@ -334,7 +331,8 @@ def _generate_round(tournament: Tournament, cur_round: Round):
         Room.objects.create(
             game=game,
             round=cur_round,
-            number=i
+            number=i,
+            place=place.pop()
         )
 
 
@@ -364,8 +362,8 @@ def _generate_playoff_round(tournament: Tournament, cur_round: Round):
         ['co_id', 'co'],
     ]
 
-    chair = list(tournament.get_users([ROLE_CHAIR]))
-    random.shuffle(chair)
+    chair = list(tournament.get_users([ROLE_CHAIR]).order_by('?'))
+    place = list(tournament.place_set.filter(is_active=True).order_by('?'))
 
     result_prev_round = get_teams_result_list(
         """
@@ -406,7 +404,8 @@ def _generate_playoff_round(tournament: Tournament, cur_round: Round):
         Room.objects.create(
             game=game,
             round=cur_round,
-            number=i
+            number=i,
+            place=place.pop()
         )
 
 
@@ -444,11 +443,26 @@ def check_last_round_results(tournament: Tournament):
 
 
 def check_teams_and_adjudicators(tournament: Tournament):
-    count_teams = tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count()
-    count_adjudicator = tournament.usertournamentrel_set.filter(role=ROLE_CHAIR).count()
+    if tournament.status == STATUS_STARTED:
+        count_teams = tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count()
+        if count_teams % TEAM_IN_GAME:
+            return MSG_NEED_TEAMS_p % count_teams
+        count_rooms = count_teams // TEAM_IN_GAME
+    else:
+        last_round = _get_last_round(tournament)
+        temp_round = _get_temp_round(tournament)
+        if last_round:
+            count_rooms = Room.objects.filter(round=last_round).count() // 2
+        elif temp_round:
+            count_rooms = Room.objects.filter(round=temp_round).count()
+        else:
+            return None
 
-    return MSG_NEED_TEAMS if count_teams % TEAM_IN_GAME \
-        else MSG_NEED_ADJUDICATOR if count_teams // TEAM_IN_GAME > count_adjudicator \
+    count_adjudicator = tournament.usertournamentrel_set.filter(role=ROLE_CHAIR).count()
+    count_places = tournament.place_set.filter(is_active=True).count()
+
+    return MSG_NEED_ADJUDICATOR if count_rooms > count_adjudicator \
+        else MSG_NEED_PLACE if count_rooms > count_places \
         else None
 
 
@@ -500,8 +514,9 @@ def generate_playoff(tournament: Tournament, teams: list):
 
     positions = list(map(lambda x: x - 1, _generate_playoff_position(tournament.count_teams_in_break)))
     motion = Motion.objects.create(motion='temp')
-    chair = list(tournament.get_users([ROLE_CHAIR]))
-    random.shuffle(chair)
+    chair = list(tournament.get_users([ROLE_CHAIR]).order_by('?'))
+    place = list(tournament.place_set.filter(is_active=True).order_by('?'))
+
     new_round = Round.objects.create(
         tournament=tournament,
         motion=motion,
@@ -517,12 +532,13 @@ def generate_playoff(tournament: Tournament, teams: list):
             co=teams[positions[i * TEAM_IN_GAME + 3]],
             chair=chair.pop().user,
             date=datetime.datetime.now(),
-            motion=motion
+            motion=motion,
         )
         Room.objects.create(
             game=game,
             round=new_round,
-            number=i
+            number=i,
+            place=place.pop()
         )
 
 
