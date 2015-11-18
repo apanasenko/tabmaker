@@ -91,6 +91,9 @@ class UserTournamentRel(models.Model):
     tournament = models.ForeignKey(Tournament)
     role = models.ForeignKey(TournamentRole)
 
+    def __str__(self):
+        return '%s: %s - %s' % (self.id, self.user.name(), self.role.role)
+
 
 class TeamTournamentRel(models.Model):
     team = models.ForeignKey(Team)
