@@ -6,7 +6,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from apps.game.models import\
     Game, \
     GameResult
-from apps.team.models import Team
 from apps.motion.models import Motion
 from .db_execute import \
     get_teams_result_list, \
