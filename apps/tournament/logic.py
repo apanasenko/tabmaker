@@ -143,21 +143,19 @@ class SpeakerResult:
 
 
 def _get_last_round(tournament: Tournament):
-    last_rounds = Round.objects.filter(
+    return Round.objects.filter(
         tournament=tournament,
         is_playoff=(tournament.status == STATUS_PLAYOFF),
         number__gt=0
-    ).order_by('-number')
-    return None if not last_rounds else last_rounds[0]
+    ).order_by('-number').first()
 
 
 def _get_temp_round(tournament: Tournament):
-    temp_round = Round.objects.filter(
+    return Round.objects.filter(
         tournament=tournament,
         is_playoff=True,
         number=-1
-    )
-    return None if not temp_round else temp_round[0]
+    ).first()
 
 
 def _count_playoff_rounds_in_tournament(teams_in_round: int):
