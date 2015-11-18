@@ -566,7 +566,6 @@ def edit_round(request, tournament):
         else:
             form = GameForm(instance=room.game, prefix=room.game.id)
 
-        # TODO Добавить название в команд в форму и не передавать объект
         forms.append({
             'game': room.game,
             'game_form': form
