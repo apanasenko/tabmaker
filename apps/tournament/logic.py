@@ -206,13 +206,13 @@ def _generate_random_round(tournament: Tournament, cur_round: Round):
             co=teams.pop().team,
             chair=chair.pop().user,
             date=datetime.datetime.now(),
-            motion=cur_round.motion,
-            place=place.pop()
+            motion=cur_round.motion
         )
         Room.objects.create(
             game=game,
             round=cur_round,
-            number=i
+            number=i,
+            place=place.pop()
         )
 
 
@@ -326,13 +326,13 @@ def _generate_round(tournament: Tournament, cur_round: Round):
             co=positions[3].team,
             chair=chair.pop().user,
             date=datetime.datetime.now(),
-            motion=cur_round.motion,
-            place=place.pop()
+            motion=cur_round.motion
         )
         Room.objects.create(
             game=game,
             round=cur_round,
-            number=i
+            number=i,
+            place=place.pop()
         )
 
 
@@ -399,13 +399,13 @@ def _generate_playoff_round(tournament: Tournament, cur_round: Round):
             co_id=teams_id_in_room.pop(),
             chair=chair.pop().user,
             date=datetime.datetime.now(),
-            motion=cur_round.motion,
-            place=place.pop()
+            motion=cur_round.motion
         )
         Room.objects.create(
             game=game,
             round=cur_round,
-            number=i
+            number=i,
+            place=place.pop()
         )
 
 
@@ -533,12 +533,12 @@ def generate_playoff(tournament: Tournament, teams: list):
             chair=chair.pop().user,
             date=datetime.datetime.now(),
             motion=motion,
-            place=place.pop()
         )
         Room.objects.create(
             game=game,
             round=new_round,
-            number=i
+            number=i,
+            place=place.pop()
         )
 
 
