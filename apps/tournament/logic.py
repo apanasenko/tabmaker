@@ -196,6 +196,7 @@ def _check_duplicate_role(role: TournamentRole, rel: TeamTournamentRel, user: Us
 def _generate_random_round(tournament: Tournament, cur_round: Round):
     teams = list(tournament.get_teams([ROLE_MEMBER]).order_by('?'))
     chair = list(tournament.gey_users([ROLE_CHAIR]).order_by('?'))
+    place = list(tournament.place_set.filter(is_active=True).order_by('?'))
 
     for i in range(len(teams) // TEAM_IN_GAME):
         game = Game.objects.create(
@@ -205,7 +206,8 @@ def _generate_random_round(tournament: Tournament, cur_round: Round):
             co=teams.pop().team,
             chair=chair.pop().user,
             date=datetime.datetime.now(),
-            motion=cur_round.motion
+            motion=cur_round.motion,
+            place=place.pop()
         )
         Room.objects.create(
             game=game,
@@ -314,6 +316,7 @@ def _generate_round(tournament: Tournament, cur_round: Round):
         })
 
     chair = list(tournament.get_users([ROLE_CHAIR]).order_by('?'))
+    place = list(tournament.place_set.filter(is_active=True).order_by('?'))
     for i in range(len(games)):
         positions = dict(zip(games[i]['positions'], games[i]['pool']))
         game = Game.objects.create(
@@ -323,7 +326,8 @@ def _generate_round(tournament: Tournament, cur_round: Round):
             co=positions[3].team,
             chair=chair.pop().user,
             date=datetime.datetime.now(),
-            motion=cur_round.motion
+            motion=cur_round.motion,
+            place=place.pop()
         )
         Room.objects.create(
             game=game,
@@ -359,6 +363,7 @@ def _generate_playoff_round(tournament: Tournament, cur_round: Round):
     ]
 
     chair = list(tournament.get_users([ROLE_CHAIR]).order_by('?'))
+    place = list(tournament.place_set.filter(is_active=True).order_by('?'))
 
     result_prev_round = get_teams_result_list(
         """
@@ -394,7 +399,8 @@ def _generate_playoff_round(tournament: Tournament, cur_round: Round):
             co_id=teams_id_in_room.pop(),
             chair=chair.pop().user,
             date=datetime.datetime.now(),
-            motion=cur_round.motion
+            motion=cur_round.motion,
+            place=place.pop()
         )
         Room.objects.create(
             game=game,
@@ -456,6 +462,7 @@ def check_teams_and_adjudicators(tournament: Tournament):
     count_places = tournament.place_set.filter(is_active=True).count()
 
     return MSG_NEED_ADJUDICATOR if count_rooms > count_adjudicator \
+        else MSG_NEED_PLACE if count_rooms > count_places \
         else None
 
 
@@ -508,6 +515,8 @@ def generate_playoff(tournament: Tournament, teams: list):
     positions = list(map(lambda x: x - 1, _generate_playoff_position(tournament.count_teams_in_break)))
     motion = Motion.objects.create(motion='temp')
     chair = list(tournament.get_users([ROLE_CHAIR]).order_by('?'))
+    place = list(tournament.place_set.filter(is_active=True).order_by('?'))
+
     new_round = Round.objects.create(
         tournament=tournament,
         motion=motion,
@@ -523,7 +532,8 @@ def generate_playoff(tournament: Tournament, teams: list):
             co=teams[positions[i * TEAM_IN_GAME + 3]],
             chair=chair.pop().user,
             date=datetime.datetime.now(),
-            motion=motion
+            motion=motion,
+            place=place.pop()
         )
         Room.objects.create(
             game=game,
