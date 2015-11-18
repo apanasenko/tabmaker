@@ -890,9 +890,67 @@ def change_owner(request, tournament):
 #             Places             #
 ##################################
 
-def place_add(request, tournament):
-    return _show_message(request, 'Упс, скоро будет')
+@ensure_csrf_cookie
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='edit')
+def place_list(request, tournament):
+    return render(
+        request,
+        'tournament/place_list.html',
+        {
+            'places': tournament.place_set.all(),
+            'tournament': tournament,
+        }
+    )
 
 
+@csrf_protect
+@ajax_request
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='admin edit')
 def place_update(request, tournament):
-    return _show_message(request, 'Упс, скоро будет')
+    place_id = request.POST.get('place_id', '')
+    is_active = request.POST.get('is_active', '').lower() == 'true'
+    if not tournament.place_set.filter(pk=place_id).exists():
+        return json_response(MSG_JSON_BAD, 'Нет такой')
+
+    tournament.place_set.filter(pk=place_id).update(is_active=is_active)
+
+    return json_response(
+        MSG_JSON_OK, is_active
+    )
+
+
+@csrf_protect
+@ajax_request
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='admin edit')
+def place_add(request, tournament):
+    place_name = request.POST.get('place', '').strip()
+    place = tournament.place_set.get_or_create(place=place_name, tournament=tournament)
+    if not place[1]:
+        return json_response(MSG_JSON_BAD, 'уже есть')
+
+    return json_response(
+        MSG_JSON_OK, {
+            'place_id': place[0].id,
+            'name': place[0].place,
+        }
+    )
+
+
+@csrf_protect
+@ajax_request
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='admin edit')
+def place_remove(request, tournament):
+    place_id = request.POST.get('id', '')
+    if not tournament.place_set.filter(pk=place_id).exists():
+        return json_response(MSG_JSON_BAD, 'Нет такой')
+
+    tournament.place_set.filter(pk=place_id).delete()
+
+    return json_response(
+        MSG_JSON_OK, 'ok'
+    )
+

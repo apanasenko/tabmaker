@@ -1,0 +1,54 @@
+{% extends "tournament/owner_base.html" %}
+
+{% load staticfiles %}
+{% load profile_extras %}
+
+{% block page_title %}
+    Список администраторов турнира
+{% endblock page_title %}
+
+
+{% block extra_head %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static "main/js/cookie.js" %}"></script>
+    <script type="text/javascript" src="{% static "main/js/ajaxCSRF.js" %}"></script>
+    <script type="text/javascript" src="{% static "tournament/js/edit_place.js" %}"></script>
+{% endblock extra_head %}
+
+
+{% block content %}
+<div class="">
+
+    <input id="place_update_url" type="hidden" value="{% url 'tournament:place_update' tournament.id %}">
+
+    <div class="place" id="temp">
+        <div class="errors"></div>
+        <input id="place_id" type="hidden">
+        <p>
+            <input class="place_checkbox" type="checkbox">
+            <span class="place_name"></span>
+            <a onclick="remove_place(this, '{% url 'tournament:place_remove' tournament.id %}')">Удалить</a>
+        </p>
+    </div>
+
+    <script>
+    function init() {
+        {% for place in places %}
+        generate_place_block(
+                '{{ place.place }}',
+                '{{ place.id }}',
+                parseBool('{{ place.is_active }}')
+        );
+        {% endfor %}
+    }
+    </script>
+
+    <div id="new_place">
+        <div class="errors"></div>
+        <label for="add_place_input">Добавить аудиторию</label>
+        <input id="add_place_input">
+        <a onclick="save_place('{% url 'tournament:place_add' tournament.id %}')">Добавить</a>
+    </div>
+
+</div>
+{% endblock content %}
