@@ -29,6 +29,11 @@
                 {{ form.chair }}
                 <h3 class="b-result-room__adjudicator_heading">Судья: <span class="chair_name">{{ form.game.chair|name }}</span></h3>
             </div>
+            <div class="place">
+                {{ form.place_id.errors }}
+                {{ form.place_id }}
+                <h3 class="">Аудитория: <span class="place_name">{{ form.place_name }}</span></h3>
+            </div>
 
             <div class="b-result-room__games">
                 <div class="b-result-room__og team">

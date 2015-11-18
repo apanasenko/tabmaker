@@ -563,8 +563,11 @@ def edit_round(request, tournament):
             all_is_valid &= form.is_valid()
             if form.is_valid():
                 form.save()
+                room.place_id = form.get_place_id()
+                room.save()
         else:
             form = GameForm(instance=room.game, prefix=room.game.id)
+            form.init_place(room.place)
 
         form.game = room.game
         forms.append(form)

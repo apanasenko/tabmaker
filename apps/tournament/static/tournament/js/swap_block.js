@@ -32,4 +32,8 @@ $(document).ready(function() {
     $('.chair').click(function(){
         buffer_chair = swap(this, buffer_chair, 'chair');
     });
+
+    $('.place').click(function(){
+        buffer_chair = swap(this, buffer_chair, 'place');
+    });
 });

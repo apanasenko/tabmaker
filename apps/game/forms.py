@@ -5,6 +5,8 @@ from .models import \
 
 
 class GameForm(forms.ModelForm):
+    place_id = forms.IntegerField(widget=forms.HiddenInput(attrs={'class': 'place_id'}))
+    place_name = ''
 
     class Meta:
         model = Game
@@ -23,6 +25,13 @@ class GameForm(forms.ModelForm):
             'co': forms.HiddenInput(attrs={'class': 'team_id'}),
             'chair': forms.HiddenInput(attrs={'class': 'chair_id'}),
         }
+
+    def init_place(self, place):
+        self.initial['place_id'] = place.id
+        self.place_name = place.place
+
+    def get_place_id(self):
+        return self.cleaned_data['place_id']
 
 
 class ResultGameForm(forms.ModelForm):
