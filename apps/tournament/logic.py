@@ -438,11 +438,25 @@ def check_last_round_results(tournament: Tournament):
 
 
 def check_teams_and_adjudicators(tournament: Tournament):
-    count_teams = tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count()
-    count_adjudicator = tournament.usertournamentrel_set.filter(role=ROLE_CHAIR).count()
+    if tournament.status == STATUS_STARTED:
+        count_teams = tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count()
+        if count_teams % TEAM_IN_GAME:
+            return MSG_NEED_TEAMS_p % count_teams
+        count_rooms = count_teams // TEAM_IN_GAME
+    else:
+        last_round = _get_last_round(tournament)
+        temp_round = _get_temp_round(tournament)
+        if last_round:
+            count_rooms = Room.objects.filter(round=last_round).count() // 2
+        elif temp_round:
+            count_rooms = Room.objects.filter(round=temp_round).count()
+        else:
+            return None
 
-    return MSG_NEED_TEAMS if count_teams % TEAM_IN_GAME \
-        else MSG_NEED_ADJUDICATOR if count_teams // TEAM_IN_GAME > count_adjudicator \
+    count_adjudicator = tournament.usertournamentrel_set.filter(role=ROLE_CHAIR).count()
+    count_places = tournament.place_set.filter(is_active=True).count()
+
+    return MSG_NEED_ADJUDICATOR if count_rooms > count_adjudicator \
         else None
 
 
