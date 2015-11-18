@@ -195,11 +195,9 @@ def _check_duplicate_role(role: TournamentRole, rel: TeamTournamentRel, user: Us
 ##############################################
 
 def _generate_random_round(tournament: Tournament, cur_round: Round):
-    teams = list(tournament.get_teams([ROLE_MEMBER]))
-    chair = list(tournament.gey_users([ROLE_CHAIR]))
+    teams = list(tournament.get_teams([ROLE_MEMBER]).order_by('?'))
+    chair = list(tournament.gey_users([ROLE_CHAIR]).order_by('?'))
 
-    random.shuffle(chair)
-    random.shuffle(teams)
     for i in range(len(teams) // TEAM_IN_GAME):
         game = Game.objects.create(
             og=teams.pop().team,
@@ -316,8 +314,7 @@ def _generate_round(tournament: Tournament, cur_round: Round):
             'positions': positions
         })
 
-    chair = list(tournament.get_users([ROLE_CHAIR]))
-    random.shuffle(chair)
+    chair = list(tournament.get_users([ROLE_CHAIR]).order_by('?'))
     for i in range(len(games)):
         positions = dict(zip(games[i]['positions'], games[i]['pool']))
         game = Game.objects.create(
@@ -362,8 +359,7 @@ def _generate_playoff_round(tournament: Tournament, cur_round: Round):
         ['co_id', 'co'],
     ]
 
-    chair = list(tournament.get_users([ROLE_CHAIR]))
-    random.shuffle(chair)
+    chair = list(tournament.get_users([ROLE_CHAIR]).order_by('?'))
 
     result_prev_round = get_teams_result_list(
         """
@@ -498,8 +494,7 @@ def generate_playoff(tournament: Tournament, teams: list):
 
     positions = list(map(lambda x: x - 1, _generate_playoff_position(tournament.count_teams_in_break)))
     motion = Motion.objects.create(motion='temp')
-    chair = list(tournament.get_users([ROLE_CHAIR]))
-    random.shuffle(chair)
+    chair = list(tournament.get_users([ROLE_CHAIR]).order_by('?'))
     new_round = Round.objects.create(
         tournament=tournament,
         motion=motion,
