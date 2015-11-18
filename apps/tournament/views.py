@@ -581,6 +581,8 @@ def edit_round(request, tournament):
         {
             'tournament': tournament,
             'forms': forms,
+            'adjudicators': tournament.get_users([ROLE_CHAIR, ROLE_CHIEF_ADJUDICATOR, ROLE_WING]),
+            'places': tournament.place_set.filter(is_active=True),
         }
     )
 
