@@ -743,7 +743,7 @@ def _registration_adjudicator(tournament: Tournament, user: User):
 @access_by_status(name_page='team/adju. registration')
 def registration_adjudicator(request, tournament):
     message = MSG_ADJUDICATOR_SUCCESS_REGISTERED_p % tournament.name \
-        if registration_adjudicator(tournament, request.user) \
+        if _registration_adjudicator(tournament, request.user) \
         else MSG_ADJUDICATOR_ALREADY_REGISTERED_p % tournament.name
 
     return _show_message(request, message)
