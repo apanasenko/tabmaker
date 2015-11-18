@@ -8,6 +8,7 @@
     <script type="text/javascript" src="{% static "main/js/cookie.js" %}"></script>
     <script type="text/javascript" src="{% static "main/js/ajaxCSRF.js" %}"></script>
     <script type="text/javascript" src="{% static "tournament/js/edit_roles.js" %}"></script>
+    <script type="text/javascript" src="{% static "tournament/js/add_adjudicators.js" %}"></script>
 {% endblock extra_head %}
 
 
@@ -19,6 +20,13 @@
 {% block content %}
 
     {% include 'tournament/count_by_role.html' with statuses=statuses %}
+
+    <div id="new_adjudicator">
+        <div class="errors"></div>
+        <label for="add_adjudicator_input">Добавить судью</label>
+        <input id="add_adjudicator_input" type="email">
+        <a onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить</a>
+    </div>
 
     {% for rel in user_tournament_rels %}
         <div id="message_{{ rel.id }}"></div>

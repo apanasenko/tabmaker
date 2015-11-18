@@ -20,8 +20,8 @@ ROLE_VERIFIED = TournamentRole.objects.get(role_en='Verified')  # Участни
 ROLE_APPROVED = TournamentRole.objects.get(role_en='Approved')  # Организатор подтвердил
 ROLE_MEMBER = TournamentRole.objects.get(role_en='Member')
 
-ROLE_ADJUDICATOR_REGISTERED = TournamentRole.objects.get(role_en='Registered adjudicator'),
-ROLE_ADJUDICATOR_APPROVED = TournamentRole.objects.get(role_en='Approved adjudicator'),
+ROLE_ADJUDICATOR_REGISTERED = TournamentRole.objects.get(role_en='Registered adjudicator')
+ROLE_ADJUDICATOR_APPROVED = TournamentRole.objects.get(role_en='Approved adjudicator')
 ROLE_WING = TournamentRole.objects.get(role_en='Wing')
 ROLE_CHAIR = TournamentRole.objects.get(role_en='Chair')
 

@@ -730,25 +730,39 @@ def team_role_update(request, tournament):
 #   Management of adjudicator    #
 ##################################
 
+def _registration_adjudicator(tournament: Tournament, user: User):
+
+    if UserTournamentRel.objects.filter(user=user, tournament=tournament, role__in=ADJUDICATOR_ROLES).exists():
+        return False
+
+    UserTournamentRel.objects.create(user=user, tournament=tournament, role=ROLE_ADJUDICATOR_REGISTERED)
+    return True
+
+
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. registration')
 def registration_adjudicator(request, tournament):
-    create = UserTournamentRel.objects.get_or_create(
-        user=request.user,
-        tournament=tournament,
-        role=ROLE_ADJUDICATOR_REGISTERED[0]
-    )
-    message = MSG_ADJUDICATOR_SUCCESS_REGISTERED_p % tournament.name if create[1] \
+    message = MSG_ADJUDICATOR_SUCCESS_REGISTERED_p % tournament.name \
+        if registration_adjudicator(tournament, request.user) \
         else MSG_ADJUDICATOR_ALREADY_REGISTERED_p % tournament.name
 
     return _show_message(request, message)
 
 
+@csrf_protect
+@ajax_request
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. add')
 def add_adjudicator(request, tournament):
-    # TODO Добавление судьи
-    return redirect('tournament:edit_adjudicator_list', tournament_id=tournament.id)
+    user = User.objects.filter(email=request.POST.get('email', '')).first()
+
+    if not user:
+        return json_response(MSG_JSON_BAD, MSG_USER_NOT_EXIST_p % request.POST.get('email', ''))
+
+    if _registration_adjudicator(tournament, user):
+        return json_response(MSG_JSON_OK, MSG_ADJUDICATOR_SUCCESS_REGISTERED_p % tournament.name)
+    else:
+        return json_response(MSG_JSON_BAD, MSG_ADJUDICATOR_ALREADY_REGISTERED_pp % (user.name(), tournament.name))
 
 
 @login_required(login_url=reverse_lazy('account_login'))
