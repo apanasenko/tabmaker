@@ -566,10 +566,8 @@ def edit_round(request, tournament):
         else:
             form = GameForm(instance=room.game, prefix=room.game.id)
 
-        forms.append({
-            'game': room.game,
-            'game_form': form
-        })
+        form.game = room.game
+        forms.append(form)
 
     if all_is_valid and request.method == 'POST':
         return redirect('tournament:play', tournament_id=tournament.id)
