@@ -195,7 +195,7 @@ def _check_duplicate_role(role: TournamentRole, rel: TeamTournamentRel, user: Us
 
 def _generate_random_round(tournament: Tournament, cur_round: Round):
     teams = list(tournament.get_teams([ROLE_MEMBER]).order_by('?'))
-    chair = list(tournament.gey_users([ROLE_CHAIR]).order_by('?'))
+    chair = list(tournament.get_users([ROLE_CHAIR]).order_by('?'))
     place = list(tournament.place_set.filter(is_active=True).order_by('?'))
 
     for i in range(len(teams) // TEAM_IN_GAME):
