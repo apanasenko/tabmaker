@@ -14,10 +14,14 @@
         <div class="b-profile__group">
             <h3 class="b-profile__heading">Контакты</h3>
             <ul>
-                {% if request.user == user %}
-                <li class="b-profile__listitem"><i class="fa fa-envelope-o"></i>{{ user.email }}</li>
-                <li class="b-profile__listitem"><i class="fa fa-mobile"></i>{{ user.phone }}</li>
+                {% if request.user == user or user.is_show_email %}
+                    <li class="b-profile__listitem"><i class="fa fa-envelope-o"></i>{{ user.email }}</li>
                 {% endif %}
+
+                {% if request.user == user or user.is_show_phone %}
+                    <li class="b-profile__listitem"><i class="fa fa-mobile"></i>{{ user.phone }}</li>
+                {% endif %}
+
                 <li class="b-profile__listitem">
                     <i class="fa fa-facebook"></i>
                     <a href="{{ user.link }}">{{ user.link }}</a>

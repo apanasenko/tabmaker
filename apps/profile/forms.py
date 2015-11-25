@@ -27,6 +27,8 @@ class ProfileForm(forms.ModelForm):
             'link',
             'player_experience',
             'adjudicator_experience',
+            'is_show_phone',
+            'is_show_email',
         ]
 
         labels = {
@@ -36,6 +38,8 @@ class ProfileForm(forms.ModelForm):
             'link': 'Ваша страничка',
             'player_experience': 'Опыт в дебатах',
             'adjudicator_experience': 'Судейский опыт',
+            'is_show_phone': 'Телефон виден всем',
+            'is_show_email': 'Email виден всем',
         }
 
         widgets = {
@@ -45,6 +49,8 @@ class ProfileForm(forms.ModelForm):
             'link': forms.URLInput(attrs={'class': 'validate b-form-item__input_quarter', 'placeholder': 'http://vk.com/id0'}),
             'player_experience': forms.Textarea(attrs={'class': 'validate b-form-item__input_full', 'placeholder': 'Опыт в дебатах'}),
             'adjudicator_experience': forms.Textarea(attrs={'class': 'validate b-form-item__input_full', 'placeholder': 'Опыт судейства дебатов'}),
+            'is_show_phone': forms.CheckboxInput(),
+            'is_show_email': forms.CheckboxInput(),
         }
 
     @staticmethod
