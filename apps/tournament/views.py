@@ -40,6 +40,7 @@ from .models import \
 
 from .logic import \
     can_change_team_role, \
+    check_games_results_exists, \
     check_final, \
     check_last_round_results, \
     check_teams_and_adjudicators, \
@@ -557,7 +558,8 @@ def publish_round(request, tournament):
 def edit_round(request, tournament):
     forms = []
     all_is_valid = True
-    for room in get_rooms_from_last_round(tournament):
+    rooms = list(get_rooms_from_last_round(tournament))
+    for room in rooms:
         if request.method == 'POST':
             form = GameForm(request.POST, instance=room.game, prefix=room.game.id)
             all_is_valid &= form.is_valid()
@@ -581,6 +583,7 @@ def edit_round(request, tournament):
         {
             'tournament': tournament,
             'forms': forms,
+            'warning': check_games_results_exists(list(map(lambda x: x.game, rooms))),
             'adjudicators': tournament.get_users([ROLE_CHAIR, ROLE_CHIEF_ADJUDICATOR, ROLE_WING]),
             'places': tournament.place_set.filter(is_active=True),
         }

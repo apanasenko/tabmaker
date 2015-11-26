@@ -425,6 +425,10 @@ def can_change_team_role(rel: TeamTournamentRel, role: TournamentRole) -> [bool,
     return [True, '']
 
 
+def check_games_results_exists(games: [Game]):
+    return GameResult.objects.filter(game__in=games).count()
+
+
 def check_final(tournament: Tournament):
     if tournament.status == STATUS_PLAYOFF and len(get_rooms_from_last_round(tournament)) == 1:
         return MSG_FINAL_ALREADY_EXIST
@@ -625,6 +629,11 @@ def get_all_rounds_and_rooms(tournament: Tournament):
 
 def get_rooms_from_last_round(tournament: Tournament, shuffle=False):
     room = Room.objects.filter(round=_get_last_round(tournament))
+    for i in ['game', 'place']:
+        room = room.select_related(i)
+    for i in ['og', 'oo', 'cg', 'co']:
+        room = room.select_related('game__%s' % i)
+
     return room if not shuffle else room.order_by('?')
 
 

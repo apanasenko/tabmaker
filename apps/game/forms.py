@@ -33,6 +33,13 @@ class GameForm(forms.ModelForm):
     def get_place_id(self):
         return self.cleaned_data['place_id']
 
+    def save(self, commit=True):
+        game = super(GameForm, self).save(commit)
+        if len(self.changed_data) > 1 or len(self.changed_data) == 1 and self.changed_data[0] != 'place_id':
+            GameResult.objects.filter(game=game).delete()
+
+        return game
+
 
 class ResultGameForm(forms.ModelForm):
 
