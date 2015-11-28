@@ -29,27 +29,29 @@
     </div>
 
     {% for rel in user_tournament_rels %}
-        <div id="message_{{ rel.id }}"></div>
-        <div id="user_{{ rel.id }}" class="b-teamlist">
-            <div class="b-teamlist__wrapper">
-                <div class="b-teamlist__heading">
-                    <h3><a href="{% url 'profile:main' rel.user.id%}">{{ rel.user|name }}</a></h3>
-                    <div class="formItem last">
-                        <select class="roles"
-                                onchange="update_status(
-                                        '{% url 'tournament:update_adjudicator_role' tournament.id%}',
-                                        this,
-                                        {{ rel.id }},
-                                        'message_{{ rel.id }}'
-                                        )"
-                                onfocus="on_focus(this)"
-                                >
-                            {% for status in statuses %}
-                                <option {% if status.id == rel.role.id %} selected {% endif %} value="{{ status.id }}">
-                                    {{ status.role }}
-                                </option>
-                            {% endfor %}
-                        </select>
+        <div class="block">
+            <div id="message_{{ rel.id }}"></div>
+            <div id="user_{{ rel.id }}" class="b-teamlist">
+                <div class="b-teamlist__wrapper">
+                    <div class="b-teamlist__heading">
+                        <h3><a href="{% url 'profile:main' rel.user.id%}">{{ rel.user|name }}</a></h3>
+                        <div class="formItem last">
+                            <select class="roles"
+                                    onchange="update_status(
+                                            '{% url 'tournament:update_adjudicator_role' tournament.id%}',
+                                            this,
+                                            {{ rel.id }},
+                                            'message_{{ rel.id }}'
+                                            )"
+                                    onfocus="on_focus(this)"
+                                    >
+                                {% for status in statuses %}
+                                    <option {% if status.id == rel.role.id %} selected {% endif %} value="{{ status.id }}">
+                                        {{ status.role }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -68,6 +68,11 @@
                 {{ form.phone }}
                 {{ form.phone.errors }}
             </div>
+            <div class="b-form-item">
+                <p>{{ form.is_show_phone.label }} {{ form.is_show_phone }}</p>
+                <p>{{ form.is_show_email.label }} {{ form.is_show_email }}</p>
+
+            </div>
             {% if not is_edit_form %}
                 <div class="b-form-item">
                     <h3 class="b-form-item__heading">{{ form.password1.label_tag }}</h3>

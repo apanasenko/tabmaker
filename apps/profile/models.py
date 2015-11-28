@@ -28,6 +28,8 @@ class User(AbstractUser):
     link = models.CharField(max_length=100)
     player_experience = models.TextField()
     adjudicator_experience = models.TextField()
+    is_show_phone = models.BooleanField(default=True)
+    is_show_email = models.BooleanField(default=True)
 
     def name(self):
         return "%s %s" % (self.first_name, self.last_name) \

@@ -1,7 +1,7 @@
 var lastInfoBlock = null;
 
-function update_status(url, select, team_tournament_rel_id, message_block_id){
 
+function update_status(url, select, team_tournament_rel_id, message_block_id){
     if (lastInfoBlock){
         lastInfoBlock.html(null);
     }
@@ -24,21 +24,26 @@ function update_status(url, select, team_tournament_rel_id, message_block_id){
         }
     );
 }
+
+
 function on_focus(select){
     $(select).blur(function(){load_value(select)});
     save_value(select);
 }
 
+
 function save_value(select){
     select.oldValue = select.value;
 }
+
 
 function load_value(select){
     $(select).val(select.oldValue);
 }
 
+
 function update_info_block(id, value){
-    var a = $('div #message #' + id);
+    var a = $('div #message #count_id_' + id);
     a.html(parseInt(a.html()) + value);
 
     var b = $('#member_id');
@@ -62,11 +67,32 @@ function update_info_block(id, value){
     }
 }
 
+
+function show_blocks(checkbox){
+    var id = $(checkbox).attr('id');
+    var is_checked = $(checkbox).is(':checked');
+    $('.block').each(function(){
+        if ($(this).find('select.roles').val() == id){
+            if (is_checked){
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        }
+    });
+}
+
+
 $(document).ready(function(){
     $("select.roles").each(function(){
-        update_info_block(this.value, 1)
-    })
+        update_info_block(this.value, 1);
+    });
+
+    $('.show_checkbox').change(function(){
+        show_blocks(this);
+    });
 });
+
 
 function redirect(url){
     window.location.href = url;

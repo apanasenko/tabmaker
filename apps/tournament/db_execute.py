@@ -34,34 +34,3 @@ def get_teams_result_list(where, params):
             params
         )
         return dictfetchall(cursor)
-
-
-def get_motion_list(tournament_id):
-
-    with connection.cursor() as cursor:
-        cursor.execute(
-            """
-            SELECT
-                round.number,
-                round.is_playoff,
-                motion.motion,
-                motion.infoslide,
-                count(room.id)
-            FROM tournament_round AS round
-            INNER JOIN motion_motion AS motion ON round.motion_id = motion.id
-            INNER JOIN tournament_room AS room ON room.round_id = round.id
-            WHERE
-                round.number != -1
-                AND
-                tournament_id = %s
-            GROUP BY
-                round.id,
-                motion.motion,
-                motion.infoslide
-            ORDER BY
-                round.is_playoff,
-                round.number
-            """,
-            [tournament_id]
-        )
-        return dictfetchall(cursor)

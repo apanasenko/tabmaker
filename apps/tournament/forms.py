@@ -2,10 +2,8 @@ import pytz
 
 from django import forms
 from datetime import datetime
-from .consts import *
 from . models import \
     Tournament, \
-    TeamTournamentRel, \
     Round
 
 

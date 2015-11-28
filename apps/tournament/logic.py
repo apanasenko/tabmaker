@@ -1,15 +1,13 @@
 import random
 import datetime
 import itertools
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.core.exceptions import ObjectDoesNotExist
 from apps.game.models import\
     Game, \
     GameResult
 from apps.motion.models import Motion
-from .db_execute import \
-    get_teams_result_list, \
-    get_motion_list
+from .db_execute import get_teams_result_list
 from .consts import *
 from .messages import *
 from .models import \
@@ -427,6 +425,10 @@ def can_change_team_role(rel: TeamTournamentRel, role: TournamentRole) -> [bool,
     return [True, '']
 
 
+def check_games_results_exists(games: [Game]):
+    return GameResult.objects.filter(game__in=games).count()
+
+
 def check_final(tournament: Tournament):
     if tournament.status == STATUS_PLAYOFF and len(get_rooms_from_last_round(tournament)) == 1:
         return MSG_FINAL_ALREADY_EXIST
@@ -563,18 +565,30 @@ def get_motions(tournament: Tournament):
         'playoff': [],
     }
 
-    for motion in get_motion_list(tournament.id):
+    # Выборка тем и инфослайдов, № раунда для заголовка в отборочных, колличество румов для заголовка в плейофф
+    # и количество результатор, для опубликования этой темы в тэбе
+    # >>>
+    query_set = Room.objects.filter(round__tournament=tournament, round__number__gt=0) \
+        .values('round__motion__motion', 'round__motion__infoslide', 'round__number', 'round__is_playoff') \
+        .annotate(count_game=Count('game_id'), count_results=Count('game__gameresult__id')) \
+        .order_by('round__number', 'round__is_playoff')
+    # >>>
+
+    for motion in query_set:
+        if not motion['count_results']:
+            continue
+
         new_motion = {
-            'motion': motion['motion'],
-            'infoslide': motion['infoslide'],
+            'motion': motion['round__motion__motion'],
+            'infoslide': motion['round__motion__infoslide'],
         }
-        if motion['is_playoff']:
+        if motion['round__is_playoff']:
             new_motion['number'] = 'Финал' \
-                if motion['count'] == 1 \
-                else '1/%s' % motion['count']
+                if motion['count_game'] == 1 \
+                else '1/%s' % motion['count_game']
             motions['playoff'].append(new_motion)
         else:
-            new_motion['number'] = 'Раунд ' + str(motion['number'])
+            new_motion['number'] = 'Раунд ' + str(motion['round__number'])
             motions['qualification'].append(new_motion)
 
     return motions['qualification'] + motions['playoff']
@@ -615,6 +629,11 @@ def get_all_rounds_and_rooms(tournament: Tournament):
 
 def get_rooms_from_last_round(tournament: Tournament, shuffle=False):
     room = Room.objects.filter(round=_get_last_round(tournament))
+    for i in ['game', 'place']:
+        room = room.select_related(i)
+    for i in ['og', 'oo', 'cg', 'co']:
+        room = room.select_related('game__%s' % i)
+
     return room if not shuffle else room.order_by('?')
 
 

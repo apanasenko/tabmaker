@@ -23,36 +23,38 @@
     {% include 'tournament/count_by_role.html' with statuses=statuses %}
 
     {% for rel in team_tournament_rels %}
-        <div id="message_{{ rel.id }}"></div>
-        <div id="team_{{ rel.id }}" class="b-teamlist">
-            <div class="b-teamlist__wrapper">
-                <div class="b-teamlist__heading">
-                    <h3>{{ rel.team.name }}</h3>
-                    <div class="formItem last">
-                        <select class="roles"
-                                onchange="update_status(
-                                        '{% url 'tournament:update_team_role' tournament.id%}',
-                                        this,
-                                        {{ rel.id }},
-                                        'message_{{ rel.id }}'
-                                        )"
-                                onfocus="on_focus(this)"
-                                >
-                            {% for status in statuses %}
-                                <option {% if status.id == rel.role.id %} selected {% endif %} value="{{ status.id }}">
-                                    {{ status.role }}
-                                </option>
-                            {% endfor %}
-                        </select>
+        <div class="block">
+            <div id="message_{{ rel.id }}"></div>
+            <div id="team_{{ rel.id }}" class="b-teamlist">
+                <div class="b-teamlist__wrapper">
+                    <div class="b-teamlist__heading">
+                        <h3>{{ rel.team.name }}</h3>
+                        <div class="formItem last">
+                            <select class="roles"
+                                    onchange="update_status(
+                                            '{% url 'tournament:update_team_role' tournament.id%}',
+                                            this,
+                                            {{ rel.id }},
+                                            'message_{{ rel.id }}'
+                                            )"
+                                    onfocus="on_focus(this)"
+                                    >
+                                {% for status in statuses %}
+                                    <option {% if status.id == rel.role.id %} selected {% endif %} value="{{ status.id }}">
+                                        {{ status.role }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="b-teamlist__profile">
-                    <a href="{% url 'profile:main' rel.team.speaker_1.id%}">{{ rel.team.speaker_1|name }}</a>
-                    <span>  и  </span>
-                    <a href="{% url 'profile:main' rel.team.speaker_2.id%}">{{ rel.team.speaker_2|name }}</a>
-                </div>
+                    <div class="b-teamlist__profile">
+                        <a href="{% url 'profile:main' rel.team.speaker_1.id%}">{{ rel.team.speaker_1|name }}</a>
+                        <span>  и  </span>
+                        <a href="{% url 'profile:main' rel.team.speaker_2.id%}">{{ rel.team.speaker_2|name }}</a>
+                    </div>
 
+                </div>
             </div>
         </div>
     {% empty %}
