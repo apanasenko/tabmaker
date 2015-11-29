@@ -1,3 +1,5 @@
+// редактировать раунд
+
 .b-result-room {
 	@include container;
 	margin-bottom: 20px;
@@ -58,5 +60,60 @@
 	button {
 		margin: 0 auto;
 		display: block;
+	}
+}
+
+
+// внести результаты раунда
+
+.b-result {
+
+	&-enter {
+		margin: 0 auto 20px 0;
+
+		&__heading {
+			padding: 20px;
+			background-color: $beige;
+			display: block;
+
+			h3 {
+				margin-left: 10px;
+				margin-bottom: 0;
+				display: inline-block;
+			}
+		}
+
+		&__checkbox {
+			float: right;
+
+			@include respond-to(tablets) {
+		    	float: initial;
+		    	margin: 10px 0 0 10px;
+
+		    }
+
+			input, p, label {
+				display: inline;
+			}
+
+			input {
+				margin: 0 3px 0 0;
+			}
+		}
+
+		&__games {
+			width: 100%;
+		}
+
+		&__og, &__oo, &__cg, &__co {
+			box-sizing: border-box;
+			display: inline-block;
+			padding: 20px 0 0 20px;
+		    width: 49%;
+
+		    @include respond-to(tablets) {
+		    	width: 100%;
+		    }
+		}
 	}
 }

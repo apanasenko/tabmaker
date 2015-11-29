@@ -34,7 +34,7 @@
                 {{ form.chair.errors }}
                 {{ form.chair }}
                 <h3 class="b-result-room__chair">
-                    Судья
+                    Судья:
                     <select class="chair_select">
                         {% for adjudicator in adjudicators %}
                             <option value="{{ adjudicator.user.id }}" {% if adjudicator.user.id ==  form.chair.value%} selected {% endif %} >
@@ -46,7 +46,7 @@
                 <div class="place b-result-room__place">
                 {{ form.place_id.errors }}
                 {{ form.place_id }}
-                <h3 class="">Аудитория</h3>
+                <h3 class="">Аудитория:</h3>
                 <select class="place_select">
                     {% for place in places %}
                         <option value="{{ place.id }}" {% if place.id ==  form.place_id.value %} selected {% endif %} >
