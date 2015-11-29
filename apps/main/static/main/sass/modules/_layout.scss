@@ -60,3 +60,27 @@ i {
 	margin: 0 auto;
 	background-color: $background-page;
 }
+
+.content_conteiner {
+	padding: 25px;
+	min-height: 68vh;
+
+	@include respond-to(mobile) {
+		padding: 5px;
+		min-height: 100vh;
+	}
+}
+
+.content {
+	@include container;
+	@include shadow;
+	display: inline-block;
+	width: 60%;
+	background-color: $background-block;
+	border-radius: 3px;
+	vertical-align: top;
+
+	@include respond-to(mobile) {
+		width: 100%;
+	}
+}

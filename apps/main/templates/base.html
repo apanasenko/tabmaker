@@ -5,6 +5,7 @@
 <html>
 <head lang="ru">
 <meta charset="UTF-8">
+{# <meta name="viewport" content="width=device-width, initial-scale=1.0"> #}
 <link rel="shortcut icon" type="image/png" href="{% static 'main/img/favicon.ico'%}"/>
 
 <title>
@@ -21,6 +22,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.js"></script>
 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css">
+
     {% else %}
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -30,6 +33,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.min.css">
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js"></script>
 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     {% endif %}
 {% endblock libs %}
 
@@ -61,6 +65,15 @@
     <div class="page_wrapper">
 
         <header>
+            <div class="mobile_sidebar">
+                <input type="checkbox" id="menu" class="hidden-menu-ticker">
+                <label class="btn-menu" for="menu">
+                     <span class="first"></span>
+                     <span class="second"></span>
+                     <span class="third"></span>
+                </label>
+            </div>
+
             <div id="logo">
                 <a href="/"><img src="{% static 'main/img/logo.png' %}" alt=""></a>
             </div>
