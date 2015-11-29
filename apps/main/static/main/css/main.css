@@ -153,6 +153,11 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 /* line 27, ../sass/modules/_footer.scss */
 .b-footer__contact li { display: inline; color: #aeb8bc; margin-right: 20px; }
 
+/* line 3, ../sass/modules/_uielements.scss */
+.disclaimer-red { background-color: red; display: block; padding: 20px; margin: 20px; border-radius: 5px; }
+/* line 10, ../sass/modules/_uielements.scss */
+.disclaimer-red p { color: white; }
+
 /* line 1, ../sass/modules/_tables.scss */
 .b-table { width: 100%; padding: 0 5px; }
 /* line 5, ../sass/modules/_tables.scss */
@@ -278,6 +283,28 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 
 /* line 48, ../sass/modules/_tournamentinfo.scss */
 .b-tournament-summary-commands a, .b-tournament-summary-commands input { display: inline-block; }
+/* line 52, ../sass/modules/_tournamentinfo.scss */
+.b-tournament-summary-commands__button { height: 30px; line-height: 30px; padding: 0 10px; margin: 0 5px 10px 0; }
+
+/* line 1, ../sass/modules/_places.scss */
+.b-places { box-sizing: border-box; padding: 20px; }
+/* line 5, ../sass/modules/_places.scss */
+.b-places__delete { margin-left: 10px; border-bottom: 1px #58697A dashed; padding-bottom: 2px; }
+
+/* line 1, ../sass/modules/_admin.scss */
+.b-admin { padding: 20px; box-sizing: border-box; }
+/* line 5, ../sass/modules/_admin.scss */
+.b-admin__owner { margin-bottom: 20px; }
+/* line 9, ../sass/modules/_admin.scss */
+.b-admin__admin { margin-bottom: 20px; }
+/* line 12, ../sass/modules/_admin.scss */
+.b-admin__admin_name { display: inline-block; margin-right: 10px; }
+/* line 18, ../sass/modules/_admin.scss */
+.b-admin__button { background-color: transparent; border: 1px solid #aeb8bc; border-radius: 5px; color: #aeb8bc; cursor: pointer; height: 28px; line-height: 28px; padding: 0 5px; }
+/* line 28, ../sass/modules/_admin.scss */
+.b-admin__button:hover { background-color: transparent; border: 1px solid #58697A; border-radius: 5px; color: #58697A; }
+/* line 36, ../sass/modules/_admin.scss */
+.b-admin__input { width: 220px; }
 
 /* line 1, ../sass/modules/_message.scss */
 .b-message { padding: 20px; }
@@ -286,53 +313,66 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 /* line 8, ../sass/modules/_message.scss */
 .b-message__section { width: 100%; float: left; }
 /* line 11, ../sass/modules/_message.scss */
-.b-message__section input { max-width: 200px; }
-/* line 16, ../sass/modules/_message.scss */
+.b-message__section input { min-width: 230px; max-width: 260px; }
+/* line 17, ../sass/modules/_message.scss */
 .b-message__loginbutton { display: block; }
-/* line 20, ../sass/modules/_message.scss */
+/* line 21, ../sass/modules/_message.scss */
 .b-message__forgot { margin: 30px 0 10px 0; display: inline-block; border-bottom: 1px dashed #aeb8bc; padding-bottom: 2px; }
-/* line 27, ../sass/modules/_message.scss */
+/* line 28, ../sass/modules/_message.scss */
 .b-message__article { margin-bottom: 10px; }
-/* line 31, ../sass/modules/_message.scss */
+/* line 32, ../sass/modules/_message.scss */
 .b-message__confirm { padding: 10px 0; }
 
 /* line 1, ../sass/modules/_teamlist.scss */
-.b-teamlist { padding: 30px 0 30px 0; border-bottom: 1px #ECEEF1 solid; }
-/* line 5, ../sass/modules/_teamlist.scss */
+.b-teamlist { padding: 30px 0 30px 0; border-bottom: 1px #ECEEF1 solid; position: relative; }
+/* line 6, ../sass/modules/_teamlist.scss */
 .b-teamlist:hover { background-color: #FEFFD9; transition: background-color 0.2s ease; }
-/* line 10, ../sass/modules/_teamlist.scss */
+/* line 11, ../sass/modules/_teamlist.scss */
 .b-teamlist__wrapper { margin: 0 20px 0 20px; }
-/* line 16, ../sass/modules/_teamlist.scss */
+/* line 17, ../sass/modules/_teamlist.scss */
 .b-teamlist__heading_mine { margin: 0 0 20px 0; width: 50%; }
-/* line 21, ../sass/modules/_teamlist.scss */
+/* line 22, ../sass/modules/_teamlist.scss */
 .b-teamlist__heading h3 { display: inline; margin-right: 20px; }
-/* line 25, ../sass/modules/_teamlist.scss */
+/* line 26, ../sass/modules/_teamlist.scss */
 .b-teamlist__heading h3 a { display: inline; border-bottom: 1px dashed #aeb8bc; padding-bottom: 3px; }
-/* line 33, ../sass/modules/_teamlist.scss */
+/* line 34, ../sass/modules/_teamlist.scss */
 .b-teamlist__status { color: #aeb8bc; margin: 0 0 10px 0; }
-/* line 37, ../sass/modules/_teamlist.scss */
+/* line 38, ../sass/modules/_teamlist.scss */
 .b-teamlist__status a { display: inline; border-bottom: 1px dashed #aeb8bc; padding-bottom: 3px; color: #aeb8bc; font-weight: 400; }
-/* line 46, ../sass/modules/_teamlist.scss */
+/* line 47, ../sass/modules/_teamlist.scss */
 .b-teamlist__profile { cursor: auto; margin: 15px 0 0 0; }
-/* line 50, ../sass/modules/_teamlist.scss */
+/* line 51, ../sass/modules/_teamlist.scss */
 .b-teamlist__profile a { display: inline; border-bottom: 1px dashed #aeb8bc; padding-bottom: 3px; }
+/* line 58, ../sass/modules/_teamlist.scss */
+.b-teamlist__select { float: right; }
 
-/* line 59, ../sass/modules/_teamlist.scss */
-.b-teamlist-tournament { padding: 20px 0px 20px 0px; border-bottom: 1px #ECEEF1 solid; width: 100%; float: left; }
 /* line 64, ../sass/modules/_teamlist.scss */
-.b-teamlist-tournament:hover { background-color: #FEFFD9; transition: background-color 0.2s ease; }
+.b-teamlist-tournament { padding: 20px 0px 20px 0px; border-bottom: 1px #ECEEF1 solid; width: 100%; float: left; }
 /* line 69, ../sass/modules/_teamlist.scss */
+.b-teamlist-tournament:hover { background-color: #FEFFD9; transition: background-color 0.2s ease; }
+/* line 74, ../sass/modules/_teamlist.scss */
 .b-teamlist-tournament__wrapper { margin: 0 20px; }
-/* line 73, ../sass/modules/_teamlist.scss */
+/* line 78, ../sass/modules/_teamlist.scss */
 .b-teamlist-tournament__team { width: 30%; float: left; }
-/* line 77, ../sass/modules/_teamlist.scss */
-.b-teamlist-tournament__actions { width: 65.0%; float: right; margin-right: 0; margin-top: 20px; }
 /* line 82, ../sass/modules/_teamlist.scss */
-.b-teamlist-tournament__select { float: right; margin-left: 20px; }
+.b-teamlist-tournament__actions { width: 65.0%; float: right; margin-right: 0; margin-top: 20px; }
 /* line 87, ../sass/modules/_teamlist.scss */
+.b-teamlist-tournament__select { float: right; margin-left: 20px; }
+/* line 92, ../sass/modules/_teamlist.scss */
 .b-teamlist-tournament__button { float: right; }
-/* line 91, ../sass/modules/_teamlist.scss */
+/* line 96, ../sass/modules/_teamlist.scss */
 .b-teamlist-tournament__save { padding: 20px 0 20px 0; }
+
+/* line 102, ../sass/modules/_teamlist.scss */
+.count-by-role { padding: 20px; box-sizing: border-box; }
+/* line 106, ../sass/modules/_teamlist.scss */
+.count-by-role__item { display: block; margin-bottom: 10px; }
+/* line 111, ../sass/modules/_teamlist.scss */
+.count-by-role__buttons { margin-left: 20px; margin-top: 20px; list-style-type: none; }
+/* line 117, ../sass/modules/_teamlist.scss */
+.count-by-role__button { margin-right: 20px; }
+/* line 121, ../sass/modules/_teamlist.scss */
+.count-by-role__confirm { margin-bottom: 20px; margin-left: 20px; }
 
 /* line 1, ../sass/modules/_sidebar.scss */
 aside { display: inline-block; width: 20%; }
@@ -406,45 +446,47 @@ label { display: block; }
 .b-form-item { margin-bottom: 20px; width: 100%; float: left; }
 /* line 45, ../sass/modules/_forms.scss */
 .b-form-item__heading { width: 100%; float: left; margin-left: 0; margin-right: 0; }
-/* line 49, ../sass/modules/_forms.scss */
-.b-form-item__input, .b-form-item__label { display: inline-block; }
-/* line 52, ../sass/modules/_forms.scss */
-.b-form-item__input_full, .b-form-item__label_full { width: 91.56627%; float: left; }
+/* line 50, ../sass/modules/_forms.scss */
+.b-form-item .wide input { width: 220px; }
 /* line 55, ../sass/modules/_forms.scss */
-.b-form-item__input_full_last, .b-form-item__label_full_last { width: 91.56627%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
+.b-form-item__input, .b-form-item__label { display: inline-block; }
+/* line 58, ../sass/modules/_forms.scss */
+.b-form-item__input_full, .b-form-item__label_full { width: 91.56627%; float: left; }
 /* line 61, ../sass/modules/_forms.scss */
+.b-form-item__input_full_last, .b-form-item__label_full_last { width: 91.56627%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
+/* line 67, ../sass/modules/_forms.scss */
 .b-form-item__input_six, .b-form-item__label_six { width: 49.39759%; float: left; }
-/* line 64, ../sass/modules/_forms.scss */
-.b-form-item__input_six_last, .b-form-item__label_six_last { width: 49.39759%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
 /* line 70, ../sass/modules/_forms.scss */
+.b-form-item__input_six_last, .b-form-item__label_six_last { width: 49.39759%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
+/* line 76, ../sass/modules/_forms.scss */
 .b-form-item__input_quarter, .b-form-item__label_quarter { width: 24.09639%; float: left; margin-right: 1.20482%; }
-/* line 73, ../sass/modules/_forms.scss */
-.b-form-item__input_quarter_last, .b-form-item__label_quarter_last { width: 24.09639%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
 /* line 79, ../sass/modules/_forms.scss */
+.b-form-item__input_quarter_last, .b-form-item__label_quarter_last { width: 24.09639%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
+/* line 85, ../sass/modules/_forms.scss */
 .b-form-item__input_third, .b-form-item__label_third { width: 32.53012%; float: left; margin-right: 1.20482%; }
-/* line 82, ../sass/modules/_forms.scss */
-.b-form-item__input_third_last, .b-form-item__label_third_last { width: 32.53012%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
 /* line 88, ../sass/modules/_forms.scss */
+.b-form-item__input_third_last, .b-form-item__label_third_last { width: 32.53012%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
+/* line 94, ../sass/modules/_forms.scss */
 .b-form-item__input_sixth, .b-form-item__label_sixth { width: 15.66265%; float: left; margin-right: 1.20482%; }
-/* line 91, ../sass/modules/_forms.scss */
-.b-form-item__input_sixth_last, .b-form-item__label_sixth_last { width: 15.66265%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
 /* line 97, ../sass/modules/_forms.scss */
+.b-form-item__input_sixth_last, .b-form-item__label_sixth_last { width: 15.66265%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
+/* line 103, ../sass/modules/_forms.scss */
 .b-form-item__input_ten, .b-form-item__label_ten { width: 10%; float: left; margin-right: 1.20482%; }
-/* line 100, ../sass/modules/_forms.scss */
+/* line 106, ../sass/modules/_forms.scss */
 .b-form-item__input_ten_last, .b-form-item__label_ten_last { width: 10%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
-/* line 107, ../sass/modules/_forms.scss */
+/* line 113, ../sass/modules/_forms.scss */
 .b-form-item__map { border: 1px solid #aeb8bc; margin-top: 90px; }
 
-/* line 113, ../sass/modules/_forms.scss */
+/* line 119, ../sass/modules/_forms.scss */
 .full { width: 100%; float: left; margin-left: 0; margin-right: 0; }
 
-/* line 117, ../sass/modules/_forms.scss */
+/* line 123, ../sass/modules/_forms.scss */
 #country, #street, #regdateOpen, #regdateClose, #link, .row { clear: both; }
 
-/* line 121, ../sass/modules/_forms.scss */
+/* line 127, ../sass/modules/_forms.scss */
 #player_experience, #adjudicator_experience, .textarea { width: 100%; float: left; margin-left: 0; margin-right: 0; }
 
-/* line 127, ../sass/modules/_forms.scss */
+/* line 133, ../sass/modules/_forms.scss */
 .errorlist li { color: red; font-size: 14px; display: inline; }
 
 /* line 3, ../sass/modules/_profile.scss */

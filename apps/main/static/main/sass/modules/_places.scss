@@ -1,0 +1,10 @@
+.b-places {
+    box-sizing: border-box;
+    padding: 20px;
+
+    &__delete {
+        margin-left: 10px;
+        border-bottom: 1px $dark dashed;
+        padding-bottom: 2px;
+    }
+}

@@ -2,24 +2,22 @@
 
 {% for team_tournament_rel in team_tournament_rels %}
 <div class="b-teamlist">
-    
+
     <div class="b-teamlist__wrapper">
-       
+
        <div class="b-teamlist__heading">
            <h3>{{ team_tournament_rel.team.name }}</h3>
             <span class="b-teamlist__status"><i class="fa fa-graduation-cap"></i>{{ team_tournament_rel.role.role }}</span>
        </div>
-        
+
         <div class="b-teamlist__profile">
             <a href="{% url 'profile:main' team_tournament_rel.team.speaker_1.id%}">{{ team_tournament_rel.team.speaker_1|name }}</a> 
             <span>  и  </span>
             <a href="{% url 'profile:main' team_tournament_rel.team.speaker_2.id%}">{{ team_tournament_rel.team.speaker_2|name }}</a>
         </div>
 
-        
-
     </div>
-    
+
 </div>
 {% empty %}
     <h3 class="b-teamlist__heading">Нет зарегистрированных команд</h3>

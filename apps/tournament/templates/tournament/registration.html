@@ -34,13 +34,13 @@
 
         <div class="b-form-item">
             <label for="id_name"> <h3 class="b-form-item__heading">Название команды</h3></label>
-            {{ form.name }}
-            {{ form.name.errors }}
+            <span class="wide">{{ form.name }}</span>
+            <span class="wide">{{ form.name.errors }}</span>
 
             {% if show_speaker_1 %}
 
                 <label for="id_speaker_1"><h3 class="b-form-item__heading">E-mail первого спикера</h3></label>
-                {{ form.speaker_1 }}
+                <span class="wide">{{ form.speaker_1 }}</span>
                 {{ form.speaker_1.errors }}
                 </div>
                 <div class="formItem">
@@ -52,17 +52,17 @@
 
             {% endif %}
 
-            {{ form.speaker_2 }}
-            {{ form.speaker_2.errors }}
-            
-            <div class="textarea">
-                <label for="id_info"><h3 class="b-form-item__heading">Информация для организаторов</h3></label>
-                {{ form.info }}
-                {{ form.info.errors }}
-            </div>
-            
+            <span class="wide">{{ form.speaker_2 }}</span>
+            <span class="wide">{{ form.speaker_2.errors }}</span>
+
+            {# <div class="textarea"> #}
+                {# <label for="id_info"><h3 class="b-form-item__heading">Информация для организаторов</h3></label> #}
+                {# {{ form.info }} #}
+                {# {{ form.info.errors }} #}
+            {# </div> #}
+
          </div>
-        <button type="submit" class="button" value="Отправить">Отправить</button>
+        <button type="submit" class="button" value="Отправить">Участвовать</button>
     </form>
 
 {% endblock content %}

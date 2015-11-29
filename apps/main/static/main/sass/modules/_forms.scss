@@ -46,6 +46,12 @@ label {
 		@include span(12 of 12 no-gutters);
 	}
 
+	.wide {
+		input {
+			width: 220px;
+		}
+	}
+
 	&__input, &__label {
 		display: inline-block;
 
@@ -93,7 +99,7 @@ label {
 				@include last;
 			}
 		}
-		
+
 		&_ten {
 			@include span(10%);
 
@@ -123,7 +129,7 @@ label {
 }
 
 .errorlist {
-	
+
 	li {
 		color: red;
 		font-size: 14px;

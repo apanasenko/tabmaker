@@ -4,7 +4,7 @@
 {% load profile_extras %}
 
 {% block page_title %}
-    Список администраторов турнира
+    Администраторы турнира
 {% endblock page_title %}
 
 
@@ -17,18 +17,18 @@
 
 
 {% block content %}
-<div class="">
+<div class="b-admin">
 
-    <div class="owner">
-        <p class="owner_name">{{ owner|name }}</p>
+    <div class="owner b-admin__owner">
+        <p class="owner_name">Владелец турнира: {{ owner|name }}</p>
     </div>
 
-    <div class="admin" id="temp">
+    <div class="admin b-admin__admin" id="temp">
         <div class="errors"></div>
         <input id="rel_id" type="hidden">
-        <p class="admin_name"></p>
-        <a onclick="remove_admin(this, '{% url 'tournament:admin_remove' tournament.id %}')">Удалить</a>
-        <a
+        <p class="admin_name b-admin__admin_name"></p>
+        <a class="button b-admin__button" onclick="remove_admin(this, '{% url 'tournament:admin_remove' tournament.id %}')">Удалить</a>
+        <a class="button b-admin__button"
                 onclick="improve_to_owner(
                         this,
                         '{% url 'tournament:owner_change' tournament.id %}',
@@ -49,9 +49,8 @@
 
     <div id="new_admin">
         <div class="errors"></div>
-        <input id="add_admin_input" type="email">
-        <label for="add_admin_input">Добавить администратора</label>
-        <a onclick="save_admin('{% url 'tournament:admin_add' tournament.id %}')">Добавить</a>
+        <input class="b-admin__input" id="add_admin_input" type="email" placeholder="e-mail администратора">
+        <a class="button" onclick="save_admin('{% url 'tournament:admin_add' tournament.id %}')">Добавить администратора</a>
     </div>
 
 </div>

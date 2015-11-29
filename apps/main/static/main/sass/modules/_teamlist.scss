@@ -1,6 +1,7 @@
 .b-teamlist {
 	padding: 30px 0 30px 0;
 	border-bottom: 1px $background-page solid;
+	position: relative;
 
 	&:hover {
 		background-color: $hover;
@@ -12,7 +13,7 @@
 	}
 
 	&__heading {
-		
+
 		&_mine {
 			margin: 0 0 20px 0;
 			width: 50%;
@@ -46,12 +47,16 @@
 	&__profile {
 		cursor: auto;
 		margin: 15px 0 0 0;
-		
+
 		a {
 			display: inline;
 			border-bottom: 1px dashed $grey;
 			padding-bottom: 3px;
 		}
+	}
+
+	&__select {
+		float: right;
 	}
 
 }
@@ -92,4 +97,29 @@
 		padding: 20px 0 20px 0;
 	}
 
+}
+
+.count-by-role {
+	padding: 20px;
+    box-sizing: border-box;
+
+	&__item {
+		display: block;
+    	margin-bottom: 10px;
+	}
+
+	&__buttons {
+		margin-left: 20px;
+		margin-top: 20px;
+		list-style-type: none;
+	}
+
+	&__button {
+		margin-right: 20px;
+	}
+
+	&__confirm {
+		margin-bottom: 20px;
+		margin-left: 20px;
+	}
 }

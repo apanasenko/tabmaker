@@ -4,7 +4,7 @@
 {% load profile_extras %}
 
 {% block page_title %}
-    Список администраторов турнира
+    Аудитории турнира
 {% endblock page_title %}
 
 
@@ -17,17 +17,18 @@
 
 
 {% block content %}
-<div class="">
+<div class="b-places">
 
     <input id="place_update_url" type="hidden" value="{% url 'tournament:place_update' tournament.id %}">
 
-    <div class="place" id="temp">
+   <h3>Список аудиторий</h3>
+    <div class="place b-places__item" id="temp">
         <div class="errors"></div>
         <input id="place_id" type="hidden">
         <p>
             <input class="place_checkbox" type="checkbox">
             <span class="place_name"></span>
-            <a onclick="remove_place(this, '{% url 'tournament:place_remove' tournament.id %}')">Удалить</a>
+            <a class='b-places__delete' onclick="remove_place(this, '{% url 'tournament:place_remove' tournament.id %}')">Удалить</a>
         </p>
     </div>
 
@@ -45,9 +46,9 @@
 
     <div id="new_place">
         <div class="errors"></div>
-        <label for="add_place_input">Добавить аудиторию</label>
-        <input id="add_place_input">
-        <a onclick="save_place('{% url 'tournament:place_add' tournament.id %}')">Добавить</a>
+        {# <label for="add_place_input">Добавить аудиторию</label> #}
+        <input id="add_place_input" class="b-places__add" placeholder="Название аудитории">
+        <a class="button" onclick="save_place('{% url 'tournament:place_add' tournament.id %}')">Добавить аудиторию</a>
     </div>
 
 </div>
