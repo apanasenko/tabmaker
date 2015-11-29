@@ -10,7 +10,7 @@
 
 
 {% block page_title %}
-    Редактирование румов
+    Редактировать раунд
 {% endblock page_title %}
 
 
@@ -30,11 +30,11 @@
             {{ form.errors }}
         <div class="b-result-room">
 
-            <div class="b-result-room__adjudicator chair">
+            <div class="b-result-room__heading chair">
                 {{ form.chair.errors }}
                 {{ form.chair }}
-                <h3 class="b-result-room__adjudicator_heading">
-                    Судья:
+                <h3 class="b-result-room__chair">
+                    Судья
                     <select class="chair_select">
                         {% for adjudicator in adjudicators %}
                             <option value="{{ adjudicator.user.id }}" {% if adjudicator.user.id ==  form.chair.value%} selected {% endif %} >
@@ -43,11 +43,10 @@
                         {% endfor %}
                     </select>
                 </h3>
-            </div>
-            <div class="place">
+                <div class="place b-result-room__place">
                 {{ form.place_id.errors }}
                 {{ form.place_id }}
-                <h3 class="">Аудитория:</h3>
+                <h3 class="">Аудитория</h3>
                 <select class="place_select">
                     {% for place in places %}
                         <option value="{{ place.id }}" {% if place.id ==  form.place_id.value %} selected {% endif %} >
@@ -55,6 +54,7 @@
                         </option>
                     {% endfor %}
                 </select>
+                </div>
             </div>
 
             <div class="b-result-room__games">

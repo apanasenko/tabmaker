@@ -400,23 +400,23 @@ aside { display: inline-block; width: 20%; }
 /* line 12, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/susy-2.2.5/sass/susy/output/support/_clearfix.scss */
 .b-result-room:after { content: " "; display: block; clear: both; }
 /* line 5, ../sass/modules/_result.scss */
-.b-result-room__adjudicator { @iclude span(100% no-gutters); background-color: #E2DFDA; height: 40px; outline: 1px solid #ECEEF1; }
-/* line 11, ../sass/modules/_result.scss */
-.b-result-room__adjudicator_heading { text-align: center; padding-top: 10px; }
-/* line 17, ../sass/modules/_result.scss */
-.b-result-room__og, .b-result-room__cg, .b-result-room__oo, .b-result-room__co { padding: 20px 0 20px 20px; outline: 1px solid #ECEEF1; outline-offset: 0px; }
-/* line 23, ../sass/modules/_result.scss */
-.b-result-room__og, .b-result-room__cg { width: 47%; float: left; }
-/* line 27, ../sass/modules/_result.scss */
-.b-result-room__oo, .b-result-room__co { width: 48%; float: right; margin-right: 0; }
-/* line 33, ../sass/modules/_result.scss */
+.b-result-room__heading { @iclude span(100% no-gutters); background-color: #E2DFDA; height: 40px; outline: 1px solid #ECEEF1; padding: 10px; box-sizing: content-box; display: block; }
+/* line 15, ../sass/modules/_result.scss */
+.b-result-room__chair, .b-result-room__place { display: inline-block; width: 45%; padding-top: 4px; vertical-align: top; margin: 0; }
+/* line 22, ../sass/modules/_result.scss */
+.b-result-room__chair h3, .b-result-room__place h3 { display: inline-block; margin-right: 5px; }
+/* line 28, ../sass/modules/_result.scss */
+.b-result-room .chair_select, .b-result-room .place_select { margin: 0; background-color: white; border: 1px solid #58697A; }
+/* line 34, ../sass/modules/_result.scss */
+.b-result-room__og, .b-result-room__cg, .b-result-room__oo, .b-result-room__co { padding: 20px 0 20px 20px; border-bottom: 1px solid #ECEEF1; }
+/* line 41, ../sass/modules/_result.scss */
 .b-result-room__teamresult p, .b-result-room__teamresult input, .b-result-room__teamresult label, .b-result-room__speaker1 p, .b-result-room__speaker1 input, .b-result-room__speaker1 label, .b-result-room__speaker2 p, .b-result-room__speaker2 input, .b-result-room__speaker2 label, .b-result-room__reverse p, .b-result-room__reverse input, .b-result-room__reverse label { display: inline; }
-/* line 37, ../sass/modules/_result.scss */
+/* line 45, ../sass/modules/_result.scss */
 .b-result-room__teamresult input, .b-result-room__speaker1 input, .b-result-room__speaker2 input, .b-result-room__reverse input { height: 15px; background-color: transparent; min-width: 80px; }
 
-/* line 47, ../sass/modules/_result.scss */
+/* line 55, ../sass/modules/_result.scss */
 .b-result-submit { padding: 0 0 20px 0; }
-/* line 50, ../sass/modules/_result.scss */
+/* line 58, ../sass/modules/_result.scss */
 .b-result-submit button { margin: 0 auto; display: block; }
 
 /* line 1, ../sass/modules/_forms.scss */
