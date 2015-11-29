@@ -551,11 +551,11 @@ label { display: block; }
 /* line 18, ../sass/modules/_presentation.scss */
 .b-presentation__round h5, .b-presentation__room h5, .b-presentation__infoslide h5, .b-presentation__resolution h5, .b-presentation__motion h5 { color: white; font-size: 3em; }
 /* line 26, ../sass/modules/_presentation.scss */
-.b-presentation__room_teams { margin: 0 auto; height: 80%; max-width: 60%; margin-left: auto; margin-right: auto; }
+.b-presentation__room_teams { margin: 0 auto; height: 80%; max-width: 80%; margin-left: auto; margin-right: auto; }
 /* line 12, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/susy-2.2.5/sass/susy/output/support/_clearfix.scss */
 .b-presentation__room_teams:after { content: " "; display: block; clear: both; }
 /* line 32, ../sass/modules/_presentation.scss */
-.b-presentation__room_og, .b-presentation__room_cg, .b-presentation__room_oo, .b-presentation__room_co { min-height: 15%; padding-top: 6em; }
+.b-presentation__room_og, .b-presentation__room_cg, .b-presentation__room_oo, .b-presentation__room_co { min-height: 15%; padding-top: 6em; box-sizing: border-box; }
 /* line 37, ../sass/modules/_presentation.scss */
 .b-presentation__room_og h3, .b-presentation__room_og p, .b-presentation__room_cg h3, .b-presentation__room_cg p, .b-presentation__room_oo h3, .b-presentation__room_oo p, .b-presentation__room_co h3, .b-presentation__room_co p { color: white; margin: 0 auto; }
 /* line 42, ../sass/modules/_presentation.scss */
@@ -563,24 +563,28 @@ label { display: block; }
 /* line 47, ../sass/modules/_presentation.scss */
 .b-presentation__room_og p, .b-presentation__room_cg p, .b-presentation__room_oo p, .b-presentation__room_co p { font-size: 1.6em; margin-bottom: 0.4em; }
 /* line 53, ../sass/modules/_presentation.scss */
-.b-presentation__room_og, .b-presentation__room_cg { width: 50%; float: left; }
-/* line 56, ../sass/modules/_presentation.scss */
-.b-presentation__room_og h3, .b-presentation__room_og p, .b-presentation__room_cg h3, .b-presentation__room_cg p { padding-right: 20%; text-align: right; }
+.b-presentation__room_og, .b-presentation__room_cg, .b-presentation__room_oo, .b-presentation__room_co { display: inline-block; width: 49%; vertical-align: top; }
+/* line 59, ../sass/modules/_presentation.scss */
+.b-presentation__room_og, .b-presentation__room_cg { padding-right: 2em; }
 /* line 62, ../sass/modules/_presentation.scss */
-.b-presentation__room_oo, .b-presentation__room_co { width: 50%; float: right; margin-right: 0; }
-/* line 65, ../sass/modules/_presentation.scss */
-.b-presentation__room_oo h3, .b-presentation__room_oo p, .b-presentation__room_co h3, .b-presentation__room_co p { padding-left: 20%; text-align: left; }
+.b-presentation__room_og h3, .b-presentation__room_og p, .b-presentation__room_cg h3, .b-presentation__room_cg p { float: right; box-sizing: border-box; text-align: right; display: block; width: 100%; }
 /* line 71, ../sass/modules/_presentation.scss */
+.b-presentation__room_oo, .b-presentation__room_co { padding-left: 2em; }
+/* line 74, ../sass/modules/_presentation.scss */
+.b-presentation__room_oo h3, .b-presentation__room_oo p, .b-presentation__room_co h3, .b-presentation__room_co p { float: left; box-sizing: border-box; text-align: left; display: block; width: 100%; }
+/* line 83, ../sass/modules/_presentation.scss */
 .b-presentation__room_chair { width: 100%; float: left; text-align: center; font-size: 2em; font-weight: 700; margin-top: 1em; }
-/* line 78, ../sass/modules/_presentation.scss */
+/* line 90, ../sass/modules/_presentation.scss */
 .b-presentation__room_chair P { color: white; }
-/* line 88, ../sass/modules/_presentation.scss */
+/* line 100, ../sass/modules/_presentation.scss */
 .b-presentation__infoslide h3, .b-presentation__infoslide p { color: white; }
-/* line 92, ../sass/modules/_presentation.scss */
+/* line 104, ../sass/modules/_presentation.scss */
 .b-presentation__infoslide h3 { font-size: 3em; margin: 0 0 0.5em 0; }
-/* line 97, ../sass/modules/_presentation.scss */
-.b-presentation__infoslide p { font-size: 2em; color: white; text-align: center; max-width: 80%; margin: 0 auto; line-height: 1.2; }
 /* line 109, ../sass/modules/_presentation.scss */
+.b-presentation__infoslide p { font-size: 2em; color: white; text-align: center; max-width: 80%; margin: 0 auto; line-height: 1.2; }
+/* line 121, ../sass/modules/_presentation.scss */
+.b-presentation__resolution h3 { font-size: 8em; }
+/* line 128, ../sass/modules/_presentation.scss */
 .b-presentation__motion p { font-size: 3.5em; color: white; text-align: center; max-width: 80%; margin: 0 auto; line-height: 1.5; }
 
 /* line 3, ../sass/modules/_popups.scss */
