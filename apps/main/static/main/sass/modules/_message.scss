@@ -31,5 +31,24 @@
 
 	&__confirm {
 		padding: 10px 0;
+		display: inline-block;
+	}
+}
+
+
+// finished
+
+.b-finished {
+	margin-bottom: 10px;
+}
+
+.confirm {
+
+	&__text {
+		margin-bottom: 10px;
+	}
+
+	input {
+		margin-bottom: 0;
 	}
 }
