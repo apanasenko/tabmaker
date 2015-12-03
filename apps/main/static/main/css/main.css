@@ -288,6 +288,13 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 /* line 52, ../sass/modules/_tournamentinfo.scss */
 .b-tournament-summary-commands__button { height: 30px; line-height: 30px; padding: 0 10px; margin: 0 5px 10px 0; }
 
+/* line 66, ../sass/modules/_tournamentinfo.scss */
+.b-resolutions__item { margin: 30px 0; }
+/* line 70, ../sass/modules/_tournamentinfo.scss */
+.b-resolutions__motion { font-weight: 700; margin: 10px 0; font-size: 18px; }
+/* line 76, ../sass/modules/_tournamentinfo.scss */
+.b-resolutions__description { line-height: 1.4; box-sizing: border-box; padding: 0 20px 0 74px; }
+
 /* line 1, ../sass/modules/_places.scss */
 .b-places { box-sizing: border-box; padding: 20px; }
 /* line 5, ../sass/modules/_places.scss */
