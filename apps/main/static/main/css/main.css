@@ -163,18 +163,20 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 /* line 5, ../sass/modules/_tables.scss */
 .b-table__headrow, .b-table__row { margin: 10px 0px; color: #aeb8bc; border-bottom: 1px solid #ECEEF1; height: 40px; }
 /* line 14, ../sass/modules/_tables.scss */
+.b-table__headstring_half, .b-table__headstring_thirty, .b-table__headstring_narrow { background-color: #E2DFDA; color: #58697A; }
+/* line 22, ../sass/modules/_tables.scss */
 .b-table__headstring_half, .b-table__string_half { width: 50%; }
-/* line 18, ../sass/modules/_tables.scss */
+/* line 26, ../sass/modules/_tables.scss */
 .b-table__headstring_half .wrap, .b-table__string_half .wrap { padding-left: 20px; }
-/* line 24, ../sass/modules/_tables.scss */
+/* line 32, ../sass/modules/_tables.scss */
 .b-table__headstring_thirty, .b-table__string_thirty { width: 16%; text-align: center; }
-/* line 29, ../sass/modules/_tables.scss */
+/* line 37, ../sass/modules/_tables.scss */
 .b-table__headstring_narrow, .b-table__string_narrow { width: 70px; text-align: center; }
-/* line 36, ../sass/modules/_tables.scss */
+/* line 44, ../sass/modules/_tables.scss */
 .b-table__headrow { background-color: #EBE8E3; color: #58697A; }
-/* line 40, ../sass/modules/_tables.scss */
-.b-table__headrow th { font-weight: 700; }
 /* line 48, ../sass/modules/_tables.scss */
+.b-table__headrow th { font-weight: 700; }
+/* line 56, ../sass/modules/_tables.scss */
 .b-table__row:hover { background-color: #F6F6F6; }
 
 /* line 1, ../sass/modules/_rounds.scss */
@@ -524,6 +526,13 @@ label { display: block; }
 .b-profile__button { display: inline-block; text-decoration: none; padding: 8px 16px; border-radius: 5px; border: none; color: #ffffff; font-family: inherit; font-size: 14px; min-height: 20px; background-color: #424E5A; box-sizing: border-box; }
 /* line 38, ../sass/modules/_mixins.scss */
 .b-profile__button:hover { background-color: #0C152A; transition: background-color 0.3s ease; }
+
+/* line 1, ../sass/modules/_brake.scss */
+.b-brake { box-sizing: border-box; }
+/* line 4, ../sass/modules/_brake.scss */
+.b-brake__commands { margin: 20px 0; padding: 0 20px; }
+/* line 8, ../sass/modules/_brake.scss */
+.b-brake__commands a, .b-brake__commands button { display: inline-block; height: 40px; line-height: 40px; padding: 0 16px; }
 
 /* line 1, ../sass/modules/_tabs.scss */
 .b-tabs { background-color: #FEFFD9; border-bottom: 1px solid #ECEEF1; height: 45px; }

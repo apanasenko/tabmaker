@@ -1,43 +1,45 @@
 {% extends "tournament/owner_base.html" %}
 
 {% block page_title %}
-    Break
+    Выход из отборочных
 {% endblock page_title %}
 
 
 {% block content %}
-    <div>
-        <a class="button" href="{% url "tournament:edit" tournament.id %}">Исправить колличество команд в break'е</a>
-    </div>
-    {% if error %}
-        <div class="errors">
-            {{ error }}
-        </div>
-    {% endif %}
+    <div class="b-brake">
+        {% if error %}
+            <div class="errors">
+                {{ error }}
+            </div>
+        {% endif %}
 
-    <form action="{% url "tournament:break" tournament.id %}" method="post">
-        {% csrf_token %}
-        <table>
-            <tr>
-                <td></td>
-                {% for td in header  %}
-                    <td>{{ td }}</td>
-                {% endfor %}
-            </tr>
-
-            {% for team in teams %}
-                <tr>
-                    <td>
-                        {{ team.checkbox.is_check }}
-                        {{ team.checkbox.id }}
-                    </td>
-                    {% for td in team.result %}
-                        <td>{{ td }}</td>
+        <form class="b-brake-table" action="{% url "tournament:break" tournament.id %}" method="post">
+            {% csrf_token %}
+            <table class="b-table">
+                <tr class="b-table__row">
+                    <td class="b-table__headstring_narrow">Отобрать</td>
+                    {% for td in header  %}
+                        <td class="b-table__headstring_narrow">{{ td }}</td>
                     {% endfor %}
                 </tr>
-            {% endfor %}
-        </table>        <div class="row">
-            <button type="submit" class="button">Далее</button>
-        </div>
-    </form>
+
+                {% for team in teams %}
+                    <tr class="b-table__row">
+                        <td class="b-table__string_narrow">
+                            {{ team.checkbox.is_check }}
+                            {{ team.checkbox.id }}
+                        </td>
+                        {% for td in team.result %}
+                            <td class="b-table__string_narrow">{{ td }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <div class="b-brake__commands">
+                <a class="button" href="{% url "tournament:edit" tournament.id %}">Изменить количество команд в плей-офф</a>
+                <button type="submit" class="button">Далее</button>
+            </div>
+        </form>
+    </div>
 {% endblock content %}

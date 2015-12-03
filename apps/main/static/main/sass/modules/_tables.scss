@@ -9,6 +9,14 @@
 		height: 40px;
 	}
 
+	&__headstring {
+
+		&_half, &_thirty, &_narrow {
+			background-color: $beige;
+			color: $dark;
+		}
+	}
+
 	&__headstring, &__string {
 
 		&_half {
@@ -33,7 +41,7 @@
 
 	}
 
-	&__headrow {	
+	&__headrow {
 		background-color: $lightbeige;
 		color: $dark;
 
