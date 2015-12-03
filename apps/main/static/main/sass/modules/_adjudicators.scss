@@ -1,0 +1,30 @@
+.b-adjudicators {
+    padding: 0 20px;
+    margin-bottom: 20px;
+
+    &__email {
+        width: 200px;
+    }
+
+    &__list {
+
+        .b-teamlist {
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding: 20px 0;
+
+            select {
+                width: 220px;
+            }
+
+            h3 {
+                width: 25%;
+                display: inline-block;
+            }
+        }
+    }
+
+    &__heading {
+        padding: 0 20px;
+    }
+
+}

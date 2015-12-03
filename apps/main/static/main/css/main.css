@@ -563,7 +563,20 @@ label { display: block; }
 /* line 4, ../sass/modules/_brake.scss */
 .b-brake__commands { margin: 20px 0; padding: 0 20px; }
 /* line 8, ../sass/modules/_brake.scss */
-.b-brake__commands a, .b-brake__commands button { display: inline-block; height: 40px; line-height: 40px; padding: 0 16px; }
+.b-brake__commands a, .b-brake__commands button { display: inline-block; height: 30px; line-height: 30px; padding: 0 16px; }
+
+/* line 1, ../sass/modules/_adjudicators.scss */
+.b-adjudicators { padding: 0 20px; margin-bottom: 20px; }
+/* line 5, ../sass/modules/_adjudicators.scss */
+.b-adjudicators__email { width: 200px; }
+/* line 11, ../sass/modules/_adjudicators.scss */
+.b-adjudicators__list .b-teamlist { border-top: 1px solid rgba(0, 0, 0, 0.1); padding: 20px 0; }
+/* line 15, ../sass/modules/_adjudicators.scss */
+.b-adjudicators__list .b-teamlist select { width: 220px; }
+/* line 19, ../sass/modules/_adjudicators.scss */
+.b-adjudicators__list .b-teamlist h3 { width: 25%; display: inline-block; }
+/* line 26, ../sass/modules/_adjudicators.scss */
+.b-adjudicators__heading { padding: 0 20px; }
 
 /* line 1, ../sass/modules/_tabs.scss */
 .b-tabs { background-color: #FEFFD9; border-bottom: 1px solid #ECEEF1; height: 45px; }
