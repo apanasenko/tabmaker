@@ -19,35 +19,43 @@
 
 <div class="b-form-item" id="regdateOpen">
     <h3 class="b-form-item__heading">Открытие регистрации</h3>
-    {{ form.open_reg_date }}
+    <div class="b-form-item__wrapper">
+        {{ form.open_reg_date }}
+        {{ form.open_reg_time }}
+    </div>
     {{ form.open_reg_date.errors }}
-    {{ form.open_reg_time }}
     {{ form.open_reg_time.errors }}
 </div>
 
 <div class="b-form-item" id="regdateClose">
     <h3 class="b-form-item__heading">Закрытие регистрации</h3>
-    {{ form.close_reg_date }}
+    <div class="b-form-item__wrapper">
+        {{ form.close_reg_date }}
+        {{ form.close_reg_time }}
+    </div>
     {{ form.close_reg_date.errors }}
-    {{ form.close_reg_time }}
     {{ form.close_reg_time.errors }}
 </div>
 
 <div class="b-form-item" id="tournamentDate">
     <h3 class="b-form-item__heading">Начало турнира</h3>
-    {{ form.start_tour_date }}
+    <div class="b-form-item__wrapper">
+        {{ form.start_tour_date }}
+        {{ form.start_tour_time }}
+    </div>
     {{ form.start_tour_date.errors }}
-    {{ form.start_tour_time }}
     {{ form.start_tour_time.errors }}
 </div>
 
 <div class="b-form-item">
     <h3 class="b-form-item__heading">Параметры турнира</h3>
-    {{ form.count_rounds }}
-    {{ form.count_rounds.errors }}
-    {{ form.count_teams }}
+    <div class="b-form-item__wrapper">
+        {{ form.count_rounds }}
+        {{ form.count_teams }}
+        {{ form.count_teams_in_break }}
+    </div>
     {{ form.count_teams.errors }}
-    {{ form.count_teams_in_break }}
+    {{ form.count_rounds.errors }}
     {{ form.count_teams_in_break.errors }}
     {{ form.info }}
     {{ form.link }}

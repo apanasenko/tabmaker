@@ -2,7 +2,6 @@ input, select, textarea {
 	padding: 5px 0px 5px 10px;
 	border-radius: 4px;
 	line-height: 20px;
-	margin: 0 0px 15px 0;
 	font-size: 14px;
 	color: $dark;
 	background-color: transparent;
@@ -17,6 +16,7 @@ textarea {
 	min-height: 30px;
 	font-family: "PT Sans", Arial, sans-serif;
 	font-weight: 14px;
+	margin: 20px 0;
 }
 
 select {
@@ -112,7 +112,14 @@ label {
 
 	&__map {
 		border: 1px solid $grey;
-		margin-top: 90px;
+		display: inline-block;
+		margin-top: 10px;
+	}
+
+	&__wrapper {
+		display: block;
+		width: 100%;
+		height: 70px;
 	}
 }
 
@@ -129,10 +136,12 @@ label {
 }
 
 .errorlist {
+	display: inline;
 
 	li {
 		color: red;
 		font-size: 14px;
-		display: inline;
+		width: 200px;
+    	display: inline-block;
 	}
 }

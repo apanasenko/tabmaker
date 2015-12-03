@@ -458,12 +458,12 @@ aside { display: inline-block; width: 20%; }
   .b-result-enter__og, .b-result-enter__oo, .b-result-enter__cg, .b-result-enter__co { width: 100%; } }
 
 /* line 1, ../sass/modules/_forms.scss */
-input, select, textarea { padding: 5px 0px 5px 10px; border-radius: 4px; line-height: 20px; margin: 0 0px 15px 0; font-size: 14px; color: #58697A; background-color: transparent; border: 2px solid #ECEEF1; }
-/* line 11, ../sass/modules/_forms.scss */
+input, select, textarea { padding: 5px 0px 5px 10px; border-radius: 4px; line-height: 20px; font-size: 14px; color: #58697A; background-color: transparent; border: 2px solid #ECEEF1; }
+/* line 10, ../sass/modules/_forms.scss */
 input:focus, select:focus, textarea:focus { border: 2px solid #0D8153; }
 
-/* line 16, ../sass/modules/_forms.scss */
-textarea { min-height: 30px; font-family: "PT Sans", Arial, sans-serif; font-weight: 14px; }
+/* line 15, ../sass/modules/_forms.scss */
+textarea { min-height: 30px; font-family: "PT Sans", Arial, sans-serif; font-weight: 14px; margin: 20px 0; }
 
 /* line 22, ../sass/modules/_forms.scss */
 select { -webkit-appearance: none; height: 35px; min-width: 170px; }
@@ -513,19 +513,23 @@ label { display: block; }
 /* line 106, ../sass/modules/_forms.scss */
 .b-form-item__input_ten_last, .b-form-item__label_ten_last { width: 10%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
 /* line 113, ../sass/modules/_forms.scss */
-.b-form-item__map { border: 1px solid #aeb8bc; margin-top: 90px; }
-
+.b-form-item__map { border: 1px solid #aeb8bc; display: inline-block; margin-top: 10px; }
 /* line 119, ../sass/modules/_forms.scss */
+.b-form-item__wrapper { display: block; width: 100%; height: 70px; }
+
+/* line 126, ../sass/modules/_forms.scss */
 .full { width: 100%; float: left; margin-left: 0; margin-right: 0; }
 
-/* line 123, ../sass/modules/_forms.scss */
+/* line 130, ../sass/modules/_forms.scss */
 #country, #street, #regdateOpen, #regdateClose, #link, .row { clear: both; }
 
-/* line 127, ../sass/modules/_forms.scss */
+/* line 134, ../sass/modules/_forms.scss */
 #player_experience, #adjudicator_experience, .textarea { width: 100%; float: left; margin-left: 0; margin-right: 0; }
 
-/* line 133, ../sass/modules/_forms.scss */
-.errorlist li { color: red; font-size: 14px; display: inline; }
+/* line 138, ../sass/modules/_forms.scss */
+.errorlist { display: inline; }
+/* line 141, ../sass/modules/_forms.scss */
+.errorlist li { color: red; font-size: 14px; width: 200px; display: inline-block; }
 
 /* line 3, ../sass/modules/_profile.scss */
 .b-profile__wrapper { margin: 20px 20px; }
