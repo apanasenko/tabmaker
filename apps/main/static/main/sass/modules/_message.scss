@@ -1,6 +1,10 @@
 .b-message {
 	padding: 20px;
 
+	input {
+		margin-bottom: 10px;
+	}
+
 	&__back {
 		padding: 0 20px 20px 20px;
 	}
