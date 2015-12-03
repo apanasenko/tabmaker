@@ -115,11 +115,23 @@
 	}
 
 	&__button {
-		margin-right: 20px;
+		margin-right: 10px;
 	}
 
 	&__confirm {
 		margin-bottom: 20px;
 		margin-left: 20px;
 	}
+}
+
+
+
+// список команд в добавлении команд
+
+.add-teams {
+
+	h3 {
+		padding: 0 0 20px 20px;
+	}
+
 }

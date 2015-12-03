@@ -35,6 +35,7 @@ $large: 960px;
     line-height: 32px;
 	background-color: $buttondark;
 	box-sizing: border-box;
+    cursor: pointer;
 
 	&:hover {
 		background-color: $deep-dark;

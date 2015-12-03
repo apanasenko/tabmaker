@@ -2,6 +2,13 @@
     box-sizing: border-box;
     padding: 20px;
 
+    &__item {
+
+        p {
+            margin-bottom: 10px;
+        }
+    }
+
     &__delete {
         margin-left: 10px;
         border-bottom: 1px $dark dashed;

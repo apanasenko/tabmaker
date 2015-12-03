@@ -53,8 +53,8 @@ a { text-decoration: none; color: #58697A; }
 i { margin-right: 8px; margin-bottom: 2px; }
 
 /* line 49, ../sass/modules/_layout.scss */
-.button { display: inline-block; text-decoration: none; padding: 0 16px; border-radius: 5px; border: none; color: #ffffff; font-family: inherit; font-size: 14px; height: 32px; line-height: 32px; background-color: #424E5A; box-sizing: border-box; background-color: #0C152A; }
-/* line 39, ../sass/modules/_mixins.scss */
+.button { display: inline-block; text-decoration: none; padding: 0 16px; border-radius: 5px; border: none; color: #ffffff; font-family: inherit; font-size: 14px; height: 32px; line-height: 32px; background-color: #424E5A; box-sizing: border-box; cursor: pointer; background-color: #0C152A; }
+/* line 40, ../sass/modules/_mixins.scss */
 .button:hover { background-color: #0C152A; transition: background-color 0.3s ease; }
 /* line 53, ../sass/modules/_layout.scss */
 .button a { color: white; }
@@ -95,8 +95,8 @@ header .header_container #page_title h3 { color: #58697A; font-size: 24px; margi
 @media only screen and (max-width: 375px) { /* line 52, ../sass/modules/_header.scss */
   header .header_container #page_title { display: none; } }
 /* line 68, ../sass/modules/_header.scss */
-header .header_container #header_button { display: inline-block; float: right; display: inline-block; text-decoration: none; padding: 0 16px; border-radius: 5px; border: none; color: #ffffff; font-family: inherit; font-size: 14px; height: 32px; line-height: 32px; background-color: #424E5A; box-sizing: border-box; }
-/* line 39, ../sass/modules/_mixins.scss */
+header .header_container #header_button { display: inline-block; float: right; display: inline-block; text-decoration: none; padding: 0 16px; border-radius: 5px; border: none; color: #ffffff; font-family: inherit; font-size: 14px; height: 32px; line-height: 32px; background-color: #424E5A; box-sizing: border-box; cursor: pointer; }
+/* line 40, ../sass/modules/_mixins.scss */
 header .header_container #header_button:hover { background-color: #0C152A; transition: background-color 0.3s ease; }
 /* line 73, ../sass/modules/_header.scss */
 header .header_container #header_button a { text-align: center; color: white; }
@@ -243,7 +243,7 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 .b-tournamentlist-current__registration_mine { font-size: 16px; font-weight: normal; color: #aeb8bc; }
 /* line 108, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result { float: right; margin: -20px 10px 0 0; display: inline-block; padding: 6px 12px; border-radius: 6px; color: #aeb8bc; font-size: 14px; min-height: 20px; box-sizing: border-box; border: 1px solid #aeb8bc; }
-/* line 55, ../sass/modules/_mixins.scss */
+/* line 56, ../sass/modules/_mixins.scss */
 .b-tournamentlist-current__result:hover { border: 1px solid #58697A; color: #58697A; transition: color 0.3s ease; }
 /* line 113, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result a { color: #aeb8bc; }
@@ -251,7 +251,7 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 .b-tournamentlist-current__result a:hover { color: #58697A; }
 /* line 121, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result_tounamentlist { float: right; margin: -25px 10px 0 0; display: inline-block; padding: 6px 12px; border-radius: 6px; color: #aeb8bc; font-size: 14px; min-height: 20px; box-sizing: border-box; border: 1px solid #aeb8bc; background-color: transparent; color: #aeb8bc; border: 1px solid #aeb8bc; }
-/* line 55, ../sass/modules/_mixins.scss */
+/* line 56, ../sass/modules/_mixins.scss */
 .b-tournamentlist-current__result_tounamentlist:hover { border: 1px solid #58697A; color: #58697A; transition: color 0.3s ease; }
 /* line 129, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result_tounamentlist:hover { color: #58697A; border: 1px solid #58697A; }
@@ -271,8 +271,8 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 /* line 20, ../sass/modules/_tournamentinfo.scss */
 .b-tournament-reg { margin-top: 30px; min-height: 50px; }
 /* line 28, ../sass/modules/_tournamentinfo.scss */
-.b-tournament-reg__button { display: inline-block; text-decoration: none; padding: 0 16px; border-radius: 5px; border: none; color: #ffffff; font-family: inherit; font-size: 14px; height: 32px; line-height: 32px; background-color: #424E5A; box-sizing: border-box; }
-/* line 39, ../sass/modules/_mixins.scss */
+.b-tournament-reg__button { display: inline-block; text-decoration: none; padding: 0 16px; border-radius: 5px; border: none; color: #ffffff; font-family: inherit; font-size: 14px; height: 32px; line-height: 32px; background-color: #424E5A; box-sizing: border-box; cursor: pointer; }
+/* line 40, ../sass/modules/_mixins.scss */
 .b-tournament-reg__button:hover { background-color: #0C152A; transition: background-color 0.3s ease; }
 
 /* line 33, ../sass/modules/_tournamentinfo.scss */
@@ -297,7 +297,9 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 
 /* line 1, ../sass/modules/_places.scss */
 .b-places { box-sizing: border-box; padding: 20px; }
-/* line 5, ../sass/modules/_places.scss */
+/* line 7, ../sass/modules/_places.scss */
+.b-places__item p { margin-bottom: 10px; }
+/* line 12, ../sass/modules/_places.scss */
 .b-places__delete { margin-left: 10px; border-bottom: 1px #58697A dashed; padding-bottom: 2px; }
 
 /* line 1, ../sass/modules/_admin.scss */
@@ -394,9 +396,12 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 /* line 111, ../sass/modules/_teamlist.scss */
 .count-by-role__buttons { margin-left: 20px; margin-top: 20px; list-style-type: none; }
 /* line 117, ../sass/modules/_teamlist.scss */
-.count-by-role__button { margin-right: 20px; }
+.count-by-role__button { margin-right: 10px; }
 /* line 121, ../sass/modules/_teamlist.scss */
 .count-by-role__confirm { margin-bottom: 20px; margin-left: 20px; }
+
+/* line 133, ../sass/modules/_teamlist.scss */
+.add-teams h3 { padding: 0 0 20px 20px; }
 
 /* line 1, ../sass/modules/_sidebar.scss */
 aside { display: inline-block; width: 20%; }
@@ -483,8 +488,8 @@ label { display: block; }
 /* line 12, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/susy-2.2.5/sass/susy/output/support/_clearfix.scss */
 .b-form:after { content: " "; display: block; clear: both; }
 /* line 36, ../sass/modules/_forms.scss */
-.b-form__button { display: inline-block; text-decoration: none; padding: 0 16px; border-radius: 5px; border: none; color: #ffffff; font-family: inherit; font-size: 14px; height: 32px; line-height: 32px; background-color: #424E5A; box-sizing: border-box; }
-/* line 39, ../sass/modules/_mixins.scss */
+.b-form__button { display: inline-block; text-decoration: none; padding: 0 16px; border-radius: 5px; border: none; color: #ffffff; font-family: inherit; font-size: 14px; height: 32px; line-height: 32px; background-color: #424E5A; box-sizing: border-box; cursor: pointer; }
+/* line 40, ../sass/modules/_mixins.scss */
 .b-form__button:hover { background-color: #0C152A; transition: background-color 0.3s ease; }
 
 /* line 41, ../sass/modules/_forms.scss */
@@ -554,8 +559,8 @@ label { display: block; }
 /* line 21, ../sass/modules/_profile.scss */
 .b-profile__item { color: #aeb8bc; line-height: 1.4; margin: 0 0 20px 0; }
 /* line 27, ../sass/modules/_profile.scss */
-.b-profile__button { display: inline-block; text-decoration: none; padding: 0 16px; border-radius: 5px; border: none; color: #ffffff; font-family: inherit; font-size: 14px; height: 32px; line-height: 32px; background-color: #424E5A; box-sizing: border-box; }
-/* line 39, ../sass/modules/_mixins.scss */
+.b-profile__button { display: inline-block; text-decoration: none; padding: 0 16px; border-radius: 5px; border: none; color: #ffffff; font-family: inherit; font-size: 14px; height: 32px; line-height: 32px; background-color: #424E5A; box-sizing: border-box; cursor: pointer; }
+/* line 40, ../sass/modules/_mixins.scss */
 .b-profile__button:hover { background-color: #0C152A; transition: background-color 0.3s ease; }
 
 /* line 1, ../sass/modules/_brake.scss */
@@ -570,11 +575,11 @@ label { display: block; }
 /* line 5, ../sass/modules/_adjudicators.scss */
 .b-adjudicators__email { width: 200px; }
 /* line 11, ../sass/modules/_adjudicators.scss */
-.b-adjudicators__list .b-teamlist { border-top: 1px solid rgba(0, 0, 0, 0.1); padding: 20px 0; }
-/* line 15, ../sass/modules/_adjudicators.scss */
-.b-adjudicators__list .b-teamlist select { width: 220px; }
-/* line 19, ../sass/modules/_adjudicators.scss */
-.b-adjudicators__list .b-teamlist h3 { width: 25%; display: inline-block; }
+.b-adjudicators__list .b-teamlist { padding: 20px 0; }
+/* line 14, ../sass/modules/_adjudicators.scss */
+.b-adjudicators__list .b-teamlist select { float: right; margin: -3px 20px 0 0; width: 220px; }
+/* line 20, ../sass/modules/_adjudicators.scss */
+.b-adjudicators__list .b-teamlist h3 { display: inline-block; }
 /* line 26, ../sass/modules/_adjudicators.scss */
 .b-adjudicators__heading { padding: 0 20px; }
 

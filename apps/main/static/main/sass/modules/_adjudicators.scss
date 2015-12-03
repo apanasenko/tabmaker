@@ -9,15 +9,15 @@
     &__list {
 
         .b-teamlist {
-            border-top: 1px solid rgba(0,0,0,0.1);
             padding: 20px 0;
 
             select {
+                float: right;
+                margin: -3px 20px 0 0;
                 width: 220px;
             }
 
             h3 {
-                width: 25%;
                 display: inline-block;
             }
         }

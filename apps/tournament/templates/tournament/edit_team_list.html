@@ -17,7 +17,7 @@
 
 
 {% block content %}
-
+<div class="add-teams">
     <li class="count-by-role__buttons">
         <a class="button count-by-role__button" href="{% url "tournament:add_team" tournament.id %}"><i class="fa fa-plus-circle"></i>Добавить команду</a>
         <a class="button count-by-role__button" href="{% url 'tournament:print' tournament.id %}"><i class="fa fa-print"></i>Версия для печати</a>
@@ -61,7 +61,7 @@
             </div>
         </div>
     {% empty %}
-        <h3>Нет зарегистрированных команд</h3>
+        <h3 id="rrr">Нет зарегистрированных команд</h3>
     {% endfor %}
 
     {% if is_check_page %}
@@ -73,5 +73,5 @@
             Далее
         </button>
     {% endif %}
-
+</div>
 {% endblock content %}
