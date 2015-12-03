@@ -340,6 +340,11 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 /* line 51, ../sass/modules/_message.scss */
 .confirm input { margin-bottom: 0; }
 
+/* line 61, ../sass/modules/_message.scss */
+.b-registration__attention { margin-bottom: 10px; }
+/* line 65, ../sass/modules/_message.scss */
+.b-registration__heading { margin-top: 20px; }
+
 /* line 1, ../sass/modules/_teamlist.scss */
 .b-teamlist { padding: 30px 0 30px 0; border-bottom: 1px #ECEEF1 solid; position: relative; }
 /* line 6, ../sass/modules/_teamlist.scss */
