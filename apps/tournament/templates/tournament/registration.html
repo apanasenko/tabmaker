@@ -13,7 +13,7 @@
 
 {% block content %}
 
-    <form class="b-form" action="{% if show_speaker_1 %}
+    <form class="b-message" action="{% if show_speaker_1 %}
                         {% url "tournament:add_team" tournament.id %}
                   {% else %}
                         {% url "tournament:registration_team" tournament.id %}
@@ -23,9 +23,7 @@
         {{ form.non_field_errors }}
 
         {% if not show_speaker_1 %}
-            <br>
-            <p> * Для регистрации команды ваш тимейт должен быть зарегистрирован у нас на сайте. </p>
-            <br>
+            <p class="b-registration__attention"> * Для регистрации команды ваш тимейт должен быть зарегистрирован у нас на сайте.</p>
         {% endif %}
 
         {% if saved_team %}
@@ -33,36 +31,36 @@
         {% endif %}
 
         <div class="b-form-item">
-            <label for="id_name"> <h3 class="b-form-item__heading">Название команды</h3></label>
-            {{ form.name }}
-            {{ form.name.errors }}
+            <label for="id_name"> <h3 class="b-form-item__heading b-registration__heading">Название команды</h3></label>
+            <span class="wide">{{ form.name }}</span>
+            <span class="wide">{{ form.name.errors }}</span>
 
             {% if show_speaker_1 %}
 
-                <label for="id_speaker_1"><h3 class="b-form-item__heading">E-mail первого спикера</h3></label>
-                {{ form.speaker_1 }}
+                <label for="id_speaker_1"><h3 class="b-form-item__heading b-registration__heading">E-mail первого спикера</h3></label>
+                <span class="wide">{{ form.speaker_1 }}</span>
                 {{ form.speaker_1.errors }}
                 </div>
                 <div class="formItem">
-                <label for="id_speaker_2"><h3 class="b-form-item__heading">E-mail второго спикера</h3></label>
+                <label for="id_speaker_2"><h3 class="b-form-item__heading b-registration__heading">E-mail второго спикера</h3></label>
             {% else %}
 
                 {{ form.speaker_1 }}
-                <label for="id_speaker_2"><h3 class="b-form-item__heading">E-mail вашего напарника</h3></label>
+                <label for="id_speaker_2"><h3 class="b-form-item__heading b-registration__heading">E-mail вашего напарника</h3></label>
 
             {% endif %}
 
-            {{ form.speaker_2 }}
-            {{ form.speaker_2.errors }}
-            
-            <div class="textarea">
-                <label for="id_info"><h3 class="b-form-item__heading">Информация для организаторов</h3></label>
-                {{ form.info }}
-                {{ form.info.errors }}
-            </div>
-            
+            <span class="wide">{{ form.speaker_2 }}</span>
+            <span class="wide">{{ form.speaker_2.errors }}</span>
+
+            {# <div class="textarea"> #}
+                {# <label for="id_info"><h3 class="b-form-item__heading">Информация для организаторов</h3></label> #}
+                {# {{ form.info }} #}
+                {# {{ form.info.errors }} #}
+            {# </div> #}
+
          </div>
-        <button type="submit" class="button" value="Отправить">Отправить</button>
+        <button type="submit" class="button" value="Отправить">Участвовать</button>
     </form>
 
 {% endblock content %}

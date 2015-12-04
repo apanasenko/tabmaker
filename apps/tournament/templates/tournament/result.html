@@ -37,12 +37,12 @@
     <section class="b-tabs__three">
         <div class="b-tournament-info">
         {% for motion in motions %}
-            <h3 class="b-tournament-info__heading">{{ motion.number }}</h3>
-            {% if motion.infoslide %}
-                Инфослайд: <br>
-                <p>{{ motion.infoslide }}</p>
-            {% endif %}
-            <p>{{ motion.motion }}</p>
+            <div class="b-resolutions__item">
+                <p class="b-resolutions__motion"><span>{{ motion.number }}: {{ motion.motion }}</p>
+                {% if motion.infoslide %}
+                    <p class="b-resolutions__description">{{ motion.infoslide }}</p>
+                {% endif %}
+            </div>
         {% endfor %}
         </div>
     </section>

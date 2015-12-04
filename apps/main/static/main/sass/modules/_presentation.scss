@@ -26,13 +26,13 @@
 		&_teams {
 			margin: 0 auto;
 			height: 80%;
-			@include container(60%);
+			@include container(80%);
 		}
 
 		&_og, &_cg, &_oo, &_co {
 			min-height: 15%;
 			padding-top: 6em;
-			
+			box-sizing: border-box;
 
 			h3, p {
 				color: white;
@@ -50,21 +50,33 @@
 			}
 		}
 
+		&_og, &_cg, &_oo, &_co {
+			display: inline-block;
+   			width: 49%;
+   			vertical-align: top;
+		}
+
 		&_og, &_cg {
-			@include span(50% no-gutters);
-			
+			padding-right: 2em;
+
 			h3, p {
-				padding-right: 20%;
+				float: right;
+				box-sizing: border-box;
 				text-align: right;
+				display: block;
+				width: 100%;
 			}
 		}
 
 		&_oo, &_co {
-			@include span(50% last no-gutters);
-			
+			padding-left: 2em;
+
 			h3, p {
-				padding-left: 20%;
+				float: left;
+				box-sizing: border-box;
 				text-align: left;
+				display: block;
+				width: 100%;
 			}
 		}
 
@@ -104,8 +116,15 @@
 		}
 	}
 
+	&__resolution {
+
+		h3 {
+			font-size: 8em;
+		}
+	}
+
 	&__motion {
-		
+
 		p {
 			font-size: 3.5em;
 			color: white;

@@ -47,11 +47,11 @@ class TournamentForm(forms.ModelForm):
             }),
             'location_lon': forms.HiddenInput(),
             'location_lat': forms.HiddenInput(),
-            'count_rounds': forms.NumberInput(attrs={'min': '0', 'placeholder': 'Количество раундов', 'class': 'b-form-item__input_quarter'}),
-            'count_teams': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Количество команд', 'class': 'b-form-item__input_quarter'}),
-            'count_teams_in_break': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Выходят в финал', 'class': 'b-form-item__input_quarter'}),
+            'count_rounds': forms.NumberInput(attrs={'min': '0', 'placeholder': 'Количество отборочных', 'class': 'b-form-item__input_quarter'}),
+            'count_teams': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Максимум команд', 'class': 'b-form-item__input_quarter'}),
+            'count_teams_in_break': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Выходят в плей-офф', 'class': 'b-form-item__input_quarter'}),
             'link': forms.URLInput(attrs={'class': 'validate b-form-item__input_full', 'placeholder': 'Cсылка в социальных сетях'}),
-            'info': forms.Textarea(attrs={'placeholder': 'О турнире', 'class': 'b-form-item__input_full'}),
+            'info': forms.Textarea(attrs={'placeholder': 'О турнире', 'rows': '5', 'class': 'b-form-item__input_full'}),
         }
 
         labels = {

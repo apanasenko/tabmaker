@@ -2,51 +2,28 @@
 
 @import "compass/reset";
 @import "susy";
+@import "modules/mixins";
 @import "modules/colors";
 @import "modules/shadows";
-@import "modules/mixins";
 @import "modules/layout";
 @import "modules/header";
+@import "modules/footer";
+@import "modules/uielements";
 @import "modules/tables";
 @import "modules/rounds";
 @import "modules/tournamentlist";
 @import "modules/tournamentinfo";
+@import "modules/places";
+@import "modules/admin";
 @import "modules/message";
 @import "modules/teamlist";
 @import "modules/sidebar";
 @import "modules/result";
 @import "modules/forms";
 @import "modules/profile";
+@import "modules/brake";
+@import "modules/adjudicators";
 @import "modules/tabs";
 @import "modules/presentation";
 @import "modules/popups";
 @import "modules/tooltips";
-@import "modules/footer";
-
-
-// content section
-
-.content_conteiner {
-	padding: 25px;
-	min-height: 68vh;
-}
-
-.content {
-	@include container;
-	@include shadow;
-	display: inline-block;
-	width: 60%;
-	background-color: $background-block;
-	border-radius: 3px;
-	vertical-align: top;
-}
-
-// email-confirms
-
-
-#email_confirm {
-	
-	h3 {
-		text-align: center;
-	}
-}

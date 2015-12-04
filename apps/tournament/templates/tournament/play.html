@@ -24,16 +24,16 @@
     </div>
 
     <div class="b-tournament-summary-commands">
-        <a class="button" href="{% url 'tournament:next_round' tournament.id%}"> Создать следующий раунд </a>
-        <a class="button" href="{% url 'tournament:publish_round' tournament.id%}"> Опубликовать тему и румы </a>
+        <a class="button b-tournament-summary-commands__button" href="{% url 'tournament:next_round' tournament.id%}"> Создать следующий раунд </a>
+        <a class="button b-tournament-summary-commands__button" href="{% url 'tournament:publish_round' tournament.id%}"> Опубликовать тему и румы </a>
         {% if tournament.cur_round > 0 %}
-            <a class="button" href="{% url 'tournament:result_round' tournament.id%}"> Ввести/исправить результат </a>
-            <a class="button" onclick="confirm_remove_round('{% url 'tournament:remove_round' tournament.id %}')">
+            <a class="button b-tournament-summary-commands__button" href="{% url 'tournament:result_round' tournament.id%}"> Ввести/исправить результат </a>
+            <a class="button b-tournament-summary-commands__button" onclick="confirm_remove_round('{% url 'tournament:remove_round' tournament.id %}')">
                 Удалить последний раунд
             </a>
         {% endif %}
-        <a class="button" href="{% url 'tournament:result' tournament.id%}"> Теб </a>
-        <a class="button" href="{% url 'tournament:presentation_round' tournament.id %}"> Презентация раунда </a>
+        <a class="button b-tournament-summary-commands__button" href="{% url 'tournament:result' tournament.id%}"> Показать результаты </a>
+        <a class="button b-tournament-summary-commands__button" href="{% url 'tournament:presentation_round' tournament.id %}"> Презентация раунда </a>
     </div>
 </div>
 {% endblock content %}

@@ -20,7 +20,7 @@
 
 
 	&__column {
-		
+
 		&_third {
 			@include span(1 of 3);
 		}
@@ -86,7 +86,7 @@
 				margin: 0;
 			}
 		}
-		
+
 		&_floatr {
 			float: right;
 		}

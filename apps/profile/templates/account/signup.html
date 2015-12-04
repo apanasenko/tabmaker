@@ -30,40 +30,40 @@
         {% csrf_token %}
         {{ form.non_field_errors }}
 
-            <div class="b-form-item">
+            <div class="b-form-item b-signup__item">
                 <h3 class="b-form-item__heading">{{ form.first_name.label_tag}}</h3>
                 {{ form.first_name }}
                 {{ form.first_name.errors }}
             </div>
-            <div class="b-form-item">
+            <div class="b-form-item b-signup__item">
                 <h3 class="b-form-item__heading">{{ form.last_name.label_tag}}</h3>
                 {{ form.last_name }}
                 {{ form.last_name.errors }}
             </div>
 
-            <div class="b-form-item">
+            <div class="b-form-item b-signup__item">
                 <h3 class="b-form-item__heading">{{ form.country_id.label_tag }}</h3>
                 {{ form.country_id }}
                 {{ form.country_id.errors }}
             </div>
-            <div class="b-form-item">
+            <div class="b-form-item b-signup__item">
                 <h3 class="b-form-item__heading">{{ form.city_id.label_tag }}</h3>
                 {{ form.city_id }}
                 {{ form.city_id.errors }}
             </div>
-            <div class="b-form-item">
+            <div class="b-form-item b-signup__item">
                 <h3 class="b-form-item__heading">{{ form.university_id.label_tag}}</h3>
                 {{ form.university_id }}
                 {{ form.university_id.errors }}
             </div>
             {% if not is_edit_form %}
-                <div class="b-form-item">
+                <div class="b-form-item b-signup__item">
                     <h3 class="b-form-item__heading">{{ form.email.label_tag }}</h3>
                     {{ form.email }}
                     {{ form.email.errors }}
                 </div>
             {% endif %}
-            <div class="b-form-item">
+            <div class="b-form-item b-signup__item">
                 <h3 class="b-form-item__heading">{{ form.phone.label_tag }}</h3>
                 {{ form.phone }}
                 {{ form.phone.errors }}
@@ -74,29 +74,29 @@
 
             </div>
             {% if not is_edit_form %}
-                <div class="b-form-item">
+                <div class="b-form-item b-signup__item">
                     <h3 class="b-form-item__heading">{{ form.password1.label_tag }}</h3>
                     {{ form.password1 }}
                     {{ form.password1.errors }}
                 </div>
-                <div class="b-form-item">
-                    {{ form.password2.label_tag }}
+                <div class="b-form-item b-signup__item">
+                    <h3 class="b-form-item__heading">{{ form.password2.label_tag }}</h3>
                     {{ form.password2 }}
                     {{ form.password2.errors }}
                 </div>
             {% endif %}
-            <div class="b-form-item">
+            <div class="b-form-item b-signup__item">
                 <h3 class="b-form-item__heading">{{ form.link.label_tag }}</h3>
                 {{ form.link }}
                 {{ form.link.errors }}
             </div>
 
-            <div class="b-form-item" id="player_experience">
+            <div class="b-form-item b-signup__item" id="player_experience">
                 <h3 class="b-form-item__heading">Игровой опыт</h3>
                 {{ form.player_experience }}
                 {{ form.player_experience.errors }}
             </div>
-            <div class="b-form-item" id="adjudicator_experience">
+            <div class="b-form-item b-signup__item" id="adjudicator_experience">
                 <h3 class="b-form-item__heading">Судейский опыт</h3>
                 {{ form.adjudicator_experience }}
                 {{ form.adjudicator_experience.errors }}

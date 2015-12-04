@@ -1,3 +1,23 @@
+// responsivness
+
+$small: 375px;
+$middle: 640px;
+$large: 960px;
+
+@mixin respond-to($media) {
+	@if $media == mobile {
+    	@media only screen and (max-width: $small) { @content; }
+  	}
+  	@else if $media == tablets {
+    	@media only screen and (min-width: $small + 1) and (max-width: $large - 1) { @content; }
+  	}
+  	@else if $media == large {
+    	@media only screen and (min-width: $large) { @content; }
+  	}
+}
+
+// ui mixins
+
 @mixin link {
 	border-bottom: 2px solid $green;
 }
@@ -5,15 +25,17 @@
 @mixin button() {
 	display: inline-block;
 	text-decoration: none;
-	padding: 8px 16px;
+	padding: 0 16px;
 	border-radius: 5px;
 	border: none;
 	color: #ffffff;
 	font-family: inherit;
 	font-size: 14px;
-	min-height: 20px;
+    height: 32px;
+    line-height: 32px;
 	background-color: $buttondark;
 	box-sizing: border-box;
+    cursor: pointer;
 
 	&:hover {
 		background-color: $deep-dark;

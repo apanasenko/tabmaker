@@ -20,48 +20,47 @@
         {% csrf_token %}
         {% for room in forms %}
             {% with game=room.game res=room.result is_active=room.activate_result %}
-            <div class="b-result-room room">
+            <div class="b-result-enter room">
 
-                <div class="b-result-room__adjudicator">
-                    <h3 class="b-result-room__adjudicator_heading">{{ game.chair|name }}</h3> {# добавить аудиторию #}
+                <div class="b-result-enter__heading">
+                    <h3>{{ game.chair|name }}</h3> {# добавить аудиторию #}
                     {{ res.game.errors }}
                     {{ res.game }}
-                </div>
-
-                <div class="activate_form_checkbox">
-                    {% if room.show_checkbox %}
-                        <input class="is_check_game_checkbox" id="id_is_check_game_{{ game.id }}" type="checkbox">
-                        <p><label for="id_is_check_game_{{ game.id }}">Ввести результаты игры</label></p>
-                    {% endif %}
-                    {{ is_active.check_game }}
+                    <div class="activate_form_checkbox b-result-enter__checkbox">
+                        {% if room.show_checkbox %}
+                            <input class="is_check_game_checkbox" id="id_is_check_game_{{ game.id }}" type="checkbox">
+                            <p><label for="id_is_check_game_{{ game.id }}">Ввести результаты игры</label></p>
+                        {% endif %}
+                        {{ is_active.check_game }}
+                    </div>
                 </div>
 
                 <div class="errors">
                     {{ res.non_field_errors }}
                 </div>
 
-                <div class="b-result-room__games game">
+                <div class="b-result-enter__games game">
 
                     {# ======   OG   ====== #}
-                    <div class="b-result-room__og team og">
+                    <div class="b-result-enter__og team og">
                     <h3>Первое правительство</h3>
                     {% include 'tournament/result_team.html' with team=res.og game=game.og speaker_1=res.pm speaker_2=res.dpm is_rev=res.og_rev s1_exist=res.pm_exist s2_exist=res.dpm_exist %}
                     </div>
 
                     {# ======   OO   ====== #}
-                    <div class="b-result-room__og team oo">
+                    <div class="b-result-enter__oo team oo">
                     <h3>Первая оппозиция</h3>
                     {% include 'tournament/result_team.html' with team=res.oo game=game.oo speaker_1=res.lo speaker_2=res.dlo is_rev=res.oo_rev s1_exist=res.lo_exist s2_exist=res.dlo_exist %}
                     </div>
 
                     {# ======   CG   ====== #}
-                    <div class="b-result-room__cg team cg">
+                    <div class="b-result-enter__cg team cg">
                     <h3>Второе правительство</h3>
                     {% include 'tournament/result_team.html' with team=res.cg game=game.cg speaker_1=res.mg speaker_2=res.gw is_rev=res.cg_rev s1_exist=res.mg_exist s2_exist=res.gw_exist %}
                     </div>
 
                     {# ======   CO   ====== #}
-                    <div class="b-result-room__cg team co">
+                    <div class="b-result-enter__cg team co">
                     <h3>Вторая оппозиция</h3>
                     {% include 'tournament/result_team.html' with team=res.co game=game.co speaker_1=res.mo speaker_2=res.ow is_rev=res.co_rev s1_exist=res.mo_exist s2_exist=res.ow_exist %}
                     </div>

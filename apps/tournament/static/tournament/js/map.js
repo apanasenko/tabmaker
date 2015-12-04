@@ -14,7 +14,7 @@ function init () {
     var can_edit = Boolean($("#id_location").size());
     var map = new ymaps.Map("map", {
         center: [lon, lat],
-        zoom: 5
+        zoom: 14
     });
 
     var placemark = new ymaps.Placemark([lon, lat], {

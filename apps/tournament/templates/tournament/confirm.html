@@ -7,14 +7,13 @@
 
 
 {% block content %}
-    <form class="b-message" action="{{ path }}" method="post">
+    <form class="b-message confirm" action="{{ path }}" method="post">
         {% csrf_token %}
         {% include template_body %}
         {% if is_error %}
-            <p>Вы ввели неправильное слово. Повторите попытку
+            <p class="confirm__text">Вы ввели неправильное слово. Повторите попытку
         {% else %}
-        
-            <p>Если вы уверены,
+            <p class="confirm__text">Если вы уверены,
         {% endif %}
         введите слово "{{ need_message }}" </p>
         {{ form.message }}

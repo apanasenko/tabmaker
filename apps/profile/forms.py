@@ -47,8 +47,8 @@ class ProfileForm(forms.ModelForm):
             'last_name': forms.TextInput(attrs={'class': 'validate b-form-item__input_quarter'}),
             'phone': forms.TextInput(attrs={'class': 'validate b-form-item__input_quarter', 'type': 'tel', 'placeholder': '+79141234567'}),
             'link': forms.URLInput(attrs={'class': 'validate b-form-item__input_quarter', 'placeholder': 'http://vk.com/id0'}),
-            'player_experience': forms.Textarea(attrs={'class': 'validate b-form-item__input_full', 'placeholder': 'Опыт в дебатах'}),
-            'adjudicator_experience': forms.Textarea(attrs={'class': 'validate b-form-item__input_full', 'placeholder': 'Опыт судейства дебатов'}),
+            'player_experience': forms.Textarea(attrs={'class': 'validate b-form-item__input_full', 'placeholder': 'Опыт в дебатах', 'rows': '5'}),
+            'adjudicator_experience': forms.Textarea(attrs={'class': 'validate b-form-item__input_full', 'placeholder': 'Опыт судейства дебатов', 'rows': '5'}),
             'is_show_phone': forms.CheckboxInput(),
             'is_show_email': forms.CheckboxInput(),
         }
@@ -93,7 +93,7 @@ class SignupForm(ProfileForm):
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
-        self.fields['email'].widget = forms.EmailInput(attrs={'class': 'validate', 'placeholder': 'ilove@debate.org'})
+        self.fields['email'].widget = forms.EmailInput(attrs={'class': 'validate b-form-item__input_quarter', 'placeholder': 'ilove@debate.org'})
         del self.fields['password1'].widget.attrs['placeholder']
         del self.fields['password2'].widget.attrs['placeholder']
 

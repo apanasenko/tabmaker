@@ -1,31 +1,41 @@
+// редактировать раунд
+
 .b-result-room {
 	@include container;
 	margin-bottom: 20px;
 
-	&__adjudicator {
+	&__heading {
 		@iclude span(100% no-gutters);
 		background-color: $beige;
 		height: 40px;
 		outline: 1px solid $background-page;
+		padding: 10px;
+    	box-sizing: content-box;
+    	display: block;
+	}
 
-		&_heading {
-			text-align: center;
-			padding-top: 10px;
+	&__chair, &__place {
+		display: inline-block;
+		width: 45%;
+		padding-top: 4px;
+		vertical-align: top;
+		margin: 0;
+
+		h3 {
+			display: inline-block;
+			margin-right: 5px;
 		}
+	}
+
+	.chair_select, .place_select {
+		margin: 0;
+		background-color: white;
+		border: 1px solid $dark;
 	}
 
 	&__og, &__cg, &__oo, &__co {
 		padding: 20px 0 20px 20px;
-		outline: 1px solid $background-page;
-		outline-offset: 0px;
-	}
-
-	&__og, &__cg {
-		@include span(47% no-gutters);
-	}
-
-	&__oo, &__co {
-		@include span(48% last no-gutters);
+		border-bottom: 1px solid $background-page;
 	}
 
 	&__teamresult, &__speaker1, &__speaker2, &__reverse {
@@ -50,5 +60,60 @@
 	button {
 		margin: 0 auto;
 		display: block;
+	}
+}
+
+
+// внести результаты раунда
+
+.b-result {
+
+	&-enter {
+		margin: 0 auto 20px 0;
+
+		&__heading {
+			padding: 20px;
+			background-color: $beige;
+			display: block;
+
+			h3 {
+				margin-left: 10px;
+				margin-bottom: 0;
+				display: inline-block;
+			}
+		}
+
+		&__checkbox {
+			float: right;
+
+			@include respond-to(tablets) {
+		    	float: initial;
+		    	margin: 10px 0 0 10px;
+
+		    }
+
+			input, p, label {
+				display: inline;
+			}
+
+			input {
+				margin: 0 3px 0 0;
+			}
+		}
+
+		&__games {
+			width: 100%;
+		}
+
+		&__og, &__oo, &__cg, &__co {
+			box-sizing: border-box;
+			display: inline-block;
+			padding: 20px 0 0 20px;
+		    width: 49%;
+
+		    @include respond-to(tablets) {
+		    	width: 100%;
+		    }
+		}
 	}
 }

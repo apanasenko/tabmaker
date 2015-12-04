@@ -1,6 +1,10 @@
 .b-message {
 	padding: 20px;
 
+	input {
+		margin-bottom: 10px;
+	}
+
 	&__back {
 		padding: 0 20px 20px 20px;
 	}
@@ -9,7 +13,8 @@
 		@include span(100% no-gutters);
 
 		input {
-			max-width: 200px;
+			min-width: 230px;
+			max-width: 260px;
 		}
 	}
 
@@ -30,5 +35,38 @@
 
 	&__confirm {
 		padding: 10px 0;
+		display: inline-block;
+	}
+}
+
+
+// finished
+
+.b-finished {
+	margin-bottom: 10px;
+}
+
+.confirm {
+
+	&__text {
+		margin-bottom: 10px;
+	}
+
+	input {
+		margin-bottom: 0;
+	}
+}
+
+
+// регистрация команды
+
+.b-registration {
+
+	&__attention {
+		margin-bottom: 10px;
+	}
+
+	&__heading {
+		margin-top: 20px;
 	}
 }

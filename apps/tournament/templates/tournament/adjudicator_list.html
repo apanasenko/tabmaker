@@ -4,7 +4,7 @@
     <div class="b-teamlist">
 
     	<div class="b-teamlist__wrapper">
-	        
+
 	        <div class="b-teamlist__heading">
 	        	<h3><a href="{% url 'profile:main' adjudicator.user.id%}">{{ adjudicator.user|name }}</a></h3>
 	      	  	<span class="b-teamlist__status"><i class="fa fa-balance-scale"></i>{{ adjudicator.role.role }}</span>
@@ -14,5 +14,8 @@
 
     </div>
 {% empty %}
+<div class="b-message">
     <h3>Нет зарегистрированных судей</h3>
+    <p>У вас есть все шансы стать первым судьей на турнире</p>
+</div>
 {% endfor %}
