@@ -8,7 +8,6 @@ class TeamRegistrationForm(forms.ModelForm):
         model = Team
         fields = [
             'name',
-            'info'
         ]
 
     speaker_1 = forms.EmailField()
