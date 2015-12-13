@@ -1,4 +1,7 @@
 #!/bin/bash
+# as sudo
+
+cd <path_to_project>
 
 echo -n "Would you like to do 'git pull' (\"y\" or \"n\", default: \"n\"): "
 read answer
@@ -8,34 +11,32 @@ if [ "$answer" = "y" ]; then
       echo "Pull conflicts!"
       exit
    fi
-   git checkout google_code
+   git checkout <prod_branch>
    if ! git rebase master; then
       echo "Rebase conflicts!"
       exit
    fi
 fi
 
-echo -n "Would you like to do collect static (\"y\" or \"n\", default: \"n\"): "
-read answer
-if [ "$answer" = "y" ]; then
-   source /home/ubuntu/tabmaker_env/bin/activate
-   python manage.py collectstatic
-   deactivate
-fi
+# start env
+source <pant_to_env>/bin/activate
+
+python manage.py collectstatic
 
 echo -n "Would you like to do migrate (\"y\" or \"n\", default: \"n\"): "
 read answer
 if [ "$answer" = "y" ]; then
-   source /home/ubuntu/tabmaker_env/bin/activate
    python manage.py migrate
-   deactivate
 fi
+
+deactivate
+# end env
 
 echo -n "Would you like restart server (\"y\" or \"n\", default: \"n\"): "
 read answer
 if [ "$answer" = "y" ]; then
-   sudo service nginx restart
-   sudo supervisorctl restart tabmaker
+   service nginx restart
+   supervisorctl restart tabmaker
 fi
 
 echo "Done!"
