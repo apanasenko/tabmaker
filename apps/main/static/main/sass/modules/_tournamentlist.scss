@@ -27,6 +27,11 @@
 
 		&_twothird {
 			@include span(2 of 3 last);
+
+			div {
+				margin-right: 15px;
+				float: right;
+			}
 		}
 
 		&_rightcolumn {

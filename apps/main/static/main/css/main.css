@@ -213,50 +213,52 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 .b-tournamentlist-current__column_third { width: 30%; float: left; margin-right: 5%; }
 /* line 28, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_twothird { width: 65.0%; float: right; margin-right: 0; }
-/* line 32, ../sass/modules/_tournamentlist.scss */
+/* line 31, ../sass/modules/_tournamentlist.scss */
+.b-tournamentlist-current__column_twothird div { margin-right: 15px; float: right; }
+/* line 37, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_rightcolumn { height: 50px; margin: -15px 0 0 0; }
-/* line 36, ../sass/modules/_tournamentlist.scss */
+/* line 41, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_rightcolumn span { float: right; margin-right: 6px; }
-/* line 40, ../sass/modules/_tournamentlist.scss */
+/* line 45, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_rightcolumn span .nolink { border-bottom: none; }
-/* line 46, ../sass/modules/_tournamentlist.scss */
+/* line 51, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_rightcolumnbigmargin { height: 50px; margin: -32px 0 0 0; }
-/* line 50, ../sass/modules/_tournamentlist.scss */
+/* line 55, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_rightcolumnbigmargin span { float: right; margin-right: 6px; }
-/* line 54, ../sass/modules/_tournamentlist.scss */
+/* line 59, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_rightcolumnbigmargin span .nolink { border-bottom: none; }
-/* line 61, ../sass/modules/_tournamentlist.scss */
+/* line 66, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__heading { display: block; font-weight: bold; margin: 0 20px 10px 0; height: auto; }
-/* line 67, ../sass/modules/_tournamentlist.scss */
-.b-tournamentlist-current__heading h3 { margin-bottom: 8px; }
 /* line 72, ../sass/modules/_tournamentlist.scss */
+.b-tournamentlist-current__heading h3 { margin-bottom: 8px; }
+/* line 77, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__about { display: inline; margin: 20px 30px 0 0; max-width: 200px; color: #aeb8bc; font-size: 14px; }
-/* line 79, ../sass/modules/_tournamentlist.scss */
+/* line 84, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__about_block { color: #aeb8bc; font-size: 16px; display: block; margin: 0 0 10px 0; }
-/* line 85, ../sass/modules/_tournamentlist.scss */
-.b-tournamentlist-current__about_block_nomargin { margin: 0; }
 /* line 90, ../sass/modules/_tournamentlist.scss */
+.b-tournamentlist-current__about_block_nomargin { margin: 0; }
+/* line 95, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__about_floatr { float: right; }
-/* line 96, ../sass/modules/_tournamentlist.scss */
-.b-tournamentlist-current__registration { font-weight: 700; color: #aeb8bc; margin: 7px 0 3px 0; }
 /* line 101, ../sass/modules/_tournamentlist.scss */
+.b-tournamentlist-current__registration { font-weight: 700; color: #aeb8bc; margin: 7px 0 3px 0; }
+/* line 106, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__registration_mine { font-size: 16px; font-weight: normal; color: #aeb8bc; }
-/* line 108, ../sass/modules/_tournamentlist.scss */
+/* line 113, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result { float: right; margin: -20px 10px 0 0; display: inline-block; padding: 6px 12px; border-radius: 6px; color: #aeb8bc; font-size: 14px; min-height: 20px; box-sizing: border-box; border: 1px solid #aeb8bc; }
 /* line 56, ../sass/modules/_mixins.scss */
 .b-tournamentlist-current__result:hover { border: 1px solid #58697A; color: #58697A; transition: color 0.3s ease; }
-/* line 113, ../sass/modules/_tournamentlist.scss */
+/* line 118, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result a { color: #aeb8bc; }
-/* line 116, ../sass/modules/_tournamentlist.scss */
-.b-tournamentlist-current__result a:hover { color: #58697A; }
 /* line 121, ../sass/modules/_tournamentlist.scss */
+.b-tournamentlist-current__result a:hover { color: #58697A; }
+/* line 126, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result_tounamentlist { float: right; margin: -25px 10px 0 0; display: inline-block; padding: 6px 12px; border-radius: 6px; color: #aeb8bc; font-size: 14px; min-height: 20px; box-sizing: border-box; border: 1px solid #aeb8bc; background-color: transparent; color: #aeb8bc; border: 1px solid #aeb8bc; }
 /* line 56, ../sass/modules/_mixins.scss */
 .b-tournamentlist-current__result_tounamentlist:hover { border: 1px solid #58697A; color: #58697A; transition: color 0.3s ease; }
-/* line 129, ../sass/modules/_tournamentlist.scss */
+/* line 134, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result_tounamentlist:hover { color: #58697A; border: 1px solid #58697A; }
 
-/* line 137, ../sass/modules/_tournamentlist.scss */
+/* line 142, ../sass/modules/_tournamentlist.scss */
 .tournamentlist { color: #aeb8bc; font-size: 16px; border-bottom: 1px dashed #aeb8bc; }
 
 /* line 1, ../sass/modules/_tournamentinfo.scss */
@@ -547,6 +549,8 @@ label { display: block; }
 .b-signup__item input, .b-signup__item select { min-width: 200px; }
 /* line 166, ../sass/modules/_forms.scss */
 .b-signup__item select { width: 200px; }
+/* line 170, ../sass/modules/_forms.scss */
+.b-signup__item span { padding-left: 5px; margin-top: 7px; display: inline-block; }
 
 /* line 3, ../sass/modules/_profile.scss */
 .b-profile__wrapper { margin: 20px 20px; }
