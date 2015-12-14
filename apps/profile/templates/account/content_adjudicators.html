@@ -17,28 +17,13 @@
                             {% if is_owner %}
                             <li class="b-tournamentlist-current__about_block_nomargin">
 
-                                <div class="b-popup">
-                                    <div class="b-popup__wrapper">
-                                        <input type="checkbox" class="b-popup__checkbox" id="popupcheckbox">
-                                        <div class="b-popup__background">
-                                            <div class="b-popup-window">
-                                                <h3 class="b-popup-window__heading">Не получится</h3>
-                                                <label for="popupcheckbox" class="b-popup-window__closer"><i class="fa fa-times"></i></label>
-
-                                                <p><div class="b-popup-window__text" id="errors_{{ rel.id }}"></div></p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
                                 <button class="b-tournamentlist-current__result_tounamentlist" onclick="remove_adjudicator(
                                     '{% url 'profile:adjudicator_remove' %}',
                                     {{ rel.id }},
                                     'adjudicator_{{ rel.id }}',
                                     'errors_{{ rel.id }}'
                                     )">
-                                    <label for="popupcheckbox" class="b-popup__shower">Отказаться от судейства</label>
+                                    Отказаться от судейства
 
                                 </button>
 {#                                <button class="b-tournamentlist-current__result_tounamentlist">#}

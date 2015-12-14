@@ -7,38 +7,70 @@
 
         {% if tournament|is_status_registration %}
 
-            <li class="b-sidebar__listitem"><a href="{% url "tournament:registration_closing" tournament.id %}">Закрыть регистрацию</a></li>
+            <li class="b-sidebar__listitem"><a href="{% url "tournament:registration_closing" tournament.id %}">
+                <i class="fa fa-ban"></i>Закрыть регистрацию
+            </a></li>
 
         {% elif tournament|is_status_preparation %}
 
-            <li class="b-sidebar__listitem"><a href="{% url "tournament:registration_opening" tournament.id %}">Открыть регистрацию</a></li>
-            <li class="b-sidebar__listitem"><a href="{% url "tournament:check_team_list" tournament.id %}"><i class="fa fa-play-circle"></i>Начать турнир</a></li>
+            <li class="b-sidebar__listitem"><a href="{% url "tournament:registration_opening" tournament.id %}">
+                <i class="fa fa-sign-in"></i>Открыть регистрацию
+            </a></li>
+            <li class="b-sidebar__listitem"><a href="{% url "tournament:check_team_list" tournament.id %}">
+                <i class="fa fa-play"></i>Начать турнир
+            </a></li>
 
         {% elif tournament|is_status_started %}
 
-            <li class="b-sidebar__listitem"><a href="{% url "tournament:play" tournament.id %}"><i class="fa fa-play-circle"></i>Управление раундами</a></li>
-            <li class="b-sidebar__listitem"><a href="{% url "tournament:break" tournament.id %}"><i class="fa fa-play-circle"></i>Объявить брейк</a></li>
-            <li class="b-sidebar__listitem"><a href="{% url "tournament:finished" tournament.id %}"><i class="fa fa-play-circle"></i>Завершить турнир</a></li>
-            <li class="b-sidebar__listitem"><a href="{% url "tournament:registration_closing" tournament.id %}"><i class="fa fa-play-circle"></i>Отменить начало турнира</a></li>
+            <li class="b-sidebar__listitem"><a href="{% url "tournament:play" tournament.id %}">
+                <i class="fa fa-cogs"></i>Управление раундами
+            </a></li>
+            <li class="b-sidebar__listitem"><a href="{% url "tournament:break" tournament.id %}">
+                <i class="fa fa-sort-amount-desc"></i>Объявить брейк
+            </a></li>
+            <li class="b-sidebar__listitem"><a href="{% url "tournament:finished" tournament.id %}">
+                <i class="fa fa-flag-checkered"></i>Завершить турнир
+            </a></li>
+            <li class="b-sidebar__listitem"><a href="{% url "tournament:registration_closing" tournament.id %}">
+                <i class="fa fa-reply-all"></i>Отменить начало турнира
+            </a></li>
 
         {% elif tournament|is_status_playoff %}
 
-            <li class="b-sidebar__listitem"><a href="{% url "tournament:play" tournament.id %}"><i class="fa fa-play-circle"></i>Управление раундами</a></li>
-            <li class="b-sidebar__listitem"><a href="{% url "tournament:finished" tournament.id %}"><i class="fa fa-play-circle"></i>Завершить турнир</a></li>
-            <li class="b-sidebar__listitem"><a href="{% url "tournament:start" tournament.id %}"><i class="fa fa-play-circle"></i>Отменить брейк</a></li>
+            <li class="b-sidebar__listitem"><a href="{% url "tournament:play" tournament.id %}">
+                <i class="fa fa-cogs"></i>Управление раундами
+            </a></li>
+            <li class="b-sidebar__listitem"><a href="{% url "tournament:finished" tournament.id %}">
+                <i class="fa fa-flag-checkered"></i>Завершить турнир
+            </a></li>
+            <li class="b-sidebar__listitem"><a href="{% url "tournament:start" tournament.id %}">
+                <i class="fa fa-reply"></i>Отменить брейк
+            </a></li>
 
         {% endif %}
 
         {% if not tournament|is_status_finished %}
-            <li class="b-sidebar__listitem"><a href="{% url "tournament:edit" tournament.id %}"><i class="fa fa-pencil"></i>Редактировать турнир</a></li>
-            <li class="b-sidebar__listitem"><a href="{% url "tournament:edit_team_list" tournament.id %}"><i class="fa fa-users"></i>Команды</a></li>
-            <li class="b-sidebar__listitem"><a href="{% url "tournament:edit_adjudicator_list" tournament.id %}"><i class="fa fa-gavel"></i>Судьи</a></li>
-            <li class="b-sidebar__listitem"><a href="{% url "tournament:admin_list" tournament.id %}"><i class="fa fa-gavel"></i>Администраторы</a></li>
-            <li class="b-sidebar__listitem"><a href="{% url "tournament:place_list" tournament.id %}"><i class="fa fa-gavel"></i>Аудитории</a></li>
+            <li class="b-sidebar__listitem"><a href="{% url "tournament:edit" tournament.id %}">
+                <i class="fa fa-pencil"></i>Редактировать турнир
+            </a></li>
+            <li class="b-sidebar__listitem"><a href="{% url "tournament:edit_team_list" tournament.id %}">
+                <i class="fa fa-users"></i>Команды
+            </a></li>
+            <li class="b-sidebar__listitem"><a href="{% url "tournament:edit_adjudicator_list" tournament.id %}">
+                <i class="fa fa-gavel"></i>Судьи
+            </a></li>
+            <li class="b-sidebar__listitem"><a href="{% url "tournament:admin_list" tournament.id %}">
+                <i class="fa fa-user"></i>Администраторы
+            </a></li>
+            <li class="b-sidebar__listitem"><a href="{% url "tournament:place_list" tournament.id %}">
+                <i class="fa fa-map-marker"></i>Аудитории
+            </a></li>
 
         {% endif %}
 
-        <li class="b-sidebar__listitem"><a href="{% url "tournament:remove" tournament.id %}"> <i class="fa fa-trash-o"></i>Удалить турнир</a></li>
+        <li class="b-sidebar__listitem"><a href="{% url "tournament:remove" tournament.id %}">
+            <i class="fa fa-trash-o"></i>Удалить турнир
+        </a></li>
     </ul>
 
 </div>
