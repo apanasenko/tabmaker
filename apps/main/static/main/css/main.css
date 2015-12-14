@@ -158,6 +158,17 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 /* line 10, ../sass/modules/_uielements.scss */
 .disclaimer-red p { color: white; }
 
+/* line 17, ../sass/modules/_uielements.scss */
+.b-paging { display: inline-flex; width: 100%; justify-content: center; }
+/* line 22, ../sass/modules/_uielements.scss */
+.b-paging__prev, .b-paging__next { box-sizing: border-box; display: inline-block; cursor: pointer; padding: 20px 0; }
+/* line 28, ../sass/modules/_uielements.scss */
+.b-paging__prev i, .b-paging__prev a, .b-paging__next i, .b-paging__next a { color: #aeb8bc; }
+/* line 35, ../sass/modules/_uielements.scss */
+.b-paging__next i { margin-left: 10px; }
+/* line 40, ../sass/modules/_uielements.scss */
+.b-paging__prev { margin-right: 40px; }
+
 /* line 1, ../sass/modules/_tables.scss */
 .b-table { width: 100%; padding: 0 5px; }
 /* line 5, ../sass/modules/_tables.scss */

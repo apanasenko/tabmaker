@@ -1,6 +1,9 @@
 <div>
+    <div class="b-paging">
     {% if objects.has_previous %}
-        <a href="?page={{ objects.previous_page_number }}"> Предыдущая </a>
+        <div class="b-paging__prev">
+            <i class="fa fa-long-arrow-left"></i><a href="?page={{ objects.previous_page_number }}"> Назад </a>
+        </div>
     {% endif %}
 
     {% if page.paginator.num_pages > 1 %}
@@ -10,6 +13,9 @@
     {%endif%}
 
     {% if objects.has_next %}
-        <a href="?page={{ objects.next_page_number }}"> Следующая </a>
+        <div class="b-paging__next">
+            <a href="?page={{ objects.next_page_number }}">Вперед</a><i class="fa fa-long-arrow-right"></i>
+        </div>
     {% endif %}
+    </div>
 </div>

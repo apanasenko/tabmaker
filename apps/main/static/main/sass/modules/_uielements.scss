@@ -12,3 +12,32 @@
         }
     }
 }
+
+
+.b-paging {
+    display: inline-flex;
+    width: 100%;
+    justify-content: center;
+
+    &__prev, &__next {
+        box-sizing: border-box;
+        display: inline-block;
+        cursor: pointer;
+        padding: 20px 0;
+
+        i, a {
+            color: $grey;
+        }
+    }
+
+    &__next {
+
+        i {
+            margin-left: 10px;
+        }
+    }
+
+    &__prev {
+        margin-right: 40px;
+    }
+}
