@@ -610,6 +610,11 @@ label { display: block; }
 /* line 26, ../sass/modules/_adjudicators.scss */
 .b-adjudicators__heading { padding: 0 20px; }
 
+/* line 27, ../sass/modules/_post.scss */
+.b-postlist-item__more { display: inline-block; text-decoration: none; padding: 0 16px; border-radius: 5px; border: none; color: #ffffff; font-family: inherit; font-size: 14px; height: 32px; line-height: 32px; background-color: #424E5A; box-sizing: border-box; cursor: pointer; }
+/* line 40, ../sass/modules/_mixins.scss */
+.b-postlist-item__more:hover { background-color: #0C152A; transition: background-color 0.3s ease; }
+
 /* line 1, ../sass/modules/_tabs.scss */
 .b-tabs { background-color: #FEFFD9; border-bottom: 1px solid #ECEEF1; height: 45px; }
 /* line 6, ../sass/modules/_tabs.scss */
