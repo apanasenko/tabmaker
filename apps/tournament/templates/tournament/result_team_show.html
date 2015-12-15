@@ -2,35 +2,31 @@
 
 <div class="b-result-room__team">
     <div class="b-result-room__teamresult">
-        <p>{{ team.name }}</p>
-        <span>{{ place }}</span>
+        <p>{{ team.name }}: {{ place }}</p>
     </div>
 
     {% if not is_rev %}
 
         <div class="b-result-room__speaker1 speaker_1">
             <p class="speaker_name" {% if not s1_exist %} style="text-decoration:line-through"{% endif %}>
-                {{ team.speaker_1|name }}
+            {{ team.speaker_1|name }}: {{ speaker_1 }}
             </p>
-            <span>{{ speaker_1 }}</span>
         </div>
 
     {% endif %}
 
     <div class="b-result-room__speaker2 speaker_2">
         <p class="speaker_name" {% if not s2_exist %} style="text-decoration:line-through"{% endif %}>
-            {{ team.speaker_2|name }}
+        {{ team.speaker_2|name }}: {{ speaker_2 }}
         </p>
-        <span>{{ speaker_2 }}</span>
     </div>
 
     {% if is_rev %}
 
         <div class="b-result-room__speaker1 speaker_1">
             <p class="speaker_name" {% if not s1_exist %} style="text-decoration:line-through"{% endif %}>
-                {{ team.speaker_1|name }}
+            {{ team.speaker_1|name }}: {{ speaker_1 }}
             </p>
-            <span>{{ speaker_1 }}</span>
         </div>
 
     {% endif %}
