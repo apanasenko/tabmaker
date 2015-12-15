@@ -9,7 +9,7 @@ def debug_mode(request):
     }
 
 
-def paging(request, objects, count_objects_in_page=1):
+def paging(request, objects, count_objects_in_page=3):
     paginator = Paginator(objects, count_objects_in_page)
     page = request.GET.get('page')
     try:

@@ -1,15 +1,30 @@
+@mixin disclaimer {
+    display: block;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 5px;
+}
+
 .disclaimer {
 
-    &-red {
-        background-color: red;
-        display: block;
-        padding: 20px;
-        margin: 20px;
-        border-radius: 5px;
+    &-red, &-yellow, &-green {
+        @include disclaimer;
 
-         p {
+        p {
             color: white;
         }
+    }
+
+    &-red {
+        background-color: orangered;
+    }
+
+    &-green {
+        background-color: darkcyan;
+    }
+
+    &-yellow {
+        background-color: gold;
     }
 }
 
