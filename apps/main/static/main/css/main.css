@@ -161,13 +161,15 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 /* line 17, ../sass/modules/_uielements.scss */
 .b-paging { display: inline-flex; width: 100%; justify-content: center; }
 /* line 22, ../sass/modules/_uielements.scss */
-.b-paging__prev, .b-paging__next { box-sizing: border-box; display: inline-block; cursor: pointer; padding: 20px 0; }
+.b-paging__prev, .b-paging__next, .b-paging__numbers { box-sizing: border-box; display: inline-block; cursor: pointer; padding: 20px 0; }
 /* line 28, ../sass/modules/_uielements.scss */
-.b-paging__prev i, .b-paging__prev a, .b-paging__next i, .b-paging__next a { color: #aeb8bc; }
+.b-paging__prev i, .b-paging__prev a, .b-paging__next i, .b-paging__next a, .b-paging__numbers i, .b-paging__numbers a { color: #aeb8bc; }
 /* line 35, ../sass/modules/_uielements.scss */
 .b-paging__next i { margin-left: 10px; }
 /* line 40, ../sass/modules/_uielements.scss */
-.b-paging__prev { margin-right: 40px; }
+.b-paging__prev, .b-paging__numbers { margin-right: 20px; }
+/* line 46, ../sass/modules/_uielements.scss */
+.b-paging__numbers span { color: #aeb8bc; margin-right: 10px; }
 
 /* line 1, ../sass/modules/_tables.scss */
 .b-table { width: 100%; padding: 0 5px; }

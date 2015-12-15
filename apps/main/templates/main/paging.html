@@ -7,10 +7,15 @@
     {% endif %}
 
     {% if page.paginator.num_pages > 1 %}
-        <span>
-            {{ objects.number }}
-        </span>
+        {{ objects.number }}
     {%endif%}
+        <div class="b-paging__numbers">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+        </div>
 
     {% if objects.has_next %}
         <div class="b-paging__next">

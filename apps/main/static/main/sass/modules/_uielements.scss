@@ -19,7 +19,7 @@
     width: 100%;
     justify-content: center;
 
-    &__prev, &__next {
+    &__prev, &__next, &__numbers {
         box-sizing: border-box;
         display: inline-block;
         cursor: pointer;
@@ -37,7 +37,16 @@
         }
     }
 
-    &__prev {
-        margin-right: 40px;
+    &__prev, &__numbers {
+        margin-right: 20px;
+    }
+
+    &__numbers {
+
+        span {
+            color: $grey;
+            margin-right: 10px;
+        }
+
     }
 }
