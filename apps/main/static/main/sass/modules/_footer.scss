@@ -3,11 +3,21 @@ footer {
 	padding: 60px 0px;
 	display: block;
 	@include shadow;
+
+	@include respond-to(mobile) {
+		padding: 30px 10px;
+		box-sizing: border-box;
+	}
 }
 
 .b-footer {
 	width: 58%;
 	margin: 0 auto;
+
+	@include respond-to(mobile) {
+		width: 100%;
+		display: inline-block;
+	}
 
 	&__info {
 		display: inline-block;
@@ -23,6 +33,10 @@ footer {
 	&__contact {
 		display: inline-block;
 		float: right;
+
+		@include respond-to(mobile) {
+			float: inherit;
+		}
 
 		li {
 			display: inline;
