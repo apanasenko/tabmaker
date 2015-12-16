@@ -612,6 +612,11 @@ def get_all_rounds_and_rooms(tournament: Tournament):
 
     for i in queryset.order_by('round_id', 'number'):
 
+        try:  # TODO Убрать это
+            i.game.gameresult
+        except AttributeError:
+            continue
+
         if not results or results[-1]['round'] != i.round:
             results.append({
                 'round': i.round,

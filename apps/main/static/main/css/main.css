@@ -153,10 +153,29 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 /* line 27, ../sass/modules/_footer.scss */
 .b-footer__contact li { display: inline; color: #aeb8bc; margin-right: 20px; }
 
-/* line 3, ../sass/modules/_uielements.scss */
-.disclaimer-red { background-color: red; display: block; padding: 20px; margin: 20px; border-radius: 5px; }
 /* line 10, ../sass/modules/_uielements.scss */
-.disclaimer-red p { color: white; }
+.disclaimer-red, .disclaimer-yellow, .disclaimer-green { display: block; padding: 20px; margin: 20px; border-radius: 5px; }
+/* line 13, ../sass/modules/_uielements.scss */
+.disclaimer-red p, .disclaimer-yellow p, .disclaimer-green p { color: white; }
+/* line 18, ../sass/modules/_uielements.scss */
+.disclaimer-red { background-color: orangered; }
+/* line 22, ../sass/modules/_uielements.scss */
+.disclaimer-green { background-color: darkcyan; }
+/* line 26, ../sass/modules/_uielements.scss */
+.disclaimer-yellow { background-color: gold; }
+
+/* line 32, ../sass/modules/_uielements.scss */
+.b-paging { display: inline-flex; width: 100%; justify-content: center; }
+/* line 37, ../sass/modules/_uielements.scss */
+.b-paging__prev, .b-paging__next, .b-paging__numbers { box-sizing: border-box; display: inline-block; cursor: pointer; padding: 20px 0; }
+/* line 43, ../sass/modules/_uielements.scss */
+.b-paging__prev i, .b-paging__prev a, .b-paging__next i, .b-paging__next a, .b-paging__numbers i, .b-paging__numbers a { color: #aeb8bc; }
+/* line 50, ../sass/modules/_uielements.scss */
+.b-paging__next i { margin-left: 10px; }
+/* line 55, ../sass/modules/_uielements.scss */
+.b-paging__prev, .b-paging__numbers { margin-right: 20px; }
+/* line 61, ../sass/modules/_uielements.scss */
+.b-paging__numbers span { color: #aeb8bc; margin-right: 10px; }
 
 /* line 1, ../sass/modules/_tables.scss */
 .b-table { width: 100%; padding: 0 5px; }
@@ -213,50 +232,52 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 .b-tournamentlist-current__column_third { width: 30%; float: left; margin-right: 5%; }
 /* line 28, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_twothird { width: 65.0%; float: right; margin-right: 0; }
-/* line 32, ../sass/modules/_tournamentlist.scss */
+/* line 31, ../sass/modules/_tournamentlist.scss */
+.b-tournamentlist-current__column_twothird div { margin-right: 15px; float: right; }
+/* line 37, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_rightcolumn { height: 50px; margin: -15px 0 0 0; }
-/* line 36, ../sass/modules/_tournamentlist.scss */
+/* line 41, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_rightcolumn span { float: right; margin-right: 6px; }
-/* line 40, ../sass/modules/_tournamentlist.scss */
+/* line 45, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_rightcolumn span .nolink { border-bottom: none; }
-/* line 46, ../sass/modules/_tournamentlist.scss */
+/* line 51, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_rightcolumnbigmargin { height: 50px; margin: -32px 0 0 0; }
-/* line 50, ../sass/modules/_tournamentlist.scss */
+/* line 55, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_rightcolumnbigmargin span { float: right; margin-right: 6px; }
-/* line 54, ../sass/modules/_tournamentlist.scss */
+/* line 59, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_rightcolumnbigmargin span .nolink { border-bottom: none; }
-/* line 61, ../sass/modules/_tournamentlist.scss */
+/* line 66, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__heading { display: block; font-weight: bold; margin: 0 20px 10px 0; height: auto; }
-/* line 67, ../sass/modules/_tournamentlist.scss */
-.b-tournamentlist-current__heading h3 { margin-bottom: 8px; }
 /* line 72, ../sass/modules/_tournamentlist.scss */
+.b-tournamentlist-current__heading h3 { margin-bottom: 8px; }
+/* line 77, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__about { display: inline; margin: 20px 30px 0 0; max-width: 200px; color: #aeb8bc; font-size: 14px; }
-/* line 79, ../sass/modules/_tournamentlist.scss */
+/* line 84, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__about_block { color: #aeb8bc; font-size: 16px; display: block; margin: 0 0 10px 0; }
-/* line 85, ../sass/modules/_tournamentlist.scss */
-.b-tournamentlist-current__about_block_nomargin { margin: 0; }
 /* line 90, ../sass/modules/_tournamentlist.scss */
+.b-tournamentlist-current__about_block_nomargin { margin: 0; }
+/* line 95, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__about_floatr { float: right; }
-/* line 96, ../sass/modules/_tournamentlist.scss */
-.b-tournamentlist-current__registration { font-weight: 700; color: #aeb8bc; margin: 7px 0 3px 0; }
 /* line 101, ../sass/modules/_tournamentlist.scss */
+.b-tournamentlist-current__registration { font-weight: 700; color: #aeb8bc; margin: 7px 0 3px 0; }
+/* line 106, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__registration_mine { font-size: 16px; font-weight: normal; color: #aeb8bc; }
-/* line 108, ../sass/modules/_tournamentlist.scss */
+/* line 113, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result { float: right; margin: -20px 10px 0 0; display: inline-block; padding: 6px 12px; border-radius: 6px; color: #aeb8bc; font-size: 14px; min-height: 20px; box-sizing: border-box; border: 1px solid #aeb8bc; }
 /* line 56, ../sass/modules/_mixins.scss */
 .b-tournamentlist-current__result:hover { border: 1px solid #58697A; color: #58697A; transition: color 0.3s ease; }
-/* line 113, ../sass/modules/_tournamentlist.scss */
+/* line 118, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result a { color: #aeb8bc; }
-/* line 116, ../sass/modules/_tournamentlist.scss */
-.b-tournamentlist-current__result a:hover { color: #58697A; }
 /* line 121, ../sass/modules/_tournamentlist.scss */
+.b-tournamentlist-current__result a:hover { color: #58697A; }
+/* line 126, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result_tounamentlist { float: right; margin: -25px 10px 0 0; display: inline-block; padding: 6px 12px; border-radius: 6px; color: #aeb8bc; font-size: 14px; min-height: 20px; box-sizing: border-box; border: 1px solid #aeb8bc; background-color: transparent; color: #aeb8bc; border: 1px solid #aeb8bc; }
 /* line 56, ../sass/modules/_mixins.scss */
 .b-tournamentlist-current__result_tounamentlist:hover { border: 1px solid #58697A; color: #58697A; transition: color 0.3s ease; }
-/* line 129, ../sass/modules/_tournamentlist.scss */
+/* line 134, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result_tounamentlist:hover { color: #58697A; border: 1px solid #58697A; }
 
-/* line 137, ../sass/modules/_tournamentlist.scss */
+/* line 142, ../sass/modules/_tournamentlist.scss */
 .tournamentlist { color: #aeb8bc; font-size: 16px; border-bottom: 1px dashed #aeb8bc; }
 
 /* line 1, ../sass/modules/_tournamentinfo.scss */
@@ -429,44 +450,48 @@ aside { display: inline-block; width: 20%; }
 /* line 12, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/susy-2.2.5/sass/susy/output/support/_clearfix.scss */
 .b-result-room:after { content: " "; display: block; clear: both; }
 /* line 7, ../sass/modules/_result.scss */
-.b-result-room__heading { @iclude span(100% no-gutters); background-color: #E2DFDA; height: 40px; outline: 1px solid #ECEEF1; padding: 10px; box-sizing: content-box; display: block; }
-/* line 17, ../sass/modules/_result.scss */
+.b-result-room__heading { @iclude span(100% no-gutters); background-color: #E2DFDA; padding: 10px; box-sizing: content-box; display: block; text-align: center; }
+/* line 16, ../sass/modules/_result.scss */
 .b-result-room__chair, .b-result-room__place { display: inline-block; width: 45%; padding-top: 4px; vertical-align: top; margin: 0; }
-/* line 24, ../sass/modules/_result.scss */
+/* line 23, ../sass/modules/_result.scss */
 .b-result-room__chair h3, .b-result-room__place h3 { display: inline-block; margin-right: 5px; }
-/* line 30, ../sass/modules/_result.scss */
+/* line 29, ../sass/modules/_result.scss */
 .b-result-room .chair_select, .b-result-room .place_select { margin: 0; background-color: white; border: 1px solid #58697A; }
-/* line 36, ../sass/modules/_result.scss */
-.b-result-room__og, .b-result-room__cg, .b-result-room__oo, .b-result-room__co { padding: 20px 0 20px 20px; border-bottom: 1px solid #ECEEF1; }
-/* line 43, ../sass/modules/_result.scss */
-.b-result-room__teamresult p, .b-result-room__teamresult input, .b-result-room__teamresult label, .b-result-room__speaker1 p, .b-result-room__speaker1 input, .b-result-room__speaker1 label, .b-result-room__speaker2 p, .b-result-room__speaker2 input, .b-result-room__speaker2 label, .b-result-room__reverse p, .b-result-room__reverse input, .b-result-room__reverse label { display: inline; }
-/* line 47, ../sass/modules/_result.scss */
-.b-result-room__teamresult input, .b-result-room__speaker1 input, .b-result-room__speaker2 input, .b-result-room__reverse input { height: 15px; background-color: transparent; min-width: 80px; }
-
-/* line 57, ../sass/modules/_result.scss */
-.b-result-submit { padding: 0 0 20px 0; }
+/* line 35, ../sass/modules/_result.scss */
+.b-result-room__og, .b-result-room__cg, .b-result-room__oo, .b-result-room__co { padding: 20px 0 20px 0; box-sizing: border-box; width: 49%; display: inline-block; }
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 35, ../sass/modules/_result.scss */
+  .b-result-room__og, .b-result-room__cg, .b-result-room__oo, .b-result-room__co { width: 100%; display: block; } }
+/* line 46, ../sass/modules/_result.scss */
+.b-result-room__og h3, .b-result-room__og .b-result-room__team, .b-result-room__cg h3, .b-result-room__cg .b-result-room__team, .b-result-room__oo h3, .b-result-room__oo .b-result-room__team, .b-result-room__co h3, .b-result-room__co .b-result-room__team { box-sizing: border-box; padding-left: 20px; }
+/* line 52, ../sass/modules/_result.scss */
+.b-result-room__teamresult { font-weight: 600; font-size: 17px; margin-bottom: 5px; }
 /* line 60, ../sass/modules/_result.scss */
+.b-result-room__teamresult p, .b-result-room__speaker1 p, .b-result-room__speaker2 p, .b-result-room__reverse p { display: inline; }
+
+/* line 67, ../sass/modules/_result.scss */
+.b-result-submit { padding: 0 0 20px 0; }
+/* line 70, ../sass/modules/_result.scss */
 .b-result-submit button { margin: 0 auto; display: block; }
 
-/* line 71, ../sass/modules/_result.scss */
+/* line 81, ../sass/modules/_result.scss */
 .b-result-enter { margin: 0 auto 20px 0; }
-/* line 74, ../sass/modules/_result.scss */
+/* line 84, ../sass/modules/_result.scss */
 .b-result-enter__heading { padding: 20px; background-color: #E2DFDA; display: block; }
-/* line 79, ../sass/modules/_result.scss */
+/* line 89, ../sass/modules/_result.scss */
 .b-result-enter__heading h3 { margin-left: 10px; margin-bottom: 0; display: inline-block; }
-/* line 86, ../sass/modules/_result.scss */
+/* line 96, ../sass/modules/_result.scss */
 .b-result-enter__checkbox { float: right; }
-@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 86, ../sass/modules/_result.scss */
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 96, ../sass/modules/_result.scss */
   .b-result-enter__checkbox { float: initial; margin: 10px 0 0 10px; } }
-/* line 95, ../sass/modules/_result.scss */
+/* line 105, ../sass/modules/_result.scss */
 .b-result-enter__checkbox input, .b-result-enter__checkbox p, .b-result-enter__checkbox label { display: inline; }
-/* line 99, ../sass/modules/_result.scss */
+/* line 109, ../sass/modules/_result.scss */
 .b-result-enter__checkbox input { margin: 0 3px 0 0; }
-/* line 104, ../sass/modules/_result.scss */
+/* line 114, ../sass/modules/_result.scss */
 .b-result-enter__games { width: 100%; }
-/* line 108, ../sass/modules/_result.scss */
+/* line 118, ../sass/modules/_result.scss */
 .b-result-enter__og, .b-result-enter__oo, .b-result-enter__cg, .b-result-enter__co { box-sizing: border-box; display: inline-block; padding: 20px 0 0 20px; width: 49%; }
-@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 108, ../sass/modules/_result.scss */
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 118, ../sass/modules/_result.scss */
   .b-result-enter__og, .b-result-enter__oo, .b-result-enter__cg, .b-result-enter__co { width: 100%; } }
 
 /* line 1, ../sass/modules/_forms.scss */
@@ -547,6 +572,8 @@ label { display: block; }
 .b-signup__item input, .b-signup__item select { min-width: 200px; }
 /* line 166, ../sass/modules/_forms.scss */
 .b-signup__item select { width: 200px; }
+/* line 170, ../sass/modules/_forms.scss */
+.b-signup__item span { padding-left: 5px; margin-top: 7px; display: inline-block; }
 
 /* line 3, ../sass/modules/_profile.scss */
 .b-profile__wrapper { margin: 20px 20px; }
@@ -582,6 +609,11 @@ label { display: block; }
 .b-adjudicators__list .b-teamlist h3 { display: inline-block; }
 /* line 26, ../sass/modules/_adjudicators.scss */
 .b-adjudicators__heading { padding: 0 20px; }
+
+/* line 27, ../sass/modules/_post.scss */
+.b-postlist-item__more { display: inline-block; text-decoration: none; padding: 0 16px; border-radius: 5px; border: none; color: #ffffff; font-family: inherit; font-size: 14px; height: 32px; line-height: 32px; background-color: #424E5A; box-sizing: border-box; cursor: pointer; }
+/* line 40, ../sass/modules/_mixins.scss */
+.b-postlist-item__more:hover { background-color: #0C152A; transition: background-color 0.3s ease; }
 
 /* line 1, ../sass/modules/_tabs.scss */
 .b-tabs { background-color: #FEFFD9; border-bottom: 1px solid #ECEEF1; height: 45px; }
