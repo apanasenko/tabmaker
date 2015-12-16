@@ -14,6 +14,10 @@
     Результаты раунда
 {% endblock page_title %}
 
+{% block header_button %}
+    <button type="submit" class="button">Сохранить</button>
+{% endblock header_button %}
+
 
 {% block content %}
     <form class="b-result" id="result_form" action="{% url "tournament:result_round" tournament.id %}" method="post">
@@ -70,8 +74,5 @@
 
             {% endwith %}
         {% endfor %}
-        <div class="b-result-submit">
-            <button type="submit" class="button">Сохранить</button>
-        </div>
     </form>
 {% endblock content %}

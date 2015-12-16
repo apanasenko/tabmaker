@@ -69,7 +69,6 @@ header {
 		#header_button {
 			display: inline-block;
 			float: right;
-			@include button;
 
 			a {
 				text-align: center;

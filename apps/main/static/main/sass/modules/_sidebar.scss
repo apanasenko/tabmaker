@@ -55,4 +55,8 @@ aside {
 
 #sidebar2 {
 	margin-top: 30px;
+
+	@include respond-to(mobile) {
+		margin: 0;
+	}
 }

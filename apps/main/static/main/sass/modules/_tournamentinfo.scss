@@ -47,6 +47,10 @@
 
 	& a, & input {
 		display: inline-block;
+
+		@include respond-to(mobile) {
+			display: block;
+		}
 	}
 
 	&__button {
@@ -54,6 +58,12 @@
 		line-height: 30px;
 		padding: 0 10px;
 		margin: 0 5px 10px 0;
+
+		@include respond-to(mobile) {
+			text-align: center;
+			height: 40px;
+			line-height: 40px;
+		}
 	}
 
 }
@@ -77,5 +87,9 @@
 		line-height: 1.4;
 		box-sizing: border-box;
 		padding: 0 20px 0 74px;
+
+		@include respond-to(mobile) {
+			padding: 0;
+		}
 	}
 }

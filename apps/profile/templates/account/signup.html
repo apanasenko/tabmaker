@@ -60,14 +60,14 @@
                 <div class="b-form-item b-signup__item">
                     <h3 class="b-form-item__heading">{{ form.email.label_tag }}</h3>
                     {{ form.email }}
-                    <span>{{ form.is_show_phone }} {{ form.is_show_phone.label }}</span>
+                    <span>{{ form.is_show_email }} {{ form.is_show_email.label }}</span>
                     {{ form.email.errors }}
                 </div>
             {% endif %}
             <div class="b-form-item b-signup__item">
                 <h3 class="b-form-item__heading">{{ form.phone.label_tag }}</h3>
                 {{ form.phone }}
-                <span>{{ form.is_show_email }} {{ form.is_show_email.label }}</span>
+                <span>{{ form.is_show_phone }} {{ form.is_show_phone.label }}</span>
                 {{ form.phone.errors }}
             </div>
             {% if not is_edit_form %}

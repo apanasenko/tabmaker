@@ -9,31 +9,34 @@
     &__admin {
         margin-bottom: 20px;
 
+        @include respond-to(mobile) {
+            p, a {
+                display: block;
+                margin-bottom: 5px;
+                margin-top: 5px;
+                text-align: center;
+            }
+        }
+
         &_name {
             display: inline-block;
             margin-right: 10px;
         }
     }
 
-    &__button {
-        background-color: transparent;
-        border: 1px solid $grey;
-        border-radius: 5px;
-        color: $grey;
-        cursor: pointer;
-        height: 28px;
-        line-height: 28px;
-        padding: 0 5px;
-
-        &:hover {
-            background-color: transparent;
-            border: 1px solid $dark;
-            border-radius: 5px;
-            color: $dark;
-        }
-    }
-
     &__input {
         width: 220px;
+
+        @include respond-to(mobile) {
+            width: 100%;
+        }
+    }
+}
+
+#new_admin {
+    a {
+        display: block;
+        margin-top: 10px;
+        text-align: center;
     }
 }
