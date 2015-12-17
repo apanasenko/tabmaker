@@ -89,3 +89,15 @@ def remove(request, actor: str, id: int):
         user.delete()
 
     return redirect('main:index')
+
+
+def clone_tournament(request, count: int):
+    tournaments = list()
+    for i in range(int(count)):
+        t = Tournament.objects.all().order_by('?').first()
+        t.pk = None
+        t.name += '_%s' % i
+        t.name = t.name[:100]
+        t.save()
+
+    return redirect('main:index')
