@@ -1,6 +1,10 @@
 aside {
 	display: inline-block;
 	width: 20%;
+
+	@include respond-to(mobile) {
+		width: 100%;
+	}
 }
 
 .b-sidebar {
@@ -10,6 +14,10 @@ aside {
 	border-radius: 3px;
 	vertical-align: top;
 	@include shadow;
+
+	@include respond-to(mobile) {
+		width: 100%;
+	}
 
 	&__list {
 		text-align: left;
@@ -47,4 +55,8 @@ aside {
 
 #sidebar2 {
 	margin-top: 30px;
+
+	@include respond-to(mobile) {
+		margin: 0;
+	}
 }

@@ -28,6 +28,111 @@
     }
 }
 
+@mixin banner {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+
+    @include respond-to(large) {
+        padding: 40px;
+    }
+    @include respond-to(tablets) {
+        padding: 20px;
+    }
+    @include respond-to(mobile) {
+        padding: 20px;
+    }
+}
+
+.b-banner {
+
+    &__button {
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    &__close {
+        position: absolute;
+        top: 9%;
+        right: 3%;
+        color: white;
+    }
+
+    &-red, &-yellow, &-green {
+        @include banner;
+        position: relative;
+
+        p {
+            color: white;
+            line-height: 1.4;
+            display: inline-block;
+
+            @include respond-to(large) {
+                width: 60%;
+            }
+            @include respond-to(tablets) {
+                width: 100%;
+            }
+            @include respond-to(mobile) {
+                width: 100%;
+            }
+        }
+
+    }
+
+    &-red {
+        background-color: orangered;
+    }
+
+    &-green {
+        background-color: darkcyan;
+    }
+
+    &-yellow {
+        background-color: gold;
+    }
+}
+
+@mixin window {
+    position: absolute;
+    left: 0%;
+    bottom: 0px;
+    width: 320px;
+    box-sizing: border-box;
+    padding: 15px;
+}
+
+.b-window {
+
+    &__close {
+        float: right;
+        color: white;
+        display: inline;
+    }
+
+    &__text {
+        color: white;
+        width: 90%;
+        display: inline-block;
+    }
+
+    &-red, &-yellow, &-green {
+        @include window;
+    }
+
+    &-red {
+        background-color: orangered;
+    }
+
+    &-green {
+        background-color: darkcyan;
+    }
+
+    &-yellow {
+        background-color: gold;
+    }
+
+}
 
 .b-paging {
     display: inline-flex;

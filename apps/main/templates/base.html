@@ -5,7 +5,7 @@
 <html>
 <head lang="ru">
 <meta charset="UTF-8">
-{# <meta name="viewport" content="width=device-width, initial-scale=1.0"> #}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="shortcut icon" type="image/png" href="{% static 'main/img/favicon.ico'%}"/>
 
 <title>
@@ -65,14 +65,6 @@
     <div class="page_wrapper">
 
         <header>
-            <div class="mobile_sidebar">
-                <input type="checkbox" id="menu" class="hidden-menu-ticker">
-                <label class="btn-menu" for="menu">
-                     <span class="first"></span>
-                     <span class="second"></span>
-                     <span class="third"></span>
-                </label>
-            </div>
 
             <div id="logo">
                 <a href="/"><img src="{% static 'main/img/logo.png' %}" alt=""></a>
@@ -80,13 +72,16 @@
 
             {% block header %}
             <div class="header_container">
+                <i class="fa fa-bars fa-2x burger-icon"></i>
                 <div id="page_title">
                     <h3>
                     {% block page_title %} Название страницы {% endblock page_title %}
                 </h3>
                 </div>
                 <div id="header_button">
-                    <a id="create_cup" href="{% url 'tournament:new' %}">Создать турнир</a>
+                    {% block header_button %}
+                        <a class="button" id="create_cup" href="{% url 'tournament:new' %}">Создать турнир</a>
+                    {% endblock header_button %}
                 </div>
             </div>
             {% endblock header %}

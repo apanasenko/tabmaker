@@ -26,17 +26,18 @@ header {
 	}
 
 	.burger-icon {
+		color: $dark;
 
 		@include respond-to(large) {
 			display: none;
 		}
 
 		@include respond-to(tablets) {
-
+			display: inline;
 		}
 
 		@include respond-to(mobile) {
-
+			display: inline;
 		}
 	}
 
@@ -68,7 +69,6 @@ header {
 		#header_button {
 			display: inline-block;
 			float: right;
-			@include button;
 
 			a {
 				text-align: center;

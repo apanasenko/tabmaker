@@ -4,6 +4,20 @@
 
     &__email {
         width: 200px;
+
+        @include respond-to(mobile) {
+            width: 100%;
+            margin-bottom: 10px;
+            display: block;
+        }
+    }
+
+    .button {
+
+        @include respond-to(mobile) {
+            display: block;
+            text-align: center;
+        }
     }
 
     &__list {

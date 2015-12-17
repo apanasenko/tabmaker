@@ -43,6 +43,11 @@
 		    display: block;
 		}
 
+		@include respond-to(mobile) {
+		    width: 100%;
+		    display: block;
+		}
+
 		h3, .b-result-room__team {
 			box-sizing: border-box;
 			padding-left: 20px;
@@ -60,8 +65,25 @@
 		p {
 			display: inline;
 		}
+
+		input {
+			min-width: 60px;
+			margin: 5px 0;
+		}
 	}
 
+	&__reverse {
+		margin: 5px 0 0 0;
+
+		p > label {
+			display: inline-block;
+		}
+	}
+
+}
+
+.speaker_name {
+	margin: 0 8px;
 }
 
 .b-result-submit {
@@ -99,7 +121,11 @@
 			@include respond-to(tablets) {
 		    	float: initial;
 		    	margin: 10px 0 0 10px;
+		    }
 
+		    @include respond-to(mobile) {
+		    	float: initial;
+		    	margin: 10px 0 0 10px;
 		    }
 
 			input, p, label {
@@ -123,7 +149,17 @@
 
 		    @include respond-to(tablets) {
 		    	width: 100%;
+		    	display: block;
+		    	padding: 20px;
+		    	border-bottom: 1px solid $grey;
 		    }
+
+			@include respond-to(mobile) {
+			    width: 100%;
+			    display: block;
+			    padding: 20px;
+			    border-bottom: 1px solid $grey;
+			}
 		}
 	}
 }
