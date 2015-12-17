@@ -33,7 +33,7 @@
                         <li class="b-tournamentlist-current__about_block_nomargin">
                             <button class="b-tournamentlist-current__result_tounamentlist" onclick="remove_team(
                                     '{% url 'profile:team_remove' %}',
-                                    {{ object.team.id }},
+                                    '{{ object.team.id }}',
                                     'team_{{ object.team.id }}',
                                     'errors_{{ object.team.id }}'
                                     )">

@@ -19,7 +19,7 @@
                             <li class="b-tournamentlist-current__about_block_nomargin">
                                 <button class="b-tournamentlist-current__result_tounamentlist" onclick="remove_adjudicator(
                                     '{% url 'profile:adjudicator_remove' %}',
-                                    {{ rel.id }},
+                                    '{{ rel.id }}',
                                     'adjudicator_{{ rel.id }}',
                                     'errors_{{ rel.id }}'
                                     )">
