@@ -29,8 +29,8 @@
 
     <div class="b-adjudicators__list">
     {% for rel in user_tournament_rels %}
+        <div id="message_{{ rel.id }}"></div>
         <div class="block">
-            <div id="message_{{ rel.id }}"></div>
             <div id="user_{{ rel.id }}" class="b-teamlist">
                 <div class="b-teamlist__wrapper">
                     <div class="b-teamlist__heading">

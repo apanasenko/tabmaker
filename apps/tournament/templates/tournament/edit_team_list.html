@@ -25,8 +25,8 @@
     {% include 'tournament/count_by_role.html' with statuses=statuses %}
 
     {% for rel in team_tournament_rels %}
+        <div id="message_{{ rel.id }}"></div>
         <div class="block">
-            <div id="message_{{ rel.id }}"></div>
             <div id="team_{{ rel.id }}" class="b-teamlist">
                 <div class="b-teamlist__wrapper">
                     <div class="b-teamlist__heading">

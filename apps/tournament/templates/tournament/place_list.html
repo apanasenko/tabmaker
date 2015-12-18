@@ -45,7 +45,7 @@
     </script>
 
     <div id="new_place">
-        <div class="errors"></div>
+        <div class="errors notification-red"></div>
         {# <label for="add_place_input">Добавить аудиторию</label> #}
         <input id="add_place_input" class="b-places__add" placeholder="Название аудитории">
         <a class="button" onclick="save_place('{% url 'tournament:place_add' tournament.id %}')">Добавить аудиторию</a>
