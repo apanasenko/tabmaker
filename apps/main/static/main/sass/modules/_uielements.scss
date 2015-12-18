@@ -3,29 +3,32 @@
     padding: 20px;
     margin: 20px;
     border-radius: 5px;
+
+    @include respond-to(mobile) {
+        float: none;
+        margin: 10px 0;
+        display: block;
+        width: 100%;
+    }
+
+    p {
+        color: white;
+    }
 }
 
-.disclaimer {
+@mixin disclaimer-red {
+    @include disclaimer;
+    background-color: orangered;
+}
 
-    &-red, &-yellow, &-green {
-        @include disclaimer;
+@mixin disclaimer-yellow {
+    @include disclaimer;
+    background-color: gold;
+}
 
-        p {
-            color: white;
-        }
-    }
-
-    &-red {
-        background-color: orangered;
-    }
-
-    &-green {
-        background-color: darkcyan;
-    }
-
-    &-yellow {
-        background-color: gold;
-    }
+@mixin disclaimer-green {
+    @include disclaimer;
+    background-color: darkcyan;
 }
 
 @mixin banner {

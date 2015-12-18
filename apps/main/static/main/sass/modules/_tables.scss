@@ -1,6 +1,7 @@
 .b-table {
 	width: 100%;
 	padding: 0 5px;
+	border-top: 1px solid $grey;
 
 	&__headrow, &__row {
 		margin: 10px 0px;
@@ -21,6 +22,8 @@
 
 		&_half {
 			width: 50%;
+			min-width: 40px;
+			padding: 0 10px;
 
 
 			.wrap {
@@ -32,11 +35,14 @@
 		&_thirty {
 			width: 16%;
 			text-align: center;
+			min-width: 40px;
+			padding: 0 10px;
 		}
 
 		&_narrow {
-			width: 70px;
 			text-align: center;
+			min-width: 40px;
+			padding: 0 10px;
 		}
 
 	}

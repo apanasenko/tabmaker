@@ -23,6 +23,11 @@
 
 		&_third {
 			@include span(1 of 3);
+			@include respond-to(mobile) {
+				width: 100%;
+				float: none;
+				display: block;
+			}
 		}
 
 		&_twothird {
@@ -31,6 +36,17 @@
 			div {
 				margin-right: 15px;
 				float: right;
+
+				@include respond-to(mobile) {
+					float: none;
+					margin: 0 0 10px 0;
+				}
+			}
+
+			@include respond-to(mobile) {
+				width: 100%;
+				float: none;
+				display: block;
 			}
 		}
 
@@ -38,9 +54,21 @@
     		height: 50px;
     		margin: -15px 0 0 0;
 
+    		@include respond-to(mobile) {
+				height: inherit;
+				margin: 0 0 10px 0 !important;
+			}
+
     		span {
     			float: right;
     			margin-right: 6px;
+
+    			@include respond-to(mobile) {
+					width: 100%;
+					float: none;
+					display: block;
+					margin: 0;
+				}
 
     			.nolink {
 					border-bottom: none;
@@ -52,9 +80,19 @@
     		height: 50px;
     		margin: -32px 0 0 0;
 
+    		@include respond-to(mobile) {
+    			height: auto;
+    			margin: 0;
+    		}
+
     		span {
     			float: right;
     			margin-right: 6px;
+
+    			@include respond-to(mobile) {
+					float: none;
+					margin: 0;
+				}
 
     			.nolink {
 					border-bottom: none;
@@ -114,6 +152,16 @@
 			font-size: 16px;
 			font-weight: normal;
 			color: $grey;
+
+			@include respond-to(mobile) {
+				margin: 10px 0;
+			}
+
+			span {
+				@include respond-to(mobile) {
+					display: inline;
+				}
+			}
 		}
 	}
 
@@ -142,6 +190,11 @@
 			background-color: transparent;
 			color: $grey;
 			border: 1px solid $grey;
+
+			@include respond-to(mobile) {
+				float: none;
+				margin: 0 !important;
+			}
 
 			&:hover {
 				color: $dark;
