@@ -38,5 +38,9 @@
         display: block;
         margin-top: 10px;
         text-align: center;
+
+        @include respond-to(tablets) {
+            max-width: 220px;
+        }
     }
 }

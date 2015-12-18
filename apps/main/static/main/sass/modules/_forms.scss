@@ -132,6 +132,10 @@ label {
 				margin-bottom: 10px;
 			}
 
+			@include respond-to(tablets) {
+				width: 24%;
+			}
+
 			&_last {
 				@include span(10%);
 				@include last;

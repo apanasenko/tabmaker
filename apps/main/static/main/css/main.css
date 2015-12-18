@@ -390,6 +390,8 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 
 /* line 37, ../sass/modules/_admin.scss */
 #new_admin a { display: block; margin-top: 10px; text-align: center; }
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 37, ../sass/modules/_admin.scss */
+  #new_admin a { max-width: 220px; } }
 
 /* line 1, ../sass/modules/_message.scss */
 .b-message { padding: 20px; }
@@ -645,38 +647,40 @@ label { display: block; }
 .b-form-item__input_ten, .b-form-item__label_ten { width: 10%; float: left; margin-right: 1.20482%; box-sizing: border-box; }
 @media only screen and (max-width: 375px) { /* line 125, ../sass/modules/_forms.scss */
   .b-form-item__input_ten, .b-form-item__label_ten { width: 100%; float: inherit; margin-bottom: 10px; } }
-/* line 135, ../sass/modules/_forms.scss */
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 125, ../sass/modules/_forms.scss */
+  .b-form-item__input_ten, .b-form-item__label_ten { width: 24%; } }
+/* line 139, ../sass/modules/_forms.scss */
 .b-form-item__input_ten_last, .b-form-item__label_ten_last { width: 10%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
-@media only screen and (max-width: 375px) { /* line 135, ../sass/modules/_forms.scss */
+@media only screen and (max-width: 375px) { /* line 139, ../sass/modules/_forms.scss */
   .b-form-item__input_ten_last, .b-form-item__label_ten_last { width: 100%; float: inherit; margin-bottom: 10px; } }
-/* line 148, ../sass/modules/_forms.scss */
+/* line 152, ../sass/modules/_forms.scss */
 .b-form-item__map { border: 1px solid #aeb8bc; display: inline-block; margin-top: 10px; }
-@media only screen and (max-width: 375px) { /* line 148, ../sass/modules/_forms.scss */
+@media only screen and (max-width: 375px) { /* line 152, ../sass/modules/_forms.scss */
   .b-form-item__map { width: 100%; } }
-/* line 158, ../sass/modules/_forms.scss */
+/* line 162, ../sass/modules/_forms.scss */
 .b-form-item__wrapper { display: block; width: 100%; height: 70px; }
-@media only screen and (max-width: 375px) { /* line 158, ../sass/modules/_forms.scss */
+@media only screen and (max-width: 375px) { /* line 162, ../sass/modules/_forms.scss */
   .b-form-item__wrapper { height: inherit; } }
 
-/* line 169, ../sass/modules/_forms.scss */
+/* line 173, ../sass/modules/_forms.scss */
 .full { width: 100%; float: left; margin-left: 0; margin-right: 0; }
 
-/* line 173, ../sass/modules/_forms.scss */
+/* line 177, ../sass/modules/_forms.scss */
 #country, #street, #regdateOpen, #regdateClose, #link, .row { clear: both; }
 
-/* line 177, ../sass/modules/_forms.scss */
+/* line 181, ../sass/modules/_forms.scss */
 #player_experience, #adjudicator_experience, .textarea { width: 100%; float: left; margin-left: 0; margin-right: 0; }
 
-/* line 181, ../sass/modules/_forms.scss */
+/* line 185, ../sass/modules/_forms.scss */
 .errorlist { display: inline; }
-/* line 184, ../sass/modules/_forms.scss */
+/* line 188, ../sass/modules/_forms.scss */
 .errorlist li { color: red; font-size: 14px; width: 200px; display: inline-block; }
 
-/* line 199, ../sass/modules/_forms.scss */
-.b-signup__item input, .b-signup__item select { min-width: 200px; }
 /* line 203, ../sass/modules/_forms.scss */
-.b-signup__item select { width: 200px; }
+.b-signup__item input, .b-signup__item select { min-width: 200px; }
 /* line 207, ../sass/modules/_forms.scss */
+.b-signup__item select { width: 200px; }
+/* line 211, ../sass/modules/_forms.scss */
 .b-signup__item span { padding-left: 5px; margin-top: 7px; display: inline-block; }
 
 /* line 3, ../sass/modules/_profile.scss */
