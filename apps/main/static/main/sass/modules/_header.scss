@@ -15,6 +15,10 @@ header {
 			display: none;
 		}
 
+		@include respond-to(tablets) {
+			display: none;
+		}
+
 		img {
 			display: inline-block;
 			height: 40%;
@@ -34,10 +38,14 @@ header {
 
 		@include respond-to(tablets) {
 			display: inline;
+			position: absolute;
+    		left: 50px;
 		}
 
 		@include respond-to(mobile) {
 			display: inline;
+			position: absolute;
+    		left: 50px;
 		}
 	}
 
@@ -46,6 +54,11 @@ header {
 		width: 58%;
 
 		@include respond-to(mobile) {
+			width: 90%;
+			padding: 20px;
+		}
+
+		@include respond-to(tablets) {
 			width: 90%;
 			padding: 20px;
 		}
@@ -59,6 +72,11 @@ header {
 				color: $dark;
 				font-size: 24px;
 				margin-bottom: 0px;
+
+				@include respond-to(tablets) {
+					line-height: 34px;
+    				margin-left: 100px;
+				}
 			}
 
 			@include respond-to(mobile) {
@@ -78,91 +96,16 @@ header {
 	}
 }
 
+.b-header {
+	&__back {
+		position: absolute;
+    	top: 24px;
+    	left: 8px;
+    	color: $dark;
+    	font-size: 1.7em;
 
-// burger icon
-
-.hidden-menu {
-	display: block;
-	position: fixed;
-	list-style:none;
-	padding: 10px;
-	margin: 0;
-	box-sizing: border-box;
-	width: 200px;
-	background-color: $dark;
-	height: 100%;
-	top: 0;
-	left: -200px;
-	transition: left .2s;
-	z-index: 2;
-	-webkit-transform: translateZ(0);
-	-webkit-backface-visibility: hidden;
-
-	&__item {
-		display: block;
-		margin-top: 15px;
-		padding-left: 10px;
-
-		a {
-			color: white;
+		@include respond-to(large) {
+			display: none;
 		}
 	}
 }
-
-.hidden-menu-ticker {
-	display: none;
-}
-
-.btn-menu {
-	color: #fff;
-	padding: 5px;
-	position: fixed;
-	top: 25px;
-	left: 25px;
-	cursor: pointer;
-	transition: left .23s;
-	z-index: 999;
-	width: 35px;
-	-webkit-transform: translateZ(0);
-	-webkit-backface-visibility: hidden;
-
-	@include respond-to(mobile) {
-		top: 15px;
-		left: 5px;
-	}
-
-	@include respond-to(large) {
-		display: none;
-	}
-
-}
-.btn-menu span {
-	display: block;
-	height: 5px;
-	background-color: $dark;
-	margin: 5px 0 0;
-	transition: all .1s linear .23s;
-	position: relative;
-}
-.btn-menu span.first {
-	margin-top: 0;
-}
-
-.hidden-menu-ticker:checked ~ .btn-menu {
-	left: 160px;
-}
-.hidden-menu-ticker:checked ~ .hidden-menu {
-	left: 0;
-}
-.hidden-menu-ticker:checked ~ .btn-menu span.first {
-	-webkit-transform: rotate(45deg);
-	top: 10px;
-}
-.hidden-menu-ticker:checked ~ .btn-menu span.second {
-	opacity: 0;
-}
-.hidden-menu-ticker:checked ~ .btn-menu span.third {
-	-webkit-transform: rotate(-45deg);
-	top: -10px;
-}
-

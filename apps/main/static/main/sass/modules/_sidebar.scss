@@ -5,6 +5,10 @@ aside {
 	@include respond-to(mobile) {
 		width: 100%;
 	}
+
+	@include respond-to(tablets) {
+		width: 100%;
+	}
 }
 
 .b-sidebar {
@@ -16,6 +20,10 @@ aside {
 	@include shadow;
 
 	@include respond-to(mobile) {
+		width: 100%;
+	}
+
+	@include respond-to(tablets) {
 		width: 100%;
 	}
 
@@ -32,6 +40,11 @@ aside {
 		display: block;
 		padding: 8px 20px;
 		box-sizing: border-box;
+
+		@include respond-to(tablets) {
+			display: inline-block;
+    		padding: 8px 16px;
+		}
 
 		a {
 			display: block;
@@ -57,6 +70,10 @@ aside {
 	margin-top: 30px;
 
 	@include respond-to(mobile) {
+		margin: 0;
+	}
+
+	@include respond-to(tablets) {
 		margin: 0;
 	}
 }

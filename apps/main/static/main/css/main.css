@@ -62,17 +62,21 @@ i { margin-right: 8px; margin-bottom: 2px; }
 /* line 58, ../sass/modules/_layout.scss */
 .page_wrapper { margin: 0 auto; background-color: #ECEEF1; }
 
-/* line 64, ../sass/modules/_layout.scss */
+/* line 63, ../sass/modules/_layout.scss */
 .content_conteiner { padding: 25px; min-height: 68vh; }
-@media only screen and (max-width: 375px) { /* line 64, ../sass/modules/_layout.scss */
+@media only screen and (max-width: 375px) { /* line 63, ../sass/modules/_layout.scss */
   .content_conteiner { padding: 0; } }
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 63, ../sass/modules/_layout.scss */
+  .content_conteiner { padding: 0; min-height: auto; } }
 
-/* line 73, ../sass/modules/_layout.scss */
+/* line 77, ../sass/modules/_layout.scss */
 .content { max-width: 100%; margin-left: auto; margin-right: auto; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); display: inline-block; width: 60%; background-color: #ffffff; border-radius: 3px; vertical-align: top; }
 /* line 12, ../../../../../../../../.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/susy-2.2.5/sass/susy/output/support/_clearfix.scss */
 .content:after { content: " "; display: block; clear: both; }
-@media only screen and (max-width: 375px) { /* line 73, ../sass/modules/_layout.scss */
-  .content { width: 100%; margin: 10px 0; } }
+@media only screen and (max-width: 375px) { /* line 77, ../sass/modules/_layout.scss */
+  .content { width: 100%; margin: 10px 0; overflow-y: auto; } }
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 77, ../sass/modules/_layout.scss */
+  .content { width: 100%; margin: 10px 0; overflow-y: auto; } }
 
 /* line 1, ../sass/modules/_header.scss */
 header { height: 70px; background-color: white; vertical-align: middle; display: block; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); }
@@ -80,68 +84,41 @@ header { height: 70px; background-color: white; vertical-align: middle; display:
 header #logo { display: inline-block; height: 100%; vertical-align: middle; width: 21%; }
 @media only screen and (max-width: 375px) { /* line 8, ../sass/modules/_header.scss */
   header #logo { display: none; } }
-/* line 18, ../sass/modules/_header.scss */
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 8, ../sass/modules/_header.scss */
+  header #logo { display: none; } }
+/* line 22, ../sass/modules/_header.scss */
 header #logo img { display: inline-block; height: 40%; max-width: none; max-height: 80px; margin: 20px 30px 0 25px; }
-/* line 28, ../sass/modules/_header.scss */
+/* line 32, ../sass/modules/_header.scss */
 header .burger-icon { color: #58697A; }
-@media only screen and (min-width: 960px) { /* line 28, ../sass/modules/_header.scss */
+@media only screen and (min-width: 960px) { /* line 32, ../sass/modules/_header.scss */
   header .burger-icon { display: none; } }
-@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 28, ../sass/modules/_header.scss */
-  header .burger-icon { display: inline; } }
-@media only screen and (max-width: 375px) { /* line 28, ../sass/modules/_header.scss */
-  header .burger-icon { display: inline; } }
-/* line 44, ../sass/modules/_header.scss */
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 32, ../sass/modules/_header.scss */
+  header .burger-icon { display: inline; position: absolute; left: 50px; } }
+@media only screen and (max-width: 375px) { /* line 32, ../sass/modules/_header.scss */
+  header .burger-icon { display: inline; position: absolute; left: 50px; } }
+/* line 52, ../sass/modules/_header.scss */
 header .header_container { display: inline-block; width: 58%; }
-@media only screen and (max-width: 375px) { /* line 44, ../sass/modules/_header.scss */
+@media only screen and (max-width: 375px) { /* line 52, ../sass/modules/_header.scss */
   header .header_container { width: 90%; padding: 20px; } }
-/* line 53, ../sass/modules/_header.scss */
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 52, ../sass/modules/_header.scss */
+  header .header_container { width: 90%; padding: 20px; } }
+/* line 66, ../sass/modules/_header.scss */
 header .header_container #page_title { display: inline-block; vertical-align: middle; max-width: 80%; }
-/* line 58, ../sass/modules/_header.scss */
+/* line 71, ../sass/modules/_header.scss */
 header .header_container #page_title h3 { color: #58697A; font-size: 24px; margin-bottom: 0px; }
-@media only screen and (max-width: 375px) { /* line 53, ../sass/modules/_header.scss */
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 71, ../sass/modules/_header.scss */
+  header .header_container #page_title h3 { line-height: 34px; margin-left: 100px; } }
+@media only screen and (max-width: 375px) { /* line 66, ../sass/modules/_header.scss */
   header .header_container #page_title { display: none; } }
-/* line 69, ../sass/modules/_header.scss */
+/* line 87, ../sass/modules/_header.scss */
 header .header_container #header_button { display: inline-block; float: right; }
-/* line 73, ../sass/modules/_header.scss */
+/* line 91, ../sass/modules/_header.scss */
 header .header_container #header_button a { text-align: center; color: white; }
 
-/* line 84, ../sass/modules/_header.scss */
-.hidden-menu { display: block; position: fixed; list-style: none; padding: 10px; margin: 0; box-sizing: border-box; width: 200px; background-color: #58697A; height: 100%; top: 0; left: -200px; transition: left .2s; z-index: 2; -webkit-transform: translateZ(0); -webkit-backface-visibility: hidden; }
-/* line 101, ../sass/modules/_header.scss */
-.hidden-menu__item { display: block; margin-top: 15px; padding-left: 10px; }
-/* line 106, ../sass/modules/_header.scss */
-.hidden-menu__item a { color: white; }
-
-/* line 112, ../sass/modules/_header.scss */
-.hidden-menu-ticker { display: none; }
-
-/* line 116, ../sass/modules/_header.scss */
-.btn-menu { color: #fff; padding: 5px; position: fixed; top: 25px; left: 25px; cursor: pointer; transition: left .23s; z-index: 999; width: 35px; -webkit-transform: translateZ(0); -webkit-backface-visibility: hidden; }
-@media only screen and (max-width: 375px) { /* line 116, ../sass/modules/_header.scss */
-  .btn-menu { top: 15px; left: 5px; } }
-@media only screen and (min-width: 960px) { /* line 116, ../sass/modules/_header.scss */
-  .btn-menu { display: none; } }
-
-/* line 139, ../sass/modules/_header.scss */
-.btn-menu span { display: block; height: 5px; background-color: #58697A; margin: 5px 0 0; transition: all .1s linear .23s; position: relative; }
-
-/* line 147, ../sass/modules/_header.scss */
-.btn-menu span.first { margin-top: 0; }
-
-/* line 151, ../sass/modules/_header.scss */
-.hidden-menu-ticker:checked ~ .btn-menu { left: 160px; }
-
-/* line 154, ../sass/modules/_header.scss */
-.hidden-menu-ticker:checked ~ .hidden-menu { left: 0; }
-
-/* line 157, ../sass/modules/_header.scss */
-.hidden-menu-ticker:checked ~ .btn-menu span.first { -webkit-transform: rotate(45deg); top: 10px; }
-
-/* line 161, ../sass/modules/_header.scss */
-.hidden-menu-ticker:checked ~ .btn-menu span.second { opacity: 0; }
-
-/* line 164, ../sass/modules/_header.scss */
-.hidden-menu-ticker:checked ~ .btn-menu span.third { -webkit-transform: rotate(-45deg); top: -10px; }
+/* line 100, ../sass/modules/_header.scss */
+.b-header__back { position: absolute; top: 24px; left: 8px; color: #58697A; font-size: 1.7em; }
+@media only screen and (min-width: 960px) { /* line 100, ../sass/modules/_header.scss */
+  .b-header__back { display: none; } }
 
 /* line 1, ../sass/modules/_footer.scss */
 footer { background-color: white; padding: 60px 0px; display: block; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); }
@@ -152,100 +129,93 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 .b-footer { width: 58%; margin: 0 auto; }
 @media only screen and (max-width: 375px) { /* line 13, ../sass/modules/_footer.scss */
   .b-footer { width: 100%; display: inline-block; } }
-/* line 22, ../sass/modules/_footer.scss */
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 13, ../sass/modules/_footer.scss */
+  .b-footer { width: 100%; display: inline-block; } }
+/* line 27, ../sass/modules/_footer.scss */
 .b-footer__info { display: inline-block; float: left; }
-/* line 26, ../sass/modules/_footer.scss */
+/* line 31, ../sass/modules/_footer.scss */
 .b-footer__info li { color: #aeb8bc; display: inline; margin-right: 20px; }
-/* line 33, ../sass/modules/_footer.scss */
+/* line 38, ../sass/modules/_footer.scss */
 .b-footer__contact { display: inline-block; float: right; }
-@media only screen and (max-width: 375px) { /* line 33, ../sass/modules/_footer.scss */
+@media only screen and (max-width: 375px) { /* line 38, ../sass/modules/_footer.scss */
   .b-footer__contact { float: inherit; } }
-/* line 41, ../sass/modules/_footer.scss */
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 38, ../sass/modules/_footer.scss */
+  .b-footer__contact { float: inherit; padding: 0 20px; } }
+/* line 51, ../sass/modules/_footer.scss */
 .b-footer__contact li { display: inline; color: #aeb8bc; margin-right: 20px; }
 
-/* line 10, ../sass/modules/_uielements.scss */
-.disclaimer-red, .disclaimer-yellow, .disclaimer-green { display: block; padding: 20px; margin: 20px; border-radius: 5px; }
-/* line 13, ../sass/modules/_uielements.scss */
-.disclaimer-red p, .disclaimer-yellow p, .disclaimer-green p { color: white; }
-/* line 18, ../sass/modules/_uielements.scss */
-.disclaimer-red { background-color: orangered; }
-/* line 22, ../sass/modules/_uielements.scss */
-.disclaimer-green { background-color: darkcyan; }
-/* line 26, ../sass/modules/_uielements.scss */
-.disclaimer-yellow { background-color: gold; }
-
-/* line 49, ../sass/modules/_uielements.scss */
+/* line 52, ../sass/modules/_uielements.scss */
 .b-banner__button { display: inline-block; margin-top: 10px; }
-/* line 54, ../sass/modules/_uielements.scss */
+/* line 57, ../sass/modules/_uielements.scss */
 .b-banner__close { position: absolute; top: 9%; right: 3%; color: white; }
-/* line 61, ../sass/modules/_uielements.scss */
+/* line 64, ../sass/modules/_uielements.scss */
 .b-banner-red, .b-banner-yellow, .b-banner-green { box-sizing: border-box; display: block; width: 100%; position: relative; }
-@media only screen and (min-width: 960px) { /* line 61, ../sass/modules/_uielements.scss */
+@media only screen and (min-width: 960px) { /* line 64, ../sass/modules/_uielements.scss */
   .b-banner-red, .b-banner-yellow, .b-banner-green { padding: 40px; } }
-@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 61, ../sass/modules/_uielements.scss */
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 64, ../sass/modules/_uielements.scss */
   .b-banner-red, .b-banner-yellow, .b-banner-green { padding: 20px; } }
-@media only screen and (max-width: 375px) { /* line 61, ../sass/modules/_uielements.scss */
+@media only screen and (max-width: 375px) { /* line 64, ../sass/modules/_uielements.scss */
   .b-banner-red, .b-banner-yellow, .b-banner-green { padding: 20px; } }
-/* line 65, ../sass/modules/_uielements.scss */
+/* line 68, ../sass/modules/_uielements.scss */
 .b-banner-red p, .b-banner-yellow p, .b-banner-green p { color: white; line-height: 1.4; display: inline-block; }
-@media only screen and (min-width: 960px) { /* line 65, ../sass/modules/_uielements.scss */
+@media only screen and (min-width: 960px) { /* line 68, ../sass/modules/_uielements.scss */
   .b-banner-red p, .b-banner-yellow p, .b-banner-green p { width: 60%; } }
-@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 65, ../sass/modules/_uielements.scss */
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 68, ../sass/modules/_uielements.scss */
   .b-banner-red p, .b-banner-yellow p, .b-banner-green p { width: 100%; } }
-@media only screen and (max-width: 375px) { /* line 65, ../sass/modules/_uielements.scss */
+@media only screen and (max-width: 375px) { /* line 68, ../sass/modules/_uielements.scss */
   .b-banner-red p, .b-banner-yellow p, .b-banner-green p { width: 100%; } }
-/* line 83, ../sass/modules/_uielements.scss */
+/* line 86, ../sass/modules/_uielements.scss */
 .b-banner-red { background-color: orangered; }
-/* line 87, ../sass/modules/_uielements.scss */
+/* line 90, ../sass/modules/_uielements.scss */
 .b-banner-green { background-color: darkcyan; }
-/* line 91, ../sass/modules/_uielements.scss */
+/* line 94, ../sass/modules/_uielements.scss */
 .b-banner-yellow { background-color: gold; }
 
-/* line 107, ../sass/modules/_uielements.scss */
+/* line 110, ../sass/modules/_uielements.scss */
 .b-window__close { float: right; color: white; display: inline; }
-/* line 113, ../sass/modules/_uielements.scss */
+/* line 116, ../sass/modules/_uielements.scss */
 .b-window__text { color: white; width: 90%; display: inline-block; }
-/* line 119, ../sass/modules/_uielements.scss */
+/* line 122, ../sass/modules/_uielements.scss */
 .b-window-red, .b-window-yellow, .b-window-green { position: absolute; left: 0%; bottom: 0px; width: 320px; box-sizing: border-box; padding: 15px; }
-/* line 123, ../sass/modules/_uielements.scss */
+/* line 126, ../sass/modules/_uielements.scss */
 .b-window-red { background-color: orangered; }
-/* line 127, ../sass/modules/_uielements.scss */
+/* line 130, ../sass/modules/_uielements.scss */
 .b-window-green { background-color: darkcyan; }
-/* line 131, ../sass/modules/_uielements.scss */
+/* line 134, ../sass/modules/_uielements.scss */
 .b-window-yellow { background-color: gold; }
 
-/* line 137, ../sass/modules/_uielements.scss */
+/* line 140, ../sass/modules/_uielements.scss */
 .b-paging { display: inline-flex; width: 100%; justify-content: center; }
-/* line 142, ../sass/modules/_uielements.scss */
+/* line 145, ../sass/modules/_uielements.scss */
 .b-paging__prev, .b-paging__next, .b-paging__numbers { box-sizing: border-box; display: inline-block; cursor: pointer; padding: 20px 0; }
-/* line 148, ../sass/modules/_uielements.scss */
+/* line 151, ../sass/modules/_uielements.scss */
 .b-paging__prev i, .b-paging__prev a, .b-paging__next i, .b-paging__next a, .b-paging__numbers i, .b-paging__numbers a { color: #aeb8bc; }
-/* line 155, ../sass/modules/_uielements.scss */
+/* line 158, ../sass/modules/_uielements.scss */
 .b-paging__next i { margin-left: 10px; }
-/* line 160, ../sass/modules/_uielements.scss */
+/* line 163, ../sass/modules/_uielements.scss */
 .b-paging__prev, .b-paging__numbers { margin-right: 20px; }
-/* line 166, ../sass/modules/_uielements.scss */
+/* line 169, ../sass/modules/_uielements.scss */
 .b-paging__numbers span { color: #aeb8bc; margin-right: 10px; }
 
 /* line 1, ../sass/modules/_tables.scss */
-.b-table { width: 100%; padding: 0 5px; }
-/* line 5, ../sass/modules/_tables.scss */
+.b-table { width: 100%; padding: 0 5px; border-top: 1px solid #aeb8bc; }
+/* line 6, ../sass/modules/_tables.scss */
 .b-table__headrow, .b-table__row { margin: 10px 0px; color: #aeb8bc; border-bottom: 1px solid #ECEEF1; height: 40px; }
-/* line 14, ../sass/modules/_tables.scss */
+/* line 15, ../sass/modules/_tables.scss */
 .b-table__headstring_half, .b-table__headstring_thirty, .b-table__headstring_narrow { background-color: #E2DFDA; color: #58697A; }
-/* line 22, ../sass/modules/_tables.scss */
-.b-table__headstring_half, .b-table__string_half { width: 50%; }
-/* line 26, ../sass/modules/_tables.scss */
+/* line 23, ../sass/modules/_tables.scss */
+.b-table__headstring_half, .b-table__string_half { width: 50%; min-width: 40px; padding: 0 10px; }
+/* line 29, ../sass/modules/_tables.scss */
 .b-table__headstring_half .wrap, .b-table__string_half .wrap { padding-left: 20px; }
-/* line 32, ../sass/modules/_tables.scss */
-.b-table__headstring_thirty, .b-table__string_thirty { width: 16%; text-align: center; }
-/* line 37, ../sass/modules/_tables.scss */
-.b-table__headstring_narrow, .b-table__string_narrow { width: 70px; text-align: center; }
-/* line 44, ../sass/modules/_tables.scss */
+/* line 35, ../sass/modules/_tables.scss */
+.b-table__headstring_thirty, .b-table__string_thirty { width: 16%; text-align: center; min-width: 40px; padding: 0 10px; }
+/* line 42, ../sass/modules/_tables.scss */
+.b-table__headstring_narrow, .b-table__string_narrow { text-align: center; min-width: 40px; padding: 0 10px; }
+/* line 50, ../sass/modules/_tables.scss */
 .b-table__headrow { background-color: #EBE8E3; color: #58697A; }
-/* line 48, ../sass/modules/_tables.scss */
+/* line 54, ../sass/modules/_tables.scss */
 .b-table__headrow th { font-weight: 700; }
-/* line 56, ../sass/modules/_tables.scss */
+/* line 62, ../sass/modules/_tables.scss */
 .b-table__row:hover { background-color: #F6F6F6; }
 
 /* line 1, ../sass/modules/_rounds.scss */
@@ -280,58 +250,78 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 .b-tournamentlist-current { display: block; margin: 0 20px; position: relative; line-height: 0,7; }
 /* line 24, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_third { width: 30%; float: left; margin-right: 5%; }
-/* line 28, ../sass/modules/_tournamentlist.scss */
+@media only screen and (max-width: 375px) { /* line 24, ../sass/modules/_tournamentlist.scss */
+  .b-tournamentlist-current__column_third { width: 100%; float: none; display: block; } }
+/* line 33, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_twothird { width: 65.0%; float: right; margin-right: 0; }
-/* line 31, ../sass/modules/_tournamentlist.scss */
+/* line 36, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_twothird div { margin-right: 15px; float: right; }
-/* line 37, ../sass/modules/_tournamentlist.scss */
+@media only screen and (max-width: 375px) { /* line 36, ../sass/modules/_tournamentlist.scss */
+  .b-tournamentlist-current__column_twothird div { float: none; margin: 0 0 10px 0; } }
+@media only screen and (max-width: 375px) { /* line 33, ../sass/modules/_tournamentlist.scss */
+  .b-tournamentlist-current__column_twothird { width: 100%; float: none; display: block; } }
+/* line 53, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_rightcolumn { height: 50px; margin: -15px 0 0 0; }
-/* line 41, ../sass/modules/_tournamentlist.scss */
+@media only screen and (max-width: 375px) { /* line 53, ../sass/modules/_tournamentlist.scss */
+  .b-tournamentlist-current__column_rightcolumn { height: inherit; margin: 0 0 10px 0 !important; } }
+/* line 62, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_rightcolumn span { float: right; margin-right: 6px; }
-/* line 45, ../sass/modules/_tournamentlist.scss */
+@media only screen and (max-width: 375px) { /* line 62, ../sass/modules/_tournamentlist.scss */
+  .b-tournamentlist-current__column_rightcolumn span { width: 100%; float: none; display: block; margin: 0; } }
+/* line 73, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_rightcolumn span .nolink { border-bottom: none; }
-/* line 51, ../sass/modules/_tournamentlist.scss */
+/* line 79, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_rightcolumnbigmargin { height: 50px; margin: -32px 0 0 0; }
-/* line 55, ../sass/modules/_tournamentlist.scss */
+@media only screen and (max-width: 375px) { /* line 79, ../sass/modules/_tournamentlist.scss */
+  .b-tournamentlist-current__column_rightcolumnbigmargin { height: auto; margin: 0; } }
+/* line 88, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__column_rightcolumnbigmargin span { float: right; margin-right: 6px; }
-/* line 59, ../sass/modules/_tournamentlist.scss */
-.b-tournamentlist-current__column_rightcolumnbigmargin span .nolink { border-bottom: none; }
-/* line 66, ../sass/modules/_tournamentlist.scss */
-.b-tournamentlist-current__heading { display: block; font-weight: bold; margin: 0 20px 10px 0; height: auto; }
-/* line 72, ../sass/modules/_tournamentlist.scss */
-.b-tournamentlist-current__heading h3 { margin-bottom: 8px; }
-/* line 77, ../sass/modules/_tournamentlist.scss */
-.b-tournamentlist-current__about { display: inline; margin: 20px 30px 0 0; max-width: 200px; color: #aeb8bc; font-size: 14px; }
-@media only screen and (max-width: 375px) { /* line 77, ../sass/modules/_tournamentlist.scss */
-  .b-tournamentlist-current__about { display: block; width: 100%; margin: 10px 0 0 0; max-width: inherit; } }
-/* line 91, ../sass/modules/_tournamentlist.scss */
-.b-tournamentlist-current__about_block { color: #aeb8bc; font-size: 16px; display: block; margin: 0 0 10px 0; }
+@media only screen and (max-width: 375px) { /* line 88, ../sass/modules/_tournamentlist.scss */
+  .b-tournamentlist-current__column_rightcolumnbigmargin span { float: none; margin: 0; } }
 /* line 97, ../sass/modules/_tournamentlist.scss */
+.b-tournamentlist-current__column_rightcolumnbigmargin span .nolink { border-bottom: none; }
+/* line 104, ../sass/modules/_tournamentlist.scss */
+.b-tournamentlist-current__heading { display: block; font-weight: bold; margin: 0 20px 10px 0; height: auto; }
+/* line 110, ../sass/modules/_tournamentlist.scss */
+.b-tournamentlist-current__heading h3 { margin-bottom: 8px; }
+/* line 115, ../sass/modules/_tournamentlist.scss */
+.b-tournamentlist-current__about { display: inline; margin: 20px 30px 0 0; max-width: 200px; color: #aeb8bc; font-size: 14px; }
+@media only screen and (max-width: 375px) { /* line 115, ../sass/modules/_tournamentlist.scss */
+  .b-tournamentlist-current__about { display: block; width: 100%; margin: 10px 0 0 0; max-width: inherit; } }
+/* line 129, ../sass/modules/_tournamentlist.scss */
+.b-tournamentlist-current__about_block { color: #aeb8bc; font-size: 16px; display: block; margin: 0 0 10px 0; }
+/* line 135, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__about_block_nomargin { margin: 0; }
-/* line 102, ../sass/modules/_tournamentlist.scss */
+/* line 140, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__about_floatr { float: right; }
-/* line 108, ../sass/modules/_tournamentlist.scss */
+/* line 146, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__registration { font-weight: 700; color: #aeb8bc; margin: 7px 0 3px 0; }
-/* line 113, ../sass/modules/_tournamentlist.scss */
+/* line 151, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__registration_mine { font-size: 16px; font-weight: normal; color: #aeb8bc; }
-/* line 120, ../sass/modules/_tournamentlist.scss */
+@media only screen and (max-width: 375px) { /* line 151, ../sass/modules/_tournamentlist.scss */
+  .b-tournamentlist-current__registration_mine { margin: 10px 0; } }
+@media only screen and (max-width: 375px) { /* line 160, ../sass/modules/_tournamentlist.scss */
+  .b-tournamentlist-current__registration_mine span { display: inline; } }
+/* line 168, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result { float: right; margin: -20px 10px 0 0; display: inline-block; padding: 6px 12px; border-radius: 6px; color: #aeb8bc; font-size: 14px; min-height: 20px; box-sizing: border-box; border: 1px solid #aeb8bc; }
 /* line 56, ../sass/modules/_mixins.scss */
 .b-tournamentlist-current__result:hover { border: 1px solid #58697A; color: #58697A; transition: color 0.3s ease; }
-@media only screen and (max-width: 375px) { /* line 120, ../sass/modules/_tournamentlist.scss */
+@media only screen and (max-width: 375px) { /* line 168, ../sass/modules/_tournamentlist.scss */
   .b-tournamentlist-current__result { float: inherit; margin: 0; } }
-/* line 130, ../sass/modules/_tournamentlist.scss */
+/* line 178, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result a { color: #aeb8bc; }
-/* line 133, ../sass/modules/_tournamentlist.scss */
+/* line 181, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result a:hover { color: #58697A; }
-/* line 138, ../sass/modules/_tournamentlist.scss */
+/* line 186, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result_tounamentlist { float: right; margin: -25px 10px 0 0; display: inline-block; padding: 6px 12px; border-radius: 6px; color: #aeb8bc; font-size: 14px; min-height: 20px; box-sizing: border-box; border: 1px solid #aeb8bc; background-color: transparent; color: #aeb8bc; border: 1px solid #aeb8bc; }
 /* line 56, ../sass/modules/_mixins.scss */
 .b-tournamentlist-current__result_tounamentlist:hover { border: 1px solid #58697A; color: #58697A; transition: color 0.3s ease; }
-/* line 146, ../sass/modules/_tournamentlist.scss */
+@media only screen and (max-width: 375px) { /* line 186, ../sass/modules/_tournamentlist.scss */
+  .b-tournamentlist-current__result_tounamentlist { float: none; margin: 0 !important; } }
+/* line 199, ../sass/modules/_tournamentlist.scss */
 .b-tournamentlist-current__result_tounamentlist:hover { color: #58697A; border: 1px solid #58697A; }
 
-/* line 154, ../sass/modules/_tournamentlist.scss */
+/* line 207, ../sass/modules/_tournamentlist.scss */
 .tournamentlist { color: #aeb8bc; font-size: 16px; border-bottom: 1px dashed #aeb8bc; }
 
 /* line 1, ../sass/modules/_tournamentinfo.scss */
@@ -400,6 +390,8 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 
 /* line 37, ../sass/modules/_admin.scss */
 #new_admin a { display: block; margin-top: 10px; text-align: center; }
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 37, ../sass/modules/_admin.scss */
+  #new_admin a { max-width: 220px; } }
 
 /* line 1, ../sass/modules/_message.scss */
 .b-message { padding: 20px; }
@@ -499,27 +491,35 @@ footer { background-color: white; padding: 60px 0px; display: block; box-shadow:
 aside { display: inline-block; width: 20%; }
 @media only screen and (max-width: 375px) { /* line 1, ../sass/modules/_sidebar.scss */
   aside { width: 100%; } }
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 1, ../sass/modules/_sidebar.scss */
+  aside { width: 100%; } }
 
-/* line 10, ../sass/modules/_sidebar.scss */
+/* line 14, ../sass/modules/_sidebar.scss */
 .b-sidebar { display: block; width: 90%; background-color: #ffffff; border-radius: 3px; vertical-align: top; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); }
-@media only screen and (max-width: 375px) { /* line 10, ../sass/modules/_sidebar.scss */
+@media only screen and (max-width: 375px) { /* line 14, ../sass/modules/_sidebar.scss */
   .b-sidebar { width: 100%; } }
-/* line 22, ../sass/modules/_sidebar.scss */
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 14, ../sass/modules/_sidebar.scss */
+  .b-sidebar { width: 100%; } }
+/* line 30, ../sass/modules/_sidebar.scss */
 .b-sidebar__list { text-align: left; padding: 20px 0px; }
-/* line 27, ../sass/modules/_sidebar.scss */
+/* line 35, ../sass/modules/_sidebar.scss */
 .b-sidebar__heading { margin: 10px 0 15px 20px; }
-/* line 31, ../sass/modules/_sidebar.scss */
+/* line 39, ../sass/modules/_sidebar.scss */
 .b-sidebar__listitem { display: block; padding: 8px 20px; box-sizing: border-box; }
-/* line 36, ../sass/modules/_sidebar.scss */
-.b-sidebar__listitem a { display: block; color: #aeb8bc; font-weight: 700; }
-/* line 42, ../sass/modules/_sidebar.scss */
-.b-sidebar__listitem:hover { background-color: #FEFFD9; transition: background-color 0.3s ease; }
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 39, ../sass/modules/_sidebar.scss */
+  .b-sidebar__listitem { display: inline-block; padding: 8px 16px; } }
 /* line 49, ../sass/modules/_sidebar.scss */
+.b-sidebar__listitem a { display: block; color: #aeb8bc; font-weight: 700; }
+/* line 55, ../sass/modules/_sidebar.scss */
+.b-sidebar__listitem:hover { background-color: #FEFFD9; transition: background-color 0.3s ease; }
+/* line 62, ../sass/modules/_sidebar.scss */
 .b-sidebar__button { width: 80%; margin: 0 0 20px 20px; }
 
-/* line 56, ../sass/modules/_sidebar.scss */
+/* line 69, ../sass/modules/_sidebar.scss */
 #sidebar2 { margin-top: 30px; }
-@media only screen and (max-width: 375px) { /* line 56, ../sass/modules/_sidebar.scss */
+@media only screen and (max-width: 375px) { /* line 69, ../sass/modules/_sidebar.scss */
+  #sidebar2 { margin: 0; } }
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 69, ../sass/modules/_sidebar.scss */
   #sidebar2 { margin: 0; } }
 
 /* line 3, ../sass/modules/_result.scss */
@@ -647,38 +647,40 @@ label { display: block; }
 .b-form-item__input_ten, .b-form-item__label_ten { width: 10%; float: left; margin-right: 1.20482%; box-sizing: border-box; }
 @media only screen and (max-width: 375px) { /* line 125, ../sass/modules/_forms.scss */
   .b-form-item__input_ten, .b-form-item__label_ten { width: 100%; float: inherit; margin-bottom: 10px; } }
-/* line 135, ../sass/modules/_forms.scss */
+@media only screen and (min-width: 376px) and (max-width: 959px) { /* line 125, ../sass/modules/_forms.scss */
+  .b-form-item__input_ten, .b-form-item__label_ten { width: 24%; } }
+/* line 139, ../sass/modules/_forms.scss */
 .b-form-item__input_ten_last, .b-form-item__label_ten_last { width: 10%; float: left; margin-right: 1.20482%; float: right; margin-right: 0; }
-@media only screen and (max-width: 375px) { /* line 135, ../sass/modules/_forms.scss */
+@media only screen and (max-width: 375px) { /* line 139, ../sass/modules/_forms.scss */
   .b-form-item__input_ten_last, .b-form-item__label_ten_last { width: 100%; float: inherit; margin-bottom: 10px; } }
-/* line 148, ../sass/modules/_forms.scss */
+/* line 152, ../sass/modules/_forms.scss */
 .b-form-item__map { border: 1px solid #aeb8bc; display: inline-block; margin-top: 10px; }
-@media only screen and (max-width: 375px) { /* line 148, ../sass/modules/_forms.scss */
+@media only screen and (max-width: 375px) { /* line 152, ../sass/modules/_forms.scss */
   .b-form-item__map { width: 100%; } }
-/* line 158, ../sass/modules/_forms.scss */
+/* line 162, ../sass/modules/_forms.scss */
 .b-form-item__wrapper { display: block; width: 100%; height: 70px; }
-@media only screen and (max-width: 375px) { /* line 158, ../sass/modules/_forms.scss */
+@media only screen and (max-width: 375px) { /* line 162, ../sass/modules/_forms.scss */
   .b-form-item__wrapper { height: inherit; } }
 
-/* line 169, ../sass/modules/_forms.scss */
+/* line 173, ../sass/modules/_forms.scss */
 .full { width: 100%; float: left; margin-left: 0; margin-right: 0; }
 
-/* line 173, ../sass/modules/_forms.scss */
+/* line 177, ../sass/modules/_forms.scss */
 #country, #street, #regdateOpen, #regdateClose, #link, .row { clear: both; }
 
-/* line 177, ../sass/modules/_forms.scss */
+/* line 181, ../sass/modules/_forms.scss */
 #player_experience, #adjudicator_experience, .textarea { width: 100%; float: left; margin-left: 0; margin-right: 0; }
 
-/* line 181, ../sass/modules/_forms.scss */
+/* line 185, ../sass/modules/_forms.scss */
 .errorlist { display: inline; }
-/* line 184, ../sass/modules/_forms.scss */
+/* line 188, ../sass/modules/_forms.scss */
 .errorlist li { color: red; font-size: 14px; width: 200px; display: inline-block; }
 
-/* line 199, ../sass/modules/_forms.scss */
-.b-signup__item input, .b-signup__item select { min-width: 200px; }
 /* line 203, ../sass/modules/_forms.scss */
-.b-signup__item select { width: 200px; }
+.b-signup__item input, .b-signup__item select { min-width: 200px; }
 /* line 207, ../sass/modules/_forms.scss */
+.b-signup__item select { width: 200px; }
+/* line 211, ../sass/modules/_forms.scss */
 .b-signup__item span { padding-left: 5px; margin-top: 7px; display: inline-block; }
 
 /* line 3, ../sass/modules/_profile.scss */
@@ -687,11 +689,13 @@ label { display: block; }
 .b-profile__group { margin: 0 0 20px 0; }
 /* line 11, ../sass/modules/_profile.scss */
 .b-profile__listitem { display: inline; color: #aeb8bc; margin: 0 20px 0 0; }
-/* line 17, ../sass/modules/_profile.scss */
+@media only screen and (max-width: 375px) { /* line 11, ../sass/modules/_profile.scss */
+  .b-profile__listitem { display: block; width: 100%; line-height: 1.7; } }
+/* line 23, ../sass/modules/_profile.scss */
 .b-profile__heading { margin: 0 0 7px 0; }
-/* line 21, ../sass/modules/_profile.scss */
-.b-profile__item { color: #aeb8bc; line-height: 1.4; margin: 0 0 20px 0; }
 /* line 27, ../sass/modules/_profile.scss */
+.b-profile__item { color: #aeb8bc; line-height: 1.4; margin: 0 0 20px 0; }
+/* line 33, ../sass/modules/_profile.scss */
 .b-profile__button { display: inline-block; text-decoration: none; padding: 0 16px; border-radius: 5px; border: none; color: #ffffff; font-family: inherit; font-size: 14px; height: 32px; line-height: 32px; background-color: #424E5A; box-sizing: border-box; cursor: pointer; }
 /* line 40, ../sass/modules/_mixins.scss */
 .b-profile__button:hover { background-color: #0C152A; transition: background-color 0.3s ease; }
@@ -725,20 +729,20 @@ label { display: block; }
 /* line 40, ../sass/modules/_mixins.scss */
 .b-postlist-item__more:hover { background-color: #0C152A; transition: background-color 0.3s ease; }
 
-/* line 1, ../sass/modules/_tabs.scss */
-.b-tabs { background-color: #FEFFD9; border-bottom: 1px solid #ECEEF1; }
-/* line 5, ../sass/modules/_tabs.scss */
+/* line 3, ../sass/modules/_tabs.scss */
 .b-tabs__label { display: inline-block; padding: 15px 20px; font-weight: 600; text-align: center; color: #aeb8bc; }
-/* line 13, ../sass/modules/_tabs.scss */
+@media only screen and (max-width: 375px) { /* line 3, ../sass/modules/_tabs.scss */
+  .b-tabs__label { padding: 15px 10px; } }
+/* line 15, ../sass/modules/_tabs.scss */
 .b-tabs__label:hover { cursor: pointer; color: #58697A; border-bottom: 1px solid #ECEEF1; height: 15px; background-color: #FFEBA0; transition: 0.2s ease color background-color; }
-/* line 22, ../sass/modules/_tabs.scss */
+/* line 24, ../sass/modules/_tabs.scss */
 .b-tabs__input:checked + label { background-color: #FFEBA0; color: #58697A; border-bottom: 1px solid #ECEEF1; height: 15px; }
-/* line 29, ../sass/modules/_tabs.scss */
+/* line 31, ../sass/modules/_tabs.scss */
 .b-tabs__input { display: none; }
-/* line 33, ../sass/modules/_tabs.scss */
+/* line 35, ../sass/modules/_tabs.scss */
 .b-tabs__one, .b-tabs__two, .b-tabs__three, .b-tabs__four, .b-tabs__common { display: none; background: white; float: left; width: 100%; }
 
-/* line 42, ../sass/modules/_tabs.scss */
+/* line 43, ../sass/modules/_tabs.scss */
 #tab1:checked ~ .b-tabs__one, #tab2:checked ~ .b-tabs__two, #tab3:checked ~ .b-tabs__three, #tab4:checked ~ .b-tabs__four { display: block; }
 
 /* line 1, ../sass/modules/_presentation.scss */

@@ -24,7 +24,7 @@
     </div>
 
     <div class="b-tournament-summary-commands">
-        <a class="button b-tournament-summary-commands__button" href="{% url 'tournament:next_round' tournament.id%}"> Создать следующий раунд </a>
+        <a class="button b-tournament-summary-commands__button" href="{% url 'tournament:next_round' tournament.id%}">Создать следующий раунд </a>
         <a class="button b-tournament-summary-commands__button" href="{% url 'tournament:publish_round' tournament.id%}"> Опубликовать тему и румы </a>
         {% if tournament.cur_round > 0 %}
             <a class="button b-tournament-summary-commands__button" href="{% url 'tournament:result_round' tournament.id%}"> Ввести/исправить результат </a>

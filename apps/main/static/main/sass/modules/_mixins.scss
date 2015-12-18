@@ -1,7 +1,7 @@
 // responsivness
 
 $small: 375px;
-$middle: 640px;
+$middle: 768px;
 $large: 960px;
 
 @mixin respond-to($media) {

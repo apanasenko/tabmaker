@@ -1,6 +1,6 @@
 $(document).ready(function() {
     var width = $(window).width();
-    if(width < '641') {
+    if(width < '641' || width < '769' ) {
         $('aside').hide();
         $('.burger-icon').click(function() {
             if($('aside').is(':hidden')) {

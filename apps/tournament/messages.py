@@ -39,7 +39,7 @@ LBL_TEAM = 'Команда'
 LBL_SUM_POINTS = 'Сумма баллов'
 LBL_PLAYOFF = 'Плейофф'
 LBL_SUM_SPEAKERS = 'Сумма спикерских'
-LBL_ROUND_p = 'Раунд %s'
+LBL_ROUND_p = '#Р%s'
 LBL_SPEAKER = 'Спикер'
 
 CONFIRM_MSG_REMOVE = 'Удалить'

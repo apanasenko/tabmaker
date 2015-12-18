@@ -7,11 +7,17 @@
 	&__group {
 		margin: 0 0 20px 0;
 	}
-	
+
 	&__listitem {
 		display: inline;
-		color: $grey;	
+		color: $grey;
 		margin: 0 20px 0 0;
+
+		@include respond-to(mobile) {
+			display: block;
+			width: 100%;
+			line-height: 1.7;
+		}
 	}
 
 	&__heading {
@@ -23,7 +29,7 @@
 		line-height: 1.4;
 		margin: 0 0 20px 0;
 	}
-	
+
 	&__button {
 		@include button;
 	}
