@@ -25,11 +25,11 @@ ROLE_ADJUDICATOR_APPROVED = TournamentRole.objects.get(role_en='Approved adjudic
 ROLE_WING = TournamentRole.objects.get(role_en='Wing')
 ROLE_CHAIR = TournamentRole.objects.get(role_en='Chair')
 
-STATUS_REGISTRATION = TournamentStatus.objects.get(name='registration')
-STATUS_PREPARATION = TournamentStatus.objects.get(name='preparation')
-STATUS_STARTED = TournamentStatus.objects.get(name='started')
-STATUS_FINISHED = TournamentStatus.objects.get(name='finished')
-STATUS_PLAYOFF = TournamentStatus.objects.get(name='playoff')
+STATUS_REGISTRATION = TournamentStatus.objects.get(name_en='Registration open')
+STATUS_PREPARATION = TournamentStatus.objects.get(name_en='Registration closed')
+STATUS_STARTED = TournamentStatus.objects.get(name_en='Qualification')
+STATUS_PLAYOFF = TournamentStatus.objects.get(name_en='Playoff')
+STATUS_FINISHED = TournamentStatus.objects.get(name_en='Finished')
 
 TEAM_ROLES_NAMES = [
     'Registered',
