@@ -9,6 +9,7 @@ local_*
 *.sublime-project
 *.sublime-workspace
 *.sass-cache
+*.css
 /logs/
 /media/
 /static/

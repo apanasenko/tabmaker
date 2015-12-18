@@ -26,6 +26,7 @@ python manage.py collectstatic
 echo -n "Would you like to do migrate (\"y\" or \"n\", default: \"n\"): "
 read answer
 if [ "$answer" = "y" ]; then
+   compass compile <pant_to_env>/apps/main/static/main --output-style compressed --force
    python manage.py migrate
 fi
 
