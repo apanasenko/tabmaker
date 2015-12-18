@@ -18,8 +18,8 @@
 {% block content %}
 
     {% if is_success %}
-        <div class="update_profile">
-            <h3>Профиль успешно обновлён</h3>
+        <div class="disclaimer-green">
+            <p>Профиль успешно обновлён</p>
         </div>
     {% endif %}
     <form class="b-form" id="signup_form" method="post"
@@ -56,14 +56,14 @@
                 {{ form.university_id }}
                 {{ form.university_id.errors }}
             </div>
-            {% if not is_edit_form %}
-                <div class="b-form-item b-signup__item">
-                    <h3 class="b-form-item__heading">{{ form.email.label_tag }}</h3>
-                    {{ form.email }}
-                    <span>{{ form.is_show_email }} {{ form.is_show_email.label }}</span>
-                    {{ form.email.errors }}
-                </div>
-            {% endif %}
+            <div class="b-form-item b-signup__item">
+                {% if not is_edit_form %}
+                <h3 class="b-form-item__heading">{{ form.email.label_tag }}</h3>
+                {{ form.email }}
+                {% endif %}
+                <span>{{ form.is_show_email }} {{ form.is_show_email.label }}</span>
+                {{ form.email.errors }}
+            </div>
             <div class="b-form-item b-signup__item">
                 <h3 class="b-form-item__heading">{{ form.phone.label_tag }}</h3>
                 {{ form.phone }}

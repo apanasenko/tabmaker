@@ -54,7 +54,9 @@
             <span class="wide">{{ form.speaker_2.errors }}</span>
 
          </div>
-        <button type="submit" class="button" value="Отправить">Участвовать</button>
+        <button type="submit" class="button" value="Отправить">
+            {% if not show_speaker_1 %} Участвовать {% else %} Добавить {% endif %}
+        </button>
     </form>
 
 {% endblock content %}

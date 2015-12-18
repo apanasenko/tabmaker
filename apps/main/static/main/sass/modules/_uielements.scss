@@ -31,6 +31,33 @@
     background-color: darkcyan;
 }
 
+@mixin notification {
+    display: block;
+    padding: 4px;
+    margin: 4px;
+    border-radius: 5px;
+    color: white;
+}
+
+.notification {
+
+    &-red, &-yellow, &-green {
+        @include notification;
+    }
+
+    &-red {
+        background-color: #ff3d4c;
+    }
+
+    &-green {
+        background-color: #188b38;
+    }
+
+    &-yellow {
+        background-color: #ffbf24;
+    }
+}
+
 @mixin banner {
     box-sizing: border-box;
     display: block;
@@ -88,7 +115,7 @@
     }
 
     &-green {
-        background-color: darkcyan;
+        background-color: green;
     }
 
     &-yellow {

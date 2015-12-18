@@ -1,9 +1,12 @@
 var lastInfoBlock = null;
+var error = 'notification-red';
+var success = 'notification-green';
 
 
 function update_status(url, select, team_tournament_rel_id, message_block_id){
     if (lastInfoBlock){
         lastInfoBlock.html(null);
+        lastInfoBlock.removeClass();
     }
     $.post(
         url,
@@ -16,10 +19,12 @@ function update_status(url, select, team_tournament_rel_id, message_block_id){
             lastInfoBlock.html(data.message);
             if (data.status == 'bad'){
                 load_value(select);
+                lastInfoBlock.attr('class', error);
             } else {
                 update_info_block(select.oldValue, -1);
                 update_info_block(select.value, 1);
                 save_value(select);
+                lastInfoBlock.attr('class', success);
             }
         }
     );

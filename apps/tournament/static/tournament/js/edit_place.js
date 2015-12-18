@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $('#temp').hide();
+    $('#new_place .errors').hide();
 
     init();
     $('.place_checkbox').change(function(){
@@ -63,7 +64,7 @@ function activated_place(block){
 function save_place(url){
     var new_place_block = $('#new_place');
     var input = new_place_block.find('#add_place_input');
-    new_place_block.find('.errors').html('');
+    new_place_block.find('.errors').hide();
     $.post(
         url,
         {
@@ -71,7 +72,7 @@ function save_place(url){
         },
         function(data, status){
             if (data.status == 'bad'){
-                new_place_block.find('.errors').html(data.message);
+                new_place_block.find('.errors').html(data.message).show();
             } else {
                 generate_place_block(data.message.name, data.message.place_id, true);
                 input.val('');
