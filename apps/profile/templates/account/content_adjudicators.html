@@ -1,16 +1,18 @@
 <section class="b-profile">
     <ul>
         {% for rel in objects %}
-            <li class="b-tournamentlist-item">
+
+            <div class="errorinlist" id="errors_{{ rel.id }}"></div>
+
+            <li class="b-tournamentlist-item" id="adjudicator_{{ rel.id }}">
 
                 <div class="b-tournamentlist-current">
 
-                    <div class="list_item" id="adjudicator_{{ rel.id }}">
+                    <div class="list_item">
                         <h3 class="b-tournamentlist-current__heading"><a href="{% url 'tournament:show' rel.tournament.id %}">{{ rel.tournament.name }}</a></h3>
 
                         <div class="b-tournamentlist-current__column_twothird b-tournamentlist-current__column_rightcolumnbigmargin">
                            <span><span class="nolink"><p class="b-tournamentlist-current__registration_mine">{{ rel.role.role }}</p></span></span>
-                           <div class="errorinlist" id="errors_{{ rel.id }}"></div>
                         </div>
 
                         <ul class="b-tournamentlist-current__column_twothird">
