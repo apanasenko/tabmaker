@@ -8,7 +8,6 @@ var swap_speakers = function(block){
     }
 };
 
-
 $(document).ready(function(){
     $('.reverse_speakers').each(function () {
         $(this).change(function(){
