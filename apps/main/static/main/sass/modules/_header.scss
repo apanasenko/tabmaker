@@ -5,6 +5,13 @@ header {
 	display: block;
 	@include shadow;
 
+	@include respond-to(mobile) {
+		    position: fixed;
+		    width: 100%;
+		    height: 70px;
+		    z-index: 1000;
+	}
+
 	#logo {
 		display: inline-block;
 		height: 100%;

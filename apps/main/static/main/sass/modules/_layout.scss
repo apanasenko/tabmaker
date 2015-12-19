@@ -65,7 +65,7 @@ i {
 	min-height: 68vh;
 
 	@include respond-to(mobile) {
-		padding: 0;
+    	padding: 70px 0 0 0 !important;
 	}
 
 	@include respond-to(tablets) {

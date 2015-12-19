@@ -70,23 +70,17 @@
                 <a href="/"><img src="{% static 'main/img/logo.png' %}" alt=""></a>
             </div>
 
-
-
             {% block header %}
-            <div class="header_container">
-                <a href="/"><i class="fa fa-chevron-left b-header__back"></i></a>
-                <i class="fa fa-bars fa-2x burger-icon"></i>
-                <div id="page_title">
-                    <h3>
-                    {% block page_title %} Название страницы {% endblock page_title %}
-                </h3>
-                </div>
-                <div id="header_button">
+                <div class="header_container">
+                    <i class="fa fa-bars fa-2x burger-icon"></i>
+                    <div id="page_title">
+                        <h3>
+                        {% block page_title %} Название страницы {% endblock page_title %}
+                    </h3>
+                    </div>
                     {% block header_button %}
-                        <a class="button" id="create_cup" href="{% url 'tournament:new' %}">Создать турнир</a>
                     {% endblock header_button %}
                 </div>
-            </div>
             {% endblock header %}
         </header>
 
