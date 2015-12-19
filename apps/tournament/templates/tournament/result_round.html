@@ -15,12 +15,12 @@
 {% endblock page_title %}
 
 {% block header_button %}
-    <form class="b-result" id="result_form" action="{% url "tournament:result_round" tournament.id %}" method="post">
-    <button type="submit" class="button">Сохранить</button>
+    
 {% endblock header_button %}
 
 
 {% block content %}
+    <form class="b-result" id="result_form" action="{% url "tournament:result_round" tournament.id %}" method="post">
         {% csrf_token %}
         {% for room in forms %}
             {% with game=room.game res=room.result is_active=room.activate_result %}
@@ -74,5 +74,6 @@
 
             {% endwith %}
         {% endfor %}
+        <button type="submit" class="button b-result__confirm">Сохранить</button>
     </form>
 {% endblock content %}

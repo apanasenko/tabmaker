@@ -35,7 +35,8 @@ header {
 			height: 40%;
 			max-width: none;
 			max-height: 80px;
-			margin: 20px 30px 0 25px;
+			box-sizing: content-box;
+			padding: 10px 10px 10px 30px;
 		}
 
 	}
@@ -87,6 +88,7 @@ header {
 
 		@include respond-to(large) {
 			min-width: 700px;
+			padding-top: 20px;
 		}
 
 		@include respond-to(mobile) {
@@ -95,7 +97,7 @@ header {
 		}
 
 		@include respond-to(tablets) {
-			width: 90%;
+			width: 95%;
 			padding: 20px;
 		}
 
