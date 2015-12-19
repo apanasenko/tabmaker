@@ -50,15 +50,36 @@ header {
 		@include respond-to(tablets) {
 			display: inline;
 			position: absolute;
-    		left: 50px;
+    		left: 70px;
 		}
 
 		@include respond-to(mobile) {
 			display: inline;
 			position: absolute;
-    		left: 50px;
+    		left: 60px;
 		}
 	}
+
+	.home-icon {
+		color: $dark;
+
+		@include respond-to(large) {
+			display: none;
+		}
+
+		@include respond-to(tablets) {
+			display: inline;
+			position: absolute;
+    		left: 10px;
+		}
+
+		@include respond-to(mobile) {
+			display: inline;
+			position: absolute;
+    		left: 10px;
+		}
+	}
+
 
 	.header_container {
 		display: inline-block;
@@ -90,12 +111,18 @@ header {
 
 				@include respond-to(tablets) {
 					line-height: 34px;
-    				margin-left: 100px;
+    				margin-left: 120px;
+    				font-size: 18px;
+				}
+
+				@include respond-to(mobile) {
+    				font-size: 18px;
 				}
 			}
 
 			@include respond-to(mobile) {
-				display: none;
+				display: block;
+				margin-left: 100px;
 			}
 		}
 

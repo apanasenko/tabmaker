@@ -10,6 +10,10 @@ $(document).ready(function() {
             }
         });
     }
+
+    if(window.location.pathname == '/') {
+        $('#page_title').hide();
+    }
 });
 
 $(function() {
