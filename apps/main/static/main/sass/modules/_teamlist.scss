@@ -32,6 +32,10 @@
 			display: inline;
 			margin-right: 20px;
 
+			@include respond-to(mobile) {
+				display: block;
+			}
+
 			a {
 				display: inline;
 				border-bottom: 1px dashed $grey;

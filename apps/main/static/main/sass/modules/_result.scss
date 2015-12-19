@@ -100,6 +100,11 @@
 
 .b-result {
 
+	&__confirm {
+		margin: 20px;
+		display: inline-block;
+	}
+
 	&-enter {
 		margin: 0 auto 20px 0;
 

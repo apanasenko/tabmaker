@@ -2,6 +2,10 @@ aside {
 	display: inline-block;
 	width: 20%;
 
+	@include respond-to(large) {
+		min-width: 250px;
+	}
+
 	@include respond-to(mobile) {
 		width: 100%;
 	}

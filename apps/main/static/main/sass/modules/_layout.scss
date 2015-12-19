@@ -65,7 +65,7 @@ i {
 	min-height: 68vh;
 
 	@include respond-to(mobile) {
-		padding: 0;
+    	padding: 70px 0 0 0 !important;
 	}
 
 	@include respond-to(tablets) {
@@ -82,6 +82,10 @@ i {
 	background-color: $background-block;
 	border-radius: 3px;
 	vertical-align: top;
+
+	@include respond-to(large) {
+		min-width: 710px;
+	}
 
 	@include respond-to(mobile) {
 		width: 100%;
