@@ -1,6 +1,6 @@
 footer {
 	background-color: white;
-	padding: 60px 0px;
+	padding: 40px 0px 50px 0;
 	display: block;
 	@include shadow;
 
@@ -29,9 +29,24 @@ footer {
 		float: left;
 
 		li {
-			color: $grey;
 			display: inline;
+			font-weight: 600;
 			margin-right: 20px;
+			border-bottom: 1px solid transparent;
+
+			&:hover {
+				border-bottom: 1px dashed $grey;
+				transition: 0.2s border-bottom;
+			}
+
+			a {
+				color: $grey;
+			}
+
+			@include respond-to(mobile) {
+				display: block;
+				line-height: 1.7;
+			}
 		}
 	}
 
