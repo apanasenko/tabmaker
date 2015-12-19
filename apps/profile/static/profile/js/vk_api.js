@@ -12,13 +12,14 @@ function getDataFromVK(url){
 }
 
 function getCountriesFromVK(){
-    getDataFromVK("https://api.vk.com/method/database.getCountries?callback=loadCountries");
+    getDataFromVK("https://api.vk.com/method/database.getCountries?count=10000&callback=loadCountries");
 }
 
 function getCitiesFromVK(){
     getDataFromVK(
         "https://api.vk.com/method/database.getCities" +
         "?country_id=" + $("#id_country_id").val() +
+        "&count=10000" +
         "&callback=loadCities"
     );
 }
@@ -28,6 +29,7 @@ function getUniversitiesFromVK(){
         "https://api.vk.com/method/database.getUniversities?" +
         "?country_id=" + $("#id_country_id").val() +
         "&city_id=" + $("#id_city_id").val() +
+        "&count=10000" +
         "&callback=loadUniversities"
     );
 }
