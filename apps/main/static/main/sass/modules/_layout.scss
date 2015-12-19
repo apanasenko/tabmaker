@@ -83,6 +83,10 @@ i {
 	border-radius: 3px;
 	vertical-align: top;
 
+	@include respond-to(large) {
+		min-width: 710px;
+	}
+
 	@include respond-to(mobile) {
 		width: 100%;
 		margin: 10px 0;

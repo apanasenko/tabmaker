@@ -18,6 +18,10 @@ header {
 		vertical-align: middle;
 		width: 21%;
 
+		@include respond-to(large) {
+			min-width: 275px;
+		}
+
 		@include respond-to(mobile) {
 			display: none;
 		}
@@ -59,6 +63,10 @@ header {
 	.header_container {
 		display: inline-block;
 		width: 58%;
+
+		@include respond-to(large) {
+			min-width: 700px;
+		}
 
 		@include respond-to(mobile) {
 			width: 90%;
