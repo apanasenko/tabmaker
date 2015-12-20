@@ -84,6 +84,10 @@ label {
 			@include span(3 of 12);
 			box-sizing: border-box;
 
+			@include respond-to(large) {
+				width: 29%;
+			}
+
 			@include respond-to(mobile) {
 				width: 100%;
 				float: inherit;
