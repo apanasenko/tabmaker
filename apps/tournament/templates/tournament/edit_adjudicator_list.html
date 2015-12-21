@@ -65,7 +65,7 @@
         </div>
         <input id="chair_id" value="{{ chair_role.id }}" type="hidden">
         <input id="chair_need" value="{{ chair_need }}" type="hidden">
-        <button id="check_button" class="button formItem" disabled onclick="redirect('{% url 'tournament:start' tournament.id %}')">
+        <button id="check_button" class="button count-by-role__confirm" disabled onclick="redirect('{% url 'tournament:place_check' tournament.id %}')">
             Начать турнир
         </button>
     {% endif %}
