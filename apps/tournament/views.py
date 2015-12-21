@@ -906,6 +906,8 @@ def place_list(request, tournament):
         request,
         'tournament/place_list.html',
         {
+            'is_check_page': request.path == reverse('tournament:place_check', args=[tournament.id]),
+            'places_need': tournament.teamtournamentrel_set.filter(role=ROLE_MEMBER).count() // TEAM_IN_GAME,
             'places': tournament.place_set.all(),
             'tournament': tournament,
         }

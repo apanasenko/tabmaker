@@ -51,5 +51,15 @@
         <a class="button" onclick="save_place('{% url 'tournament:place_add' tournament.id %}')">Добавить аудиторию</a>
     </div>
 
+    {% if is_check_page %}
+        <div id="check_warning" class="disclaimer-red">
+            <p>Количество досткпных аудиторий должно быть не меньше {{ places_need }}</p>
+        </div>
+        <input id="places_need" value="{{ places_need }}" type="hidden">
+        <button id="check_button" class="button count-by-role__confirm" disabled onclick="redirect('{% url 'tournament:start' tournament.id %}')">
+            Начать турнир
+        </button>
+    {% endif %}
+
 </div>
 {% endblock content %}

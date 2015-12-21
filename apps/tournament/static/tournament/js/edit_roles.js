@@ -97,8 +97,3 @@ $(document).ready(function(){
         show_blocks(this);
     });
 });
-
-
-function redirect(url){
-    window.location.href = url;
-}
