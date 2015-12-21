@@ -53,6 +53,7 @@ function remove_place(block, url){
             if (data.status == 'ok'){
                 place_block.remove();
             }
+            update_button();
         }
     );
 }
@@ -72,6 +73,7 @@ function activated_place(block){
             } else {
                 place_block.find('.errors').html(data.message);
             }
+            update_button();
         }
     );
 }
@@ -95,4 +97,9 @@ function save_place(url){
             }
         }
     );
+}
+
+
+function redirect(url){
+    window.location.href = url;
 }
