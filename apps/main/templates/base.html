@@ -112,7 +112,7 @@
             <ul class="b-footer__info">
                 <li><a href="#">О проекте</a></li>
                 <li><a href="#">Как провести турнир</a></li>
-                <li><a href="https://vk.com/tabmaker" target="_blank">Мы Вконтакте</a></li>
+                <li>{% include 'main/vk.html' with vk_title='Мы Вконтакте' %}</li>
             </ul>
         </div>
     {% endblock footer %}
