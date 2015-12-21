@@ -39,7 +39,7 @@
                                 onchange="update_status(
                                         '{% url 'tournament:update_adjudicator_role' tournament.id%}',
                                         this,
-                                        {{ rel.id }},
+                                        '{{ rel.id }}',
                                         'message_{{ rel.id }}'
                                         )"
                                 onfocus="on_focus(this)"
