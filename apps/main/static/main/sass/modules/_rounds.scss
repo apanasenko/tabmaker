@@ -40,3 +40,9 @@
 		padding: 10px 0;
 	}
 }
+
+.b-edit { // выделение команд при swap'е
+	&__swap {
+		background-color: $hover;
+	}
+}
