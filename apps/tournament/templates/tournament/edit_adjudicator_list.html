@@ -39,7 +39,7 @@
                                 onchange="update_status(
                                         '{% url 'tournament:update_adjudicator_role' tournament.id%}',
                                         this,
-                                        {{ rel.id }},
+                                        '{{ rel.id }}',
                                         'message_{{ rel.id }}'
                                         )"
                                 onfocus="on_focus(this)"
@@ -60,13 +60,13 @@
     </div>
 
     {% if is_check_page %}
-        <div id="check_warning">
+        <div id="check_warning" class="disclaimer-red">
             <p>Количество участников со статусом "{{ chair_role.role }}"  должно быть не меньше {{ chair_need }}</p>
         </div>
         <input id="chair_id" value="{{ chair_role.id }}" type="hidden">
         <input id="chair_need" value="{{ chair_need }}" type="hidden">
-        <button id="check_button" class="button formItem" disabled onclick="redirect('{% url 'tournament:start' tournament.id %}')">
-            Начать турнир
+        <button id="check_button" class="button count-by-role__confirm" disabled onclick="redirect('{% url 'tournament:place_check' tournament.id %}')">
+            Далее
         </button>
     {% endif %}
 

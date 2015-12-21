@@ -1,11 +1,13 @@
+var selected_block_css = 'b-edit__swap';
+
 function swap(element, buffer, element_name){
     if (!buffer){
-        $(element).css('background', '#fff');
+        $(element).addClass(selected_block_css);
         return element;
     } else {
         var class_id = '.' + element_name + '_id';
         var class_name = '.' + element_name + '_name';
-        $(buffer).css('background', $(element).parent().css('background'));
+        $(buffer).removeClass(selected_block_css);
 
         var team_name = $(element).find(class_name).html();
         var team_id = $(element).find(class_id).val();

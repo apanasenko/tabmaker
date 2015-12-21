@@ -153,6 +153,10 @@
 	&__confirm {
 		margin-bottom: 20px;
 		margin-left: 20px;
+
+        &:disabled {
+            background-color: $disabled_button;
+        }
 	}
 }
 

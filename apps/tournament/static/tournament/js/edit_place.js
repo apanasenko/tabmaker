@@ -6,11 +6,23 @@ $(document).ready(function(){
     $('.place_checkbox').change(function(){
         activated_place(this);
     });
+    update_button();
 });
 
 
 function parseBool(str){
     return $.parseJSON(str.toLowerCase())
+}
+
+
+function update_button(){
+    if ($('.place_checkbox:checked').length >= $('#places_need').val()){
+        $('#check_warning').hide();
+        $('#check_button').prop('disabled', false);
+    } else {
+        $('#check_warning').show();
+        $('#check_button').prop('disabled', true);
+    }
 }
 
 
@@ -21,7 +33,11 @@ function generate_place_block(name, id, is_active){
     new_block.find('.place_name').html(name);
     new_block.attr('id', id);
     new_block.find('.place_checkbox').prop('checked', is_active);
+    new_block.find('.place_checkbox').change(function(){
+        activated_place(this);
+    });
     new_block.show();
+    update_button();
 }
 
 
@@ -37,6 +53,7 @@ function remove_place(block, url){
             if (data.status == 'ok'){
                 place_block.remove();
             }
+            update_button();
         }
     );
 }
@@ -56,6 +73,7 @@ function activated_place(block){
             } else {
                 place_block.find('.errors').html(data.message);
             }
+            update_button();
         }
     );
 }
@@ -79,4 +97,9 @@ function save_place(url){
             }
         }
     );
+}
+
+
+function redirect(url){
+    window.location.href = url;
 }

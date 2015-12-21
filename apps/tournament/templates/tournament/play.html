@@ -33,6 +33,7 @@
             </a>
         {% endif %}
         <a class="button b-tournament-summary-commands__button" href="{% url 'tournament:result' tournament.id%}"> Показать результаты </a>
+        <a class="button b-tournament-summary-commands__button" href="{% url 'tournament:result_all' tournament.id%}"> Подробные результаты </a>
         <a class="button b-tournament-summary-commands__button" href="{% url 'tournament:presentation_round' tournament.id %}"> Презентация раунда </a>
     </div>
 </div>

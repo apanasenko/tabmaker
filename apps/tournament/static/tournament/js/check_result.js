@@ -89,8 +89,8 @@ function check_results(){
                     if(!speakers[value].is_all || !speakers[i].is_all)
                         continue;
 
-                    if (speakers[value].sum > speakers[i].sum){
-                        checked_room = checked_room && confirm('Сумма спикерских у ' + (value).toString() + ' команды больше чем у ' + i.toString() + ' команды. Продолжить?');
+                    if (speakers[value].sum >= speakers[i].sum){
+                        checked_room = checked_room && confirm('Сумма спикерских у ' + i.toString() + ' команды должна быть больше чем у ' + value.toString() + ' команды. Уверены, что хотите продолжиь?');
                     }
                 }
             });
