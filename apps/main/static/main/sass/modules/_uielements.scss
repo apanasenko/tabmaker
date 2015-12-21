@@ -10,25 +10,30 @@
         display: block;
         width: 100%;
     }
+}
 
-    p {
-        color: white;
+.disclaimer {
+
+    &-red, &-yellow, &-green {
+
+        @include disclaimer;
+
+        p {
+            color: white;
+        }
     }
-}
 
-@mixin disclaimer-red {
-    @include disclaimer;
-    background-color: orangered;
-}
+    &-red {
+        background-color: $error_message;
+    }
 
-@mixin disclaimer-yellow {
-    @include disclaimer;
-    background-color: gold;
-}
+    &-yellow {
+        background-color: gold;
+    }
 
-@mixin disclaimer-green {
-    @include disclaimer;
-    background-color: darkcyan;
+    &-green {
+        background-color: $success_message;
+    }
 }
 
 @mixin notification {
@@ -46,15 +51,15 @@
     }
 
     &-red {
-        background-color: #ff3d4c;
+        background-color: $error_message;
     }
 
     &-green {
-        background-color: #188b38;
+        background-color: $success_message;
     }
 
     &-yellow {
-        background-color: #ffbf24;
+        background-color: gold;
     }
 }
 
