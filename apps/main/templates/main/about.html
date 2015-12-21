@@ -1,0 +1,20 @@
+{% extends "main/base.html" %}
+
+{% load profile_extras %}
+
+{% block page_title %}
+    О проекте
+{% endblock page_title %}
+
+{% block content %}
+
+    <div id="message" class="b-message">
+        <p>Похоже, такой страницы не существует.</p>
+    </div>
+
+    <div id="message_back" class="b-message__back">
+        <a class="button" href="{% if url %}{{ url }}{% else %}javascript:history.back(){% endif %}">Назад</a>
+        <a class="button" href="{% url "main:index" %}">На главную</a>
+    </div>
+
+{% endblock content %}

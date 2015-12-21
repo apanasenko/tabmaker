@@ -20,6 +20,7 @@ header {
 
 		@include respond-to(large) {
 			min-width: 275px;
+			margin-bottom: 30px;
 		}
 
 		@include respond-to(mobile) {
@@ -32,11 +33,11 @@ header {
 
 		img {
 			display: inline-block;
-			height: 40%;
+			height: 50%;
 			max-width: none;
 			max-height: 80px;
 			box-sizing: content-box;
-			padding: 10px 10px 10px 30px;
+			padding: 20px 10px 10px 30px;
 		}
 
 	}
@@ -125,6 +126,11 @@ header {
 			@include respond-to(mobile) {
 				display: block;
 				margin-left: 100px;
+			}
+
+			@include respond-to(large) {
+				float: left;
+    			margin-bottom: 5px;
 			}
 		}
 

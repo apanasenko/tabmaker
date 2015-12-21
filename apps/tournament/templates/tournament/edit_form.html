@@ -57,9 +57,10 @@
     {{ form.count_teams.errors }}
     {{ form.count_rounds.errors }}
     {{ form.count_teams_in_break.errors }}
-
-    {{ form.info }}
+    <div class="b-form-item__wrapper">
+        {{ form.info }}
+        {{ form.link }}
+    </div>
     {{ form.info.errors }}
-    {{ form.link }}
     {{ form.link.errors }}
 </div>

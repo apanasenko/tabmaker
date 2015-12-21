@@ -37,10 +37,17 @@
     	box-sizing: border-box;
     	width: 49%;
     	display: inline-block;
+    	border-top: 1px solid $background-page;
+
+		&:hover {
+			box-shadow: 0 0 10px rgba(0,0,0,0.5);
+			transition: 0.2s box-shadow;
+		}
 
     	@include respond-to(tablets) {
 		    width: 100%;
 		    display: block;
+		    padding: 10px 20px;
 		}
 
 		@include respond-to(mobile) {
@@ -51,6 +58,22 @@
 		h3, .b-result-room__team {
 			box-sizing: border-box;
 			padding-left: 20px;
+		}
+
+		p {
+			@include respond-to(large) {
+				padding: 0 0 0 20px;
+			}
+		}
+	}
+
+	&__co {
+		border-bottom: 1px solid $background-page;
+	}
+
+	&__cg {
+		@include respond-to(large) {
+			border-bottom: 1px solid $background-page;
 		}
 	}
 
@@ -79,7 +102,6 @@
 			display: inline-block;
 		}
 	}
-
 }
 
 .speaker_name {
