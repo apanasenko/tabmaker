@@ -20,6 +20,12 @@
 		vertical-align: top;
 		margin: 0;
 
+		@include respond-to(mobile) {
+			display: block;
+			width: 100%;
+			text-align: left;
+		}
+
 		h3 {
 			display: inline-block;
 			margin-right: 5px;
@@ -53,6 +59,8 @@
 		@include respond-to(mobile) {
 		    width: 100%;
 		    display: block;
+		    box-sizing: border-box;
+		    padding: 20px 10px;
 		}
 
 		h3, .b-result-room__team {
