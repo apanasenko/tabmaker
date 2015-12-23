@@ -3,6 +3,7 @@
     &-item {
         box-sizing: border-box;
         padding: 20px 40px;
+        min-height: 255px;
 
         @include respond-to(mobile) {
             padding: 10px 10px;
