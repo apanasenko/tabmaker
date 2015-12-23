@@ -4,6 +4,10 @@ $susy: (
   container: 100%,
 );
 
+html, body {
+  height: 100%;
+}
+
 body {
 	font-family: "PT Sans", Arial, "Helvetica Neue", sans-serif;
 	background-color: $background-page;
@@ -58,11 +62,26 @@ i {
 .page_wrapper {
 	margin: 0 auto;
 	background-color: $background-page;
+	height: 100%;
+	margin-bottom: -90px;
+
+	@include respond-to(mobile) {
+		height: initial;
+	}
+
+	@include respond-to(tablets) {
+		height: initial;
+	}
+
+	&:after {
+	  	content: "";
+	  	display: block;
+	  	height: 90px;
+	}
 }
 
 .content_conteiner {
 	padding: 25px;
-	min-height: 68vh;
 
 	@include respond-to(mobile) {
     	padding: 70px 0 0 0 !important;

@@ -1,12 +1,21 @@
 footer {
 	background-color: white;
-	padding: 40px 0px 50px 0;
+	padding: 30px 0px;
+	box-sizing: border-box;
 	display: block;
+	height: 90px;
 	@include shadow;
 
 	@include respond-to(mobile) {
 		padding: 30px 10px;
 		box-sizing: border-box;
+		height: initial;
+	}
+
+	@include respond-to(tablets) {
+		padding: 30px 10px;
+		box-sizing: border-box;
+		height: initial;
 	}
 }
 
@@ -45,6 +54,10 @@ footer {
 
 			@include respond-to(mobile) {
 				display: block;
+				line-height: 1.7;
+			}
+
+			@include respond-to(tablets) {
 				line-height: 1.7;
 			}
 		}
