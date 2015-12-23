@@ -62,7 +62,7 @@ i {
 .page_wrapper {
 	margin: 0 auto;
 	background-color: $background-page;
-	height: 100%;
+	min-height: 100%;
 	margin-bottom: -90px;
 
 	@include respond-to(mobile) {

@@ -10,22 +10,26 @@
         }
 
         &__date {
-
+            margin: 10px 0;
+            font-weight: 700;
         }
 
         &__superheading {
             margin: 30px 0;
             text-align: center;
+            line-height: 1.4;
         }
 
         &__heading {
-            margin-top: 20px;
+            margin-top: 30px;
+            line-height: 1.4;
         }
 
         &__subheading {
             margin: 10px 0;
             font-size: 18px;
             font-weight: 600;
+            line-height: 1.4;
         }
 
         &__text {
@@ -42,7 +46,11 @@
             li {
                 list-style-type: disc;
                 margin-left: 40px;
-                line-height: 1.4;
+                line-height: 1.6;
+
+                @include respond-to(mobile) {
+                    margin-left: 20px;
+                }
             }
         }
     }
