@@ -1,17 +1,48 @@
 .b-post {
 
     &-item {
+        box-sizing: border-box;
+        padding: 20px 40px;
+
+        @include respond-to(mobile) {
+            padding: 10px 10px;
+        }
 
         &__date {
 
         }
 
-        &__heading {
+        &__superheading {
+            margin: 30px 0;
+            text-align: center;
+        }
 
+        &__heading {
+            margin-top: 20px;
+        }
+
+        &__subheading {
+            margin: 10px 0;
+            font-size: 18px;
+            font-weight: 600;
         }
 
         &__text {
+            margin-bottom: 10px;
 
+            p {
+                line-height: 1.4;
+            }
+        }
+
+        &__list {
+            margin: 5px 0;
+
+            li {
+                list-style-type: disc;
+                margin-left: 40px;
+                line-height: 1.4;
+            }
         }
     }
 }
