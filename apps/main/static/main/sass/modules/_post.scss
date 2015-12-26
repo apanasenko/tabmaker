@@ -51,7 +51,17 @@
                 @include respond-to(mobile) {
                     margin-left: 20px;
                 }
+
+                p {
+                    padding-bottom: 10px;
+                }
             }
+        }
+
+        a {
+            display: inline;
+            border-bottom: 1px dashed $grey;
+            padding-bottom: 3px;
         }
     }
 }
