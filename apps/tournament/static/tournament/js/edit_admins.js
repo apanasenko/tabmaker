@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $('#temp').hide();
+    $('#new_admin .errors').hide();
     init();
 });
 
@@ -52,7 +53,7 @@ function improve_to_owner(block, url, redirect_to){
 function save_admin(url){
     var new_admin_block = $('#new_admin');
     var name_input = new_admin_block.find('#add_admin_input');
-    new_admin_block.find('.errors').html('');
+    new_admin_block.find('.errors').hide('');
     $.post(
         url,
         {
@@ -60,7 +61,7 @@ function save_admin(url){
         },
         function(data, status){
             if (data.status == 'bad'){
-                new_admin_block.find('.errors').html(data.message);
+                new_admin_block.find('.errors').html(data.message).show();
             } else {
                 generate_admin_block(data.message.name, data.message.rel_id);
                 name_input.val('');
