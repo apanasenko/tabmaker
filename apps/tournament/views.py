@@ -362,6 +362,8 @@ def result_all_rounds(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='remove')
 def remove(request, tournament):
+    if tournament.id == 1:
+        return _show_message(request, 'Нельзя удалить тестовый турнир')
     need_message = CONFIRM_MSG_REMOVE
     redirect_to = 'main:index'
     template_body = 'tournament/remove_message.html'
