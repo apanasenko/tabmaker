@@ -88,6 +88,11 @@ function show_blocks(checkbox){
 }
 
 
+function redirect(url){
+    window.location.href = url;
+}
+
+
 $(document).ready(function(){
     $("select.roles").each(function(){
         update_info_block(this.value, 1);
