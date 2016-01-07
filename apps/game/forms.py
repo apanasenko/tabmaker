@@ -73,6 +73,9 @@ class ResultGameForm(forms.ModelForm):
 
     def clean(self):
         super(ResultGameForm, self).clean()
+        if not self.is_valid():
+            return
+
         for i in ['pm', 'lo', 'mg', 'mo', 'dpm', 'dlo', 'gw', 'ow']:
             if self.cleaned_data[i + '_exist']:
                 if self.cleaned_data[i] < self.min_speaker_points:

@@ -21,12 +21,13 @@ class TeamRegistrationForm(forms.ModelForm):
 
         return speaker_1
 
-    def clean_speaker_2(self):
-        speaker_1 = self.cleaned_data['speaker_1']
-        speaker_2 = self.cleaned_data['speaker_2']
-
-        if speaker_1 == speaker_2:  # TODO перевести сообщение об ошибки
+    def clean(self):
+        super(TeamRegistrationForm, self).clean()
+        if self.is_valid() and self.cleaned_data['speaker_1'] == self.cleaned_data['speaker_2']:  # TODO перевести сообщение об ошибки
             raise forms.ValidationError(u'Email первого и второго спикера должны различаться')
+
+    def clean_speaker_2(self):
+        speaker_2 = self.cleaned_data['speaker_2']
 
         if not User.objects.filter(email=speaker_2).count():  # TODO перевести сообщение об ошибки
             raise forms.ValidationError(u'Пользователь с таким email не зарегистрировался на сайте')

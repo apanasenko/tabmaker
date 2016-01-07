@@ -697,6 +697,37 @@ def add_team(request, tournament):
     )
 
 
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='team/adju. add')  # TODO добавить в таблицу
+def import_team(request, tournament):
+
+    from apps.team.imports import TeamImportForm, ImportTeam
+
+    message = ''
+    results = []
+    import_form = TeamImportForm(request.POST or None)
+    if request.method == 'POST' and import_form.is_valid():
+        imports = ImportTeam(import_form)
+        try:
+            imports.connect_to_worksheet()
+            imports.read_titles()
+            results = imports.import_teams(tournament)
+
+        except Exception as ex:
+            message = str(ex)
+
+    return render(
+        request,
+        'tournament/import_team_form.html',
+        {
+            'results': results,
+            'message': message,
+            'form': import_form,
+            'tournament': tournament,
+        }
+    )
+
+
 @ensure_csrf_cookie
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. edit')
