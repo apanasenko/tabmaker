@@ -19,7 +19,6 @@ pyasn1==0.1.9
 pyasn1-modules==0.0.8
 pycparser==2.14
 pyOpenSSL==0.15.1
-pyreadline==2.1
 python3-openid==3.0.7
 pytz==2015.6
 requests==2.8.0
