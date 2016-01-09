@@ -1,3 +1,4 @@
+from allauth.account.models import EmailAddress
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -35,3 +36,35 @@ class User(AbstractUser):
         return "%s %s" % (self.first_name, self.last_name) \
             if self.last_name \
             else self.email
+
+    def confirmation(self):
+        EmailAddress.objects.create(
+            user=self,
+            email=self.email,
+            verified=True,
+            primary=True,
+        )
+    @staticmethod
+    def get_or_create(email: str, full_name: str):
+        user = User.objects.filter(email=email).last()
+        if user:
+            return user, True
+        else:
+            name = full_name.strip().split(maxsplit=1)
+            name += ['', '']
+            user = User.objects.create(
+                email=email,
+                username=email,
+                last_name=name[0],
+                first_name=name[1],
+                phone='',
+                university_id=1,
+                link='https://vk.com/tabmaker',
+                player_experience='',
+                adjudicator_experience='',
+                is_show_phone=False,
+                is_show_email=False,
+            )
+            user.confirmation()
+
+            return user, False

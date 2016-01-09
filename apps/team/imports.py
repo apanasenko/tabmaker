@@ -1,5 +1,4 @@
 import gspread
-from allauth.account.utils import send_email_confirmation
 from django import forms
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
@@ -81,9 +80,10 @@ class ImportTeam:
             try:
                 result['s1'] = {}
                 result['s1']['email'] = row[self.cells[MSG_S1_EMAIL].col - 1].strip()
-                result['s1']['status'], user_1 = ImportTeam.get_or_create_user(
+                result['s1']['status'], user_1 = ImportTeam.import_user(
                     result['s1']['email'],
-                    row[self.cells[MSG_S1_NAME].col - 1]
+                    row[self.cells[MSG_S1_NAME].col - 1],
+                    tournament
                 )
             except Exception as ex:
                 result['s1']['status'] = self.STATUS_FAIL
@@ -92,9 +92,10 @@ class ImportTeam:
             try:
                 result['s2'] = {}
                 result['s2']['email'] = row[self.cells[MSG_S2_EMAIL].col - 1].strip()
-                result['s2']['status'], user_2 = ImportTeam.get_or_create_user(
+                result['s2']['status'], user_2 = ImportTeam.import_user(
                     result['s2']['email'],
-                    row[self.cells[MSG_S2_NAME].col - 1]
+                    row[self.cells[MSG_S2_NAME].col - 1],
+                    tournament
                 )
             except Exception as ex:
                 result['s2']['status'] = self.STATUS_FAIL
@@ -147,27 +148,13 @@ class ImportTeam:
             raise Exception('Неверный e-mail')
 
     @staticmethod
-    def get_or_create_user(email: str, full_name: str):
+    def import_user(email: str, full_name: str, tournament: Tournament):
         ImportTeam.check_email(email)
-        user = User.objects.filter(email=email).last()
-        if user:
-            return ImportTeam.STATUS_EXIST, user
-        else:
-            name = full_name.strip().split(maxsplit=1)
-            name += ['', '']
-            user = User.objects.create(
-                email=email,
-                username=email,
-                last_name=name[0],
-                first_name=name[1],
-                phone='',
-                university_id=1,
-                link='https://vk.com/tabmaker',
-                player_experience=' ',
-                adjudicator_experience=' ',
-                is_show_phone=False,
-                is_show_email=False,
-            )
-            send_email_confirmation(re)
-            return ImportTeam.STATUS_ADD, user
+        user, is_exist = User.get_or_create(email, full_name)
+
+        status = ImportTeam.STATUS_EXIST
+        if not is_exist:
+            status = ImportTeam.STATUS_ADD
+
+        return status, user
 
