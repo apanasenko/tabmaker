@@ -155,6 +155,9 @@ class ImportTeam:
         status = ImportTeam.STATUS_EXIST
         if not is_exist:
             status = ImportTeam.STATUS_ADD
+            password = user.set_random_password()
+            if False:
+                user.send_email_about_import(tournament, password)
 
         return status, user
 

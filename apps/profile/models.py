@@ -1,6 +1,10 @@
 from allauth.account.models import EmailAddress
 from django.contrib.auth.models import AbstractUser
+from django.core.mail import EmailMultiAlternatives
 from django.db import models
+from django.template.loader import get_template
+from django.template import Context
+from DebatesTournament.settings.smtp_email import EMAIL_HOST_USER
 
 
 class Country(models.Model):
@@ -44,6 +48,34 @@ class User(AbstractUser):
             verified=True,
             primary=True,
         )
+
+    def send_email_about_import(self, tournament, password):
+        email = EmailMultiAlternatives(
+            get_template('account/email/email_import_signup_subject.txt').render().strip(),
+            get_template('account/email/email_import_signup_message.txt').render(Context({
+                'user': self,
+                'tournament': tournament,
+                'password': password,
+            })),
+            EMAIL_HOST_USER,
+            [self.email]
+        )
+        email.attach_alternative(
+            get_template('account/email/email_import_signup_message.html').render(Context({
+                'user': self,
+                'tournament': tournament,
+                'password': password,
+            })),
+            "text/html"
+        )
+        email.send()
+
+    def set_random_password(self):
+        password = User.objects.make_random_password()
+        self.set_password(password)
+        self.save()
+        return password
+
     @staticmethod
     def get_or_create(email: str, full_name: str):
         user = User.objects.filter(email=email).last()

@@ -1,0 +1,18 @@
+{% load account %}
+{% load profile_extras %}
+
+
+<H2>{{ user|name }}, добро пожаловать в <a href='http://tabmaker.info/'> Tabmaker </a></H2>
+<br>
+<br>
+Организаторы турнира {{ tournament.name }} зарегистрировали вас сайте <a href='http://tabmaker.info/'>tabmaker.info</a>.
+<br>
+У нас вы сможете следить за ходом турнира, просматривать результаты прошедших раундов и регестрироваться на новые турниры
+<br>
+<br>
+Ваш пароль: {{ password }}
+<br>
+Вы можете изменить его, а также дополнить информацию о себе на странице
+<a href="http://tabmaker.info{% url 'profile:main' user.id %}">профиля</a>.
+<br>
+С Уважением, команда Tabmaker!
