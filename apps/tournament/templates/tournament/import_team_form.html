@@ -9,25 +9,6 @@
     {% if message %}
         <p>{{ message }}</p>
     {% endif %}
-    {% for result in results %}
-        <div>
-            <p>{{ result.team.name }}</p>
-            <p>{{ result.team.status }}</p>
-            <p>{{ result.team.error }}</p>
-        </div>
-        <div>
-            <p>{{ result.s1.email }}</p>
-            <p>{{ result.s1.status }}</p>
-            <p>{{ result.s1.error }}</p>
-        </div>
-        <div>
-            <p>{{ result.s2.email }}</p>
-            <p>{{ result.s2.status }}</p>
-            <p>{{ result.s2.error }}</p>
-        </div>
-        <hr>
-    {% endfor %}
-
     <form class="b-form" action="{% url "tournament:import_team" tournament.id %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}

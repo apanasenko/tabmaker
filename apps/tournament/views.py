@@ -716,11 +716,21 @@ def import_team(request, tournament):
         except Exception as ex:
             message = str(ex)
 
+        if results:
+            return render(
+                request,
+                'tournament/import_results.html',
+                {
+                    'results': results,
+                    'message': message,
+                    'tournament': tournament,
+                }
+            )
+
     return render(
         request,
         'tournament/import_team_form.html',
         {
-            'results': results,
             'message': message,
             'form': import_form,
             'tournament': tournament,

@@ -1,5 +1,10 @@
+from allauth.account.models import EmailAddress
 from django.contrib.auth.models import AbstractUser
+from django.core.mail import EmailMultiAlternatives
 from django.db import models
+from django.template.loader import get_template
+from django.template import Context
+from DebatesTournament.settings.smtp_email import EMAIL_HOST_USER
 
 
 class Country(models.Model):
@@ -35,3 +40,63 @@ class User(AbstractUser):
         return "%s %s" % (self.first_name, self.last_name) \
             if self.last_name \
             else self.email
+
+    def confirmation(self):
+        EmailAddress.objects.create(
+            user=self,
+            email=self.email,
+            verified=True,
+            primary=True,
+        )
+
+    def send_email_about_import(self, tournament, password):
+        email = EmailMultiAlternatives(
+            get_template('account/email/email_import_signup_subject.txt').render().strip(),
+            get_template('account/email/email_import_signup_message.txt').render(Context({
+                'user': self,
+                'tournament': tournament,
+                'password': password,
+            })),
+            EMAIL_HOST_USER,
+            [self.email]
+        )
+        email.attach_alternative(
+            get_template('account/email/email_import_signup_message.html').render(Context({
+                'user': self,
+                'tournament': tournament,
+                'password': password,
+            })),
+            "text/html"
+        )
+        email.send()
+
+    def set_random_password(self):
+        password = User.objects.make_random_password()
+        self.set_password(password)
+        self.save()
+        return password
+
+    @staticmethod
+    def get_or_create(email: str, full_name: str):
+        user = User.objects.filter(email=email).last()
+        if user:
+            return user, True
+        else:
+            name = full_name.strip().split(maxsplit=1)
+            name += ['', '']
+            user = User.objects.create(
+                email=email,
+                username=email,
+                last_name=name[0],
+                first_name=name[1],
+                phone='',
+                university_id=1,
+                link='https://vk.com/tabmaker',
+                player_experience='',
+                adjudicator_experience='',
+                is_show_phone=False,
+                is_show_email=False,
+            )
+            user.confirmation()
+
+            return user, False
