@@ -11,28 +11,33 @@
     {% endif %}
     <form class="b-form" action="{% url "tournament:import_team" tournament.id %}" method="post">
         {% csrf_token %}
-        <div class="b-form-item b-">
-            <h3>{{ form.url.label }}</h3>
+        <div class="b-import__disclaimer">
+            <h3 class="b-import__heading">Импорт команд из Google Drive</h3>
+            <p class="b-import__description">Чтобы Tabmaker смог прочитать таблицу, вы должны в таблице Google Drive дать доступ с правами на редактирование таблицы для пользователя <span class="b-import__email">import@debate-tabmaker.iam.gserviceaccount.com</span></p>
+            <a class="b-import__link" href="https://support.google.com/drive/answer/2494822?hl=ru" class="b-import__disclaimer">Как дать доступ к таблице Google Drive?</a>
+        </div>
+        <div class="b-form-item">
+            <label class="b-form-item__label b-import__label">{{ form.url.label }}</label>
             {{ form.url }}
         </div>
         <div class="b-form-item">
-            <h3>{{ form.team_name.label }}</h3>
+            <label class="b-form-item__label b-import__label">{{ form.team_name.label }}</label>
             {{ form.team_name }}
         </div>
         <div class="b-form-item">
-            <h3>{{ form.speaker_1_name.label }}</h3>
+            <label class="b-form-item__label b-import__label">{{ form.speaker_1_name.label }}</label>
             {{ form.speaker_1_name }}
         </div>
         <div class="b-form-item">
-            <h3>{{ form.speaker_1_email.label }}</h3>
+            <label class="b-form-item__label b-import__label">{{ form.speaker_1_email.label }}</label>
             {{ form.speaker_1_email }}
         </div>
         <div class="b-form-item">
-            <h3>{{ form.speaker_2_name.label }}</h3>
+            <label class="b-form-item__label b-import__label">{{ form.speaker_2_name.label }}</label>
             {{ form.speaker_2_name }}
         </div>
         <div class="b-form-item">
-            <h3>{{ form.speaker_2_email.label }}</h3>
+            <label class="b-form-item__label b-import__label">{{ form.speaker_2_email.label }}</label>
             {{ form.speaker_2_email }}
         </div>
          <button type="submit" class="button">Сохранить</button>
