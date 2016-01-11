@@ -10,21 +10,22 @@
         <p>{{ message }}</p>
     {% endif %}
     {% for result in results %}
-        <div>
-            <p>{{ result.team.name }}</p>
-            <p>{{ result.team.status }}</p>
-            <p>{{ result.team.error }}</p>
-        </div>
-        <div>
+        <div class="b-teamlist">
+        <div class="b-teamlist__wrapper">
+            <div class="b-teamlist__heading">
+                <h3>{{ result.team.name }}</h3>
+                <span class="b-teamlist__heading-status">{{ result.team.status }}</span>
+                <p class="errorlist">{{ result.team.error }}</p>
+            </div>
+
             <p>{{ result.s1.email }}</p>
             <p>{{ result.s1.status }}</p>
             <p>{{ result.s1.error }}</p>
-        </div>
-        <div>
+
             <p>{{ result.s2.email }}</p>
             <p>{{ result.s2.status }}</p>
             <p>{{ result.s2.error }}</p>
         </div>
-        <hr>
+        </div>
     {% endfor %}
 {% endblock content %}

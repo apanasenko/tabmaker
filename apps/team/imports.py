@@ -11,14 +11,14 @@ from apps.team.models import Team
 
 
 class TeamImportForm(forms.Form):
-    url = forms.URLField(widget=forms.URLInput())
-    team_name = forms.CharField(widget=forms.TextInput(), label=MSG_TEAM_NAME)
+    url = forms.URLField(widget=forms.URLInput(attrs={'class': 'b-form-item__input_full', 'placeholder': 'Скопируйте ссылку из адресной строки браузера'}), label=MSG_TEAM_URL)
+    team_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'b-form-item__input_full', 'placeholder': 'Скопируйте текст ячейки из таблицы'}), label=MSG_TEAM_NAME)
 
-    speaker_1_email = forms.CharField(widget=forms.TextInput(), label=MSG_S1_EMAIL)
-    speaker_1_name = forms.CharField(widget=forms.TextInput(), label=MSG_S1_NAME)
+    speaker_1_email = forms.CharField(widget=forms.TextInput(attrs={'class': 'b-form-item__input_full', 'placeholder': 'Скопируйте текст ячейки из таблицы'}), label=MSG_S1_EMAIL)
+    speaker_1_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'b-form-item__input_full', 'placeholder': 'Скопируйте текст ячейки из таблицы'}), label=MSG_S1_NAME)
 
-    speaker_2_email = forms.CharField(widget=forms.TextInput(), label=MSG_S2_EMAIL)
-    speaker_2_name = forms.CharField(widget=forms.TextInput(), label=MSG_S2_NAME)
+    speaker_2_email = forms.CharField(widget=forms.TextInput(attrs={'class': 'b-form-item__input_full', 'placeholder': 'Скопируйте текст ячейки из таблицы'}), label=MSG_S2_EMAIL)
+    speaker_2_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'b-form-item__input_full', 'placeholder': 'Скопируйте текст ячейки из таблицы'}), label=MSG_S2_NAME)
 
 
 class ImportTeam:

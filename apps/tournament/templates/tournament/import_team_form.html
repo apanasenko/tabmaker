@@ -11,8 +11,31 @@
     {% endif %}
     <form class="b-form" action="{% url "tournament:import_team" tournament.id %}" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-         <button type="submit" class="button formItem">Сохранить</button>
+        <div class="b-form-item b-">
+            <h3>{{ form.url.label }}</h3>
+            {{ form.url }}
+        </div>
+        <div class="b-form-item">
+            <h3>{{ form.team_name.label }}</h3>
+            {{ form.team_name }}
+        </div>
+        <div class="b-form-item">
+            <h3>{{ form.speaker_1_name.label }}</h3>
+            {{ form.speaker_1_name }}
+        </div>
+        <div class="b-form-item">
+            <h3>{{ form.speaker_1_email.label }}</h3>
+            {{ form.speaker_1_email }}
+        </div>
+        <div class="b-form-item">
+            <h3>{{ form.speaker_2_name.label }}</h3>
+            {{ form.speaker_2_name }}
+        </div>
+        <div class="b-form-item">
+            <h3>{{ form.speaker_2_email.label }}</h3>
+            {{ form.speaker_2_email }}
+        </div>
+         <button type="submit" class="button">Сохранить</button>
     </form>
 
 {% endblock content %}
