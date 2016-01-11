@@ -1,9 +1,11 @@
-MSG_TEAM_NAME = 'Название команды'
+MSG_TEAM_URL = "Ссылка на таблицу Google Drive"
 
-MSG_S1_EMAIL = 'E-mail первого спикера'
-MSG_S2_EMAIL = 'E-mail второго спикера'
+MSG_TEAM_NAME = 'Названия команд'
 
-MSG_S1_NAME = 'Имя первого спикера'
-MSG_S2_NAME = 'Имя второго спикера'
+MSG_S1_EMAIL = 'Имена первых спикеров'
+MSG_S2_EMAIL = 'E-mail первых спикеров'
 
-MSG_CELL_NOT_FOUND_p = 'Колонка %s не найдена в данной таблице'
+MSG_S1_NAME = 'Имена вторых спикеров'
+MSG_S2_NAME = 'E-mail вторых спикеров'
+
+MSG_CELL_NOT_FOUND_p = '%s не найдена в данной таблице'

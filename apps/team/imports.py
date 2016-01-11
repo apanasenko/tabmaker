@@ -11,14 +11,14 @@ from apps.team.models import Team
 
 
 class TeamImportForm(forms.Form):
-    url = forms.URLField(widget=forms.URLInput())
-    team_name = forms.CharField(widget=forms.TextInput(), label=MSG_TEAM_NAME)
+    url = forms.URLField(widget=forms.URLInput(attrs={'class': 'b-form-item__input_full b-import__form', 'placeholder': 'Скопируйте ссылку из адресной строки браузера'}), label=MSG_TEAM_URL)
+    team_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'b-form-item__input_full b-import__form', 'placeholder': 'Скопируйте текст c названием колонки из ячейки таблицы'}), label=MSG_TEAM_NAME)
 
-    speaker_1_email = forms.CharField(widget=forms.TextInput(), label=MSG_S1_EMAIL)
-    speaker_1_name = forms.CharField(widget=forms.TextInput(), label=MSG_S1_NAME)
+    speaker_1_email = forms.CharField(widget=forms.TextInput(attrs={'class': 'b-form-item__input_full b-import__form', 'placeholder': 'Скопируйте текст c названием колонки из ячейки таблицы'}), label=MSG_S1_EMAIL)
+    speaker_1_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'b-form-item__input_full b-import__form', 'placeholder': 'Скопируйте текст c названием колонки из ячейки таблицы'}), label=MSG_S1_NAME)
 
-    speaker_2_email = forms.CharField(widget=forms.TextInput(), label=MSG_S2_EMAIL)
-    speaker_2_name = forms.CharField(widget=forms.TextInput(), label=MSG_S2_NAME)
+    speaker_2_email = forms.CharField(widget=forms.TextInput(attrs={'class': 'b-form-item__input_full b-import__form', 'placeholder': 'Скопируйте текст c названием колонки из ячейки таблицы'}), label=MSG_S2_EMAIL)
+    speaker_2_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'b-form-item__input_full b-import__form', 'placeholder': 'Скопируйте текст c названием колонки из ячейки таблицы'}), label=MSG_S2_NAME)
 
 
 class ImportTeam:
@@ -26,9 +26,9 @@ class ImportTeam:
     NUMBER_TITLE_ROW = 1
 
     # IMPORT STATUS
-    STATUS_ADD = 'add'
-    STATUS_EXIST = 'exist'
-    STATUS_FAIL = 'fail'
+    STATUS_ADD = 'добавлено'
+    STATUS_EXIST = 'уже есть'
+    STATUS_FAIL = 'ошибка'
 
     def __init__(self, import_form: TeamImportForm):
         self.url = import_form.cleaned_data['url']
@@ -105,7 +105,7 @@ class ImportTeam:
                 result['team'] = {}
                 result['team']['name'] = row[self.cells[MSG_TEAM_NAME].col - 1].strip()
                 if not result['team']['name']:
-                    raise Exception('Назваине команды не должно быть пустым')
+                    raise Exception('Название команды не должно быть пустым')
 
                 if result['s1']['status'] == self.STATUS_FAIL or result['s2']['status'] == self.STATUS_FAIL:
                     raise Exception('Ошибка в email\'ах спикеров')
