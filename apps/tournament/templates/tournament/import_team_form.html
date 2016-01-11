@@ -13,7 +13,7 @@
         {% csrf_token %}
         <div class="b-import__disclaimer">
             <h3 class="b-import__heading">Импорт команд из Google Drive</h3>
-            <p class="b-import__description">Чтобы Tabmaker смог прочитать таблицу, вы должны в таблице Google Drive дать доступ с правами на редактирование таблицы для пользователя <span class="b-import__email">import@debate-tabmaker.iam.gserviceaccount.com</span></p>
+            <p class="b-import__description">Чтобы Tabmaker смог прочитать таблицу, вы должны в таблице Google Drive дать доступ с правами на редактирование для пользователя <span class="b-import__email_bold">import@debate-tabmaker.iam.gserviceaccount.com</span></p>
             <a class="b-import__link" href="https://support.google.com/drive/answer/2494822?hl=ru" class="b-import__disclaimer">Как дать доступ к таблице Google Drive?</a>
         </div>
         <div class="b-form-item">
@@ -40,7 +40,7 @@
             <label class="b-form-item__label b-import__label">{{ form.speaker_2_email.label }}</label>
             {{ form.speaker_2_email }}
         </div>
-         <button type="submit" class="button">Сохранить</button>
+         <button type="submit" class="button">Импортировать</button>
     </form>
 
 {% endblock content %}

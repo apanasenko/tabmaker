@@ -4,10 +4,6 @@
         margin-bottom: 20px;
     }
 
-    &__email {
-        font-weight: 700;
-    }
-
     &__link {
         margin-top: 10px;
         padding-bottom: 5px;
@@ -31,6 +27,10 @@
 
     &__email {
         font-weight: 400;
+
+        &_bold {
+            font-weight: 700;
+        }
     }
 
     &__status {
