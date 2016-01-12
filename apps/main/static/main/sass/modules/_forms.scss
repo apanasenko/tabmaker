@@ -130,6 +130,10 @@ label {
 			@include span(10%);
 			box-sizing: border-box;
 
+			@include respond-to(large) {
+				width: 15%;
+			}
+
 			@include respond-to(mobile) {
 				width: 100%;
 				float: inherit;
@@ -208,8 +212,12 @@ label {
 			min-width: 200px;
 		}
 
-		select {
-			width: 200px;
+		input, select {
+			width: 29%;
+		}
+
+		input[type="checkbox"] {
+			width: 20px;
 		}
 
 		span {

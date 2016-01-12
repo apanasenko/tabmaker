@@ -18,6 +18,12 @@
 			width: 100%;
 			line-height: 1.7;
 		}
+
+		a {
+			color: $grey;
+			padding-bottom: 3px;
+			border-bottom: 1px dashed $grey;
+		}
 	}
 
 	&__heading {
@@ -39,5 +45,15 @@
 		.b-tournamentlist-item {
 			min-height: 70px;
 		}
+	}
+
+	&__zero {
+		padding: 10px;
+		box-sizing: border-box;
+	}
+
+	&__emailconfirm {
+		box-sizing: border-box;
+		padding: 20px;
 	}
 }

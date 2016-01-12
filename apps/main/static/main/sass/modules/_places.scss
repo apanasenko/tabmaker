@@ -1,6 +1,6 @@
 .b-places {
     box-sizing: border-box;
-    padding: 20px;
+    padding: 30px;
 
     &__item {
 
@@ -13,5 +13,9 @@
         margin-left: 10px;
         border-bottom: 1px $dark dashed;
         padding-bottom: 2px;
+    }
+
+    #check_button {
+        margin-left: 0 !important;
     }
 }
