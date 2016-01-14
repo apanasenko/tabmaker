@@ -18,26 +18,32 @@
         </div>
         <div class="b-form-item">
             <label class="b-form-item__label b-import__label">{{ form.url.label }}</label>
+            {{ form.url.errors }}
             {{ form.url }}
         </div>
         <div class="b-form-item">
             <label class="b-form-item__label b-import__label">{{ form.team_name.label }}</label>
+            {{ form.team_name.errors }}
             {{ form.team_name }}
         </div>
         <div class="b-form-item">
             <label class="b-form-item__label b-import__label">{{ form.speaker_1_name.label }}</label>
+            {{ form.speaker_1_name.errors }}
             {{ form.speaker_1_name }}
         </div>
         <div class="b-form-item">
             <label class="b-form-item__label b-import__label">{{ form.speaker_1_email.label }}</label>
+            {{ form.speaker_1_email.errors }}
             {{ form.speaker_1_email }}
         </div>
         <div class="b-form-item">
             <label class="b-form-item__label b-import__label">{{ form.speaker_2_name.label }}</label>
+            {{ form.speaker_2_name.errors }}
             {{ form.speaker_2_name }}
         </div>
         <div class="b-form-item">
             <label class="b-form-item__label b-import__label">{{ form.speaker_2_email.label }}</label>
+            {{ form.speaker_2_email.errors }}
             {{ form.speaker_2_email }}
         </div>
          <button type="submit" class="button">Импортировать</button>
