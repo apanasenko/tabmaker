@@ -725,6 +725,11 @@ def import_team(request, tournament):
                     'results': results,
                     'message': message,
                     'tournament': tournament,
+                    'statuses': {
+                        'add': ImportTeam.STATUS_ADD,
+                        'exist': ImportTeam.STATUS_EXIST,
+                        'fail': ImportTeam.STATUS_FAIL,
+                    },
                 }
             )
 

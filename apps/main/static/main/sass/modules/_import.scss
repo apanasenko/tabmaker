@@ -1,4 +1,16 @@
-.b-import {
+@mixin status {
+    display: inline-block;
+    color: white;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-right: 10px;
+    width: 85px;
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+}
+
+    .b-import {
 
     &__disclaimer {
         margin-bottom: 20px;
@@ -38,16 +50,21 @@
     }
 
     &__status {
-        display: inline-block;
-        background-color: #FFEBA0;
-        color: white;
-        border-radius: 4px;
-        box-sizing: border-box;
-        margin-right: 10px;
-        width: 85px;
-        text-align: center;
-        height: 20px;
-        line-height: 20px;
+
+        &_add {
+            @include status;
+            background-color: $success_message;
+        }
+
+        &_error {
+            @include status;
+            background-color: $error_message;
+        }
+
+        &_exist {
+            @include status;
+            background-color: $warning_message;
+        }
     }
 
     &__error {

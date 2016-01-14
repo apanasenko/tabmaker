@@ -26,9 +26,9 @@ class ImportTeam:
     NUMBER_TITLE_ROW = 1
 
     # IMPORT STATUS
-    STATUS_ADD = 'добавлено'
-    STATUS_EXIST = 'уже есть'
-    STATUS_FAIL = 'ошибка'
+    STATUS_ADD = 'add'
+    STATUS_EXIST = 'exist'
+    STATUS_FAIL = 'error'
 
     def __init__(self, import_form: TeamImportForm):
         self.url = import_form.cleaned_data['url']
