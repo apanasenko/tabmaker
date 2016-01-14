@@ -72,7 +72,7 @@ class ImportTeam:
             if self.cells[key].row != self.NUMBER_TITLE_ROW:
                 raise Exception('Поле "%s" должно быть заголовком колонки' % self.alias[key])
 
-    def import_teams(self, tournament: Tournament):
+    def import_teams(self, tournament: Tournament, is_test):
         for row in self.worksheet.get_all_values()[self.NUMBER_TITLE_ROW:]:
             result = {}
             user_1 = None
@@ -83,7 +83,8 @@ class ImportTeam:
                 result['s1']['status'], user_1 = ImportTeam.import_user(
                     result['s1']['email'],
                     row[self.cells[MSG_S1_NAME].col - 1],
-                    tournament
+                    tournament,
+                    is_test
                 )
             except Exception as ex:
                 result['s1']['status'] = self.STATUS_FAIL
@@ -95,7 +96,8 @@ class ImportTeam:
                 result['s2']['status'], user_2 = ImportTeam.import_user(
                     result['s2']['email'],
                     row[self.cells[MSG_S2_NAME].col - 1],
-                    tournament
+                    tournament,
+                    is_test
                 )
             except Exception as ex:
                 result['s2']['status'] = self.STATUS_FAIL
@@ -122,15 +124,16 @@ class ImportTeam:
                             break
 
                 else:
-                    tournament.teamtournamentrel_set.create(
-                        role=ROLE_MEMBER,
-                        team=Team.objects.create(
-                            name=result['team']['name'],
-                            speaker_1=user_1,
-                            speaker_2=user_2,
-                            info='Импортирована из Google Docs'
+                    if not is_test:
+                        tournament.teamtournamentrel_set.create(
+                            role=ROLE_MEMBER,
+                            team=Team.objects.create(
+                                name=result['team']['name'],
+                                speaker_1=user_1,
+                                speaker_2=user_2,
+                                info='Импортирована из Google Docs'
+                            )
                         )
-                    )
                     result['team']['status'] = ImportTeam.STATUS_ADD
             except Exception as ex:
                 result['team']['status'] = self.STATUS_FAIL
@@ -148,15 +151,16 @@ class ImportTeam:
             raise Exception('Неверный e-mail')
 
     @staticmethod
-    def import_user(email: str, full_name: str, tournament: Tournament):
+    def import_user(email: str, full_name: str, tournament: Tournament, is_test: bool):
         ImportTeam.check_email(email)
-        user, is_exist = User.get_or_create(email, full_name)
+        user, is_exist = User.get_or_create(email, full_name, is_test)
 
         status = ImportTeam.STATUS_EXIST
         if not is_exist:
             status = ImportTeam.STATUS_ADD
-            password = user.set_random_password()
-            user.send_email_about_import(tournament, password)
+            if not is_test:
+                password = user.set_random_password()
+                user.send_email_about_import(tournament, password)
 
         return status, user
 

@@ -77,14 +77,19 @@ class User(AbstractUser):
         return password
 
     @staticmethod
-    def get_or_create(email: str, full_name: str):
+    def get_or_create(email: str, full_name: str, is_test=False):
         user = User.objects.filter(email=email).last()
         if user:
             return user, True
         else:
             name = full_name.strip().split(maxsplit=1)
             name += ['', '']
-            user = User.objects.create(
+
+            # User() - создаёт объект, но не сохраняет в базу
+            # User.objects.create() - сохраняет в базу
+            user_obj = User if is_test else User.objects.create
+
+            user = user_obj(
                 email=email,
                 username=email[:29],
                 last_name=name[0][:29],
@@ -97,6 +102,7 @@ class User(AbstractUser):
                 is_show_phone=False,
                 is_show_email=False,
             )
-            user.confirmation()
+            if not is_test:
+                user.confirmation()
 
             return user, False
