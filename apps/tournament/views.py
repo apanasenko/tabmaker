@@ -711,7 +711,8 @@ def import_team(request, tournament):
         try:
             imports.connect_to_worksheet()
             imports.read_titles()
-            results = imports.import_teams(tournament)
+            is_test = int(request.POST.get('is_test', '0')) == 1
+            results = imports.import_teams(tournament, is_test)
 
         except Exception as ex:
             message = str(ex)
@@ -724,6 +725,11 @@ def import_team(request, tournament):
                     'results': results,
                     'message': message,
                     'tournament': tournament,
+                    'statuses': {
+                        'add': ImportTeam.STATUS_ADD,
+                        'exist': ImportTeam.STATUS_EXIST,
+                        'fail': ImportTeam.STATUS_FAIL,
+                    },
                 }
             )
 

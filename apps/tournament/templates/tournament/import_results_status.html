@@ -1,0 +1,8 @@
+{% if status == statuses.add %}
+    <span class="b-import__status_add">Добавлен</span>
+{% elif status == statuses.exist %}
+    <span class="b-import__status_exist">Уже есть</span>
+{% elif status == statuses.fail %}
+    <span class="b-import__status_error">Ошибка</span>
+{% endif %}
+
