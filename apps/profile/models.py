@@ -86,9 +86,9 @@ class User(AbstractUser):
             name += ['', '']
             user = User.objects.create(
                 email=email,
-                username=email,
-                last_name=name[0],
-                first_name=name[1],
+                username=email[:29],
+                last_name=name[0][:29],
+                first_name=name[1][:29],
                 phone='',
                 university_id=1,
                 link='https://vk.com/tabmaker',
