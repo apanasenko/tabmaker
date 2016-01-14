@@ -40,8 +40,7 @@
                 <label for="id_speaker_1"><h3 class="b-form-item__heading b-registration__heading">E-mail первого спикера</h3></label>
                 <span class="wide">{{ form.speaker_1 }}</span>
                 {{ form.speaker_1.errors }}
-                </div>
-                <div class="formItem">
+
                 <label for="id_speaker_2"><h3 class="b-form-item__heading b-registration__heading">E-mail второго спикера</h3></label>
             {% else %}
 
@@ -53,7 +52,8 @@
             <span class="wide">{{ form.speaker_2 }}</span>
             <span class="wide">{{ form.speaker_2.errors }}</span>
 
-         </div>
+        </div>
+
         <button type="submit" class="button" value="Отправить">
             {% if not show_speaker_1 %} Участвовать {% else %} Добавить {% endif %}
         </button>

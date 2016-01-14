@@ -1,7 +1,7 @@
 @mixin disclaimer {
     display: block;
     padding: 20px;
-    margin: 20px;
+    margin-top: 20px;
     border-radius: 5px;
 
     @include respond-to(mobile) {

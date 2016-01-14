@@ -6,7 +6,7 @@
 
 {% block content %}
 
-    <div id="email_confirm">
+    <div id="email_confirm" class='b-profile__emailconfirm'>
 
         {% if confirmation %}
 
@@ -16,7 +16,7 @@
             </h3>
             <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
             {% csrf_token %}
-                <button class="button" type="submit">Да, погнали!</button>
+                <button class="button" type="submit">Войти в Tabmaker</button>
             </form>
 
         {% else %}
