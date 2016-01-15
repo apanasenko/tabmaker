@@ -79,6 +79,7 @@ class ImportTeam:
             user_2 = None
             try:
                 result['s1'] = {}
+                result['s1']['user'] = None
                 result['s1']['email'] = row[self.cells[MSG_S1_EMAIL].col - 1].strip()
                 result['s1']['status'], user_1 = ImportTeam.import_user(
                     result['s1']['email'],
@@ -92,6 +93,7 @@ class ImportTeam:
 
             try:
                 result['s2'] = {}
+                result['s2']['user'] = None
                 result['s2']['email'] = row[self.cells[MSG_S2_EMAIL].col - 1].strip()
                 result['s2']['status'], user_2 = ImportTeam.import_user(
                     result['s2']['email'],
@@ -109,8 +111,15 @@ class ImportTeam:
                 if not result['team']['name']:
                     raise Exception('Название команды не должно быть пустым')
 
-                if result['s1']['status'] == self.STATUS_FAIL or result['s2']['status'] == self.STATUS_FAIL:
-                    raise Exception('Ошибка в email\'ах спикеров')
+                if result['s1']['status'] == self.STATUS_FAIL:
+                    raise Exception('Ошибка при импорте первого спикера')
+
+                result['s1']['user'] = user_1
+
+                if result['s2']['status'] == self.STATUS_FAIL:
+                    raise Exception('Ошибка при импорте второго спикера')
+
+                result['s2']['user'] = user_2
 
                 teams = tournament.team_members.filter(name=result['team']['name'])
                 if teams:

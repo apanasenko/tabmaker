@@ -10,14 +10,14 @@
     line-height: 20px;
 }
 
-    .b-import {
+.b-import {
 
-    &__disclaimer {
-        margin-bottom: 20px;
+    &__disclaimer, &__description {
+        margin-bottom: 10px;
     }
 
     &__link {
-        margin-top: 10px;
+        //margin-top: 10px;
         padding-bottom: 5px;
         display: inline-block;
         border-bottom: 1px dashed $dark;

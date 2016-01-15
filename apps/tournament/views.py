@@ -723,7 +723,6 @@ def import_team(request, tournament):
                 'tournament/import_results.html',
                 {
                     'results': results,
-                    'message': message,
                     'tournament': tournament,
                     'statuses': {
                         'add': ImportTeam.STATUS_ADD,
