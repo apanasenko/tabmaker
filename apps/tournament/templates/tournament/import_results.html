@@ -19,12 +19,22 @@
             </div>
             <div class="b-import__speaker">
                 {% include 'tournament/import_results_status.html' with status=result.s1.status statuses=statuses %}
-                <span class="b-import__email">{{ result.s1.email }}</span>
+                <span class="b-import__email">
+                    {{ result.s1.email }}
+                    {% if result.s1.user %}
+                        ({{result.s1.user.first_name}}, {{result.s1.user.last_name}})
+                    {% endif %}
+                </span>
                 <span class="errorlist b-import__error">{{ result.s1.error }}</span>
             </div>
             <div class="b-import__speaker">
                 {% include 'tournament/import_results_status.html' with status=result.s2.status statuses=statuses %}
-                <span class="b-import__email">{{ result.s2.email }}</span>
+                <span class="b-import__email">
+                    {{ result.s2.email }}
+                    {% if result.s2.user %}
+                        ({{result.s2.user.first_name}}, {{result.s2.user.last_name}})
+                    {% endif %}
+                </span>
                 <span class="errorlist b-import__error">{{ result.s2.error }}</span>
             </div>
         </div>
