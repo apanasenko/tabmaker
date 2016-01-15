@@ -16,17 +16,27 @@
     {% endif %}
     <form class="b-form" action="{% url "tournament:import_team" tournament.id %}" method="post">
         {% csrf_token %}
+        <h3 class="b-import__heading">Импорт команд из Google Drive</h3>
+        <hr>
         <div class="b-import__disclaimer">
-            <h3 class="b-import__heading">Импорт команд из Google Drive</h3>
             <p class="b-import__description">
-                Чтобы Tabmaker смог прочитать таблицу,
-                вы должны в таблице Google Drive дать доступ с правами на редактирование для пользователя
-                <span class="b-import__email_bold">import@debate-tabmaker.iam.gserviceaccount.com</span>
+                Чтобы Tabmaker смог импортировать данные,
+                вы должны в таблице на Google Drive дать доступ с правами на редактирование для пользователя:
+            </p>
+            <p class="b-import__link b-import__description">
+                <a href="mailto:import@debate-tabmaker.iam.gserviceaccount.com">
+                    import@debate-tabmaker.iam.gserviceaccount.com
+                </a>
+            </p>
+            <p  class="b-import__description">
+                Процесс получения данных может занять некоторое время (1-2 минуты). Дождтесь окончания загрузки данных.
             </p>
             <a class="b-import__link b-import__disclaimer" href="https://support.google.com/drive/answer/2494822?hl=ru" >
                 Как дать доступ к таблице Google Drive?
             </a>
         </div>
+        <hr>
+        <br>
         <div class="b-form-item">
             <label class="b-form-item__label b-import__label">{{ form.url.label }}</label>
             {{ form.url.errors }}
