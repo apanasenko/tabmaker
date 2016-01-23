@@ -17,7 +17,6 @@
     <form class="b-form" action="{% url "tournament:import_team" tournament.id %}" method="post">
         {% csrf_token %}
         <h3 class="b-import__heading">Импорт команд из Google Drive</h3>
-        <hr>
         <div class="b-import__disclaimer">
             <p class="b-import__description">
                 Чтобы Tabmaker смог импортировать данные,
@@ -35,7 +34,6 @@
                 Как дать доступ к таблице Google Drive?
             </a>
         </div>
-        <hr>
         <br>
         <div class="b-form-item">
             <label class="b-form-item__label b-import__label">{{ form.url.label }}</label>
