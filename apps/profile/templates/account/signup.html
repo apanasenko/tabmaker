@@ -5,6 +5,7 @@
 {% block extra_head %}
 
     {{ block.super }}
+    <script src="//vk.com/js/api/openapi.js" type="text/javascript"></script>
     <script type="text/javascript" src="{% static "profile/js/vk_api.js" %}"></script>
 
 {% endblock extra_head %}
@@ -42,19 +43,34 @@
             </div>
 
             <div class="b-form-item b-signup__item">
-                <h3 class="b-form-item__heading">{{ form.country_id.label_tag }}</h3>
-                {{ form.country_id }}
-                {{ form.country_id.errors }}
+                <h3 class="b-form-item__heading"><label for="countries">Страна</label></h3>
+                <select id="countries"></select>
+                {{ form.country_id }} {# hidden #}
+                {{ form.country_name }} {# hidden #}
+                {% if not form.country_name.errors %}
+                    {{ form.country_id.errors }}
+                {% endif %}
+                {{ form.country_name.errors }}
             </div>
             <div class="b-form-item b-signup__item">
-                <h3 class="b-form-item__heading">{{ form.city_id.label_tag }}</h3>
-                {{ form.city_id }}
-                {{ form.city_id.errors }}
+                <h3 class="b-form-item__heading"><label for="city_list">Город</label></h3>
+                <input id="city_list" type="text">
+                {{ form.city_id }} {# hidden #}
+                {{ form.city_name }} {# hidden #}
+                {% if not form.city_name.errors %}
+                    {{ form.city_id.errors }}
+                {% endif %}
+                {{ form.city_name.errors }}
             </div>
             <div class="b-form-item b-signup__item">
-                <h3 class="b-form-item__heading">{{ form.university_id.label_tag}}</h3>
-                {{ form.university_id }}
-                {{ form.university_id.errors }}
+                <h3 class="b-form-item__heading"><label for="university_list">Университет</label></h3>
+                <input id="university_list" type="text">
+                {{ form.university_id }} {# hidden #}
+                {{ form.university_name }} {# hidden #}
+                {% if not form.university_name.errors %}
+                    {{ form.university_id.errors }}
+                {% endif %}
+                {{ form.university_name.errors }}
             </div>
             <div class="b-form-item b-signup__item">
                 {% if not is_edit_form %}
@@ -102,9 +118,6 @@
         {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
-        {{ form.country_name }}
-        {{ form.city_name }}
-        {{ form.university_name }}
 
         <button type="submit" class="button">
             {% if is_edit_form %}
