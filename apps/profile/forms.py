@@ -10,13 +10,13 @@ from .models import \
 
 class ProfileForm(forms.ModelForm):
     country_name = forms.CharField(widget=forms.HiddenInput())
-    country_id = forms.IntegerField(widget=forms.Select(), label='Страна')
+    country_id = forms.IntegerField(widget=forms.HiddenInput())
 
     city_name = forms.CharField(widget=forms.HiddenInput())
-    city_id = forms.IntegerField(widget=forms.Select(), label='Город')
+    city_id = forms.IntegerField(widget=forms.HiddenInput())
 
     university_name = forms.CharField(widget=forms.HiddenInput())
-    university_id = forms.IntegerField(widget=forms.Select(), label='Университет')
+    university_id = forms.IntegerField(widget=forms.HiddenInput())
 
     class Meta:
         model = User
@@ -116,8 +116,11 @@ class EditForm(ProfileForm):
         super(EditForm, self).__init__(*args, **kwargs)
         if self.instance:
             self.initial['university_name'] = self.instance.university.name
+            self.initial['university_id'] = self.instance.university.university_id
             self.initial['city_name'] = self.instance.university.city.name
+            self.initial['city_id'] = self.instance.university.city.city_id
             self.initial['country_name'] = self.instance.university.country.name
+            self.initial['country_id'] = self.instance.university.country.country_id
 
     def save(self, commit=True):
         user = super(EditForm, self).save(commit=False)

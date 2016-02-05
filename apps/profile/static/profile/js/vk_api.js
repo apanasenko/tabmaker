@@ -1,80 +1,190 @@
-var is_init = false;
+var FULL_COUNTRY_OPTION_ID = -1;
+var FULL_COUNTRY_OPTION_LABEL = 'Полный список';
+var DEFAULT_COUNTRY_ID = 1;
+var Item = function(selector_id, selector_name, selector_list) {
+    return {
+        get: function() {
+            return {
+                id: $(selector_id).val(),
+                name: $(selector_name).val()
+            };
+        },
+        set: function(id, name) {
+            $(selector_id).val(id);
+            $(selector_name).val(name);
+            return this;
+        },
+        unset: function() {
+            $(selector_id).val('');
+            $(selector_name).val('');
+            $(selector_list).val('');
+            return this;
+        },
+        list: function() {
+            return $(selector_list);
+        },
+        disable: function() {
+            $(selector_list).prop('disabled', true);
+        },
+        enable: function() {
+            $(selector_list).prop('disabled', false);
+        }
+    }
+};
+var country = new Item('#id_country_id', '#id_country_name', '#countries');
+var city = new Item('#id_city_id', '#id_city_name', '#city_list');
+var university = new Item('#id_university_id', '#id_university_name', '#university_list');
+
 
 $(document).ready(function() {
-    is_init = Boolean(($("#id_university_name").val()));
-    getCountriesFromVK();
+    VK.init({
+        apiId: 4602253
+    });
+    loadCountries(false);
 });
 
-function getDataFromVK(url){
-    var script = document.createElement('SCRIPT');
-    script.src = url;
-    document.getElementsByTagName("head")[0].appendChild(script);
-}
 
-function getCountriesFromVK(){
-    getDataFromVK("https://api.vk.com/method/database.getCountries?count=10000&callback=loadCountries");
-}
-
-function getCitiesFromVK(){
-    getDataFromVK(
-        "https://api.vk.com/method/database.getCities" +
-        "?country_id=" + $("#id_country_id").val() +
-        "&count=10000" +
-        "&callback=loadCities"
+function loadCountries(need_all) {
+    need_all = need_all || country.get().id ? 1 : 0;
+    var count = 1000; // all (max 255)
+    VK.Api.call(
+        'database.getCountries',
+        {
+            need_all: need_all,
+            count: count
+        },
+        function(data) {
+            country.list().empty();
+            data.response.forEach(function(x) {
+                country.list().append(new Option(x.title, x.cid));
+            });
+            if ( ! need_all) {
+                country.list().append(new Option(FULL_COUNTRY_OPTION_LABEL, FULL_COUNTRY_OPTION_ID));
+            }
+            if (country.get().id) {
+                country.list().val(country.get().id);
+            } else {
+                country.list().val(DEFAULT_COUNTRY_ID);
+                country.set(country.list().val(), country.list().find('option:selected').text());
+            }
+            country.list().change(function() {
+                country.set(this.value, this.options[this.selectedIndex].text);
+                city.unset();
+                university.unset();
+                university.disable();
+                loadCities();
+            });
+            loadCities();
+        }
     );
 }
 
-function getUniversitiesFromVK(){
-    getDataFromVK(
-        "https://api.vk.com/method/database.getUniversities?" +
-        "?country_id=" + $("#id_country_id").val() +
-        "&city_id=" + $("#id_city_id").val() +
-        "&count=10000" +
-        "&callback=loadUniversities"
-    );
+
+function loadCities(){
+    if (country.get().id == FULL_COUNTRY_OPTION_ID) {
+        loadCountries(true);
+    }
+    city.list().val(city.get().name);
+    city.list().autocomplete({
+        minLength: 0,
+        source: function(request, response) {
+            VK.Api.call(
+                'database.getCities',
+                {
+                    need_all: 0,
+                    country_id: country.get().id,
+                    q: request.term
+                },
+                function(data) {
+                    if (typeof(data.response) !== 'object'){
+                        return;
+                    }
+                    response(data.response
+                            .filter(function(x) {
+                                return typeof(x) === 'object';
+                            })
+                            .map(function(x) {
+                                var desc = [];
+                                if (x.area) {
+                                    desc.push(x.area);
+                                }
+                                if (x.region) {
+                                    desc.push(x.region);
+                                }
+                                return {
+                                    id: x.cid,
+                                    value: x.title,
+                                    label: x.title,
+                                    desc: desc.join(', ')
+                                }
+                            })
+                    );
+                }
+            );
+        },
+        select: function(event, ui) {
+            city.set(ui.item.id, ui.item.value);
+        },
+        change: function(event, ui) {
+            if (ui.item){
+                city.set(ui.item.id, ui.item.value);
+                university.unset();
+                university.enable();
+                loadUniversities();
+            } else {
+                city.list().val(city.get().name);
+            }
+        }
+    }).autocomplete('instance')._renderItem = function(ul, item) {
+        return $('<li>').append('<a>' + item.label + '<br>' + item.desc + '</a>').appendTo(ul);
+    };
+    if (city.get().id) {
+        loadUniversities();
+    }
 }
 
-function loadCountries(result) {
-    updateOptionsList("#id_country_id", result, 'cid', "#id_country_name");
-    $("#id_city_id").empty();
-    $("#id_university_id").empty();
-    $("#id_country_id").change(function() {
-        getCitiesFromVK();
+
+function loadUniversities() {
+    university.list().val(university.get().name);
+    university.list().autocomplete({
+        minLength: 0,
+        source: function(request, response) {
+            VK.Api.call(
+                'database.getUniversities',
+                {
+                    need_all: 0,
+                    country_id: country.get().id,
+                    city_id: city.get().id,
+                    q: request.term
+                },
+                function(data) {
+                    if (typeof(data.response) !== 'object'){
+                        return;
+                    }
+                    response(data.response
+                            .filter(function(x) {
+                                return typeof(x) === 'object';
+                            })
+                            .map(function(x) {
+                                return {
+                                    id: x.id,
+                                    value: x.title,
+                                    label: x.title
+                                }
+                            })
+                    );
+                }
+            );
+        },
+        select: function(event, ui) {
+            university.set(ui.item.id, ui.item.value);
+        },
+        change: function(event, ui) {
+            if (ui.item){
+                university.set(ui.item.id, ui.item.value);
+            } else {
+                university.list().val(university.get().name);
+            }
+        }
     });
-    getCitiesFromVK();
 }
-
-function loadCities(result) {
-    updateOptionsList("#id_city_id", result, 'cid', "#id_city_name");
-    $("#id_university_id").empty();
-    $("#id_city_id").change(function() {
-        getUniversitiesFromVK();
-    });
-    getUniversitiesFromVK();
-}
-
-function loadUniversities(result) {
-    updateOptionsList("#id_university_id", result, 'id', "#id_university_name");
-    is_init = false;
-    $("#id_university_id").change(function () {
-        updateHiddenInput();
-    });
-}
-
-function updateHiddenInput(){
-    $("#id_country_name").val($("#id_country_id option:selected").text());
-    $("#id_city_name").val($("#id_city_id option:selected").text());
-    $("#id_university_name").val($("#id_university_id option:selected").text());
-}
-
-function updateOptionsList(select_id, data, id, selected){
-    $(select_id).empty();
-    for (var key in data.response)
-        $(select_id).append(new Option(data.response[key].title, data.response[key][id]));
-    if (is_init)
-        $(select_id + ' option')
-            .filter(function () { return $(this).text() == $(selected).val(); })
-            .attr("selected","selected");
-}
-
-// TODO Добавить в combobox функцию ввода и автодополнеия http://jqueryui.com/autocomplete/#combobox
