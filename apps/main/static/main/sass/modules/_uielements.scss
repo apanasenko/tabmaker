@@ -223,6 +223,11 @@
     padding: 10px 1em 10px .4em;
     line-height: 1.4;
 
+    .region {
+        font-size: 11px;
+        color: $grey;
+    }
+
     a {
         color: #58697A;
         font-size: 14px;
