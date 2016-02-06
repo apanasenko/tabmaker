@@ -38,6 +38,11 @@ label {
 	}
 }
 
+input[type='time'],
+input[type='date'] {
+	height: 35px;
+}
+
 .b-form-item {
 	margin-bottom: 20px;
 	@include span(100% no-gutters);

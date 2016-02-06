@@ -42,11 +42,6 @@
 
 </head>
 
-{% if debug %}
-    {# скрипт liveReload #}
-    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-{% endif %}
-
 <body>
 
     {% if not debug %}
@@ -67,7 +62,7 @@
         <header>
 
             <div id="logo">
-                <a href="/"><img src="{% static 'main/img/logo.png' %}" alt=""></a>
+                <a href="/"><img src="{% static 'main/img/logo.svg' %}" alt="tabmaker"></a>
             </div>
 
             {% block header %}
