@@ -102,6 +102,7 @@ function loadCountries(need_all) {
 function loadCities(){
     if (country.get().id == FULL_COUNTRY_OPTION_ID) {
         loadCountries(true);
+        return;
     }
     city.list().val(city.get().name);
     city.list().autocomplete({
@@ -151,6 +152,9 @@ function loadCities(){
                 '&callback=callback'
             );
         },
+        focus: function() {
+            university.enable();
+        },
         select: function(event, ui) {
             city.set(ui.item.id, ui.item.value);
         },
@@ -162,6 +166,11 @@ function loadCities(){
                 loadUniversities();
             } else {
                 city.list().val(city.get().name);
+            }
+            if (city.get().id) {
+                university.enable();
+            } else {
+                university.disable();
             }
         }
     }).autocomplete('instance')._renderItem = function(ul, item) {
