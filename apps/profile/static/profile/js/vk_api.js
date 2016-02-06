@@ -136,10 +136,12 @@ function loadCities(){
             }
         }
     }).autocomplete('instance')._renderItem = function(ul, item) {
-        return $('<li>').append('<a>' + item.label + '<br>' + item.desc + '</a>').appendTo(ul);
+        return $('<li>').append('<a class="universities">' + item.label + '<br>' + item.desc + '</a>').appendTo(ul);
     };
     if (city.get().id) {
         loadUniversities();
+    } else {
+        university.disable();
     }
 }
 

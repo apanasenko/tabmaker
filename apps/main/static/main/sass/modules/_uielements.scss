@@ -214,3 +214,17 @@
     border-bottom: 1px dashed $dark;
     margin-bottom: 2px;
 }
+
+.ui-menu-item {
+    font-size: 14px;
+    max-width: 300px;
+    max-height: 350px;
+    overflow-y: auto;
+    padding: 10px 1em 10px .4em;
+    line-height: 1.4;
+
+    a {
+        color: #58697A;
+        font-size: 14px;
+    }
+}
