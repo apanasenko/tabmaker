@@ -23,7 +23,7 @@
             <p>Профиль успешно обновлён</p>
         </div>
     {% endif %}
-    <form class="b-form" id="signup_form" method="post"
+    <form class="b-form b-signup" id="signup_form" method="post"
             {% if is_edit_form %} action="{% url 'profile:edit' user.id %}"
             {% else %} action="{% url 'account_signup' %}"
             {% endif %}
@@ -119,7 +119,7 @@
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
 
-        <button type="submit" class="button">
+        <button type="submit" class="button" onclick="yaCounter35208810.reachGoal('signinConfirmed'); return true;">
             {% if is_edit_form %}
                 Сохранить
             {% else %}
