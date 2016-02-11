@@ -9,6 +9,7 @@ from . utils import paging
 def index(request):
     DAYS_TO_LEAVE_SHORT_LIST = 7
     is_short = request.GET.get('list', None) != 'all'
+    tournaments = Tournament.objects.annotate(m_count=Count('team_members')).select_related('status')
     if is_short:
         if request.user.is_authenticated():
             self_tournament = (
@@ -17,7 +18,7 @@ def index(request):
         else:
             self_tournament = ~Q()
 
-        tournaments = Tournament.objects.annotate(m_count=Count('team_members')).filter(
+        tournaments = tournaments.filter(
             Q(m_count__gt=0)
             | (Q(status=STATUS_REGISTRATION)
                 & Q(start_tour__gte=(date.today() - timedelta(days=DAYS_TO_LEAVE_SHORT_LIST))))
@@ -25,7 +26,7 @@ def index(request):
         ).distinct()
 
     else:
-        tournaments = Tournament.objects.all()
+        tournaments = tournaments.all()
 
     return render(
         request,
