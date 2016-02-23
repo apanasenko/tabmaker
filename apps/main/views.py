@@ -1,14 +1,42 @@
+from datetime import date, timedelta
 from django.shortcuts import render
+from django.db.models import Count, Q
+from apps.tournament.consts import *
 from apps.tournament.models import Tournament
 from . utils import paging
 
 
 def index(request):
+    DAYS_TO_LEAVE_SHORT_LIST = 7
+    is_short = request.GET.get('list', None) != 'all'
+    tournaments = Tournament.objects.annotate(m_count=Count('team_members')).select_related('status')
+    if is_short:
+        if request.user.is_authenticated():
+            self_tournament = (
+                Q(usertournamentrel__user=request.user) & Q(usertournamentrel__role__in=[ROLE_ADMIN, ROLE_OWNER])
+            )
+        else:
+            self_tournament = ~Q()
+
+        tournaments = tournaments.filter(
+            Q(m_count__gt=0)
+            | (Q(status=STATUS_REGISTRATION)
+                & Q(start_tour__gte=(date.today() - timedelta(days=DAYS_TO_LEAVE_SHORT_LIST))))
+            | self_tournament
+        ).distinct()
+
+    else:
+        tournaments = tournaments.all()
+
     return render(
         request,
         'main/main.html',
         {
-            'objects': paging(request, Tournament.objects.all().order_by('-start_tour'))
+            'is_main_page': True,
+            'is_short': is_short,
+            'objects': paging(
+                request, tournaments.order_by('-start_tour'), 30
+            )
         }
     )
 
