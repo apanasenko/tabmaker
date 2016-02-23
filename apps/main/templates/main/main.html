@@ -16,15 +16,15 @@
 
 {% block content %}
     <div>
-        {% if is_main_page %}
-            <a href="{% url "main:index" %}{% if is_short %}?list=all{% endif %}">
-                {% if is_short %}
-                    Показать несостоявшиеся турниры
-                {% else %}
-                    Скрыть несостоявшиеся турниры
-                {% endif %}
-            </a>
-        {% endif %}
+{#        {% if is_main_page %}#}
+{#            <a href="{% url "main:index" %}{% if is_short %}?list=all{% endif %}">#}
+{#                {% if is_short %}#}
+{#                    Показать несостоявшиеся турниры#}
+{#                {% else %}#}
+{#                    Скрыть несостоявшиеся турниры#}
+{#                {% endif %}#}
+{#            </a>#}
+{#        {% endif %}#}
     </div>
 
     <section>
