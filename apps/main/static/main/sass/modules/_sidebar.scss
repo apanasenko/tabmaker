@@ -81,3 +81,27 @@ aside {
 		margin: 0;
 	}
 }
+
+.aside-right {
+	@include respond-to(desctop) {
+		display: inline-block;
+		float: right;
+		background-color: none;
+		width: 20%;
+	}
+
+	@include respond-to(tablets) {
+		display: none;
+	}
+
+	@include respond-to(mobile) {
+		display: none;
+	}
+}
+
+.vk-widget {
+	display: block;
+	background-color: $background-block;
+	vertical-align: top;
+	float: right;
+}

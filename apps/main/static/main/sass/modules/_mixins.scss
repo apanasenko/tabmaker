@@ -3,6 +3,7 @@
 $small: 375px;
 $middle: 768px;
 $large: 960px;
+$desctop: 1365px;
 
 @mixin respond-to($media) {
 	@if $media == mobile {
@@ -14,6 +15,9 @@ $large: 960px;
   	@else if $media == large {
     	@media only screen and (min-width: $large) { @content; }
   	}
+    @else if $media == desctop {
+        @media only screen and (min-width: $desctop) { @content; }
+    }
 }
 
 // ui mixins
