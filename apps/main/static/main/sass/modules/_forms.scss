@@ -7,16 +7,11 @@ input, select, textarea {
 	background-color: transparent;
 	border: 2px solid $background-page;
 	box-sizing: border-box;
+	font-family: "PT Sans", Arial, sans-serif;
 
 	&:focus {
-		border: 2px solid $green;
+		border: 2px solid $dark;
 	}
-}
-
-textarea {
-	min-height: 30px;
-	font-family: "PT Sans", Arial, sans-serif;
-	margin: 20px 0 20px 0;
 }
 
 select {
@@ -30,8 +25,16 @@ label {
 }
 
 .b-form {
-	@include container(90%);
-	padding: 40px 0 40px 0;
+	margin: 40px auto;
+    width: 100%;
+
+    &__createtournament {
+    	max-width: 600px;
+    }
+
+    @include respond-to(mobile) {
+    	max-width: 300px;
+    }
 
 	&__button {
 		@include button;
@@ -41,6 +44,23 @@ label {
 input[type='time'],
 input[type='date'] {
 	height: 35px;
+}
+
+input[type='date'] {
+	max-width: 160px;
+}
+
+input[type='time'] {
+	max-width: 100px;
+}
+
+input[type="checkbox"] {
+	width: 15px;
+	height: 15px;
+}
+
+input[type="number"] {
+	max-width: 100px;
 }
 
 .b-form-item {
@@ -57,129 +77,22 @@ input[type='date'] {
 		}
 	}
 
-	&__input, &__label {
+	input, textarea {
+		width: 100%;
 		display: inline-block;
-
-		&_full {
-			@include span(11 of 12 no-gutters);
-			box-sizing: border-box;
-
-			@include respond-to(mobile) {
-				width: 100%;
-				float: inherit;
-			}
-
-			&_last {
-				@include span(11 of 12);
-				@include last;
-			}
-		}
-
-		&_six {
-			@include span(6 of 12 no-gutters);
-			box-sizing: border-box;
-
-			&_last {
-				@include span(6 of 12);
-				@include last;
-			}
-		}
-
-		&_quarter {
-			@include span(3 of 12);
-			box-sizing: border-box;
-
-			@include respond-to(large) {
-				width: 29%;
-			}
-
-			@include respond-to(mobile) {
-				width: 100%;
-				float: inherit;
-				margin-bottom: 10px;
-			}
-
-			&_last {
-				@include span(3 of 12);
-				@include last;
-
-				@include respond-to(mobile) {
-					width: 100%;
-					float: inherit;
-					margin-bottom: 10px;
-				}
-			}
-		}
-
-		&_third {
-			@include span(4 of 12);
-			box-sizing: border-box;
-
-			&_last {
-				@include span(4 of 12);
-				@include last;
-			}
-		}
-
-		&_sixth {
-			@include span(2 of 12);
-			box-sizing: border-box;
-
-			&_last {
-				@include span(2 of 12);
-				@include last;
-			}
-		}
-
-		&_ten {
-			@include span(10%);
-			box-sizing: border-box;
-
-			@include respond-to(large) {
-				width: 15%;
-			}
-
-			@include respond-to(mobile) {
-				width: 100%;
-				float: inherit;
-				margin-bottom: 10px;
-			}
-
-			@include respond-to(tablets) {
-				width: 24%;
-			}
-
-			&_last {
-				@include span(10%);
-				@include last;
-
-				@include respond-to(mobile) {
-					width: 100%;
-					float: inherit;
-					margin-bottom: 10px;
-				}
-			}
-		}
+		margin-bottom: 10px;
 	}
 
 	&__map {
 		border: 1px solid $grey;
 		display: inline-block;
 		margin-top: 10px;
-
-		@include respond-to(mobile) {
-			width: 100%;
-		}
+		width: 100%;
 	}
 
 	&__wrapper {
 		display: block;
 		width: 100%;
-		height: 70px;
-
-		@include respond-to(mobile) {
-			height: inherit;
-		}
 	}
 }
 
@@ -196,7 +109,7 @@ input[type='date'] {
 }
 
 .errorlist {
-	display: inline;
+	display: block;
 
 	li {
 		color: red;
@@ -206,19 +119,55 @@ input[type='date'] {
 	}
 }
 
+// autocomplete
 
-// sing up
+.ui-autocomplete {
+    overflow-y: auto;
+	max-height: 300px;
+	overflow-x: hidden;
+	max-width: 350px;
+
+    @include respond-to(mobile) {
+        max-width: 278px;
+    }
+}
+
+.ui-menu-item {
+    font-size: 14px;
+    max-width: 100%;
+    padding: 10px 1em 10px .4em;
+    line-height: 1.4;
+
+    .region {
+        font-size: 11px;
+        color: $grey;
+    }
+
+    a {
+        color: #58697A;
+        font-size: 14px;
+    }
+}
+
+.ui-widget-content {
+    border: 1px solid $grey;
+}
+
+
+// зарегистрироваться
 
 .b-signup {
+    max-width: 350px;
+
+    @include respond-to(mobile) {
+        max-width: 280px;
+    }
 
 	&__item {
 
-		input, select {
+		input, select, textarea {
 			min-width: 200px;
-		}
-
-		input, select {
-			width: 29%;
+			width: 100%;
 		}
 
 		input[type="checkbox"] {
@@ -226,8 +175,7 @@ input[type='date'] {
 		}
 
 		span {
-			padding-left: 5px;
-    		margin-top: 7px;
+			margin-top: 10px;
     		display: inline-block;
 		}
 	}
@@ -244,4 +192,14 @@ input[type='date'] {
 	input {
 		width: 25%;
 	}
+}
+
+
+// создать турнир
+
+.tournament-new {
+
+    &__count {
+        max-width: 190px !important;
+    }
 }

@@ -14,36 +14,30 @@
     {{ form.location.errors }}
     {{ form.location_lon }} {# Hidden #}
     {{ form.location_lat }} {# Hidden #}
-     <div id="map" class="b-form-item__map" style="width: 94%; height: 200px"></div>
+     <div id="map" class="b-form-item__map" style="height: 200px"></div>
 </div>
 
 <div class="b-form-item" id="regdateOpen">
     <h3 class="b-form-item__heading">Открытие регистрации</h3>
-    <div class="b-form-item__wrapper">
-        {{ form.open_reg_date }}
-        {{ form.open_reg_time }}
-    </div>
+    {{ form.open_reg_date }}
     {{ form.open_reg_date.errors }}
+    {{ form.open_reg_time }}
     {{ form.open_reg_time.errors }}
 </div>
 
 <div class="b-form-item" id="regdateClose">
     <h3 class="b-form-item__heading">Закрытие регистрации</h3>
-    <div class="b-form-item__wrapper">
-        {{ form.close_reg_date }}
-        {{ form.close_reg_time }}
-    </div>
+    {{ form.close_reg_date }}
     {{ form.close_reg_date.errors }}
+    {{ form.close_reg_time }}
     {{ form.close_reg_time.errors }}
 </div>
 
 <div class="b-form-item" id="tournamentDate">
     <h3 class="b-form-item__heading">Начало турнира</h3>
-    <div class="b-form-item__wrapper">
-        {{ form.start_tour_date }}
-        {{ form.start_tour_time }}
-    </div>
+    {{ form.start_tour_date }}
     {{ form.start_tour_date.errors }}
+    {{ form.start_tour_time }}
     {{ form.start_tour_time.errors }}
 </div>
 

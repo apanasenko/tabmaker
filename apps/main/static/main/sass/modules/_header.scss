@@ -34,7 +34,7 @@ header {
 		img {
 			display: inline-block;
 			height: 50%;
-			width: 42%;
+			width: 50%;
 			max-width: none;
 			max-height: 80px;
 			box-sizing: content-box;
@@ -132,6 +132,13 @@ header {
 			@include respond-to(large) {
 				float: left;
     			margin-bottom: 5px;
+			}
+		}
+
+		.page-title-short {
+			@include respond-to(mobile) {
+				height: 35px;
+				line-height: 35px;
 			}
 		}
 

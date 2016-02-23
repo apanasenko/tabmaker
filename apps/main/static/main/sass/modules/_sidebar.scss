@@ -1,6 +1,7 @@
 aside {
 	display: inline-block;
 	width: 20%;
+	vertical-align: top;
 
 	@include respond-to(large) {
 		min-width: 250px;
@@ -80,4 +81,22 @@ aside {
 	@include respond-to(tablets) {
 		margin: 0;
 	}
+}
+
+.aside-right {
+	display: none;
+
+	@include respond-to(desctop) {
+		display: inline-block;
+		background-color: none;
+		width: 19%;
+		min-width: 250px;
+	}
+}
+
+.vk-widget {
+	display: block;
+	background-color: $background-block;
+	vertical-align: top;
+	padding-left: 30px;
 }
