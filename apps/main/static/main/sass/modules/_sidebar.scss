@@ -1,6 +1,7 @@
 aside {
 	display: inline-block;
 	width: 20%;
+	vertical-align: top;
 
 	@include respond-to(large) {
 		min-width: 250px;
@@ -83,19 +84,13 @@ aside {
 }
 
 .aside-right {
+	display: none;
+
 	@include respond-to(desctop) {
 		display: inline-block;
-		float: right;
 		background-color: none;
-		width: 20%;
-	}
-
-	@include respond-to(tablets) {
-		display: none;
-	}
-
-	@include respond-to(mobile) {
-		display: none;
+		width: 19%;
+		min-width: 250px;
 	}
 }
 
@@ -103,5 +98,5 @@ aside {
 	display: block;
 	background-color: $background-block;
 	vertical-align: top;
-	float: right;
+	padding-left: 30px;
 }
