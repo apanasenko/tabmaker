@@ -5,6 +5,7 @@ __pycache__
 */settings/database.py
 */settings/security.py
 */settings/smtp_email.py
+*/settings/static.py
 */settings/google_import.py
 local_*
 *.sublime-project
