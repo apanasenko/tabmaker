@@ -4,3 +4,5 @@
 STATIC_ROOT = '<static_dir>'
 
 STATIC_URL = '/static/'
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'

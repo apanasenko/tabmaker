@@ -6,7 +6,7 @@ DEBUG = False
 
 TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 ADMINS = (('<name_1>', '<email_1>'), ('<name_2>', '<email_2>'),)
 
