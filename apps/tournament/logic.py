@@ -647,6 +647,11 @@ def get_rooms_by_chair_from_last_round(tournament: Tournament, user: User) -> Ro
 
 
 def get_tab(tournament: Tournament):
+    """
+    TODO Вынести класс tournament в отдельный файл и этот метот в этот класс
+    :param tournament:
+    :return:
+    """
     teams = {}
 
     # Выборка всех игр и результатов
