@@ -157,3 +157,17 @@ def clone_tournament(request, count: int):
         t.save()
 
     return redirect('main:index')
+
+
+def restart_tournament(request, tournament_id: int):
+    from apps.tournament.consts import STATUS_PLAYOFF, ROLE_OWNER
+
+    tournament = get_object_or_404(Tournament, pk=tournament_id)
+    tournament.status = STATUS_PLAYOFF
+    tournament.save()
+    if request.user.is_authenticated():
+        rel = UserTournamentRel.objects.get(tournament=tournament, role=ROLE_OWNER)
+        rel.user = request.user
+        rel.save()
+
+    return redirect('/tournament/%s/play/' % tournament_id)

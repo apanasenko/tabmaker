@@ -26,4 +26,8 @@ urlpatterns = patterns(
         r'^clone/tournament/(?P<count>\d+)[/]$',
         views.clone_tournament
     ),
+    url(
+        r'^restart/(?P<tournament_id>\d+)[/]$',
+        views.restart_tournament
+    ),
 )
