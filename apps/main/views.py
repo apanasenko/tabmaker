@@ -7,24 +7,16 @@ from . utils import paging
 
 
 def index(request):
-    DAYS_TO_LEAVE_SHORT_LIST = 7
+    DAYS_TO_LEAVE_SHORT_LIST = 3
     is_short = request.GET.get('list', None) != 'all'
     tournaments = Tournament.objects.annotate(m_count=Count('team_members')).select_related('status')
     if is_short:
-        if request.user.is_authenticated():
-            self_tournament = (
-                Q(usertournamentrel__user=request.user) & Q(usertournamentrel__role__in=[ROLE_ADMIN, ROLE_OWNER])
-            )
-        else:
-            self_tournament = ~Q()
-
+        # TODO Возможно стоит всегда показывать свои турниры в списке
         tournaments = tournaments.filter(
-            Q(m_count__gt=0)
-            | (Q(status=STATUS_REGISTRATION)
-                & Q(start_tour__gte=(date.today() - timedelta(days=DAYS_TO_LEAVE_SHORT_LIST))))
-            | self_tournament
-        ).distinct()
-
+            Q(status__in=[STATUS_STARTED, STATUS_PLAYOFF, STATUS_FINISHED])
+            |
+            Q(start_tour__gte=(date.today() - timedelta(days=DAYS_TO_LEAVE_SHORT_LIST)))
+        )
     else:
         tournaments = tournaments.all()
 
@@ -35,7 +27,7 @@ def index(request):
             'is_main_page': True,
             'is_short': is_short,
             'objects': paging(
-                request, tournaments.order_by('-start_tour'), 30
+                request, list(tournaments.order_by('-start_tour')), 30
             )
         }
     )
