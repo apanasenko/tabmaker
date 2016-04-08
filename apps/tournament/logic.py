@@ -462,8 +462,13 @@ def check_final(tournament: Tournament):
 
 
 def check_last_round_results(tournament: Tournament):
-    for room in Room.objects.filter(round=_get_last_round(tournament)):
-        if not GameResult.objects.filter(game=room.game).exists():
+    rooms = Room.objects.filter(round=_get_last_round(tournament))\
+        .select_related('game')\
+        .select_related('game__gameresult')
+    for room in rooms:
+        try:
+            room.game.gameresult
+        except AttributeError:
             return 'Введите результаты последнего раунда'
 
     return None
@@ -573,7 +578,7 @@ def get_games_and_results(rooms: [Room]):
     results = []
     for room in rooms:
         try:
-            result = GameResult.objects.get(game=room.game)
+            result = room.game.gameresult
         except ObjectDoesNotExist:
             result = None
 
@@ -659,16 +664,21 @@ def get_all_rounds_and_rooms(tournament: Tournament):
 
 def get_rooms_from_last_round(tournament: Tournament, shuffle=False):
     room = Room.objects.filter(round=_get_last_round(tournament))
-    for i in ['game', 'place']:
+    # TODO вынести этот кусок кода
+    for i in ['game', 'place', 'game__gameresult', 'game__chair']:
         room = room.select_related(i)
     for i in ['og', 'oo', 'cg', 'co']:
         room = room.select_related('game__%s' % i)
+        for j in ['speaker_1', 'speaker_2']:
+            room = room.select_related('game__%s__%s' % (i, j))
 
     return room if not shuffle else room.order_by('?')
 
 
 def get_rooms_by_chair_from_last_round(tournament: Tournament, user: User) -> Room:
-    return Room.objects.filter(round=_get_last_round(tournament), game__chair=user)
+    return Room.objects.filter(round=_get_last_round(tournament), game__chair=user)\
+        .select_related('game__gameresult')\
+        .select_related('game')
 
 
 def get_tab(tournament: Tournament):
