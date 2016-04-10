@@ -66,6 +66,13 @@ class Tournament(models.Model):
                 q = q.select_related(i)
             return q.order_by('-role_id', '-id')
 
+    def count_members(self):
+        from .consts import ROLE_MEMBER
+        return self.teamtournamentrel_set.filter(role=ROLE_MEMBER).count()
+
+    def count_registered_teams(self):
+        return self.teamtournamentrel_set.count()
+
     def __str__(self):
         return self.name
 
