@@ -1,0 +1,31 @@
+{% extends "tournament/owner_base.html" %}
+
+{% block page_title %}
+    Создание формы регистрации на турнир
+{% endblock page_title %}
+
+
+{% block content %}
+
+    <input id="form" type="hidden" value="{{ form.id }}">
+
+    {% for question in questions %}
+        <div id="question_{{ question.id }}">
+            <H3 class="question">
+                {{ question.question }}
+                {% if question.required %}
+                    <span>*</span>
+                {% endif %}
+            </H3>
+            <p class="comment">{{ question.comment }}</p>
+            <input class="required" type="hidden" value="{% if question.required %} 1 {% else %} 0 {% endif %} ">
+            <button class="up">Переместить выше</button>
+            <button class="down">Переместить ниже</button>
+            <button class="edit">Редактировать вопрос</button>
+            {% if not question.required %}
+                <button class="remove">Удалить вопрос</button>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+{% endblock content %}

@@ -1012,3 +1012,28 @@ def place_remove(request, tournament):
         MSG_JSON_OK, 'ok'
     )
 
+
+##################################
+#          Custom Forms          #
+##################################
+from apps.tournament.models import \
+    CustomForm, \
+    CustomQuestion
+
+
+@ensure_csrf_cookie
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='admin edit')  # TODO Добавить в таблицу
+def registration_form_edit(request, tournament):
+    form = CustomForm.get_or_create(tournament, FORM_REGISTRATION_TYPE)
+    questions = CustomQuestion.objects.filter(form=form).select_related('alias').order_by('position')
+
+    return render(
+        request,
+        'tournament/custom_form_edit.html',
+        {
+            'tournament': tournament,
+            'form': form,
+            'questions': questions,
+        }
+    )

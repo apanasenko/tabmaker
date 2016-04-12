@@ -164,6 +164,25 @@ class CustomForm(models.Model):
     link = models.TextField(default='')
     form_type = models.ForeignKey(CustomFormType)
 
+    @staticmethod
+    def get_or_create(tournament: Tournament, form_type: CustomFormType):
+        from .consts import CUSTOM_FIELD_SETS
+
+        form = CustomForm.objects.get_or_create(tournament=tournament, form_type=form_type)
+        if form[1]:  # is create
+            for i in range(len(CUSTOM_FIELD_SETS)):
+                CustomQuestion.objects.create(
+                    question=CUSTOM_FIELD_SETS[i][1],
+                    comment='',
+                    position=(i + 1),
+                    required=CUSTOM_FIELD_SETS[i][2],
+                    form=form[0],
+                    alias=CUSTOM_FIELD_SETS[i][0]
+                )
+
+        return form[0]
+
+
 class CustomQuestion(models.Model):
     question = models.CharField(max_length=300)
     comment = models.TextField()

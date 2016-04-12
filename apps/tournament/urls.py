@@ -68,4 +68,11 @@ urlpatterns = patterns(
     url(r'^(?P<tournament_id>\d+)/place/add[/]', views.place_add, name='place_add'),
     url(r'^(?P<tournament_id>\d+)/place/remove[/]', views.place_remove, name='place_remove'),
     url(r'^(?P<tournament_id>\d+)/place/update[/]', views.place_update, name='place_update'),
+
+    # Custom form
+    url(
+        r'^(?P<tournament_id>\d+)/registration/edit[/]$',
+        views.registration_form_edit,
+        name='registration_edit'
+    ),
 )
