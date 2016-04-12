@@ -145,3 +145,29 @@ class AccessToPage(models.Model):
     status = models.ForeignKey(TournamentStatus)
     access = models.BooleanField(default=True)
     message = models.TextField(blank=True, null=True)
+
+
+# ###################### #
+#      Custom Forms      #
+# ###################### #
+
+class CustomFormType(models.Model):
+    name = models.CharField(max_length=100)
+
+
+class CustomFieldAlias(models.Model):
+    name = models.CharField(max_length=100)
+
+
+class CustomForm(models.Model):
+    tournament = models.OneToOneField(Tournament)
+    link = models.TextField(default='')
+    form_type = models.ForeignKey(CustomFormType)
+
+class CustomQuestion(models.Model):
+    question = models.CharField(max_length=300)
+    comment = models.TextField()
+    position = models.PositiveIntegerField(unique=True)
+    required = models.BooleanField(default=True)
+    form = models.ForeignKey(CustomForm)
+    alias = models.ForeignKey(CustomFieldAlias, blank=True)
