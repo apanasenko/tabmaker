@@ -44,3 +44,11 @@ LBL_SPEAKER = 'Спикер'
 
 CONFIRM_MSG_REMOVE = 'Удалить'
 CONFIRM_MSG_FINISHED = 'Завершить'
+
+LBL_CUSTOM_FIELD_SPEAKER_1_EMAIL = 'E-mail первого спикера'
+LBL_CUSTOM_FIELD_SPEAKER_1_F_NAME = 'Имя первого спикера'
+LBL_CUSTOM_FIELD_SPEAKER_1_L_NAME = 'Фамилия первого спикера'
+LBL_CUSTOM_FIELD_SPEAKER_2_EMAIL = 'E-mail второго спикера'
+LBL_CUSTOM_FIELD_SPEAKER_2_F_NAME = 'Имя второго спикера'
+LBL_CUSTOM_FIELD_SPEAKER_2_L_NAME = 'Фамилия второго спикера'
+LBL_CUSTOM_FIELD_TEAM = 'Название команды'
