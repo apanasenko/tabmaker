@@ -1035,5 +1035,6 @@ def registration_form_edit(request, tournament):
             'tournament': tournament,
             'form': form,
             'questions': questions,
+            'required_aliases': [FIELD_ALIAS_SPEAKER_1, FIELD_ALIAS_SPEAKER_2, FIELD_ALIAS_TEAM],
         }
     )

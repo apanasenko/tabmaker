@@ -1,5 +1,17 @@
 {% extends "tournament/owner_base.html" %}
 
+
+{% load staticfiles %}
+
+
+{% block extra_head %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static "main/js/cookie.js" %}"></script>
+    <script type="text/javascript" src="{% static "main/js/ajaxCSRF.js" %}"></script>
+    <script type="text/javascript" src="{% static "tournament/js/edit_registration_form.js" %}"></script>
+{% endblock extra_head %}
+
+
 {% block page_title %}
     Создание формы регистрации на турнир
 {% endblock page_title %}
@@ -7,25 +19,61 @@
 
 {% block content %}
 
-    <input id="form" type="hidden" value="{{ form.id }}">
+    <input id="form_id" type="hidden" value="{{ form.id }}">
 
-    {% for question in questions %}
-        <div id="question_{{ question.id }}">
-            <H3 class="question">
-                {{ question.question }}
-                {% if question.required %}
-                    <span>*</span>
-                {% endif %}
-            </H3>
-            <p class="comment">{{ question.comment }}</p>
-            <input class="required" type="hidden" value="{% if question.required %} 1 {% else %} 0 {% endif %} ">
-            <button class="up">Переместить выше</button>
-            <button class="down">Переместить ниже</button>
-            <button class="edit">Редактировать вопрос</button>
-            {% if not question.required %}
-                <button class="remove">Удалить вопрос</button>
-            {% endif %}
+    <div id="temp">
+
+        <div class="show_block">
+            <div>
+                <span class="question"> Вопрос </span>
+                <span class="star">*</span>
+            </div>
+            <span class="comment"> Пояснение </span>
+            <input class="required" type="hidden">
+            <input class="can_remove" type="hidden">
+
+            <input class="answer" placeholder="Ответ">
+
+            <button class="edit" onclick="edit_click(this)">Редактировать вопрос</button>
         </div>
-    {% endfor %}
+
+        <div class="edit_block">
+            <label>
+                Вопрос: <input class="question">
+            </label>
+            <label>
+                Комментарий к вопросу: <textarea class="comment"></textarea>
+            </label>
+            <label>
+                Обязательное поле: <input class="required" type="checkbox">
+            </label>
+            <button class="save" onclick="save_click(this)">Сохранить вопрос</button>
+            <button class="save" onclick="cancel_click(this)">Отменить</button>
+        </div>
+
+        <div>
+            <button class="up" onclick="up_click(this)">Переместить выше</button>
+            <button class="down" onclick="down_click(this)">Переместить ниже</button>
+            <button class="remove" onclick="remove_click(this)">Удалить вопрос</button>
+        </div>
+        <hr>
+    </div>
+
+    <script>
+        function init() {
+            {% for question in questions %}
+            generate_question_block(
+                    '{{ question.id }}',
+                    '{{ question.question }}',
+                    '{{ question.comment }}',
+                    {% if question.required %} '1' {% else %} '0' {% endif %},
+                    {% if question.alias not in required_aliases %} '1' {% else %} '0' {% endif %}
+            );
+           {% endfor %}
+        }
+    </script>
+    <div id="new_question">
+        <button class="add" onclick="add_question(this)">Добавит вопрос</button>
+    </div>
 
 {% endblock content %}
