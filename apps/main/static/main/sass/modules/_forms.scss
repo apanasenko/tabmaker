@@ -212,6 +212,11 @@ input[type="number"] {
     position: absolute;
     top: 0;
     right: 10px;
+
+    @include respond-to(mobile) {
+        position: initial;
+        margin: 10px 0 0 0;
+    }
 }
 
 .up, .down, .remove, .edit {
@@ -255,7 +260,7 @@ input[type="number"] {
         input[type="text"], textarea {
             max-width: 80%;
             width: 100%;
-            min-width: 300px;
+            min-width: 280px;
         }
 
         input, textarea {
