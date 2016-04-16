@@ -26,7 +26,7 @@
     <label for="tab3" class="b-tabs__label" title="Судьи">Судьи</label>
 
     <section class="b-tabs__one">
-        <form class="b-form" action="{% url "tournament:edit" tournament.id %}" method="post">
+        <form class="b-form b-form__createtournament" action="{% url "tournament:edit" tournament.id %}" method="post">
              {% include "tournament/edit_form.html" %}
              <button type="submit" class="button formItem">Сохранить</button>
         </form>
