@@ -36,6 +36,7 @@ var class_can_remove_field = '.can_remove';
 var class_answer_field = '.answer';
 var class_star = '.star';
 
+var editable_block = null;
 
 $(document).ready(function(){
     $(id_temp_block).hide();
@@ -90,9 +91,7 @@ function save_click(button, action){
 
 
 function cancel_click(button){
-    var block = $(button).parents(class_question_block);
-    block.find(class_question_show_block).show();
-    block.find(class_question_edit_block).hide();
+    cancel($(button).parents(class_question_block));
 }
 
 
@@ -130,6 +129,7 @@ function swap_visible(block_1, block_2, _class){
 
 
 function down_click(button, action){
+    change_editable_block(null);
     var block = $(button).parents(class_question_block);
     var next_block = block.next();
     if (next_block.hasClass(_class_question_block)){
@@ -156,6 +156,7 @@ function down_click(button, action){
 
 
 function up_click(button, action){
+    change_editable_block(null);
     var block = $(button).parents(class_question_block);
     var prev_block = block.prev();
     if (prev_block.hasClass(_class_question_block)){
@@ -185,6 +186,7 @@ function add_question(){
     var block = generate_question_block(0, 'Новый вопрос', '', '0', '1');
     edit_question(block);
     swap_visible(block.prev(), block, class_down_button);
+    $(id_new_question_block).hide();
 }
 
 
@@ -223,6 +225,7 @@ function generate_question_block(id, question, comment, required, can_remove){
 
 
 function edit_question(block){
+    change_editable_block(block);
     var show_block = block.find(class_question_show_block);
     var edit_block = block.find(class_question_edit_block);
 
@@ -263,6 +266,7 @@ function save_question(block, action){
             if (!parseInt(block.attr('id'))){
                 block.attr('id', data.message.question_id);
                 swap_visible(block.prev(), block, class_down_button);
+                $(id_new_question_block).show();
             }
             show_notification(block, data.status, data.message.message);
         },
@@ -270,4 +274,23 @@ function save_question(block, action){
             show_notification(block, data.status, data.message);
         }
     );
+}
+
+
+function cancel(block){
+    if (block.attr('id') === '0'){
+        block.remove();
+        $(id_new_question_block).show();
+    } else {
+        block.find(class_question_show_block).show();
+        block.find(class_question_edit_block).hide();
+    }
+}
+
+
+function change_editable_block(new_editable_block){
+    if (editable_block) {
+        cancel(editable_block);
+    }
+    editable_block = new_editable_block;
 }
