@@ -11,6 +11,7 @@ var fail_down = 'Ниже нельзя, вопрос уже последний';
 var fail_up = 'Выше нельзя, вопрос уже первый';
 var undefined_status = 'Неизветсный статус ответа';
 var remove_required_field = 'Незьзя удалить обязательный вопрос';
+var edit_required_field = 'Незьзя редактировать обязательный вопрос. Он нужен для создания команд';
 
 var id_form_input = '#form_id';
 var id_new_question_block = '#new_question';
@@ -228,6 +229,7 @@ function generate_question_block(id, question, comment, required, can_remove){
     new_block.find(class_can_remove_field).val(can_remove);
     if (can_remove === '0'){
         new_block.find(class_remove_button).hide();
+        new_block.find(class_edit_button).hide();
     }
 
     new_block.show();
@@ -239,21 +241,26 @@ function generate_question_block(id, question, comment, required, can_remove){
 
 
 function edit_question(block){
-    change_editable_block(block);
-    var show_block = block.find(class_question_show_block);
-    var edit_block = block.find(class_question_edit_block);
+    var can_remove = block.find(class_can_remove_field).val();
+    if (can_remove === '0'){
+        show_notification(block, response_bad, edit_required_field);
+    } else {
+        change_editable_block(block);
+        var show_block = block.find(class_question_show_block);
+        var edit_block = block.find(class_question_edit_block);
 
-    var is_required = show_block.find(class_required_field).val() === '1';
-    var can_remove = show_block.find(class_can_remove_field).val() === '1';
+        var is_required = show_block.find(class_required_field).val() === '1';
+        //var can_remove = show_block.find(class_can_remove_field).val() === '1';
 
-    edit_block.find(class_question_field).val(show_block.find(class_question_field).text());
-    edit_block.find(class_comment_field).val(show_block.find(class_comment_field).text());
+        edit_block.find(class_question_field).val(show_block.find(class_question_field).text());
+        edit_block.find(class_comment_field).val(show_block.find(class_comment_field).text());
 
-    edit_block.find(class_required_field).prop('checked', is_required);
-    edit_block.find(class_required_field).prop('disabled', !can_remove);
+        edit_block.find(class_required_field).prop('checked', is_required);
+        //edit_block.find(class_required_field).prop('disabled', !can_remove);
 
-    show_block.hide();
-    edit_block.show();
+        show_block.hide();
+        edit_block.show();
+    }
 }
 
 

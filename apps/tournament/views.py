@@ -1094,8 +1094,8 @@ def _form_edit_field(request, form: CustomForm):
         if not field:
             return MSG_JSON_BAD, 'Вопрос не найден'
 
-        if field.alias in REQUIRED_ALIASES and not is_required:
-            return MSG_JSON_BAD, 'Этот вопрос должен быть обязательным'
+        if field.alias in REQUIRED_ALIASES:
+            return MSG_JSON_BAD, 'Этот вопрос является обязательным, его нельзя редактировать'
 
         field.question = question
         field.comment = comment
