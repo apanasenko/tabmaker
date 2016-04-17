@@ -198,7 +198,7 @@ function up_click(button, action){
 
 
 function add_question(){
-    var block = generate_question_block(0, 'Новый вопрос', '', '0', '1');
+    var block = generate_question_block(0, '', '', '0', '1');
     edit_question(block);
     block.find(class_actions_buttons_block).hide();
     $(id_new_question_block).hide();
