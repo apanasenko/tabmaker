@@ -1056,9 +1056,6 @@ def form_edit(request, tournament):
     form_id = int(request.POST.get('form_id', '0'))
     action = request.POST.get('action', '')
 
-    message = ''
-    status = MSG_JSON_OK
-
     form = CustomForm.objects.filter(pk=form_id).first()
 
     if not form or form.tournament != tournament:
@@ -1088,7 +1085,6 @@ def _form_edit_field(request, form: CustomForm):
     if not question:
         return MSG_JSON_BAD, 'Вопрос не может быть пустым'
 
-    message = ''
     if field_id:
         field = form.customquestion_set.filter(pk=field_id).first()
         if not field:
