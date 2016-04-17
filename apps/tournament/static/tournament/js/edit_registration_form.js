@@ -28,6 +28,7 @@ var class_question_block = '.' + _class_question_block;
 var class_question_show_block = '.show_block';
 var class_question_edit_block = '.edit_block';
 var class_notification_block = '.message';
+var class_actions_buttons_block = '.actions_buttons';
 
 var class_question_field = '.question';
 var class_comment_field = '.comment';
@@ -185,7 +186,7 @@ function up_click(button, action){
 function add_question(){
     var block = generate_question_block(0, 'Новый вопрос', '', '0', '1');
     edit_question(block);
-    swap_visible(block.prev(), block, class_down_button);
+    block.find(class_actions_buttons_block).hide();
     $(id_new_question_block).hide();
 }
 
@@ -265,6 +266,7 @@ function save_question(block, action){
             edit_block.hide();
             if (!parseInt(block.attr('id'))){
                 block.attr('id', data.message.question_id);
+                block.find(class_actions_buttons_block).show();
                 swap_visible(block.prev(), block, class_down_button);
                 $(id_new_question_block).show();
             }
