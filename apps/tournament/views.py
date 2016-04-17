@@ -1080,7 +1080,7 @@ def _form_edit_field(request, form: CustomForm):
     field_id = int(request.POST.get('question_id', 0))
     question = request.POST.get('question', '')
     comment = request.POST.get('comment', '')
-    is_required = bool(request.POST.get('question_id', False))
+    is_required = request.POST.get('is_required', '0') == '1'
 
     if not question:
         return MSG_JSON_BAD, 'Вопрос не может быть пустым'
