@@ -270,7 +270,7 @@ function save_question(block, action){
                 swap_visible(block.prev(), block, class_down_button);
                 $(id_new_question_block).show();
             }
-            show_notification(block, data.status, data.message.message);
+            //show_notification(block, data.status, data.message.message);
         },
         function(data){
             show_notification(block, data.status, data.message);
