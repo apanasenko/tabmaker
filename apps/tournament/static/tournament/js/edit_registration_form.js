@@ -36,6 +36,7 @@ var class_can_remove_field = '.can_remove';
 var class_answer_field = '.answer';
 var class_star = '.star';
 
+
 $(document).ready(function(){
     $(id_temp_block).hide();
     init();
@@ -88,16 +89,14 @@ function save_click(button, action){
 }
 
 
-function cancel_click(button)
-{
+function cancel_click(button){
     var block = $(button).parents(class_question_block);
     block.find(class_question_show_block).show();
     block.find(class_question_edit_block).hide();
 }
 
 
-function remove_click(button)
-{
+function remove_click(button, action){
     var block = $(button).parents(class_question_block);
     var can_remove = block.find(class_can_remove_field).val();
     if (can_remove === '0'){
@@ -122,16 +121,15 @@ function remove_click(button)
 }
 
 
-function swap_visible(block_1, block_2, _class) {
-    if (!block_1.find(_class).is(":visible")) {
+function swap_visible(block_1, block_2, _class){
+    if (!block_1.find(_class).is(":visible")){
         block_2.find(_class).hide();
         block_1.find(_class).show();
     }
 }
 
 
-function down_click(button)
-{
+function down_click(button, action){
     var block = $(button).parents(class_question_block);
     var next_block = block.next();
     if (next_block.hasClass(_class_question_block)){
@@ -183,20 +181,18 @@ function up_click(button, action){
 }
 
 
-function add_question()
-{
+function add_question(){
     var block = generate_question_block(0, 'Новый вопрос', '', '0', '1');
     edit_question(block);
     swap_visible(block.prev(), block, class_down_button);
 }
 
 
-function set_values(block, question, comment, required)
-{
+function set_values(block, question, comment, required){
     block.find(class_question_field).text(question);
     block.find(class_comment_field).text(comment);
     block.find(class_required_field).val(required);
-    if (required  === '1') {
+    if (required  === '1'){
         block.find(class_star).show();
     } else {
         block.find(class_star).hide();
@@ -204,8 +200,7 @@ function set_values(block, question, comment, required)
 }
 
 
-function generate_question_block(id, question, comment, required, can_remove)
-{
+function generate_question_block(id, question, comment, required, can_remove){
     var new_block = $(id_temp_block).clone();
 
     new_block.insertBefore($(id_new_question_block));
@@ -215,19 +210,19 @@ function generate_question_block(id, question, comment, required, can_remove)
     set_values(new_block.find(class_question_show_block), question, comment, required);
 
     new_block.find(class_can_remove_field).val(can_remove);
-    if (can_remove === '0') {
+    if (can_remove === '0'){
         new_block.find(class_remove_button).hide();
     }
 
     new_block.show();
     new_block.find(class_question_edit_block).hide();
+    new_block.find(class_notification_block).hide();
 
     return new_block;
 }
 
 
-function edit_question(block)
-{
+function edit_question(block){
     var show_block = block.find(class_question_show_block);
     var edit_block = block.find(class_question_edit_block);
 
@@ -245,8 +240,7 @@ function edit_question(block)
 }
 
 
-function save_question(block)
-{
+function save_question(block, action){
     var show_block = block.find(class_question_show_block);
     var edit_block = block.find(class_question_edit_block);
 
