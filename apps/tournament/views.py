@@ -1031,7 +1031,7 @@ from apps.tournament.models import \
 @ensure_csrf_cookie
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='admin edit')  # TODO Добавить в таблицу
-def registration_form_edit(request, tournament):
+def form_registration(request, tournament):
     form = CustomForm.get_or_create(tournament, FORM_REGISTRATION_TYPE)
     questions = CustomQuestion.objects.filter(form=form).select_related('alias').order_by('position')
 
