@@ -186,7 +186,7 @@ class CustomForm(models.Model):
 class CustomQuestion(models.Model):
     question = models.CharField(max_length=300)
     comment = models.TextField()
-    position = models.PositiveIntegerField(unique=True)
+    position = models.PositiveIntegerField()
     required = models.BooleanField(default=True)
     form = models.ForeignKey(CustomForm)
     alias = models.ForeignKey(CustomFieldAlias, blank=True)
