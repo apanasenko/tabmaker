@@ -79,3 +79,10 @@ CUSTOM_FIELD_SETS = [
 ]
 
 REQUIRED_ALIASES = [FIELD_ALIAS_SPEAKER_1, FIELD_ALIAS_SPEAKER_2, FIELD_ALIAS_TEAM]
+
+CUSTOM_FORM_AJAX_ACTIONS = {
+    'edit_question': 'edit',
+    'remove_question': 'remove',
+    'up_question': 'up',
+    'down_question': 'down',
+}

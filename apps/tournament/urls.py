@@ -76,4 +76,9 @@ urlpatterns = patterns(
         views.form_registration,
         name='form_registration'
     ),
+    url(
+        r'^(?P<tournament_id>\d+)/form/edit[/]$',
+        views.form_edit,
+        name='form_edit'
+    ),
 )

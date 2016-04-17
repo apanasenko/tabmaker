@@ -1,6 +1,18 @@
-var id_temp_block = '#temp';
-var id_new_question_block = '#new_question';
 
+var response_ok = 'ok';
+var response_bad = 'bad';
+
+
+var fail_message = 'Неудалось связаться с сервером. Обновите страницу и попробуйте ещё раз';
+var fail_down = 'Ниже нельзя, вопрос уже последний';
+var fail_up = 'Выше нельзя, вопрос уже первый';
+var undefined_status = 'Неизветсный статус ответа';
+var remove_required_field = 'Незьзя удалить обязательный вопрос';
+
+var id_form_input = '#form_id';
+var id_new_question_block = '#new_question';
+var id_temp_block = '#temp';
+var id_url_input = '#url';
 
 var class_up_button = '.up';
 var class_down_button = '.down';
@@ -28,15 +40,38 @@ $(document).ready(function(){
 });
 
 
-function edit_click(button)
-{
+function send(data, block, success, error){
+    data.form_id = $(id_form_input).val();
+    $.post(
+        $(id_url_input).val(),
+        data,
+        function(data){
+            if (data.status === response_ok){
+                success(data);
+            } else if (data.status === response_bad){
+                error(data);
+            } else {
+                show_notification(block, response_bad, undefined_status);
+            }
+        }
+    ).fail(function(){
+        show_notification(block, response_bad, fail_message);
+    });
+}
+
+
+function show_notification(block, status, message){
+    alert(message);
+}
+
+
+function edit_click(button){
     edit_question($(button).parents(class_question_block));
 }
 
 
-function save_click(button)
-{
-    save_question($(button).parents(class_question_block));
+function save_click(button, action){
+    save_question($(button).parents(class_question_block), action);
 }
 
 
@@ -52,10 +87,24 @@ function remove_click(button)
 {
     var block = $(button).parents(class_question_block);
     var can_remove = block.find(class_can_remove_field).val();
-    if (can_remove === '0') {
-        alert('ERROR!');
+    if (can_remove === '0'){
+        show_notification(block, response_bad, remove_required_field);
     } else {
-        alert('REMOVE!')
+        send(
+            {
+                question_id: block.attr('id'),
+                action: action
+            },
+            block,
+            function(data){
+                block.remove();
+                $(class_question_block + ':first').find(class_up_button).hide();
+                $(class_question_block + ':last').find(class_down_button).hide();
+            },
+            function(data){
+                show_notification(block, data.status, data.message);
+            }
+        );
     }
 }
 
@@ -72,33 +121,60 @@ function down_click(button)
 {
     var block = $(button).parents(class_question_block);
     var next_block = block.next();
-    if (next_block.hasClass(_class_question_block)) {
-        block.insertAfter(next_block);
-        swap_visible(next_block, block, class_down_button);
-        swap_visible(block, next_block, class_up_button);
+    if (next_block.hasClass(_class_question_block)){
+        send(
+            {
+                question_id: block.attr('id'),
+                action: action,
+                next_question_id: next_block.attr('id')
+            },
+            block,
+            function(data){
+                block.insertAfter(next_block);
+                swap_visible(next_block, block, class_down_button);
+                swap_visible(block, next_block, class_up_button);
+            },
+            function(data){
+                show_notification(block, data.status, data.message);
+            }
+        );
     } else {
-        alert('Ниже нельзя, вопрос уже последний');
+        show_notification(block, response_bad, fail_down);
     }
 }
 
 
-function up_click(button)
-{
+function up_click(button, action){
     var block = $(button).parents(class_question_block);
     var prev_block = block.prev();
-    if (prev_block.hasClass(_class_question_block)) {
-        block.insertBefore(prev_block);
-        swap_visible(prev_block, block, class_up_button);
-        swap_visible(block, prev_block, class_down_button);
+    if (prev_block.hasClass(_class_question_block)){
+        send(
+            {
+                question_id: block.attr('id'),
+                action: action,
+                prev_question_id: prev_block.attr('id')
+            },
+            block,
+            function(data){
+                block.insertBefore(prev_block);
+                swap_visible(prev_block, block, class_up_button);
+                swap_visible(block, prev_block, class_down_button);
+            },
+            function(data){
+                show_notification(block, data.status, data.message);
+            }
+        );
     } else {
-        alert('Выше нельзя, вопрос уже первый');
+        show_notification(block, response_bad, fail_up);
     }
 }
 
 
 function add_question()
 {
-    edit_question(generate_question_block(0, 'Новый вопрос', '', '0', '1'));
+    var block = generate_question_block(0, 'Новый вопрос', '', '0', '1');
+    edit_question(block);
+    swap_visible(block.prev(), block, class_down_button);
 }
 
 
@@ -164,9 +240,27 @@ function save_question(block)
     var question = edit_block.find(class_question_field).val();
     var comment = edit_block.find(class_comment_field).val();
     var is_required = edit_block.find(class_required_field).is(':checked') ? "1" : "0";
-
-    set_values(show_block, question, comment, is_required);
-
-    show_block.show();
-    edit_block.hide();
+    send(
+        {
+            question_id: block.attr('id'),
+            action: action,
+            question: question,
+            comment: comment,
+            is_required: is_required
+        },
+        block,
+        function(data){
+            set_values(show_block, question, comment, is_required);
+            show_block.show();
+            edit_block.hide();
+            if (!parseInt(block.attr('id'))){
+                block.attr('id', data.message.question_id);
+                swap_visible(block.prev(), block, class_down_button);
+            }
+            show_notification(block, data.status, data.message.message);
+        },
+        function(data){
+            show_notification(block, data.status, data.message);
+        }
+    );
 }
