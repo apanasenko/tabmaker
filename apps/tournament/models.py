@@ -189,4 +189,4 @@ class CustomQuestion(models.Model):
     position = models.PositiveIntegerField()
     required = models.BooleanField(default=True)
     form = models.ForeignKey(CustomForm)
-    alias = models.ForeignKey(CustomFieldAlias, blank=True)
+    alias = models.ForeignKey(CustomFieldAlias, blank=True, null=True)
