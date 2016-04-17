@@ -1,7 +1,10 @@
+var notification_timeout = 2000;
 
 var response_ok = 'ok';
 var response_bad = 'bad';
 
+var class_error_notification = 'notification-red';
+var class_success_notification = 'notification-green';
 
 var fail_message = 'Неудалось связаться с сервером. Обновите страницу и попробуйте ещё раз';
 var fail_down = 'Ниже нельзя, вопрос уже последний';
@@ -24,6 +27,7 @@ var _class_question_block = 'question_block';
 var class_question_block = '.' + _class_question_block;
 var class_question_show_block = '.show_block';
 var class_question_edit_block = '.edit_block';
+var class_notification_block = '.message';
 
 var class_question_field = '.question';
 var class_comment_field = '.comment';
@@ -61,7 +65,16 @@ function send(data, block, success, error){
 
 
 function show_notification(block, status, message){
-    alert(message);
+    var css_class = status == response_ok ? class_success_notification : class_error_notification;
+    var message_block = block.find(class_notification_block);
+    message_block.addClass(css_class);
+    message_block.text(message);
+    message_block.show();
+    setTimeout(function() {
+        message_block.removeClass(css_class);
+        message_block.text('');
+        message_block.hide();
+    }, notification_timeout);
 }
 
 
