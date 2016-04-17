@@ -38,6 +38,7 @@ var class_answer_field = '.answer';
 var class_star = '.star';
 
 var editable_block = null;
+var action_executed = false;
 
 $(document).ready(function(){
     $(id_temp_block).hide();
@@ -130,10 +131,14 @@ function swap_visible(block_1, block_2, _class){
 
 
 function down_click(button, action){
+    if (action_executed){
+        return;
+    }
     change_editable_block(null);
     var block = $(button).parents(class_question_block);
     var next_block = block.next();
     if (next_block.hasClass(_class_question_block)){
+        action_executed = true;
         send(
             {
                 question_id: block.attr('id'),
@@ -145,8 +150,10 @@ function down_click(button, action){
                 block.insertAfter(next_block);
                 swap_visible(next_block, block, class_down_button);
                 swap_visible(block, next_block, class_up_button);
+                action_executed = false;
             },
             function(data){
+                action_executed = false;
                 show_notification(block, data.status, data.message);
             }
         );
@@ -157,10 +164,14 @@ function down_click(button, action){
 
 
 function up_click(button, action){
+    if (action_executed){
+        return;
+    }
     change_editable_block(null);
     var block = $(button).parents(class_question_block);
     var prev_block = block.prev();
     if (prev_block.hasClass(_class_question_block)){
+        action_executed = true;
         send(
             {
                 question_id: block.attr('id'),
@@ -172,8 +183,10 @@ function up_click(button, action){
                 block.insertBefore(prev_block);
                 swap_visible(prev_block, block, class_up_button);
                 swap_visible(block, prev_block, class_down_button);
+                action_executed = false;
             },
             function(data){
+                action_executed = false;
                 show_notification(block, data.status, data.message);
             }
         );
