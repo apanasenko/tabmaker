@@ -20,6 +20,10 @@ select {
 	min-width: 170px;
 }
 
+input:focus, textarea:focus {
+    outline: 1px solid $dark;
+}
+
 label {
 	display: block;
 }
