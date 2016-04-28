@@ -27,7 +27,7 @@ def index(request):
             'is_main_page': True,
             'is_short': is_short,
             'objects': paging(
-                request, list(tournaments.order_by('-start_tour')), 30
+                request, list(tournaments.order_by('-start_tour')), 15
             )
         }
     )
