@@ -59,3 +59,9 @@ def news(request):
         request,
         'main/news.html'
     )
+
+def thanks(request):
+    return render(
+        request,
+        'main/thanks.html'
+    )

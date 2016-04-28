@@ -12,4 +12,5 @@ urlpatterns = patterns(
     url(r'^about[/]$', views.about, name='about'),
     url(r'^soon[/]$', views.soon, name='soon'),
     url(r'^news[/]$', views.news, name='news'),
+    url(r'^thanks[/]$', views.thanks, name='thanks'),
 )

@@ -16,8 +16,9 @@
 {% block content %}
 <div class="b-tournament-summary">
     <div class="b-tournament-summary-status">
-        <p class="b-tournament-summary-status__info">Количество команд: {{ tournament.count_teams }}</p>
-        <p class="b-tournament-summary-status__info">Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
+        <p class="b-tournament-summary-status__info">
+            Количество команд: {{ tournament.count_members }} ({{ tournament.count_registered_teams }} зарегистрировано)
+        </p>
         <p class="b-tournament-summary-status__info">Количество сыграных раундов: {{ tournament.cur_round }}</p>
         <p class="b-tournament-summary-status__info">Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
         <p class="b-tournament-summary-status__info">Статус: {{ tournament.status.name }}</p>

@@ -66,6 +66,13 @@ class Tournament(models.Model):
                 q = q.select_related(i)
             return q.order_by('-role_id', '-id')
 
+    def count_members(self):
+        from .consts import ROLE_MEMBER
+        return self.teamtournamentrel_set.filter(role=ROLE_MEMBER).count()
+
+    def count_registered_teams(self):
+        return self.teamtournamentrel_set.count()
+
     def __str__(self):
         return self.name
 
@@ -138,3 +145,48 @@ class AccessToPage(models.Model):
     status = models.ForeignKey(TournamentStatus)
     access = models.BooleanField(default=True)
     message = models.TextField(blank=True, null=True)
+
+
+# ###################### #
+#      Custom Forms      #
+# ###################### #
+
+class CustomFormType(models.Model):
+    name = models.CharField(max_length=100)
+
+
+class CustomFieldAlias(models.Model):
+    name = models.CharField(max_length=100)
+
+
+class CustomForm(models.Model):
+    tournament = models.OneToOneField(Tournament)
+    link = models.TextField(default='')
+    form_type = models.ForeignKey(CustomFormType)
+
+    @staticmethod
+    def get_or_create(tournament: Tournament, form_type: CustomFormType):
+        from .consts import CUSTOM_FIELD_SETS
+
+        form = CustomForm.objects.get_or_create(tournament=tournament, form_type=form_type)
+        if form[1]:  # is create
+            for i in range(len(CUSTOM_FIELD_SETS)):
+                CustomQuestion.objects.create(
+                    question=CUSTOM_FIELD_SETS[i][1],
+                    comment='',
+                    position=(i + 1),
+                    required=CUSTOM_FIELD_SETS[i][2],
+                    form=form[0],
+                    alias=CUSTOM_FIELD_SETS[i][0]
+                )
+
+        return form[0]
+
+
+class CustomQuestion(models.Model):
+    question = models.CharField(max_length=300)
+    comment = models.TextField()
+    position = models.PositiveIntegerField(unique=True)
+    required = models.BooleanField(default=True)
+    form = models.ForeignKey(CustomForm)
+    alias = models.ForeignKey(CustomFieldAlias, blank=True)
