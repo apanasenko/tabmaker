@@ -16,7 +16,7 @@ urlpatterns = patterns(
     url(r'^(?P<tournament_id>\d+)/result/all[/]$', views.result_all_rounds, name='result_all'),
     url(r'^(?P<tournament_id>\d+)/remove[/]$', views.remove, name='remove'),
     url(r'^(?P<tournament_id>\d+)/print[/]$', views.print_users, name='print'),
-    url(r'^(?P<tournament_id>\d+)/feedback[/]$', views.feedback, name='feedback'),
+    # url(r'^(?P<tournament_id>\d+)/feedback[/]$', views.feedback, name='feedback'),
 
     # Change status of tournament
     url(r'^(?P<tournament_id>\d+)/registration/opening[/]$', views.registration_opening, name='registration_opening'),
@@ -71,9 +71,9 @@ urlpatterns = patterns(
     url(r'^(?P<tournament_id>\d+)/place/update[/]', views.place_update, name='place_update'),
 
     # Custom form
-    url(
-        r'^(?P<tournament_id>\d+)/registration/edit[/]$',
-        views.registration_form_edit,
-        name='registration_edit'
-    ),
+    # url(
+    #     r'^(?P<tournament_id>\d+)/registration/edit[/]$',
+    #     views.registration_form_edit,
+    #     name='registration_edit'
+    # ),
 )
