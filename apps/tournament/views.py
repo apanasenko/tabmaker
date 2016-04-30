@@ -14,9 +14,6 @@ from django.shortcuts import \
 
 from apps.profile.utils import json_response
 from apps.profile.models import User
-from apps.team.forms import \
-    TeamRegistrationForm, \
-    TeamWithSpeakerRegistrationForm
 from apps.motion.forms import MotionForm
 from apps.game.forms import \
     ActivateResultForm, \
@@ -649,6 +646,8 @@ def remove_round(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. registration')
 def registration_team(request, tournament):
+    from apps.team.forms import TeamWithSpeakerRegistrationForm
+
     if request.method == 'POST':
         team_form = TeamWithSpeakerRegistrationForm(request.POST)
         if team_form.is_valid():
@@ -675,8 +674,49 @@ def registration_team(request, tournament):
 
 
 @login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='team/adju. registration')
+def registration_team_new(request, tournament):
+    from .registration_forms import \
+        CustomTeamRegistrationForm, \
+        TeamWithSpeakerRegistrationForm
+
+    form = CustomForm.objects.filter(tournament=tournament).first()
+    if form:
+        RegistrationForm = CustomTeamRegistrationForm
+        questions = CustomQuestion.objects.filter(form=form).select_related('alias').order_by('position')
+    else:
+        RegistrationForm = TeamWithSpeakerRegistrationForm
+        questions = None
+
+    if request.method == 'POST':
+        team_form = RegistrationForm(questions, request.POST)
+        if team_form.is_valid():
+            team = team_form.save(speaker_1=request.user)
+            TeamTournamentRel.objects.create(
+                team=team,
+                tournament=tournament,
+                role=ROLE_TEAM_REGISTERED
+            )
+            return _show_message(request, MSG_TEAM_SUCCESS_REGISTERED_pp % (team.name, tournament.name))
+
+    else:
+        team_form = RegistrationForm(questions, initial={'speaker_1': request.user.email})
+
+    return render(
+        request,
+        'tournament/registration_new.html',
+        {
+            'form': team_form,
+            'tournament': tournament,
+        }
+    )
+
+
+@login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. add')
 def add_team(request, tournament):
+    from apps.team.forms import TeamRegistrationForm
+
     saved_team = None
     if request.method == 'POST':
         team_form = TeamRegistrationForm(request.POST)
