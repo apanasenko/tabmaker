@@ -20,8 +20,10 @@
 {% block content %}
 
     <input id="form_id" type="hidden" value="{{ form.id }}">
+    <input id="url" type="hidden" value="{% url 'tournament:form_edit' tournament.id %}">
 
     <div id="temp">
+        <div class="message"></div>
 
         <div class="show_block">
             <div class="question-name">
@@ -52,18 +54,19 @@
                 <span>Обязательное поле</span>
                 <input class="required" type="checkbox">
             </label>
-            <button class="save button" onclick="save_click(this)">Сохранить</button>
-            <button class="save button" onclick="cancel_click(this)">Отменить</button>
+
+            <button class="save button" onclick="save_click(this, '{{ actions.edit_question }}')">Сохранить</button>
+            <button class="cancel button" onclick="cancel_click(this)">Отменить</button>
         </div>
 
-        <div class="question-actions">
-            <button class="up" onclick="up_click(this)">
+        <div class="actions_buttons question-actions">
+            <button class="up" onclick="up_click(this, '{{ actions.up_question }}')">
                 <i class="fa fa-arrow-up" aria-hidden="true"></i>
             </button>
-            <button class="down" onclick="down_click(this)">
+            <button class="down" onclick="down_click(this, '{{ actions.down_question }}')">
                 <i class="fa fa-arrow-down" aria-hidden="true"></i>
             </button>
-            <button class="remove" onclick="remove_click(this)">
+            <button class="remove" onclick="remove_click(this, '{{ actions.remove_question }}')">
                 <i class="fa fa-trash" aria-hidden="true"></i>
             </button>
         </div>

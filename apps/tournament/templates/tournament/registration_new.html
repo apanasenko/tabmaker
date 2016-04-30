@@ -1,0 +1,26 @@
+{% extends "main/base.html" %}
+
+{% block page_title %}
+    Регистрация команды
+{% endblock page_title %}
+
+{% block content %}
+
+    <form class="b-message" action="{% url "tournament:registration_team_new" tournament.id %}" method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div class="b-form-item">
+        {% for field in form %}
+            <span>{{ field.label }}</span>
+            <span>{{ field.help_text }}</span>
+            <span>{{ field }}</span>
+            <span>{{ field.errors }}</span>
+        {% endfor %}
+        <button type="submit" class="button" value="Отправить">
+            Участвовать
+        </button>
+        </div>
+    </form>
+
+{% endblock content %}

@@ -14,9 +14,6 @@ from django.shortcuts import \
 
 from apps.profile.utils import json_response
 from apps.profile.models import User
-from apps.team.forms import \
-    TeamRegistrationForm, \
-    TeamWithSpeakerRegistrationForm
 from apps.motion.forms import MotionForm
 from apps.game.forms import \
     ActivateResultForm, \
@@ -649,6 +646,8 @@ def remove_round(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. registration')
 def registration_team(request, tournament):
+    from apps.team.forms import TeamWithSpeakerRegistrationForm
+
     if request.method == 'POST':
         team_form = TeamWithSpeakerRegistrationForm(request.POST)
         if team_form.is_valid():
@@ -675,8 +674,49 @@ def registration_team(request, tournament):
 
 
 @login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='team/adju. registration')
+def registration_team_new(request, tournament):
+    from .registration_forms import \
+        CustomTeamRegistrationForm, \
+        TeamWithSpeakerRegistrationForm
+
+    form = CustomForm.objects.filter(tournament=tournament).first()
+    if form:
+        RegistrationForm = CustomTeamRegistrationForm
+        questions = CustomQuestion.objects.filter(form=form).select_related('alias').order_by('position')
+    else:
+        RegistrationForm = TeamWithSpeakerRegistrationForm
+        questions = None
+
+    if request.method == 'POST':
+        team_form = RegistrationForm(questions, request.POST)
+        if team_form.is_valid():
+            team = team_form.save(speaker_1=request.user)
+            TeamTournamentRel.objects.create(
+                team=team,
+                tournament=tournament,
+                role=ROLE_TEAM_REGISTERED
+            )
+            return _show_message(request, MSG_TEAM_SUCCESS_REGISTERED_pp % (team.name, tournament.name))
+
+    else:
+        team_form = RegistrationForm(questions, initial={'speaker_1': request.user.email})
+
+    return render(
+        request,
+        'tournament/registration_new.html',
+        {
+            'form': team_form,
+            'tournament': tournament,
+        }
+    )
+
+
+@login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. add')
 def add_team(request, tournament):
+    from apps.team.forms import TeamRegistrationForm
+
     saved_team = None
     if request.method == 'POST':
         team_form = TeamRegistrationForm(request.POST)
@@ -1031,7 +1071,7 @@ from apps.tournament.models import \
 @ensure_csrf_cookie
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='admin edit')  # TODO Добавить в таблицу
-def registration_form_edit(request, tournament):
+def form_registration(request, tournament):
     form = CustomForm.get_or_create(tournament, FORM_REGISTRATION_TYPE)
     questions = CustomQuestion.objects.filter(form=form).select_related('alias').order_by('position')
 
@@ -1042,6 +1082,127 @@ def registration_form_edit(request, tournament):
             'tournament': tournament,
             'form': form,
             'questions': questions,
-            'required_aliases': [FIELD_ALIAS_SPEAKER_1, FIELD_ALIAS_SPEAKER_2, FIELD_ALIAS_TEAM],
+            'required_aliases': REQUIRED_ALIASES,
+            'actions': CUSTOM_FORM_AJAX_ACTIONS,
         }
     )
+
+
+@csrf_protect
+@ajax_request
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='admin edit')
+def form_edit(request, tournament):
+    form_id = int(request.POST.get('form_id', '0'))
+    action = request.POST.get('action', '')
+
+    form = CustomForm.objects.filter(pk=form_id).first()
+
+    if not form or form.tournament != tournament:
+        status = MSG_JSON_BAD
+        message = 'Такой формы не найдено'
+    elif action == CUSTOM_FORM_AJAX_ACTIONS['edit_question']:
+        status, message = _form_edit_field(request, form)
+    elif action == CUSTOM_FORM_AJAX_ACTIONS['remove_question']:
+        status, message = _form_remove_field(request, form)
+    elif action == CUSTOM_FORM_AJAX_ACTIONS['up_question']:
+        status, message = _form_up_field(request, form)
+    elif action == CUSTOM_FORM_AJAX_ACTIONS['down_question']:
+        status, message = _form_down_field(request, form)
+    else:
+        status = MSG_JSON_BAD
+        message = 'Чё надо то'
+
+    return json_response(status, message)
+
+
+def _form_edit_field(request, form: CustomForm):
+    field_id = int(request.POST.get('question_id', 0))
+    question = request.POST.get('question', '')
+    comment = request.POST.get('comment', '')
+    is_required = request.POST.get('is_required', '0') == '1'
+
+    if not question:
+        return MSG_JSON_BAD, 'Вопрос не может быть пустым'
+
+    if field_id:
+        field = form.customquestion_set.filter(pk=field_id).first()
+        if not field:
+            return MSG_JSON_BAD, 'Вопрос не найден'
+
+        if field.alias in REQUIRED_ALIASES:
+            return MSG_JSON_BAD, 'Этот вопрос является обязательным, его нельзя редактировать'
+
+        field.question = question
+        field.comment = comment
+        field.required = is_required
+        field.save()
+        message = 'Вопрос сохранён'
+    else:
+        position = form.customquestion_set.latest('position').position + 1
+        field = CustomQuestion.objects.create(
+            question=question,
+            comment=comment,
+            position=position,
+            required=is_required,
+            form=form,
+        )
+        message = 'Вопрос добавлен'
+
+    return MSG_JSON_OK, {
+        'question_id': field.id,
+        'message': message,
+    }
+
+
+def _form_remove_field(request, form: CustomForm):
+    from django.db.models import F
+
+    field_id = int(request.POST.get('question_id', 0))
+    field = form.customquestion_set.filter(pk=field_id).first()
+    if not field:
+        return MSG_JSON_BAD, 'Вопрос не найден'
+
+    if field.alias in REQUIRED_ALIASES:
+        return MSG_JSON_BAD, 'Обязательные вопросы нельзя удалять'
+
+    form.customquestion_set.filter(position__gt=field.position).update(position=F('position') - 1)
+    field.delete()
+
+    return MSG_JSON_OK, 'Вопрос удалён'
+
+
+def _swap_field(field, prev_field):
+    if not field or not prev_field:
+        return MSG_JSON_BAD, 'Вопрос не найден'
+
+    if prev_field.position + 1 != field.position:
+        return MSG_JSON_BAD, 'Невозможно изменить порядок вопросов'
+
+    field.position -= 1
+    field.save()
+
+    prev_field.position += 1
+    prev_field.save()
+
+    return MSG_JSON_OK, 'Изменения сохранены'
+
+
+def _form_up_field(request, form: CustomForm):
+    field_id = int(request.POST.get('question_id', 0))
+    field = form.customquestion_set.filter(pk=field_id).first()
+
+    prev_field_id = int(request.POST.get('prev_question_id', 0))
+    prev_field = form.customquestion_set.filter(pk=prev_field_id).first()
+
+    return _swap_field(field, prev_field)
+
+
+def _form_down_field(request, form: CustomForm):
+    field_id = int(request.POST.get('question_id', 0))
+    field = form.customquestion_set.filter(pk=field_id).first()
+
+    next_field_id = int(request.POST.get('next_question_id', 0))
+    next_field = form.customquestion_set.filter(pk=next_field_id).first()
+
+    return _swap_field(next_field, field)

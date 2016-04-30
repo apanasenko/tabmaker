@@ -77,3 +77,12 @@ CUSTOM_FIELD_SETS = [
     (FIELD_ALIAS_SPEAKER_2_F_NAME, LBL_CUSTOM_FIELD_SPEAKER_2_F_NAME, False),
     (FIELD_ALIAS_SPEAKER_2_L_NAME, LBL_CUSTOM_FIELD_SPEAKER_2_L_NAME, False),
 ]
+
+REQUIRED_ALIASES = [FIELD_ALIAS_SPEAKER_1, FIELD_ALIAS_SPEAKER_2, FIELD_ALIAS_TEAM]
+
+CUSTOM_FORM_AJAX_ACTIONS = {
+    'edit_question': 'edit',
+    'remove_question': 'remove',
+    'up_question': 'up',
+    'down_question': 'down',
+}
