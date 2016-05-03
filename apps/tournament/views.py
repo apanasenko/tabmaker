@@ -646,7 +646,7 @@ def remove_round(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. registration')
 def registration_team(request, tournament):
-    from apps.team.forms import TeamWithSpeakerRegistrationForm
+    from apps.tournament.registration_forms import TeamWithSpeakerRegistrationForm
 
     if request.method == 'POST':
         team_form = TeamWithSpeakerRegistrationForm(request.POST)
@@ -715,7 +715,7 @@ def registration_team_new(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. add')
 def add_team(request, tournament):
-    from apps.team.forms import TeamRegistrationForm
+    from apps.tournament.registration_forms import TeamRegistrationForm
 
     saved_team = None
     if request.method == 'POST':
