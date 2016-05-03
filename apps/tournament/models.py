@@ -190,3 +190,13 @@ class CustomQuestion(models.Model):
     required = models.BooleanField(default=True)
     form = models.ForeignKey(CustomForm)
     alias = models.ForeignKey(CustomFieldAlias, blank=True, null=True)
+
+
+class CustomFormAnswers(models.Model):
+    form = models.ForeignKey(CustomForm)
+    answers = models.TextField()
+
+    @staticmethod
+    def save_answer(custom_form, answers):
+        import json
+        return CustomFormAnswers.objects.create(form=custom_form, answers=json.dumps(answers))
