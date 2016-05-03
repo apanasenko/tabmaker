@@ -66,13 +66,13 @@ CUSTOM_FORM_TYPES = {
 }
 
 FIELD_ALIAS_SPEAKER_1 = CustomFieldAlias.objects.get(name='speaker_1_email')
-FIELD_ALIAS_SPEAKER_1_F_NAME = CustomFieldAlias.objects.get(name='speaker_1_first_name')
-FIELD_ALIAS_SPEAKER_1_L_NAME = CustomFieldAlias.objects.get(name='speaker_1_last_name')
-FIELD_ALIAS_SPEAKER_1_UNIVERSITY = CustomFieldAlias.objects.get(name='speaker_1_university')
+# FIELD_ALIAS_SPEAKER_1_F_NAME = CustomFieldAlias.objects.get(name='speaker_1_first_name')
+# FIELD_ALIAS_SPEAKER_1_L_NAME = CustomFieldAlias.objects.get(name='speaker_1_last_name')
+# FIELD_ALIAS_SPEAKER_1_UNIVERSITY = CustomFieldAlias.objects.get(name='speaker_1_university')
 FIELD_ALIAS_SPEAKER_2 = CustomFieldAlias.objects.get(name='speaker_2_email')
-FIELD_ALIAS_SPEAKER_2_F_NAME = CustomFieldAlias.objects.get(name='speaker_2_first_name')
-FIELD_ALIAS_SPEAKER_2_L_NAME = CustomFieldAlias.objects.get(name='speaker_2_last_name')
-FIELD_ALIAS_SPEAKER_2_UNIVERSITY = CustomFieldAlias.objects.get(name='speaker_2_university')
+# FIELD_ALIAS_SPEAKER_2_F_NAME = CustomFieldAlias.objects.get(name='speaker_2_first_name')
+# FIELD_ALIAS_SPEAKER_2_L_NAME = CustomFieldAlias.objects.get(name='speaker_2_last_name')
+# FIELD_ALIAS_SPEAKER_2_UNIVERSITY = CustomFieldAlias.objects.get(name='speaker_2_university')
 FIELD_ALIAS_TEAM = CustomFieldAlias.objects.get(name='team_name')
 
 FIELD_ALIAS_ADJUDICATOR = CustomFieldAlias.objects.get(name='adjudicator')
