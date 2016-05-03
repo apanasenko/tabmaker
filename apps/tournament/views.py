@@ -1068,6 +1068,7 @@ def place_remove(request, tournament):
 ##################################
 #          Custom Forms          #
 ##################################
+from apps.tournament.consts import CUSTOM_FORM_TYPES
 from apps.tournament.models import \
     CustomForm, \
     CustomFormAnswers, \
@@ -1076,9 +1077,10 @@ from apps.tournament.models import \
 
 @ensure_csrf_cookie
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='admin edit')  # TODO Добавить в таблицу
-def form_registration(request, tournament):
-    form = CustomForm.get_or_create(tournament, FORM_REGISTRATION_TYPE)
+@access_by_status(name_page='')  # TODO Добавить в таблицу
+def form_registration(request, tournament, form_type):
+    custom_form_type = CUSTOM_FORM_TYPES[form_type]
+    form = CustomForm.get_or_create(tournament, custom_form_type)
     questions = CustomQuestion.objects.filter(form=form).select_related('alias').order_by('position')
 
     return render(
@@ -1097,7 +1099,7 @@ def form_registration(request, tournament):
 @csrf_protect
 @ajax_request
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='admin edit')
+@access_by_status(name_page='')  # TODO Добавить в таблицу
 def form_edit(request, tournament):
     form_id = int(request.POST.get('form_id', '0'))
     action = request.POST.get('action', '')
@@ -1216,10 +1218,8 @@ def _form_down_field(request, form: CustomForm):
 
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='')  # TODO Добавить в таблицу
-def custom_form_answers(request, tournament):
-    from apps.tournament.consts import CUSTOM_FORM_TYPES
-
-    custom_form_type = FORM_REGISTRATION_TYPE
+def custom_form_answers(request, tournament, form_type):
+    custom_form_type = CUSTOM_FORM_TYPES[form_type]
     custom_form = get_object_or_404(CustomForm, tournament=tournament, form_type=custom_form_type)
 
     title = ''

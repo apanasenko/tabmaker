@@ -168,15 +168,16 @@ class CustomForm(models.Model):
         from .consts import CUSTOM_FIELD_SETS
 
         form = CustomForm.objects.get_or_create(tournament=tournament, form_type=form_type)
-        if form[1]:  # is create
-            for i in range(len(CUSTOM_FIELD_SETS)):
+        if form[1] and form_type in CUSTOM_FIELD_SETS:  # is create
+            fields = CUSTOM_FIELD_SETS[form_type]
+            for i in range(len(fields)):
                 CustomQuestion.objects.create(
-                    question=CUSTOM_FIELD_SETS[i][1],
+                    question=fields[i][1],
                     comment='',
                     position=(i + 1),
-                    required=CUSTOM_FIELD_SETS[i][2],
+                    required=fields[i][2],
                     form=form[0],
-                    alias=CUSTOM_FIELD_SETS[i][0]
+                    alias=fields[i][0]
                 )
 
         return form[0]

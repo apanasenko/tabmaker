@@ -73,7 +73,7 @@ urlpatterns = patterns(
 
     # Custom form
     url(
-        r'^(?P<tournament_id>\d+)/form/registration[/]$',
+        r'^(?P<tournament_id>\d+)/form/(?P<form_type>(team|feedback|adjudicator|audience))[/]$',
         views.form_registration,
         name='form_registration'
     ),
@@ -83,7 +83,7 @@ urlpatterns = patterns(
         name='form_edit'
     ),
     url(
-        r'^(?P<tournament_id>\d+)/form/team/answers[/]$',
+        r'^(?P<tournament_id>\d+)/form/(?P<form_type>(team|feedback|adjudicator|audience))/answers[/]$',
         views.custom_form_answers,
         name='custom_form_answers'
     ),

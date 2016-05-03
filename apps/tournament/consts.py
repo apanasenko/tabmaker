@@ -53,8 +53,17 @@ ADJUDICATOR_ROLES_NAMES = [
 TEAM_ROLES = TournamentRole.objects.filter(role_en__in=TEAM_ROLES_NAMES)
 ADJUDICATOR_ROLES = TournamentRole.objects.filter(role_en__in=ADJUDICATOR_ROLES_NAMES)
 
-FORM_REGISTRATION_TYPE = CustomFormType.objects.get(name='registration')
+FORM_REGISTRATION_TYPE = CustomFormType.objects.get(name='teams')
 FORM_FEEDBACK_TYPE = CustomFormType.objects.get(name='feedback')
+FORM_ADJUDICATOR_TYPE = CustomFormType.objects.get(name='adjudicator')
+FORM_AUDIENCE_TYPE = CustomFormType.objects.get(name='audience')
+
+CUSTOM_FORM_TYPES = {
+    'team': FORM_REGISTRATION_TYPE,
+    'feedback': FORM_FEEDBACK_TYPE,
+    'adjudicator': FORM_ADJUDICATOR_TYPE,
+    'audience': FORM_AUDIENCE_TYPE,
+}
 
 FIELD_ALIAS_SPEAKER_1 = CustomFieldAlias.objects.get(name='speaker_1_email')
 FIELD_ALIAS_SPEAKER_1_F_NAME = CustomFieldAlias.objects.get(name='speaker_1_first_name')
@@ -66,17 +75,18 @@ FIELD_ALIAS_SPEAKER_2_L_NAME = CustomFieldAlias.objects.get(name='speaker_2_last
 FIELD_ALIAS_SPEAKER_2_UNIVERSITY = CustomFieldAlias.objects.get(name='speaker_2_university')
 FIELD_ALIAS_TEAM = CustomFieldAlias.objects.get(name='team_name')
 
-CUSTOM_FIELD_SETS = [
-    (FIELD_ALIAS_TEAM, LBL_CUSTOM_FIELD_TEAM, True),
+FIELD_ALIAS_ADJUDICATOR = CustomFieldAlias.objects.get(name='adjudicator')
 
-    (FIELD_ALIAS_SPEAKER_1, LBL_CUSTOM_FIELD_SPEAKER_1_EMAIL, True),
-    (FIELD_ALIAS_SPEAKER_1_F_NAME, LBL_CUSTOM_FIELD_SPEAKER_1_F_NAME, False),
-    (FIELD_ALIAS_SPEAKER_1_L_NAME, LBL_CUSTOM_FIELD_SPEAKER_1_L_NAME, False),
-
-    (FIELD_ALIAS_SPEAKER_2, LBL_CUSTOM_FIELD_SPEAKER_2_EMAIL, True),
-    (FIELD_ALIAS_SPEAKER_2_F_NAME, LBL_CUSTOM_FIELD_SPEAKER_2_F_NAME, False),
-    (FIELD_ALIAS_SPEAKER_2_L_NAME, LBL_CUSTOM_FIELD_SPEAKER_2_L_NAME, False),
-]
+CUSTOM_FIELD_SETS = {
+    FORM_REGISTRATION_TYPE: [
+        (FIELD_ALIAS_TEAM, LBL_CUSTOM_FIELD_TEAM, True),
+        (FIELD_ALIAS_SPEAKER_1, LBL_CUSTOM_FIELD_SPEAKER_1_EMAIL, True),
+        (FIELD_ALIAS_SPEAKER_2, LBL_CUSTOM_FIELD_SPEAKER_2_EMAIL, True),
+    ],
+    FORM_ADJUDICATOR_TYPE: [
+        (FIELD_ALIAS_ADJUDICATOR, LBL_CUSTOM_FIELD_ADJUDICATOR, True),
+    ],
+}
 
 REQUIRED_ALIASES = [FIELD_ALIAS_SPEAKER_1, FIELD_ALIAS_SPEAKER_2, FIELD_ALIAS_TEAM]
 

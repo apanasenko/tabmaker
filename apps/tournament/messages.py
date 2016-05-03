@@ -52,3 +52,5 @@ LBL_CUSTOM_FIELD_SPEAKER_2_EMAIL = 'E-mail второго спикера'
 LBL_CUSTOM_FIELD_SPEAKER_2_F_NAME = 'Имя второго спикера'
 LBL_CUSTOM_FIELD_SPEAKER_2_L_NAME = 'Фамилия второго спикера'
 LBL_CUSTOM_FIELD_TEAM = 'Название команды'
+
+LBL_CUSTOM_FIELD_ADJUDICATOR = 'E-mail'
