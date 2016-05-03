@@ -697,6 +697,9 @@ def registration_team_new(request, tournament):
                 tournament=tournament,
                 role=ROLE_TEAM_REGISTERED
             )
+            if form:
+                CustomFormAnswers.save_answer(form, team_form.get_answers(questions))
+
             return _show_message(request, MSG_TEAM_SUCCESS_REGISTERED_pp % (team.name, tournament.name))
 
     else:
@@ -1065,6 +1068,7 @@ def place_remove(request, tournament):
 ##################################
 from apps.tournament.models import \
     CustomForm, \
+    CustomFormAnswers, \
     CustomQuestion
 
 

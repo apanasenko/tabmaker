@@ -200,3 +200,11 @@ class CustomFormAnswers(models.Model):
     def save_answer(custom_form, answers):
         import json
         return CustomFormAnswers.objects.create(form=custom_form, answers=json.dumps(answers))
+
+    @staticmethod
+    def get_answers(custom_form):
+        import json
+        return list(map(
+            lambda x: json.loads(x.answers),
+            CustomFormAnswers.objects.filter(form=custom_form).order_by('id')
+        ))
