@@ -1143,7 +1143,7 @@ def _form_edit_field(request, form: CustomForm):
         field.save()
         message = 'Вопрос сохранён'
     else:
-        position = form.customquestion_set.latest('position').position + 1
+        position = form.customquestion_set.latest('position').position + 1 if form.customquestion_set.count() else 1
         field = CustomQuestion.objects.create(
             question=question,
             comment=comment,
