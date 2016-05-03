@@ -382,6 +382,7 @@ def print_users(request, tournament):
         }
     )
 
+
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='')
 def feedback(request, tournament):
@@ -389,6 +390,7 @@ def feedback(request, tournament):
         request,
         'tournament/feedback.html'
     )
+
 
 ##################################
 #   Change status of tournament  #
