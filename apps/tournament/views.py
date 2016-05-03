@@ -1210,3 +1210,27 @@ def _form_down_field(request, form: CustomForm):
     next_field = form.customquestion_set.filter(pk=next_field_id).first()
 
     return _swap_field(next_field, field)
+
+
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='')  # TODO Добавить в таблицу
+def custom_form_answers(request, tournament):
+    from apps.tournament.consts import CUSTOM_FORM_TYPES
+
+    custom_form_type = FORM_REGISTRATION_TYPE
+    custom_form = get_object_or_404(CustomForm, tournament=tournament, form_type=custom_form_type)
+
+    title = ''
+    column_names = list(map(lambda x: x.question, custom_form.customquestion_set.all().order_by('position')))
+    column_values = CustomFormAnswers.get_answers(custom_form)
+
+    return render(
+        request,
+        'tournament/custom_form_answers.html',
+        {
+            'tournament': tournament,
+            'title': title,
+            'column_names': column_names,
+            'rows': column_values,
+        }
+    )
