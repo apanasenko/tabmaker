@@ -160,8 +160,7 @@ class CustomFieldAlias(models.Model):
 
 
 class CustomForm(models.Model):
-    tournament = models.OneToOneField(Tournament)
-    link = models.TextField(default='')
+    tournament = models.ForeignKey(Tournament)
     form_type = models.ForeignKey(CustomFormType)
 
     @staticmethod
