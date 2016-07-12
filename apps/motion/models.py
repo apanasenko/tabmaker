@@ -1,6 +1,1 @@
-from django.db import models
-
-
-class Motion(models.Model):
-    motion = models.TextField()
-    infoslide = models.TextField(blank=True)
+from apps.tournament.models import Motion as Motion
