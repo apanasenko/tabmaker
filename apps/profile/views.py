@@ -1,15 +1,16 @@
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Count, Q
+from django.http import Http404
 from django.shortcuts import \
     get_object_or_404, \
     render
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404
-from django.db.models import Count, Q
+from django.views.decorators.csrf import ensure_csrf_cookie
+
 from apps.tournament.consts import *
 from apps.tournament.models import Tournament, TeamTournamentRel
-from apps.main.utils import paging
-from . models import User
+from apps.tournament.utils import paging
 from . forms import EditForm
-from django.views.decorators.csrf import ensure_csrf_cookie
+from . models import User
 
 
 def show_profile(request, user_id):

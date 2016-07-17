@@ -26,7 +26,6 @@ INSTALLED_APPS = (
 
     'apps.profile',
     'apps.game',
-    'apps.main',
     'apps.motion',
     'apps.team',
     'apps.tester',
@@ -53,7 +52,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     #"allauth.account.context_processors.account",
     #"allauth.socialaccount.context_processors.socialaccount",
 
-    'apps.main.utils.debug_mode',
+    'apps.tournament.utils.debug_mode',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -1,9 +1,11 @@
 from datetime import date, timedelta
-from django.shortcuts import render
+
 from django.db.models import Count, Q
+from django.shortcuts import render
+
 from apps.tournament.consts import *
 from apps.tournament.models import Tournament
-from . utils import paging
+from apps.tournament.utils import paging
 
 
 def index(request):
