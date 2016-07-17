@@ -1,6 +1,6 @@
 from django import forms
 from apps.profile.models import User
-from apps.team.models import Team
+from .models import Team
 from apps.tournament.consts import \
     FIELD_ALIAS_TEAM, \
     FIELD_ALIAS_SPEAKER_1, \

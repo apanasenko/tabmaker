@@ -3,12 +3,12 @@ from django.shortcuts import \
     get_object_or_404, \
     redirect
 from allauth.account.models import EmailAddress
-from apps.team.models import Team
 from apps.tournament.models import \
     Tournament, \
     TournamentRole,\
     TeamTournamentRel,\
-    UserTournamentRel
+    UserTournamentRel,\
+    Team
 
 import random
 

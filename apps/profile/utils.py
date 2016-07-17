@@ -4,8 +4,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_protect
-from apps.team.models import Team
-from apps.tournament.models import UserTournamentRel
+from apps.tournament.models import UserTournamentRel, Team
 from apps.tournament.consts import STATUS_REGISTRATION
 
 

@@ -3,11 +3,11 @@ from django import forms
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from oauth2client.client import SignedJwtAssertionCredentials
-from . messages import *
-from apps.tournament.models import Tournament
-from apps.tournament.consts import ROLE_MEMBER
+from .messages import *
+from .models import Tournament
+from .consts import ROLE_MEMBER
+from .models import Team
 from apps.profile.models import User
-from apps.team.models import Team
 
 
 class TeamImportForm(forms.Form):
@@ -172,4 +172,3 @@ class ImportTeam:
                 user.send_email_about_import(tournament, password)
 
         return status, user
-

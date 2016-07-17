@@ -1,20 +1,21 @@
 import random
+
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseBadRequest
-from django.views.decorators.csrf import \
-    csrf_protect, \
-    ensure_csrf_cookie
 from django.core.urlresolvers import \
     reverse_lazy, \
     reverse
+from django.http import HttpResponseBadRequest
 from django.shortcuts import \
     render, \
     get_object_or_404, \
     redirect
+from django.views.decorators.csrf import \
+    csrf_protect, \
+    ensure_csrf_cookie
 
-from apps.profile.utils import json_response
 from apps.profile.models import User
-
+from apps.profile.utils import json_response
+from .consts import *
 from .forms import \
     TournamentForm, \
     CheckboxForm, \
@@ -24,17 +25,6 @@ from .forms import \
     GameForm, \
     ResultGameForm, \
     MotionForm
-
-
-from .consts import *
-from .messages import *
-
-from .models import \
-    AccessToPage, \
-    Tournament, \
-    TeamTournamentRel, \
-    UserTournamentRel
-
 from .logic import \
     can_change_team_role, \
     check_games_results_exists, \
@@ -54,6 +44,12 @@ from .logic import \
     remove_last_round, \
     remove_playoff, \
     user_can_edit_tournament
+from .messages import *
+from .models import \
+    AccessToPage, \
+    Tournament, \
+    TeamTournamentRel, \
+    UserTournamentRel
 
 
 def access_by_status(name_page=None, only_owner=False):
@@ -753,7 +749,7 @@ def add_team(request, tournament):
 @access_by_status(name_page='team/adju. add')  # TODO добавить в таблицу
 def import_team(request, tournament):
 
-    from apps.team.imports import TeamImportForm, ImportTeam
+    from apps.tournament.imports import TeamImportForm, ImportTeam
 
     message = ''
     results = []
