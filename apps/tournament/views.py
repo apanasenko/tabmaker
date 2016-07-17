@@ -14,7 +14,6 @@ from django.shortcuts import \
 
 from apps.profile.utils import json_response
 from apps.profile.models import User
-from apps.motion.forms import MotionForm
 
 from .forms import \
     TournamentForm, \
@@ -23,7 +22,8 @@ from .forms import \
     RoundForm, \
     ActivateResultForm, \
     GameForm, \
-    ResultGameForm
+    ResultGameForm, \
+    MotionForm
 
 
 from .consts import *

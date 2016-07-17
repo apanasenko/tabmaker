@@ -2,7 +2,6 @@ import random
 import datetime
 from django.db.models import Q, Count
 from django.core.exceptions import ObjectDoesNotExist
-from apps.motion.models import Motion
 from .db_execute import get_teams_result_list
 from .consts import *
 from .messages import *
@@ -12,7 +11,8 @@ from .models import \
     Round, \
     Room, \
     Game, \
-    GameResult
+    GameResult, \
+    Motion
 from apps.profile.models import User
 
 
