@@ -1,11 +1,7 @@
 import random
 import datetime
-import itertools
 from django.db.models import Q, Count
 from django.core.exceptions import ObjectDoesNotExist
-from apps.game.models import\
-    Game, \
-    GameResult
 from apps.motion.models import Motion
 from .db_execute import get_teams_result_list
 from .consts import *
@@ -13,8 +9,10 @@ from .messages import *
 from .models import \
     Tournament,\
     TeamTournamentRel, \
-    Round,\
-    Room
+    Round, \
+    Room, \
+    Game, \
+    GameResult
 from apps.profile.models import User
 
 

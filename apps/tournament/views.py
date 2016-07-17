@@ -15,16 +15,16 @@ from django.shortcuts import \
 from apps.profile.utils import json_response
 from apps.profile.models import User
 from apps.motion.forms import MotionForm
-from apps.game.forms import \
-    ActivateResultForm, \
-    GameForm, \
-    ResultGameForm
 
 from .forms import \
     TournamentForm, \
     CheckboxForm, \
     СonfirmForm, \
-    RoundForm
+    RoundForm, \
+    ActivateResultForm, \
+    GameForm, \
+    ResultGameForm
+
 
 from .consts import *
 from .messages import *
