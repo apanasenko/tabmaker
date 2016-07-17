@@ -1,10 +1,11 @@
 from django.shortcuts import \
     get_object_or_404, \
     render
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.db.models import Count, Q
 from apps.tournament.consts import *
-from apps.tournament.models import Tournament
+from apps.tournament.models import Tournament, TeamTournamentRel
 from apps.main.utils import paging
 from . models import User
 from . forms import EditForm
@@ -12,16 +13,32 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 
 
 def show_profile(request, user_id):
-    user = get_object_or_404(User, pk=user_id)
-    teams = list(user.first_speaker.all()) + list(user.second_speaker.all())
+
+    try:
+        # not use get_object_or_404 because need select_related
+        users = User.objects
+        for name in ['university', 'university__city', 'university__country']:
+            users = users.select_related(name)
+        user = users.get(pk=user_id)
+    except ObjectDoesNotExist:
+        raise Http404('User with id %d not exist' % user_id)
+
+    teams_rel = TeamTournamentRel.objects.filter(Q(team__speaker_1=user) | Q(team__speaker_2=user))
+    for name in ['role', 'team__speaker_2', 'team__speaker_1', 'tournament']:
+        teams_rel = teams_rel.select_related(name)
+
+    adjudicators_rel = user.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES)
+    for name in ['role', 'tournament']:
+        adjudicators_rel = adjudicators_rel.select_related(name)
+
     return render(
         request,
         'account/show.html',
         {
             'user': user,
             'is_owner': request.user.is_authenticated() and user == request.user,
-            'teams_objects': list(map(lambda x: {'team': x, 'rel': x.teamtournamentrel_set.first()}, teams)),
-            'adjudicators_objects': user.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES),
+            'teams_objects': teams_rel,
+            'adjudicators_objects': adjudicators_rel,
         }
     )
 
@@ -73,7 +90,10 @@ def show_tournaments_of_user(request, user_id):
 @ensure_csrf_cookie
 def show_teams_of_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    teams = list(user.first_speaker.all()) + list(user.second_speaker.all())
+
+    teams_rel = TeamTournamentRel.objects.filter(Q(team__speaker_1=user) | Q(team__speaker_2=user))
+    for name in ['role', 'team__speaker_2', 'team__speaker_1', 'tournament']:
+        teams_rel = teams_rel.select_related(name)
     return render(
         request,
         'account/teams_of_user.html',
@@ -81,7 +101,7 @@ def show_teams_of_user(request, user_id):
             'is_owner': request.user == user,
             'objects': paging(
                 request,
-                list(map(lambda x: {'team': x, 'rel': x.teamtournamentrel_set.first()}, teams))
+                teams_rel
             )
         }
     )
@@ -90,6 +110,11 @@ def show_teams_of_user(request, user_id):
 @ensure_csrf_cookie
 def show_adjudicator_of_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
+
+    adjudicators_rel = user.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES)
+    for name in ['role', 'tournament']:
+        adjudicators_rel = adjudicators_rel.select_related(name)
+
     return render(
         request,
         'account/adjudicators_of_user.html',
@@ -97,7 +122,7 @@ def show_adjudicator_of_user(request, user_id):
             'is_owner': request.user == user,
             'objects': paging(
                 request,
-                user.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES),
+                adjudicators_rel,
             )
         }
     )
