@@ -12,8 +12,8 @@ from .models import \
     Room, \
     Game, \
     GameResult, \
-    Motion
-from apps.profile.models import User
+    Motion, \
+    User
 
 
 class TeamRoundResult:

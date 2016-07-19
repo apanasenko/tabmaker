@@ -1,4 +1,3 @@
-from apps.profile.models import User
 from django.shortcuts import \
     get_object_or_404, \
     redirect
@@ -8,7 +7,8 @@ from apps.tournament.models import \
     TournamentRole,\
     TeamTournamentRel,\
     UserTournamentRel,\
-    Team
+    Team, \
+    User
 
 import random
 

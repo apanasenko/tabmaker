@@ -13,7 +13,6 @@ from django.views.decorators.csrf import \
     csrf_protect, \
     ensure_csrf_cookie
 
-from apps.profile.models import User
 from apps.profile.utils import json_response
 from .consts import *
 from .forms import \
@@ -49,7 +48,8 @@ from .models import \
     AccessToPage, \
     Tournament, \
     TeamTournamentRel, \
-    UserTournamentRel
+    UserTournamentRel, \
+    User
 
 
 def access_by_status(name_page=None, only_owner=False):

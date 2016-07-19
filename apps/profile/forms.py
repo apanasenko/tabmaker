@@ -1,7 +1,7 @@
 from allauth.account.forms import \
     LoginForm as DefaultLoginForm
 from django import forms
-from .models import \
+from apps.tournament.models import \
     User, \
     Country, \
     City, \

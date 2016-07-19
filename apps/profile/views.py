@@ -10,7 +10,7 @@ from apps.tournament.consts import *
 from apps.tournament.models import Tournament, TeamTournamentRel
 from apps.tournament.utils import paging
 from . forms import EditForm
-from . models import User
+from apps.tournament.models import User
 
 
 def show_profile(request, user_id):
