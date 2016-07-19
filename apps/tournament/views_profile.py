@@ -7,10 +7,10 @@ from django.shortcuts import \
 from django.views.decorators.csrf import ensure_csrf_cookie
 
 from apps.tournament.consts import *
+from apps.tournament.forms_profile import EditForm
 from apps.tournament.models import Tournament, TeamTournamentRel
-from apps.tournament.utils import paging
-from . forms import EditForm
 from apps.tournament.models import User
+from apps.tournament.utils import paging
 
 
 def show_profile(request, user_id):

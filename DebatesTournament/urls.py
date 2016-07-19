@@ -7,7 +7,7 @@ urlpatterns = patterns(
     '',
     url(r'^', include('apps.tournament.main_urls', namespace='main')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^profile/', include('apps.profile.urls')),
+    url(r'^profile/', include('apps.tournament.urls_account')),
     url(r'^tournament/', include('apps.tournament.urls', namespace='tournament')),
 )
 

@@ -23,9 +23,9 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 
-ACCOUNT_SIGNUP_FORM_CLASS = 'apps.profile.forms.SignupForm'
+ACCOUNT_SIGNUP_FORM_CLASS = 'apps.tournament.forms_profile.SignupForm'
 
-ACCOUNT_FORMS = {'login': 'apps.profile.forms.LoginForm'}
+ACCOUNT_FORMS = {'login': 'apps.tournament_profile.LoginForm'}
 
 ACCOUNT_UNIQUE_EMAIL = True
 

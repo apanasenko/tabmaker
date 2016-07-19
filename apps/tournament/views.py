@@ -13,7 +13,7 @@ from django.views.decorators.csrf import \
     csrf_protect, \
     ensure_csrf_cookie
 
-from apps.profile.utils import json_response
+from apps.tournament.utils_profile import json_response
 from .consts import *
 from .forms import \
     TournamentForm, \

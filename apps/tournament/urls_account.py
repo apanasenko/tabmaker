@@ -7,7 +7,7 @@ from django.conf.urls import \
 
 urlpatterns = patterns(
     "",
-    url(r"^", include('apps.profile.urls_profile', namespace='profile')),
+    url(r"^", include('apps.tournament.urls_profile', namespace='profile')),
     url(r"^signup/$", allauth_views.signup, name="account_signup"),
     url(r"^login/$", allauth_views.login, name="account_login"),
     url(r"^logout/$", allauth_views.logout, name="account_logout"),
