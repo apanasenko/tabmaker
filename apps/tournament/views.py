@@ -1394,38 +1394,3 @@ def index(request):
             )
         }
     )
-
-
-def faq(request):
-    return render(
-        request,
-        'main/intro.html'
-    )
-
-
-def about(request):
-    return render(
-        request,
-        'main/about.html'
-    )
-
-
-def soon(request):
-    return render(
-        request,
-        'main/soon.html'
-    )
-
-
-def news(request):
-    return render(
-        request,
-        'main/news.html'
-    )
-
-
-def thanks(request):
-    return render(
-        request,
-        'main/thanks.html'
-    )
