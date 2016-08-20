@@ -1,8 +1,5 @@
-from django.conf.urls import \
-    patterns, \
-    url
-
-from apps.tournament import main_views as views
+from django.conf.urls import patterns, url
+from apps.tournament import views
 
 urlpatterns = patterns(
     '',

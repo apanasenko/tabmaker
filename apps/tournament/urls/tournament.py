@@ -1,4 +1,4 @@
-from . import views
+from apps.tournament import views
 from django.conf.urls import \
     patterns, \
     url

@@ -1,10 +1,21 @@
 import random
+from datetime import date, timedelta
+
+# from django.db.models import Count, Q
+# from django.shortcuts import render
+
+# from apps.tournament.consts import *
+# from apps.tournament.models import Tournament
+# from apps.tournament.utils import paging
 
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import \
     reverse_lazy, \
     reverse
-from django.http import HttpResponseBadRequest
+from django.http import \
+    HttpResponseBadRequest, \
+    Http404
+
 from django.shortcuts import \
     render, \
     get_object_or_404, \
@@ -13,7 +24,12 @@ from django.views.decorators.csrf import \
     csrf_protect, \
     ensure_csrf_cookie
 
-from apps.tournament.utils_profile import json_response
+from .forms import EditForm
+
+from .utils import \
+    json_response, \
+    paging
+
 from .consts import *
 from .forms import \
     TournamentForm, \
@@ -51,6 +67,9 @@ from .models import \
     UserTournamentRel, \
     User
 
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Count, Q
+
 
 def access_by_status(name_page=None, only_owner=False):
     def decorator_maker(func):
@@ -58,7 +77,7 @@ def access_by_status(name_page=None, only_owner=False):
         def check_access_to_page(request, tournament_id, *args, **kwargs):
             tournament = get_object_or_404(Tournament, pk=tournament_id)
             if name_page:
-                security = AccessToPage.objects.filter(status=tournament.status, page__name=name_page)\
+                security = AccessToPage.objects.filter(status=tournament.status, page__name=name_page) \
                     .select_related('page').first()
                 if not security.page.is_public and not user_can_edit_tournament(tournament, request.user, only_owner):
                     return _show_message(request, MSG_ERROR_TO_ACCESS)
@@ -140,7 +159,6 @@ def _show_message(request, message):
 
 
 def _convert_tab_to_table(table: list, show_all):
-
     def _playoff_position(res):
         if res.playoff_position > res.count_playoff_rounds:
             return LBL_WINNER
@@ -264,8 +282,8 @@ def new(request):
 @access_by_status(name_page='show')
 def show(request, tournament):
     is_chair = request.user.is_authenticated() \
-        and tournament.status in [STATUS_PLAYOFF, STATUS_STARTED] \
-        and get_rooms_by_chair_from_last_round(tournament, request.user)
+               and tournament.status in [STATUS_PLAYOFF, STATUS_STARTED] \
+               and get_rooms_by_chair_from_last_round(tournament, request.user)
     return render(
         request,
         'tournament/show.html',
@@ -748,7 +766,6 @@ def add_team(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. add')  # TODO добавить в таблицу
 def import_team(request, tournament):
-
     from apps.tournament.imports import TeamImportForm, ImportTeam
 
     message = ''
@@ -834,7 +851,6 @@ def team_role_update(request, tournament):
 ##################################
 
 def _registration_adjudicator(tournament: Tournament, user: User):
-
     if UserTournamentRel.objects.filter(user=user, tournament=tournament, role__in=ADJUDICATOR_ROLES).exists():
         return False
 
@@ -1231,4 +1247,185 @@ def custom_form_show_answers(request, tournament, form_type):
             'column_names': column_names,
             'rows': column_values,
         }
+    )
+
+
+# ======
+
+def show_profile(request, user_id):
+    try:
+        # not use get_object_or_404 because need select_related
+        users = User.objects
+        for name in ['university', 'university__city', 'university__country']:
+            users = users.select_related(name)
+        user = users.get(pk=user_id)
+    except ObjectDoesNotExist:
+        raise Http404('User with id %d not exist' % user_id)
+
+    teams_rel = TeamTournamentRel.objects.filter(Q(team__speaker_1=user) | Q(team__speaker_2=user))
+    for name in ['role', 'team__speaker_2', 'team__speaker_1', 'tournament']:
+        teams_rel = teams_rel.select_related(name)
+
+    adjudicators_rel = user.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES)
+    for name in ['role', 'tournament']:
+        adjudicators_rel = adjudicators_rel.select_related(name)
+
+    return render(
+        request,
+        'account/show.html',
+        {
+            'user': user,
+            'is_owner': request.user.is_authenticated() and user == request.user,
+            'teams_objects': teams_rel,
+            'adjudicators_objects': adjudicators_rel,
+        }
+    )
+
+
+def edit_profile(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    if not request.user.is_authenticated() or request.user != user:
+        raise Http404
+    is_success = False
+    if request.method == 'POST':
+        form = EditForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            is_success = True
+    else:
+        form = EditForm(instance=user)
+    return render(
+        request,
+        'account/signup.html',
+        {
+            'is_edit_form': True,
+            'is_success': is_success,
+            'user': user,
+            'form': form,
+        }
+    )
+
+
+def show_tournaments_of_user(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+
+    tournaments = Tournament.objects.annotate(
+        m_count=Count('team_members')
+    ).select_related('status').filter(
+        usertournamentrel__user=user, usertournamentrel__role__in=[ROLE_ADMIN, ROLE_OWNER]
+    ).order_by('-start_tour')
+
+    return render(
+        request,
+        'main/main.html',
+        {
+            'is_main_page': False,
+            'is_owner': request.user == user,
+            'objects': paging(request, tournaments)
+        }
+    )
+
+
+@ensure_csrf_cookie
+def show_teams_of_user(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+
+    teams_rel = TeamTournamentRel.objects.filter(Q(team__speaker_1=user) | Q(team__speaker_2=user))
+    for name in ['role', 'team__speaker_2', 'team__speaker_1', 'tournament']:
+        teams_rel = teams_rel.select_related(name)
+    return render(
+        request,
+        'account/teams_of_user.html',
+        {
+            'is_owner': request.user == user,
+            'objects': paging(
+                request,
+                teams_rel
+            )
+        }
+    )
+
+
+@ensure_csrf_cookie
+def show_adjudicator_of_user(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+
+    adjudicators_rel = user.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES)
+    for name in ['role', 'tournament']:
+        adjudicators_rel = adjudicators_rel.select_related(name)
+
+    return render(
+        request,
+        'account/adjudicators_of_user.html',
+        {
+            'is_owner': request.user == user,
+            'objects': paging(
+                request,
+                adjudicators_rel,
+            )
+        }
+    )
+
+
+# ================================ main
+
+def index(request):
+    DAYS_TO_LEAVE_SHORT_LIST = 3
+    is_short = request.GET.get('list', None) != 'all'
+    tournaments = Tournament.objects.annotate(m_count=Count('team_members')).select_related('status')
+    if is_short:
+        # TODO Возможно стоит всегда показывать свои турниры в списке
+        tournaments = tournaments.filter(
+            Q(status__in=[STATUS_STARTED, STATUS_PLAYOFF, STATUS_FINISHED])
+            |
+            Q(start_tour__gte=(date.today() - timedelta(days=DAYS_TO_LEAVE_SHORT_LIST)))
+        )
+    else:
+        tournaments = tournaments.all()
+
+    return render(
+        request,
+        'main/main.html',
+        {
+            'is_main_page': True,
+            'is_short': is_short,
+            'objects': paging(
+                request, list(tournaments.order_by('-start_tour')), 15
+            )
+        }
+    )
+
+
+def faq(request):
+    return render(
+        request,
+        'main/intro.html'
+    )
+
+
+def about(request):
+    return render(
+        request,
+        'main/about.html'
+    )
+
+
+def soon(request):
+    return render(
+        request,
+        'main/soon.html'
+    )
+
+
+def news(request):
+    return render(
+        request,
+        'main/news.html'
+    )
+
+
+def thanks(request):
+    return render(
+        request,
+        'main/thanks.html'
     )
