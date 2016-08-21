@@ -1,7 +1,5 @@
 from django.db import models
 
-import pytz
-
 # User >>>
 from allauth.account.models import EmailAddress
 from django.contrib.auth.models import AbstractUser
@@ -239,12 +237,6 @@ class Tournament(models.Model):
     status = models.ForeignKey(TournamentStatus, null=True)
     cur_round = models.PositiveIntegerField(default=0)
     info = models.TextField()
-
-    def save(self, *args, **kwargs):
-        self.open_reg = self.open_reg.astimezone(pytz.utc)
-        self.close_reg = self.close_reg.astimezone(pytz.utc)
-        self.start_tour = self.start_tour.astimezone(pytz.utc)
-        super(Tournament, self).save(*args, **kwargs)
 
     def round_number_inc(self):
         self.cur_round += 1

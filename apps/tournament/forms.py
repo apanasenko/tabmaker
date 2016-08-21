@@ -1,5 +1,3 @@
-import pytz
-
 from django import forms
 from datetime import datetime
 from . models import \
@@ -105,15 +103,15 @@ class TournamentForm(forms.ModelForm):
         tournament = super(TournamentForm, self).save(False)
         tournament.open_reg = datetime.combine(
             self.cleaned_data['open_reg_date'],
-            self.cleaned_data['open_reg_time'].replace(tzinfo=pytz.utc)
+            self.cleaned_data['open_reg_time']
         )
         tournament.close_reg = datetime.combine(
             self.cleaned_data['close_reg_date'],
-            self.cleaned_data['close_reg_time'].replace(tzinfo=pytz.utc)
+            self.cleaned_data['close_reg_time']
         )
         tournament.start_tour = datetime.combine(
             self.cleaned_data['start_tour_date'],
-            self.cleaned_data['start_tour_time'].replace(tzinfo=pytz.utc)
+            self.cleaned_data['start_tour_time']
         )
         if commit:
             tournament.save()
@@ -141,10 +139,7 @@ class RoundForm(forms.ModelForm):
 
     def save(self, commit=True):
         round_obj = super(RoundForm, self).save(False)
-        round_obj.start_time = datetime.combine(
-            datetime.now().date(),
-            self.cleaned_data['start_round_time'].replace(tzinfo=pytz.utc)
-        )
+        round_obj.start_time = datetime.combine(datetime.now().date(), self.cleaned_data['start_round_time'])
         if commit:
             round_obj.save()
         return round_obj
