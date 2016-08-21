@@ -28,8 +28,8 @@ def get_teams_result_list(where, params):
                 result.*
             FROM tournament_round as round
             INNER JOIN tournament_room as room ON round.id = room.round_id
-            INNER JOIN game_game as game ON room.game_id = game.id
-            INNER JOIN game_gameresult as result ON result.game_id = game.id
+            INNER JOIN tournament_game as game ON room.game_id = game.id
+            INNER JOIN tournament_gameresult as result ON result.game_id = game.id
             """ + where,
             params
         )
