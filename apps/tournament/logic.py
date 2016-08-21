@@ -2,7 +2,6 @@ import random
 import datetime
 from django.db.models import Q, Count
 from django.core.exceptions import ObjectDoesNotExist
-from .db_execute import get_teams_result_list
 from .consts import *
 from .messages import *
 from .models import \
@@ -386,28 +385,23 @@ def _generate_playoff_round(tournament: Tournament, cur_round: Round):
     chair = list(tournament.get_users([ROLE_CHAIR]).order_by('?'))
     place = list(tournament.place_set.filter(is_active=True).order_by('?'))
 
-    result_prev_round = get_teams_result_list(
-        """
-        WHERE round.tournament_id = %s
-          AND round.is_playoff = %s
-          AND round.number = %s
-        ORDER BY room.number
-        """,
-        [
-            tournament.id,
-            True,
-            cur_round.number - 1,
-            ]
+    queryset = Room.objects.filter(
+        round__tournament=tournament,
+        round__is_playoff=True,
+        round__number=cur_round.number - 1
     )
+    for i in ['round', 'game', 'game__gameresult']:
+        queryset = queryset.select_related(i)
 
+    result_prev_round = list(queryset)
     if len(result_prev_round) < 2:
         return 'Финал турнира уже сыгран. Завершите турнир и опубликуйте результаты'
 
     teams_id = []
     for room in result_prev_round:
         for position in positions:
-            if room[position[1]] in [1, 2]:
-                teams_id.append(room[position[0]])
+            if getattr(room.game.gameresult, position[1]) in [1, 2]:
+                teams_id.append(getattr(room.game, position[0]))
 
     for i in range(len(teams_id) // TEAM_IN_GAME):
         teams_id_in_room = teams_id[:4]
