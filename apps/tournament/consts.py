@@ -12,27 +12,27 @@ POINTS_OF_SECOND_PLACE = 2
 
 Position = Enum('Position', 'OG OO CG CO NONE')
 
-ROLE_OWNER = TournamentRole.objects.get(role_en='Owner')
-ROLE_ADMIN = TournamentRole.objects.get(role_en='Admin')
-ROLE_CHIEF_ADJUDICATOR = TournamentRole.objects.get(role_en='Chief adjudicator')
+ROLE_OWNER = TournamentRole.objects.filter(role_en='Owner').first()
+ROLE_ADMIN = TournamentRole.objects.filter(role_en='Admin').first()
+ROLE_CHIEF_ADJUDICATOR = TournamentRole.objects.filter(role_en='Chief adjudicator').first()
 
-ROLE_TEAM_REGISTERED = TournamentRole.objects.get(role_en='Registered')
-ROLE_IN_TAB = TournamentRole.objects.get(role_en='In tab')
-ROLE_WAIT_LIST = TournamentRole.objects.get(role_en='Wait list')
-ROLE_VERIFIED = TournamentRole.objects.get(role_en='Verified')  # Участник подтвердил участие
-ROLE_APPROVED = TournamentRole.objects.get(role_en='Approved')  # Организатор подтвердил
-ROLE_MEMBER = TournamentRole.objects.get(role_en='Member')
+ROLE_TEAM_REGISTERED = TournamentRole.objects.filter(role_en='Registered').first()
+ROLE_IN_TAB = TournamentRole.objects.filter(role_en='In tab').first()
+ROLE_WAIT_LIST = TournamentRole.objects.filter(role_en='Wait list').first()
+ROLE_VERIFIED = TournamentRole.objects.filter(role_en='Verified').first()  # Участник подтвердил участие
+ROLE_APPROVED = TournamentRole.objects.filter(role_en='Approved').first()  # Организатор подтвердил
+ROLE_MEMBER = TournamentRole.objects.filter(role_en='Member').first()
 
-ROLE_ADJUDICATOR_REGISTERED = TournamentRole.objects.get(role_en='Registered adjudicator')
-ROLE_ADJUDICATOR_APPROVED = TournamentRole.objects.get(role_en='Approved adjudicator')
-ROLE_WING = TournamentRole.objects.get(role_en='Wing')
-ROLE_CHAIR = TournamentRole.objects.get(role_en='Chair')
+ROLE_ADJUDICATOR_REGISTERED = TournamentRole.objects.filter(role_en='Registered adjudicator').first()
+ROLE_ADJUDICATOR_APPROVED = TournamentRole.objects.filter(role_en='Approved adjudicator').first()
+ROLE_WING = TournamentRole.objects.filter(role_en='Wing').first()
+ROLE_CHAIR = TournamentRole.objects.filter(role_en='Chair').first()
 
-STATUS_REGISTRATION = TournamentStatus.objects.get(name_en='Registration open')
-STATUS_PREPARATION = TournamentStatus.objects.get(name_en='Registration closed')
-STATUS_STARTED = TournamentStatus.objects.get(name_en='Qualification')
-STATUS_PLAYOFF = TournamentStatus.objects.get(name_en='Playoff')
-STATUS_FINISHED = TournamentStatus.objects.get(name_en='Finished')
+STATUS_REGISTRATION = TournamentStatus.objects.filter(name_en='Registration open').first()
+STATUS_PREPARATION = TournamentStatus.objects.filter(name_en='Registration closed').first()
+STATUS_STARTED = TournamentStatus.objects.filter(name_en='Qualification').first()
+STATUS_PLAYOFF = TournamentStatus.objects.filter(name_en='Playoff').first()
+STATUS_FINISHED = TournamentStatus.objects.filter(name_en='Finished').first()
 
 TEAM_ROLES_NAMES = [
     'Registered',
@@ -53,10 +53,10 @@ ADJUDICATOR_ROLES_NAMES = [
 TEAM_ROLES = TournamentRole.objects.filter(role_en__in=TEAM_ROLES_NAMES)
 ADJUDICATOR_ROLES = TournamentRole.objects.filter(role_en__in=ADJUDICATOR_ROLES_NAMES)
 
-FORM_REGISTRATION_TYPE = CustomFormType.objects.get(name='teams')
-FORM_FEEDBACK_TYPE = CustomFormType.objects.get(name='feedback')
-FORM_ADJUDICATOR_TYPE = CustomFormType.objects.get(name='adjudicator')
-FORM_AUDIENCE_TYPE = CustomFormType.objects.get(name='audience')
+FORM_REGISTRATION_TYPE = CustomFormType.objects.filter(name='teams').first()
+FORM_FEEDBACK_TYPE = CustomFormType.objects.filter(name='feedback').first()
+FORM_ADJUDICATOR_TYPE = CustomFormType.objects.filter(name='adjudicator').first()
+FORM_AUDIENCE_TYPE = CustomFormType.objects.filter(name='audience').first()
 
 CUSTOM_FORM_TYPES = {
     'team': FORM_REGISTRATION_TYPE,
@@ -65,17 +65,17 @@ CUSTOM_FORM_TYPES = {
     'audience': FORM_AUDIENCE_TYPE,
 }
 
-FIELD_ALIAS_SPEAKER_1 = CustomFieldAlias.objects.get(name='speaker_1_email')
-# FIELD_ALIAS_SPEAKER_1_F_NAME = CustomFieldAlias.objects.get(name='speaker_1_first_name')
-# FIELD_ALIAS_SPEAKER_1_L_NAME = CustomFieldAlias.objects.get(name='speaker_1_last_name')
-# FIELD_ALIAS_SPEAKER_1_UNIVERSITY = CustomFieldAlias.objects.get(name='speaker_1_university')
-FIELD_ALIAS_SPEAKER_2 = CustomFieldAlias.objects.get(name='speaker_2_email')
-# FIELD_ALIAS_SPEAKER_2_F_NAME = CustomFieldAlias.objects.get(name='speaker_2_first_name')
-# FIELD_ALIAS_SPEAKER_2_L_NAME = CustomFieldAlias.objects.get(name='speaker_2_last_name')
-# FIELD_ALIAS_SPEAKER_2_UNIVERSITY = CustomFieldAlias.objects.get(name='speaker_2_university')
-FIELD_ALIAS_TEAM = CustomFieldAlias.objects.get(name='team_name')
+FIELD_ALIAS_SPEAKER_1 = CustomFieldAlias.objects.filter(name='speaker_1_email').first()
+# FIELD_ALIAS_SPEAKER_1_F_NAME = CustomFieldAlias.objects.filter(name='speaker_1_first_name').first()
+# FIELD_ALIAS_SPEAKER_1_L_NAME = CustomFieldAlias.objects.filter(name='speaker_1_last_name').first()
+# FIELD_ALIAS_SPEAKER_1_UNIVERSITY = CustomFieldAlias.objects.filter(name='speaker_1_university').first()
+FIELD_ALIAS_SPEAKER_2 = CustomFieldAlias.objects.filter(name='speaker_2_email').first()
+# FIELD_ALIAS_SPEAKER_2_F_NAME = CustomFieldAlias.objects.filter(name='speaker_2_first_name').first()
+# FIELD_ALIAS_SPEAKER_2_L_NAME = CustomFieldAlias.objects.filter(name='speaker_2_last_name').first()
+# FIELD_ALIAS_SPEAKER_2_UNIVERSITY = CustomFieldAlias.objects.filter(name='speaker_2_university').first()
+FIELD_ALIAS_TEAM = CustomFieldAlias.objects.filter(name='team_name').first()
 
-FIELD_ALIAS_ADJUDICATOR = CustomFieldAlias.objects.get(name='adjudicator')
+FIELD_ALIAS_ADJUDICATOR = CustomFieldAlias.objects.filter(name='adjudicator').first()
 
 CUSTOM_FIELD_SETS = {
     FORM_REGISTRATION_TYPE: [
