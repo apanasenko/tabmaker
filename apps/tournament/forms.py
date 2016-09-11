@@ -160,7 +160,7 @@ class СonfirmForm(forms.Form):
 
 from .models import \
     Game, \
-    GameResult
+    QualificationResult
 
 
 class GameForm(forms.ModelForm):
@@ -195,7 +195,7 @@ class GameForm(forms.ModelForm):
     def save(self, commit=True):
         game = super(GameForm, self).save(commit)
         if len(self.changed_data) > 1 or len(self.changed_data) == 1 and self.changed_data[0] != 'place_id':
-            GameResult.objects.filter(game=game).delete()
+            QualificationResult.objects.filter(game=game).delete()
 
         return game
 
@@ -205,7 +205,7 @@ class ResultGameForm(forms.ModelForm):
     min_speaker_points = 50
 
     class Meta:
-        model = GameResult
+        model = QualificationResult
 
         fields = '__all__'
 

@@ -24,17 +24,19 @@ class Game(models.Model):
 class GameResult(models.Model):
     game = models.OneToOneField(Game)
 
-    # Place
-    og = models.IntegerField()
-    oo = models.IntegerField()
-    cg = models.IntegerField()
-    co = models.IntegerField()
-
     # Position of speakers (true - if speakers were in the reverse order)
     og_rev = models.BooleanField(default=False)
     oo_rev = models.BooleanField(default=False)
     cg_rev = models.BooleanField(default=False)
     co_rev = models.BooleanField(default=False)
+
+
+class QualificationResult(GameResult):
+    # Place
+    og = models.IntegerField()
+    oo = models.IntegerField()
+    cg = models.IntegerField()
+    co = models.IntegerField()
 
     # Speaker's points
     # OG (Prime Minister & Deputy Prime Minister)
@@ -76,3 +78,11 @@ class GameResult(models.Model):
 
     def get_co_result(self):
         return self.to_dict(self.game.co, self.co, self.mo, self.ow, self.co_rev)
+
+
+class PlayoffResult(GameResult):
+    # Place
+    og = models.BooleanField()
+    oo = models.BooleanField()
+    cg = models.BooleanField()
+    co = models.BooleanField()

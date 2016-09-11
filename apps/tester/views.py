@@ -99,7 +99,7 @@ def generate_results(request, tournament_id: int, rev=30, exist=5):
     exist in [0, 100]
     """
     from apps.tournament.logic import get_rooms_from_last_round
-    from apps.tournament.models import GameResult
+    from apps.tournament.models import QualificationResult
 
     tournament = get_object_or_404(Tournament, pk=tournament_id)
     rooms = get_rooms_from_last_round(tournament)
@@ -134,7 +134,7 @@ def generate_results(request, tournament_id: int, rev=30, exist=5):
                 result[i[2] + '_exist'] = False
                 result[i[2]] = 0
 
-        GameResult.objects.update_or_create(defaults=result, game=room.game)
+        QualificationResult.objects.update_or_create(defaults=result, game=room.game)
 
     return redirect('/tournament/%s/round/result/' % tournament_id)
 
