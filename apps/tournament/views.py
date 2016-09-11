@@ -52,7 +52,6 @@ from .logic import \
     get_games_and_results, \
     get_motions, \
     get_rooms_from_last_round, \
-    get_rooms_by_chair_from_last_round, \
     get_tab, \
     get_teams_by_user, \
     publish_last_round, \
@@ -283,7 +282,8 @@ def new(request):
 def show(request, tournament):
     is_chair = request.user.is_authenticated() \
                and tournament.status in [STATUS_PLAYOFF, STATUS_STARTED] \
-               and get_rooms_by_chair_from_last_round(tournament, request.user)
+               and get_rooms_from_last_round(tournament, False, request.user).count()
+
     return render(
         request,
         'tournament/show.html',
@@ -618,10 +618,8 @@ def edit_round(request, tournament):
 @access_by_status(name_page='round_result')
 def result_round(request, tournament):
     is_admin = user_can_edit_tournament(tournament, request.user)
-    if is_admin:
-        rooms = get_rooms_from_last_round(tournament)
-    else:
-        rooms = get_rooms_by_chair_from_last_round(tournament, request.user)
+    chair = None if is_admin else request.user
+    rooms = get_rooms_from_last_round(tournament, False, chair)
 
     if not is_admin and not rooms:
         return _show_message(request, MSG_NO_ACCESS_IN_RESULT_PAGE)

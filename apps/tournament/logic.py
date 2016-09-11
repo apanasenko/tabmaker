@@ -654,8 +654,10 @@ def get_all_rounds_and_rooms(tournament: Tournament):
     return results
 
 
-def get_rooms_from_last_round(tournament: Tournament, shuffle=False):
+def get_rooms_from_last_round(tournament: Tournament, shuffle=False, chair=None) -> [Room]:
     room = Room.objects.filter(round=_get_last_round(tournament))
+    if chair:
+        room = room.filter(game__chair=chair)
     # TODO вынести этот кусок кода
     for i in ['game', 'place', 'game__gameresult', 'game__chair']:
         room = room.select_related(i)
@@ -667,10 +669,6 @@ def get_rooms_from_last_round(tournament: Tournament, shuffle=False):
     return room if not shuffle else room.order_by('?')
 
 
-def get_rooms_by_chair_from_last_round(tournament: Tournament, user: User) -> Room:
-    return Room.objects.filter(round=_get_last_round(tournament), game__chair=user)\
-        .select_related('game__gameresult')\
-        .select_related('game')
 
 
 def get_tab(tournament: Tournament):
