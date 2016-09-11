@@ -683,6 +683,7 @@ def get_tab(tournament: Tournament):
             continue
 
         game_result = room.game.gameresult.qualificationresult
+        game_result.game = room.game
 
         for position in [
             [game_result.get_og_result(), Position.OG],
