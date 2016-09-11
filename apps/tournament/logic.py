@@ -455,6 +455,7 @@ def check_final(tournament: Tournament):
 
 
 def check_last_round_results(tournament: Tournament):
+    # TODO use count .annotate(count_game=Count('game_id'), count_results=Count('game__gameresult__id')) \
     rooms = Room.objects.filter(round=_get_last_round(tournament))\
         .select_related('game')\
         .select_related('game__gameresult')
@@ -674,7 +675,8 @@ def get_tab(tournament: Tournament):
 
     for room in rooms.order_by('round_id', 'number'):
 
-        try:  # TODO Убрать это
+        # TODO Убрать это
+        try:
             # TODO playoffresult
             room.game.gameresult
         except AttributeError:
