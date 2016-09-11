@@ -620,36 +620,29 @@ def get_all_rounds_and_rooms(tournament: Tournament):
     results = []
     games = []
 
-    # Выборка всех связных объектов
-    # >>>
     # TODO Добавить .only() и убрать ненужные поля
-    queryset = Room.objects.filter(round__tournament=tournament, round__is_playoff=False)
-    for i in ['round', 'game', 'game__chair', 'game__gameresult']:
-        queryset = queryset.select_related(i)
-    for i in ['og', 'oo', 'cg', 'co']:
-        queryset = queryset.select_related('game__%s' % i)
-        for j in ['speaker_1', 'speaker_2']:
-            queryset = queryset.select_related('game__%s__%s' % (i, j))
-    # <<<
+    # TODO playoffresult
+    rooms = Room.objects.filter(round__tournament=tournament, round__is_playoff=False)
+    rooms = __include_room_related_models(rooms)
 
-    for i in queryset.order_by('round_id', 'number'):
+    for room in rooms.order_by('round_id', 'number'):
 
         try:  # TODO Убрать это
-            i.game.gameresult
+            room.game.gameresult
         except AttributeError:
             continue
 
-        if not results or results[-1]['round'] != i.round:
+        if not results or results[-1]['round'] != room.round:
             results.append({
-                'round': i.round,
+                'round': room.round,
                 'rooms': [],
             })
 
         results[-1]['rooms'].append({
-            'game': i.game,
-            'result': i.game.gameresult,
+            'game': room.game,
+            'result': room.game.gameresult,
         })
-        games.append(i.game)
+        games.append(room.game)
 
     return results
 
@@ -658,17 +651,10 @@ def get_rooms_from_last_round(tournament: Tournament, shuffle=False, chair=None)
     room = Room.objects.filter(round=_get_last_round(tournament))
     if chair:
         room = room.filter(game__chair=chair)
-    # TODO вынести этот кусок кода
-    for i in ['game', 'place', 'game__gameresult', 'game__chair']:
-        room = room.select_related(i)
-    for i in ['og', 'oo', 'cg', 'co']:
-        room = room.select_related('game__%s' % i)
-        for j in ['speaker_1', 'speaker_2']:
-            room = room.select_related('game__%s__%s' % (i, j))
+
+    room = __include_room_related_models(room)
 
     return room if not shuffle else room.order_by('?')
-
-
 
 
 def get_tab(tournament: Tournament):
@@ -679,18 +665,10 @@ def get_tab(tournament: Tournament):
     """
     teams = {}
 
-    # Выборка всех игр и результатов
-    # >>>
-    queryset = Room.objects.filter(round__tournament=tournament)
-    for i in ['round', 'game', 'game__gameresult']:
-        queryset = queryset.select_related(i)
-    for i in ['og', 'oo', 'cg', 'co']:
-        queryset = queryset.select_related('game__%s' % i)
-        for j in ['speaker_1', 'speaker_2']:
-            queryset = queryset.select_related('game__%s__%s' % (i, j))
-    # <<<
+    rooms = Room.objects.filter(round__tournament=tournament)
+    rooms = __include_room_related_models(rooms)
 
-    for room in queryset.order_by('round_id', 'number'):
+    for room in rooms.order_by('round_id', 'number'):
 
         try:  # TODO Убрать это
             room.game.gameresult
@@ -772,3 +750,14 @@ def user_can_edit_tournament(tournament: Tournament, user: User, only_owner=Fals
         user=user,
         role__in=roles
     ).count()
+
+
+def __include_room_related_models(queryset):
+    for i in ['game', 'place', 'round', 'game__gameresult', 'game__chair']:
+        queryset = queryset.select_related(i)
+    for i in ['og', 'oo', 'cg', 'co']:
+        queryset = queryset.select_related('game__%s' % i)
+        for j in ['speaker_1', 'speaker_2']:
+            queryset = queryset.select_related('game__%s__%s' % (i, j))
+
+    return queryset
