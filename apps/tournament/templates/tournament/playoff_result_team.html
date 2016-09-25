@@ -1,0 +1,22 @@
+{% load profile_extras %}
+
+<div class="b-result-room__team">
+    <div class="b-result-room__teamresult">
+        <p>{{ team.errors }}</p>
+        <p>{{ game.name }}</p>
+        {{ team }}
+    </div>
+
+    <div class="b-result-room__speaker1 speaker_1">
+        <p><span class="speaker_name">{{ game.speaker_1|name }}</span></p>
+    </div>
+
+    <div class="b-result-room__speaker2 speaker_2">
+        <p><span class="speaker_name">{{ game.speaker_2|name }}</span></p>
+    </div>
+
+    <div class="b-result-room__reverse">
+        {{ is_rev }}
+        <p>{{ is_rev.label_tag }}</p>
+    </div>
+</div>

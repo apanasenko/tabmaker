@@ -25,6 +25,8 @@ from . motion import Motion
 from . team import Team
 from . game import \
     Game, \
+    GameResult, \
+    PlayoffResult, \
     QualificationResult
 
 from . tournament import \

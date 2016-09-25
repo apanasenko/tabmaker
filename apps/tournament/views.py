@@ -38,7 +38,8 @@ from .forms import \
     RoundForm, \
     ActivateResultForm, \
     GameForm, \
-    ResultGameForm, \
+    PlayoffGameResultForm, \
+    QualificationGameResultForm, \
     MotionForm
 from .logic import \
     can_change_team_role, \
@@ -221,19 +222,22 @@ def _convert_tab_to_speaker_table(table: list, is_show):
     return lines
 
 
-def _get_or_check_round_result_forms(request, rooms, is_admin=False):
+def _get_or_check_round_result_forms(request, rooms, is_admin=False, is_playoff=False):
     all_is_valid = True
     forms = []
+
+    ResultForm = PlayoffGameResultForm if is_playoff else QualificationGameResultForm
+
     for room in get_games_and_results(rooms):
         activate_form = ActivateResultForm(request.POST or None, prefix='af_%s' % room['game'].id)
 
         if request.method == 'POST' and activate_form.is_valid() and activate_form.is_active():
-            result_form = ResultGameForm(request.POST, instance=room['result'], prefix='rf_%s' % room['game'].id)
+            result_form = ResultForm(request.POST, instance=room['result'], prefix='rf_%s' % room['game'].id)
             all_is_valid &= result_form.is_valid()
             if result_form.is_valid():
                 result_form.save()
         else:
-            result_form = ResultGameForm(instance=room['result'], prefix='rf_%s' % room['game'].id)
+            result_form = ResultForm(instance=room['result'], prefix='rf_%s' % room['game'].id)
             activate_form.init(is_admin)
             result_form.initial['game'] = room['game'].id
 
@@ -620,11 +624,12 @@ def result_round(request, tournament):
     is_admin = user_can_edit_tournament(tournament, request.user)
     chair = None if is_admin else request.user
     rooms = get_rooms_from_last_round(tournament, False, chair)
+    is_playoff = tournament.status == STATUS_PLAYOFF
 
     if not is_admin and not rooms:
         return _show_message(request, MSG_NO_ACCESS_IN_RESULT_PAGE)
 
-    is_valid, forms = _get_or_check_round_result_forms(request, rooms, is_admin)
+    is_valid, forms = _get_or_check_round_result_forms(request, rooms, is_admin, is_playoff)
 
     if is_valid and request.method == 'POST':
         if is_admin:
@@ -638,6 +643,8 @@ def result_round(request, tournament):
         {
             'tournament': tournament,
             'forms': forms,
+            'is_playoff': is_playoff,
+            'result_template': 'tournament/playoff_result_team.html' if is_playoff else 'tournament/result_team.html',
         }
     )
 

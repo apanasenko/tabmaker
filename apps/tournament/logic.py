@@ -10,7 +10,7 @@ from .models import \
     Round, \
     Room, \
     Game, \
-    QualificationResult, \
+    GameResult, \
     Motion, \
     User
 
@@ -390,7 +390,7 @@ def _generate_playoff_round(tournament: Tournament, cur_round: Round):
         round__is_playoff=True,
         round__number=cur_round.number - 1
     )
-    for i in ['round', 'game', 'game__gameresult', 'game__gameresult__qualificationresult']:
+    for i in ['round', 'game', 'game__gameresult', 'game__gameresult__playoffresult']:
         queryset = queryset.select_related(i)
 
     result_prev_round = list(queryset)
@@ -400,8 +400,7 @@ def _generate_playoff_round(tournament: Tournament, cur_round: Round):
     teams_id = []
     for room in result_prev_round:
         for position in positions:
-            # TODO playoffresult
-            if getattr(room.game.gameresult.qualificationresult, position[1]) in [1, 2]:
+            if getattr(room.game.gameresult.playoffresult, position[1]):
                 teams_id.append(getattr(room.game, position[0]))
 
     for i in range(len(teams_id) // TEAM_IN_GAME):
@@ -444,7 +443,7 @@ def can_change_team_role(rel: TeamTournamentRel, role: TournamentRole) -> [bool,
 
 
 def check_games_results_exists(games: [Game]):
-    return QualificationResult.objects.filter(game__in=games).count()
+    return GameResult.objects.filter(game__in=games).count()
 
 
 def check_final(tournament: Tournament):
@@ -572,10 +571,8 @@ def get_games_and_results(rooms: [Room]):
     results = []
     for room in rooms:
         try:
-            result = room.game.gameresult.qualificationresult
-            # TODO playoffresult
-            # result = room.game.gameresult.qualificationresult if not room.round.is_playoff \
-            #     else room.game.gameresult.playoffresult
+            result = room.game.gameresult.qualificationresult if not room.round.is_playoff \
+                else room.game.gameresult.playoffresult
         except ObjectDoesNotExist:
             result = None
 
@@ -678,7 +675,7 @@ def get_tab(tournament: Tournament):
         # TODO Убрать это
         try:
             # TODO playoffresult
-            room.game.gameresult
+            room.game.gameresult.qualificationresult
         except AttributeError:
             continue
 

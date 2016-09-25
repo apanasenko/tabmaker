@@ -160,6 +160,7 @@ class СonfirmForm(forms.Form):
 
 from .models import \
     Game, \
+    PlayoffResult, \
     QualificationResult
 
 
@@ -200,7 +201,7 @@ class GameForm(forms.ModelForm):
         return game
 
 
-class ResultGameForm(forms.ModelForm):
+class QualificationGameResultForm(forms.ModelForm):
 
     min_speaker_points = 50
 
@@ -231,7 +232,7 @@ class ResultGameForm(forms.ModelForm):
             widgets[i] = forms.CheckboxInput(attrs={'type': 'checkbox', 'class': 'exist_speaker'})
 
     def clean(self):
-        super(ResultGameForm, self).clean()
+        super(QualificationGameResultForm, self).clean()
         if not self.is_valid():
             return
 
@@ -249,6 +250,36 @@ class ResultGameForm(forms.ModelForm):
             for i in a:
                 if i not in places:
                     self.add_error('__all__', 'Не указана команда, занявшая %s место' % i)
+
+
+class PlayoffGameResultForm(forms.ModelForm):
+
+    COUNT_COMING_NEXT = 2
+
+    class Meta:
+        model = PlayoffResult
+
+        fields = '__all__'
+
+        labels = {}
+        widgets = {
+            'game': forms.HiddenInput(attrs={'class': 'game_id'}),
+        }
+
+        for i in ['og', 'oo', 'cg', 'co']:
+            widgets[i] = forms.CheckboxInput(attrs={'type': 'checkbox', 'class': 'place'})
+
+        for i in ['og_rev', 'oo_rev', 'cg_rev', 'co_rev']:
+            widgets[i] = forms.CheckboxInput(attrs={'type': 'checkbox', 'class': 'reverse_speakers'})
+            labels[i] = 'Спикеры выступали в обратном порядке'
+
+    def clean(self):
+        super(PlayoffGameResultForm, self).clean()
+        if not self.is_valid():
+            return
+
+        if self.COUNT_COMING_NEXT != sum(map(lambda x: self.cleaned_data[x], ['og', 'oo', 'cg', 'co'])):
+            self.add_error('__all__', 'В следующий раунд должны проходить %d комадны' % self.COUNT_COMING_NEXT)
 
 
 class ActivateResultForm(forms.Form):
