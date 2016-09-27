@@ -6,7 +6,12 @@
 {% block extra_head %}
     {{ block.super }}
     <script type="text/javascript" src="{% static "tournament/js/reverse_speakers.js" %}"></script>
-    <script type="text/javascript" src="{% static "tournament/js/check_result.js" %}"></script>
+
+    {% if is_playoff %}
+        <script type="text/javascript" src="{% static "tournament/js/check_result_playoff.js" %}"></script>
+    {% else %}
+        <script type="text/javascript" src="{% static "tournament/js/check_result.js" %}"></script>
+    {% endif %}
 {% endblock extra_head %}
 
 
@@ -15,13 +20,14 @@
 {% endblock page_title %}
 
 {% block header_button %}
-    
+
 {% endblock header_button %}
 
 
 {% block content %}
     <form class="b-result" id="result_form" action="{% url "tournament:result_round" tournament.id %}" method="post">
         {% csrf_token %}
+        <input type="hidden" id="is_final" value="{{ is_final }}">
         {% for room in forms %}
             {% with game=room.game res=room.result is_active=room.activate_result %}
             <div class="b-result-enter room">
@@ -48,25 +54,25 @@
                     {# ======   OG   ====== #}
                     <div class="b-result-enter__og team og">
                     <h3>Первое правительство</h3>
-                    {% include 'tournament/result_team.html' with team=res.og game=game.og speaker_1=res.pm speaker_2=res.dpm is_rev=res.og_rev s1_exist=res.pm_exist s2_exist=res.dpm_exist %}
+                    {% include result_template with team=res.og game=game.og speaker_1=res.pm speaker_2=res.dpm is_rev=res.og_rev s1_exist=res.pm_exist s2_exist=res.dpm_exist %}
                     </div>
 
                     {# ======   OO   ====== #}
                     <div class="b-result-enter__oo team oo">
                     <h3>Первая оппозиция</h3>
-                    {% include 'tournament/result_team.html' with team=res.oo game=game.oo speaker_1=res.lo speaker_2=res.dlo is_rev=res.oo_rev s1_exist=res.lo_exist s2_exist=res.dlo_exist %}
+                    {% include result_template with team=res.oo game=game.oo speaker_1=res.lo speaker_2=res.dlo is_rev=res.oo_rev s1_exist=res.lo_exist s2_exist=res.dlo_exist %}
                     </div>
 
                     {# ======   CG   ====== #}
                     <div class="b-result-enter__cg team cg">
                     <h3>Второе правительство</h3>
-                    {% include 'tournament/result_team.html' with team=res.cg game=game.cg speaker_1=res.mg speaker_2=res.gw is_rev=res.cg_rev s1_exist=res.mg_exist s2_exist=res.gw_exist %}
+                    {% include result_template with team=res.cg game=game.cg speaker_1=res.mg speaker_2=res.gw is_rev=res.cg_rev s1_exist=res.mg_exist s2_exist=res.gw_exist %}
                     </div>
 
                     {# ======   CO   ====== #}
-                    <div class="b-result-enter__cg team co">
+                    <div class="b-result-enter__co team co">
                     <h3>Вторая оппозиция</h3>
-                    {% include 'tournament/result_team.html' with team=res.co game=game.co speaker_1=res.mo speaker_2=res.ow is_rev=res.co_rev s1_exist=res.mo_exist s2_exist=res.ow_exist %}
+                    {% include result_template with team=res.co game=game.co speaker_1=res.mo speaker_2=res.ow is_rev=res.co_rev s1_exist=res.mo_exist s2_exist=res.ow_exist %}
                     </div>
 
                 </div>
