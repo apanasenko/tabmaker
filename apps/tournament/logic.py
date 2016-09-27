@@ -142,7 +142,7 @@ def _get_last_round(tournament: Tournament):
     ).order_by('-number').first()
 
 
-def _get_temp_round(tournament: Tournament):
+def _get_temp_round(tournament: Tournament) -> Round:
     return Round.objects.filter(
         tournament=tournament,
         is_playoff=True,
@@ -668,6 +668,11 @@ def get_tab(tournament: Tournament):
     rooms = Room.objects.filter(round__tournament=tournament)
     rooms = __include_room_related_models(rooms)
 
+    count_playoff_rounds = 0
+    temp_round = _get_temp_round(tournament)
+    if temp_round:
+        count_playoff_rounds = _count_playoff_rounds_in_tournament(temp_round.room_set.count() * TEAM_IN_GAME)
+
     for room in rooms.order_by('round_id', 'number'):
 
         # TODO Убрать это
@@ -701,10 +706,7 @@ def get_tab(tournament: Tournament):
             )
 
             if position[0]['team'].id not in teams.keys():
-                teams[position[0]['team'].id] = TeamResult(
-                    position[0]['team'],
-                    _count_playoff_rounds_in_tournament(tournament.count_teams_in_break)
-                )
+                teams[position[0]['team'].id] = TeamResult(position[0]['team'], count_playoff_rounds)
 
             if room.round.is_playoff:
                 teams[position[0]['team'].id].add_playoff_round(team_result)
