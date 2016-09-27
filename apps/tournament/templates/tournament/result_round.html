@@ -27,6 +27,7 @@
 {% block content %}
     <form class="b-result" id="result_form" action="{% url "tournament:result_round" tournament.id %}" method="post">
         {% csrf_token %}
+        <input type="hidden" id="is_final" value="{{ is_final }}">
         {% for room in forms %}
             {% with game=room.game res=room.result is_active=room.activate_result %}
             <div class="b-result-enter room">

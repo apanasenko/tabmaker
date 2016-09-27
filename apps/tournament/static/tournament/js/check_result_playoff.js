@@ -36,8 +36,16 @@ function check_results(){
             team_in_break = parseBool($(room).find('.' + value).find('.place').val())
         });
 
-        if (team_in_break != 2) {
-            errors_block.append('<p>Дальше должны пройти 2 команды</p>');
+        var need_checked_teams = 2;
+        var error_message = '<p>Дальше должны пройти 2 команды</p>';
+
+        if ($('#is_final').val()) {
+            need_checked_teams = 1;
+            error_message = '<p>В финале должна победить только 1 команда</p>';
+        }
+
+        if (team_in_break != need_checked_teams) {
+            errors_block.append(error_message);
             checked_room = false;
         }
 

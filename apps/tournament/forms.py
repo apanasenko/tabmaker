@@ -279,7 +279,20 @@ class PlayoffGameResultForm(forms.ModelForm):
             return
 
         if self.COUNT_COMING_NEXT != sum(map(lambda x: self.cleaned_data[x], ['og', 'oo', 'cg', 'co'])):
-            self.add_error('__all__', 'В следующий раунд должны проходить %d комадны' % self.COUNT_COMING_NEXT)
+            self.add_error('__all__', 'В следующий раунд должны проходить две комадны')
+
+
+class FinalGameResultForm(PlayoffGameResultForm):
+
+    COUNT_COMING_NEXT = 1
+
+    def clean(self):
+        super(FinalGameResultForm, self).clean()
+        if not self.is_valid():
+            return
+
+        if self.COUNT_COMING_NEXT != sum(map(lambda x: self.cleaned_data[x], ['og', 'oo', 'cg', 'co'])):
+            self.add_error('__all__', 'В финале должна победить только одна команда')
 
 
 class ActivateResultForm(forms.Form):
