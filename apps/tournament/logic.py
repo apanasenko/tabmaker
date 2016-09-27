@@ -17,7 +17,7 @@ from .models import \
 
 class TeamRoundResult:
     def __init__(self,
-                 points: int,
+                 place: int,
                  speaker_1: int,
                  speaker_2: int,
                  is_reversed: bool,
@@ -26,7 +26,7 @@ class TeamRoundResult:
                  is_closed: bool,
                  is_playoff: bool,
                  ):
-        self.points = points
+        self.points = 4 - place if not is_playoff and place else place
         self.speaker_1 = speaker_1
         self.speaker_2 = speaker_2
         self.is_reversed = is_reversed
@@ -49,13 +49,11 @@ class TeamResult:
     def add_empty_round(self, round_number):
         self.rounds.append(TeamRoundResult(0, 0, 0, False, Position.NONE, round_number, False, False))
 
-    def add_round(self, other: TeamRoundResult):
-        if other.is_playoff:
-            is_inc_position = other.number < self.count_playoff_rounds and other.points >= POINTS_OF_SECOND_PLACE \
-                or other.points == POINTS_OF_FIRST_PLACE
-            self.playoff_position = max(self.playoff_position, other.number + int(is_inc_position))
-            return self.rounds
+    def add_playoff_round(self, other: TeamRoundResult):
+        self.playoff_position = max(self.playoff_position, other.number + int(other.points))
+        return self.rounds
 
+    def add_round(self, other: TeamRoundResult):
         if len(self.rounds) + 1 == other.number:
             self.rounds.append(other)
         elif len(self.rounds) + 1 < other.number:
@@ -674,12 +672,15 @@ def get_tab(tournament: Tournament):
 
         # TODO Убрать это
         try:
-            # TODO playoffresult
-            room.game.gameresult.qualificationresult
+            room.game.gameresult
         except AttributeError:
             continue
 
-        game_result = room.game.gameresult.qualificationresult
+        if room.round.is_playoff:
+            game_result = room.game.gameresult.playoffresult
+        else:
+            game_result = room.game.gameresult.qualificationresult
+
         game_result.game = room.game
 
         for position in [
@@ -689,7 +690,7 @@ def get_tab(tournament: Tournament):
             [game_result.get_co_result(), Position.CO],
         ]:
             team_result = TeamRoundResult(
-                4 - position[0]['place'],
+                position[0]['place'],
                 position[0]['speaker_1'],
                 position[0]['speaker_2'],
                 position[0]['revert'],
@@ -698,11 +699,17 @@ def get_tab(tournament: Tournament):
                 room.round.is_closed,
                 room.round.is_playoff
             )
-            team_id = position[0]['team'].id
-            if team_id not in teams.keys():
-                teams[team_id] = TeamResult(position[0]['team'], _count_playoff_rounds_in_tournament(tournament.count_teams_in_break))
 
-            teams[team_id].add_round(team_result)
+            if position[0]['team'].id not in teams.keys():
+                teams[position[0]['team'].id] = TeamResult(
+                    position[0]['team'],
+                    _count_playoff_rounds_in_tournament(tournament.count_teams_in_break)
+                )
+
+            if room.round.is_playoff:
+                teams[position[0]['team'].id].add_playoff_round(team_result)
+            else:
+                teams[position[0]['team'].id].add_round(team_result)
 
     return list(teams.values())
 

@@ -30,6 +30,10 @@ class GameResult(models.Model):
     cg_rev = models.BooleanField(default=False)
     co_rev = models.BooleanField(default=False)
 
+    @staticmethod
+    def to_dict(team, place, s1, s2, rev):
+        return {'team': team, 'place': place, 'speaker_1': s1, 'speaker_2': s2, 'revert': rev}
+
 
 class QualificationResult(GameResult):
     # Place
@@ -63,10 +67,6 @@ class QualificationResult(GameResult):
     ow = models.IntegerField()
     ow_exist = models.BooleanField(default=True)
 
-    @staticmethod
-    def to_dict(team, place, s1, s2, rev):
-        return {'team': team, 'place': place, 'speaker_1': s1, 'speaker_2': s2, 'revert': rev}
-
     def get_og_result(self):
         return self.to_dict(self.game.og, self.og, self.pm, self.dpm, self.og_rev)
 
@@ -86,3 +86,15 @@ class PlayoffResult(GameResult):
     oo = models.BooleanField()
     cg = models.BooleanField()
     co = models.BooleanField()
+
+    def get_og_result(self):
+        return self.to_dict(self.game.og, self.og, 0, 0, self.og_rev)
+
+    def get_oo_result(self):
+        return self.to_dict(self.game.oo, self.oo, 0, 0, self.oo_rev)
+
+    def get_cg_result(self):
+        return self.to_dict(self.game.cg, self.cg, 0, 0, self.cg_rev)
+
+    def get_co_result(self):
+        return self.to_dict(self.game.co, self.co, 0, 0, self.co_rev)
