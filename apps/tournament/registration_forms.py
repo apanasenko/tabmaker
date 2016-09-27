@@ -1,6 +1,5 @@
 from django import forms
-from apps.profile.models import User
-from apps.team.models import Team
+from .models import Team, User
 from apps.tournament.consts import \
     FIELD_ALIAS_TEAM, \
     FIELD_ALIAS_SPEAKER_1, \
@@ -100,3 +99,14 @@ class CustomTeamRegistrationForm(TeamWithSpeakerRegistrationForm):
         if commit:
             team.save()
         return team
+
+    def get_answers(self, questions):
+        answers = []
+        for question in questions:
+            if question.alias and question.alias.name in self._required_fields:
+                field_name = self._required_fields[question.alias.name]
+            else:
+                field_name = 'question_%s' % question.position
+            answers.append(self.cleaned_data[field_name])
+
+        return answers

@@ -20,7 +20,7 @@
 {% block content %}
 
     <input id="form_id" type="hidden" value="{{ form.id }}">
-    <input id="url" type="hidden" value="{% url 'tournament:form_edit' tournament.id %}">
+    <input id="url" type="hidden" value="{% url 'tournament:custom_form_edit_field' tournament.id %}">
 
     <div id="temp">
         <div class="message"></div>

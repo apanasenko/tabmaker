@@ -1,40 +1,44 @@
 import random
+from datetime import date, timedelta
+
+# from django.db.models import Count, Q
+# from django.shortcuts import render
+
+# from apps.tournament.consts import *
+# from apps.tournament.models import Tournament
+# from apps.tournament.utils import paging
+
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseBadRequest
-from django.views.decorators.csrf import \
-    csrf_protect, \
-    ensure_csrf_cookie
 from django.core.urlresolvers import \
     reverse_lazy, \
     reverse
+from django.http import \
+    HttpResponseBadRequest, \
+    Http404
+
 from django.shortcuts import \
     render, \
     get_object_or_404, \
     redirect
+from django.views.decorators.csrf import \
+    csrf_protect, \
+    ensure_csrf_cookie
 
-from apps.profile.utils import json_response
-from apps.profile.models import User
-from apps.motion.forms import MotionForm
-from apps.game.forms import \
-    ActivateResultForm, \
-    GameForm, \
-    ResultGameForm
+from .forms import EditForm
 
+from .utils import \
+    json_response, \
+    paging
+
+from .consts import *
 from .forms import \
     TournamentForm, \
     CheckboxForm, \
     СonfirmForm, \
-    RoundForm
-
-from .consts import *
-from .messages import *
-
-from .models import \
-    AccessToPage, \
-    Tournament, \
-    TeamTournamentRel, \
-    UserTournamentRel
-
+    RoundForm, \
+    ActivateResultForm, \
+    GameForm, \
+    MotionForm
 from .logic import \
     can_change_team_role, \
     check_games_results_exists, \
@@ -47,13 +51,22 @@ from .logic import \
     get_games_and_results, \
     get_motions, \
     get_rooms_from_last_round, \
-    get_rooms_by_chair_from_last_round, \
     get_tab, \
     get_teams_by_user, \
     publish_last_round, \
     remove_last_round, \
     remove_playoff, \
     user_can_edit_tournament
+from .messages import *
+from .models import \
+    AccessToPage, \
+    Tournament, \
+    TeamTournamentRel, \
+    UserTournamentRel, \
+    User
+
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Count, Q
 
 
 def access_by_status(name_page=None, only_owner=False):
@@ -62,7 +75,7 @@ def access_by_status(name_page=None, only_owner=False):
         def check_access_to_page(request, tournament_id, *args, **kwargs):
             tournament = get_object_or_404(Tournament, pk=tournament_id)
             if name_page:
-                security = AccessToPage.objects.filter(status=tournament.status, page__name=name_page)\
+                security = AccessToPage.objects.filter(status=tournament.status, page__name=name_page) \
                     .select_related('page').first()
                 if not security.page.is_public and not user_can_edit_tournament(tournament, request.user, only_owner):
                     return _show_message(request, MSG_ERROR_TO_ACCESS)
@@ -144,7 +157,6 @@ def _show_message(request, message):
 
 
 def _convert_tab_to_table(table: list, show_all):
-
     def _playoff_position(res):
         if res.playoff_position > res.count_playoff_rounds:
             return LBL_WINNER
@@ -208,19 +220,29 @@ def _convert_tab_to_speaker_table(table: list, is_show):
     return lines
 
 
-def _get_or_check_round_result_forms(request, rooms, is_admin=False):
+def _get_or_check_round_result_forms(request, rooms, is_admin=False, is_playoff=False, is_final=False):
+    from .forms import \
+        FinalGameResultForm,\
+        PlayoffGameResultForm, \
+        QualificationGameResultForm
+
     all_is_valid = True
     forms = []
+
+    ResultForm = FinalGameResultForm if is_final \
+        else PlayoffGameResultForm if is_playoff \
+        else QualificationGameResultForm
+
     for room in get_games_and_results(rooms):
         activate_form = ActivateResultForm(request.POST or None, prefix='af_%s' % room['game'].id)
 
         if request.method == 'POST' and activate_form.is_valid() and activate_form.is_active():
-            result_form = ResultGameForm(request.POST, instance=room['result'], prefix='rf_%s' % room['game'].id)
+            result_form = ResultForm(request.POST, instance=room['result'], prefix='rf_%s' % room['game'].id)
             all_is_valid &= result_form.is_valid()
             if result_form.is_valid():
                 result_form.save()
         else:
-            result_form = ResultGameForm(instance=room['result'], prefix='rf_%s' % room['game'].id)
+            result_form = ResultForm(instance=room['result'], prefix='rf_%s' % room['game'].id)
             activate_form.init(is_admin)
             result_form.initial['game'] = room['game'].id
 
@@ -268,8 +290,9 @@ def new(request):
 @access_by_status(name_page='show')
 def show(request, tournament):
     is_chair = request.user.is_authenticated() \
-        and tournament.status in [STATUS_PLAYOFF, STATUS_STARTED] \
-        and get_rooms_by_chair_from_last_round(tournament, request.user)
+               and tournament.status in [STATUS_PLAYOFF, STATUS_STARTED] \
+               and get_rooms_from_last_round(tournament, False, request.user).count()
+
     return render(
         request,
         'tournament/show.html',
@@ -382,6 +405,7 @@ def print_users(request, tournament):
         }
     )
 
+
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='')
 def feedback(request, tournament):
@@ -389,6 +413,7 @@ def feedback(request, tournament):
         request,
         'tournament/feedback.html'
     )
+
 
 ##################################
 #   Change status of tournament  #
@@ -602,15 +627,15 @@ def edit_round(request, tournament):
 @access_by_status(name_page='round_result')
 def result_round(request, tournament):
     is_admin = user_can_edit_tournament(tournament, request.user)
-    if is_admin:
-        rooms = get_rooms_from_last_round(tournament)
-    else:
-        rooms = get_rooms_by_chair_from_last_round(tournament, request.user)
+    chair = None if is_admin else request.user
+    rooms = get_rooms_from_last_round(tournament, False, chair)
+    is_playoff = tournament.status == STATUS_PLAYOFF
+    is_final = is_playoff and get_rooms_from_last_round(tournament).count() == 1
 
     if not is_admin and not rooms:
         return _show_message(request, MSG_NO_ACCESS_IN_RESULT_PAGE)
 
-    is_valid, forms = _get_or_check_round_result_forms(request, rooms, is_admin)
+    is_valid, forms = _get_or_check_round_result_forms(request, rooms, is_admin, is_playoff, is_final)
 
     if is_valid and request.method == 'POST':
         if is_admin:
@@ -624,6 +649,9 @@ def result_round(request, tournament):
         {
             'tournament': tournament,
             'forms': forms,
+            'is_playoff': is_playoff,
+            'is_final': is_final,
+            'result_template': 'tournament/playoff_result_team.html' if is_playoff else 'tournament/result_team.html',
         }
     )
 
@@ -646,7 +674,7 @@ def remove_round(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. registration')
 def registration_team(request, tournament):
-    from apps.team.forms import TeamWithSpeakerRegistrationForm
+    from apps.tournament.registration_forms import TeamWithSpeakerRegistrationForm
 
     if request.method == 'POST':
         team_form = TeamWithSpeakerRegistrationForm(request.POST)
@@ -697,6 +725,9 @@ def registration_team_new(request, tournament):
                 tournament=tournament,
                 role=ROLE_TEAM_REGISTERED
             )
+            if form:
+                CustomFormAnswers.save_answer(form, team_form.get_answers(questions))
+
             return _show_message(request, MSG_TEAM_SUCCESS_REGISTERED_pp % (team.name, tournament.name))
 
     else:
@@ -715,7 +746,7 @@ def registration_team_new(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. add')
 def add_team(request, tournament):
-    from apps.team.forms import TeamRegistrationForm
+    from apps.tournament.registration_forms import TeamRegistrationForm
 
     saved_team = None
     if request.method == 'POST':
@@ -747,8 +778,7 @@ def add_team(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. add')  # TODO добавить в таблицу
 def import_team(request, tournament):
-
-    from apps.team.imports import TeamImportForm, ImportTeam
+    from apps.tournament.imports import TeamImportForm, ImportTeam
 
     message = ''
     results = []
@@ -833,7 +863,6 @@ def team_role_update(request, tournament):
 ##################################
 
 def _registration_adjudicator(tournament: Tournament, user: User):
-
     if UserTournamentRel.objects.filter(user=user, tournament=tournament, role__in=ADJUDICATOR_ROLES).exists():
         return False
 
@@ -1063,16 +1092,19 @@ def place_remove(request, tournament):
 ##################################
 #          Custom Forms          #
 ##################################
+from apps.tournament.consts import CUSTOM_FORM_TYPES
 from apps.tournament.models import \
     CustomForm, \
+    CustomFormAnswers, \
     CustomQuestion
 
 
 @ensure_csrf_cookie
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='admin edit')  # TODO Добавить в таблицу
-def form_registration(request, tournament):
-    form = CustomForm.get_or_create(tournament, FORM_REGISTRATION_TYPE)
+@access_by_status(name_page='')  # TODO Добавить в таблицу
+def custom_form_edit(request, tournament, form_type):
+    custom_form_type = CUSTOM_FORM_TYPES[form_type]
+    form = CustomForm.get_or_create(tournament, custom_form_type)
     questions = CustomQuestion.objects.filter(form=form).select_related('alias').order_by('position')
 
     return render(
@@ -1091,8 +1123,8 @@ def form_registration(request, tournament):
 @csrf_protect
 @ajax_request
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='admin edit')
-def form_edit(request, tournament):
+@access_by_status(name_page='')  # TODO Добавить в таблицу
+def custom_form_edit_field(request, tournament):
     form_id = int(request.POST.get('form_id', '0'))
     action = request.POST.get('action', '')
 
@@ -1139,7 +1171,7 @@ def _form_edit_field(request, form: CustomForm):
         field.save()
         message = 'Вопрос сохранён'
     else:
-        position = form.customquestion_set.latest('position').position + 1
+        position = form.customquestion_set.latest('position').position + 1 if form.customquestion_set.count() else 1
         field = CustomQuestion.objects.create(
             question=question,
             comment=comment,
@@ -1206,3 +1238,171 @@ def _form_down_field(request, form: CustomForm):
     next_field = form.customquestion_set.filter(pk=next_field_id).first()
 
     return _swap_field(next_field, field)
+
+
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='')  # TODO Добавить в таблицу
+def custom_form_show_answers(request, tournament, form_type):
+    custom_form_type = CUSTOM_FORM_TYPES[form_type]
+    custom_form = get_object_or_404(CustomForm, tournament=tournament, form_type=custom_form_type)
+
+    title = ''
+    column_names = list(map(lambda x: x.question, custom_form.customquestion_set.all().order_by('position')))
+    column_values = CustomFormAnswers.get_answers(custom_form)
+
+    return render(
+        request,
+        'tournament/custom_form_answers.html',
+        {
+            'tournament': tournament,
+            'title': title,
+            'column_names': column_names,
+            'rows': column_values,
+        }
+    )
+
+
+# ======
+
+def show_profile(request, user_id):
+    try:
+        # not use get_object_or_404 because need select_related
+        users = User.objects
+        for name in ['university', 'university__city', 'university__country']:
+            users = users.select_related(name)
+        user = users.get(pk=user_id)
+    except ObjectDoesNotExist:
+        raise Http404('User with id %d not exist' % user_id)
+
+    teams_rel = TeamTournamentRel.objects.filter(Q(team__speaker_1=user) | Q(team__speaker_2=user))
+    for name in ['role', 'team__speaker_2', 'team__speaker_1', 'tournament']:
+        teams_rel = teams_rel.select_related(name)
+
+    adjudicators_rel = user.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES)
+    for name in ['role', 'tournament']:
+        adjudicators_rel = adjudicators_rel.select_related(name)
+
+    return render(
+        request,
+        'account/show.html',
+        {
+            'user': user,
+            'is_owner': request.user.is_authenticated() and user == request.user,
+            'teams_objects': teams_rel,
+            'adjudicators_objects': adjudicators_rel,
+        }
+    )
+
+
+def edit_profile(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    if not request.user.is_authenticated() or request.user != user:
+        raise Http404
+    is_success = False
+    if request.method == 'POST':
+        form = EditForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            is_success = True
+    else:
+        form = EditForm(instance=user)
+    return render(
+        request,
+        'account/signup.html',
+        {
+            'is_edit_form': True,
+            'is_success': is_success,
+            'user': user,
+            'form': form,
+        }
+    )
+
+
+def show_tournaments_of_user(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+
+    tournaments = Tournament.objects.annotate(
+        m_count=Count('team_members')
+    ).select_related('status').filter(
+        usertournamentrel__user=user, usertournamentrel__role__in=[ROLE_ADMIN, ROLE_OWNER]
+    ).order_by('-start_tour')
+
+    return render(
+        request,
+        'main/main.html',
+        {
+            'is_main_page': False,
+            'is_owner': request.user == user,
+            'objects': paging(request, tournaments)
+        }
+    )
+
+
+@ensure_csrf_cookie
+def show_teams_of_user(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+
+    teams_rel = TeamTournamentRel.objects.filter(Q(team__speaker_1=user) | Q(team__speaker_2=user))
+    for name in ['role', 'team__speaker_2', 'team__speaker_1', 'tournament']:
+        teams_rel = teams_rel.select_related(name)
+    return render(
+        request,
+        'account/teams_of_user.html',
+        {
+            'is_owner': request.user == user,
+            'objects': paging(
+                request,
+                teams_rel
+            )
+        }
+    )
+
+
+@ensure_csrf_cookie
+def show_adjudicator_of_user(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+
+    adjudicators_rel = user.usertournamentrel_set.filter(role__in=ADJUDICATOR_ROLES)
+    for name in ['role', 'tournament']:
+        adjudicators_rel = adjudicators_rel.select_related(name)
+
+    return render(
+        request,
+        'account/adjudicators_of_user.html',
+        {
+            'is_owner': request.user == user,
+            'objects': paging(
+                request,
+                adjudicators_rel,
+            )
+        }
+    )
+
+
+# ================================ main
+
+def index(request):
+    DAYS_TO_LEAVE_SHORT_LIST = 3
+    is_short = request.GET.get('list', None) != 'all'
+    tournaments = Tournament.objects.annotate(m_count=Count('team_members')).select_related('status')
+    if is_short:
+        # TODO Возможно стоит всегда показывать свои турниры в списке
+        tournaments = tournaments.filter(
+            Q(status__in=[STATUS_STARTED, STATUS_PLAYOFF, STATUS_FINISHED])
+            |
+            Q(start_tour__gte=(date.today() - timedelta(days=DAYS_TO_LEAVE_SHORT_LIST)))
+        )
+    else:
+        tournaments = tournaments.all()
+
+    return render(
+        request,
+        'main/main.html',
+        {
+            'is_main_page': True,
+            'is_short': is_short,
+            'objects': paging(
+                request, list(tournaments.order_by('-start_tour')), 15
+            )
+        }
+    )

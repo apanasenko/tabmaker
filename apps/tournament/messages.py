@@ -52,3 +52,18 @@ LBL_CUSTOM_FIELD_SPEAKER_2_EMAIL = 'E-mail второго спикера'
 LBL_CUSTOM_FIELD_SPEAKER_2_F_NAME = 'Имя второго спикера'
 LBL_CUSTOM_FIELD_SPEAKER_2_L_NAME = 'Фамилия второго спикера'
 LBL_CUSTOM_FIELD_TEAM = 'Название команды'
+
+LBL_CUSTOM_FIELD_ADJUDICATOR = 'E-mail'
+
+MSG_TEAM_URL = "Ссылка на таблицу Google Drive"
+
+MSG_TEAM_NAME = 'Названия команд'
+
+MSG_S1_EMAIL = 'E-mail первых спикеров'
+MSG_S2_EMAIL = 'E-mail вторых спикеров'
+
+MSG_S1_NAME = 'Имена первых спикеров'
+MSG_S2_NAME = 'Имена вторых спикеров'
+
+MSG_CELL_NOT_FOUND_p = '%s не найдена в данной таблице'
+

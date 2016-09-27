@@ -6,18 +6,18 @@
 
 {% block content %}
 
-    <form class="b-message" action="{% url "tournament:registration_team_new" tournament.id %}" method="post">
+    <form class="b-form b-form-custom" action="{% url "tournament:registration_team_new" tournament.id %}" method="post">
         {% csrf_token %}
         {{ form.non_field_errors }}
 
         <div class="b-form-item">
         {% for field in form %}
-            <span>{{ field.label }}</span>
-            <span>{{ field.help_text }}</span>
+            <h3 class="b-form-item__heading b-registration__heading">{{ field.label }}</h3>
+            <div class="b-form-custom__help">{{ field.help_text }}</div>
             <span>{{ field }}</span>
             <span>{{ field.errors }}</span>
         {% endfor %}
-        <button type="submit" class="button" value="Отправить">
+        <button type="submit" class="button b-form-custom__button" value="Отправить">
             Участвовать
         </button>
         </div>

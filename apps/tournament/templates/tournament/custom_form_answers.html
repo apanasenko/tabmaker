@@ -1,0 +1,35 @@
+{% extends "tournament/owner_base.html" %}
+
+{% block page_title %}
+    {{ title }}
+{% endblock page_title %}
+
+{% block extra_head %}
+    {{ block.super }}
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js">
+    </script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.23.5/js/jquery.tablesorter.min.js">
+    </script>
+    <script> $(document).ready(function() { $("#answers").tablesorter(); }); </script>
+
+{% endblock extra_head %}
+
+{% block content %}
+    <table id="answers" class="tablesorter">
+        <tr class="b-table__headrow">
+        {% for name in column_names %}
+            <th class="b-table__headstring_thirty">{{ name }}</th>
+        {% endfor %}
+        </tr>
+
+        {% for row in rows %}
+            <tr class="b-table__row">
+            {% for values in row %}
+                <td class="b-table__string_thirty">{{ values }}</td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock content %}
