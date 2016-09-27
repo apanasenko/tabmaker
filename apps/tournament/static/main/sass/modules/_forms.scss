@@ -294,3 +294,19 @@ input[type="number"] {
 .star {
     color: red;
 }
+
+
+.b-form-custom {
+	max-width: 90%;
+	min-width: 300px;
+	margin: 0 20px;
+
+	&__help {
+		margin-bottom: 10px;
+		color: $dark;
+	}
+
+	&__button {
+		margin-top: 20px;
+	}
+}

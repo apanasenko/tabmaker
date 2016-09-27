@@ -18,18 +18,16 @@
 
 {% block content %}
     <table id="answers" class="tablesorter">
-        <thead>
-        <tr>
+        <tr class="b-table__headrow">
         {% for name in column_names %}
-            <th>{{ name }}</th>
+            <th class="b-table__headstring_thirty">{{ name }}</th>
         {% endfor %}
         </tr>
-        </thead>
 
         {% for row in rows %}
-            <tr>
+            <tr class="b-table__row">
             {% for values in row %}
-                <td>{{ values }}</td>
+                <td class="b-table__string_thirty">{{ values }}</td>
             {% endfor %}
             </tr>
         {% endfor %}
