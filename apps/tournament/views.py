@@ -158,6 +158,8 @@ def _show_message(request, message):
 
 def _convert_tab_to_table(table: list, show_all):
     def _playoff_position(res):
+        if not res.count_playoff_rounds:
+            return LBL_NOT_IN_BREAK
         if res.playoff_position > res.count_playoff_rounds:
             return LBL_WINNER
         elif res.playoff_position == res.count_playoff_rounds:
