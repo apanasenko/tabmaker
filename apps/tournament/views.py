@@ -676,41 +676,11 @@ def remove_round(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. registration')
 def registration_team(request, tournament):
-    from apps.tournament.registration_forms import TeamWithSpeakerRegistrationForm
-
-    if request.method == 'POST':
-        team_form = TeamWithSpeakerRegistrationForm(request.POST)
-        if team_form.is_valid():
-            team = team_form.save(speaker_1=request.user)
-            TeamTournamentRel.objects.create(
-                team=team,
-                tournament=tournament,
-                role=ROLE_TEAM_REGISTERED
-            )
-            return _show_message(request, MSG_TEAM_SUCCESS_REGISTERED_pp % (team.name, tournament.name))
-
-    else:
-        team_form = TeamWithSpeakerRegistrationForm(initial={'speaker_1': request.user.email})
-
-    return render(
-        request,
-        'tournament/registration.html',
-        {
-            'form': team_form,
-            'tournament': tournament,
-            'show_speaker_1': False,
-        }
-    )
-
-
-@login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='team/adju. registration')
-def registration_team_new(request, tournament):
     from .registration_forms import \
         CustomTeamRegistrationForm, \
         TeamWithSpeakerRegistrationForm
 
-    form = CustomForm.objects.filter(tournament=tournament).first()
+    form = CustomForm.objects.filter(tournament=tournament, form_type=FORM_REGISTRATION_TYPE).first()
     if form:
         RegistrationForm = CustomTeamRegistrationForm
         questions = CustomQuestion.objects.filter(form=form).select_related('alias').order_by('position')

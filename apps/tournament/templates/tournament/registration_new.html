@@ -6,7 +6,7 @@
 
 {% block content %}
 
-    <form class="b-form b-form-custom" action="{% url "tournament:registration_team_new" tournament.id %}" method="post">
+    <form class="b-form b-form-custom" action="{% url "tournament:registration_team" tournament.id %}" method="post">
         {% csrf_token %}
         {{ form.non_field_errors }}
 
