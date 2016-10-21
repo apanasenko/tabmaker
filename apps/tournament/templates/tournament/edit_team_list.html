@@ -22,6 +22,9 @@
         <a class="button count-by-role__button" href="{% url 'tournament:custom_form_edit' tournament.id 'team' %}">
             <i class="fa fa-pencil"></i>Изменить форму регистрации команд
         </a>
+        <a class="button count-by-role__button" href="{% url 'tournament:custom_form_answers' tournament.id 'team' %}">
+            <i class="fa fa-print"></i>Посмотреть ответы команд
+        </a>
         <a class="button count-by-role__button" href="{% url 'tournament:add_team' tournament.id %}">
             <i class="fa fa-plus-circle"></i>Добавить команду
         </a>

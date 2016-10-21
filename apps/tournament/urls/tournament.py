@@ -84,6 +84,6 @@ urlpatterns = patterns(
     url(
         r'^(?P<tournament_id>\d+)/form/(?P<form_type>(team|feedback|adjudicator|audience))/answers[/]$',
         views.custom_form_show_answers,
-        name='custom_form_show_answers'
+        name='custom_form_answers'
     ),
 )
