@@ -28,6 +28,9 @@
         <a class="button count-by-role__button" href="{% url 'tournament:add_team' tournament.id %}">
             <i class="fa fa-plus-circle"></i>Добавить команду
         </a>
+        <a class="button count-by-role__button" href="{% url 'tournament:import_team' tournament.id %}">
+            <i class="fa fa-users"></i>Импортировать команды из Google таблицы
+        </a>
         <a class="button count-by-role__button" href="{% url 'tournament:print' tournament.id %}">
             <i class="fa fa-print"></i>Версия для печати
         </a>
