@@ -1250,7 +1250,9 @@ def custom_form_show_answers(request, tournament, form_type):
 
     title = ''
     column_names = list(map(lambda x: x.question, custom_form.customquestion_set.all().order_by('position')))
-    column_values = CustomFormAnswers.get_answers(custom_form)
+    column_values = []
+    for answer in CustomFormAnswers.get_answers(custom_form):
+        column_values.append(list(map(lambda x: answer.get(x, ''), column_names)))
 
     return render(
         request,
