@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from django import forms
 from .models import Team, User
 from apps.tournament.consts import \
@@ -78,7 +80,7 @@ class CustomTeamRegistrationForm(TeamWithSpeakerRegistrationForm):
 
     def __init__(self, questions, *args, **kwargs):
         super(CustomTeamRegistrationForm, self).__init__(questions, *args, **kwargs)
-        self.fields.keyOrder = []
+        ordered_questions = OrderedDict()
         for question in questions:
             if question.alias and question.alias.name in self._required_fields:
                 field_name = self._required_fields[question.alias.name]
@@ -92,7 +94,9 @@ class CustomTeamRegistrationForm(TeamWithSpeakerRegistrationForm):
                     help_text=question.comment,
                     required=question.required,
                 )
-            self.fields.keyOrder.append(field_name)
+            ordered_questions[field_name] = self.fields[field_name]
+
+        self.fields = ordered_questions
 
     def save(self, speaker_1=None, commit=True):
         team = super(CustomTeamRegistrationForm, self).save(speaker_1, False)
