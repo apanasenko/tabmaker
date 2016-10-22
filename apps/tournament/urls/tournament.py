@@ -36,7 +36,6 @@ urlpatterns = patterns(
 
     # Management of teams
     url(r'^(?P<tournament_id>\d+)/team/registration[/]$', views.registration_team, name='registration_team'),
-    url(r'^(?P<tournament_id>\d+)/team/registration_new[/]$', views.registration_team_new, name='registration_team_new'),
     url(r'^(?P<tournament_id>\d+)/team/import[/]$', views.import_team, name='import_team'),
     url(r'^(?P<tournament_id>\d+)/team/add[/]$', views.add_team, name='add_team'),
     url(r'^(?P<tournament_id>\d+)/team/list[/]$', views.edit_team_list, name='edit_team_list'),
@@ -85,6 +84,6 @@ urlpatterns = patterns(
     url(
         r'^(?P<tournament_id>\d+)/form/(?P<form_type>(team|feedback|adjudicator|audience))/answers[/]$',
         views.custom_form_show_answers,
-        name='custom_form_show_answers'
+        name='custom_form_answers'
     ),
 )

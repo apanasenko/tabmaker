@@ -6,13 +6,18 @@
 
 {% block content %}
 
-    <form class="b-form b-form-custom" action="{% url "tournament:registration_team_new" tournament.id %}" method="post">
+    <form class="b-form b-form-custom" action="{% url "tournament:registration_team" tournament.id %}" method="post">
         {% csrf_token %}
         {{ form.non_field_errors }}
 
         <div class="b-form-item">
         {% for field in form %}
-            <h3 class="b-form-item__heading b-registration__heading">{{ field.label }}</h3>
+            <h3 class="b-form-item__heading b-registration__heading">
+                {{ field.label }}
+                {% if field.field.required %}
+                    <span class="star" style="display: inline;">*</span>
+                {% endif %}
+            </h3>
             <div class="b-form-custom__help">{{ field.help_text }}</div>
             <span>{{ field }}</span>
             <span>{{ field.errors }}</span>

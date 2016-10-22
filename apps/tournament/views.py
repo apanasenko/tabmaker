@@ -158,6 +158,8 @@ def _show_message(request, message):
 
 def _convert_tab_to_table(table: list, show_all):
     def _playoff_position(res):
+        if not res.count_playoff_rounds:
+            return LBL_NOT_IN_BREAK
         if res.playoff_position > res.count_playoff_rounds:
             return LBL_WINNER
         elif res.playoff_position == res.count_playoff_rounds:
@@ -674,41 +676,11 @@ def remove_round(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. registration')
 def registration_team(request, tournament):
-    from apps.tournament.registration_forms import TeamWithSpeakerRegistrationForm
-
-    if request.method == 'POST':
-        team_form = TeamWithSpeakerRegistrationForm(request.POST)
-        if team_form.is_valid():
-            team = team_form.save(speaker_1=request.user)
-            TeamTournamentRel.objects.create(
-                team=team,
-                tournament=tournament,
-                role=ROLE_TEAM_REGISTERED
-            )
-            return _show_message(request, MSG_TEAM_SUCCESS_REGISTERED_pp % (team.name, tournament.name))
-
-    else:
-        team_form = TeamWithSpeakerRegistrationForm(initial={'speaker_1': request.user.email})
-
-    return render(
-        request,
-        'tournament/registration.html',
-        {
-            'form': team_form,
-            'tournament': tournament,
-            'show_speaker_1': False,
-        }
-    )
-
-
-@login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='team/adju. registration')
-def registration_team_new(request, tournament):
     from .registration_forms import \
         CustomTeamRegistrationForm, \
         TeamWithSpeakerRegistrationForm
 
-    form = CustomForm.objects.filter(tournament=tournament).first()
+    form = CustomForm.objects.filter(tournament=tournament, form_type=FORM_REGISTRATION_TYPE).first()
     if form:
         RegistrationForm = CustomTeamRegistrationForm
         questions = CustomQuestion.objects.filter(form=form).select_related('alias').order_by('position')
@@ -1248,7 +1220,9 @@ def custom_form_show_answers(request, tournament, form_type):
 
     title = ''
     column_names = list(map(lambda x: x.question, custom_form.customquestion_set.all().order_by('position')))
-    column_values = CustomFormAnswers.get_answers(custom_form)
+    column_values = []
+    for answer in CustomFormAnswers.get_answers(custom_form):
+        column_values.append(list(map(lambda x: answer.get(x, ''), column_names)))
 
     return render(
         request,
