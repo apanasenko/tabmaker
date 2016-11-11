@@ -14,6 +14,9 @@ urlpatterns = patterns(
     url(
         r'^new_tournament_confirm[/]$',
         TemplateView.as_view(template_name='tournament/new_tournament_confirm.html'),
-        name='new_tournament_confirm'
-    ),
+        name='new_tournament_confirm'),
+    url(
+        r'^tabmaker_feedback[/]$',
+        TemplateView.as_view(template_name='main/tabmaker_feedback.html'),
+        name='tabmaker_feedback'),
 )
