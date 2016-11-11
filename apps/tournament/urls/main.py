@@ -11,4 +11,9 @@ urlpatterns = patterns(
     url(r'^soon[/]$', TemplateView.as_view(template_name='main/soon.html'), name='soon'),
     url(r'^news[/]$', TemplateView.as_view(template_name='main/news.html'), name='news'),
     url(r'^thanks[/]$', TemplateView.as_view(template_name='main/thanks.html'), name='thanks'),
+    url(
+        r'^new_tournament_confirm[/]$',
+        TemplateView.as_view(template_name='tournament/new_tournament_confirm.html'),
+        name='new_tournament_confirm'
+    ),
 )
