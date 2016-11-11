@@ -15,6 +15,9 @@ urlpatterns = patterns(
         r'^new_tournament_confirm[/]$',
         TemplateView.as_view(template_name='tournament/new_tournament_confirm.html'),
         name='new_tournament_confirm'),
+
+        # TODO настроить ссылку на страницу с формой после отправки формы создания турнира
+
     url(
         r'^tabmaker_feedback[/]$',
         TemplateView.as_view(template_name='main/tabmaker_feedback.html'),
