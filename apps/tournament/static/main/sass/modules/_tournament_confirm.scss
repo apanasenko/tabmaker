@@ -1,17 +1,11 @@
 .b-tournament-confirm {
-    padding: 20px;
-
-    h3, p {
-        text-align: center;
-    }
+    padding: 30px;
 
     &__buttons {
         margin-top: 20px;
-        display: flex;
-        justify-content: center;
 
         a {
-            margin: 0 5px;
+            margin: 0 5px 0 0;
         }
     }
 }

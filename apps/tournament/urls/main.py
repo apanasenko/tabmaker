@@ -22,4 +22,9 @@ urlpatterns = patterns(
         r'^tabmaker_feedback[/]$',
         TemplateView.as_view(template_name='main/tabmaker_feedback.html'),
         name='tabmaker_feedback'),
+
+    url(
+        r'^custom_form_page[/]$',
+        TemplateView.as_view(template_name='tournament/custom_form_page.html'),
+        name='custom_form_page'),
 )
