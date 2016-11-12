@@ -10,7 +10,6 @@ html, body {
 
 body {
 	font-family: "PT Sans", Arial, "Helvetica Neue", sans-serif;
-	background-color: $background-page;
 }
 
 ul, a {
@@ -61,7 +60,6 @@ i {
 
 .page_wrapper {
 	margin: 0 auto;
-	background-color: $background-page;
 	min-height: 100%;
 	margin-bottom: -90px;
 
@@ -81,7 +79,7 @@ i {
 }
 
 .content_conteiner {
-	padding: 25px;
+	display: flex;
 
 	@include respond-to(mobile) {
     	padding: 70px 0 0 0 !important;
@@ -94,11 +92,8 @@ i {
 }
 
 .content {
-	@include container;
-	@include shadow;
 	display: inline-block;
-	width: 60%;
-	background-color: $background-block;
+	width: calc(100% - 250px);
 	border-radius: 3px;
 	vertical-align: top;
 

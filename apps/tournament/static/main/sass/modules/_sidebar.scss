@@ -1,11 +1,8 @@
 aside {
 	display: inline-block;
-	width: 20%;
+	width: 250px;
 	vertical-align: top;
-
-	@include respond-to(large) {
-		min-width: 250px;
-	}
+	background-color: $green;
 
 	@include respond-to(mobile) {
 		width: 100%;
@@ -18,11 +15,8 @@ aside {
 
 .b-sidebar {
 	display: block;
-	width: 90%;
-	background-color: $background-block;
-	border-radius: 3px;
 	vertical-align: top;
-	@include shadow;
+	box-sizing: border-box;
 
 	@include respond-to(mobile) {
 		width: 100%;
@@ -39,6 +33,7 @@ aside {
 
 	&__heading {
 		margin: 10px 0 15px 20px;
+        color: white;
 	}
 
 	&__listitem {
