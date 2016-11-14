@@ -35,12 +35,12 @@
     </section>
 
     <section class="b-tabs__three">
-        <div class="b-tournament-info">
+        <div class="content-textpage">
         {% for motion in motions %}
-            <div class="b-resolutions__item">
-                <p class="b-resolutions__motion"><span>{{ motion.number }}: {{ motion.motion }}</p>
+            <div class="paragraph">
+                <h3 class="paragraph__heading"><span>{{ motion.number }}: {{ motion.motion }}</h3>
                 {% if motion.infoslide %}
-                    <p class="b-resolutions__description">{{ motion.infoslide }}</p>
+                    <p>{{ motion.infoslide }}</p>
                 {% endif %}
             </div>
         {% endfor %}
