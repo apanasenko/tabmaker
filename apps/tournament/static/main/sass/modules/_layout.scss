@@ -59,27 +59,14 @@ i {
 }
 
 .page_wrapper {
-	margin: 0 auto;
-	min-height: 100%;
-	margin-bottom: -90px;
-
-	@include respond-to(mobile) {
-		height: initial;
-	}
-
-	@include respond-to(tablets) {
-		height: initial;
-	}
-
-	&:after {
-	  	content: "";
-	  	display: block;
-	  	height: 90px;
-	}
+	display: flex;
+    flex-direction: column;
 }
 
 .content_conteiner {
 	display: flex;
+    flex: 1;
+    height: 100%;
 
 	@include respond-to(mobile) {
     	padding: 70px 0 0 0 !important;
@@ -94,6 +81,7 @@ i {
 .content {
 	display: inline-block;
 	width: calc(100% - 250px);
+	min-height: calc(100vh - 160px);
 	border-radius: 3px;
 	vertical-align: top;
 
