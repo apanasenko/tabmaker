@@ -2,12 +2,6 @@
 	font-size: 13px;
     width: 100%;
 
-	&__page {
-        overflow-x: auto;
-        overflow-y: hidden;
-        width: 100%;
-    }
-
     &__headrow, &__row {
 		color: $grey;
 		border-bottom: 1px solid $background-page;
