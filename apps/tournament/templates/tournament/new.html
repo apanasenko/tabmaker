@@ -13,7 +13,7 @@
 
 {% block content %}
 
-    <form class="b-form b-form__createtournament" action="{% url 'tournament:new' %}" method="post">
+    <form class="content-formpage" action="{% url 'tournament:new' %}" method="post">
         {% include "tournament/edit_form.html" %}
         <button type="submit" class="button" onclick="yaCounter35208810.reachGoal('newEnd'); return true;">Подтвердить</button>
     </form>
