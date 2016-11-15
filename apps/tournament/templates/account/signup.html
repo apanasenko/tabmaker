@@ -104,17 +104,6 @@
                 {{ form.link.errors }}
             </div>
 
-            <div class="b-form-item" id="player_experience">
-                <h3 class="b-form-item__heading">Игровой опыт</h3>
-                {{ form.player_experience }}
-                {{ form.player_experience.errors }}
-            </div>
-            <div class="b-form-item" id="adjudicator_experience">
-                <h3 class="b-form-item__heading">Судейский опыт</h3>
-                {{ form.adjudicator_experience }}
-                {{ form.adjudicator_experience.errors }}
-            </div>
-
         {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
