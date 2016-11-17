@@ -17,23 +17,14 @@
 
 
 {% block content %}
-<div class="add-teams content-textpage">
+<div class="content-textpage">
     <li class="count-by-role__buttons">
-        <a class="button count-by-role__button" href="{% url 'tournament:custom_form_edit' tournament.id 'team' %}">
-            <i class="fa fa-pencil"></i>Анкета регистрации
+        <a class="b-link" href="{% url 'tournament:custom_form_edit' tournament.id 'team' %}">Анкета регистрации</a>
+        <a class="b-link" href="{% url 'tournament:custom_form_answers' tournament.id 'team' %}">Ответы команд</a>
+        <a class="b-link" href="{% url 'tournament:add_team' tournament.id %}">Добавить команду</a>
+        <a class="b-link" href="{% url 'tournament:import_team' tournament.id %}">Импорт из Google-таблицы
         </a>
-        <a class="button count-by-role__button" href="{% url 'tournament:custom_form_answers' tournament.id 'team' %}">
-            <i class="fa fa-print"></i>Ответы команд
-        </a>
-        <a class="button count-by-role__button" href="{% url 'tournament:add_team' tournament.id %}">
-            <i class="fa fa-plus-circle"></i>Добавить команду
-        </a>
-        <a class="button count-by-role__button" href="{% url 'tournament:import_team' tournament.id %}">
-            <i class="fa fa-users"></i>Импорт из Google-таблицы
-        </a>
-        <a class="button count-by-role__button" href="{% url 'tournament:print' tournament.id %}">
-            <i class="fa fa-print"></i>Распечатать список команд
-        </a>
+        <a class="b-link" href="{% url 'tournament:print' tournament.id %}">Распечатать список команд</a>
     </li>
 
     {% include 'tournament/count_by_role.html' with statuses=statuses %}
