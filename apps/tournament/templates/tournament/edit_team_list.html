@@ -36,26 +36,6 @@
         </a>
     </li>
 
-    <div class="button-group">
-      <label class="button-group-label">
-        <input type="radio" name="button-group" value="item" checked>
-        <span class="button-group-item">Item</span>
-      </label class="button-group-label">
-      <label class="button-group-label">
-        <input type="radio" name="button-group" value="other-item">
-        <span class="button-group-item">Other But Longer Item</span>
-      </label>
-      <label class="button-group-label">
-        <input type="radio" name="button-group" value="other-item">
-        <span class="button-group-item">Third</span>
-      </label>
-      <label class="button-group-label">
-        <input type="radio" name="button-group" value="third">
-        <span class="button-group-item">Last Item</span>
-      </label>
-    </div>
-
-
     {% include 'tournament/count_by_role.html' with statuses=statuses %}
 
     {% for rel in team_tournament_rels %}
@@ -95,7 +75,8 @@
             </div>
         </div>
     {% empty %}
-        <h3 class="add-teams__no">Нет зарегистрированных команд</h3>
+        <h3 class="add-teams__no">Пока не команд</h3>
+        <p>Увы, никто не зарегистрировался на турнир. Попробуйте пригласить участников в социальных сетях</p>
     {% endfor %}
 
     {% if is_check_page %}
