@@ -17,24 +17,45 @@
 
 
 {% block content %}
-<div class="add-teams">
+<div class="add-teams content-textpage">
     <li class="count-by-role__buttons">
         <a class="button count-by-role__button" href="{% url 'tournament:custom_form_edit' tournament.id 'team' %}">
-            <i class="fa fa-pencil"></i>Изменить форму регистрации команд
+            <i class="fa fa-pencil"></i>Анкета регистрации
         </a>
         <a class="button count-by-role__button" href="{% url 'tournament:custom_form_answers' tournament.id 'team' %}">
-            <i class="fa fa-print"></i>Посмотреть ответы команд
+            <i class="fa fa-print"></i>Ответы команд
         </a>
         <a class="button count-by-role__button" href="{% url 'tournament:add_team' tournament.id %}">
             <i class="fa fa-plus-circle"></i>Добавить команду
         </a>
         <a class="button count-by-role__button" href="{% url 'tournament:import_team' tournament.id %}">
-            <i class="fa fa-users"></i>Импортировать команды из Google таблицы
+            <i class="fa fa-users"></i>Импорт из Google-таблицы
         </a>
         <a class="button count-by-role__button" href="{% url 'tournament:print' tournament.id %}">
-            <i class="fa fa-print"></i>Версия для печати
+            <i class="fa fa-print"></i>Распечатать список команд
         </a>
     </li>
+
+    <div class="button-group">
+      <label class="button-group-label">
+        <input type="radio" name="button-group" value="item" checked>
+        <span class="button-group-item">Item</span>
+      </label class="button-group-label">
+      <label class="button-group-label">
+        <input type="radio" name="button-group" value="other-item">
+        <span class="button-group-item">Other But Longer Item</span>
+      </label>
+      <label class="button-group-label">
+        <input type="radio" name="button-group" value="other-item">
+        <span class="button-group-item">Third</span>
+      </label>
+      <label class="button-group-label">
+        <input type="radio" name="button-group" value="third">
+        <span class="button-group-item">Last Item</span>
+      </label>
+    </div>
+
+
     {% include 'tournament/count_by_role.html' with statuses=statuses %}
 
     {% for rel in team_tournament_rels %}

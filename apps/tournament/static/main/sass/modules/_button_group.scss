@@ -1,0 +1,39 @@
+.button-group {
+    display: flex;
+    margin:10px 0;
+
+    input {
+        display: none;
+    }
+
+    label {
+        font-weight: normal;
+        border-top: 1px solid $dark;
+        border-bottom: 1px solid $dark;
+        border-left: 1px solid $dark;
+        float: left;
+    }
+
+    label:last-child {
+        border-right: 1px solid $dark;
+        border-radius: 0 4px 4px 0;
+    }
+
+    label:first-child {
+        border-left: 1px solid $dark;
+        border-radius: 4px 0 0 4px;
+    }
+
+    .button-group-item {
+        cursor: pointer;
+        display: inline-block;
+        width: auto;
+        line-height: 1;
+        padding: .75em 1em;
+    }
+
+    input:checked + .button-group-item {
+        color: white;
+        background: $dark;
+    }
+}
