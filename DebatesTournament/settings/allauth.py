@@ -9,7 +9,7 @@ SITE_ID = 1
 
 LOGIN_URL = '/profile/login/'
 
-LOGOUT_URL = '/profile/logout/'
+# LOGOUT_URL = '/profile/logout/'
 
 LOGIN_REDIRECT_URL = '/'
 
@@ -32,5 +32,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+ACCOUNT_LOGOUT_ON_GET = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
