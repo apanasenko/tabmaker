@@ -1,6 +1,7 @@
 .button-group {
     display: flex;
     margin:10px 0;
+    font-size: 13px;
 
     input {
         display: none;
@@ -29,7 +30,7 @@
         display: inline-block;
         width: auto;
         line-height: 1;
-        padding: .75em 1em;
+        padding: .75em .8em;
     }
 
     input:checked + .button-group-item {
