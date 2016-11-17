@@ -440,7 +440,7 @@ class EditForm(ProfileForm):
 
     def __init__(self, *args, **kwargs):
         super(EditForm, self).__init__(*args, **kwargs)
-        if self.instance:
+        if self.instance and self.instance.university is not None:
             self.initial['university_name'] = self.instance.university.name
             self.initial['university_id'] = self.instance.university.university_id
             self.initial['city_name'] = self.instance.university.city.name
