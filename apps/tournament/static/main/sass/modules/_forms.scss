@@ -54,6 +54,7 @@ input[type="number"] {
 	margin-bottom: 20px;
 
 	input[type='text'],
+    input[type='url'],
 	textarea {
 		width: 100%;
 		display: inline-block;
@@ -71,10 +72,6 @@ input[type="number"] {
 		display: block;
 		width: 100%;
 	}
-}
-
-#country, #street, #regdateOpen, #regdateClose, #link, .row {
-	clear: both;
 }
 
 .errorlist {
