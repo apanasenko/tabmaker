@@ -408,6 +408,43 @@ def print_users(request, tournament):
     )
 
 
+def feedback(request):
+    from django.core.mail import mail_managers
+
+    if request.method == 'POST':
+        who = ''
+        if request.user.is_authenticated():
+            who = '%s (%s)' % (request.user.get_full_name(), request.user.email)
+
+        mail_managers(
+            'Tabmaker Feedback',
+            '''
+            Кто %s \n\n
+            Что в Tabmaker сделано хорошо:\n
+            %s \n\n\n
+            Что в Tabmaker можно улучшить:\n
+            %s \n\n\n
+            Предложения или пожелания:\n
+            %s \n\n\n
+            Оценка:\n
+            %d \n\n\n
+            ''' % (
+                who,
+                request.POST.get('already_good', ''),
+                request.POST.get('can_be_batter', ''),
+                request.POST.get('what_you_want', ''),
+                int(request.POST.get('nps', 0))
+            )
+        )
+
+        return _show_message(request, 'Спасибо за ваш отзыв')
+
+    return render(
+        request,
+        'tournament/feedback.html'
+    )
+
+
 ##################################
 #   Change status of tournament  #
 ##################################
@@ -495,9 +532,9 @@ def generate_break(request, tournament):
 @access_by_status(name_page='finished')
 def finished(request, tournament):
     need_message = CONFIRM_MSG_FINISHED
-    redirect_to = 'tournament:show'
+    redirect_to = 'main:feedback'
+    redirect_args = {}
     template_body = 'tournament/finished_message.html'
-    redirect_args = {'tournament_id': tournament.id}
 
     def tournament_finished(tournament_):
         tournament_.set_status(STATUS_FINISHED)

@@ -6,40 +6,50 @@
 
 {% block content %}
 
-<form class="b-form b-feedback">
+<form class="b-form b-feedback" action="{% url "main:feedback" %}" method="post">
+    {% csrf_token %}
     <div class="b-form-item">
         <h1>Как нам улучшить Tabmaker?</h1>
-        <p>Расскажите нам, как впечатления от сайта, что вам понравилось и что можно улучшить. Нам очень пригодится эта информация, чтобы сделать сайт максимально полезным для дебатеров.</p>
+        <p>
+            Расскажите нам, как впечатления от сайта, что вам понравилось и что можно улучшить.
+            Нам очень пригодится эта информация, чтобы сделать сайт максимально полезным для дебатеров.
+        </p>
     </div>
     <div class="b-form-item b-feedback-item">
         <h3 class="b-form-item__heading">Что в Tabmaker сделано хорошо?</h3>
         <p>Напишите, что вам понравилось в Tabmaker, чтобы мы сделали это еще лучше =)</p>
-        <textarea cols="40" rows="5"></textarea>
+        <textarea cols="40" rows="5" name="already_good"></textarea>
     </div>
     <div class="b-form-item b-feedback-item">
         <h3 class="b-form-item__heading">Что в Tabmaker можно улучшить?</h3>
-        <p>Расскажите, что можно сделать удобнее и понятнее. Или причины, по которым сейчас сложно использовать сайт для ведения турниров. </p>
-        <textarea cols="40" rows="5"></textarea>
+        <p>
+            Расскажите, что можно сделать удобнее и понятнее.
+            Или причины, по которым сейчас сложно использовать сайт для ведения турниров.
+        </p>
+        <textarea cols="40" rows="5" name="can_be_batter"></textarea>
     </div>
     <div class="b-form-item b-feedback-item">
         <h3 class="b-form-item__heading">Предложения или пожелания разработчикам</h3>
-        <p>Расскажите, что можно сделать удобнее и понятнее. Или причины, по которым сейчас сложно использовать сайт для ведения турниров. </p>
-        <textarea cols="40" rows="5"></textarea>
+        <p>
+            Расскажите, что можно сделать удобнее и понятнее.
+            Или причины, по которым сейчас сложно использовать сайт для ведения турниров.
+        </p>
+        <textarea cols="40" rows="5" name="what_you_want"></textarea>
     </div>
     <div class="b-form-item b-feedback-item">
         <h3 class="b-form-item__heading">Посоветуете Tabmaker другим дебатерам?</h3>
         <ul class="b-feedback-item__list">
-            <li><label name="nps"></label><input type="radio" name="nps">0 (ни за что)</li>
-            <li><label name="nps"></label><input type="radio" name="nps">1</li>
-            <li><label name="nps"></label><input type="radio" name="nps">2</li>
-            <li><label name="nps"></label><input type="radio" name="nps">3</li>
-            <li><label name="nps"></label><input type="radio" name="nps">4</li>
-            <li><label name="nps"></label><input type="radio" name="nps">5</li>
-            <li><label name="nps"></label><input type="radio" name="nps">6</li>
-            <li><label name="nps"></label><input type="radio" name="nps">7</li>
-            <li><label name="nps"></label><input type="radio" name="nps">8</li>
-            <li><label name="nps"></label><input type="radio" name="nps">9</li>
-            <li><label name="nps"></label><input type="radio" name="nps">10 (обязательно посоветую)</li>
+            <li><label><input type="radio" name="nps" value="0">0 (ни за что)</label></li>
+            <li><label><input type="radio" name="nps" value="1">1</label></li>
+            <li><label><input type="radio" name="nps" value="2">2</label></li>
+            <li><label><input type="radio" name="nps" value="3">3</label></li>
+            <li><label><input type="radio" name="nps" value="4">4</label></li>
+            <li><label><input type="radio" name="nps" value="5" checked="checked">5</label></li>
+            <li><label><input type="radio" name="nps" value="6">6</label></li>
+            <li><label><input type="radio" name="nps" value="7">7</label></li>
+            <li><label><input type="radio" name="nps" value="8">8</label></li>
+            <li><label><input type="radio" name="nps" value="9">9</label></li>
+            <li><label><input type="radio" name="nps" value="10">10 (обязательно посоветую)</label></li>
         </ul>
 
     </div>
