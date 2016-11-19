@@ -38,10 +38,13 @@
 
 @mixin notification {
     display: block;
-    padding: 4px;
-    margin: 4px;
-    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 4px;
     color: white;
+    width:100%;
+    max-width: 780px;
+    line-height: 1.3;
 }
 
 .notification {
