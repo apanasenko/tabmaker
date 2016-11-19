@@ -112,6 +112,7 @@ header {
 				color: $dark;
 				font-size: 24px;
 				margin-bottom: 0px;
+				margin-top: 0px;
 
 				@include respond-to(tablets) {
 					line-height: 34px;
