@@ -128,11 +128,6 @@
 .count-by-role {
     box-sizing: border-box;
 
-	&__item {
-		display: block;
-    	margin-bottom: 10px;
-	}
-
 	&__buttons {
 		list-style-type: none;
         display: flex;

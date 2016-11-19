@@ -1,8 +1,13 @@
 <div id="message" class="count-by-role button-group">
     {% for status in statuses %}
         <label class="button-group-label">
-            <input id="{{ status.id }}" class="show_checkbox" type="checkbox" name="button-group" value="item" checked>
-            <span class="button-group-item" id="count_id_{{ status.id }}">{{ status.role }}: 0</span>
+            <p class="count-by-role__item ">
+                <input id="{{ status.id }}" class="show_checkbox" type="checkbox" name="button-group" value="item" checked>
+                <span class="button-group-item">
+                    {{ status.role }}:
+                    <span id="count_id_{{ status.id }}">0</span>
+                </span>
+            </p>
         </label>
     {% endfor %}
 </div>

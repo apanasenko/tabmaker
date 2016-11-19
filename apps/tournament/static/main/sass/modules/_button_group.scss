@@ -9,20 +9,20 @@
 
     label {
         font-weight: normal;
-        border-top: 1px solid $dark;
-        border-bottom: 1px solid $dark;
-        border-left: 1px solid $dark;
+        border-top: 1px solid $grey;
+        border-bottom: 1px solid $grey;
+        border-left: 1px solid $grey;
         float: left;
     }
 
     label:last-child {
-        border-right: 1px solid $dark;
-        border-radius: 0 4px 4px 0;
+        border-right: 1px solid $grey;
+        border-radius: 0 5px 5px 0;
     }
 
     label:first-child {
-        border-left: 1px solid $dark;
-        border-radius: 4px 0 0 4px;
+        border-left: 1px solid $grey;
+        border-radius: 5px 0 0 5px;
     }
 
     .button-group-item {
@@ -35,6 +35,10 @@
 
     input:checked + .button-group-item {
         color: white;
-        background: $dark;
+        background: $grey;
+
+        span {
+            color: white;
+        }
     }
 }
