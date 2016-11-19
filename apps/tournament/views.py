@@ -737,6 +737,9 @@ def registration_team(request, tournament):
         request,
         'tournament/registration_new.html',
         {
+            'title': 'Регистрация команды',
+            'submit_title': 'Участвовать',
+            'action_url': 'tournament:registration_team',
             'form': team_form,
             'tournament': tournament,
         }
@@ -873,11 +876,39 @@ def _registration_adjudicator(tournament: Tournament, user: User):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. registration')
 def registration_adjudicator(request, tournament):
-    message = MSG_ADJUDICATOR_SUCCESS_REGISTERED_p % tournament.name \
-        if _registration_adjudicator(tournament, request.user) \
-        else MSG_ADJUDICATOR_ALREADY_REGISTERED_p % tournament.name
+    from .registration_forms import CustomAdjudicatorRegistrationForm
 
-    return _show_message(request, message)
+    custom_form = CustomForm.objects.filter(tournament=tournament, form_type=FORM_ADJUDICATOR_TYPE).first()
+
+    if not custom_form:
+        message = MSG_ADJUDICATOR_SUCCESS_REGISTERED_p % tournament.name \
+            if _registration_adjudicator(tournament, request.user) \
+            else MSG_ADJUDICATOR_ALREADY_REGISTERED_p % tournament.name
+        return _show_message(request, message)
+
+    questions = CustomQuestion.objects.filter(form=custom_form).select_related('alias').order_by('position')
+    if request.method == 'POST':
+        adjudicator_form = CustomAdjudicatorRegistrationForm(questions, request.POST)
+        if adjudicator_form.is_valid():
+            if _registration_adjudicator(tournament, request.user):
+                CustomFormAnswers.save_answer(custom_form, adjudicator_form.get_answers(questions))
+                return _show_message(request, MSG_ADJUDICATOR_SUCCESS_REGISTERED_p % tournament.name)
+            else:
+                return _show_message(request, MSG_ADJUDICATOR_ALREADY_REGISTERED_p % tournament.name)
+    else:
+        adjudicator_form = CustomAdjudicatorRegistrationForm(questions, initial={'adjudicator': request.user.email})
+
+    return render(
+        request,
+        'tournament/registration_new.html',
+        {
+            'title': 'Регистрация судьи',
+            'submit_title': 'Судить',
+            'action_url': 'tournament:registration_adjudicator',
+            'form': adjudicator_form,
+            'tournament': tournament,
+        }
+    )
 
 
 @csrf_protect
