@@ -1,3 +1,4 @@
+from django.views.generic import TemplateView
 from apps.tournament import views
 from django.conf.urls import \
     patterns, \
@@ -70,19 +71,9 @@ urlpatterns = patterns(
     url(r'^(?P<tournament_id>\d+)/place/update[/]', views.place_update, name='place_update'),
 
     # Custom form
-    url(
-        r'^(?P<tournament_id>\d+)/form/(?P<form_type>(team|feedback|adjudicator|audience))[/]$',
-        views.custom_form_edit,
-        name='custom_form_edit'
-    ),
-    url(
-        r'^(?P<tournament_id>\d+)/form/edit[/]$',
-        views.custom_form_edit_field,
-        name='custom_form_edit_field'
-    ),
-    url(
-        r'^(?P<tournament_id>\d+)/form/(?P<form_type>(team|feedback|adjudicator|audience))/answers[/]$',
-        views.custom_form_show_answers,
-        name='custom_form_answers'
-    ),
+    url(r'^(?P<tournament_id>\d+)/form/(?P<form_type>(team|feedback|adjudicator|audience))[/]$', views.custom_form_edit, name='custom_form_edit'),
+    url(r'^(?P<tournament_id>\d+)/form/edit[/]$', views.custom_form_edit_field, name='custom_form_edit_field'),
+    url(r'^(?P<tournament_id>\d+)/form/(?P<form_type>(team|feedback|adjudicator|audience))/answers[/]$', views.custom_form_show_answers, name='custom_form_answers'),
+
+    url(r'^(?P<tournament_id>\d+)/new_tournament_confirm[/]$', TemplateView.as_view(template_name='tournament/new_tournament_confirm.html'), name='new_tournament_confirm'),
 )
