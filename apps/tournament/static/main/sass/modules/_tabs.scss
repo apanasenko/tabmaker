@@ -1,5 +1,5 @@
 .b-tabs {
-	background-color: grey;
+	background-color: $buttondark;
 
 	&__label {
 		display: inline-block;
@@ -16,16 +16,15 @@
 	&__label:hover {
   		cursor: pointer;
   		color: $dark;
-  		border-bottom: 1px solid $background-page;
 		height: 15px;
-  		background-color: #FFEBA0;
+  		background-color: $deep-dark;
   		transition: 0.2s ease color background-color;
 	}
 
 	&__input:checked + label {
-		background-color: #FFEBA0;
-		color: $dark;
-		border-bottom: 1px solid $background-page;
+		background-color: $green;
+		color: white;
+		border-bottom: 1px solid $green;
 		height: 15px;
 	}
 
