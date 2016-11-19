@@ -13,7 +13,7 @@
 
 {% block content %}
 
-    <form class="b-message" action="{% if show_speaker_1 %}
+    <form class="content-formpage" action="{% if show_speaker_1 %}
                         {% url "tournament:add_team" tournament.id %}
                   {% else %}
                         {% url "tournament:registration_team" tournament.id %}
@@ -32,13 +32,13 @@
 
         <div class="b-form-item">
             <label for="id_name"> <h3 class="b-form-item__heading b-registration__heading">Название команды</h3></label>
-            <span class="wide">{{ form.name }}</span>
-            <span class="wide">{{ form.name.errors }}</span>
+            <span>{{ form.name }}</span>
+            <span>{{ form.name.errors }}</span>
 
             {% if show_speaker_1 %}
 
                 <label for="id_speaker_1"><h3 class="b-form-item__heading b-registration__heading">E-mail первого спикера</h3></label>
-                <span class="wide">{{ form.speaker_1 }}</span>
+                <span>{{ form.speaker_1 }}</span>
                 {{ form.speaker_1.errors }}
 
                 <label for="id_speaker_2"><h3 class="b-form-item__heading b-registration__heading">E-mail второго спикера</h3></label>
@@ -49,8 +49,8 @@
 
             {% endif %}
 
-            <span class="wide">{{ form.speaker_2 }}</span>
-            <span class="wide">{{ form.speaker_2.errors }}</span>
+            <span>{{ form.speaker_2 }}</span>
+            <span>{{ form.speaker_2.errors }}</span>
 
         </div>
 
