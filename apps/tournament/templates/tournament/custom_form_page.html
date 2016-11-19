@@ -6,16 +6,16 @@
 
 {% block content %}
 
-<div class="custom-form">
-    <div class="custom-form-links">
+<div class="content-textpage">
+    <div class="paragraph">
         <h3>Формы регистрации на турнир</h3>
-        <a href="#" class="button">Регистрация команд</a>
-        <a href="#" class="button">Регистрация судей</a>
+        <a href="{% url "tournament:custom_form_edit" tournament.id 'team' %}" class="button">Регистрация команд</a>
+        <a href="{% url "tournament:custom_form_edit" tournament.id 'adjudicator' %}" class="button">Регистрация судей</a>
     </div>
-    <div class="custom-form-tables">
+    <div class="paragraph">
         <h3>Зарестрированные команды и судьи</h3>
-        <a href="#" class="button">Анкеты команд</a>
-        <a href="#" class="button">Анкеты судей</a>
+        <a href="{% url "tournament:custom_form_answers" tournament.id 'team' %}" class="button">Ответы команд</a>
+        <a href="{% url "tournament:custom_form_answers" tournament.id 'adjudicator' %}" class="button">Ответы судей</a>
     </div>
 </div>
 

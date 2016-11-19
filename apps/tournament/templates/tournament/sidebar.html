@@ -11,12 +11,8 @@
                 <i class="fa fa-ban"></i>Закрыть регистрацию
             </a></li>
 
-            <li class="b-sidebar__listitem"><a href="{% url "tournament:custom_form_edit" tournament.id 'team' %}">
-                <i class="fa fa-address-book"></i>Форма регистрации команд
-            </a></li>
-
-            <li class="b-sidebar__listitem"><a href="{% url "tournament:custom_form_answers" tournament.id 'team' %}">
-                <i class="fa fa-address-book"></i>Ответы команд
+            <li class="b-sidebar__listitem"><a href="{% url "tournament:custom_form_page" tournament.id %}">
+                <i class="fa fa-address-book"></i>Анкеты для регистрации
             </a></li>
 
         {% elif tournament|is_status_preparation %}
