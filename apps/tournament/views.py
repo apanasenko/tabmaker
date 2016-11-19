@@ -708,10 +708,10 @@ def registration_team(request, tournament):
         CustomTeamRegistrationForm, \
         TeamWithSpeakerRegistrationForm
 
-    form = CustomForm.objects.filter(tournament=tournament, form_type=FORM_REGISTRATION_TYPE).first()
-    if form:
+    custom_form = CustomForm.objects.filter(tournament=tournament, form_type=FORM_REGISTRATION_TYPE).first()
+    if custom_form:
         RegistrationForm = CustomTeamRegistrationForm
-        questions = CustomQuestion.objects.filter(form=form).select_related('alias').order_by('position')
+        questions = CustomQuestion.objects.filter(form=custom_form).select_related('alias').order_by('position')
     else:
         RegistrationForm = TeamWithSpeakerRegistrationForm
         questions = None
@@ -725,8 +725,8 @@ def registration_team(request, tournament):
                 tournament=tournament,
                 role=ROLE_TEAM_REGISTERED
             )
-            if form:
-                CustomFormAnswers.save_answer(form, team_form.get_answers(questions))
+            if custom_form:
+                CustomFormAnswers.save_answer(custom_form, team_form.get_answers(questions))
 
             return _show_message(request, MSG_TEAM_SUCCESS_REGISTERED_pp % (team.name, tournament.name))
 
