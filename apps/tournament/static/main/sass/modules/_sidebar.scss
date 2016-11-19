@@ -2,7 +2,7 @@ aside {
 	display: inline-block;
 	width: 250px;
 	vertical-align: top;
-	background-color: $green;
+	background-color: $deep-dark;
 
 	@include respond-to(mobile) {
 		width: 100%;
@@ -53,7 +53,7 @@ aside {
 		}
 
 		&:hover {
-			background-color: $hover;
+			background-color: $buttondark;
 			transition: background-color 0.3s ease;
 		}
 
@@ -77,6 +77,15 @@ aside {
 	}
 }
 
+#create_cup {
+	margin-left: 20px;
+	margin-bottom: 20px;
+	background-color: $green;
+	font-weight: bold;
+	font-size: 15px;
+	border-radius: 4px;
+}
+
 .aside-right {
 	display: none;
 
@@ -86,11 +95,4 @@ aside {
 		width: 19%;
 		min-width: 250px;
 	}
-}
-
-.vk-widget {
-	display: block;
-	background-color: $background-block;
-	vertical-align: top;
-	padding-left: 30px;
 }
