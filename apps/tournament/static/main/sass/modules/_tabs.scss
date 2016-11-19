@@ -32,7 +32,7 @@
 		display: none;
 	}
 
-	&__one, &__two, &__three, &__four, &__common{
+	&__one, &__two, &__three, &__four, &__five, &__common{
 		display: none;
   		background: white;
   		float: left;
@@ -43,6 +43,7 @@
 #tab1:checked ~ .b-tabs__one,
 #tab2:checked ~ .b-tabs__two,
 #tab3:checked ~ .b-tabs__three,
-#tab4:checked ~ .b-tabs__four {
+#tab4:checked ~ .b-tabs__four,
+#tab5:checked ~ .b-tabs__five {
 	display: block;
 }

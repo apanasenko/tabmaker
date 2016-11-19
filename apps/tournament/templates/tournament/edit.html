@@ -25,6 +25,12 @@
     <input id="tab3" type="radio" name="tabs" class="b-tabs__input">
     <label for="tab3" class="b-tabs__label" title="Судьи">Судьи</label>
 
+    <input id="tab4" type="radio" name="tabs" class="b-tabs__input">
+    <label for="tab4" class="b-tabs__label" title="Регистрация команд">Анкета для команд</label>
+
+    <input id="tab5" type="radio" name="tabs" class="b-tabs__input">
+    <label for="tab5" class="b-tabs__label" title="Регистрация судей">Анкета для судей</label>
+
     <section class="b-tabs__one">
         <form class="content-formpage" action="{% url "tournament:edit" tournament.id %}" method="post">
              {% include "tournament/edit_form.html" %}
@@ -38,6 +44,14 @@
 
     <section class="b-tabs__three">
         {% include "tournament/adjudicator_list.html" with adjudicators=adjudicators %}
+    </section>
+
+    <section class="b-tabs__four">
+        {% include "tournament/custom_form_questions.html" %}
+    </section>
+
+    <section class="b-tabs__five">
+        {% include "tournament/custom_form_questions.html" %}
     </section>
 
 </div>
