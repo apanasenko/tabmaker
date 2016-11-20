@@ -3,9 +3,10 @@ from collections import OrderedDict
 from django import forms
 from .models import Team, User
 from apps.tournament.consts import \
-    FIELD_ALIAS_TEAM, \
+    FIELD_ALIAS_ADJUDICATOR, \
     FIELD_ALIAS_SPEAKER_1, \
-    FIELD_ALIAS_SPEAKER_2
+    FIELD_ALIAS_SPEAKER_2, \
+    FIELD_ALIAS_TEAM
 
 
 class TeamRegistrationForm(forms.ModelForm):
@@ -20,12 +21,6 @@ class TeamRegistrationForm(forms.ModelForm):
 
     speaker_1 = forms.EmailField(label='E-mail первого спикера')
     speaker_2 = forms.EmailField(label='E-mail второго спикера')
-
-    _required_fields = {
-        FIELD_ALIAS_TEAM.name: 'name',
-        FIELD_ALIAS_SPEAKER_1.name: 'speaker_1',
-        FIELD_ALIAS_SPEAKER_2.name: 'speaker_2',
-    }
 
     def clean_speaker_1(self):
         speaker_1 = self.cleaned_data['speaker_1']
@@ -59,8 +54,7 @@ class TeamRegistrationForm(forms.ModelForm):
 
 class TeamWithSpeakerRegistrationForm(TeamRegistrationForm):
 
-    def __init__(self, questions=None, *args, **kwargs):
-        # :questions: - Для единого интерфейса с CustomTeamRegistrationForm
+    def __init__(self, *args, **kwargs):
         super(TeamRegistrationForm, self).__init__(*args, **kwargs)
         self.fields['speaker_1'].widget.attrs['readonly'] = True
         self.fields['speaker_1'].label = 'Ваш e-mail'
@@ -74,12 +68,14 @@ class TeamWithSpeakerRegistrationForm(TeamRegistrationForm):
         return team
 
 
-class CustomTeamRegistrationForm(TeamWithSpeakerRegistrationForm):
+class CustomForm:
+    """
+    :self.fields:
+    :self._required_fields:
+    :self.cleaned_data
+    """
 
-    required_css_class = 'required'
-
-    def __init__(self, questions, *args, **kwargs):
-        super(CustomTeamRegistrationForm, self).__init__(questions, *args, **kwargs)
+    def init_custom_fields(self, questions):
         ordered_questions = OrderedDict()
         for question in questions:
             if question.alias and question.alias.name in self._required_fields:
@@ -98,12 +94,6 @@ class CustomTeamRegistrationForm(TeamWithSpeakerRegistrationForm):
 
         self.fields = ordered_questions
 
-    def save(self, speaker_1=None, commit=True):
-        team = super(CustomTeamRegistrationForm, self).save(speaker_1, False)
-        if commit:
-            team.save()
-        return team
-
     def get_answers(self, questions):
         answers = {}
         for question in questions:
@@ -114,3 +104,31 @@ class CustomTeamRegistrationForm(TeamWithSpeakerRegistrationForm):
             answers[question.question] = self.cleaned_data[field_name]
 
         return answers
+
+
+class CustomTeamRegistrationForm(TeamWithSpeakerRegistrationForm, CustomForm):
+
+    _required_fields = {
+        FIELD_ALIAS_TEAM.name: 'name',
+        FIELD_ALIAS_SPEAKER_1.name: 'speaker_1',
+        FIELD_ALIAS_SPEAKER_2.name: 'speaker_2',
+    }
+
+    def __init__(self, questions, *args, **kwargs):
+        super(CustomTeamRegistrationForm, self).__init__(*args, **kwargs)
+        self.init_custom_fields(questions)
+
+
+class CustomAdjudicatorRegistrationForm(forms.Form, CustomForm):
+
+    adjudicator = forms.EmailField()
+
+    _required_fields = {
+        FIELD_ALIAS_ADJUDICATOR.name: 'adjudicator',
+    }
+
+    def __init__(self, questions, *args, **kwargs):
+        super(CustomAdjudicatorRegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['adjudicator'].widget.attrs['readonly'] = True
+        self.init_custom_fields(questions)
+        # self.

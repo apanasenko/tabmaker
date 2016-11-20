@@ -1,4 +1,7 @@
 from allauth.account import views as allauth_views
+from allauth.socialaccount.providers.google.urls import urlpatterns as google_urlpatterns
+from allauth.socialaccount.providers.mailru.urls import urlpatterns as mailru_urlpatterns
+from allauth.socialaccount.urls import urlpatterns as socialaccount_urlpatterns
 from django.conf.urls import \
     patterns, \
     url, \
@@ -29,3 +32,7 @@ urlpatterns = patterns(
         name="account_reset_password_from_key_done"
     ),
 )
+
+urlpatterns += google_urlpatterns
+urlpatterns += mailru_urlpatterns
+urlpatterns += socialaccount_urlpatterns

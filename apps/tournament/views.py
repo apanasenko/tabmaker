@@ -408,6 +408,43 @@ def print_users(request, tournament):
     )
 
 
+def feedback(request):
+    from django.core.mail import mail_managers
+
+    if request.method == 'POST':
+        who = ''
+        if request.user.is_authenticated():
+            who = '%s (%s)' % (request.user.get_full_name(), request.user.email)
+
+        mail_managers(
+            'Tabmaker Feedback',
+            '''
+            Кто %s \n\n
+            Что в Tabmaker сделано хорошо:\n
+            %s \n\n\n
+            Что в Tabmaker можно улучшить:\n
+            %s \n\n\n
+            Предложения или пожелания:\n
+            %s \n\n\n
+            Оценка:\n
+            %d \n\n\n
+            ''' % (
+                who,
+                request.POST.get('already_good', ''),
+                request.POST.get('can_be_batter', ''),
+                request.POST.get('what_you_want', ''),
+                int(request.POST.get('nps', 0))
+            )
+        )
+
+        return _show_message(request, 'Спасибо за ваш отзыв')
+
+    return render(
+        request,
+        'tournament/feedback.html'
+    )
+
+
 ##################################
 #   Change status of tournament  #
 ##################################
@@ -495,9 +532,9 @@ def generate_break(request, tournament):
 @access_by_status(name_page='finished')
 def finished(request, tournament):
     need_message = CONFIRM_MSG_FINISHED
-    redirect_to = 'tournament:show'
+    redirect_to = 'main:feedback'
+    redirect_args = {}
     template_body = 'tournament/finished_message.html'
-    redirect_args = {'tournament_id': tournament.id}
 
     def tournament_finished(tournament_):
         tournament_.set_status(STATUS_FINISHED)
@@ -671,10 +708,10 @@ def registration_team(request, tournament):
         CustomTeamRegistrationForm, \
         TeamWithSpeakerRegistrationForm
 
-    form = CustomForm.objects.filter(tournament=tournament, form_type=FORM_REGISTRATION_TYPE).first()
-    if form:
+    custom_form = CustomForm.objects.filter(tournament=tournament, form_type=FORM_REGISTRATION_TYPE).first()
+    if custom_form:
         RegistrationForm = CustomTeamRegistrationForm
-        questions = CustomQuestion.objects.filter(form=form).select_related('alias').order_by('position')
+        questions = CustomQuestion.objects.filter(form=custom_form).select_related('alias').order_by('position')
     else:
         RegistrationForm = TeamWithSpeakerRegistrationForm
         questions = None
@@ -688,8 +725,8 @@ def registration_team(request, tournament):
                 tournament=tournament,
                 role=ROLE_TEAM_REGISTERED
             )
-            if form:
-                CustomFormAnswers.save_answer(form, team_form.get_answers(questions))
+            if custom_form:
+                CustomFormAnswers.save_answer(custom_form, team_form.get_answers(questions))
 
             return _show_message(request, MSG_TEAM_SUCCESS_REGISTERED_pp % (team.name, tournament.name))
 
@@ -700,6 +737,9 @@ def registration_team(request, tournament):
         request,
         'tournament/registration_new.html',
         {
+            'title': 'Регистрация команды',
+            'submit_title': 'Участвовать',
+            'action_url': 'tournament:registration_team',
             'form': team_form,
             'tournament': tournament,
         }
@@ -836,11 +876,39 @@ def _registration_adjudicator(tournament: Tournament, user: User):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. registration')
 def registration_adjudicator(request, tournament):
-    message = MSG_ADJUDICATOR_SUCCESS_REGISTERED_p % tournament.name \
-        if _registration_adjudicator(tournament, request.user) \
-        else MSG_ADJUDICATOR_ALREADY_REGISTERED_p % tournament.name
+    from .registration_forms import CustomAdjudicatorRegistrationForm
 
-    return _show_message(request, message)
+    custom_form = CustomForm.objects.filter(tournament=tournament, form_type=FORM_ADJUDICATOR_TYPE).first()
+
+    if not custom_form:
+        message = MSG_ADJUDICATOR_SUCCESS_REGISTERED_p % tournament.name \
+            if _registration_adjudicator(tournament, request.user) \
+            else MSG_ADJUDICATOR_ALREADY_REGISTERED_p % tournament.name
+        return _show_message(request, message)
+
+    questions = CustomQuestion.objects.filter(form=custom_form).select_related('alias').order_by('position')
+    if request.method == 'POST':
+        adjudicator_form = CustomAdjudicatorRegistrationForm(questions, request.POST)
+        if adjudicator_form.is_valid():
+            if _registration_adjudicator(tournament, request.user):
+                CustomFormAnswers.save_answer(custom_form, adjudicator_form.get_answers(questions))
+                return _show_message(request, MSG_ADJUDICATOR_SUCCESS_REGISTERED_p % tournament.name)
+            else:
+                return _show_message(request, MSG_ADJUDICATOR_ALREADY_REGISTERED_p % tournament.name)
+    else:
+        adjudicator_form = CustomAdjudicatorRegistrationForm(questions, initial={'adjudicator': request.user.email})
+
+    return render(
+        request,
+        'tournament/registration_new.html',
+        {
+            'title': 'Регистрация судьи',
+            'submit_title': 'Судить',
+            'action_url': 'tournament:registration_adjudicator',
+            'form': adjudicator_form,
+            'tournament': tournament,
+        }
+    )
 
 
 @csrf_protect

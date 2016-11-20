@@ -19,15 +19,26 @@
 
 {% block content %}
 
-    <div class="content-textpage">
-
-    {% include 'tournament/count_by_role.html' with statuses=statuses %}
+    <li class="count-by-role__buttons">
+        <a class="button count-by-role__button"
+           href="{% url 'tournament:custom_form_edit' tournament.id 'adjudicator' %}"
+        >
+            <i class="fa fa-pencil"></i>Изменить форму регистрации судей
+        </a>
+        <a class="button count-by-role__button"
+           href="{% url 'tournament:custom_form_answers' tournament.id 'adjudicator' %}"
+        >
+            <i class="fa fa-print"></i>Посмотреть ответы на форму регитрации
+        </a>
+    </li>
 
     <div id="new_adjudicator" class="b-adjudicators__new">
         <div class="errors"></div>
         <input class="b-adjudicators__email" id="add_adjudicator_input" type="email" placeholder="e-mail судьи">
         <a class="button" onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить судью</a>
     </div>
+
+    {% include 'tournament/count_by_role.html' with statuses=statuses %}
 
     <div class="b-adjudicators__list">
     {% for rel in user_tournament_rels %}

@@ -1,12 +1,12 @@
 {% extends "main/base.html" %}
 
 {% block page_title %}
-    Регистрация команды
+    {{ title }}
 {% endblock page_title %}
 
 {% block content %}
 
-    <form class="b-form b-form-custom" action="{% url "tournament:registration_team" tournament.id %}" method="post">
+    <form class="b-form b-form-custom" action="{% url action_url tournament.id %}" method="post">
         {% csrf_token %}
         {{ form.non_field_errors }}
 
@@ -22,8 +22,8 @@
             <span>{{ field }}</span>
             <span>{{ field.errors }}</span>
         {% endfor %}
-        <button type="submit" class="button b-form-custom__button" value="Отправить">
-            Участвовать
+        <button type="submit" class="button b-form-custom__button">
+            {{ submit_title }}
         </button>
         </div>
     </form>
