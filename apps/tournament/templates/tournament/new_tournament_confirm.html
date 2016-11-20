@@ -11,8 +11,12 @@
        <h3>Турнир создан!</h3>
        <p>Осталось создать форму регистрации для команд и судей, а затем всех пригласить</p>
        <div class="b-tournament-confirm__buttons">
-           <a href="{% url "tournament:custom_form_edit" tournament.id 'team' %}" class="button">Форма регистрации команд</a>
-           <a href="{% url "tournament:custom_form_edit" tournament.id 'adjudicator' %}" class="button">Форма регистрации судей</a>
+           <a href="{% url "tournament:custom_form_edit" tournament.id 'team' %}" class="button">
+               Форма регистрации команд
+           </a>
+           <a href="{% url "tournament:custom_form_edit" tournament.id 'adjudicator' %}" class="button">
+               Форма регистрации судей
+           </a>
        </div>
 
    </div>
