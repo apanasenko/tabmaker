@@ -126,18 +126,7 @@
 }
 
 .count-by-role {
-    box-sizing: border-box;
-
-	&__buttons {
-		list-style-type: none;
-        display: flex;
-        flex-direction: row;
-
-        a {
-            font-size: 14px;
-            margin-right: 20px;
-        }
-	}
+	max-width: 780px;
 
 	&__confirm {
 		margin-bottom: 20px;

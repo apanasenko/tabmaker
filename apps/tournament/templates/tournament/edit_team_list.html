@@ -18,16 +18,33 @@
 
 {% block content %}
 <div class="content-textpage">
-    <li class="count-by-role__buttons">
-        <a class="b-link" href="{% url 'tournament:custom_form_edit' tournament.id 'team' %}">Анкета регистрации</a>
-        <a class="b-link" href="{% url 'tournament:custom_form_answers' tournament.id 'team' %}">Ответы команд</a>
-        <a class="b-link" href="{% url 'tournament:add_team' tournament.id %}">Добавить команду</a>
-        <a class="b-link" href="{% url 'tournament:import_team' tournament.id %}">Импорт из Google-таблицы
-        </a>
-        <a class="b-link" href="{% url 'tournament:print' tournament.id %}">Распечатать список команд</a>
-    </li>
 
     {% include 'tournament/count_by_role.html' with statuses=statuses %}
+
+    <div class="dropdown">
+        <div class="dropdown-container">
+        <p class="dropdown-button">Настройки
+            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        </p>
+        <ul class="dropdown-menu dropdown-select">
+            <li>
+                <a href="{% url 'tournament:custom_form_edit' tournament.id 'team' %}">Анкеты регистрации</a>
+            </li>
+            <li>
+                <a href="{% url 'tournament:custom_form_answers' tournament.id 'team' %}">Ответы команд</a>
+            </li>
+            <li>
+                <a href="{% url 'tournament:add_team' tournament.id %}">Добавить команду</a>
+            </li>
+            <li>
+                <a href="{% url 'tournament:import_team' tournament.id %}">Импорт из Google-таблицы</a>
+            </li>
+            <li>
+                <a href="{% url 'tournament:print' tournament.id %}">Распечатать список команд</a>
+            </li>
+        </ul>
+        </div>
+    </div>
 
     {% for rel in team_tournament_rels %}
         <div id="message_{{ rel.id }}"></div>
