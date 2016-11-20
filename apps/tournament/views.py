@@ -441,7 +441,7 @@ def feedback(request):
 
     return render(
         request,
-        'tournament/feedback.html'
+        'main/tabmaker_feedback.html'
     )
 
 
