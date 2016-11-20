@@ -126,38 +126,21 @@
 }
 
 .count-by-role {
-	padding: 20px;
-    box-sizing: border-box;
-
-	&__item {
-		display: block;
-    	margin-bottom: 10px;
-	}
-
-	&__buttons {
-		margin-left: 20px;
-		margin-top: 20px;
-		list-style-type: none;
-	}
-
-	&__button {
-		margin-right: 10px;
-
-		@include respond-to(mobile) {
-			display: block;
-		    text-align: center;
-		    margin-bottom: 10px;
-		}
-	}
+	max-width: 780px;
 
 	&__confirm {
 		margin-bottom: 20px;
 		margin-top: 20px;
-		margin-left: 20px;
 
         &:disabled {
-            background-color: $disabled_button;
+            background-color: $grey;
+			opacity: 0.5;
         }
+	}
+
+	&__changestatus {
+		background: $button-gradient;
+		border: 1px solid $background-page;
 	}
 }
 
@@ -168,7 +151,7 @@
 .add-teams {
 
 	&__no {
-		padding: 0 0 20px 20px;
+        margin-top:30px;
 	}
 
 }

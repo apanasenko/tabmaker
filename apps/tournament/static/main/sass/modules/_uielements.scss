@@ -1,3 +1,101 @@
+.button-group {
+    display: flex;
+    margin:10px 0;
+    font-size: 13px;
+
+    input {
+        display: none;
+    }
+
+    label {
+        font-weight: normal;
+        border-top: 1px solid $background-page;
+        border-bottom: 1px solid $background-page;
+        border-left: 1px solid $background-page;
+        float: left;
+    }
+
+    label:last-child {
+        border-right: 1px solid $background-page;
+        border-radius: 0 5px 5px 0;
+    }
+
+    label:first-child {
+        border-left: 1px solid $background-page;
+        border-radius: 5px 0 0 5px;
+    }
+
+    .button-group-item {
+        cursor: pointer;
+        display: inline-block;
+        width: auto;
+        line-height: 1;
+        padding: .75em .8em;
+    }
+
+    input:checked + .button-group-item {
+        background: $button-gradient;
+    }
+}
+
+.dropdown {
+
+    .dropdown-container {
+        display: inline-block;
+        position: relative;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .dropdown-button {
+        cursor: pointer;
+        float: right;
+        position: relative;
+        padding: 10px;
+        background: $button-gradient;
+        border: 1px solid $background-page;
+        border-radius: 4px;
+        font-size: 14px;
+
+        i {
+            margin: 0 0 0 3px;
+            color: $grey;
+        }
+  }
+
+    .dropdown-button:after {
+        display: block;
+        position: absolute;
+    }
+
+    .dropdown-menu {
+        cursor: pointer;
+        display: none;
+        overflow: show;
+        position: absolute;
+        text-align: left;
+        top: 50px;
+        width: 200px;
+        z-index: 99999;
+        background: $button-backgroud;
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+
+        li {
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        li:hover {
+            background: $hover;
+        }
+    }
+
+  .show-menu {
+    display: block;
+  }
+}
+
+
 @mixin disclaimer {
     display: block;
     padding: 20px;
@@ -38,10 +136,13 @@
 
 @mixin notification {
     display: block;
-    padding: 4px;
-    margin: 4px;
-    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 4px;
     color: white;
+    width:100%;
+    max-width: 780px;
+    line-height: 1.3;
 }
 
 .notification {

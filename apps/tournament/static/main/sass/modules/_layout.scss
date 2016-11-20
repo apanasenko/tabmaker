@@ -10,7 +10,6 @@ html, body {
 
 body {
 	font-family: "PT Sans", Arial, "Helvetica Neue", sans-serif;
-	background-color: $background-page;
 }
 
 ul, a {
@@ -25,7 +24,7 @@ h1, h3, h5, p, li, label, span {
 
 h1, h2, h3 {
 	font-weight: 700;
-	margin-bottom: 10px;
+	margin-top: 10px;
 }
 
 h1 {
@@ -38,6 +37,7 @@ h2 {
 
 h3 {
 	font-size: 20px;
+    margin-bottom: 10px;
 }
 
 a {
@@ -60,28 +60,14 @@ i {
 }
 
 .page_wrapper {
-	margin: 0 auto;
-	background-color: $background-page;
-	min-height: 100%;
-	margin-bottom: -90px;
-
-	@include respond-to(mobile) {
-		height: initial;
-	}
-
-	@include respond-to(tablets) {
-		height: initial;
-	}
-
-	&:after {
-	  	content: "";
-	  	display: block;
-	  	height: 90px;
-	}
+	display: flex;
+    flex-direction: column;
 }
 
 .content_conteiner {
-	padding: 25px;
+	display: flex;
+    flex: 1;
+    height: 100%;
 
 	@include respond-to(mobile) {
     	padding: 70px 0 0 0 !important;
@@ -94,11 +80,9 @@ i {
 }
 
 .content {
-	@include container;
-	@include shadow;
 	display: inline-block;
-	width: 60%;
-	background-color: $background-block;
+	width: calc(100% - 250px);
+	min-height: calc(100vh - 160px);
 	border-radius: 3px;
 	vertical-align: top;
 
@@ -116,5 +100,46 @@ i {
 		width: 100%;
 		margin: 10px 0;
 		overflow-y: auto;
+	}
+
+	&-textpage {
+		padding: 20px 20px 40px 20px;
+		max-width: 800px;
+	}
+
+	&-tablepage {
+		overflow-x: auto;
+        overflow-y: hidden;
+        width: 100%;
+	}
+
+	&-datapage {
+        width: 100%;
+
+		&__padding {
+			padding:20px;
+		}
+	}
+
+    &-formpage {
+        padding: 20px;
+		max-width: 600px;
+        width: 100%;
+    }
+}
+
+.paragraph {
+	line-height: 1.4;
+	margin-bottom: 30px;
+
+	&__link {
+		border-bottom: 1px dashed $dark;
+		padding-bottom: 3px;
+	}
+
+	&__heading {
+		padding-bottom: 10px;
+		margin-top: 0;
+        margin-bottom: 0;
 	}
 }

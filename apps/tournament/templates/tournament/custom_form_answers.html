@@ -17,7 +17,8 @@
 {% endblock extra_head %}
 
 {% block content %}
-    <table id="answers" class="tablesorter">
+    <div class="b-table__page">
+    <table id="answers" class="tablesorter b-table">
         <tr class="b-table__headrow">
         {% for name in column_names %}
             <th class="b-table__headstring_thirty">{{ name }}</th>
@@ -32,4 +33,5 @@
             </tr>
         {% endfor %}
     </table>
+    </div>
 {% endblock content %}

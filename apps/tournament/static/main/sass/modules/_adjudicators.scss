@@ -1,6 +1,8 @@
 .b-adjudicators {
-    padding: 0 20px;
-    margin-bottom: 20px;
+
+    &__new {
+        margin: 20px 0;
+    }
 
     &__email {
         width: 200px;

@@ -1,3 +1,4 @@
+from django.views.generic import TemplateView
 from apps.tournament import views
 from django.conf.urls import \
     patterns, \
@@ -16,7 +17,6 @@ urlpatterns = patterns(
     url(r'^(?P<tournament_id>\d+)/result/all[/]$', views.result_all_rounds, name='result_all'),
     url(r'^(?P<tournament_id>\d+)/remove[/]$', views.remove, name='remove'),
     url(r'^(?P<tournament_id>\d+)/print[/]$', views.print_users, name='print'),
-    url(r'^(?P<tournament_id>\d+)/feedback[/]$', views.feedback, name='feedback'),
 
     # Change status of tournament
     url(r'^(?P<tournament_id>\d+)/registration/opening[/]$', views.registration_opening, name='registration_opening'),
@@ -71,19 +71,10 @@ urlpatterns = patterns(
     url(r'^(?P<tournament_id>\d+)/place/update[/]', views.place_update, name='place_update'),
 
     # Custom form
-    url(
-        r'^(?P<tournament_id>\d+)/form/(?P<form_type>(team|feedback|adjudicator|audience))[/]$',
-        views.custom_form_edit,
-        name='custom_form_edit'
-    ),
-    url(
-        r'^(?P<tournament_id>\d+)/form/edit[/]$',
-        views.custom_form_edit_field,
-        name='custom_form_edit_field'
-    ),
-    url(
-        r'^(?P<tournament_id>\d+)/form/(?P<form_type>(team|feedback|adjudicator|audience))/answers[/]$',
-        views.custom_form_show_answers,
-        name='custom_form_answers'
-    ),
+    url(r'^(?P<tournament_id>\d+)/form/(?P<form_type>(team|feedback|adjudicator|audience))[/]$', views.custom_form_edit, name='custom_form_edit'),
+    url(r'^(?P<tournament_id>\d+)/form/edit[/]$', views.custom_form_edit_field, name='custom_form_edit_field'),
+    url(r'^(?P<tournament_id>\d+)/form/(?P<form_type>(team|feedback|adjudicator|audience))/answers[/]$', views.custom_form_show_answers, name='custom_form_answers'),
+
+    url(r'^(?P<tournament_id>\d+)/new_tournament_confirm[/]$', TemplateView.as_view(template_name='tournament/new_tournament_confirm.html'), name='new_tournament_confirm'),
+    url(r'^(?P<tournament_id>\d+)/custom_form_page[/]$', TemplateView.as_view(template_name='tournament/custom_form_page.html'), name='custom_form_page'),
 )

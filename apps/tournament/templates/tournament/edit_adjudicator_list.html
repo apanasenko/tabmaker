@@ -19,9 +19,11 @@
 
 {% block content %}
 
+    <div class="content-textpage">
+
     {% include 'tournament/count_by_role.html' with statuses=statuses %}
 
-    <div id="new_adjudicator" class="b-adjudicators">
+    <div id="new_adjudicator" class="b-adjudicators__new">
         <div class="errors"></div>
         <input class="b-adjudicators__email" id="add_adjudicator_input" type="email" placeholder="e-mail судьи">
         <a class="button" onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить судью</a>
@@ -35,7 +37,7 @@
                 <div class="b-teamlist__wrapper">
                     <div class="b-teamlist__heading">
                         <h3><a href="{% url 'profile:main' rel.user.id%}">{{ rel.user|name }}</a></h3>
-                        <select class="roles"
+                        <select class="roles count-by-role__changestatus"
                                 onchange="update_status(
                                         '{% url 'tournament:update_adjudicator_role' tournament.id%}',
                                         this,
@@ -69,5 +71,7 @@
             Далее
         </button>
     {% endif %}
+
+    </div>
 
 {% endblock content %}

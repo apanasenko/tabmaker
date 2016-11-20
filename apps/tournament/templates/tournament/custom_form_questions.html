@@ -1,0 +1,72 @@
+<input id="form_id" type="hidden" value="{{ form.id }}">
+<input id="url" type="hidden" value="{% url 'tournament:custom_form_edit_field' tournament.id %}">
+
+<div id="temp">
+    <div class="message"></div>
+
+    <div class="show_block">
+        <div class="question-name">
+            <span class="question"> Вопрос </span>
+            <span class="star">*</span>
+            <button class="edit" onclick="edit_click(this)">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="comment"> Пояснение </div>
+        <input class="required" type="hidden">
+        <input class="can_remove" type="hidden">
+
+        {# <input class="answer" placeholder="Ответ"> #}
+
+    </div>
+
+    <div class="edit_block">
+        <label>
+            <p>Название вопроса</p>
+            <input type="text" class="question">
+        </label>
+        <label>
+            <p>Комментарий к вопросу</p>
+            <textarea class="comment"></textarea>
+        </label>
+        <label>
+            <span>Обязательное поле</span>
+            <input class="required" type="checkbox">
+        </label>
+
+        <button class="save button" onclick="save_click(this, '{{ actions.edit_question }}')">Сохранить</button>
+        <button class="cancel button" onclick="cancel_click(this)">Отменить</button>
+    </div>
+
+    <div class="actions_buttons question-actions">
+        <button class="up" onclick="up_click(this, '{{ actions.up_question }}')">
+            <i class="fa fa-arrow-up" aria-hidden="true"></i>
+        </button>
+        <button class="down" onclick="down_click(this, '{{ actions.down_question }}')">
+            <i class="fa fa-arrow-down" aria-hidden="true"></i>
+        </button>
+        <button class="remove" onclick="remove_click(this, '{{ actions.remove_question }}')">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+
+<script>
+    function init() {
+        {% for question in questions %}
+        generate_question_block(
+                '{{ question.id }}',
+                '{{ question.question }}',
+                '{{ question.comment }}',
+                {% if question.required %} '1' {% else %} '0' {% endif %},
+                {% if question.alias not in required_aliases %} '1' {% else %} '0' {% endif %}
+        );
+       {% endfor %}
+    }
+</script>
+<div id="new_question">
+    <button class="add button" onclick="add_question(this)">
+        <i class="fa fa-plus-circle"></i>
+        Добавить вопрос
+    </button>
+</div>

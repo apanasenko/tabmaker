@@ -1,6 +1,5 @@
 .b-tournamentlist-item {
 	display: block;
-	@include span(12 of 12);
 	min-height: 50px;
 	padding: 20px 0px 20px 0px;
 	border-bottom: #E9EBEC 1px solid;
@@ -17,90 +16,7 @@
 	margin: 0 20px;
 	position: relative;
 	line-height: 0,7;
-
-
-
-	&__column {
-
-		&_third {
-			@include span(1 of 3);
-			@include respond-to(mobile) {
-				width: 100%;
-				float: none;
-				display: block;
-			}
-		}
-
-		&_twothird {
-			@include span(2 of 3 last);
-
-			div {
-				margin-right: 15px;
-				float: right;
-
-				@include respond-to(mobile) {
-					float: none;
-					margin: 0 0 10px 0;
-				}
-			}
-
-			@include respond-to(mobile) {
-				width: 100%;
-				float: none;
-				display: block;
-			}
-		}
-
-		&_rightcolumn {
-    		height: 50px;
-    		margin: -15px 0 0 0;
-
-    		@include respond-to(mobile) {
-				height: inherit;
-				margin: 0 0 10px 0 !important;
-			}
-
-    		span {
-    			float: right;
-    			margin-right: 6px;
-
-    			@include respond-to(mobile) {
-					width: 100%;
-					float: none;
-					display: block;
-					margin: 0;
-				}
-
-    			.nolink {
-					border-bottom: none;
-    			}
-    		}
-		}
-
-		&_rightcolumnbigmargin {
-    		height: 50px;
-    		margin: -32px 0 0 0;
-
-    		@include respond-to(mobile) {
-    			height: auto;
-    			margin: 0;
-    		}
-
-    		span {
-    			float: right;
-    			margin-right: 6px;
-
-    			@include respond-to(mobile) {
-					float: none;
-					margin: 0;
-				}
-
-    			.nolink {
-					border-bottom: none;
-    			}
-    		}
-		}
-	}
+	max-width: 800px;
 
 	&__heading {
 		display: block;
@@ -203,10 +119,4 @@
 			}
 		}
 	}
-}
-
-.tournamentlist {
-	color: $grey;
-	font-size: 16px;
-	border-bottom: 1px dashed $grey;
 }

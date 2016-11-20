@@ -21,8 +21,12 @@
 
     {% else %}
 
-        <li class="b-sidebar__button"><a href="{% url 'account_login' %}">Войти</a></li>
-        <li class="b-sidebar__button"><a href="{% url 'account_signup' %}">Зарегистрироваться</a></li>
+        <li class="b-sidebar__listitem">
+            <a href="{% url 'account_login' %}">Войти</a>
+        </li>
+        <li class="b-sidebar__listitem">
+            <a href="{% url 'account_signup' %}">Зарегистрироваться</a>
+        </li>
 
     {% endif %}
 </ul>

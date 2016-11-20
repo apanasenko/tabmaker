@@ -2,8 +2,7 @@
 
     &-item {
         box-sizing: border-box;
-        padding: 20px 40px;
-        min-height: 255px;
+        padding: 0 20px;
 
         @include respond-to(mobile) {
             padding: 10px 10px;

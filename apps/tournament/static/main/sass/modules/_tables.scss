@@ -1,13 +1,11 @@
 .b-table {
-	width: 100%;
-	padding: 0 5px;
-	border-top: 1px solid $grey;
+	font-size: 13px;
+    width: 100%;
 
-	&__headrow, &__row {
-		margin: 10px 0px;
+    &__headrow, &__row {
 		color: $grey;
 		border-bottom: 1px solid $background-page;
-		height: 40px;
+		min-height: 40px;
 	}
 
 	&__headstring {
@@ -15,16 +13,19 @@
 		&_half, &_thirty, &_narrow {
 			background-color: $beige;
 			color: $dark;
+
 		}
 	}
 
 	&__headstring, &__string {
 
-		&_half {
+		&_half, &_thirty, &_narrow {
+            padding: 8px 10px;
+        }
+
+        &_half {
 			width: 50%;
 			min-width: 40px;
-			padding: 0 10px;
-
 
 			.wrap {
 				padding-left: 20px;
@@ -36,13 +37,11 @@
 			width: 16%;
 			text-align: center;
 			min-width: 40px;
-			padding: 0 10px;
 		}
 
 		&_narrow {
 			text-align: center;
 			min-width: 40px;
-			padding: 0 10px;
 		}
 
 	}
