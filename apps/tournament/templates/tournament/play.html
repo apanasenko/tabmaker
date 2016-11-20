@@ -14,28 +14,72 @@
 
 
 {% block content %}
-<div class="b-tournament-summary content-textpage">
-    <div class="b-tournament-summary-status">
-        <p class="b-tournament-summary-status__info">
-            Количество команд: {{ tournament.count_members }} ({{ tournament.count_registered_teams }} зарегистрировано)
-        </p>
-        <p class="b-tournament-summary-status__info">Количество сыграных раундов: {{ tournament.cur_round }}</p>
-        <p class="b-tournament-summary-status__info">Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
-        <p class="b-tournament-summary-status__info">Статус: {{ tournament.status.name }}</p>
+<div class="content-datapage__padding">
+
+    <div class="paragraph">
+        <h3>Управление раундами</h3>
+
+        <div class="button-group">
+            <label class="button-group-label">
+                <input class="show_checkbox" type="checkbox" name="button-group" value="item" checked>
+                <span class="button-group-item">
+                    <a href="{% url 'tournament:next_round' tournament.id%}">Создать следующий раунд </a>
+                </span>
+            </label>
+            <label class="button-group-label">
+                <input class="show_checkbox" type="checkbox" name="button-group" value="item" checked>
+                <span class="button-group-item">
+                    <a href="{% url 'tournament:publish_round' tournament.id%}"> Опубликовать тему и румы </a>
+                </span>
+            </label>
+            <label class="button-group-label">
+                <input class="show_checkbox" type="checkbox" name="button-group" value="item" checked>
+                <span class="button-group-item">
+                    <a href="{% url 'tournament:presentation_round' tournament.id %}"> Презентация раунда </a>
+                </span>
+            </label>
+            {% if tournament.cur_round > 0 %}
+            <label class="button-group-label">
+                <input class="show_checkbox" type="checkbox" name="button-group" value="item" checked>
+                <span class="button-group-item">
+                    <a href="{% url 'tournament:result_round' tournament.id%}"> Ввести/исправить результат </a>
+                </span>
+            </label>
+            <label class="button-group-label">
+                <input class="show_checkbox" type="checkbox" name="button-group" value="item" checked>
+                <span class="button-group-item">
+                    <a onclick="confirm_remove_round('{% url 'tournament:remove_round' tournament.id %}')">
+                        Удалить последний раунд
+                    </a>
+                </span>
+            </label>
+            {% endif %}
+        </div>
     </div>
 
-    <div class="b-tournament-summary-commands">
-        <a class="button b-tournament-summary-commands__button" href="{% url 'tournament:next_round' tournament.id%}">Создать следующий раунд </a>
-        <a class="button b-tournament-summary-commands__button" href="{% url 'tournament:publish_round' tournament.id%}"> Опубликовать тему и румы </a>
-        {% if tournament.cur_round > 0 %}
-            <a class="button b-tournament-summary-commands__button" href="{% url 'tournament:result_round' tournament.id%}"> Ввести/исправить результат </a>
-            <a class="button b-tournament-summary-commands__button" onclick="confirm_remove_round('{% url 'tournament:remove_round' tournament.id %}')">
-                Удалить последний раунд
-            </a>
-        {% endif %}
-        <a class="button b-tournament-summary-commands__button" href="{% url 'tournament:result' tournament.id%}"> Показать результаты </a>
-        <a class="button b-tournament-summary-commands__button" href="{% url 'tournament:result_all' tournament.id%}"> Подробные результаты </a>
-        <a class="button b-tournament-summary-commands__button" href="{% url 'tournament:presentation_round' tournament.id %}"> Презентация раунда </a>
+    <div class="paragraph">
+        <h3>Статистика</h3>
+
+        <div class="button-group">
+            <label class="button-group-label">
+                <input class="show_checkbox" type="checkbox" name="button-group" value="item" checked>
+                <span class="button-group-item">
+                    <a href="{% url 'tournament:result' tournament.id%}"> Показать результаты </a>
+                </span>
+            </label>
+            <label class="button-group-label">
+                <input class="show_checkbox" type="checkbox" name="button-group" value="item" checked>
+                <span class="button-group-item">
+                    <a href="{% url 'tournament:result_all' tournament.id%}"> Подробные результаты </a>
+                </span>
+            </label>
+        </div>
+
+        <p>Количество команд: {{ tournament.count_members }} ({{ tournament.count_registered_teams }} зарегистрировано)</p>
+        <p class="">Количество сыграных раундов: {{ tournament.cur_round }}</p>
+        <p>Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
+        <p>Статус: {{ tournament.status.name }}</p>
+
     </div>
 </div>
 {% endblock content %}

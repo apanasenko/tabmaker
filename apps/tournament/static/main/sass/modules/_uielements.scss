@@ -9,19 +9,19 @@
 
     label {
         font-weight: normal;
-        border-top: 1px solid $grey;
-        border-bottom: 1px solid $grey;
-        border-left: 1px solid $grey;
+        border-top: 1px solid $background-page;
+        border-bottom: 1px solid $background-page;
+        border-left: 1px solid $background-page;
         float: left;
     }
 
     label:last-child {
-        border-right: 1px solid $grey;
+        border-right: 1px solid $background-page;
         border-radius: 0 5px 5px 0;
     }
 
     label:first-child {
-        border-left: 1px solid $grey;
+        border-left: 1px solid $background-page;
         border-radius: 5px 0 0 5px;
     }
 
