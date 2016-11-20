@@ -15,7 +15,7 @@
 
 
 {% block content %}
-    <form class="b-result" action="{% url "tournament:edit_round" tournament.id %} " method="post">
+    <form action="{% url "tournament:edit_round" tournament.id %} " method="post">
 
         {% if warning %}
             <div class="my_warning">

@@ -327,8 +327,8 @@ class MotionForm(forms.ModelForm):
         }
 
         widgets = {
-            'motion': forms.Textarea(attrs={'class': 'materialize-textarea'}),
-            'infoslide': forms.Textarea(attrs={'class': 'materialize-textarea'}),
+            'motion': forms.Textarea(attrs={'cols': '80', 'rows':'3'}),
+            'infoslide': forms.Textarea(attrs={'cols': '80', 'rows':'6'}),
         }
 
 
