@@ -34,11 +34,6 @@
     }
 
     input:checked + .button-group-item {
-        color: white;
-        background: $grey;
-
-        span {
-            color: white;
-        }
+        background: $button-gradient;
     }
 }
