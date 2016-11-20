@@ -1,3 +1,44 @@
+.button-group {
+    display: flex;
+    margin:10px 0;
+    font-size: 13px;
+
+    input {
+        display: none;
+    }
+
+    label {
+        font-weight: normal;
+        border-top: 1px solid $grey;
+        border-bottom: 1px solid $grey;
+        border-left: 1px solid $grey;
+        float: left;
+    }
+
+    label:last-child {
+        border-right: 1px solid $grey;
+        border-radius: 0 5px 5px 0;
+    }
+
+    label:first-child {
+        border-left: 1px solid $grey;
+        border-radius: 5px 0 0 5px;
+    }
+
+    .button-group-item {
+        cursor: pointer;
+        display: inline-block;
+        width: auto;
+        line-height: 1;
+        padding: .75em .8em;
+    }
+
+    input:checked + .button-group-item {
+        background: $button-gradient;
+    }
+}
+
+
 @mixin disclaimer {
     display: block;
     padding: 20px;
