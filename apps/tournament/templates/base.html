@@ -73,20 +73,22 @@
             <aside>
             <div class="b-sidebar" id="sidebar1">
 
-                    {% block sidebar1%}
+                {% block sidebar1%}
 
                 {% include 'account/sidebar.html' %}
 
-            {% endblock sidebar1 %}
+                {% endblock sidebar1 %}
             </div>
 
             {% block sidebar2%}
+
+                <a class="button" id="create_cup"
+                   onclick="yaCounter35208810.reachGoal('newBegin'); return true;"
+                   href="{% url 'tournament:new' %}">Создать турнир
+                </a>
+
             {% endblock sidebar2 %}
 
-            <a class="button" id="create_cup"
-               onclick="yaCounter35208810.reachGoal('newBegin'); return true;"
-               href="{% url 'tournament:new' %}">Создать турнир
-            </a>
 
             </aside>
 
