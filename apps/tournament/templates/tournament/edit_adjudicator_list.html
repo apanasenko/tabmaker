@@ -37,7 +37,7 @@
                 <div class="b-teamlist__wrapper">
                     <div class="b-teamlist__heading">
                         <h3><a href="{% url 'profile:main' rel.user.id%}">{{ rel.user|name }}</a></h3>
-                        <select class="roles"
+                        <select class="roles count-by-role__changestatus"
                                 onchange="update_status(
                                         '{% url 'tournament:update_adjudicator_role' tournament.id%}',
                                         this,
