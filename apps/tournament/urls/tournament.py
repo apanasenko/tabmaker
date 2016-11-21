@@ -82,7 +82,7 @@ urlpatterns = patterns(
         name='custom_form_edit_field'
     ),
     url(
-        r'^(?P<tournament_id>\d+)/(?P<form_type>(team|feedback|adjudicator|audience))/answers/form[/]$',
+        r'^(?P<tournament_id>\d+)/(?P<form_type>(team|feedback|adjudicator|audience))/form/answers[/]$',
         views.custom_form_show_answers,
         name='custom_form_answers'
     ),
