@@ -1132,7 +1132,7 @@ from apps.tournament.models import \
 
 @ensure_csrf_cookie
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='')  # TODO Добавить в таблицу
+@access_by_status(name_page='custom_questions')
 def custom_form_edit(request, tournament, form_type):
     custom_form_type = CUSTOM_FORM_TYPES[form_type]
     form = CustomForm.get_or_create(tournament, custom_form_type)
@@ -1154,7 +1154,7 @@ def custom_form_edit(request, tournament, form_type):
 @csrf_protect
 @ajax_request
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='')  # TODO Добавить в таблицу
+@access_by_status(name_page='custom_questions')
 def custom_form_edit_field(request, tournament):
     form_id = int(request.POST.get('form_id', '0'))
     action = request.POST.get('action', '')
@@ -1272,7 +1272,7 @@ def _form_down_field(request, form: CustomForm):
 
 
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='')  # TODO Добавить в таблицу
+@access_by_status(name_page='custom_answers')
 def custom_form_show_answers(request, tournament, form_type):
     custom_form_type = CUSTOM_FORM_TYPES[form_type]
     custom_form = get_object_or_404(CustomForm, tournament=tournament, form_type=custom_form_type)
