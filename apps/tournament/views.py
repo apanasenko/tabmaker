@@ -70,6 +70,8 @@ from django.db.models import Count, Q
 
 
 def access_by_status(name_page=None, only_owner=False):
+    # TODO Страницы в константы
+    # TODO Закешировать массив с уровнем доступа
     def decorator_maker(func):
 
         def check_access_to_page(request, tournament_id, *args, **kwargs):
@@ -779,7 +781,7 @@ def add_team(request, tournament):
 
 
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='team/adju. add')  # TODO добавить в таблицу
+@access_by_status(name_page='team/adju. add')
 def import_team(request, tournament):
     from apps.tournament.imports import TeamImportForm, ImportTeam
 
