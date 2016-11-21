@@ -54,7 +54,8 @@ class TeamRegistrationForm(forms.ModelForm):
 
 class TeamWithSpeakerRegistrationForm(TeamRegistrationForm):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, questions=None, *args, **kwargs):
+        # :questions: - Для единого интерфейса с CustomTeamRegistrationForm
         super(TeamRegistrationForm, self).__init__(*args, **kwargs)
         self.fields['speaker_1'].widget.attrs['readonly'] = True
         self.fields['speaker_1'].label = 'Ваш e-mail'
