@@ -116,7 +116,7 @@ class CustomTeamRegistrationForm(TeamWithSpeakerRegistrationForm, CustomForm):
     }
 
     def __init__(self, questions, *args, **kwargs):
-        super(CustomTeamRegistrationForm, self).__init__(*args, **kwargs)
+        super(CustomTeamRegistrationForm, self).__init__(questions, *args, **kwargs)
         self.init_custom_fields(questions)
 
 
