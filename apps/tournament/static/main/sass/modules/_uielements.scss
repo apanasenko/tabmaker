@@ -38,6 +38,38 @@
     }
 }
 
+.button-group-reverse {
+    display: flex;
+    margin:10px 0;
+    font-size: 13px;
+
+    input {
+        display: none;
+    }
+
+    label {
+        font-weight: normal;
+        float: left;
+    }
+
+    .button-group-item {
+        cursor: pointer;
+        display: inline-block;
+        width: auto;
+        line-height: 1;
+        padding: .75em .8em;
+        background: linear-gradient(to bottom, #2bcc5e, #27B758);
+        @include shadow;
+        border-radius: 4px;
+    }
+
+    input:checked + .button-group-item {
+        background: linear-gradient(to bottom, $dark-green, $dark-green);
+        box-shadow: none;
+        opacity:0.5;
+    }
+}
+
 .dropdown {
 
     .dropdown-container {

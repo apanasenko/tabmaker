@@ -1,10 +1,9 @@
 // редактировать раунд
 
 .b-result-room {
-	margin-bottom: 20px;
 
 	&__heading {
-		background-color: $beige;
+		background-color: $green;
 		padding: 10px;
     	box-sizing: content-box;
     	display: block;
@@ -79,12 +78,6 @@
 		}
 	}
 
-	&__teamresult {
-		font-weight: 600;
-		font-size: 17px;
-		margin-bottom: 5px;
-	}
-
 	&__teamresult, &__speaker1, &__speaker2, &__reverse {
 
 		p {
@@ -124,71 +117,66 @@
 
 .b-result {
 
-	&__confirm {
-		margin: 20px;
-		display: inline-block;
-	}
-
 	&-enter {
-		margin: 0 auto 20px 0;
+		margin: 20px;
+		@include shadow;
 
 		&__heading {
-			padding: 20px;
-			background-color: $beige;
-			display: block;
+			background-color: $light-green;
+			display: flex;
+			align-items: center;
 
-			h3 {
-				margin-left: 10px;
-				margin-bottom: 0;
-				display: inline-block;
+				h3 {
+					margin:0 0 0 10px;
+					color: white;
 			}
 		}
 
 		&__checkbox {
-			float: right;
-
-			@include respond-to(tablets) {
-		    	float: initial;
-		    	margin: 10px 0 0 10px;
-		    }
-
-		    @include respond-to(mobile) {
-		    	float: initial;
-		    	margin: 10px 0 0 10px;
-		    }
-
-			input, p, label {
-				display: inline;
-			}
+			margin: 10px;
 
 			input {
-				margin: 0 3px 0 0;
+				display: none;
+			}
+
+			span {
+				color: white;
 			}
 		}
 
-		&__games {
-			width: 100%;
+		&__room {
+			display: flex;
+			flex-wrap: wrap;
 		}
 
-		&__og, &__oo, &__cg, &__co {
-			box-sizing: border-box;
-			display: inline-block;
-			padding: 20px 0 0 20px;
-		    width: 49%;
+		&__team {
+			flex-grow: 1;
+			border-right: 1px solid $background-page;
+			border-bottom: 1px solid $background-page;
+			width:49%;
+			padding: 15px;
+    		box-sizing: border-box;
+		}
 
-		    @include respond-to(tablets) {
-		    	width: 100%;
-		    	display: block;
-		    	padding: 20px;
-		    	border-bottom: 1px solid $grey;
-		    }
+		&__position {
+			margin-bottom: 10px;
 
-			@include respond-to(mobile) {
-			    width: 100%;
-			    display: block;
-			    padding: 20px;
-			    border-bottom: 1px solid $grey;
+			p {
+				margin-bottom:5px;
 			}
+
+            input[type='number'] {
+                width:250px;
+            }
+
+            label {
+                display: inline-block;
+            }
 		}
+	}
+
+	&__confirm {
+		margin: 0 0 20px 20px;
+		display: inline-block;
 	}
 }
