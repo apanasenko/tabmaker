@@ -780,49 +780,49 @@ def add_team(request, tournament):
     )
 
 
-@login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='team/adju. add')
-def import_team(request, tournament):
-    from apps.tournament.imports import TeamImportForm, ImportTeam
-
-    message = ''
-    results = []
-    import_form = TeamImportForm(request.POST or None)
-    if request.method == 'POST' and import_form.is_valid():
-        imports = ImportTeam(import_form)
-        try:
-            imports.connect_to_worksheet()
-            imports.read_titles()
-            is_test = int(request.POST.get('is_test', '0')) == 1
-            results = imports.import_teams(tournament, is_test)
-
-        except Exception as ex:
-            message = str(ex)
-
-        if results:
-            return render(
-                request,
-                'tournament/import_results.html',
-                {
-                    'results': results,
-                    'tournament': tournament,
-                    'statuses': {
-                        'add': ImportTeam.STATUS_ADD,
-                        'exist': ImportTeam.STATUS_EXIST,
-                        'fail': ImportTeam.STATUS_FAIL,
-                    },
-                }
-            )
-
-    return render(
-        request,
-        'tournament/import_team_form.html',
-        {
-            'message': message,
-            'form': import_form,
-            'tournament': tournament,
-        }
-    )
+# @login_required(login_url=reverse_lazy('account_login'))
+# @access_by_status(name_page='team/adju. add')
+# def import_team(request, tournament):
+#     from apps.tournament.imports import TeamImportForm, ImportTeam
+#
+#     message = ''
+#     results = []
+#     import_form = TeamImportForm(request.POST or None)
+#     if request.method == 'POST' and import_form.is_valid():
+#         imports = ImportTeam(import_form)
+#         try:
+#             imports.connect_to_worksheet()
+#             imports.read_titles()
+#             is_test = int(request.POST.get('is_test', '0')) == 1
+#             results = imports.import_teams(tournament, is_test)
+#
+#         except Exception as ex:
+#             message = str(ex)
+#
+#         if results:
+#             return render(
+#                 request,
+#                 'tournament/import_results.html',
+#                 {
+#                     'results': results,
+#                     'tournament': tournament,
+#                     'statuses': {
+#                         'add': ImportTeam.STATUS_ADD,
+#                         'exist': ImportTeam.STATUS_EXIST,
+#                         'fail': ImportTeam.STATUS_FAIL,
+#                     },
+#                 }
+#             )
+#
+#     return render(
+#         request,
+#         'tournament/import_team_form.html',
+#         {
+#             'message': message,
+#             'form': import_form,
+#             'tournament': tournament,
+#         }
+#     )
 
 
 @ensure_csrf_cookie
