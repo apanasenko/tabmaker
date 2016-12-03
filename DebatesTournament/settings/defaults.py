@@ -24,10 +24,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    'apps.profile',
-    'apps.game',
-    'apps.motion',
-    'apps.team',
     'apps.tester',
     'apps.tournament',
 
@@ -95,4 +91,4 @@ MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 
 # Custom Auth model
 
-AUTH_USER_MODEL = 'profile.User'
+AUTH_USER_MODEL = 'tournament.User'

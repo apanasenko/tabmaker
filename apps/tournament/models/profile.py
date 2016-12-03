@@ -8,24 +8,17 @@ from django.template.loader import get_template
 
 
 class Country(models.Model):
-    class Meta:
-        app_label = 'profile'
-
     country_id = models.IntegerField(unique=True)
     name = models.CharField(max_length=100)
 
 
 class City(models.Model):
-    class Meta:
-        app_label = 'profile'
-
     city_id = models.IntegerField(unique=True)
     name = models.CharField(max_length=100)
 
 
 class University(models.Model):
     class Meta:
-        app_label = 'profile'
         unique_together = ('country', 'city', 'university_id')
 
     country = models.ForeignKey(to=Country)
@@ -35,9 +28,6 @@ class University(models.Model):
 
 
 class User(AbstractUser):
-    class Meta:
-        app_label = 'profile'
-
     university = models.ForeignKey(to=University, null=True)
     phone = models.CharField(max_length=15)
     link = models.CharField(max_length=100)
