@@ -974,7 +974,7 @@ def adjudicator_role_update(request, tournament):
 
 @ensure_csrf_cookie
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='admin edit', only_owner=True)
+@access_by_status(name_page='edit', only_owner=True)
 def list_admin(request, tournament: Tournament):
     return render(
         request,
@@ -990,7 +990,7 @@ def list_admin(request, tournament: Tournament):
 @csrf_protect
 @ajax_request
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='admin edit', only_owner=True)
+@access_by_status(name_page='edit', only_owner=True)
 def add_admin(request, tournament):
     user = User.objects.filter(email=request.POST.get('email', '')).first()
 
@@ -1016,7 +1016,7 @@ def add_admin(request, tournament):
 @csrf_protect
 @ajax_request
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='admin edit', only_owner=True)
+@access_by_status(name_page='edit', only_owner=True)
 def remove_admin(request, tournament):
     rel_id = request.POST.get('rel_id', '0')
     admin_rel = UserTournamentRel.objects.filter(pk=rel_id, role=ROLE_ADMIN).select_related('user')
@@ -1035,7 +1035,7 @@ def remove_admin(request, tournament):
 @csrf_protect
 @ajax_request
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='admin edit', only_owner=True)
+@access_by_status(name_page='edit', only_owner=True)
 def change_owner(request, tournament):
     owner_rel = UserTournamentRel.objects.filter(user=request.user, tournament=tournament, role=ROLE_OWNER)
     admin_rel = UserTournamentRel.objects.filter(pk=request.POST.get('rel_id', '0'))
@@ -1074,7 +1074,7 @@ def place_list(request, tournament):
 @csrf_protect
 @ajax_request
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='admin edit')
+@access_by_status(name_page='edit')
 def place_update(request, tournament):
     place_id = request.POST.get('place_id', '')
     is_active = request.POST.get('is_active', '').lower() == 'true'
@@ -1091,7 +1091,7 @@ def place_update(request, tournament):
 @csrf_protect
 @ajax_request
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='admin edit')
+@access_by_status(name_page='edit')
 def place_add(request, tournament):
     place_name = request.POST.get('place', '').strip()
     place = tournament.place_set.get_or_create(place=place_name, tournament=tournament)
@@ -1109,7 +1109,7 @@ def place_add(request, tournament):
 @csrf_protect
 @ajax_request
 @login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='admin edit')
+@access_by_status(name_page='edit')
 def place_remove(request, tournament):
     place_id = request.POST.get('id', '')
     if not tournament.place_set.filter(pk=place_id).exists():
