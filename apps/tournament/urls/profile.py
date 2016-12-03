@@ -1,11 +1,8 @@
-from django.conf.urls import \
-    patterns, \
-    url
+from django.conf.urls import url
 
 from apps.tournament import utils, views
 
-urlpatterns = patterns(
-    "",
+urlpatterns = [
     url(r"^(?P<user_id>\d+)[/]$", views.show_profile, name='main'),
     url(r"^(?P<user_id>\d+)/edit[/]$", views.edit_profile, name='edit'),
     url(r"^(?P<user_id>\d+)/tournaments[/]$", views.show_tournaments_of_user, name='tournaments'),
@@ -14,5 +11,5 @@ urlpatterns = patterns(
 
     url(r"^team/remove[/]$", utils.team_remove, name='team_remove'),
     url(r"^adjudicator/remove[/]$", utils.adjudicator_remove, name='adjudicator_remove'),
-)
+]
 

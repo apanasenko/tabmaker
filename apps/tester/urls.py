@@ -1,11 +1,8 @@
 from . import views
-from django.conf.urls import \
-    patterns, \
-    url
+from django.conf.urls import url
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(
         r'^generate/(?P<tournament_id>\d+)/results[/]$',
         views.generate_results
@@ -30,4 +27,4 @@ urlpatterns = patterns(
         r'^restart/(?P<tournament_id>\d+)[/]$',
         views.restart_tournament
     ),
-)
+]

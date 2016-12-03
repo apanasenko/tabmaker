@@ -1,12 +1,8 @@
-from django.views.generic import TemplateView
 from apps.tournament import views
-from django.conf.urls import \
-    patterns, \
-    url
+from django.conf.urls import url
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
 
     # Management of tournament
     url(r'^new[/]$', views.new, name='new'),
@@ -96,4 +92,4 @@ urlpatterns = patterns(
     #     TemplateView.as_view(template_name='tournament/custom_form_page.html'),
     #     name='custom_form_page'
     # ),
-)
+]

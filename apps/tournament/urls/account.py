@@ -2,14 +2,10 @@ from allauth.account import views as allauth_views
 from allauth.socialaccount.providers.google.urls import urlpatterns as google_urlpatterns
 # from allauth.socialaccount.providers.mailru.urls import urlpatterns as mailru_urlpatterns
 from allauth.socialaccount.urls import urlpatterns as socialaccount_urlpatterns
-from django.conf.urls import \
-    patterns, \
-    url, \
-    include
+from django.conf.urls import url, include
 
 
-urlpatterns = patterns(
-    "",
+urlpatterns = [
     url(r"^", include('apps.tournament.urls.profile', namespace='profile')),
     url(r"^signup/$", allauth_views.signup, name="account_signup"),
     url(r"^login/$", allauth_views.login, name="account_login"),
@@ -31,7 +27,7 @@ urlpatterns = patterns(
         allauth_views.password_reset_from_key_done,
         name="account_reset_password_from_key_done"
     ),
-)
+]
 
 urlpatterns += google_urlpatterns
 # urlpatterns += mailru_urlpatterns

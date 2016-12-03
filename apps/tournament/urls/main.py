@@ -1,9 +1,8 @@
 from django.views.generic import TemplateView
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from apps.tournament import views
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^faq[/]$', TemplateView.as_view(template_name='main/intro.html'), name='faq'),
     url(r'^help[/]$', TemplateView.as_view(template_name='main/intro.html'), name='help'),
@@ -12,4 +11,4 @@ urlpatterns = patterns(
     url(r'^news[/]$', TemplateView.as_view(template_name='main/news.html'), name='news'),
     url(r'^thanks[/]$', TemplateView.as_view(template_name='main/thanks.html'), name='thanks'),
     url(r'^feedback[/]$', views.feedback, name='feedback'),
-)
+]
