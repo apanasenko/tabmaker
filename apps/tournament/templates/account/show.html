@@ -4,9 +4,9 @@
 
 {% block page_title %}
     {% if is_owner %}
-        <h3>Мой профиль</h3>
+        Мой профиль
     {% else %}
-        <h3>{{ user|name }}</h3>
+        {{ user|name }}
     {% endif %}
 
 {% endblock page_title %}

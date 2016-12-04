@@ -57,6 +57,29 @@ i {
 	a {
 		color: white;
 	}
+
+	&__createcup {
+        margin-left: 20px;
+        margin-bottom: 20px;
+        background-color: $green;
+        font-weight: bold;
+        font-size: 15px;
+        border-radius: 4px;
+
+        @include respond-to(mobile) {
+            margin:5px;
+            font-size: 13px;
+            padding:5px 8px;
+            color: white;
+        }
+
+        @include respond-to(tablets) {
+            margin:5px;
+            font-size: 13px;
+            padding:5px 8px;
+            color: white;
+        }
+    }
 }
 
 .page_wrapper {

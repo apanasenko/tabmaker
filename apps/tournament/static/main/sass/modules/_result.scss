@@ -1,7 +1,7 @@
 // редактировать раунд
 
 .b-result-show {
-	margin: 20px;
+	margin: 0 0 10px 0;
 	@include shadow;
 
 	&__heading {
@@ -11,6 +11,14 @@
 		box-sizing: content-box;
 		display: block;
 		margin: 0;
+
+		@include respond-to(mobile) {
+			font-size: 16px;
+		}
+
+		@include respond-to(tablets) {
+			font-size: 16px;
+		}
 	}
 
 	&__room {
@@ -26,8 +34,20 @@
 		padding: 15px;
 		box-sizing: border-box;
 
+		@include respond-to(mobile) {
+			width:100%;
+		}
+
 		h3 {
 			margin: 0 0 5px 0;
+
+			@include respond-to(mobile) {
+				font-size: 16px;
+			}
+
+			@include respond-to(tablets) {
+				font-size: 16px;
+			}
 		}
 
 		p {
@@ -42,7 +62,7 @@
 .b-result {
 
 	&-enter {
-		margin: 20px;
+		margin: 10px 0 0 0;
 		@include shadow;
 
 		&__heading {
@@ -50,9 +70,17 @@
 			display: flex;
 			align-items: center;
 
-				h3 {
-					margin:0 0 0 10px;
-					color: white;
+			h3 {
+				margin:0 0 0 10px;
+				color: white;
+
+				@include respond-to(mobile) {
+					font-size: 16px;
+				}
+
+				@include respond-to(tablets) {
+					font-size: 16px;
+				}
 			}
 		}
 
@@ -80,6 +108,15 @@
 			width:49%;
 			padding: 15px;
     		box-sizing: border-box;
+
+			@include respond-to(mobile) {
+				width:100%;
+				font-size: 14px;
+			}
+
+			h3 {
+				font-size: 16px;
+			}
 		}
 
 		&__position {
@@ -100,7 +137,7 @@
 	}
 
 	&__confirm {
-		margin: 0 0 20px 20px;
+		margin: 20px;
 		display: inline-block;
 	}
 }

@@ -26,22 +26,45 @@ aside {
 	&__heading {
 		margin: 10px 0 15px 20px;
         color: white;
+
+		@include respond-to(mobile) {
+			font-size: 14px;
+			margin: 10px;
+		}
+
+		@include respond-to(tablets) {
+			font-size: 16px;
+		}
 	}
 
 	&__listitem {
 		display: block;
 		padding: 8px 20px;
 		box-sizing: border-box;
+		width:100%;
 
 		@include respond-to(tablets) {
 			display: inline-block;
     		padding: 8px 16px;
 		}
 
+		@include respond-to(mobile) {
+			display: inline-block;
+    		padding: 8px 8px;
+		}
+
 		a {
 			display: block;
 			color: $grey;
 			font-weight: 700;
+
+			@include respond-to(mobile) {
+				font-size: 12px;
+			}
+
+			@include respond-to(tablets) {
+				font-size: 12px;
+			}
 		}
 
 		&:hover {
@@ -66,25 +89,5 @@ aside {
 
 	@include respond-to(tablets) {
 		margin: 0;
-	}
-}
-
-#create_cup {
-	margin-left: 20px;
-	margin-bottom: 20px;
-	background-color: $green;
-	font-weight: bold;
-	font-size: 15px;
-	border-radius: 4px;
-}
-
-.aside-right {
-	display: none;
-
-	@include respond-to(desctop) {
-		display: inline-block;
-		background-color: none;
-		width: 19%;
-		min-width: 250px;
 	}
 }
