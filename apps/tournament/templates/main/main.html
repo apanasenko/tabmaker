@@ -1,13 +1,11 @@
 {% extends "main/base.html" %}
 
 {% block page_title %}
-    <h3 class="header-container__title">
     {% if is_owner %}
         Мои турниры
     {% else %}
         Турниры
     {% endif %}
-    </h3>
 {% endblock page_title %}
 
 {% block content %}

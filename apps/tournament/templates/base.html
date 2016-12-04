@@ -58,7 +58,9 @@
                 <div class="header-container">
                     <a href="/"><i class="fa fa-home home-icon"></i></a>
                     <i class="fa fa-bars burger-icon"></i>
-                    {% block page_title %} <h3 class="header-container__title">Название страницы</h3>{% endblock page_title %}
+                    <h3 class="header-container__title">
+                        {% block page_title %} Название страницы{% endblock page_title %}
+                    </h3>
                 </div>
             {% endblock header %}
         </header>
