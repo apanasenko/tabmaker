@@ -1,7 +1,7 @@
 // редактировать раунд
 
 .b-result-show {
-	margin: 0 0 10px 0;
+	margin: 0 0 15px 0;
 	@include shadow;
 
 	&__heading {
@@ -62,7 +62,7 @@
 .b-result {
 
 	&-enter {
-		margin: 10px 0 0 0;
+		margin: 0 0 15px 0;
 		@include shadow;
 
 		&__heading {
