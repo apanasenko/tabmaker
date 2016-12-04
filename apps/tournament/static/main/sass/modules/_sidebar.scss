@@ -3,14 +3,6 @@ aside {
 	width: 250px;
 	vertical-align: top;
 	background-color: $deep-dark;
-
-	@include respond-to(mobile) {
-		width: 100%;
-	}
-
-	@include respond-to(tablets) {
-		width: 100%;
-	}
 }
 
 .b-sidebar {
