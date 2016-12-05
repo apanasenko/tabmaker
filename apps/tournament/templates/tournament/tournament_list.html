@@ -1,44 +1,32 @@
 {% load tournament_extras %}
 
 {% for tournament in objects %}
-    <li class="b-tournamentlist-item">
+    <li class="list">
 
-        <div class="b-tournamentlist-current">
-            <h3 class="b-tournamentlist-current__heading">
+        <div class="list-item">
+            <h3 class="list-item__heading">
                 <a href="{% url 'tournament:show' tournament.id %}">{{ tournament.name }}</a>
             </h3>
 
-            <ul>
-
-                {% if tournament|is_status_registration %}
-
-                    <li>
-                        <p class="b-tournamentlist-current__registration">Регистрация до {{ tournament.close_reg|date:"d E"}}</p>
-                    </li>
-
-                {% elif tournament|is_status_preparation %}
-
-                    <li>
-                        <p class="b-tournamentlist-current__registration">Регистрация закрыта</p>
-                    </li>
-
-                {% elif tournament|is_status_started or tournament|is_status_playoff%}
-
-                    <li class="b-tournamentlist-current__result">
-                        <a href="{% url "tournament:show_round" tournament.id %}"><i class="fa fa-trophy"></i>Текущий раунд</a>
-                    </li>
-
-                {% else %}
-                    <li class="b-tournamentlist-current__result">
-                        <a href="{% url "tournament:result" tournament.id %}"><i class="fa fa-trophy"></i>Результаты</a>
-                    </li>
-                {% endif %}
-
-                <li class="b-tournamentlist-current__about"><i class="fa fa-compass"></i>{{ tournament|address }}</li>
-                <li class="b-tournamentlist-current__about"><i class="fa fa-calendar"></i>{{ tournament.start_tour|date:"d E Y"}}</li>
-                <li class="b-tournamentlist-current__about"><i class="fa fa-users"></i>{{ tournament.m_count }} заявок</li>
-
+            <ul class="list-item__block">
+                <li class="list-item__block--item"><i class="fa fa-calendar"></i>{{ tournament.start_tour|date:"d E Y"}}</li>
+                <li class="list-item__block--item"><i class="fa fa-compass"></i>{{ tournament|address }}</li>
             </ul>
+
+            {% if tournament|is_status_registration %}
+
+                <a class="list-item__button" href="{% url "tournament:registration_team" tournament.id %}"><i class="fa fa-trophy"></i>Участвовать</a>
+                <a class="list-item__button" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
+
+            {% elif tournament|is_status_started or tournament|is_status_playoff%}
+
+                <a class="list-item__button" href="{% url "tournament:show_round" tournament.id %}"><i class="fa fa-trophy"></i>Текущий раунд</a>
+
+            {% else %}
+
+                <a class="list-item__button" href="{% url "tournament:result" tournament.id %}"><i class="fa fa-trophy"></i>Результаты</a>
+
+            {% endif %}
         </div>
 
     </li>

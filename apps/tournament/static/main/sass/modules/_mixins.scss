@@ -51,11 +51,13 @@ $desctop: 1365px;
 	display: inline-block;
 	padding: 6px 12px;
 	border-radius: 6px;
-	color: $grey;
+	color: $dark;
 	font-size: 14px;
 	min-height: 20px;
 	box-sizing: border-box;
-	border: 1px solid $grey;
+	border: 1px solid $dark;
+	background-color: white;
+    height:30px;
 
 	&:hover {
 		border: 1px solid $dark;
