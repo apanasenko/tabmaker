@@ -1,5 +1,6 @@
 {# страница для элементов интерфейса, должна показываться только в режиме дебага, не должно быть на проде #}
 {% extends "main/base.html" %}
+{% load staticfiles %}
 
 {% if not debug %}
 
@@ -134,7 +135,7 @@
                 <h3 class="form-section__heading">Выбор даты</h3>
 
                 <div class="form-elem">
-
+                    <input type='time' class="datepicker">
                 </div>
 
             </div>
@@ -144,7 +145,7 @@
                 <h3 class="form-section__heading">Выбор времени</h3>
 
                 <div class="form-elem">
-
+                    <input type='time' class="timepicker">
                 </div>
 
             </div>
@@ -158,7 +159,6 @@
                 </div>
 
             </div>
-
 
         </div>
 
