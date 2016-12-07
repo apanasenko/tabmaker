@@ -14,17 +14,30 @@
 
                 <ul class="b-tournamentlist-current__column_third">
                     <li class="b-tournamentlist-current__about_block">
-                        <a class="tournamentlist" href="{% url 'profile:main' object.team.speaker_1.id %}">{{ object.team.speaker_1|name }}</a></li>
+                        <a class="tournamentlist" href="{% url 'profile:main' object.team.speaker_1.id %}">
+                            {{ object.team.speaker_1|name }}
+                        </a>
+                    </li>
                     <li class="b-tournamentlist-current__about_block">
-                        <a class="tournamentlist" href="{% url 'profile:main' object.team.speaker_2.id %}">{{ object.team.speaker_2|name }}</a>
+                        <a class="tournamentlist" href="{% url 'profile:main' object.team.speaker_2.id %}">
+                            {{ object.team.speaker_2|name }}
+                        </a>
                     </li>
                 </ul>
 
                 <div class="b-tournamentlist-current__column_twothird b-tournamentlist-current__column_rightcolumn">
-                    {% if object.rel %}
-                    <span><a class="b-tournamentlist-current__registration_mine tournamentlist" href="{% url 'tournament:show' object.rel.tournament.id %}">{{ object.rel.tournament.name }}<span class="nolink"> – {{ object.rel.role.role }}</a></span></span>
+                    {% if object.tournament %}
+                    <span>
+                        <a class="b-tournamentlist-current__registration_mine tournamentlist"
+                           href="{% url 'tournament:show' object.tournament.id %}"
+                        >
+                            {{ object.tournament.name }} <span class="nolink"> – {{ object.role.role }}</span>
+                        </a>
+                    </span>
                     {% else %}
-                    <span><span class="nolink"><p class="b-tournamentlist-current__registration_mine">Эта команда не зарегистрирована в турнире</p></span></span>
+                    <span><span class="nolink"><p class="b-tournamentlist-current__registration_mine">
+                        Эта команда не зарегистрирована в турнире
+                    </p></span></span>
                     {% endif %}
                 </div>
 
