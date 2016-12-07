@@ -15,19 +15,19 @@ from apps.tournament.models import \
 class TournamentForm(forms.ModelForm):
 
     open_reg_date = forms.DateField(
-        widget=forms.DateInput(attrs={'class': 'datepicker tournament-new__date', 'type': 'date', 'placeholder': 'Дата'}), label=u'Дата открытия регистрации')
+        widget=forms.DateInput(attrs={'class': 'datepicker form-elem__input', 'type': 'date', 'placeholder': 'Дата'}), label=u'Дата открытия регистрации')
     open_reg_time = forms.TimeField(
-        widget=forms.DateInput(attrs={'class': 'timepicker tournament-new__time', 'type': 'time', 'placeholder': 'Время'}), label=u'Время открытия регистрации')
+        widget=forms.DateInput(attrs={'class': 'timepicker form-elem__input', 'type': 'time', 'placeholder': 'Время'}), label=u'Время открытия регистрации')
 
     close_reg_date = forms.DateField(
-        widget=forms.DateInput(attrs={'class': 'datepicker tournament-new__date', 'type': 'date', 'placeholder': 'Дата'}), label=u'Дата закрытия регистрации')
+        widget=forms.DateInput(attrs={'class': 'datepicker form-elem__input', 'type': 'date', 'placeholder': 'Дата'}), label=u'Дата закрытия регистрации')
     close_reg_time = forms.TimeField(
-        widget=forms.DateInput(attrs={'class': 'timepicker tournament-new__time', 'type': 'time', 'placeholder': 'Время'}), label=u'Время закрытия регистрации')
+        widget=forms.DateInput(attrs={'class': 'timepicker form-elem__input', 'type': 'time', 'placeholder': 'Время'}), label=u'Время закрытия регистрации')
 
     start_tour_date = forms.DateField(
-        widget=forms.DateInput(attrs={'class': 'datepicker tournament-new__date', 'type': 'date', 'placeholder': 'Дата'}), label=u'Дата начала турнира')
+        widget=forms.DateInput(attrs={'class': 'datepicker form-elem__input', 'type': 'date', 'placeholder': 'Дата'}), label=u'Дата начала турнира')
     start_tour_time = forms.TimeField(
-        widget=forms.DateInput(attrs={'class': 'timepicker tournament-new__time', 'type': 'time', 'placeholder': 'Время'}), label=u'Время начала турнира')
+        widget=forms.DateInput(attrs={'class': 'timepicker form-elem__input', 'type': 'time', 'placeholder': 'Время'}), label=u'Время начала турнира')
 
     class Meta:
         model = Tournament
@@ -44,19 +44,19 @@ class TournamentForm(forms.ModelForm):
         ]
 
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'validate', 'placeholder': 'Название'}),
+            'name': forms.TextInput(attrs={'class': 'validate form-elem__input'}),
             'location': forms.TextInput(attrs={
-                'class': 'validate',
+                'class': 'validate form-elem__input',
                 'placeholder': 'Укажите место на карте',
                 'readonly': 'True',
             }),
             'location_lon': forms.HiddenInput(),
             'location_lat': forms.HiddenInput(),
-            'count_rounds': forms.NumberInput(attrs={'min': '0', 'placeholder': 'Количество отборочных', 'class': 'tournament-new__count'}),
-            'count_teams': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Максимум команд', 'class': 'tournament-new__count'}),
-            'count_teams_in_break': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Выходят в плей-офф', 'class': 'tournament-new__count'}),
-            'link': forms.URLInput(attrs={'class': 'validate', 'placeholder': 'Cсылка в социальных сетях'}),
-            'info': forms.Textarea(attrs={'placeholder': 'О турнире', 'rows': '5'}),
+            'count_rounds': forms.NumberInput(attrs={'min': '0', 'placeholder': 'Количество отборочных', 'class': 'form-elem__input'}),
+            'count_teams': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Максимум команд', 'class': 'form-elem__input'}),
+            'count_teams_in_break': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Выходят в плей-офф', 'class': 'form-elem__input'}),
+            'link': forms.URLInput(attrs={'class': 'validate form-elem__input', 'placeholder': 'Cсылка в социальных сетях'}),
+            'info': forms.Textarea(attrs={'class': 'validate form-elem__area', 'placeholder': 'О турнире'}),
         }
 
         labels = {
