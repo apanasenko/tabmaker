@@ -1,8 +1,5 @@
-import os
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -21,7 +18,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.mailru',
 
     'modeltranslation',
-)
+]
 
 TEMPLATES = [
     {
@@ -43,7 +40,7 @@ TEMPLATES = [
     },
 ]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -52,7 +49,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.common.BrokenLinkEmailsMiddleware',
-)
+]
 
 ROOT_URLCONF = 'DebatesTournament.urls'
 
@@ -65,8 +62,6 @@ TIME_ZONE = 'Asia/Vladivostok'
 USE_I18N = True
 
 USE_L10N = True
-
-USE_TZ = False
 
 LANGUAGES = (
     ('ru', 'Russian'),
