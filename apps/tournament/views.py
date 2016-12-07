@@ -9,7 +9,7 @@ from datetime import date, timedelta
 # from apps.tournament.utils import paging
 
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import \
+from django.urls import \
     reverse_lazy, \
     reverse
 from django.http import \
