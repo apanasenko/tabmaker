@@ -492,7 +492,7 @@ def generate_break(request, tournament):
     teams = []
     for i in range(len(tab)):
         if request.method == 'POST':
-            form = CheckboxForm(request.POST, prefix=i)
+            form = CheckboxForm(request.POST, prefix=i, use_required_attribute=False)
             if form.is_valid() and form.cleaned_data.get('is_check', False):
                 teams_in_break.append(tab[i].team)
         else:
@@ -501,7 +501,8 @@ def generate_break(request, tournament):
                     'id': tab[i].team.id,
                     'is_check': i < tournament.count_teams_in_break
                 },
-                prefix=i
+                prefix=i,
+                use_required_attribute=False
             )
         teams.append({
             'checkbox': form,
