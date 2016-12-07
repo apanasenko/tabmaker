@@ -1307,7 +1307,7 @@ def show_profile(request, user_id):
             users = users.select_related(name)
         user = users.get(pk=user_id)
     except ObjectDoesNotExist:
-        raise Http404('User with id %d not exist' % user_id)
+        raise Http404('User with id %s not exist' % user_id)
 
     teams_rel = TeamTournamentRel.objects.filter(Q(team__speaker_1=user) | Q(team__speaker_2=user))
     for name in ['role', 'team__speaker_2', 'team__speaker_1', 'tournament']:
