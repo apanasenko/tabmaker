@@ -1,3 +1,39 @@
+// buttons
+
+.button {
+	@include button;
+	background-color: $deep-dark;
+
+	a {
+		color: white;
+	}
+
+	&__createcup {
+        margin-left: 20px;
+        margin-bottom: 20px;
+        background-color: $green;
+        font-weight: bold;
+        font-size: 15px;
+        border-radius: 4px;
+		color: white;
+		padding: 8px 10px;
+
+        @include respond-to(mobile) {
+            margin:5px;
+            font-size: 13px;
+            padding:5px 8px;
+            color: white;
+        }
+
+        @include respond-to(tablets) {
+            margin:5px;
+            font-size: 13px;
+            padding:5px 8px;
+            color: white;
+        }
+    }
+}
+
 .button-group {
     display: flex;
     margin:10px 0;
@@ -38,6 +74,41 @@
     }
 }
 
+.button-group-reverse {
+    display: flex;
+    margin:10px 0;
+    font-size: 13px;
+
+    input {
+        display: none;
+    }
+
+    label {
+        font-weight: normal;
+        float: left;
+    }
+
+    .button-group-item {
+        cursor: pointer;
+        display: inline-block;
+        width: auto;
+        line-height: 1;
+        padding: .75em .8em;
+        background: linear-gradient(to bottom, #2bcc5e, #27B758);
+        @include shadow;
+        border-radius: 4px;
+    }
+
+    input:checked + .button-group-item {
+        background: linear-gradient(to bottom, $dark-green, $dark-green);
+        box-shadow: none;
+        opacity:0.5;
+    }
+}
+
+
+// dropdowns
+
 .dropdown {
 
     .dropdown-container {
@@ -61,7 +132,7 @@
             margin: 0 0 0 3px;
             color: $grey;
         }
-  }
+    }
 
     .dropdown-button:after {
         display: block;
@@ -90,9 +161,9 @@
         }
     }
 
-  .show-menu {
-    display: block;
-  }
+    .show-menu {
+        display: block;
+    }
 }
 
 

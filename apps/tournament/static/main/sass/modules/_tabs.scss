@@ -8,8 +8,14 @@
   		text-align: center;
   		color: $grey;
 
+		@include respond-to(tablets) {
+            padding: 15px 7px;
+			font-size: 14px;
+        }
+
         @include respond-to(mobile) {
             padding: 15px 7px;
+			font-size: 12px;
         }
 	}
 
@@ -24,7 +30,6 @@
 	&__input:checked + label {
 		background-color: $green;
 		color: white;
-		border-bottom: 1px solid $green;
 		height: 15px;
 	}
 

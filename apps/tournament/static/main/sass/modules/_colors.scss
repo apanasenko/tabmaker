@@ -1,8 +1,8 @@
 $background-page: #ECEEF1;
 $background-block: #ffffff;
 $hovergrey: #F6F6F6;
-$green: #0D8153;
-$dark-green: #055F3B;
+$green: #27b758;
+$dark-green: #054b2b;
 $light-green: #189A66;
 $deep-dark: #0C152A;
 $dark: #58697A;
@@ -10,7 +10,7 @@ $grey: #aeb8bc;
 $hover: #FEFFD9;
 $lightbeige: #FDFDEE;
 $buttondark: #424E5A;
-$activetab: #FF6301;
+$orange: #ffa312;
 
 $lightbeige: #EBE8E3;
 $beige: #E2DFDA;
@@ -22,4 +22,5 @@ $error_message: #ff706d;
 $warning_message: #ffe837;
 
 $button-gradient: linear-gradient(to bottom,#fff,#eee);
+$green-gradient: linear-gradient(to bottom, $light-green, $dark-green);
 $button-backgroud: #f7f7f7;

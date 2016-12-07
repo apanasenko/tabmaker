@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<form class="b-form b-feedback" action="{% url "main:feedback" %}" method="post">
+<form class="b-form content-formpage" action="{% url "main:feedback" %}" method="post">
     {% csrf_token %}
     <div class="b-form-item">
         <h1>Как нам улучшить Tabmaker?</h1>

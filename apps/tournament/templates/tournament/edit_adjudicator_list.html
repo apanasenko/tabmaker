@@ -19,6 +19,7 @@
 
 {% block content %}
 
+    <div class="content-textpage">
     <li class="count-by-role__buttons">
         <a class="button count-by-role__button"
            href="{% url 'tournament:custom_form_edit' tournament.id 'adjudicator' %}"
@@ -83,6 +84,7 @@
         </button>
     {% endif %}
 
+    </div>
     </div>
 
 {% endblock content %}

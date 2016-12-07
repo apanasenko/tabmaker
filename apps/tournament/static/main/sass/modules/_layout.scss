@@ -50,15 +50,6 @@ i {
 	margin-bottom: 2px;
 }
 
-.button {
-	@include button;
-	background-color: $deep-dark;
-
-	a {
-		color: white;
-	}
-}
-
 .page_wrapper {
 	display: flex;
     flex-direction: column;
@@ -70,7 +61,7 @@ i {
     height: 100%;
 
 	@include respond-to(mobile) {
-    	padding: 70px 0 0 0 !important;
+    	padding: 60px 0 0 0 !important;
 	}
 
 	@include respond-to(tablets) {
@@ -92,13 +83,11 @@ i {
 
 	@include respond-to(mobile) {
 		width: 100%;
-		margin: 10px 0;
 		overflow-y: auto;
 	}
 
 	@include respond-to(tablets) {
 		width: 100%;
-		margin: 10px 0;
 		overflow-y: auto;
 	}
 
