@@ -1,13 +1,169 @@
-{# страница для элементов интерфейса #}
-{# Эта страница нужна? если нет, то нужно удалить #}
+{# страница для элементов интерфейса, должна показываться только в режиме дебага, не должно быть на проде #}
+{% extends "main/base.html" %}
+{% load staticfiles %}
 
-<div class="b-banner-red">
-    <p class="b-banner__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse, harum tempora. Dolor autem distinctio, vitae, temporibus</p>
-    <a class="button b-banner__button">Кнопка</a>
-    <i class="fa fa-times b-banner__close"></i>
-</div>
+{% if not debug %}
 
-<div class="b-window-green">
-    <i class="fa fa-times b-window__close"></i>
-    <p class="b-window__text">Lorem ipsum dolor sit amet, consectetur</p>
-</div>
+    {% block content %}
+
+        <div class="content-formpage">
+
+            <div class="form-section">
+
+                <h3 class="form-section__heading">Заголовок секции</h3>
+                <p class="form-section__subheading">
+                    lorem ipsum dolores lorem ipsum dolores lorem ipsum dolores lorem ipsum dolores
+                    lorem ipsum dolores lorem ipsum dolores lorem ipsum dolores
+                </p>
+
+                <div class="form-elem form-elem--min form-elem--disabled">
+                    <label for="" class="form-elem__label">Название вопроса 1</label>
+                    <input type="text" class="form-elem__input">
+                    <p class="form-elem__description">lorem ipsum dolores lorem ipsum dolores loremipsum dolores lorem ipsum dolores
+                    lorem ipsum dolores lorem ipsum dolores lorem ipsum dolores</p>
+                    <p class="form-elem--error">lorem ipsum dolores lorem ipsum dolores loremipsum dolores lorem ipsum dolores
+                    lorem ipsum dolores lorem ipsum dolores lorem ipsum dolores</p>
+                </div>
+
+                <div class="form-elem ">
+                    <label for="" class="form-elem__label">Название вопроса</label>
+                    <div class="form-elem--max">
+                        <input type="text" class="form-elem__input">
+                        <input type="text" class="form-elem__input">
+                        <input type="text" class="form-elem__input">
+                        <input type="text" class="form-elem__input">
+                    </div>
+                    <p class="form-elem__description">lorem ipsum dolores lorem ipsum dolores loremipsum dolores lorem ipsum dolores
+                    lorem ipsum dolores lorem ipsum dolores lorem ipsum dolores</p>
+                </div>
+
+                <div class="form-elem form-elem--max">
+                    <label for="" class="form-elem__label">Название вопроса</label>
+                    <input type="text" class="form-elem__input">
+                    <p class="form-elem__description">lorem ipsum dolores lorem ipsum dolores loremipsum dolores lorem ipsum dolores
+                    lorem ipsum dolores lorem ipsum dolores lorem ipsum dolores</p>
+                </div>
+
+            </div>
+
+            <div class="form-section">
+
+                <h3 class="form-section__heading">Заголовок секции</h3>
+                <p class="form-section__subheading">
+                    lorem ipsum dolores lorem ipsum dolores lorem ipsum dolores lorem ipsum dolores
+                    lorem ipsum dolores lorem ipsum dolores lorem ipsum dolores
+                </p>
+
+                <div class="form-elem form-elem--max">
+                    <label for="" class="form-elem__label">Название вопроса</label>
+
+                    <label for="1" class="form-elem__radio">
+                        <input id='1' type="radio">
+                        Название вопроса
+                    </label>
+
+                    <label for="1" class="form-elem__radio">
+                        <input id='1' type="radio">
+                        Название вопроса
+                    </label>
+
+                    <label for="1" class="form-elem__radio">
+                        <input id='1' type="radio">
+                        Название вопроса
+                    </label>
+
+                </div>
+
+                <div class="form-elem form-elem--min">
+                    <label for="" class="form-elem__label">Название вопроса</label>
+
+                    <label for="1" class="form-elem__radio">
+                        <input id='1' type="checkbox">
+                        Название вопроса
+                    </label>
+
+                    <label for="1" class="form-elem__radio">
+                        <input id='1' type="checkbox">
+                        Название вопроса
+                    </label>
+
+                    <label for="1" class="form-elem__radio">
+                        <input id='1' type="checkbox">
+                        Название вопроса
+                    </label>
+
+                </div>
+
+
+            </div>
+
+            <div class="form-section">
+
+                <h3 class="form-section__heading">Заголовок секции</h3>
+
+                <div class="form-elem form-elem--min">
+                    <textarea class="form-elem__area"></textarea>
+                </div>
+
+                <div class="form-elem form-elem--mid">
+                    <textarea class="form-elem__area form-elem__area--short"></textarea>
+                </div>
+
+                <div class="form-elem form-elem--max">
+                    <textarea class="form-elem__area form-elem__area--short"></textarea>
+                </div>
+
+            </div>
+
+            <div class="form-section">
+
+                <h3 class="form-section__heading">Выбор из нескольких опций</h3>
+
+                <div class="form-elem">
+                    <select class="form-elem__select" name="" id="select">
+                        <option class="form-elem__option" value="1">1</option>
+                        <option class="form-elem__option" value="2">2</option>
+                        <option class="form-elem__option" value="3">3</option>
+                        <option class="form-elem__option" value="4">4</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="form-section">
+
+                <h3 class="form-section__heading">Выбор даты</h3>
+
+                <div class="form-elem">
+                    <input type='time' class="datepicker">
+                </div>
+
+            </div>
+
+            <div class="form-section">
+
+                <h3 class="form-section__heading">Выбор времени</h3>
+
+                <div class="form-elem">
+                    <input type='time' class="timepicker">
+                </div>
+
+            </div>
+
+            <div class="form-section">
+
+                <h3 class="form-section__heading">Выбор количества</h3>
+
+                <div class="form-elem">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    {% endblock content %}
+
+
+{% endif %}
+

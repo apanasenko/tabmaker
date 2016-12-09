@@ -1,48 +1,52 @@
 {% csrf_token %}
 {{ form.non_field_errors }}
 
-<div class="b-form-item" id="tournamentName">
-    <h3 class="b-form-item__heading">Название турнира</h3>
+<div class="form-elem form-elem--max" id="tournamentName">
+    <label class="form-elem__label">Название турнира</label>
     {{ form.name }}
-    {{ form.name.errors }}
+    <p class="form-elem--error">{{ form.name.errors }}</p>
 </div>
 
-<div class="b-form-item" id="address">
-    <h3 class="b-form-item__heading">Место проведения</h3>
+<div class="form-elem form-elem--max" id="address">
+    <label class="form-elem__label">Место проведения</label>
     {{ form.location }}
     {{ form.location.errors }}
     {{ form.location_lon }} {# Hidden #}
     {{ form.location_lat }} {# Hidden #}
-     <div id="map" class="b-form-item__map" style="height: 200px"></div>
+    <div id="map" class="form-elem__map" style="height: 200px"></div>
 </div>
 
-<div class="b-form-item" id="regdateOpen">
-    <h3 class="b-form-item__heading">Открытие регистрации</h3>
-    {{ form.open_reg_date }}
-    {{ form.open_reg_date.errors }}
-    {{ form.open_reg_time }}
-    {{ form.open_reg_time.errors }}
+<div class="form-elem form-elem--inline">
+
+    <div class="form-elem form-elem--min" id="regdateOpen">
+        <label class="form-elem__label">Открытие регистрации</label>
+        {{ form.open_reg_date }}
+        {{ form.open_reg_date.errors }}
+        {{ form.open_reg_time }}
+        {{ form.open_reg_time.errors }}
+    </div>
+
+    <div class="form-elem form-elem--min" id="regdateClose">
+        <label class="form-elem__label">Закрытие регистрации</label>
+        {{ form.close_reg_date }}
+        {{ form.close_reg_date.errors }}
+        {{ form.close_reg_time }}
+        {{ form.close_reg_time.errors }}
+    </div>
+
+    <div class="form-elem form-elem--min" id="tournamentDate">
+        <label class="form-elem__label">Начало турнира</label>
+        {{ form.start_tour_date }}
+        {{ form.start_tour_date.errors }}
+        {{ form.start_tour_time }}
+        {{ form.start_tour_time.errors }}
+    </div>
+
 </div>
 
-<div class="b-form-item" id="regdateClose">
-    <h3 class="b-form-item__heading">Закрытие регистрации</h3>
-    {{ form.close_reg_date }}
-    {{ form.close_reg_date.errors }}
-    {{ form.close_reg_time }}
-    {{ form.close_reg_time.errors }}
-</div>
-
-<div class="b-form-item" id="tournamentDate">
-    <h3 class="b-form-item__heading">Начало турнира</h3>
-    {{ form.start_tour_date }}
-    {{ form.start_tour_date.errors }}
-    {{ form.start_tour_time }}
-    {{ form.start_tour_time.errors }}
-</div>
-
-<div class="b-form-item">
-    <h3 class="b-form-item__heading">Параметры турнира</h3>
-    <div class="b-form-item__wrapper b-form-item">
+<div class="form-elem form-elem--max">
+    <label class="form-elem__label">Параметры турнира</label>
+    <div class="form-elem form-elem--inline">
         {{ form.count_rounds }}
         {{ form.count_teams }}
         {{ form.count_teams_in_break }}
@@ -50,10 +54,12 @@
     {{ form.count_teams.errors }}
     {{ form.count_rounds.errors }}
     {{ form.count_teams_in_break.errors }}
-    <div class="b-form-item__wrapper b-form-item">
+    <div class="form-elem form-elem--max">
         {{ form.info }}
-        {{ form.link }}
     </div>
     {{ form.info.errors }}
+    <div class="form-elem form-elem--maх">
+        {{ form.link }}
+    </div>
     {{ form.link.errors }}
 </div>

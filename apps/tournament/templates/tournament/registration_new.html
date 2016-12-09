@@ -6,7 +6,8 @@
 
 {% block content %}
 
-    <form class="b-form b-form-custom" action="{% url action_url tournament.id %}" method="post">
+    <div class="content-formpage">
+    <form class="b-form-custom" action="{% url action_url tournament.id %}" method="post">
         {% csrf_token %}
         {{ form.non_field_errors }}
 
@@ -27,5 +28,6 @@
         </button>
         </div>
     </form>
+    </div>
 
 {% endblock content %}

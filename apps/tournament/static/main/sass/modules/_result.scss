@@ -1,4 +1,4 @@
-// редактировать раунд
+// показать результаты по румам
 
 .b-result-show {
 	margin: 0 0 15px 0;
@@ -140,4 +140,62 @@
 		margin: 20px;
 		display: inline-block;
 	}
+}
+
+
+// редактировать румы при создании раунда
+
+.b-result-edit {
+	margin-top: 20px;
+	border: 1px solid $background-page;
+	box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+	&__heading {
+		align-items: center;
+		display: flex;
+		flex-wrap: wrap;
+		border-bottom: 1px solid $background-page;
+
+		.chair, .place {
+			display: flex;
+			margin: 10px;
+			align-items: center;
+		}
+
+		h3 {
+
+			@include respond-to(mobile) {
+				font-size: 16px;
+			}
+
+			@include respond-to(tablets) {
+				font-size: 16px;
+			}
+		}
+	}
+
+	&__label {
+		margin-right:10px;
+	}
+
+	&__room {
+		display: flex;
+
+		flex-wrap: wrap;
+	}
+
+	&__team {
+		width:50%;
+		padding: 20px;
+		box-sizing: border-box;
+	}
+
+	&__submit {
+		margin-top: 20px;
+	}
+
+}
+
+.b-edit__swap {
+	background-color: $hover;
 }

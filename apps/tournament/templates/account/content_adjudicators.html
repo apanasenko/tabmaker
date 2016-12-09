@@ -4,39 +4,31 @@
 
             <div class="errorinlist" id="errors_{{ rel.id }}"></div>
 
-            <li class="b-tournamentlist-item" id="adjudicator_{{ rel.id }}">
+            <li class="list" id="adjudicator_{{ rel.id }}">
 
-                <div class="b-tournamentlist-current">
+                <div class="list-item">
 
-                    <div class="list_item">
-                        <h3 class="b-tournamentlist-current__heading"><a href="{% url 'tournament:show' rel.tournament.id %}">{{ rel.tournament.name }}</a></h3>
+                    <h3 class="list-item__heading"><a href="{% url 'tournament:show' rel.tournament.id %}">{{ rel.tournament.name }}</a></h3>
 
-                        <div class="b-tournamentlist-current__column_twothird b-tournamentlist-current__column_rightcolumnbigmargin">
-                           <span><span class="nolink"><p class="b-tournamentlist-current__registration_mine">{{ rel.role.role }}</p></span></span>
-                        </div>
+                    <div class="list-item__block">
+                        <span class="nolink">{{ rel.role.role }}</span>
+                    </div>
 
-                        <ul class="b-tournamentlist-current__column_twothird">
+                    {% if is_owner %}
+                        <button class="list-item__button" onclick="remove_adjudicator(
+                            '{% url 'profile:adjudicator_remove' %}',
+                            '{{ rel.id }}',
+                            'adjudicator_{{ rel.id }}',
+                            'errors_{{ rel.id }}'
+                            )">
+                            Отказаться от судейства
 
-                            {% if is_owner %}
-                            <li class="b-tournamentlist-current__about_block_nomargin">
-                                <button class="b-tournamentlist-current__result_tounamentlist" onclick="remove_adjudicator(
-                                    '{% url 'profile:adjudicator_remove' %}',
-                                    '{{ rel.id }}',
-                                    'adjudicator_{{ rel.id }}',
-                                    'errors_{{ rel.id }}'
-                                    )">
-                                    Отказаться от судейства
-
-                                </button>
+                        </button>
 {#                                <button class="b-tournamentlist-current__result_tounamentlist">#}
 {#                                    <span>Подтвердить участие</span>#}
 {#                                </button>#}
-                            </li>
-                            {% endif %}
+                    {% endif %}
 
-                        </ul>
-
-                    </div>
                 </div>
             </li>
         {% empty %}

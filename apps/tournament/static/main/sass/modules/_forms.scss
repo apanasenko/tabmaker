@@ -63,9 +63,7 @@ input[type="number"] {
 
 	&__map {
 		border: 1px solid $grey;
-		display: inline-block;
 		margin-top: 10px;
-		width: 100%;
 	}
 
 	&__wrapper {
@@ -259,9 +257,7 @@ input[type="number"] {
 
 
 .b-form-custom {
-	max-width: 90%;
 	min-width: 300px;
-	margin: 0 20px;
 
 	&__help {
 		margin-bottom: 10px;

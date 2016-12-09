@@ -6,61 +6,43 @@
     {% for object in objects %}
         <li id="message_{{ object.team.id }}"></li>
 
-        <li id="team_{{ object.team.id }}" class="b-tournamentlist-item">
+        <li class="list" id="team_{{ object.team.id }}">
 
-            <div class="b-tournamentlist-current">
+            <div class="list-item">
 
-                <h3 class="b-tournamentlist-current__heading">{{ object.team.name }}</h3>
+                <h3 class="list-item__heading">{{ object.team.name }}</h3>
 
-                <ul class="b-tournamentlist-current__column_third">
-                    <li class="b-tournamentlist-current__about_block">
-                        <a class="tournamentlist" href="{% url 'profile:main' object.team.speaker_1.id %}">
-                            {{ object.team.speaker_1|name }}
-                        </a>
+                {% if object.rel %}
+                    <a class="list-item__subheading" href="{% url 'tournament:show' object.rel.tournament.id %}">{{ object.rel.tournament.name }}<span class="nolink"> – {{ object.rel.role.role }}</a></span></span>
+                {% else %}
+                    <span class="nolink list-item__subheading">Эта команда не зарегистрирована в турнире</span>
+                {% endif %}
+
+                <ul class="list-item__block">
+                    <li class="list-item__block--item">
+                         <a href="{% url 'profile:main' object.team.speaker_1.id %}">{{ object.team.speaker_1|name }}</a>
                     </li>
-                    <li class="b-tournamentlist-current__about_block">
-                        <a class="tournamentlist" href="{% url 'profile:main' object.team.speaker_2.id %}">
-                            {{ object.team.speaker_2|name }}
-                        </a>
+                    <li class="list-item__block--item">
+                        <a href="{% url 'profile:main' object.team.speaker_2.id %}">{{ object.team.speaker_2|name }}</a>
                     </li>
                 </ul>
 
-                <div class="b-tournamentlist-current__column_twothird b-tournamentlist-current__column_rightcolumn">
-                    {% if object.tournament %}
-                    <span>
-                        <a class="b-tournamentlist-current__registration_mine tournamentlist"
-                           href="{% url 'tournament:show' object.tournament.id %}"
-                        >
-                            {{ object.tournament.name }} <span class="nolink"> – {{ object.role.role }}</span>
-                        </a>
-                    </span>
-                    {% else %}
-                    <span><span class="nolink"><p class="b-tournamentlist-current__registration_mine">
-                        Эта команда не зарегистрирована в турнире
-                    </p></span></span>
-                    {% endif %}
-                </div>
+                {% if is_owner %}
 
-                <ul class="b-tournamentlist-current__column_twothird">
-
-                    {% if is_owner %}
-                    <li class="b-tournamentlist-current__about_block_nomargin">
-                        <button class="b-tournamentlist-current__result_tounamentlist" onclick="remove_team(
-                                '{% url 'profile:team_remove' %}',
-                                '{{ object.team.id }}',
-                                'team_{{ object.team.id }}',
-                                'message_{{ object.team.id }}'
-                                )">
-                            <span>Удалить команду</span>
-                        </button>
+                    <button class="list-item__button" onclick="remove_team(
+                            '{% url 'profile:team_remove' %}',
+                            '{{ object.team.id }}',
+                            'team_{{ object.team.id }}',
+                            'message_{{ object.team.id }}'
+                            )">
+                        Удалить команду
+                    </button>
 
 {#                            <button class="b-tournamentlist-current__result_tounamentlist">#}
 {#                                <span>Подтвердить участие</span>#}
 {#                            </button>#}
-                    </li>
-                    {% endif %}
+                {% endif %}
 
-                </ul>
             </div>
 
         </li>
