@@ -15,16 +15,16 @@
 
 
 {% block content %}
-    <form action="{% url "tournament:edit_round" tournament.id %} " method="post">
+    <form class="content-formpage" {% url "tournament:edit_round" tournament.id %} " method="post">
 
         {% if warning %}
-            <div class="my_warning">
-            Для некоторых румов уже внесены результаты. При их редактировании незультаты рума будут удалены.
+            <div class="disclaimer-red">
+            <p>Для некоторых румов уже внесены результаты. При их редактировании незультаты рума будут удалены.</p>
             </div>
         {% endif %}
-        <div class="info">
-            Для перемещения команд между румами кликнете сначала на команду,
-            которую хотите переместить, а затем на позицию, куда хотите переместить
+        <div class="info disclaimer-green">
+            <p>Для перемещения команд между румами кликнете сначала на команду,
+            которую хотите переместить, а затем на позицию, куда хотите переместить</p>
         </div>
 
 
@@ -33,26 +33,28 @@
         {% for form in forms %}
             {{ form.non_field_errors }}
             {{ form.errors }}
-        <div class="b-result-room">
+        <div class="b-result-edit">
 
-            <div class="b-result-room__heading chair">
-                {{ form.chair.errors }}
-                {{ form.chair }}
-                <div class="b-result-room__chair">
-                    <h3>Судья:</h3>
-                    <select class="chair_select count-by-role__changestatus">
+            <div class="b-result-edit__heading">
+
+                <div class="chair">
+                    {{ form.chair.errors }}
+                    {{ form.chair }}
+                    <h3 class="b-result-edit__label">Судья</h3>
+                    <select class="chair_select b-result-edit__select">
                         {% for adjudicator in adjudicators %}
                             <option value="{{ adjudicator.user.id }}" {% if adjudicator.user.id ==  form.chair.value%} selected {% endif %} >
                                 {{ adjudicator.user|name }}
                             </option>
                         {% endfor %}
                     </select>
-                    </div>
-                <div class="place b-result-room__place ">
-                {{ form.place_id.errors }}
-                {{ form.place_id }}
-                    <h3>Аудитория:</h3>
-                    <select class="place_select count-by-role__changestatus">
+                </div>
+
+                <div class="place">
+                    {{ form.place_id.errors }}
+                    {{ form.place_id }}
+                    <h3 class="b-result-edit__label">Аудитория</h3>
+                    <select class="place_select b-result-edit__select">
                         {% for place in places %}
                             <option value="{{ place.id }}" {% if place.id ==  form.place_id.value %} selected {% endif %} >
                                 {{ place.place }}
@@ -60,22 +62,23 @@
                         {% endfor %}
                     </select>
                 </div>
+
             </div>
 
-            <div class="b-result-room__games">
-                <div class="b-result-room__og team">
+            <div class="b-result-edit__room">
+                <div class="b-result-edit__team team">
                     {{ form.og }}
                     <p>1П: <span class="team_name">{{ form.game.og.name }}</span></p>
                 </div>
-                <div class="b-result-room__oo team">
+                <div class="b-result-edit__team team">
                     {{ form.oo }}
                     <p>1O: <span class="team_name">{{ form.game.oo.name }}</span></p>
                 </div>
-                <div class="b-result-room__cg team">
+                <div class="b-result-edit__team team">
                     {{ form.cg }}
                    <p>2П: <span class="team_name">{{ form.game.cg.name }}</span></p>
                 </div>
-                <div class="b-result-room__co team">
+                <div class="b-result-edit__team team">
                     {{ form.co }}
                     <p>2O: <span class="team_name">{{ form.game.co.name }}</span></p>
                 </div>
@@ -83,8 +86,10 @@
 
         </div>
         {% endfor %}
-        <div class="b-result-submit">
-            <button type="submit" class="button">Далее</button>
+
+        <div>
+            <button type="submit" class="button b-result-edit__submit">Далее</button>
         </div>
+
     </form>
 {% endblock content %}

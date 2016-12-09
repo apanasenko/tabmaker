@@ -40,7 +40,7 @@ $(document).ready(function() {
   });
 });
 
-$(document).ready(function() {
-    $('.datepicker').pickadate();
-    $('.timepicker').pickatime();
-});
+// $(document).ready(function() {
+//     $('.datepicker').pickadate();
+//     $('.timepicker').pickatime();
+// });
