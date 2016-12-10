@@ -79,10 +79,11 @@ class TeamResult:
         return [speaker_1, speaker_2]
 
     def sum_points(self):
-        return sum(list(map(lambda x: x.points * int(self.show_all or not x.is_closed), self.rounds)))
+        return sum(list(map(lambda x: x.points * int(bool(self.show_all or not x.is_closed)), self.rounds)))
 
     def sum_speakers(self):
-        return sum(list(map(lambda x: (x.speaker_1 + x.speaker_2) * int(self.show_all), self.rounds)))
+        return 0 if not self.show_all \
+            else sum(list(map(lambda x: x.speaker_1 + x.speaker_2, self.rounds)))
 
     def get_position_weight(self, position_index):
         return self.position[position_index] * 2 + 1
