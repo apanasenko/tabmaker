@@ -34,6 +34,7 @@ class Tournament(models.Model):
     status = models.ForeignKey(TournamentStatus, null=True)
     cur_round = models.PositiveIntegerField(default=0)
     info = models.TextField()
+    is_registration_hidden = models.BooleanField(default=False)
 
     def round_number_inc(self):
         self.cur_round += 1
