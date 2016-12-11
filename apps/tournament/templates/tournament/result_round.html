@@ -59,25 +59,61 @@
                     {# ======   OG   ====== #}
                     <div class="b-result-enter__team team og">
                         <h3 class="b-result-enter__position">Первое правительство</h3>
-                        {% include result_template with team=res.og game=game.og speaker_1=res.pm speaker_2=res.dpm is_rev=res.og_rev s1_exist=res.pm_exist s2_exist=res.dpm_exist %}
+                        {% with team=res.og
+                                game=game.og
+                                speaker_1=res.pm
+                                s1_exist=res.pm_exist
+                                speaker_2=res.dpm
+                                s2_exist=res.dpm_exist
+                                is_rev=res.og_rev
+                        %}
+                            {% include result_template %}
+                        {% endwith %}
                     </div>
 
                     {# ======   OO   ====== #}
                     <div class="b-result-enter__team team oo">
                         <h3 class="b-result-enter__position">Первая оппозиция</h3>
-                        {% include result_template with team=res.oo game=game.oo speaker_1=res.lo speaker_2=res.dlo is_rev=res.oo_rev s1_exist=res.lo_exist s2_exist=res.dlo_exist %}
+                        {% with team=res.oo
+                                game=game.oo
+                                speaker_1=res.lo
+                                s1_exist=res.lo_exist
+                                speaker_2=res.dlo
+                                s2_exist=res.dlo_exist
+                                is_rev=res.oo_rev
+                        %}
+                            {% include result_template %}
+                        {% endwith %}
                     </div>
 
                     {# ======   CG   ====== #}
                     <div class="b-result-enter__team team cg">
                         <h3 class="b-result-enter__position">Второе правительство</h3>
-                        {% include result_template with team=res.cg game=game.cg speaker_1=res.mg speaker_2=res.gw is_rev=res.cg_rev s1_exist=res.mg_exist s2_exist=res.gw_exist %}
+                        {% with team=res.cg
+                                game=game.cg
+                                speaker_1=res.mg
+                                s1_exist=res.mg_exist
+                                speaker_2=res.gw
+                                s2_exist=res.gw_exist
+                                is_rev=res.cg_rev
+                        %}
+                            {% include result_template %}
+                        {% endwith %}
                     </div>
 
                     {# ======   CO   ====== #}
                     <div class="b-result-enter__team team co">
                         <h3 class="b-result-enter__position">Вторая оппозиция</h3>
-                        {% include result_template with team=res.co game=game.co speaker_1=res.mo speaker_2=res.ow is_rev=res.co_rev s1_exist=res.mo_exist s2_exist=res.ow_exist %}
+                        {% with team=res.co
+                                game=game.co
+                                speaker_1=res.mo
+                                s1_exist=res.mo_exist
+                                speaker_2=res.ow
+                                s2_exist=res.ow_exist
+                                is_rev=res.co_rev
+                        %}
+                            {% include result_template %}
+                        {% endwith %}
                     </div>
 
                 </div>

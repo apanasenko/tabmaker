@@ -19,7 +19,9 @@
 {% block content %}
 <div class="content-textpage">
 
-    {% include 'tournament/count_by_role.html' with statuses=statuses %}
+    {% with statuses=statuses %}
+        {% include 'tournament/count_by_role.html' %}
+    {% endwith %}
 
     <div class="dropdown">
         <div class="dropdown-container">

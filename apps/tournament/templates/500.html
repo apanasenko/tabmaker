@@ -9,7 +9,10 @@
     <div id="message" class="b-message">
         <p>
             Похоже, что-то пошло не так.
-            Отправьте нам email на debate.tabmaker@gmail.com или напишите нам в {% include 'main/vk.html' with vk_title='Вконтакте' %}</p>
+            {% with vk_title='Вконтакте' %}
+                Отправьте нам email на debate.tabmaker@gmail.com или напишите нам в {% include 'main/vk.html' %}
+            {% endwith %}
+        </p>
     </div>
 
     <div id="message_back" class="b-message__back">

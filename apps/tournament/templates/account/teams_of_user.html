@@ -5,7 +5,8 @@
 {% endblock page_title %}
 
 {% block content %}
-
-    {% include 'account/content_teams.html' with objects=objects is_owner=is_owner %}
+    {% with objects=objects is_owner=is_owner %}
+        {% include 'account/content_teams.html' %}
+    {% endwith %}
 
 {% endblock content %}

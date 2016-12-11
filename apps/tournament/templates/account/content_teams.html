@@ -52,6 +52,8 @@
     {% endfor %}
 </ul>
 
-{% include 'main/paging.html' with objects=objects %}
+{% with objects=objects %}
+    {% include 'main/paging.html' %}
+{% endwith %}
 
 </section>

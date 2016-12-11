@@ -23,10 +23,15 @@
 
     <section>
         <ul>
-        {% include "tournament/tournament_list.html" with objects=objects %}
+            {% with objects=objects %}
+                {% include "tournament/tournament_list.html" %}
+            {% endwith %}
         </ul>
     </section>
 
-    {% include 'main/paging.html' with objects=objects %}
+    {% with objects=objects %}
+        {% include 'main/paging.html' %}
+    {% endwith %}
+
 
 {% endblock content %}

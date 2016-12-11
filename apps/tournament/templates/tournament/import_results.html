@@ -10,12 +10,16 @@
         <div class="b-teamlist">
         <div class="b-teamlist__wrapper">
             <div class="b-teamlist__heading b-import__team">
-                {% include 'tournament/import_results_status.html' with status=result.team.status statuses=statuses %}
+                {% with status=result.team.status statuses=statuses %}
+                    {% include 'tournament/import_results_status.html' %}
+                {% endwith %}
                 <h3 class="b-import__team">{{ result.team.name }}</h3>
                 <span class="errorlist b-import__error">{{ result.team.error }}</span>
             </div>
             <div class="b-import__speaker">
-                {% include 'tournament/import_results_status.html' with status=result.s1.status statuses=statuses %}
+                {% with status=result.s1.status statuses=statuses %}
+                    {% include 'tournament/import_results_status.html' %}
+                {% endwith %}
                 <span class="b-import__email">
                     {{ result.s1.email }}
                     {% if result.s1.user %}
@@ -25,7 +29,9 @@
                 <span class="errorlist b-import__error">{{ result.s1.error }}</span>
             </div>
             <div class="b-import__speaker">
-                {% include 'tournament/import_results_status.html' with status=result.s2.status statuses=statuses %}
+                {% with status=result.s2.status statuses=statuses %}
+                    {% include 'tournament/import_results_status.html' %}
+                {% endwith %}
                 <span class="b-import__email">
                     {{ result.s2.email }}
                     {% if result.s2.user %}

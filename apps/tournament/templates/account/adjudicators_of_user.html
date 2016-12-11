@@ -6,6 +6,8 @@
 
 {% block content %}
 
-    {% include 'account/content_adjudicators.html' with objects=objects is_owner=is_owner %}
+    {% with objects=objects is_owner=is_owner %}
+        {% include 'account/content_adjudicators.html' %}
+    {% endwith %}
 
 {% endblock content %}
