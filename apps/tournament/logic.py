@@ -79,7 +79,7 @@ class TeamResult:
         return [speaker_1, speaker_2]
 
     def sum_points(self):
-        return sum(list(map(lambda x: x.points * int(bool(self.show_all or not x.is_closed)), self.rounds)))
+        return sum(list(map(lambda x: x.points * bool(self.show_all or not x.is_closed), self.rounds)))
 
     def sum_speakers(self):
         return 0 if not self.show_all \

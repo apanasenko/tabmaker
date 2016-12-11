@@ -188,7 +188,7 @@ def _convert_tab_to_table(table: list, show_all):
         n = lines[-1][0] if i > 0 and table[i - 1] == table[i] else i + 1
         line += [n, table[i].team.name, table[i].sum_points, _playoff_position(table[i]), table[i].sum_speakers]
         for cur_round in table[i].rounds:
-            round_res = str(cur_round.points * (not cur_round.is_closed or show_all))
+            round_res = str(cur_round.points * bool(not cur_round.is_closed or show_all))
             line.append(round_res)
         lines.append(line)
 
