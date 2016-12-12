@@ -54,14 +54,7 @@
                         {# ======   OG   ====== #}
                         <div class="b-result-show__team team og">
                             <h3>Первое правительство</h3>
-                            {% with place=r.og
-                                    speaker_1=r.pm
-                                    s1_exist=r.pm_exist
-                                    speaker_2=r.dpm
-                                    s2_exist=r.dpm_exist
-                                    is_rev=r.og_rev
-                                    team=g.og
-                            %}
+                            {% with place=r.og speaker_1=r.pm s1_exist=r.pm_exist speaker_2=r.dpm s2_exist=r.dpm_exist is_rev=r.og_rev team=g.og %}
                                 {% include 'tournament/result_team_show.html' %}
                             {% endwith %}
                         </div>
@@ -69,14 +62,7 @@
                         {# ======   OO   ====== #}
                         <div class="b-result-show__team team oo">
                             <h3>Первая оппозиция</h3>
-                            {% with place=r.oo
-                                    speaker_1=r.lo
-                                    s1_exist=r.lo_exist
-                                    speaker_2=r.dlo
-                                    s2_exist=r.dlo_exist
-                                    is_rev=r.oo_rev
-                                    team=g.oo
-                            %}
+                            {% with place=r.oo speaker_1=r.lo s1_exist=r.lo_exist speaker_2=r.dlo s2_exist=r.dlo_exist is_rev=r.oo_rev team=g.oo %}
                                 {% include 'tournament/result_team_show.html' %}
                             {% endwith %}
                         </div>
@@ -84,14 +70,7 @@
                         {# ======   CG   ====== #}
                         <div class="b-result-show__team team cg">
                             <h3>Второе правительство</h3>
-                            {% with place=r.cg
-                                    speaker_1=r.mg
-                                    s1_exist=r.mg_exist
-                                    speaker_2=r.gw
-                                    s2_exist=r.gw_exist
-                                    is_rev=r.cg_rev
-                                    team=g.cg
-                            %}
+                            {% with place=r.cg speaker_1=r.mg s1_exist=r.mg_exist speaker_2=r.gw s2_exist=r.gw_exist is_rev=r.cg_rev team=g.cg %}
                                 {% include 'tournament/result_team_show.html' %}
                             {% endwith %}
                         </div>
@@ -99,14 +78,7 @@
                         {# ======   CO   ====== #}
                         <div class="b-result-show__team team co">
                             <h3>Вторая оппозиция</h3>
-                            {% with place=r.co
-                                    speaker_1=r.mo
-                                    s1_exist=r.mo_exist
-                                    speaker_2=r.ow
-                                    s2_exist=r.ow_exist
-                                    is_rev=r.co_rev
-                                    team=g.co
-                            %}
+                            {% with place=r.co speaker_1=r.mo s1_exist=r.mo_exist speaker_2=r.ow s2_exist=r.ow_exist is_rev=r.co_rev team=g.co %}
                                 {% include 'tournament/result_team_show.html' %}
                             {% endwith %}
                         </div>
