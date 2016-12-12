@@ -12,18 +12,26 @@
 
                 <h3 class="list-item__heading">{{ object.team.name }}</h3>
 
-                {% if object.rel %}
-                    <a class="list-item__subheading" href="{% url 'tournament:show' object.rel.tournament.id %}">{{ object.rel.tournament.name }}<span class="nolink"> – {{ object.rel.role.role }}</a></span></span>
+                {% if object.tournament %}
+                    <a class="list-item__subheading" href="{% url 'tournament:show' object.tournament.id %}">
+                        {{ object.tournament.name }}<span class="nolink"> – {{ object.role.role }}</span>
+                    </a>
                 {% else %}
-                    <span class="nolink list-item__subheading">Эта команда не зарегистрирована в турнире</span>
+                    <span class="nolink list-item__subheading">
+                        Эта команда не зарегистрирована в турнире
+                    </span>
                 {% endif %}
 
                 <ul class="list-item__block">
                     <li class="list-item__block--item">
-                         <a href="{% url 'profile:main' object.team.speaker_1.id %}">{{ object.team.speaker_1|name }}</a>
+                         <a href="{% url 'profile:main' object.team.speaker_1.id %}">
+                             {{ object.team.speaker_1|name }}
+                         </a>
                     </li>
                     <li class="list-item__block--item">
-                        <a href="{% url 'profile:main' object.team.speaker_2.id %}">{{ object.team.speaker_2|name }}</a>
+                        <a href="{% url 'profile:main' object.team.speaker_2.id %}">
+                            {{ object.team.speaker_2|name }}
+                        </a>
                     </li>
                 </ul>
 
