@@ -31,8 +31,8 @@ class User(AbstractUser):
     university = models.ForeignKey(to=University, null=True)
     phone = models.CharField(max_length=15)
     link = models.URLField(max_length=100, default='', blank=True)
-    player_experience = models.TextField()
-    adjudicator_experience = models.TextField()
+    player_experience = models.TextField(blank=True)
+    adjudicator_experience = models.TextField(blank=True)
     is_show_phone = models.BooleanField(default=True)
     is_show_email = models.BooleanField(default=True)
 
