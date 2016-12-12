@@ -11,6 +11,9 @@
             <ul class="list-item__block">
                 <li class="list-item__block--item"><i class="fa fa-calendar"></i>{{ tournament.start_tour|date:"d E Y"}}</li>
                 <li class="list-item__block--item"><i class="fa fa-compass"></i>{{ tournament|address }}</li>
+                {% if not tournament|is_status_registration and not tournament|is_status_preparation %}
+                    <li class="list-item__block--item"><i class="fa fa-users"></i>{{ tournament.m_count }} команд</li>
+                {% endif %}
             </ul>
 
             {% if tournament|is_status_registration %}

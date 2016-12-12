@@ -9,6 +9,7 @@ from datetime import date, timedelta
 # from apps.tournament.utils import paging
 
 from django.contrib.auth.decorators import login_required
+from django.db.models import Case, Count, Case, When, IntegerField
 from django.urls import \
     reverse_lazy, \
     reverse
@@ -1357,10 +1358,14 @@ def edit_profile(request, user_id):
 def show_tournaments_of_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
 
-    tournaments = Tournament.objects.annotate(
-        m_count=Count('team_members')
-    ).select_related('status').filter(
-        usertournamentrel__user=user, usertournamentrel__role__in=[ROLE_ADMIN, ROLE_OWNER]
+    tournaments = Tournament.objects.select_related('status').annotate(
+        m_count=Count(Case(
+            When(teamtournamentrel__role=ROLE_MEMBER, then=1),
+            output_field=IntegerField()
+        ))
+    ).filter(
+        usertournamentrel__user=user,
+        usertournamentrel__role__in=[ROLE_ADMIN, ROLE_OWNER]
     ).order_by('-start_tour')
 
     return render(
@@ -1420,7 +1425,12 @@ def show_adjudicator_of_user(request, user_id):
 def index(request):
     DAYS_TO_LEAVE_SHORT_LIST = 3
     is_short = request.GET.get('list', None) != 'all'
-    tournaments = Tournament.objects.annotate(m_count=Count('team_members')).select_related('status')
+    tournaments = Tournament.objects.select_related('status').annotate(
+        m_count=Count(Case(
+            When(teamtournamentrel__role=ROLE_MEMBER, then=1),
+            output_field=IntegerField()
+        ))
+    )
     if is_short:
         # TODO Возможно стоит всегда показывать свои турниры в списке
         tournaments = tournaments.filter(
