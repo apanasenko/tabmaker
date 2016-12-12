@@ -1,4 +1,5 @@
 {% load profile_extras %}
+{% load tournament_extras %}
 
 <section class="b-profile__section">
 
@@ -35,16 +36,17 @@
                     </li>
                 </ul>
 
-                {% if is_owner %}
-
-                    <button class="list-item__button" onclick="remove_team(
-                            '{% url 'profile:team_remove' %}',
-                            '{{ object.team.id }}',
-                            'team_{{ object.team.id }}',
-                            'message_{{ object.team.id }}'
-                            )">
-                        Удалить команду
-                    </button>
+                {% if object.tournament|is_status_registration or object.tournament|is_status_preparation %}
+                    {% if is_owner %}
+                        <button class="list-item__button" onclick="remove_team(
+                                '{% url 'profile:team_remove' %}',
+                                '{{ object.team.id }}',
+                                'team_{{ object.team.id }}',
+                                'message_{{ object.team.id }}'
+                                )">
+                            Удалить команду
+                        </button>
+                    {% endif %}
 
 {#                            <button class="b-tournamentlist-current__result_tounamentlist">#}
 {#                                <span>Подтвердить участие</span>#}
