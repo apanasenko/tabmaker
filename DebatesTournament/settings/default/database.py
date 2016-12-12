@@ -4,7 +4,7 @@
 # Settings to postgresql
 DATABASES = {
     'default': {
-        'ENGINE': '<django.db.backends.postgresql>', #'django.db.backends.postgresql_psycopg2',
+        'ENGINE': '<django.db.backends.postgresql>',  # 'django.db.backends.postgresql_psycopg2',
         'NAME': '<database_name>',
         'USER': '<user>',
         'PASSWORD': '<password>',

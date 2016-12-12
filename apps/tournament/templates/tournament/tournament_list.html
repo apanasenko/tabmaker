@@ -11,20 +11,31 @@
             <ul class="list-item__block">
                 <li class="list-item__block--item"><i class="fa fa-calendar"></i>{{ tournament.start_tour|date:"d E Y"}}</li>
                 <li class="list-item__block--item"><i class="fa fa-compass"></i>{{ tournament|address }}</li>
+                {% if not tournament|is_status_registration and not tournament|is_status_preparation %}
+                    <li class="list-item__block--item"><i class="fa fa-users"></i>{{ tournament.m_count }} команд</li>
+                {% endif %}
             </ul>
 
             {% if tournament|is_status_registration %}
 
-                <a class="list-item__button" href="{% url "tournament:registration_team" tournament.id %}"><i class="fa fa-trophy"></i>Участвовать</a>
-                <a class="list-item__button" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
+                <a class="list-item__button" href="{% url "tournament:registration_team" tournament.id %}">
+                    <i class="fa fa-trophy"></i>Участвовать
+                </a>
+                <a class="list-item__button" href="{% url "tournament:registration_adjudicator" tournament.id %}">
+                    Судить
+                </a>
 
             {% elif tournament|is_status_started or tournament|is_status_playoff%}
 
-                <a class="list-item__button" href="{% url "tournament:show_round" tournament.id %}"><i class="fa fa-trophy"></i>Текущий раунд</a>
+                <a class="list-item__button" href="{% url "tournament:show_round" tournament.id %}">
+                    <i class="fa fa-trophy"></i>Текущий раунд
+                </a>
 
             {% else %}
 
-                <a class="list-item__button" href="{% url "tournament:result" tournament.id %}"><i class="fa fa-trophy"></i>Результаты</a>
+                <a class="list-item__button" href="{% url "tournament:result" tournament.id %}">
+                    <i class="fa fa-trophy"></i>Результаты
+                </a>
 
             {% endif %}
         </div>

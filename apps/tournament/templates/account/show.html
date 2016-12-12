@@ -30,11 +30,15 @@
         <label for="tab4" class="b-tabs__label">Судейство</label>
 
         <section class="b-tabs__one">
-            {% include 'account/content_info.html' with user=user %}
+            {% with user=user %}
+                {% include 'account/content_info.html' %}
+            {% endwith %}
         </section>
 
         <section class="b-tabs__two">
-            {% include 'account/content_teams.html' with objects=teams_objects is_owner=is_owner %}
+            {% with objects=teams_objects is_owner=is_owner %}
+                {% include 'account/content_teams.html' %}
+            {% endwith %}
         </section>
 
 {#        <section class="b-tabs__three">#}
@@ -42,7 +46,9 @@
 {#        </section>#}
 
         <section class="b-tabs__four">
-            {% include 'account/content_adjudicators.html' with objects=adjudicators_objects is_owner=is_owner %}
+            {% with objects=adjudicators_objects is_owner=is_owner %}
+                {% include 'account/content_adjudicators.html' %}
+            {% endwith %}
         </section>
 
     </div>

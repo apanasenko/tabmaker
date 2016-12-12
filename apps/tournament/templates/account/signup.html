@@ -18,16 +18,16 @@
 
 {% block content %}
 
-    {% if is_success %}
-        <div class="disclaimer-green">
-            <p>Профиль успешно обновлён</p>
-        </div>
-    {% endif %}
     <form class="content-formpage" id="signup_form" method="post"
             {% if is_edit_form %} action="{% url 'profile:edit' user.id %}"
             {% else %} action="{% url 'account_signup' %}"
             {% endif %}
     >
+        {% if is_success %}
+            <div class="disclaimer-green">
+                <p>Профиль успешно обновлён</p>
+            </div>
+        {% endif %}
         {% csrf_token %}
         {{ form.non_field_errors }}
 

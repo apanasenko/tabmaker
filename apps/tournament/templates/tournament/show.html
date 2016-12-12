@@ -1,6 +1,7 @@
 {% extends "main/base.html" %}
 
 {% load profile_extras %}
+{% load tournament_extras %}
 {% load staticfiles %}
 
 {% block extra_head %}
@@ -36,15 +37,28 @@
     <label for="tab4" class="b-tabs__label" title="Место">Место</label>
 
     <section class="b-tabs__one">
-       {% include "tournament/tournament_info.html" with tournament=tournament is_chair=is_chair %}
+        {% with tournament=tournament is_chair=is_chair %}
+            {% include "tournament/tournament_info.html" %}
+        {% endwith %}
     </section>
 
     <section class="b-tabs__two">
-        {% include "tournament/team_list.html" with team_tournament_rels=team_tournament_rels %}
+        {% if tournament.is_registration_hidden and not is_owner and tournament|is_status_registration %}
+            <div class="b-message">
+                <h3 class="b-teamlist__heading">Информация закрыта</h3>
+                <p>Организаторы турнира скрыли инфомацию о уже зарегестрированных командах</p>
+            </div>
+        {% else %}
+            {% with team_tournament_rels=team_tournament_rels %}
+                {% include "tournament/team_list.html" %}
+            {% endwith %}
+        {% endif %}
     </section>
 
     <section class="b-tabs__three">
-        {% include "tournament/adjudicator_list.html" with adjudicators=adjudicators %}
+        {% with adjudicators=adjudicators %}
+            {% include "tournament/adjudicator_list.html" %}
+        {% endwith %}
     </section>
 
     <section class="b-tabs__four">

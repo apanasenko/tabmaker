@@ -39,7 +39,9 @@
         <a class="button" onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить судью</a>
     </div>
 
-    {% include 'tournament/count_by_role.html' with statuses=statuses %}
+    {% with statuses=statuses %}
+        {% include 'tournament/count_by_role.html' %}
+    {% endwith %}
 
     <div class="b-adjudicators__list">
     {% for rel in user_tournament_rels %}

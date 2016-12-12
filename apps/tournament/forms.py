@@ -41,6 +41,7 @@ class TournamentForm(forms.ModelForm):
             'count_teams',
             'count_teams_in_break',
             'link',
+            'is_registration_hidden',
         ]
 
         widgets = {
@@ -57,6 +58,7 @@ class TournamentForm(forms.ModelForm):
             'count_teams_in_break': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Выходят в плей-офф', 'class': 'form-elem__input'}),
             'link': forms.URLInput(attrs={'class': 'validate form-elem__input', 'placeholder': 'Cсылка в социальных сетях'}),
             'info': forms.Textarea(attrs={'class': 'validate form-elem__area', 'placeholder': 'О турнире'}),
+            'is_registration_hidden': forms.CheckboxInput(),
         }
 
         labels = {
@@ -67,6 +69,7 @@ class TournamentForm(forms.ModelForm):
             'count_teams_in_break': 'Команд break\'е',
             'link': 'Ссылка на соц.сеть',
             'info': 'О турнире',
+            'is_registration_hidden': 'Скрывать информацию о зарегистрировавшихся командах до конца регистрации',
         }
 
     # def clean_close_reg_date(self):

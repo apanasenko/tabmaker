@@ -58,8 +58,8 @@
                 '{{ question.id }}',
                 '{{ question.question }}',
                 '{{ question.comment }}',
-                {% if question.required %} '1' {% else %} '0' {% endif %},
-                {% if question.alias not in required_aliases %} '1' {% else %} '0' {% endif %}
+                '{% if question.required %}1{% else %}0{% endif %}',
+                '{% if question.alias not in required_aliases %}1{% else %}0{% endif %}'
         );
        {% endfor %}
     }
