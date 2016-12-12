@@ -18,16 +18,24 @@
 
             {% if tournament|is_status_registration %}
 
-                <a class="list-item__button" href="{% url "tournament:registration_team" tournament.id %}"><i class="fa fa-trophy"></i>Участвовать</a>
-                <a class="list-item__button" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
+                <a class="list-item__button" href="{% url "tournament:registration_team" tournament.id %}">
+                    <i class="fa fa-trophy"></i>Участвовать
+                </a>
+                <a class="list-item__button" href="{% url "tournament:registration_adjudicator" tournament.id %}">
+                    Судить
+                </a>
 
             {% elif tournament|is_status_started or tournament|is_status_playoff%}
 
-                <a class="list-item__button" href="{% url "tournament:show_round" tournament.id %}"><i class="fa fa-trophy"></i>Текущий раунд</a>
+                <a class="list-item__button" href="{% url "tournament:show_round" tournament.id %}">
+                    <i class="fa fa-trophy"></i>Текущий раунд
+                </a>
 
             {% else %}
 
-                <a class="list-item__button" href="{% url "tournament:result" tournament.id %}"><i class="fa fa-trophy"></i>Результаты</a>
+                <a class="list-item__button" href="{% url "tournament:result" tournament.id %}">
+                    <i class="fa fa-trophy"></i>Результаты
+                </a>
 
             {% endif %}
         </div>
