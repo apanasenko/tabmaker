@@ -31,20 +31,20 @@
         {% csrf_token %}
         {{ form.non_field_errors }}
 
-            <div class="b-form-item">
-                <h3 class="b-form-item__heading">{{ form.first_name.label_tag}}</h3>
+            <div class="form-elem form-elem--mid">
+                <label class="form-elem__label">Ваше имя</label>
                 {{ form.first_name }}
                 {{ form.first_name.errors }}
             </div>
-            <div class="b-form-item">
-                <h3 class="b-form-item__heading">{{ form.last_name.label_tag}}</h3>
+            <div class="form-elem form-elem--mid">
+                <label class="form-elem__label">Фамилия</label>
                 {{ form.last_name }}
                 {{ form.last_name.errors }}
             </div>
 
-            <div class="b-form-item">
-                <h3 class="b-form-item__heading"><label for="countries">Страна</label></h3>
-                <select id="countries"></select>
+            <div class="form-elem form-elem--mid">
+                <label class="form-elem__label" for="countries">Страна</label>
+                <select class="form-elem__select" id="countries"></select>
                 {{ form.country_id }} {# hidden #}
                 {{ form.country_name }} {# hidden #}
                 {% if not form.country_name.errors %}
@@ -52,9 +52,9 @@
                 {% endif %}
                 {{ form.country_name.errors }}
             </div>
-            <div class="b-form-item">
-                <h3 class="b-form-item__heading"><label for="city_list">Город</label></h3>
-                <input id="city_list" type="text">
+            <div class="form-elem form-elem--mid">
+                <label class="form-elem__label" for="city_list">Город</label>
+                <input class="form-elem__input" id="city_list" type="text">
                 {{ form.city_id }} {# hidden #}
                 {{ form.city_name }} {# hidden #}
                 {% if not form.city_name.errors %}
@@ -62,9 +62,9 @@
                 {% endif %}
                 {{ form.city_name.errors }}
             </div>
-            <div class="b-form-item">
-                <h3 class="b-form-item__heading"><label for="university_list">Университет</label></h3>
-                <input id="university_list" type="text">
+            <div class="form-elem form-elem--mid">
+                <label class="form-elem__label" for="university_list">Университет</label>
+                <input class="form-elem__input" id="university_list" type="text">
                 {{ form.university_id }} {# hidden #}
                 {{ form.university_name }} {# hidden #}
                 {% if not form.university_name.errors %}
@@ -72,66 +72,73 @@
                 {% endif %}
                 {{ form.university_name.errors }}
             </div>
-            <div class="b-form-item">
+            <div class="form-elem form-elem--low">
                 {% if not is_edit_form %}
-                <h3 class="b-form-item__heading">{{ form.email.label_tag }}</h3>
+                <label class="form-elem__label">E-mail</label>
                 {{ form.email }}
                 {% endif %}
-                <span>{{ form.is_show_email }} {{ form.is_show_email.label }}</span>
+                {{ form.is_show_email }}
+                <span>Показывать email всем</span>
                 {{ form.email.errors }}
             </div>
-            <div class="b-form-item">
-                <h3 class="b-form-item__heading">{{ form.phone.label_tag }}</h3>
+            <div class="form-elem form-elem--low">
+                 <label class="form-elem__label">Номер телефона</label>
                 {{ form.phone }}
-                <span>{{ form.is_show_phone }} {{ form.is_show_phone.label }}</span>
+                {{ form.is_show_phone }}
+                <span>Показывать номер телефона всем</span>
                 {{ form.phone.errors }}
             </div>
             {% if not is_edit_form %}
-                <div class="b-form-item">
-                    <h3 class="b-form-item__heading">{{ form.password1.label_tag }}</h3>
+                <div class="form-elem form-elem--mid">
+                    <label class="form-elem__label">Пароль</label>
                     {{ form.password1 }}
                     {{ form.password1.errors }}
                 </div>
-                <div class="b-form-item">
-                    <h3 class="b-form-item__heading">{{ form.password2.label_tag }}</h3>
+                <div class="form-elem form-elem--mid">
+                    <label class="form-elem__label">Повторите пароль</label>
                     {{ form.password2 }}
                     {{ form.password2.errors }}
                 </div>
             {% endif %}
-            <div class="b-form-item">
-                <h3 class="b-form-item__heading">{{ form.link.label_tag }}</h3>
+            <div class="form-elem form-elem--max">
+                <label class="form-elem__label">Ваша страница с социальных сетях</label>
+                <p class="form-elem__description">Указывать не обязательно, но так организаторы турниров и судьи могут с вами связаться</p>
                 {{ form.link }}
                 {{ form.link.errors }}
             </div>
 
-            <div class="b-form-item" id="player_experience">
-                <h3 class="b-form-item__heading">Игровой опыт</h3>
+            <div class="form-elem form-elem--max" id="player_experience">
+                <label class="form-elem__label">Игровой опыт</label>
+                <p class="form-elem__description">Опишите ваш опыт игры в дебаты, чтобы организаторы турниров могли оценить ваши навыки</p>
                 {{ form.player_experience }}
                 {{ form.player_experience.errors }}
             </div>
-            <div class="b-form-item" id="adjudicator_experience">
-                <h3 class="b-form-item__heading">Судейский опыт</h3>
+            <div class="form-elem form-elem--max" id="adjudicator_experience">
+                <label class="form-elem__label">Судейский опыт</label>
+                <p class="form-elem__description">Если собираетесь судить на турнирах, напишите о вашем судейском опыте</p>
                 {{ form.adjudicator_experience }}
                 {{ form.adjudicator_experience.errors }}
             </div>
 
-        {% if redirect_field_value %}
-            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
+            <div class="form-elem form-elem--max" >
 
-        <button type="submit" class="button" onclick="yaCounter35208810.reachGoal('signinConfirmed'); return true;">
-            {% if is_edit_form %}
-                Сохранить
-            {% else %}
-                Вперед!
-            {% endif %}
-        </button>
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                    <button type="submit" class="button" onclick="yaCounter35208810.reachGoal('signinConfirmed'); return true;">
+                        {% if is_edit_form %}
+                            Сохранить
+                        {% else %}
+                            Вперед!
+                        {% endif %}
+                    </button>
+                {% if is_edit_form %}
+                    <button class="button">
+                        <a href="{% url 'account_change_password' %}">Изменить пароль</a>
+                    </button>
+                {% endif %}
 
-        {% if is_edit_form %}
-            <button class="button">
-                <a href="{% url 'account_change_password' %}">Изменить пароль</a>
-            </button>
-        {% endif %}
+            </div>
 
     </form>
 
