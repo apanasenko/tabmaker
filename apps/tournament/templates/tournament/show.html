@@ -46,7 +46,7 @@
         {% if tournament.is_registration_hidden and not is_owner and tournament|is_status_registration %}
             <div class="b-message">
                 <h3 class="b-teamlist__heading">Информация закрыта</h3>
-                <p>Организаторы турнира скрыли инфомацию о уже зарегестрированных командах</p>
+                <p>Организаторы турнира скрыли информацию о уже зарегистрированных командах</p>
             </div>
         {% else %}
             {% with team_tournament_rels=team_tournament_rels %}
