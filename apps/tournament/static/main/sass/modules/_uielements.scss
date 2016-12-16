@@ -1,22 +1,22 @@
 // buttons
 
 .button {
-	@include button;
-	background-color: $deep-dark;
+    @include button;
+    background-color: $deep-dark;
 
-	a {
-		color: white;
-	}
+    a {
+        color: white;
+    }
 
-	&__createcup {
+    &__createcup {
         margin-left: 20px;
         margin-bottom: 20px;
         background-color: $green;
         font-weight: bold;
         font-size: 15px;
         border-radius: 4px;
-		color: white;
-		padding: 8px 10px;
+        color: white;
+        padding: 8px 10px;
 
         @include respond-to(mobile) {
             margin:5px;
@@ -300,47 +300,6 @@
     }
 }
 
-@mixin window {
-    position: absolute;
-    left: 0%;
-    bottom: 0px;
-    width: 320px;
-    box-sizing: border-box;
-    padding: 15px;
-}
-
-.b-window {
-
-    &__close {
-        float: right;
-        color: white;
-        display: inline;
-    }
-
-    &__text {
-        color: white;
-        width: 90%;
-        display: inline-block;
-    }
-
-    &-red, &-yellow, &-green {
-        @include window;
-    }
-
-    &-red {
-        background-color: orangered;
-    }
-
-    &-green {
-        background-color: darkcyan;
-    }
-
-    &-yellow {
-        background-color: gold;
-    }
-
-}
-
 .b-paging {
     display: flex;
     width: 100%;
@@ -386,26 +345,6 @@
     border-bottom: 1px dashed $dark;
     margin-bottom: 2px;
 }
-
-.ui-menu-item {
-    font-size: 14px;
-    max-width: 300px;
-    max-height: 350px;
-    overflow-y: auto;
-    padding: 10px 1em 10px .4em;
-    line-height: 1.4;
-
-    .region {
-        font-size: 11px;
-        color: $grey;
-    }
-
-    a {
-        color: #58697A;
-        font-size: 14px;
-    }
-}
-
 
 .b-donate {
     margin: 20px auto 0 auto;
