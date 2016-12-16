@@ -19,8 +19,8 @@ class TeamRegistrationForm(forms.ModelForm):
             'name': 'Название команды',
         }
 
-    speaker_1 = forms.EmailField(label='E-mail первого спикера')
-    speaker_2 = forms.EmailField(label='E-mail второго спикера')
+    speaker_1 = forms.EmailField(label='E-mail первого спикера', widget=forms.TextInput(attrs={'class': 'form-elem__input'}))
+    speaker_2 = forms.EmailField(label='E-mail второго спикера', widget=forms.TextInput(attrs={'class': 'form-elem__input'}))
 
     tournament = None
 
@@ -114,6 +114,7 @@ class CustomForm:
                 field_name = 'question_%s' % question.position
                 self.fields[field_name] = forms.CharField(
                     label=question.question,
+                    widget=forms.TextInput(attrs={'class': 'form-elem__input'}),
                     help_text=question.comment,
                     required=question.required,
                 )
@@ -144,6 +145,7 @@ class CustomTeamRegistrationForm(TeamWithSpeakerRegistrationForm, CustomForm):
     def __init__(self, tournament: Tournament, questions, *args, **kwargs):
         super(CustomTeamRegistrationForm, self).__init__(tournament, questions, *args, **kwargs)
         self.init_custom_fields(questions)
+        self.fields['name'].widget.attrs['class'] = 'form-elem__input'
 
 
 class CustomAdjudicatorRegistrationForm(forms.Form, CustomForm):
@@ -158,4 +160,5 @@ class CustomAdjudicatorRegistrationForm(forms.Form, CustomForm):
         super(CustomAdjudicatorRegistrationForm, self).__init__(*args, **kwargs)
         self.fields['adjudicator'].widget.attrs['readonly'] = True
         self.init_custom_fields(questions)
+        self.fields['adjudicator'].widget.attrs['class'] = 'form-elem__input'
         # self.
