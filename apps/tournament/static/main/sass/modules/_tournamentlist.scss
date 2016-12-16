@@ -1,11 +1,6 @@
 .list {
 	padding: 15px 0;
-	border-bottom: 1px solid $background-page;
-
-	&:hover {
-		background-color: $hover;
-		transition: background-color 0.1s ease;
-	}
+	border-bottom: 1px solid $grey;
 
     &-item {
         margin: 0 15px;

@@ -5,7 +5,7 @@ input, select, textarea {
 	font-size: 14px;
 	color: $dark;
 	background-color: transparent;
-	border: 2px solid $background-page;
+	border: 2px solid $grey;
 	box-sizing: border-box;
 	font-family: "PT Sans", Arial, sans-serif;
 
@@ -125,7 +125,7 @@ input[type="number"] {
     }
 
     i::before {
-        color: $buttondark;
+        color: $prime;
     }
 }
 

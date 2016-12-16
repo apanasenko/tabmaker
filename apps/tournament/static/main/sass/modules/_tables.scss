@@ -4,14 +4,14 @@
 
     &__headrow, &__row {
 		color: $grey;
-		border-bottom: 1px solid $background-page;
+		border-bottom: 1px solid $grey;
 		min-height: 40px;
 	}
 
 	&__headstring {
 
 		&_half, &_thirty, &_narrow {
-			background-color: $beige;
+			background-color: $sec;
 			color: $dark;
 
 		}
@@ -47,8 +47,8 @@
 	}
 
 	&__headrow {
-		background-color: $lightbeige;
-		color: $dark;
+		background-color: $sec;
+		color: white;
 
 		th {
 			font-weight: 700;
@@ -59,7 +59,7 @@
 	&__row {
 
 		&:hover {
-			background-color: $hovergrey;
+			background-color: $back;
 		}
 	}
 

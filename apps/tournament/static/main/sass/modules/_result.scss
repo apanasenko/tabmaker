@@ -5,7 +5,7 @@
 	@include shadow;
 
 	&__heading {
-		background-color: $light-green;
+		background-color: $sec;
 		padding: 10px;
 		color: white;
 		box-sizing: content-box;
@@ -28,8 +28,8 @@
 
 	&__team {
 		flex-grow: 1;
-		border-right: 1px solid $background-page;
-		border-bottom: 1px solid $background-page;
+		border-right: 1px solid $grey;
+		border-bottom: 1px solid $grey;
 		width:49%;
 		padding: 15px;
 		box-sizing: border-box;
@@ -66,7 +66,7 @@
 		@include shadow;
 
 		&__heading {
-			background-color: $light-green;
+			background-color: $sec;
 			display: flex;
 			align-items: center;
 
@@ -103,8 +103,8 @@
 
 		&__team {
 			flex-grow: 1;
-			border-right: 1px solid $background-page;
-			border-bottom: 1px solid $background-page;
+			border-right: 1px solid $grey;
+			border-bottom: 1px solid $grey;
 			width:49%;
 			padding: 15px;
     		box-sizing: border-box;
@@ -147,14 +147,14 @@
 
 .b-result-edit {
 	margin-top: 20px;
-	border: 1px solid $background-page;
+	border: 1px solid $grey;
 	box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 
 	&__heading {
 		align-items: center;
 		display: flex;
 		flex-wrap: wrap;
-		border-bottom: 1px solid $background-page;
+		border-bottom: 1px solid $grey;
 
 		.chair, .place {
 			display: flex;
@@ -197,5 +197,5 @@
 }
 
 .b-edit__swap {
-	background-color: $hover;
+	background-color: lighten($sec, 10%);
 }

@@ -23,27 +23,26 @@ $desctop: 1365px;
 // ui mixins
 
 @mixin link {
-	border-bottom: 2px solid $green;
+	border-bottom: 2px solid $sec;
 }
 
 @mixin button() {
 	display: inline-block;
 	text-decoration: none;
 	padding: 0 16px;
-	border-radius: 5px;
 	border: none;
-	color: #ffffff;
+	color: white;
 	font-family: inherit;
 	font-size: 14px;
     height: 32px;
     line-height: 32px;
-	background-color: $buttondark;
+	background-color: $prime;
 	box-sizing: border-box;
     cursor: pointer;
 
 	&:hover {
-		background-color: $deep-dark;
-		transition: background-color 0.3s ease;
+		background-color: shade($prime, 10%);
+		transition: background-color 0.1s ease;
 	}
 }
 

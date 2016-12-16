@@ -2,7 +2,7 @@ aside {
 	display: inline-block;
 	width: 250px;
 	vertical-align: top;
-	background-color: $deep-dark;
+	background-color: shade($prime, 50%);
 }
 
 .b-sidebar {
@@ -82,8 +82,8 @@ aside {
         }
 
 		&:hover {
-			background-color: $buttondark;
-			transition: background-color 0.3s ease;
+			background-color: $sec;
+			transition: background-color 0.1s ease;
 		}
 
 	}

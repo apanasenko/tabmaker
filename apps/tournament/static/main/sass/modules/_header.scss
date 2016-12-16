@@ -3,7 +3,7 @@ header {
 	background-color: white;
 	display: flex;
     align-items: center;
-	border-bottom: 1px solid $background-page;
+	border-bottom: 1px solid $grey;
 
 	@include respond-to(mobile) {
 		position: fixed;
