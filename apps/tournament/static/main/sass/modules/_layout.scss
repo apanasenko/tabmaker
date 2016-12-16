@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&subset=cyrillic-ext');
+
 html, body {
   height: 100%;
 }
 
 body {
-	font-family: "PT Sans", Arial, "Helvetica Neue", sans-serif;
+	font-family: "Roboto", Arial, "Helvetica Neue", sans-serif;
 }
 
 ul, a {
@@ -17,7 +19,7 @@ h1, h3, h5, p, li, label, span {
 }
 
 h1, h2, h3 {
-	font-weight: 700;
+	font-weight: 500;
 	margin-top: 10px;
 }
 
