@@ -1,6 +1,7 @@
 .title {
     padding: 20px 0;
     width:100%;
+    border-bottom: 1px solid $grey;
 
     &-container {
         display: flex;
@@ -24,7 +25,6 @@
     padding: 20px 0;
     background-color: $back;
     width:100%;
-    border-top: 1px solid $grey;
     border-bottom: 1px solid $grey;
 
     &-container {

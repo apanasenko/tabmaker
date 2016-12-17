@@ -18,8 +18,30 @@
             <div class="title-container">
                 <h3 class="title__name">{{ tournament.name }}</h3>
                 <div class="title-container">
-                    <a class="button button--min button--prime" href="{% url 'tournament:result' tournament.id%}">Баллы команд и спикеров</a>
-                    <a class="button button--min button--prime" href="{% url 'tournament:result_all' tournament.id%}">Результаты на румам</a>
+
+                     {% if is_chair %}
+                        <a class="button button--min button--sec" href="{% url "tournament:result_round" tournament.id %}">
+                            Ввести результаты
+                        </a>
+                    {% endif %}
+
+                    {% if tournament|is_status_registration %}
+
+                        <a class="button button--min button--prime" href="{% url "tournament:registration_team" tournament.id %}">Участовать</a>
+                        <a class="button button--min button--prime" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
+
+                    {% elif tournament|is_status_preparation %}
+
+                        <h3>Регистрация уже закончилась</h3>
+
+                    {% elif tournament|is_status_started or tournament|is_status_playoff %}
+
+                        <a class="button button--min button--prime" href="{% url "tournament:show_round" tournament.id %}">Текущий раунд</a>
+                        <a class="button button--min button--prime" href="{% url 'tournament:result' tournament.id%}">Баллы команд и спикеров</a>
+                        <a class="button button--min button--prime" href="{% url 'tournament:result_all' tournament.id%}">Результаты на румам</a>
+
+                    {% endif %}
+
                 </div>
             </div>
         </div>
@@ -109,52 +131,45 @@
 
         <div class="content-textpage">
 
-
-
-            <div class="b-tabs">
-
-            <input id="tab1" type="radio" name="tabs" class="b-tabs__input" checked>
-            <label for="tab1" class="b-tabs__label" title="Информация">Информeweweация</label>
-
-            <input id="tab2" type="radio" name="tabs" class="b-tabs__input">
-            <label for="tab2" class="b-tabs__label" title="Команды">Команды</label>
-
-            <input id="tab3" type="radio" name="tabs" class="b-tabs__input">
-            <label for="tab3" class="b-tabs__label" title="Судьи">Судьи</label>
-
-            <input id="tab4" type="radio" name="tabs" class="b-tabs__input">
-            <label for="tab4" class="b-tabs__label" title="Место">Место</label>
-
-            <section class="b-tabs__one">
-                {% with tournament=tournament is_chair=is_chair %}
-                    {% include "tournament/tournament_info.html" %}
-                {% endwith %}
-            </section>
-
-            <section class="b-tabs__two">
-                {% if tournament.is_registration_hidden and not is_owner and tournament|is_status_registration %}
-                    <div class="b-message">
-                        <h3 class="b-teamlist__heading">Информация закрыта</h3>
-                        <p>Организаторы турнира скрыли инфомацию о уже зарегистрированных командах</p>
-                    </div>
-                {% else %}
-                    {% with team_tournament_rels=team_tournament_rels %}
-                        {% include "tournament/team_list.html" %}
+            <ul class="accordion-tabs">
+              <li class="tab-header-and-content">
+                <a href="javascript:void(0)" class="is-active tab-link">О турнире</a>
+                <div class="tab-content">
+                    {% with tournament=tournament is_chair=is_chair %}
+                        {% include "tournament/tournament_info.html" %}
                     {% endwith %}
-                {% endif %}
-            </section>
-
-            <section class="b-tabs__three">
-                {% with adjudicators=adjudicators %}
-                    {% include "tournament/adjudicator_list.html" %}
-                {% endwith %}
-            </section>
-
-            <section class="b-tabs__four">
-                <div id="map" style="width: 100%; height: 400px"></div>
-            </section>
-
-        </div>
+                </div>
+              </li>
+              <li class="tab-header-and-content">
+                <a href="javascript:void(0)" class="tab-link">Участники</a>
+                <div class="tab-content">
+                    {% if tournament.is_registration_hidden and not is_owner and tournament|is_status_registration %}
+                        <div class="b-message">
+                            <h3 class="b-teamlist__heading">Информация закрыта</h3>
+                            <p>Организаторы турнира скрыли инфомацию о уже зарегистрированных командах</p>
+                        </div>
+                    {% else %}
+                        {% with team_tournament_rels=team_tournament_rels %}
+                            {% include "tournament/team_list.html" %}
+                        {% endwith %}
+                    {% endif %}
+                </div>
+              </li>
+              <li class="tab-header-and-content">
+                <a href="javascript:void(0)" class="tab-link">Судьи</a>
+                <div class="tab-content">
+                    {% with adjudicators=adjudicators %}
+                        {% include "tournament/adjudicator_list.html" %}
+                    {% endwith %}
+                </div>
+              </li>
+              <li class="tab-header-and-content">
+                <a href="javascript:void(0)" class="tab-link">На карте</a>
+                <div class="tab-content">
+                    <div id="map" style="width: 100%; height: 400px"></div>
+                </div>
+              </li>
+            </ul>
 
         </div>
 

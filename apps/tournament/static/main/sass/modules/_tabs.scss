@@ -52,3 +52,44 @@
 #tab5:checked ~ .b-tabs__five {
     display: block;
 }
+
+
+
+// новая верстка табов
+
+.accordion-tabs {
+    padding: 0;
+
+    &::after {
+        clear: both;
+        content: "";
+        display: table;
+    }
+
+  .tab-header-and-content {
+      list-style: none;
+      display: inline;
+  }
+
+  .tab-link {
+      display: block;
+      padding: 20px 0;
+      margin-bottom: 20px;
+      margin-right: 20px;
+      display: inline-block;
+      font-size: 16px;
+      text-transform: uppercase;
+      font-weight: 700;
+  }
+
+  .is-active {
+      color: $sec;
+      border-bottom: 2px solid $sec;
+  }
+
+  .tab-content {
+      display: none;
+      width: 100%;
+      float: left;
+  }
+}
