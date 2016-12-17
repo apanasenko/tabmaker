@@ -59,6 +59,7 @@
 
 .accordion-tabs {
     padding: 0;
+    width:100%;
 
     &::after {
         clear: both;
@@ -69,6 +70,10 @@
   .tab-header-and-content {
       list-style: none;
       display: inline;
+
+      &__first {
+          margin-left:20px;
+      }
   }
 
   .tab-link {

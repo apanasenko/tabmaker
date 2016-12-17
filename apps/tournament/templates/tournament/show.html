@@ -129,10 +129,8 @@
 
     {% else %}
 
-        <div class="content-textpage">
-
             <ul class="accordion-tabs">
-              <li class="tab-header-and-content">
+              <li class="tab-header-and-content tab-header-and-content__first">
                 <a href="javascript:void(0)" class="is-active tab-link">О турнире</a>
                 <div class="tab-content">
                     {% with tournament=tournament is_chair=is_chair %}
@@ -170,8 +168,6 @@
                 </div>
               </li>
             </ul>
-
-        </div>
 
     {% endif %}
 

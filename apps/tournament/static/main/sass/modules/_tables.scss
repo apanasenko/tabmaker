@@ -1,66 +1,31 @@
 .b-table {
-	font-size: 13px;
+    font-size: 13px;
     width: 100%;
+    text-align: left;
 
-    &__headrow, &__row {
-		color: $grey;
-		border-bottom: 1px solid $grey;
-		min-height: 40px;
-	}
+    &__headrow {
+        background-color: $prime;
+        color: white;
 
-	&__headstring {
-
-		&_half, &_thirty, &_narrow {
-			background-color: $sec;
-			color: $dark;
-
-		}
-	}
-
-	&__headstring, &__string {
-
-		&_half, &_thirty, &_narrow {
-            padding: 8px 10px;
+        th {
+            font-weight: 700;
+            text-align: left;
+            padding:8px;
         }
 
-        &_half {
-			width: 50%;
-			min-width: 40px;
+    }
 
-			.wrap {
-				padding-left: 20px;
-			}
+    &__row {
+        border-bottom: 1px solid $grey;
+        min-height: 40px;
 
-		}
+        &:hover {
+            background-color: $back;
+        }
 
-		&_thirty {
-			width: 16%;
-			text-align: center;
-			min-width: 40px;
-		}
-
-		&_narrow {
-			text-align: center;
-			min-width: 40px;
-		}
-
-	}
-
-	&__headrow {
-		background-color: $sec;
-		color: white;
-
-		th {
-			font-weight: 700;
-		}
-
-	}
-
-	&__row {
-
-		&:hover {
-			background-color: $back;
-		}
-	}
-
+        td {
+            text-align: left;
+            padding:8px;
+        }
+    }
 }

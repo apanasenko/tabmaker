@@ -1,21 +1,39 @@
 {% load profile_extras %}
 
-{% for adjudicator in adjudicators %}
-    <div class="b-teamlist">
+{% if team_tournament_rels|length > 1 %}
 
-    	<div class="b-teamlist__wrapper">
+<div class="content-tablepage">
+<table class="b-table">
+    <tbody>
+    <tr class="b-table__headrow">
+        <th>Судья</th>
+        <th>Статус</th>
+    </tr>
+    {% for adjudicator in adjudicators %}
+        <tr class="b-table__row">
+            <td>
+                <a href="{% url 'profile:main' adjudicator.user.id%}">
+                    {{ adjudicator.user|name }}
+                </a>
+            </td>
+            <td>
+                {{ adjudicator.role.role }}
+            </td>
+        </tr>
+    {% endfor %}
 
-	        <div class="b-teamlist__heading">
-	        	<h3><a href="{% url 'profile:main' adjudicator.user.id%}">{{ adjudicator.user|name }}</a></h3>
-	      	  	<span class="b-teamlist__status"><i class="fa fa-balance-scale"></i>{{ adjudicator.role.role }}</span>
-	        </div>
-
-        </div>
-
-    </div>
-{% empty %}
-<div class="b-message">
-    <h3>Нет зарегистрированных судей</h3>
-    <p>У вас есть все шансы стать первым судьей на турнире</p>
+    </tbody>
+</table>
 </div>
-{% endfor %}
+
+{% else %}
+<div class="content-textpage">
+    <div class="paragraph">
+        <h3>Пока никто не зарегистрировался</h3>
+        <p>Вы можете стать первым cудьей</p>
+    </div>
+</div>
+{% endif %}
+
+
+

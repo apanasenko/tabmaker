@@ -1,27 +1,48 @@
 {% load profile_extras %}
 
-{% for team_tournament_rel in team_tournament_rels %}
-<div class="b-teamlist">
+{% if team_tournament_rels|length > 1 %}
 
-    <div class="b-teamlist__wrapper">
+<div class="content-tablepage">
+<table class="b-table">
+    <tbody>
+    <tr class="b-table__headrow">
+        <th>Название команды</th>
+        <th>Первый спикер</th>
+        <th>Второй спикер</th>
+        <th>Статус команды</th>
+    </tr>
+    {% for team_tournament_rel in team_tournament_rels %}
+        <tr class="b-table__row">
+            <td>
+                {{ team_tournament_rel.team.name }}
+            </td>
+            <td>
+                <a href="{% url 'profile:main' team_tournament_rel.team.speaker_1.id%}">
+                    {{ team_tournament_rel.team.speaker_1|name }}
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'profile:main' team_tournament_rel.team.speaker_2.id%}">
+                    {{ team_tournament_rel.team.speaker_2|name }}
+                </a>
+            </td>
+            <td>
+                {{ team_tournament_rel.role.role }}
+            </td>
+        </tr>
+    {% endfor %}
 
-       <div class="b-teamlist__heading">
-           <h3>{{ team_tournament_rel.team.name }}</h3>
-            <span class="b-teamlist__status"><i class="fa fa-graduation-cap"></i>{{ team_tournament_rel.role.role }}</span>
-       </div>
+    </tbody>
+</table>
+</div>
 
-        <div class="b-teamlist__profile">
-            <a href="{% url 'profile:main' team_tournament_rel.team.speaker_1.id%}">{{ team_tournament_rel.team.speaker_1|name }}</a>
-            <span>  и  </span>
-            <a href="{% url 'profile:main' team_tournament_rel.team.speaker_2.id%}">{{ team_tournament_rel.team.speaker_2|name }}</a>
-        </div>
-
+{% else %}
+<div class="content-textpage">
+    <div class="paragraph">
+        <h3>Пока никто не зарегистрировался</h3>
+        <p>Вы можете стать первым участником</p>
     </div>
+</div>
+{% endif %}
 
-</div>
-{% empty %}
-<div class="b-message">
-  <h3 class="b-teamlist__heading">Нет зарегистрированных команд</h3>
-  <p>А значит ваша команда может стать первой участницей</p>
-</div>
-{% endfor %}
+

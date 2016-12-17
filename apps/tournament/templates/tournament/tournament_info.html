@@ -1,6 +1,6 @@
 {% load tournament_extras %}
 
-<div>
+<div class="content-textpage">
     <h3 class="paragraph__heading">Cтатус</h3>
     <ul class="paragraph">
         <li class="b-tournament-info__status">Начало турнира: {{ tournament.start_tour|date:"d M Y"}} в {{ tournament.start_tour|time:"H:i"}} </li>
@@ -16,6 +16,6 @@
     <p class="paragraph">{{ tournament.info }}</p>
 
     <h3 class="paragraph__heading">Подробности</h3>
-    <a class="paragraph paragraph__link" href="{{ tournament.link }}">{{ tournament.link }}</a>
+    <a class="paragraph" href="{{ tournament.link }}">{{ tournament.link }}</a>
 
 </div>
