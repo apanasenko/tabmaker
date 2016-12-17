@@ -278,6 +278,9 @@ def new(request):
                 role=ROLE_OWNER
             )
 
+            CustomForm.get_or_create(tournament_obj, FORM_REGISTRATION_TYPE)
+            CustomForm.get_or_create(tournament_obj, FORM_ADJUDICATOR_TYPE)
+
             return redirect('tournament:show', tournament_id=tournament_obj.id)
 
     else:
@@ -324,14 +327,26 @@ def edit(request, tournament):
     else:
         tournament_form = TournamentForm(instance=tournament)
 
+    team_form = CustomForm.get_or_create(tournament, FORM_REGISTRATION_TYPE)
+    team_questions = CustomQuestion.objects.filter(form=team_form).select_related('alias').order_by('position')
+
+    adjudicator_form = CustomForm.get_or_create(tournament, FORM_ADJUDICATOR_TYPE)
+    adjudicator_questions = CustomQuestion.objects.filter(form=adjudicator_form)\
+        .select_related('alias')\
+        .order_by('position')
+
     return render(
         request,
         'tournament/edit.html',
         {
             'form': tournament_form,
             'tournament': tournament,
-            'team_tournament_rels': tournament.get_teams(),
-            'adjudicators': tournament.get_users(ADJUDICATOR_ROLES),
+            'team_form': team_form,
+            'team_questions': team_questions,
+            'adjudicator_form': adjudicator_form,
+            'adjudicator_questions': adjudicator_questions,
+            'required_aliases': REQUIRED_ALIASES,
+            'actions': CUSTOM_FORM_AJAX_ACTIONS,
         }
     )
 
@@ -1138,8 +1153,7 @@ from apps.tournament.models import \
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='custom_questions')
 def custom_form_edit(request, tournament, form_type):
-    custom_form_type = CUSTOM_FORM_TYPES[form_type]
-    form = CustomForm.get_or_create(tournament, custom_form_type)
+    form = CustomForm.get_or_create(tournament, CUSTOM_FORM_TYPES[form_type])
     questions = CustomQuestion.objects.filter(form=form).select_related('alias').order_by('position')
 
     return render(
@@ -1278,8 +1292,7 @@ def _form_down_field(request, form: CustomForm):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='custom_answers')
 def custom_form_show_answers(request, tournament, form_type):
-    custom_form_type = CUSTOM_FORM_TYPES[form_type]
-    custom_form = get_object_or_404(CustomForm, tournament=tournament, form_type=custom_form_type)
+    custom_form = get_object_or_404(CustomForm, tournament=tournament, form_type=CUSTOM_FORM_TYPES[form_type])
 
     title = ''
     column_names = list(map(lambda x: x.question, custom_form.customquestion_set.all().order_by('position')))

@@ -9,6 +9,9 @@
     {{ block.super }}
     <script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script type="text/javascript" src="{% static "tournament/js/map.js" %}"></script>
+    <script type="text/javascript" src="{% static "main/js/cookie.js" %}"></script>
+    <script type="text/javascript" src="{% static "main/js/ajaxCSRF.js" %}"></script>
+    <script type="text/javascript" src="{% static "tournament/js/edit_registration_form.js" %}"></script>
 {% endblock extra_head %}
 
 
@@ -20,16 +23,10 @@
     <label for="tab1" class="b-tabs__label" title="Информация">Информация</label>
 
     <input id="tab2" type="radio" name="tabs" class="b-tabs__input">
-    <label for="tab2" class="b-tabs__label" title="Команды">Команды</label>
+    <label for="tab2" class="b-tabs__label" title="Регистрация команд">Анкета для команд</label>
 
     <input id="tab3" type="radio" name="tabs" class="b-tabs__input">
-    <label for="tab3" class="b-tabs__label" title="Судьи">Судьи</label>
-
-{#    <input id="tab4" type="radio" name="tabs" class="b-tabs__input">#}
-{#    <label for="tab4" class="b-tabs__label" title="Регистрация команд">Анкета для команд</label>#}
-{##}
-{#    <input id="tab5" type="radio" name="tabs" class="b-tabs__input">#}
-{#    <label for="tab5" class="b-tabs__label" title="Регистрация судей">Анкета для судей</label>#}
+    <label for="tab3" class="b-tabs__label" title="Регистрация судей">Анкета для судей</label>
 
     <section class="b-tabs__one">
         <form class="content-formpage" action="{% url "tournament:edit" tournament.id %}" method="post">
@@ -38,25 +35,17 @@
         </form>
     </section>
 
-    <section class="b-tabs__two">
-        {% with team_tournament_rel=team_tournament_rel %}
-            {% include "tournament/team_list.html" %}
+    <section class="b-tabs__two" id="teams">
+        {% with form=team_form questions=team_questions parent_id='#teams' %}
+            {% include "tournament/custom_form_questions.html" %}
         {% endwith %}
     </section>
 
-    <section class="b-tabs__three">
-        {% with adjudicators=adjudicators %}
-            {% include "tournament/adjudicator_list.html" %}
+    <section class="b-tabs__three" id="adjudicators">
+        {% with form=adjudicator_form questions=adjudicator_questions parent_id='#adjudicators' %}
+            {% include "tournament/custom_form_questions.html" %}
         {% endwith %}
     </section>
-
-{#    <section class="b-tabs__four">#}
-{#        {% include "tournament/custom_form_questions.html" %}#}
-{#    </section>#}
-
-{#    <section class="b-tabs__five">#}
-{#        {% include "tournament/custom_form_questions.html" %}#}
-{#    </section>#}
 
 </div>
 

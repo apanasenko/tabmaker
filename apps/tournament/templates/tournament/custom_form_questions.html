@@ -1,23 +1,14 @@
-<input id="form_id" type="hidden" value="{{ form.id }}">
-<input id="url" type="hidden" value="{% url 'tournament:custom_form_edit_field' tournament.id %}">
-
 <div id="temp">
     <div class="message"></div>
-
     <div class="show_block">
         <div class="question-name">
             <span class="question"> Вопрос </span>
             <span class="star">*</span>
-            <button class="edit" onclick="edit_click(this)">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-            </button>
+            <button class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></button>
         </div>
         <div class="comment"> Пояснение </div>
         <input class="required" type="hidden">
         <input class="can_remove" type="hidden">
-
-        {# <input class="answer" placeholder="Ответ"> #}
-
     </div>
 
     <div class="edit_block">
@@ -34,38 +25,43 @@
             <input class="required" type="checkbox">
         </label>
 
-        <button class="save button" onclick="save_click(this, '{{ actions.edit_question }}')">Сохранить</button>
-        <button class="cancel button" onclick="cancel_click(this)">Отменить</button>
+        <button class="save button">Сохранить</button>
+        <button class="cancel button">Отменить</button>
     </div>
 
     <div class="actions_buttons question-actions">
-        <button class="up" onclick="up_click(this, '{{ actions.up_question }}')">
-            <i class="fa fa-arrow-up" aria-hidden="true"></i>
-        </button>
-        <button class="down" onclick="down_click(this, '{{ actions.down_question }}')">
-            <i class="fa fa-arrow-down" aria-hidden="true"></i>
-        </button>
-        <button class="remove" onclick="remove_click(this, '{{ actions.remove_question }}')">
-            <i class="fa fa-trash" aria-hidden="true"></i>
-        </button>
+        <button class="up"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+        <button class="down"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
+        <button class="remove"><i class="fa fa-trash" aria-hidden="true"></i></button>
     </div>
 </div>
 
 <script>
-    function init() {
+    $(document).ready(function(){
+        var custom_questions_block = new CustomQuestionsEditor(
+            $('{{ parent_id }}'),
+            '{{ form.id }}',
+            '{% url 'tournament:custom_form_edit_field' tournament.id %}',
+            '{{ actions.up_question }}',
+            '{{ actions.down_question }}',
+            '{{ actions.edit_question }}',
+            '{{ actions.remove_question }}'
+        );
         {% for question in questions %}
-        generate_question_block(
+            custom_questions_block.generate_question_block(
                 '{{ question.id }}',
                 '{{ question.question }}',
                 '{{ question.comment }}',
                 '{% if question.required %}1{% else %}0{% endif %}',
                 '{% if question.alias not in required_aliases %}1{% else %}0{% endif %}'
-        );
-       {% endfor %}
-    }
+            );
+        {% endfor %}
+        custom_questions_block.init();
+    });
+
 </script>
 <div id="new_question">
-    <button class="add button" onclick="add_question(this)">
+    <button class="add button">
         <i class="fa fa-plus-circle"></i>
         Добавить вопрос
     </button>

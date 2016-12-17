@@ -19,6 +19,10 @@
 
 {% block content %}
 
-    {% include "tournament/custom_form_questions.html" %}
+    <div id="questions">
+    {% with parent_id='#questions' %}
+        {% include "tournament/custom_form_questions.html" %}
+    {% endwith %}
+    </div>
 
 {% endblock content %}
