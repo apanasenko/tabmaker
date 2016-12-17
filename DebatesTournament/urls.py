@@ -9,3 +9,10 @@ urlpatterns = [
     url(r'^profile/', include('apps.tournament.urls.account')),
     url(r'^tournament/', include('apps.tournament.urls.tournament', namespace='tournament')),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        url(r'', include('apps.tester.urls', namespace='tester')),
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ]
