@@ -98,16 +98,20 @@
 
         <div class="stats">
             <div class="stats-container">
-                <p>Играющие команды: {{ tournament.count_members }} ({{ tournament.count_registered_teams }} зарегистрировано)</p>
-                <p>Количество сыграных раундов: {{ tournament.cur_round }}</p>
-                <p>Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
-                <p>Статус: {{ tournament.status.name }}</p>
+                <p class="stats__elem">Играющие команды: {{ tournament.count_members }} ({{ tournament.count_registered_teams }} зарегистрировано)</p>
+                <p class="stats__elem">Количество сыграных раундов: {{ tournament.cur_round }}</p>
+                <p class="stats__elem">Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
+                <p class="stats__elem">Статус: {{ tournament.status.name }}</p>
             </div>
         </div>
 
     {% else %}
 
-        <div class="b-tabs">
+        <div class="content-textpage">
+
+
+
+            <div class="b-tabs">
 
             <input id="tab1" type="radio" name="tabs" class="b-tabs__input" checked>
             <label for="tab1" class="b-tabs__label" title="Информация">Информeweweация</label>
@@ -149,6 +153,8 @@
             <section class="b-tabs__four">
                 <div id="map" style="width: 100%; height: 400px"></div>
             </section>
+
+        </div>
 
         </div>
 

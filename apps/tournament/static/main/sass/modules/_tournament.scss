@@ -1,5 +1,5 @@
 .title {
-    padding: 20px;
+    padding: 20px 0;
     width:100%;
 
     &-container {
@@ -21,7 +21,7 @@
 }
 
 .manage {
-    padding: 20px;
+    padding: 20px 0;
     background-color: $back;
     width:100%;
     border-top: 1px solid $grey;
@@ -64,13 +64,17 @@
 
 
 .stats {
-    padding: 20px;
+    padding: 20px 0;
     background-color: white;
     width:100%;
 
     &-container {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         margin:0 20px;
+    }
+
+    &__elem {
+        line-height: 2;
     }
 }
