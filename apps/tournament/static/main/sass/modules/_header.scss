@@ -1,101 +1,83 @@
-header {
-	height: 60px;
-	background-color: white;
-	display: flex;
+.header {
+    height: 60px;
+    background-color: white;
+    display: flex;
     align-items: center;
-	border-bottom: 1px solid $grey;
+    justify-content: space-between;
+    border-bottom: 1px solid $grey;
 
-	@include respond-to(mobile) {
-		position: fixed;
-		width: 100%;
-		height: 60px;
-		z-index: 1000;
-	}
-
-	#logo {
-		display: inline-block;
-		height: 100%;
-		width: 250px;
-
-		@include respond-to(mobile) {
-			display: none;
-		}
-
-		@include respond-to(tablets) {
-			display: none;
-		}
-
-		img {
-			padding:15px;
-		}
-
-	}
-
-    .home-icon, .burger-icon {
-        color: $dark;
-        font-size: 1.7em;
-
-        @include respond-to(large) {
-			display: none;
-		}
-
-        @include respond-to(mobile) {
-			font-size: 1.2em;
-		}
-    }
-
-	.header-container {
-		display: flex;
-		width:100%;
-		max-width: 800px;
+    &__logo {
+        display: flex;
         align-items: center;
+        padding: 0 20px;
+        height: 40px;
+        border-right: 1px solid $grey;
 
-        i {
-            margin:0 10px;
+        span {
+            font-family: 'Roboto Mono';
+            color: $prime;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
         }
 
-		h3 {
-            font-size: 24px;
-            margin: 0 10px;
+        @include respond-to(mobile) {
+            display: none;
+        }
 
-            @include respond-to(tablets) {
-                font-size: 18px;
-            }
+        @include respond-to(tablets) {
+            display: none;
+        }
+    }
 
-            @include respond-to(mobile) {
-                font-size: 14px;
-            }
-		}
-
-		.page-title-short {
-			@include respond-to(mobile) {
-				height: 35px;
-				line-height: 35px;
-			}
-		}
-
-		#header_button {
-			display: inline-block;
-			float: right;
-
-			a {
-				text-align: center;
-				color: white;
-			}
-		}
-	}
+    &__buttons {
+        margin:0 10px;
+    }
 }
 
-.b-header {
-	&__back {
-		position: absolute;
-    	top: 24px;
-    	left: 8px;
-    	color: $dark;
-    	font-size: 1.7em;
+.menu {
+    display: flex;
+    width: 630px;
+    align-items: center;
 
-		@include respond-to(large) {
-			display: none;
-		}
-	}
+    &-item {
+        margin-right: 30px;
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+}
+
+// выпадающее меню
+
+.dropbtn {
+    display: inline-block;
+}
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: $back;
+    min-width: 160px;
+    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.1)
+}
+
+.dropdown-content a {
+    color: $prime;
+    padding: 12px 16px;
+    display: block;
+    text-transform: none;
+}
+
+.dropdown-content a:hover {
+    background-color: $sec;
+    color: white;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }

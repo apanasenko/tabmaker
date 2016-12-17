@@ -64,17 +64,3 @@
         }
     }
 }
-
-.b-postlist {
-
-    &-item {
-
-        &__heading {
-
-        }
-
-        &__more {
-            @include button;
-        }
-    }
-}

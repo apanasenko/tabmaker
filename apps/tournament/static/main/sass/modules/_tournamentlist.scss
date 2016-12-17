@@ -1,6 +1,7 @@
 .list {
-	padding: 15px 0;
+	padding: 20px 0;
 	border-bottom: 1px solid $grey;
+    list-style-type: none;
 
     &-item {
         margin: 0 15px;
@@ -9,6 +10,7 @@
         &__heading {
             margin: 0 20px 8px 0;
             line-height: 1.2;
+            font-family: "Roboto Mono";
         }
 
         &__subheading {
@@ -20,13 +22,9 @@
             display: flex;
 
             &--item {
-                color: $grey;
+                color: $dark;
                 margin-right: 20px;
             }
-        }
-
-        &__button {
-            @include buttontwo;
         }
     }
 }

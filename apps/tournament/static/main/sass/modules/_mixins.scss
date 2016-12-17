@@ -26,45 +26,6 @@ $desctop: 1365px;
 	border-bottom: 2px solid $sec;
 }
 
-@mixin button() {
-	display: inline-block;
-	text-decoration: none;
-	padding: 0 16px;
-	border: none;
-	color: white;
-	font-family: inherit;
-	font-size: 14px;
-    height: 32px;
-    line-height: 32px;
-	background-color: $prime;
-	box-sizing: border-box;
-    cursor: pointer;
-
-	&:hover {
-		background-color: shade($prime, 10%);
-		transition: background-color 0.1s ease;
-	}
-}
-
-@mixin buttontwo() {
-	display: inline-block;
-	padding: 6px 12px;
-	border-radius: 6px;
-	color: $dark;
-	font-size: 14px;
-	min-height: 20px;
-	box-sizing: border-box;
-	border: 1px solid $dark;
-	background-color: transparent;
-    height:30px;
-
-	&:hover {
-		border: 1px solid $dark;
-		color: $dark;
-		transition: color 0.3s ease;
-	}
-}
-
 @mixin shadow() {
 	box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }

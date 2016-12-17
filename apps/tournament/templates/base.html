@@ -49,66 +49,103 @@
     {% endif %}
 
 {% block body %}
+
+{#    {% if is_main_page %}#}
+{#        <div class="topbanner">#}
+{#            <span class="topbanner__text">Хочешь поддержать Tabmaker или присоединиться к проекту?</span>#}
+{#            <a href="/" class="button button--max button--white topbanner__button">Да, хочу!</a>#}
+{#        </div>#}
+{#    {% endif %}#}
+
     <div class="page_wrapper">
 
-        <header>
+        <header class="header">
 
-            <a id="logo" href="/"><img src="{% static 'main/img/logo.svg' %}" alt="tabmaker"></a>
+            <a class="header__logo" href="/"><span>Tabmaker</span></a>
 
-            {% block header %}
-                <div class="header-container">
-                    <a href="/"><i class="fa fa-home home-icon"></i></a>
-                    <i class="fa fa-bars burger-icon"></i>
-                    <h3 class="header-container__title">
-                        {% block page_title %} Название страницы{% endblock page_title %}
-                    </h3>
-                </div>
-            {% endblock header %}
-        </header>
+            <div class="header__menu">
 
-        <section class="content_conteiner">
+                <ul class="menu">
 
-            <aside>
-                <div class="b-sidebar" id="sidebar1">
+                    <li class="menu-item">
+                        <a href="/">Турниры</a>
+                    </li>
 
-                    {% block sidebar1%}
+{#                    <li class="menu-item">#}
+{#                        <a href="/">Темы</a>#}
+{#                    </li>#}
 
-                    {% include 'account/sidebar.html' %}
+                    <li class="menu-item dropdown">
+                        <a href="#}" class="dropbtn">Мои турниры</a>
+                        <div class="dropdown-content">
+                          <a href="#">Турнир 1</a>
+                          <a href="#">Турнир 2</a>
+                          <a href="#">Турнир 3</a>
+                        </div>
+                    </li>
 
-                    {% endblock sidebar1 %}
-                </div>
+                     {% if request.user.is_authenticated %}
+                        <li class="menu-item dropdown">
+                            <a href="{% url 'profile:main' request.user.id %}" class="dropbtn">Профиль</a>
+                            <div class="dropdown-content">
+                              <a href="{% url 'profile:edit' user.id %}">Редактировать</a>
+                              <a href="{% url 'profile:teams' request.user.id %}">Заявки на участие</a>
+                              <a href="{% url 'profile:adjudicator' request.user.id %}">Заявки на судейство</a>
+                              <a href="{% url 'profile:tournaments' request.user.id %}">Мои турниры</a>
+                            </div>
+                        </li>
+                    {% endif %}
 
-                {% block sidebar2%}
-
-                    <a class="button__createcup"
-                       onclick="yaCounter35208810.reachGoal('newBegin'); return true;"
-                       href="{% url 'tournament:new' %}">Создать турнир
-                    </a>
-
-                {% endblock sidebar2 %}
-            </aside>
-
-            <div class="content">
-
-            {% block content %}
-            {% endblock content %}
-
-            {% if is_main_page %}
-                <div class="b-donate">
-                    <iframe frameborder="0"
-                            allowtransparency="true"
-                            scrolling="no"
-                            src="https://money.yandex.ru/embed/donate.xml?account=410013865474770&quickpay=donate&payment-type-choice=on&mobile-payment-type-choice=on&default-sum=50&targets=%D0%9F%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D1%82%D1%8C+tabmaker.info&target-visibility=on&project-name=&project-site=&button-text=05&successURL=tabmaker.info%2Fthanks.html"
-                            width="508"
-                            height="90"
-                    >
-                    </iframe>
-                </div>
-            {% endif %}
+                </ul>
 
             </div>
 
-        </section>
+            <div class="header__buttons">
+                {% if request.user.is_authenticated %}
+                    <a class="button button--mid button--sec" href="{% url 'tournament:new' %}">Создать турнир</a>
+                    <a class="button button--mid button--prime" href="{% url 'account_logout' %}">Выйти</a>
+                {% else %}
+                    <a class="button button--mid button--prime" href="{% url 'account_login' %}">Войти</a>
+                    <a class="button button--mid button--prime" href="{% url 'account_signup' %}">Зарегистрироваться</a>
+                {% endif %}
+            </div>
+
+        </header>
+
+{#        <div class="pagename">#}
+{#            {% block header %}#}
+{#                <h3>#}
+{#                    {% block page_title %} Название страницы{% endblock page_title %}#}
+{#                </h3>#}
+{#            {% endblock header %}#}
+{#        </div>#}
+
+{#            <aside>#}
+{#                <div class="b-sidebar" id="sidebar1">#}
+{##}
+{#                    {% block sidebar1%}#}
+{##}
+{#                    {% include 'account/sidebar.html' %}#}
+{##}
+{#                    {% endblock sidebar1 %}#}
+{#                </div>#}
+{##}
+{#                {% block sidebar2%}#}
+{##}
+{#                    <a class="button__createcup"#}
+{#                       onclick="yaCounter35208810.reachGoal('newBegin'); return true;"#}
+{#                       href="{% url 'tournament:new' %}">Создать турнир#}
+{#                    </a>#}
+{##}
+{#                {% endblock sidebar2 %}#}
+{#            </aside>#}
+
+        <div class="content">
+
+        {% block content %}
+        {% endblock content %}
+
+        </div>
 
         <footer>
             {% block footer %}

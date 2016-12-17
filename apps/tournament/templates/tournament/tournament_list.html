@@ -9,32 +9,32 @@
             </h3>
 
             <ul class="list-item__block">
-                <li class="list-item__block--item"><i class="fa fa-calendar"></i>{{ tournament.start_tour|date:"d E Y"}}</li>
-                <li class="list-item__block--item"><i class="fa fa-compass"></i>{{ tournament|address }}</li>
+                <li class="list-item__block--item">{{ tournament.start_tour|date:"d E Y"}}</li>
+                <li class="list-item__block--item">{{ tournament|address }}</li>
                 {% if not tournament|is_status_registration and not tournament|is_status_preparation %}
-                    <li class="list-item__block--item"><i class="fa fa-users"></i>{{ tournament.m_count }} команд</li>
+                <li class="list-item__block--item">Играют {{ tournament.m_count }} команд</li>
                 {% endif %}
             </ul>
 
             {% if tournament|is_status_registration %}
 
-                <a class="list-item__button" href="{% url "tournament:registration_team" tournament.id %}">
-                    <i class="fa fa-trophy"></i>Участвовать
+                <a class="button button--min button--prime button--upper" href="{% url "tournament:registration_team" tournament.id %}">
+                    Участвовать
                 </a>
-                <a class="list-item__button" href="{% url "tournament:registration_adjudicator" tournament.id %}">
+                <a class="button button--min button--prime button--upper" href="{% url "tournament:registration_adjudicator" tournament.id %}">
                     Судить
                 </a>
 
             {% elif tournament|is_status_started or tournament|is_status_playoff%}
 
-                <a class="list-item__button" href="{% url "tournament:show_round" tournament.id %}">
-                    <i class="fa fa-trophy"></i>Текущий раунд
+                <a class="button button--min button--prime button--upper" href="{% url "tournament:show_round" tournament.id %}">
+                    Текущий раунд
                 </a>
 
             {% else %}
 
-                <a class="list-item__button" href="{% url "tournament:result" tournament.id %}">
-                    <i class="fa fa-trophy"></i>Результаты
+                <a class="button button--min button--prime button--upper" href="{% url "tournament:result" tournament.id %}">
+                    Результаты
                 </a>
 
             {% endif %}

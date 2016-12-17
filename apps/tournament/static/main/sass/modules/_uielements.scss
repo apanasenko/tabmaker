@@ -1,36 +1,84 @@
 // buttons
 
+@mixin buttontwo() {
+	display: inline-block;
+	padding: 6px 12px;
+	border-radius: 6px;
+	color: $dark;
+	font-size: 14px;
+	min-height: 20px;
+	box-sizing: border-box;
+	border: 1px solid $dark;
+	background-color: transparent;
+    height:30px;
+
+	&:hover {
+		border: 1px solid $dark;
+		color: $dark;
+		transition: color 0.3s ease;
+	}
+}
+
 .button {
-    @include button;
+    display: inline-block;
+    font-family: "Roboto Mono";
+    font-weight: 700;
+	border: none;
+	color: white;
+	background-color: $prime;
+	box-sizing: border-box;
+    cursor: pointer;
 
-    a {
+    &--max {
+        height:40px;
+        line-height:40px;
+        padding: 0 15px;
+    }
+
+    &--mid {
+        height:35px;
+        line-height:35px;
+        padding: 0 10px;
+    }
+
+    &--upper {
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    &--min {
+        height:30px;
+        line-height:30px;
+        padding: 0 10px;
+        font-size: 12px;
+    }
+
+    &--prime {
+        background-color: $prime;
         color: white;
     }
 
-    &__createcup {
-        margin-left: 20px;
-        margin-bottom: 20px;
+    &--sec {
         background-color: $sec;
-        font-weight: bold;
-        font-size: 15px;
-        border-radius: 4px;
         color: white;
-        padding: 8px 10px;
+    }
 
-        @include respond-to(mobile) {
-            margin:5px;
-            font-size: 13px;
-            padding:5px 8px;
-            color: white;
+    &--white {
+        background-color: white;
+        color: $prime;
+    }
+
+    &__text {
+
+        &--prime {
+            color: $prime;
         }
 
-        @include respond-to(tablets) {
-            margin:5px;
-            font-size: 13px;
-            padding:5px 8px;
+        &--white {
             color: white;
         }
     }
+
 }
 
 .button-group {
@@ -306,7 +354,7 @@
         padding: 20px 0;
 
         i, a {
-            color: $grey;
+            color: $prime;
         }
     }
 
@@ -324,7 +372,7 @@
     &__numbers {
 
         span {
-            color: $grey;
+            color: $prime;
             margin-right: 10px;
         }
 
@@ -335,13 +383,21 @@
     background-color: $grey;
 }
 
-.b-link {
-    border-bottom: 1px dashed $dark;
-    margin-bottom: 2px;
+
+// баннер сверху страницы
+
+.topbanner {
+    background-color: $prime;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__text {
+        color: white;
+        font-family: "Roboto Mono";
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
 }
 
-.b-donate {
-    margin: 20px auto 0 auto;
-    border-radius: 3px;
-    padding: 0 20px 20px 20px;
-}
+
