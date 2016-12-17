@@ -36,7 +36,7 @@
     <div id="new_adjudicator" class="b-adjudicators__new">
         <div class="errors"></div>
         <input class="b-adjudicators__email" id="add_adjudicator_input" type="email" placeholder="e-mail судьи">
-        <a class="button" onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить судью</a>
+        <a class="button button--min button--prime" onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить судью</a>
     </div>
 
     {% with statuses=statuses %}

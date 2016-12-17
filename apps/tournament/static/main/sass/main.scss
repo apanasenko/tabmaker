@@ -3,7 +3,6 @@
 
 
 @import "compass/reset";
-@import "susy";
 @import "modules/_mixins";
 @import "modules/_colors";
 @import "modules/_uielements";
@@ -11,7 +10,8 @@
 @import "modules/_header";
 @import "modules/_footer";
 @import "modules/_tables";
-@import "modules/_tournamentlist";
+@import "modules/lists";
+@import "modules/_tournament";
 @import "modules/_places";
 @import "modules/_admin";
 @import "modules/_message";
@@ -29,5 +29,4 @@
 @import "modules/_popups";
 @import "modules/_import";
 @import "modules/_feedback";
-@import "modules/_tournament_confirm";
 @import "modules/_pickdate";

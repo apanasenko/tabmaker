@@ -16,7 +16,7 @@
             </h3>
             <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
             {% csrf_token %}
-                <button class="button" type="submit" onclick="yaCounter35208810.reachGoal('signinConfirmed'); return true;">Войти в Tabmaker</button>
+                <button class="button button--min button--prime" type="submit" onclick="yaCounter35208810.reachGoal('signinConfirmed'); return true;">Войти в Tabmaker</button>
             </form>
 
         {% else %}

@@ -81,7 +81,7 @@
 		}
 
 		&_chair {
-			@include span(100% no-gutters);
+			width:100%;
 			text-align: center;
 			font-size: 2em;
 			font-weight: 700;

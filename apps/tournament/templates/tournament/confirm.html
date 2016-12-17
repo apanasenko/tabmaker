@@ -18,8 +18,8 @@
         введите слово "{{ need_message }}" </p>
         {{ form.message }}
         <div class="b-message__confirm">
-            <button type="submit" class="button"> Подтвердить </button>
-            <a class="button" href="{% url 'tournament:play' tournament.id%}"> Отмена </a>
+            <button type="submit" class="button button--min button--prime"> Подтвердить </button>
+            <a class="button button--min button--prime" href="{% url 'tournament:play' tournament.id%}"> Отмена </a>
         </div>
     </form>
 

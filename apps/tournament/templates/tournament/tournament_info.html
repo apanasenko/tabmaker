@@ -6,8 +6,8 @@
 
         {% if tournament|is_status_registration %}
 
-            <a class="button" href="{% url "tournament:registration_team" tournament.id %}">Участовать</a>
-            <a class="button" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
+            <a class="button button--min button--prime" href="{% url "tournament:registration_team" tournament.id %}">Участовать</a>
+            <a class="button button--min button--prime" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
             <p>Регистрация до {{ tournament.close_reg|date:"d M Y" }}</p>
 
         {% elif tournament|is_status_preparation %}
@@ -17,20 +17,20 @@
         {% else %}
             {% if tournament|is_status_started or tournament|is_status_playoff%}
 
-                <a class="button" href="{% url "tournament:show_round" tournament.id %}">Текущий раунд</a>
+                <a class="button button--min button--prime" href="{% url "tournament:show_round" tournament.id %}">Текущий раунд</a>
 
             {% else %}
 
-                <a class="button" href="{% url 'tournament:result_all' tournament.id%}">Подробные результаты по румам</a>
+                <a class="button button--min button--prime" href="{% url 'tournament:result_all' tournament.id%}">Подробные результаты по румам</a>
 
             {% endif %}
 
-            <a class="button" href="{% url "tournament:result" tournament.id %}">Результаты турнира</a>
+            <a class="button button--min button--prime" href="{% url "tournament:result" tournament.id %}">Результаты турнира</a>
 
         {% endif %}
 
         {% if is_chair %}
-            <a class="button" href="{% url "tournament:result_round" tournament.id %}">
+            <a class="button button--min button--prime" href="{% url "tournament:result_round" tournament.id %}">
                 Ввести результаты
             </a>
         {% endif %}
