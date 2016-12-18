@@ -25,9 +25,11 @@
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
 
-        <button id="loginButton" class="primaryAction button b-message__loginbutton" type="submit"> Войти </button>
+        <button id="loginButton" class="button--max button--prime button" type="submit"> Войти </button>
 
-        <a class="b-message__forgot" href="{% url 'account_reset_password' %}">Забыли пароль?</a>
+        <div class="form-elem">
+            <a href="{% url 'account_reset_password' %}">Забыли пароль?</a>
+        </div>
     </form>
 
     <div>

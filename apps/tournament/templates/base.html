@@ -67,24 +67,16 @@
 
                 <ul class="menu">
 
-                    <li class="menu-item">
-                        <a href="/">Турниры</a>
-                    </li>
+                    {% if request.user.is_authenticated %}
+                        <li class="menu-item dropdown">
+                            <a href="{% url 'profile:tournaments' request.user.id %}" class="dropbtn">Мои турниры</a>
+                            <div class="dropdown-content">
+                              <a href="#">Турнир 1</a>
+                              <a href="#">Турнир 2</a>
+                              <a href="#">Турнир 3</a>
+                            </div>
+                        </li>
 
-{#                    <li class="menu-item">#}
-{#                        <a href="/">Темы</a>#}
-{#                    </li>#}
-
-                    <li class="menu-item dropdown">
-                        <a href="{% url 'profile:tournaments' request.user.id %}" class="dropbtn">Мои турниры</a>
-                        <div class="dropdown-content">
-                          <a href="#">Турнир 1</a>
-                          <a href="#">Турнир 2</a>
-                          <a href="#">Турнир 3</a>
-                        </div>
-                    </li>
-
-                     {% if request.user.is_authenticated %}
                         <li class="menu-item dropdown">
                             <a href="{% url 'profile:main' request.user.id %}" class="dropbtn">Профиль</a>
                             <div class="dropdown-content">
