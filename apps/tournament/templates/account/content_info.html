@@ -1,43 +1,35 @@
-<section class="b-profile__section">
-
-    <div class="b-profile__wrapper">
-        <h3 class="b-profile__heading">{{ user.name }}</h3>
-
-        <div class="b-profile__group">
-            <ul>
-                <li class="b-profile__listitem"><i class="fa fa-globe"></i>{{ user.university.country.name}}</li>
-                <li class="b-profile__listitem"><i class="fa fa-map-marker"></i>{{ user.university.city.name }}</li>
-                <li class="b-profile__listitem"><i class="fa fa-university"></i>{{ user.university.name }}</li>
-            </ul>
-        </div>
-
-        <div class="b-profile__group">
-            <h3 class="b-profile__heading">Контакты</h3>
-            <ul>
-                {% if request.user == user or user.is_show_email %}
-                    <li class="b-profile__listitem"><i class="fa fa-envelope-o"></i>{{ user.email }}</li>
-                {% endif %}
-
-                {% if request.user == user or user.is_show_phone %}
-                    <li class="b-profile__listitem"><i class="fa fa-mobile"></i>{{ user.phone }}</li>
-                {% endif %}
-
-                <li class="b-profile__listitem">
-                    <i class="fa fa-vk"></i>
-                    <a href="{{ user.link }}">{{ user.link }}</a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="b-profile__group">
-            <h3 class="b-profile__heading">Опыт в дебатах</h3>
-            <p class="b-profile__item">{{ user.player_experience }}</p>
-            <h3 class="b-profile__heading">Опыт судейства</h3>
-            <p class="b-profile__item">{{ user.adjudicator_experience }}</p>
-        </div>
-
-        {% if request.user == user %}
-            <a class="b-profile__button" href="{% url 'profile:edit' %}">Редактировать</a>
-        {% endif %}
+<div class="content-textpage">
+    <h3 class="paragraph__heading">{{ user.name }}</h3>
+    <div class="paragraph">
+        <p>{{ user.university.country.name}}</p>
+        <p>{{ user.university.city.name }}</p>
+        <p>{{ user.university.name }}</p>
     </div>
-</section>
+
+    <h3 class="paragraph__heading">Контакты</h3>
+    <div class="paragraph">
+        {% if request.user == user or user.is_show_email %}
+            <p>{{ user.email }}</p>
+        {% endif %}
+        {% if request.user == user or user.is_show_phone %}
+            <p>{{ user.phone }}</p>
+        {% endif %}
+            <p><a href="{{ user.link }}">{{ user.link }}</a></p>
+    </div>
+
+    <h3 class="paragraph__heading">Опыт в дебатах</h3>
+    <div class="paragraph">
+        {{ user.player_experience }}
+    </div>
+
+    <h3 class="paragraph__heading">Опыт судейства</h3>
+    <div class="paragraph">
+        {{ user.adjudicator_experience }}
+    </div>
+
+    <div class="paragraph">
+    {% if request.user == user %}
+        <a class="button button--mid utton--prime" href="{% url 'profile:edit' user.id%}">Редактировать</a>
+    {% endif %}
+    </div>
+</div>

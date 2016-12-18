@@ -1,13 +1,5 @@
 {% extends "main/base.html" %}
 
-{% block page_title %}
-    {% if is_owner %}
-        Мои турниры
-    {% else %}
-        Турниры
-    {% endif %}
-{% endblock page_title %}
-
 {% block content %}
 {#    <div>#}
 {#        {% if is_main_page %}#}
@@ -20,6 +12,20 @@
 {#            </a>#}
 {#        {% endif %}#}
 {#    </div>#}
+
+    {% block page_title %}
+        <div class="title">
+            <div class="title-container">
+                <h3 class="title__name">
+                {% if is_owner %}
+                    Мои турниры
+                {% else %}
+                    Турниры
+                {% endif %}
+                </h3>
+            </div>
+        </div>
+    {% endblock page_title %}
 
     <div class="content-textpage">
     {% with objects=objects %}

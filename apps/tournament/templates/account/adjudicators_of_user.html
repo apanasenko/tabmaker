@@ -1,10 +1,15 @@
 {% extends "account/base_include_js.html" %}
 
-{% block page_title %}
-    Судейство в турнирах
-{% endblock page_title %}
-
 {% block content %}
+    {% block page_title %}
+        <div class="title">
+            <div class="title-container">
+                <h3 class="title__name">
+                   Мои заявки на судейство
+                </h3>
+            </div>
+        </div>
+    {% endblock page_title %}
 
     {% with objects=objects is_owner=is_owner %}
         {% include 'account/content_adjudicators.html' %}

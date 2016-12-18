@@ -2,55 +2,54 @@
 
 {% load staticfiles %}
 
-{% block page_title %}
-    Результаты
-{% endblock page_title %}
-
-{% block sidebar2%}
-    {% if is_owner %}
-        {% include 'tournament/sidebar.html' %}
-    {% endif %}
-{% endblock sidebar2 %}
-
-
 {% block content %}
 
-<div class="b-tabs">
-
-    <input id="tab1" type="radio" name="tabs" class="b-tabs__input" checked>
-    <label for="tab1" class="b-tabs__label">Команды</label>
-
-    <input id="tab2" type="radio" name="tabs" class="b-tabs__input">
-    <label for="tab2" class="b-tabs__label">Спикеры</label>
-
-    <input id="tab3" type="radio" name="tabs" class="b-tabs__input">
-    <label for="tab3" class="b-tabs__label">Резолюции</label>
-
-    <section class="b-tabs__one">
-        {% with tab=team_tab %}
-            {% include "tournament/tab.html" %}
-        {% endwith %}
-    </section>
-
-    <section class="b-tabs__two">
-        {% with tab=speaker_tab %}
-            {% include "tournament/tab.html" %}
-        {% endwith %}
-    </section>
-
-    <section class="b-tabs__three">
-        <div class="content-textpage">
-        {% for motion in motions %}
-            <div class="paragraph">
-                <h3 class="paragraph__heading">{{ motion.number }}: {{ motion.motion }}</h3>
-                {% if motion.infoslide %}
-                    <p>{{ motion.infoslide }}</p>
-                {% endif %}
+    {% block page_title %}
+        <div class="title">
+            <div class="title-container">
+                <h3 class="title__name">
+                    Результаты
+                </h3>
             </div>
-        {% endfor %}
         </div>
-    </section>
+    {% endblock page_title %}
 
-</div>
+    <ul class="accordion-tabs">
+
+        <li class="tab-header-and-content tab-header-and-content__first">
+            <a href="javascript:void(0)" class="is-active tab-link">Команды</a>
+            <div class="tab-content">
+                 {% with tab=team_tab %}
+                    {% include "tournament/tab.html" %}
+                {% endwith %}
+            </div>
+        </li>
+
+        <li class="tab-header-and-content">
+            <a href="javascript:void(0)" class="tab-link">Спикеры</a>
+            <div class="tab-content">
+                {% with tab=speaker_tab %}
+                    {% include "tournament/tab.html" %}
+                {% endwith %}
+            </div>
+        </li>
+
+        <li class="tab-header-and-content">
+            <a href="javascript:void(0)" class="tab-link">Темы</a>
+            <div class="tab-content">
+                <div class="content-textpage">
+                    {% for motion in motions %}
+                        <div class="paragraph">
+                            <p>{{ motion.number }}: {{ motion.motion }}</p>
+                            {% if motion.infoslide %}
+                                <p>{{ motion.infoslide }}</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </li>
+
+    </ul>
 
 {% endblock content %}

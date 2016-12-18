@@ -29,6 +29,10 @@
 	box-sizing: border-box;
     cursor: pointer;
 
+    a {
+        color: white;
+    }
+
     &--max {
         height:40px;
         line-height:40px;
