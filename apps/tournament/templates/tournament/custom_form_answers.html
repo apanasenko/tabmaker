@@ -17,18 +17,18 @@
 {% endblock extra_head %}
 
 {% block content %}
-    <div class="b-table__page">
+    <div class="content-tablepage">
     <table id="answers" class="tablesorter b-table">
         <tr class="b-table__headrow">
         {% for name in column_names %}
-            <th class="b-table__headstring_thirty">{{ name }}</th>
+            <th>{{ name }}</th>
         {% endfor %}
         </tr>
 
         {% for row in rows %}
             <tr class="b-table__row">
             {% for values in row %}
-                <td class="b-table__string_thirty">{{ values }}</td>
+                <td>{{ values }}</td>
             {% endfor %}
             </tr>
         {% endfor %}

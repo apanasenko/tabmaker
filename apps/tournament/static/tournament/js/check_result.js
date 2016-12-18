@@ -68,11 +68,11 @@ function check_results(){
         });
         $.each([1, 2, 3, 4], function(key, value){
             if (places.indexOf(value) == -1){
-                errors_block.append('<p>Нет ' + value + ' места</p>');
+                errors_block.append('<p class="notification-red">Нет ' + value + ' места</p>');
                 checked_room = false;
             }
             if (places.indexOf(value) != places.lastIndexOf(value)){
-                errors_block.append('<p>У двух команд ' + value + ' место</p>');
+                errors_block.append('<p class="notification-red">У двух команд ' + value + ' место</p>');
                 checked_room = false;
             }
         });

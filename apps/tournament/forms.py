@@ -330,8 +330,8 @@ class MotionForm(forms.ModelForm):
         }
 
         widgets = {
-            'motion': forms.Textarea(attrs={'cols': '80', 'rows':'3'}),
-            'infoslide': forms.Textarea(attrs={'cols': '80', 'rows':'6'}),
+            'motion': forms.Textarea(attrs={'class': 'form-elem__input', 'cols': '80', 'rows': '2'}),
+            'infoslide': forms.Textarea(attrs={'class': 'form-elem__input', 'cols': '80', 'rows': '6'}),
         }
 
 

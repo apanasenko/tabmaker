@@ -25,74 +25,77 @@
 
 
 {% block content %}
-    <form id="result_form" action="{% url "tournament:result_round" tournament.id %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" id="is_final" value="{{ is_final }}">
-        {% for room in forms %}
-            {% with game=room.game res=room.result is_active=room.activate_result %}
-            <div class="b-result-enter room">
+    <div class="content-formpage">
+        <form id="result_form" action="{% url "tournament:result_round" tournament.id %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" id="is_final" value="{{ is_final }}">
+            {% for room in forms %}
+                {% with game=room.game res=room.result is_active=room.activate_result %}
+                <div class="b-result-enter room">
 
-                <div class="b-result-enter__heading">
-                    <h3>{{ game.chair|name }}</h3>
-                    {# добавить аудиторию #}
-                    {{ res.game.errors }}
-                    {{ res.game }}
-                    <div class="activate_form_checkbox b-result-enter__checkbox button-group-reverse">
-                        {% if room.show_checkbox %}
-                            <label for="id_is_check_game_{{ game.id }}">
-                                <input class="is_check_game_checkbox" id="id_is_check_game_{{ game.id }}" type="checkbox">
-                                <span class="button button--min button--prime">Редактировать результаты</span>
-                            </label>
+                    <div class="b-result-enter__heading">
+                        <h3>{{ game.chair|name }}</h3>
+                        {# добавить аудиторию #}
+                        {{ res.game.errors }}
+                        {{ res.game }}
+                        <div class="activate_form_checkbox b-result-enter__checkbox button-group-reverse">
+                            {% if room.show_checkbox %}
+                                <label for="id_is_check_game_{{ game.id }}">
+                                    <input class="is_check_game_checkbox" id="id_is_check_game_{{ game.id }}" type="checkbox">
+                                    <span class="button button--min button--prime">Редактировать результаты</span>
+                                    <button type="submit" class="button button--prime button--min">Сохранить</button>
+                                </label>
 
 
-                        {% endif %}
-                        {{ is_active.check_game }}
+                            {% endif %}
+                            {{ is_active.check_game }}
+                        </div>
+                    </div>
+
+                    <div class="errors">
+                        {{ res.non_field_errors }}
+                    </div>
+
+                    <div class="b-result-enter__room game">
+
+                        {# ======   OG   ====== #}
+                        <div class="b-result-enter__team team og">
+                            <h3 class="b-result-enter__position">Первое правительство</h3>
+                            {% with team=res.og game=game.og speaker_1=res.pm s1_exist=res.pm_exist speaker_2=res.dpm s2_exist=res.dpm_exist is_rev=res.og_rev %}
+                                {% include result_template %}
+                            {% endwith %}
+                        </div>
+
+                        {# ======   OO   ====== #}
+                        <div class="b-result-enter__team team oo">
+                            <h3 class="b-result-enter__position">Первая оппозиция</h3>
+                            {% with team=res.oo game=game.oo speaker_1=res.lo s1_exist=res.lo_exist speaker_2=res.dlo s2_exist=res.dlo_exist is_rev=res.oo_rev %}
+                                {% include result_template %}
+                            {% endwith %}
+                        </div>
+
+                        {# ======   CG   ====== #}
+                        <div class="b-result-enter__team team cg">
+                            <h3 class="b-result-enter__position">Второе правительство</h3>
+                            {% with team=res.cg game=game.cg speaker_1=res.mg s1_exist=res.mg_exist speaker_2=res.gw s2_exist=res.gw_exist is_rev=res.cg_rev %}
+                                {% include result_template %}
+                            {% endwith %}
+                        </div>
+
+                        {# ======   CO   ====== #}
+                        <div class="b-result-enter__team team co">
+                            <h3 class="b-result-enter__position">Вторая оппозиция</h3>
+                            {% with team=res.co game=game.co speaker_1=res.mo s1_exist=res.mo_exist speaker_2=res.ow s2_exist=res.ow_exist is_rev=res.co_rev %}
+                                {% include result_template %}
+                            {% endwith %}
+                        </div>
+
                     </div>
                 </div>
 
-                <div class="errors">
-                    {{ res.non_field_errors }}
-                </div>
-
-                <div class="b-result-enter__room game">
-
-                    {# ======   OG   ====== #}
-                    <div class="b-result-enter__team team og">
-                        <h3 class="b-result-enter__position">Первое правительство</h3>
-                        {% with team=res.og game=game.og speaker_1=res.pm s1_exist=res.pm_exist speaker_2=res.dpm s2_exist=res.dpm_exist is_rev=res.og_rev %}
-                            {% include result_template %}
-                        {% endwith %}
-                    </div>
-
-                    {# ======   OO   ====== #}
-                    <div class="b-result-enter__team team oo">
-                        <h3 class="b-result-enter__position">Первая оппозиция</h3>
-                        {% with team=res.oo game=game.oo speaker_1=res.lo s1_exist=res.lo_exist speaker_2=res.dlo s2_exist=res.dlo_exist is_rev=res.oo_rev %}
-                            {% include result_template %}
-                        {% endwith %}
-                    </div>
-
-                    {# ======   CG   ====== #}
-                    <div class="b-result-enter__team team cg">
-                        <h3 class="b-result-enter__position">Второе правительство</h3>
-                        {% with team=res.cg game=game.cg speaker_1=res.mg s1_exist=res.mg_exist speaker_2=res.gw s2_exist=res.gw_exist is_rev=res.cg_rev %}
-                            {% include result_template %}
-                        {% endwith %}
-                    </div>
-
-                    {# ======   CO   ====== #}
-                    <div class="b-result-enter__team team co">
-                        <h3 class="b-result-enter__position">Вторая оппозиция</h3>
-                        {% with team=res.co game=game.co speaker_1=res.mo s1_exist=res.mo_exist speaker_2=res.ow s2_exist=res.ow_exist is_rev=res.co_rev %}
-                            {% include result_template %}
-                        {% endwith %}
-                    </div>
-
-                </div>
-            </div>
-
-            {% endwith %}
-        {% endfor %}
-        <button type="submit" class="button b-result__confirm">Сохранить</button>
-    </form>
+                {% endwith %}
+            {% endfor %}
+            <button type="submit" class="button button--prime button--max">Сохранить</button>
+        </form>
+    </div>
 {% endblock content %}

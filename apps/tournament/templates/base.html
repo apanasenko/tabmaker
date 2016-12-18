@@ -76,7 +76,7 @@
 {#                    </li>#}
 
                     <li class="menu-item dropdown">
-                        <a href="#}" class="dropbtn">Мои турниры</a>
+                        <a href="{% url 'profile:tournaments' request.user.id %}" class="dropbtn">Мои турниры</a>
                         <div class="dropdown-content">
                           <a href="#">Турнир 1</a>
                           <a href="#">Турнир 2</a>

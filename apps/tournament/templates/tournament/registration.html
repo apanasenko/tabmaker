@@ -23,40 +23,45 @@
         {{ form.non_field_errors }}
 
         {% if not show_speaker_1 %}
-            <p class="b-registration__attention"> * Для регистрации команды ваш тимейт должен быть зарегистрирован у нас на сайте.</p>
+            <p>Для регистрации команды ваш тимейт должен быть зарегистрирован у нас на сайте.</p>
         {% endif %}
 
         {% if saved_team %}
             <h3>Команда {{ saved_team }} была успешно добавлена в турнир {{ tournament.name }}</h3>
         {% endif %}
 
-        <div class="b-form-item">
-            <label for="id_name"> <h3 class="b-form-item__heading b-registration__heading">Название команды</h3></label>
+        <div class="form-elem form-elem--low">
+            <label for="id_name" class="form-elem__label">Название команды</label>
             <span>{{ form.name }}</span>
             <span>{{ form.name.errors }}</span>
+        </div>
 
+        <div class="form-elem form-elem--low">
             {% if show_speaker_1 %}
 
-                <label for="id_speaker_1"><h3 class="b-form-item__heading b-registration__heading">E-mail первого спикера</h3></label>
+                <label class="form-elem__label" for="id_speaker_1">E-mail первого спикера</label>
                 <span>{{ form.speaker_1 }}</span>
                 {{ form.speaker_1.errors }}
 
-                <label for="id_speaker_2"><h3 class="b-form-item__heading b-registration__heading">E-mail второго спикера</h3></label>
+                <label class="form-elem__label" for="id_speaker_2">E-mail второго спикера</label>
             {% else %}
 
                 {{ form.speaker_1 }}
-                <label for="id_speaker_2"><h3 class="b-form-item__heading b-registration__heading">E-mail вашего напарника</h3></label>
+                <label class="form-elem__label" for="id_speaker_2">E-mail вашего напарника</label>
 
             {% endif %}
-
-            <span>{{ form.speaker_2 }}</span>
-            <span>{{ form.speaker_2.errors }}</span>
-
         </div>
 
-        <button type="submit" class="button button--min button--prime" value="Отправить">
-            {% if not show_speaker_1 %} Участвовать {% else %} Добавить {% endif %}
-        </button>
+        <div class="form-elem form-elem--low">
+            <span>{{ form.speaker_2 }}</span>
+            <span>{{ form.speaker_2.errors }}</span>
+        </div>
+
+        <div class="form-elem form-elem--low">
+            <button type="submit" class="button button--max button--prime" value="Отправить">
+                {% if not show_speaker_1 %} Участвовать {% else %} Добавить {% endif %}
+            </button>
+        </div>
     </form>
 
 {% endblock content %}

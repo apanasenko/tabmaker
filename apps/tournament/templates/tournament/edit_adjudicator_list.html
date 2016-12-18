@@ -11,82 +11,84 @@
     <script type="text/javascript" src="{% static "tournament/js/add_adjudicators.js" %}"></script>
 {% endblock extra_head %}
 
-
-{% block page_title %}
-    Добавить судью
-{% endblock page_title %}
-
-
 {% block content %}
 
-    <div class="content-textpage">
-    <li class="count-by-role__buttons">
-        <a class="button count-by-role__button"
-           href="{% url 'tournament:custom_form_edit' tournament.id 'adjudicator' %}"
-        >
-            <i class="fa fa-pencil"></i>Изменить форму регистрации судей
-        </a>
-        <a class="button count-by-role__button"
-           href="{% url 'tournament:custom_form_answers' tournament.id 'adjudicator' %}"
-        >
-            <i class="fa fa-print"></i>Посмотреть ответы на форму регитрации
-        </a>
-    </li>
+{#        <a class="button button--prime button--min" href="{% url 'tournament:custom_form_edit' tournament.id 'adjudicator' %}">Изменить форму регистрации</a>#}
+{#        <a class="button button--prime button--min" href="{% url 'tournament:custom_form_answers' tournament.id 'adjudicator' %}">Посмотреть ответы</a>#}
 
-    <div id="new_adjudicator" class="b-adjudicators__new">
-        <div class="errors"></div>
-        <input class="b-adjudicators__email" id="add_adjudicator_input" type="email" placeholder="e-mail судьи">
-        <a class="button button--min button--prime" onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить судью</a>
-    </div>
-
-    {% with statuses=statuses %}
-        {% include 'tournament/count_by_role.html' %}
-    {% endwith %}
-
-    <div class="b-adjudicators__list">
-    {% for rel in user_tournament_rels %}
-        <div id="message_{{ rel.id }}"></div>
-        <div class="block">
-            <div id="user_{{ rel.id }}" class="b-teamlist">
-                <div class="b-teamlist__wrapper">
-                    <div class="b-teamlist__heading">
-                        <h3><a href="{% url 'profile:main' rel.user.id%}">{{ rel.user|name }}</a></h3>
-                        <select class="roles count-by-role__changestatus"
-                                onchange="update_status(
-                                        '{% url 'tournament:update_adjudicator_role' tournament.id%}',
-                                        this,
-                                        '{{ rel.id }}',
-                                        'message_{{ rel.id }}'
-                                        )"
-                                onfocus="on_focus(this)"
-                                >
-                            {% for status in statuses %}
-                                <option {% if status.id == rel.role.id %} selected {% endif %} value="{{ status.id }}">
-                                    {{ status.role }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
+    {% block page_title %}
+        <div class="title">
+            <div class="title-container">
+                <h3 class="title__name">Изменить список судей</h3>
             </div>
         </div>
+    {% endblock page_title %}
+
+    <div class="content-textpage">
+        <div id="new_adjudicator" class="form-elem form-elem--low">
+            <div class="errors"></div>
+            <input class="form-elem__input" id="add_adjudicator_input" type="email" placeholder="e-mail судьи">
+            <a class="button button--min button--prime" onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить судью</a>
+        </div>
+
+        {% with statuses=statuses %}
+            {% include 'tournament/count_by_role.html' %}
+        {% endwith %}
+
+        {% if is_check_page %}
+            <div id="check_warning" class="disclaimer-red">
+                <p>Количество участников со статусом "{{ chair_role.role }}"  должно быть не меньше {{ chair_need }}</p>
+            </div>
+            <input id="chair_id" value="{{ chair_role.id }}" type="hidden">
+            <input id="chair_need" value="{{ chair_need }}" type="hidden">
+            <button id="check_button" class="button button--prime button--max" disabled onclick="redirect('{% url 'tournament:place_check' tournament.id %}')">
+                Далее
+            </button>
+        {% endif %}
+
+    </div>
+
+    <div class="content-tablepage">
+
+    <table class="b-table">
+    <tbody>
+    <tr class="b-table__headrow">
+        <th>Судья</th>
+        <th>Статус</th>
+    </tr>
+    {% for rel in user_tournament_rels %}
+        <div id="message_{{ rel.id }}"></div>
+        <div id="user_{{ rel.id }}">
+            <tr class="b-table__row">
+                <td>
+                    <a href="{% url 'profile:main' rel.user.id%}">{{ rel.user|name }}</a>
+                </td>
+                <td>
+                    <select class="roles"
+                        onchange="update_status(
+                                '{% url 'tournament:update_adjudicator_role' tournament.id%}',
+                                this,
+                                '{{ rel.id }}',
+                                'message_{{ rel.id }}'
+                                )"
+                        onfocus="on_focus(this)"
+                        >
+                        {% for status in statuses %}
+                            <option {% if status.id == rel.role.id %} selected {% endif %} value="{{ status.id }}">
+                                {{ status.role }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+        </div>
+
     {% empty %}
         <h3>Нет зарегистрированных судей</h3>
     {% endfor %}
-    </div>
 
-    {% if is_check_page %}
-        <div id="check_warning" class="disclaimer-red">
-            <p>Количество участников со статусом "{{ chair_role.role }}"  должно быть не меньше {{ chair_need }}</p>
-        </div>
-        <input id="chair_id" value="{{ chair_role.id }}" type="hidden">
-        <input id="chair_need" value="{{ chair_need }}" type="hidden">
-        <button id="check_button" class="button count-by-role__confirm" disabled onclick="redirect('{% url 'tournament:place_check' tournament.id %}')">
-            Далее
-        </button>
-    {% endif %}
-
-    </div>
+    </tbody>
+    </table>
     </div>
 
 {% endblock content %}

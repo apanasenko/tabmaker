@@ -51,8 +51,8 @@
     }
 
     &--min {
-        height:30px;
-        line-height:30px;
+        height:33px;
+        line-height:33px;
         padding: 0 10px;
         font-size: 12px;
     }
@@ -88,7 +88,7 @@
 .button-group {
     display: flex;
     margin:10px 0;
-    font-size: 13px;
+    font-size: 14px;
 
     input {
         display: none;
@@ -254,12 +254,10 @@
 @mixin notification {
     display: block;
     padding: 10px;
-    margin: 10px;
-    border-radius: 4px;
-    color: white;
-    width:100%;
-    max-width: 780px;
-    line-height: 1.3;
+    max-width: 800px;
+    margin: 10px 0;
+    line-height: 1.7;
+    padding-left: 20px;
 }
 
 .notification {
@@ -269,15 +267,21 @@
     }
 
     &-red {
-        background-color: $error;
+        background-color: lighten($error, 25%);
+        border: 2px solid $error;
+        color: $error;
     }
 
     &-green {
-        background-color: $sec;
+        background-color: lighten($sec, 25%);
+        border: 2px solid $sec;
+        color: $sec;
     }
 
     &-yellow {
-        background-color: gold;
+        background-color: lighten($warning, 25%);
+        border: 2px solid $warning;
+        color: $warning;
     }
 }
 
