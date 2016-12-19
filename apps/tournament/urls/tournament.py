@@ -7,6 +7,7 @@ urlpatterns = [
     # Management of tournament
     url(r'^new[/]$', views.new, name='new'),
     url(r'^(?P<tournament_id>\d+)[/]$', views.show, name='show'),
+    url(r'^(?P<tournament_id>\d+)/new[/]$', views.created, name='created'),
     url(r'^(?P<tournament_id>\d+)/edit[/]$', views.edit, name='edit'),
     url(r'^(?P<tournament_id>\d+)/play[/]$', views.play, name='play'),
     url(r'^(?P<tournament_id>\d+)/result[/]$', views.result, name='result'),
@@ -82,11 +83,6 @@ urlpatterns = [
         views.custom_form_show_answers,
         name='custom_form_answers'
     ),
-    # url(
-    #     r'^(?P<tournament_id>\d+)/new_tournament_confirm[/]$',
-    #     TemplateView.as_view(template_name='tournament/new_tournament_confirm.html'),
-    #     name='new_tournament_confirm'
-    # ),
     # url(
     #     r'^(?P<tournament_id>\d+)/custom_form_page[/]$',
     #     TemplateView.as_view(template_name='tournament/custom_form_page.html'),

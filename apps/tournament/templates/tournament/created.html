@@ -1,0 +1,26 @@
+{% extends "main/base.html" %}
+{% load staticfiles %}
+
+{% block page_title %}
+    Турнир создан
+{% endblock page_title %}
+
+{% block content %}
+
+   <div class="content-textpage">
+       <h3>Турнир создан!</h3>
+       <p>
+           Теперь вы можете добавлять собственные поля к формам регистрации команд и судей. <br>
+           Для этого перейдите на нужную вкладку на
+           <a href="{% url 'tournament:edit' tournament.id %}">
+               странице редактирования турнира.
+           </a>
+       </p>
+       <br>
+       <p>
+           О том, как провести турнир смотрите нашу <a href="{% url 'main:faq' %}">подробную инструкцию.</a>
+       </p>
+
+   </div>
+
+{% endblock content %}

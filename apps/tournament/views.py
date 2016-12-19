@@ -9,7 +9,7 @@ from datetime import date, timedelta
 # from apps.tournament.utils import paging
 
 from django.contrib.auth.decorators import login_required
-from django.db.models import Case, Count, Case, When, IntegerField
+from django.db.models import Case, When, IntegerField
 from django.urls import \
     reverse_lazy, \
     reverse
@@ -281,7 +281,7 @@ def new(request):
             CustomForm.get_or_create(tournament_obj, FORM_REGISTRATION_TYPE)
             CustomForm.get_or_create(tournament_obj, FORM_ADJUDICATOR_TYPE)
 
-            return redirect('tournament:show', tournament_id=tournament_obj.id)
+            return redirect('tournament:created', tournament_id=tournament_obj.id)
 
     else:
         tournament_form = TournamentForm()
@@ -291,6 +291,18 @@ def new(request):
         'tournament/new.html',
         {
             'form': tournament_form,
+        }
+    )
+
+
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='edit')
+def created(request, tournament):
+    return render(
+        request,
+        'tournament/created.html',
+        {
+            'tournament': tournament,
         }
     )
 
