@@ -375,7 +375,7 @@ class ProfileForm(forms.ModelForm):
             'first_name': forms.TextInput(attrs={'class': 'validate'}),
             'last_name': forms.TextInput(attrs={'class': 'validate'}),
             'phone': forms.TextInput(attrs={'class': 'validate', 'type': 'tel', 'placeholder': '+7914 123 45 67'}),
-            'link': forms.URLInput(attrs={'class': 'validate', 'placeholder': 'Например, http://vk.com/id0'}),
+            'link': forms.URLInput(attrs={'class': 'validate', 'placeholder': 'Например, https://vk.com/id0'}),
             'player_experience': forms.Textarea(attrs={'class': 'validate', 'placeholder': 'Опыт в дебатах', 'rows': '5'}),
             'adjudicator_experience': forms.Textarea(attrs={'class': 'validate', 'placeholder': 'Опыт судейства дебатов', 'rows': '5'}),
             'is_show_phone': forms.CheckboxInput(),

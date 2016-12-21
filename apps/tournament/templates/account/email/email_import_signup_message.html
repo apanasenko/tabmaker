@@ -2,10 +2,10 @@
 {% load profile_extras %}
 
 
-<H2>{{ user|name }}, добро пожаловать в <a href='http://tabmaker.info/'> Tabmaker </a></H2>
+<H2>{{ user|name }}, добро пожаловать в <a href='{% url 'main:index' %}'> Tabmaker </a></H2>
 <br>
 <br>
-Организаторы турнира {{ tournament.name }} зарегистрировали вас сайте <a href='http://tabmaker.info/'>tabmaker.info</a>.
+Организаторы турнира {{ tournament.name }} зарегистрировали вас сайте <a href='{% url 'main:index' %}'>tabmaker.info</a>.
 <br>
 У нас вы сможете следить за ходом турнира, просматривать результаты прошедших раундов и регестрироваться на новые турниры
 <br>

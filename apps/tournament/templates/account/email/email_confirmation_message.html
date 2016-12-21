@@ -3,10 +3,10 @@
 {% user_display user as user_display %}
 
 
-<H2>{{ user|name }}, добро пожаловать в <a href='http://tabmaker.info/'> Tabmaker </a></H2>
+<H2>{{ user|name }}, добро пожаловать в <a href='{% url 'main:index' %}'> Tabmaker </a></H2>
 <br>
 <br>
-Вы зарегистрировались на сайте <a href='http://tabmaker.info/'> tabmaker.info </a>.
+Вы зарегистрировались на сайте <a href='{% url 'main:index' %}'> tabmaker.info </a>.
 Для завершения регистрации необходимо пройти по <a href='{{ activate_url }}'> ссылке </a>.
 <br>
 <br>
