@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^profile/', include('apps.tournament.urls.account')),
     url(r'^tournament/', include('apps.tournament.urls.tournament', namespace='tournament')),
-    # url(r'^telegram/', include('django_telegrambot.urls'))
+    url(r'^telegram/', include('django_telegrambot.urls'))
 ]
 
 if settings.DEBUG:

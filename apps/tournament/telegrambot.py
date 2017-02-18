@@ -1,6 +1,8 @@
 # Example code for telegrambot.py module
+from django.db.models import Q
 from telegram.ext import CommandHandler, MessageHandler, Filters
 from django_telegrambot.apps import DjangoTelegramBot
+from .models import Motion
 
 import logging
 logger = logging.getLogger(__name__)
@@ -12,8 +14,13 @@ def start(bot, update):
     bot.sendMessage(update.message.chat_id, text='Hi!')
 
 
-def help(bot, update):
-    bot.sendMessage(update.message.chat_id, text='Help!')
+def motion(bot, update):
+    m = Motion.objects.filter(~Q(motion='temp')).order_by('?').first()
+    message = m.motion
+    if m.infoslide:
+        message += '\n' + '\n' + m.infoslide
+
+    bot.sendMessage(update.message.chat_id, text=message)
 
 
 def echo(bot, update):
@@ -35,7 +42,7 @@ def main():
 
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("motion", motion))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler([Filters.text], echo))
