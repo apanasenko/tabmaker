@@ -1416,10 +1416,7 @@ def show_teams_of_user(request, user_id):
         'account/teams_of_user.html',
         {
             'is_owner': request.user == user,
-            'objects': paging(
-                request,
-                teams_rel
-            )
+            'objects': teams_rel,
         }
     )
 
@@ -1437,10 +1434,7 @@ def show_adjudicator_of_user(request, user_id):
         'account/adjudicators_of_user.html',
         {
             'is_owner': request.user == user,
-            'objects': paging(
-                request,
-                adjudicators_rel,
-            )
+            'objects': adjudicators_rel,
         }
     )
 
