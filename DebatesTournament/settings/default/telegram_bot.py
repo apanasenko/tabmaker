@@ -1,0 +1,10 @@
+from . defaults import INSTALLED_APPS
+
+INSTALLED_APPS += [
+    'django_telegrambot',
+]
+
+TELEGRAM_BOT_TOKENS = '<TOKEN>'
+TELEGRAM_WEBHOOK_SITE = '<SITE_URL>'
+TELEGRAM_WEBHOOK_BASE = '/telegram'
+TELEGRAM_WEBHOOK_CERTIFICATE = ''
