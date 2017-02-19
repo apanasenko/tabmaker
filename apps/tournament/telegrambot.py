@@ -15,7 +15,7 @@ def start(bot, update):
 
 
 def motion(bot, update):
-    m = Motion.objects.filter(~Q(motion='temp')).order_by('?').first()
+    m = Motion.objects.filter(is_public=True).order_by('?').first()
     message = m.motion
     if m.infoslide:
         message += '\n' + '\n' + m.infoslide
