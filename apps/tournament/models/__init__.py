@@ -13,6 +13,8 @@
 #   page -> tournament
 #   custom_form  -> tournament
 #
+#   bot_users
+#
 #########################
 
 from . profile import \
@@ -49,3 +51,5 @@ from .custom_form import \
     CustomFormAnswers, \
     CustomFormType, \
     CustomQuestion
+
+from . bot_users import BotUsers

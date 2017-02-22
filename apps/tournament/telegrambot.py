@@ -1,11 +1,9 @@
-# Example code for telegrambot.py module
-from django.db.models import Q
 from telegram.ext import CommandHandler, MessageHandler, Filters
 from django_telegrambot.apps import DjangoTelegramBot
-from .models import Motion
+from .models import Motion, BotUsers
 
 import logging
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('TelegramBot')
 
 
 # Define a few command handlers. These usually take the two arguments bot and
@@ -17,6 +15,19 @@ def start(bot, update):
 def motion(bot, update):
     m = Motion.objects.filter(is_public=True).order_by('?').first()
     message = m.motion
+    try:
+        user, created = BotUsers.objects.get_or_create(
+            user_id=update.message.from_user.id,
+            username=update.message.from_user.username,
+            first_name=update.message.from_user.first_name,
+            last_name=update.message.from_user.last_name,
+            chat_id=update.message.chat_id,
+            chat_name=update.message.chat.title,
+        )
+        logger.info(str(user) + ' // ' + message + ' | ' + m.infoslide)
+    except Exception as e:
+        logger.error(e)
+
     if m.infoslide:
         message += '\n' + '\n' + m.infoslide
 
