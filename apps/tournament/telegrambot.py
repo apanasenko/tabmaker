@@ -24,7 +24,7 @@ def motion(bot, update):
             chat_id=update.message.chat_id,
             chat_name=update.message.chat.title,
         )
-        logger.info(str(user) + ' // ' + message + ' | ' + m.infoslide)
+        logger.info('{} // {} | {} | {}'.format(user, m.id, m.motion, m.infoslide))
     except Exception as e:
         logger.error(e)
 
