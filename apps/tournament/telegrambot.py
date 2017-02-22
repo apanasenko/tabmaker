@@ -43,7 +43,7 @@ def error(bot, update, error):
 
 
 def main():
-    logger.info("Loading handlers for telegram bot")
+    logger.debug("Loading handlers for telegram bot")
 
     # Default dispatcher (this is related to the first bot in settings.TELEGRAM_BOT_TOKENS)
     dp = DjangoTelegramBot.dispatcher
