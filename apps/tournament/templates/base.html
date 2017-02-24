@@ -45,6 +45,7 @@
                 '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-5H6LKZ');</script>
         {# End Google Tag Manager #}
+        {% include 'LiveInternetCounter.html' %}
     {% endif %}
 
 {% block body %}
@@ -123,6 +124,7 @@
                         </li>
                     </ul>
                 </div>
+                {% include 'LiveInternetImage.html' %}
             {% endblock footer %}
         </footer>
 
