@@ -33,11 +33,22 @@
 
     &__buttons {
         margin:0 10px;
+        display: flex;
+        height: 40px;
+        flex-direction: row-reverse;
+        min-width: 270px;
+
+        .button {
+            margin-right: 15px;
+        }
     }
 
     &__menu {
-        width:100%;
-        max-width: 890px;
+        padding: 0 20px;
+        height: 40px;
+        align-items: center;
+        display: flex;
+        width: 100%;
     }
 }
 

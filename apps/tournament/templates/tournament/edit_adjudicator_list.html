@@ -60,7 +60,7 @@
         <div id="message_{{ rel.id }}"></div>
         <div id="user_{{ rel.id }}">
             <tr class="b-table__row">
-                <td>
+                <td class="b-table__row--max">
                     <a href="{% url 'profile:main' rel.user.id%}">{{ rel.user|name }}</a>
                 </td>
                 <td>

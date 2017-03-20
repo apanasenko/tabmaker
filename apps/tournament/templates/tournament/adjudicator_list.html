@@ -11,7 +11,7 @@
     </tr>
     {% for adjudicator in adjudicators %}
         <tr class="b-table__row">
-            <td>
+            <td class="b-table__row--max">
                 <a href="{% url 'profile:main' adjudicator.user.id%}">
                     {{ adjudicator.user|name }}
                 </a>
