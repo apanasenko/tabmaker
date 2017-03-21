@@ -140,8 +140,8 @@
 
         </div>
 
+        {% block footer %}
         <footer>
-            {% block footer %}
                 <div class="b-footer">
                     <ul class="b-footer__info">
                         <li><a href="{% url 'main:about' %}">О проекте</a></li>
@@ -154,9 +154,9 @@
                         </li>
                     </ul>
                 </div>
-                {% include 'LiveInternetImage.html' %}
-            {% endblock footer %}
         </footer>
+        {% include 'LiveInternetImage.html' %}
+        {% endblock footer %}
 
 
     </div>

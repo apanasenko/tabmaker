@@ -58,6 +58,10 @@
             line-height:2;
             font-size: 14px;
             color: $dark;
+
+            &:hover {
+                color: $prime;
+            }
         }
     }
 }

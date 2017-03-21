@@ -13,55 +13,61 @@
 
 {% block content %}
 
-    <form class="content-formpage" action="{% if show_speaker_1 %}
-                        {% url "tournament:add_team" tournament.id %}
-                  {% else %}
-                        {% url "tournament:registration_team" tournament.id %}
-                  {% endif %}
-    " method="post">
-        {% csrf_token %}
-        {{ form.non_field_errors }}
+    <div class="content-formpage">
+        <form action="{% if show_speaker_1 %}
+                            {% url "tournament:add_team" tournament.id %}
+                      {% else %}
+                            {% url "tournament:registration_team" tournament.id %}
+                      {% endif %}
+        " method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
 
-        {% if not show_speaker_1 %}
-            <p>Для регистрации команды ваш тимейт должен быть зарегистрирован у нас на сайте.</p>
-        {% endif %}
+            {% if not show_speaker_1 %}
+                <p>Для регистрации команды ваш тимейт должен быть зарегистрирован у нас на сайте.</p>
+            {% endif %}
 
-        {% if saved_team %}
-            <h3>Команда {{ saved_team }} была успешно добавлена в турнир {{ tournament.name }}</h3>
-        {% endif %}
+            {% if saved_team %}
+                <p>Команда {{ saved_team }} была успешно добавлена в турнир {{ tournament.name }}</p>
+            {% endif %}
 
-        <div class="form-elem form-elem--low">
-            <label for="id_name" class="form-elem__label">Название команды</label>
-            <span>{{ form.name }}</span>
-            <span>{{ form.name.errors }}</span>
-        </div>
+            <div class="form-elem form-elem--low">
+                <label for="id_name" class="form-elem__label">Название команды</label>
+                <span>{{ form.name }}</span>
+                <span>{{ form.name.errors }}</span>
+            </div>
 
-        <div class="form-elem form-elem--low">
             {% if show_speaker_1 %}
 
-                <label class="form-elem__label" for="id_speaker_1">E-mail первого спикера</label>
-                <span>{{ form.speaker_1 }}</span>
-                {{ form.speaker_1.errors }}
+                <div class="form-elem form-elem--low">
+                    <label class="form-elem__label" for="id_speaker_1">E-mail первого спикера</label>
+                    <span>{{ form.speaker_1 }}</span>
+                    {{ form.speaker_1.errors }}
+                </div>
 
-                <label class="form-elem__label" for="id_speaker_2">E-mail второго спикера</label>
+                <div class="form-elem form-elem--low">
+                    <label class="form-elem__label" for="id_speaker_2">E-mail второго спикера</label>
             {% else %}
 
                 {{ form.speaker_1 }}
                 <label class="form-elem__label" for="id_speaker_2">E-mail вашего напарника</label>
+                </div>
 
             {% endif %}
-        </div>
 
-        <div class="form-elem form-elem--low">
-            <span>{{ form.speaker_2 }}</span>
-            <span>{{ form.speaker_2.errors }}</span>
-        </div>
+            <div class="form-elem--low">
+                <span>{{ form.speaker_2 }}</span>
+                <span>{{ form.speaker_2.errors }}</span>
+            </div>
 
-        <div class="form-elem form-elem--low">
-            <button type="submit" class="button button--max button--prime" value="Отправить">
-                {% if not show_speaker_1 %} Участвовать {% else %} Добавить {% endif %}
-            </button>
-        </div>
-    </form>
+            <div class="form-elem form-elem--low">
+                <button type="submit" class="button button--max button--prime" value="Отправить">
+                    {% if not show_speaker_1 %} Участвовать {% else %} Добавить {% endif %}
+
+{#               TODO tournament/69/team/add/ подвал не закрепляется вниз, в отличие от /tournament/69/team/registration/   #}
+                </button>
+            </div>
+        </form>
+    </div>
 
 {% endblock content %}

@@ -10,38 +10,37 @@
     </div>
 {% endblock page_title %}
 
-<div class="b-brake content-tablepage">
+<div class="content-tablepage">
     {% if error %}
         <div class="errors">
             {{ error }}
         </div>
     {% endif %}
 
-    <form class="b-brake-table" action="{% url "tournament:break" tournament.id %}" method="post">
+    <form action="{% url "tournament:break" tournament.id %}" method="post">
         {% csrf_token %}
         <table class="b-table">
             <tr class="b-table__row">
-                <td class="b-table__headstring_narrow">Отобрать</td>
+                <td>Отобрать</td>
                 {% for td in header  %}
-                    <td class="b-table__headstring_narrow">{{ td }}</td>
+                    <td>{{ td }}</td>
                 {% endfor %}
             </tr>
 
             {% for team in teams %}
                 <tr class="b-table__row">
-                    <td class="b-table__string_narrow">
+                    <td>
                         {{ team.checkbox.is_check }}
                         {{ team.checkbox.id }}
                     </td>
                     {% for td in team.result %}
-                        <td class="b-table__string_narrow">{{ td }}</td>
+                        <td>{{ td }}</td>
                     {% endfor %}
                 </tr>
             {% endfor %}
         </table>
-
-        <div class="b-brake__commands">
-            <a class="button button--min button--prime" href="{% url "tournament:edit" tournament.id %}">Изменить количество команд в плей-офф</a>
+        <div class="content-textpage content-textpage--bottom">
+            <a class="button button--min button--prime" href="{% url "tournament:edit" tournament.id %}">Изменить количество команд play-off</a>
             <button type="submit" class="button button--min button--prime">Далее</button>
         </div>
     </form>
