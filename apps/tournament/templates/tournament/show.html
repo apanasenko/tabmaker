@@ -140,45 +140,45 @@
 
     {% else %}
 
-            <ul class="accordion-tabs">
-                <li class="tab-header-and-content tab-header-and-content__first">
-                    <a href="javascript:void(0)" class="is-active tab-link">О турнире</a>
-                    <div class="tab-content">
-                        {% with tournament=tournament is_chair=is_chair %}
-                            {% include "tournament/tournament_info.html" %}
+        <ul class="accordion-tabs">
+            <li class="tab-header-and-content tab-header-and-content__first">
+                <a href="javascript:void(0)" class="is-active tab-link">О турнире</a>
+                <div class="tab-content">
+                    {% with tournament=tournament is_chair=is_chair %}
+                        {% include "tournament/tournament_info.html" %}
+                    {% endwith %}
+                </div>
+            </li>
+            <li class="tab-header-and-content">
+                <a href="javascript:void(0)" class="tab-link">Участники</a>
+                <div class="tab-content">
+                    {% if tournament.is_registration_hidden and not is_owner and tournament|is_status_registration %}
+                        <div class="content-textpage content-textpage--center content-textpage--top">
+                            <h3>Информация закрыта</h3>
+                            <p>Организаторы турнира скрыли инфомацию о уже зарегистрированных командах</p>
+                        </div>
+                    {% else %}
+                        {% with team_tournament_rels=team_tournament_rels %}
+                            {% include "tournament/team_list.html" %}
                         {% endwith %}
-                    </div>
-                </li>
-                <li class="tab-header-and-content">
-                    <a href="javascript:void(0)" class="tab-link">Участники</a>
-                    <div class="tab-content">
-                        {% if tournament.is_registration_hidden and not is_owner and tournament|is_status_registration %}
-                            <div class="content-textpage content-textpage--center content-textpage--top">
-                                <h3>Информация закрыта</h3>
-                                <p>Организаторы турнира скрыли инфомацию о уже зарегистрированных командах</p>
-                            </div>
-                        {% else %}
-                            {% with team_tournament_rels=team_tournament_rels %}
-                                {% include "tournament/team_list.html" %}
-                            {% endwith %}
-                        {% endif %}
-                    </div>
-                </li>
-                <li class="tab-header-and-content">
-                    <a href="javascript:void(0)" class="tab-link">Судьи</a>
-                    <div class="tab-content">
-                        {% with adjudicators=adjudicators %}
-                            {% include "tournament/adjudicator_list.html" %}
-                        {% endwith %}
-                    </div>
-                </li>
-                <li class="tab-header-and-content">
-                    <a href="javascript:void(0)" class="tab-link">На карте</a>
-                    <div class="tab-content">
-                        <div id="map" style="width: 100%; height: 400px"></div>
-                    </div>
-                </li>
-            </ul>
+                    {% endif %}
+                </div>
+            </li>
+            <li class="tab-header-and-content">
+                <a href="javascript:void(0)" class="tab-link">Судьи</a>
+                <div class="tab-content">
+                    {% with adjudicators=adjudicators %}
+                        {% include "tournament/adjudicator_list.html" %}
+                    {% endwith %}
+                </div>
+            </li>
+            <li class="tab-header-and-content">
+                <a href="javascript:void(0)" class="tab-link">На карте</a>
+                <div class="tab-content">
+                    <div id="map" style="width: 100%; height: 400px"></div>
+                </div>
+            </li>
+        </ul>
 
     {% endif %}
 
