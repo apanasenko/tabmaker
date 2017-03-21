@@ -6,11 +6,11 @@
 
 {% block content %}
 
-    <div id="message" class="b-message">
+    <div id="message">
         <p>{{ message }}</p>
     </div>
 
-    <div id="message_back" class="b-message__back">
+    <div id="message_back">
         <a class="button button--min button--prime" href="{% if url %}{{ url }}{% else %}javascript:history.back(){% endif %}">Назад</a>
     </div>
 

@@ -65,7 +65,8 @@ i {
 
 	&-textpage {
 		padding: 0 20px 20px 20px;
-        max-width: 1000px;
+        max-width: 960px;
+		margin:0 auto;
         width: 100%;
         min-width: 300px;
 
@@ -73,9 +74,9 @@ i {
 			padding-top: 20px;
 		}
 
-		&--center {
-			margin: 0 auto;
-		}
+        &--center {
+            text-align: center;
+        }
 	}
 
 	&-tablepage {

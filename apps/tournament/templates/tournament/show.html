@@ -153,8 +153,8 @@
                     <a href="javascript:void(0)" class="tab-link">Участники</a>
                     <div class="tab-content">
                         {% if tournament.is_registration_hidden and not is_owner and tournament|is_status_registration %}
-                            <div class="b-message">
-                                <h3 class="b-teamlist__heading">Информация закрыта</h3>
+                            <div class="content-textpage content-textpage--center content-textpage--top">
+                                <h3>Информация закрыта</h3>
                                 <p>Организаторы турнира скрыли инфомацию о уже зарегистрированных командах</p>
                             </div>
                         {% else %}

@@ -6,14 +6,14 @@
 
 {% block content %}
 
-    <form class=" b-message" method="post" action="{% url 'account_logout' %}">
+    <form class="content-formpage" method="post" action="{% url 'account_logout' %}">
         {% csrf_token %}
 
         {% if redirect_field_value %}
             <input type="hidden" name="{{redirect_field_name}}" value="{{redirect_field_value}}"/>
         {% endif %}
-        <h3>Всегда будем ждать вашего возвращения</h3>
-        <button type="submit" class="button button--min button--prime"> Все, ухожу </button>
+        <h3>Спасибо, что пользуетесь Tabmaker</h3>
+        <button type="submit" class="button button--min button--prime">Выйти</button>
     </form>
 
 {% endblock content %}

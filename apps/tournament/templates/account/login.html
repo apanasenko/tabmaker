@@ -10,13 +10,13 @@
         {% csrf_token %}
         {{ form.non_field_errors }}
         <div class="form-elem form-elem--low">
-            <h3>{{ form.login.label_tag }}</h3>
+            <p class="form-elem__label">{{ form.login.label_tag }}</p>
             {{ form.login }}
             {{ form.login.errors }}
         </div>
 
         <div class="form-elem form-elem--low">
-            <h3>{{ form.password.label_tag }}</h3>
+            <p class="form-elem__label">{{ form.password.label_tag }}</p>
             {{ form.password }}
             {{ form.password.errors }}
         </div>
