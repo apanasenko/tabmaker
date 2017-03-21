@@ -4,7 +4,7 @@
 
 {% block page_title %}
     {% if round.is_playoff %}
-        {{ round.number }} раунд плейофф
+        {{ round.number }} Раунд play-off
     {% elif not round %}
         Раунд ещё не объявлен
     {% else %}
@@ -19,6 +19,7 @@
         <div class="content-textpage content-textpage--center content-textpage--top">
             <p> К сожалению, раунд ещё не объявлен </p>
         </div>
+
     {% else %}
 
         <ul class="accordion-tabs">
