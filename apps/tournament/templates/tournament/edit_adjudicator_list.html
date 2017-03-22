@@ -36,7 +36,7 @@
         {% endwith %}
 
         {% if is_check_page %}
-            <div id="check_warning" class="disclaimer-red">
+            <div id="check_warning" class="notification-red">
                 <p>Количество участников со статусом "{{ chair_role.role }}"  должно быть не меньше {{ chair_need }}</p>
             </div>
             <input id="chair_id" value="{{ chair_role.id }}" type="hidden">

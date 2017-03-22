@@ -227,30 +227,6 @@
     }
 }
 
-.disclaimer {
-
-    &-red, &-yellow, &-green {
-
-        @include disclaimer;
-
-        p {
-            color: white;
-        }
-    }
-
-    &-red {
-        background-color: $error;
-    }
-
-    &-yellow {
-        background-color: gold;
-    }
-
-    &-green {
-        background-color: $sec;
-    }
-}
-
 @mixin notification {
     display: block;
     padding: 10px;
