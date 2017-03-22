@@ -508,7 +508,7 @@ def start(request, tournament):
         return _show_message(request, error_message)
 
     tournament.set_status(STATUS_STARTED)
-    return redirect('tournament:play', tournament_id=tournament.id)
+    return redirect('tournament:show', tournament_id=tournament.id)
 
 
 @login_required(login_url=reverse_lazy('account_login'))
@@ -545,7 +545,7 @@ def generate_break(request, tournament):
             generate_playoff(tournament, teams_in_break)
             tournament.set_status(STATUS_PLAYOFF)
 
-            return redirect('tournament:play', tournament_id=tournament.id)
+            return redirect('tournament:show', tournament_id=tournament.id)
 
     return render(
         request,
@@ -644,7 +644,7 @@ def publish_round(request, tournament):
     if not publish_last_round(tournament):
         _show_message(request, MSG_ROUND_NOT_EXIST)
 
-    return redirect('tournament:play', tournament_id=tournament.id)
+    return redirect('tournament:show', tournament_id=tournament.id)
 
 
 @login_required(login_url=reverse_lazy('account_login'))
@@ -669,7 +669,7 @@ def edit_round(request, tournament):
         forms.append(form)
 
     if all_is_valid and request.method == 'POST':
-        return redirect('tournament:play', tournament_id=tournament.id)
+        return redirect('tournament:show', tournament_id=tournament.id)
 
     return render(
         request,
@@ -699,10 +699,7 @@ def result_round(request, tournament):
     is_valid, forms = _get_or_check_round_result_forms(request, rooms, is_admin, is_playoff, is_final)
 
     if is_valid and request.method == 'POST':
-        if is_admin:
-            return redirect('tournament:play', tournament_id=tournament.id)
-        else:
-            return redirect('tournament:show', tournament_id=tournament.id)
+        return redirect('tournament:show', tournament_id=tournament.id)
 
     return render(
         request,
@@ -721,7 +718,7 @@ def result_round(request, tournament):
 @access_by_status(name_page='round_remove')
 def remove_round(request, tournament):
     if remove_last_round(tournament):
-        return redirect('tournament:play', tournament_id=tournament.id)
+        return redirect('tournament:show', tournament_id=tournament.id)
     elif tournament.status == STATUS_PLAYOFF:
         return _show_message(request, MSG_NO_ROUND_IN_PLAYOFF_FOR_REMOVE)
     else:
