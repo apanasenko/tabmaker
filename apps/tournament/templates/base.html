@@ -69,17 +69,17 @@
 
                     {% if request.user.is_authenticated %}
                         <li class="menu-item dropdown">
-                            <a href="{% url 'profile:tournaments' request.user.id %}" class="dropbtn">Мои турниры</a>
+                            <p class="dropbtn">Мои турниры</p>
                             <div class="dropdown-content">
                               <a href="#">Турнир 1</a>
-                              <a href="#">Турнир 2</a>
-                              <a href="#">Турнир 3</a>
+
                             </div>
                         </li>
 
                         <li class="menu-item dropdown">
-                            <a href="{% url 'profile:main' request.user.id %}" class="dropbtn">Профиль</a>
+                            <p class="dropbtn">Профиль</p>
                             <div class="dropdown-content">
+                              <a href="{% url 'profile:main' request.user.id %}">Обо мне</a>
                               <a href="{% url 'profile:edit' user.id %}">Редактировать</a>
                               <a href="{% url 'profile:teams' request.user.id %}">Заявки на участие</a>
                               <a href="{% url 'profile:adjudicator' request.user.id %}">Заявки на судейство</a>
