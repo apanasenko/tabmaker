@@ -24,11 +24,11 @@
             {{ form.non_field_errors }}
 
             {% if not show_speaker_1 %}
-                <p>Для регистрации команды ваш тимейт должен быть зарегистрирован у нас на сайте.</p>
+                <p class="notification-red">Для регистрации команды ваш тимейт должен быть зарегистрирован у нас на сайте.</p>
             {% endif %}
 
             {% if saved_team %}
-                <p>Команда {{ saved_team }} была успешно добавлена в турнир {{ tournament.name }}</p>
+                <p class="notification-green">Команда {{ saved_team }} была успешно добавлена на "{{ tournament.name }}"</p>
             {% endif %}
 
             <div class="form-elem form-elem--low">

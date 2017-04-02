@@ -22,9 +22,10 @@
 
     <div class="content-textpage">
 
-        {% with statuses=statuses %}
-            {% include 'tournament/count_by_role.html' %}
-        {% endwith %}
+{#        {% with statuses=statuses %}#}
+{#            {% include 'tournament/count_by_role.html' %}#}
+{#    TODO починить отображение фильтра команд по статусам #}
+{#        {% endwith %}#}
 
         {% if is_check_page %}
             <div id="check_warning" class="notification-red">

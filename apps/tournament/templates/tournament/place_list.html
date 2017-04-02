@@ -48,8 +48,9 @@
     <div class="form-elem form-elem--max" id="new_place">
         <div class="errors notification-red"></div>
         {# <label for="add_place_input">Добавить аудиторию</label> #}
-        <input id="add_place_input" placeholder="Название аудитории">
+        <input class="form-elem__input" id="add_place_input" placeholder="Название аудитории">
         <a class="button button--min button--prime" onclick="save_place('{% url 'tournament:place_add' tournament.id %}')">Добавить аудиторию</a>
+{#        TODO сделать проверку, что нельзя добавить пустую аудиторию (то есть ничего не ввести на добавить аудиторию) #}
     </div>
 
     {% if is_check_page %}

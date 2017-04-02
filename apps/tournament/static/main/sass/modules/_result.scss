@@ -147,13 +147,15 @@
 
 .b-result-edit {
 	margin-top: 20px;
-	border: 1px solid $grey;
+	border-top: 1px solid $grey;
+	border-left: 1px solid $grey;
 
 	&__heading {
 		align-items: center;
 		display: flex;
 		flex-wrap: wrap;
 		border-bottom: 1px solid $grey;
+		border-right: 1px solid $grey;
 
 		.chair, .place {
 			display: flex;
@@ -187,6 +189,8 @@
 		width:50%;
 		padding: 20px;
 		box-sizing: border-box;
+		border-bottom: 1px solid $grey;
+		border-right: 1px solid $grey;
 	}
 
 	&__submit {

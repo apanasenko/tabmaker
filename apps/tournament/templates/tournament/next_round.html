@@ -5,7 +5,7 @@
 {% block page_title %}
     <div class="title">
         <div class="title-container">
-            <h3 class="title__name">Тема на новый раунд</h3>
+            <h3 class="title__name">Тема нового раунда</h3>
         </div>
     </div>
 {% endblock page_title %}
@@ -17,7 +17,7 @@
 
     <div class="form-elem--max form-elem">
         {{ motion_form.motion.errors }}
-        {{ motion_form.motion.label_tag }}
+        {{ motion_form.motion.label_tag}}
         {{ motion_form.motion }}
     </div>
 
@@ -35,8 +35,8 @@
     </div>
 
     <div class="form-elem--max form-elem">
-        {{ round_form.is_closed }}
         {{ round_form.is_closed.label_tag }}
+        {{ round_form.is_closed }}
     </div>
 
     <div class="form-elem--max form-elem">

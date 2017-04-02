@@ -24,16 +24,17 @@
         </div>
     {% endblock page_title %}
 
-    <div class="content-textpage">
-        <div id="new_adjudicator" class="form-elem form-elem--low">
+    <div class="content-formpage">
+        <div id="new_adjudicator" class="form-elem form-elem--max form-elem--inline">
             <div class="errors"></div>
-            <input class="form-elem__input" id="add_adjudicator_input" type="email" placeholder="e-mail судьи">
-            <a class="button button--min button--prime" onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить судью</a>
+            <input class="form-elem__input form-elem--low" id="add_adjudicator_input" type="email" placeholder="e-mail судьи">
+            <a class="button button--min button--prime button--inline button--upper" onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить судью</a>
         </div>
 
-        {% with statuses=statuses %}
-            {% include 'tournament/count_by_role.html' %}
-        {% endwith %}
+{#        {% with statuses=statuses %}#}
+{#            {% include 'tournament/count_by_role.html' %}#}
+{#    TODO починить отображение фильтра команд по статусам #}
+{#        {% endwith %}#}
 
         {% if is_check_page %}
             <div id="check_warning" class="notification-red">
