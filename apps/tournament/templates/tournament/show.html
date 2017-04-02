@@ -20,15 +20,15 @@
                 <div class="title-container">
 
                      {% if is_chair %}
-                        <a class="button button--min button--sec" href="{% url "tournament:result_round" tournament.id %}">
+                        <a class="button button--max button--sec" href="{% url "tournament:result_round" tournament.id %}">
                             Ввести результаты
                         </a>
                     {% endif %}
 
                     {% if tournament|is_status_registration %}
 
-                        <a class="button button--min button--prime" href="{% url "tournament:registration_team" tournament.id %}">Участовать</a>
-                        <a class="button button--min button--prime" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
+                        <a class="button button--max button--prime" href="{% url "tournament:registration_team" tournament.id %}">Играть</a>
+                        <a class="button button--max button--prime" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
 
                     {% elif tournament|is_status_preparation %}
 
@@ -36,9 +36,9 @@
 
                     {% elif tournament|is_status_started or tournament|is_status_playoff %}
 
-                        <a class="button button--min button--prime" href="{% url "tournament:show_round" tournament.id %}">Текущий раунд</a>
-                        <a class="button button--min button--prime" href="{% url 'tournament:result' tournament.id%}">Баллы команд и спикеров</a>
-                        <a class="button button--min button--prime" href="{% url 'tournament:result_all' tournament.id%}">Результаты по комнатам</a>
+                        <a class="button button--mid button--prime" href="{% url "tournament:show_round" tournament.id %}">Текущий раунд</a>
+                        <a class="button button--mid button--prime" href="{% url 'tournament:result' tournament.id%}">Баллы команд и спикеров</a>
+                        <a class="button button--mid button--prime" href="{% url 'tournament:result_all' tournament.id%}">Результаты по комнатам</a>
 
                     {% endif %}
 

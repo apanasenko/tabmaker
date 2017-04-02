@@ -28,7 +28,7 @@
         <div id="new_adjudicator" class="form-elem form-elem--max form-elem--inline">
             <div class="errors"></div>
             <input class="form-elem__input form-elem--low" id="add_adjudicator_input" type="email" placeholder="e-mail судьи">
-            <a class="button button--min button--prime button--inline button--upper" onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить судью</a>
+            <a class="button button--min button--prime button--inline" onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить судью</a>
         </div>
 
 {#        {% with statuses=statuses %}#}
