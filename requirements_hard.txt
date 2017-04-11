@@ -2,7 +2,7 @@ certifi==2017.1.23
 defusedxml==0.4.1
 django-allauth==0.29.0
 django-modeltranslation==0.12
-django-telegrambot==0.2.4
+django-telegrambot==0.2.6
 Django==1.10.4
 future==0.16.0
 gspread==0.6.2
