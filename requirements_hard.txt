@@ -3,8 +3,8 @@ defusedxml==0.4.1
 django-allauth==0.29.0
 django-modeltranslation==0.12
 django-telegrambot==0.2.4
-future==0.16.0
 Django==1.10.4
+future==0.16.0
 gspread==0.6.2
 httplib2==0.10.3
 oauth2client==4.0.0
@@ -17,7 +17,7 @@ python-telegram-bot==5.3.0
 python3-openid==3.0.10
 requests-oauthlib==0.7.0
 requests==2.12.3
-urllib3==1.20
 rsa==3.4.2
 setuptools==30.0.0
+urllib3==1.20
 wheel==0.29.0
