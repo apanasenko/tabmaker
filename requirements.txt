@@ -1,4 +1,6 @@
+oauth2client >= 4.0
+gspread >= 0.6
 Django >= 1.10
 django-allauth >= 0.29
 django-modeltranslation >= 0.12
-django-telegrambot >= 0.2.4
+django-telegrambot >= 0.2.6

@@ -19,7 +19,7 @@ class TournamentRole(models.Model):
 
 class Tournament(models.Model):
     name = models.CharField(max_length=100)
-    location = models.CharField(max_length=100)
+    location = models.CharField(max_length=500)
     location_lon = models.FloatField(default=43.024658672481465)
     location_lat = models.FloatField(default=131.89274039289919)
     open_reg = models.DateTimeField('open registration')
