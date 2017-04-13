@@ -40,11 +40,6 @@ a {
 	color: $prime;
 }
 
-i {
-	margin-right: 8px;
-	margin-bottom: 2px;
-}
-
 
 
 // стили шаблонов страниц
@@ -104,6 +99,16 @@ i {
     }
 }
 
+// секция на странице
+
+.section {
+    padding: 20px;
+    width:100%;
+    border-bottom: 1px solid $grey;
+    box-sizing: border-box;
+}
+
+
 
 
 // стили параграфов текста
@@ -124,6 +129,7 @@ i {
         margin-bottom: 0;
 	}
 }
+
 
 
 
