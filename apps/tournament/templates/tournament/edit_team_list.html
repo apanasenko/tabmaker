@@ -22,21 +22,20 @@
 
     <div class="content-textpage">
 
-{#        {% with statuses=statuses %}#}
-{#            {% include 'tournament/count_by_role.html' %}#}
-{#    TODO починить отображение фильтра команд по статусам #}
-{#        {% endwith %}#}
-
-        {% if is_check_page %}
-            <div id="check_warning" class="notification-red">
-                Число команд со статусом "{{ member_role.role }}" должно быть кратно 4
-            </div>
-            <input id="member_id" value="{{ member_role.id }}" type="hidden">
-            <button id="check_button" class="button button--max button--prime" disabled onclick="redirect('{% url 'tournament:check_adjudicator_list' tournament.id %}')">
-                Далее
-            </button>
-         {% endif %}
+        {% with statuses=statuses %}
+            {% include 'tournament/count_by_role.html' %}
+        {% endwith %}
     </div>
+
+    {% if is_check_page %}
+        <div id="check_warning" class="notification-red">
+            Число команд со статусом "{{ member_role.role }}" должно быть кратно 4
+        </div>
+        <input id="member_id" value="{{ member_role.id }}" type="hidden">
+        <button id="check_button" class="button button--max button--prime" disabled onclick="redirect('{% url 'tournament:check_adjudicator_list' tournament.id %}')">
+            Далее
+        </button>
+    {% endif %}
 
     {% if team_tournament_rels|length > 1 %}
 

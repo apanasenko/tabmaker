@@ -165,73 +165,42 @@
 }
 
 
-// dropdowns
 
-.dropdown {
+// выпадающее меню
 
-    .dropdown-container {
-        display: inline-block;
-        position: relative;
-        text-align: center;
-        margin-bottom: 10px;
-    }
-
-    .dropdown-button {
-        cursor: pointer;
-        float: right;
-        position: relative;
-        padding: 10px;
-        border: 1px solid $grey;
-        font-size: 14px;
-
-        i {
-            margin: 0 0 0 3px;
-            color: $grey;
-        }
-    }
-
-    .dropdown-button:after {
-        display: block;
-        position: absolute;
-    }
-
-    .dropdown-menu {
-        cursor: pointer;
-        display: none;
-        overflow: show;
-        position: absolute;
-        text-align: left;
-        background-color: white;
-        top: 50px;
-        width: 200px;
-        z-index: 99999;
-        box-shadow: 0 0 5px rgba(0,0,0,0.3);
-
-        li {
-            padding: 10px;
-            font-size: 14px;
-        }
-    }
-
-    .show-menu {
-        display: block;
-    }
+.dropbtn {
+    display: inline-block;
 }
 
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+    border: 1px solid $back;
+    z-index: 999;
+    margin:10px 0 0 0;
+}
 
-@mixin disclaimer {
+.dropdown-content a {
+    color: $prime;
+    padding: 12px 16px;
     display: block;
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 5px;
-
-    @include respond-to(mobile) {
-        float: none;
-        margin: 10px 0;
-        display: block;
-        width: 100%;
-    }
+    text-transform: none;
 }
+
+.dropdown-content a:hover {
+    background-color: $sec;
+    color: white;
+}
+
+.is-shown {
+    display: block;
+}
+
+
+// notifications
 
 @mixin notification {
     display: block;
@@ -283,6 +252,11 @@
     }
 }
 
+
+
+
+// benners
+
 .b-banner {
 
     &__button {
@@ -332,7 +306,29 @@
     }
 }
 
-.b-paging {
+
+// баннер сверху страницы
+
+.topbanner {
+    background-color: $prime;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__text {
+        color: white;
+        font-family: "Roboto Mono";
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+}
+
+
+
+
+// пагинация
+
+.paging {
     display: flex;
     width: 100%;
     justify-content: center;
@@ -372,22 +368,3 @@
 .reverse {
     background-color: $grey;
 }
-
-
-// баннер сверху страницы
-
-.topbanner {
-    background-color: $prime;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &__text {
-        color: white;
-        font-family: "Roboto Mono";
-        font-weight: 700;
-        letter-spacing: 1px;
-    }
-}
-
-

@@ -79,8 +79,7 @@
                         <li class="menu-item dropdown">
                             <p class="dropbtn">Профиль</p>
                             <div class="dropdown-content">
-                              <a href="{% url 'profile:main' request.user.id %}">Обо мне</a>
-                              <a href="{% url 'profile:edit' user.id %}">Редактировать</a>
+                              <a href="{% url 'profile:edit' user.id %}">Профиль</a>
                               <a href="{% url 'profile:teams' request.user.id %}">Заявки на участие</a>
                               <a href="{% url 'profile:adjudicator' request.user.id %}">Заявки на судейство</a>
                               <a href="{% url 'profile:tournaments' request.user.id %}">Мои турниры</a>
@@ -149,7 +148,7 @@
 {#                    TODO обновить руководство под новый UI #}
         {#                <li><a href="{% url 'main:soon' %}">Что мы планируем</a></li>#}
         {#                <li><a href="{% url 'main:news' %}">Список изменений</a></li>#}
-                        <li><a href="{% url 'main:feedback' %}">Feedback</a></li>
+                        <li><a href="{% url 'main:feedback' %}">Обратная связь</a></li>
                         <li>
                             {% with vk_title='Tabmaker Вконтакте' %}{% include 'main/vk.html'%}{% endwith %}
                         </li>

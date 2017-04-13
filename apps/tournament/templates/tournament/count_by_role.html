@@ -1,13 +1,11 @@
 <div id="message" class="button-group">
     {% for status in statuses %}
         <label class="button-group-label">
-            <p>
-                <input id="{{ status.id }}" class="show_checkbox" type="checkbox" name="button-group" value="item" checked>
-                <span class="button-group-item">
-                    {{ status.role }}:
-                    <span id="count_id_{{ status.id }}">0</span>
-                </span>
-            </p>
+            <input id="{{ status.id }}" class="show_checkbox" type="checkbox" name="button-group" value="item" checked>
+            <span class="button-group-item">
+                {{ status.role }}:
+                <span id="count_id_{{ status.id }}">0</span>
+            </span>
         </label>
     {% endfor %}
 </div>

@@ -1,20 +1,6 @@
-$(document).ready(function() {
-    var width = $(window).width();
-    if(width < '769' ) {
-        $('aside').hide();
-        $('.burger-icon').click(function() {
-            if($('aside').is(':hidden')) {
-                $('aside').slideDown('fast');
-            } else {
-                $('aside').slideUp('fast');
-            }
-        });
-    }
+// TODO настроить формат даты, который уходит из формы после включения js-пикера и включить пикеры
 
-    if(window.location.pathname == '/') {
-        $('#page_title').hide();
-    }
-});
+// показать и скрыть баннер
 
 $(function() {
     $('.b-banner__close').click(function() {
@@ -22,30 +8,10 @@ $(function() {
     });
 });
 
-$(function() {
-    $('.b-window__close').click(function() {
-        $('.b-window-red, .b-window-yellow, .b-window-green').hide();
-    });
-});
 
-$(document).ready(function() {
-  $(".dropdown-button").click(function() {
-    var $button, $menu;
-    $button = $(this);
-    $menu = $button.siblings(".dropdown-menu");
-    $menu.toggleClass("show-menu");
-    $menu.children("li").click(function() {
-      $menu.removeClass("show-menu");
-    });
-  });
-});
 
-// $(document).ready(function() {
-//     $('.datepicker').pickadate();
-//     $('.timepicker').pickatime();
-// });
 
-// новая верстка табов
+// поведение табов
 
 $(document).ready(function () {
   $('.accordion-tabs').each(function(index) {
@@ -64,4 +30,16 @@ $(document).ready(function () {
       event.preventDefault();
     }
   });
+});
+
+
+
+
+// показ табов
+
+$(document).ready(function() {
+    $('.menu-item').click(function () {
+        var menuItem = $(this).find('.dropdown-content');
+        menuItem.toggle();
+    });
 });

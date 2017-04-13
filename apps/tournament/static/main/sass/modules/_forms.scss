@@ -24,10 +24,6 @@ input:focus, textarea:focus {
     outline: 1px solid $dark;
 }
 
-label {
-	display: block;
-}
-
 input[type='time'],
 input[type='date'] {
 	height: 35px;
@@ -41,36 +37,134 @@ input[type='time'] {
 	max-width: 100px;
 }
 
-input[type="checkbox"] {
+input[type="checkbox"], input[type="radio"] {
 	width: 15px;
 	height: 15px;
+    margin-right: 10px;
 }
 
-input[type="number"] {
-	max-width: 100px;
+
+
+
+.form {
+
+    &-section {
+        margin-bottom: 40px;
+    }
+
+    &-elem {
+        width:100%;
+        margin-top: 20px;
+        margin-right: 20px;
+
+        // размеры полей форм
+
+        &--max {
+            max-width: 800px;
+        }
+
+        &--mid {
+            max-width: 420px;
+        }
+
+        &--low {
+            max-width: 220px;
+        }
+
+        &--min {
+            max-width: 150px;
+        }
+
+        // состояния полей форм
+
+        &--disabled {
+            cursor: not-allowed;
+            opacity:0.3;
+        }
+
+        &--inline {
+            display: flex;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        &--nomargin {
+            margin-top: 0px;
+        }
+
+
+
+
+        // модификаторы текстов
+
+        &--error {
+            color: $error;
+        }
+
+        &--success {
+            color: $sec;
+        }
+
+
+
+        // элементы форм
+
+        &__group {
+            display: flex;
+        }
+
+        &__label, &__input, &__radio, &__description, &__error {
+            margin-bottom: 8px;
+        }
+
+        &__label, &__input, &__radio {
+            display: inline-block;
+        }
+
+        &__description, &__error {
+            display: block;
+            font-size: 14px;
+        }
+
+        &__label {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        &__input, &__select, &__option {
+            width: 100%;
+            margin-right: 20px;
+            min-width: 150px;
+
+            &--short {
+                width:50%;
+            }
+        }
+
+        &__map {
+            border: 1px solid $grey;
+            margin-top: 10px;
+        }
+
+        &__area {
+            width:100%;
+            height:150px;
+
+            &--short {
+                height: 80px;
+                width:100%;
+            }
+
+            &--long {
+                height: 240px;
+                width:100%;
+            }
+        }
+    }
 }
 
-.b-form-item {
-	margin-bottom: 20px;
 
-	input[type='text'],
-    input[type='url'],
-	textarea {
-		width: 100%;
-		display: inline-block;
-		margin-bottom: 10px;
-	}
 
-	&__map {
-		border: 1px solid $grey;
-		margin-top: 10px;
-	}
-
-	&__wrapper {
-		display: block;
-		width: 100%;
-	}
-}
 
 .errorlist {
 	display: block;
@@ -82,6 +176,9 @@ input[type="number"] {
     	display: inline-block;
 	}
 }
+
+
+
 
 // autocomplete
 
@@ -95,6 +192,8 @@ input[type="number"] {
         max-width: 278px;
     }
 }
+
+
 
 
 // custom forms
@@ -175,15 +274,28 @@ input[type="number"] {
 }
 
 
-.b-form-custom {
-	min-width: 300px;
 
-	&__help {
+
+// deprecate
+
+.b-form-item {
+	margin-bottom: 20px;
+
+	input[type='text'],
+    input[type='url'],
+	textarea {
+		width: 100%;
+		display: inline-block;
 		margin-bottom: 10px;
-		color: $dark;
 	}
 
-	&__button {
-		margin-top: 20px;
+	&__map {
+		border: 1px solid $grey;
+		margin-top: 10px;
+	}
+
+	&__wrapper {
+		display: block;
+		width: 100%;
 	}
 }
