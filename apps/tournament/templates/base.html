@@ -69,7 +69,7 @@
 
                     {% if request.user.is_authenticated %}
                         <li class="menu-item dropdown">
-                            <p class="dropbtn">Мои турниры</p>
+                            <p class="dropbtn">Мои турниры<i class="material-icons">keyboard_arrow_down</i></p>
                             <div class="dropdown-content">
                                 <a href="#">Название турнира где участвовал пользователь</a>
 {#                                TODO вывести названия турниров, где участвовал пользователь #}
@@ -77,7 +77,7 @@
                         </li>
 
                         <li class="menu-item dropdown">
-                            <p class="dropbtn">Профиль</p>
+                            <p class="dropbtn">Профиль<i class="material-icons">keyboard_arrow_down</i></p>
                             <div class="dropdown-content">
                               <a href="{% url 'profile:edit' user.id %}">Профиль</a>
                               <a href="{% url 'profile:teams' request.user.id %}">Заявки на участие</a>

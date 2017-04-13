@@ -169,7 +169,17 @@
 // выпадающее меню
 
 .dropbtn {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+        color: $prime;
+    }
+
+    i {
+        margin-left: 4px;
+        font-size: 22px;
+    }
 }
 
 .dropdown-content {
