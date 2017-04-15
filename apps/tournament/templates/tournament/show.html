@@ -103,25 +103,24 @@
                 <li class="menu-item dropdown">
                     <p class="dropbtn">Ведение турнира<i class="material-icons">keyboard_arrow_down</i></p>
                     <div class="dropdown-content">
-                        <div class="dropdown-content">
 
-                            {% if tournament|is_status_preparation %}
+                        {% if tournament|is_status_preparation %}
 
-                                <a  href="{% url "tournament:check_team_list" tournament.id %}">Начать турнир</a>
+                            <a  href="{% url "tournament:check_team_list" tournament.id %}">Начать турнир</a>
 
-                            {% elif tournament|is_status_started %}
+                        {% elif tournament|is_status_started %}
 
-                                <a  href="{% url "tournament:break" tournament.id %}">Объявить брейк</a>
-                                <a  href="{% url "tournament:finished" tournament.id %}">Завершить турнир</a>
-                                <a  href="{% url "tournament:registration_closing" tournament.id %}">Отменить начало турнира</a>
+                            <a  href="{% url "tournament:break" tournament.id %}">Объявить брейк</a>
+                            <a  href="{% url "tournament:finished" tournament.id %}">Завершить турнир</a>
+                            <a  href="{% url "tournament:registration_closing" tournament.id %}">Отменить начало турнира</a>
 
-                            {% elif tournament|is_status_playoff %}
+                        {% elif tournament|is_status_playoff %}
 
-                                <a  href="{% url "tournament:finished" tournament.id %}">Завершить турнир</a>
-                                <a  href="{% url "tournament:start" tournament.id %}">Отменить брейк</a>
+                            <a  href="{% url "tournament:finished" tournament.id %}">Завершить турнир</a>
+                            <a  href="{% url "tournament:start" tournament.id %}">Отменить брейк</a>
 
-                            {% endif %}
-                        </div>
+                        {% endif %}
+
                     </div>
                 </li>
 

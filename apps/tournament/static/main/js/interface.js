@@ -40,6 +40,7 @@ $(document).ready(function () {
 $(document).ready(function() {
     $('.menu-item').click(function () {
         var menuItem = $(this).find('.dropdown-content');
+        $('.dropdown-content').hide();
         menuItem.toggle();
     });
 });

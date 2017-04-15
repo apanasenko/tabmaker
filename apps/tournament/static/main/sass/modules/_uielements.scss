@@ -1,24 +1,5 @@
 // buttons
 
-@mixin buttontwo() {
-	display: inline-block;
-	padding: 6px 12px;
-	border-radius: 6px;
-	color: $dark;
-	font-size: 14px;
-	min-height: 20px;
-	box-sizing: border-box;
-	border: 1px solid $dark;
-	background-color: transparent;
-    height:30px;
-
-	&:hover {
-		border: 1px solid $dark;
-		color: $dark;
-		transition: color 0.3s ease;
-	}
-}
-
 .button {
     display: inline-block;
     font-family: "Roboto Mono";
