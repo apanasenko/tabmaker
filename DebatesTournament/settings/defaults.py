@@ -16,6 +16,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.mailru',
+    'allauth.socialaccount.providers.vk',
+    'allauth.socialaccount.providers.facebook',
 
     'modeltranslation',
 ]

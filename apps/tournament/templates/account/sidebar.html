@@ -1,4 +1,5 @@
 {% load profile_extras %}
+{% load staticfiles %}
 
 <ul class="b-sidebar__list">
     {% if request.user.is_authenticated %}
@@ -20,6 +21,21 @@
         </li>
 
     {% else %}
+
+        <li>
+            <a href="{% url "facebook_login" %}">
+                <img src="{% static "main/img/facebook_2.gif" %}" alt="Facebook" height="25" width="25">
+            </a>
+            <a><a href="{% url "google_login" %}">
+                <img src="{% static "main/img/google_3.png" %}" alt="Google" height="25" width="25">
+            </a>
+            <a href="{% url "mailru_login" %}">
+                <img src="{% static "main/img/mailru_2.ico" %}" alt="Mail.ru" height="25" width="25">
+            </a>
+            <a href="{% url "vk_login" %}">
+                <img src="{% static "main/img/vk_1.png" %}" alt="Вконтакте" height="25" width="25">
+            </a>
+        </li>
 
         <li class="b-sidebar__listitem">
             <a href="{% url 'account_login' %}">Войти</a>
