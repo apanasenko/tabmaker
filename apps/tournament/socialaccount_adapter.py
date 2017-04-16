@@ -1,3 +1,4 @@
+from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from django.urls import reverse
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from . models import User
@@ -9,6 +10,8 @@ class SocialAccountAdapter(DefaultSocialAccountAdapter):
         if sociallogin.is_existing:
             return
 
+        if not sociallogin.user.email:
+            raise OAuth2Error('Для авторицации необходимо дать доступ к электронному адресу')
         try:
             user = User.objects.get(email=sociallogin.user.email)
             sociallogin.connect(request, user)
