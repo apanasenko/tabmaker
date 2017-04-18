@@ -272,30 +272,3 @@ input[type="checkbox"], input[type="radio"] {
 .star {
     color: red;
 }
-
-
-
-
-// deprecate
-
-.b-form-item {
-	margin-bottom: 20px;
-
-	input[type='text'],
-    input[type='url'],
-	textarea {
-		width: 100%;
-		display: inline-block;
-		margin-bottom: 10px;
-	}
-
-	&__map {
-		border: 1px solid $grey;
-		margin-top: 10px;
-	}
-
-	&__wrapper {
-		display: block;
-		width: 100%;
-	}
-}

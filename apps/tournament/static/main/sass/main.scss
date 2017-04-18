@@ -3,29 +3,22 @@
 
 
 @import "compass/reset";
-@import "modules/_mixins";
 @import "modules/_colors";
-@import "modules/_uielements";
 @import "modules/_layout";
+@import "modules/_uielements";
 @import "modules/_header";
 @import "modules/_footer";
 @import "modules/_tables";
 @import "modules/lists";
 @import "modules/_tournament";
-@import "modules/_places";
-@import "modules/_admin";
-@import "modules/_message";
-@import "modules/_teamlist";
-@import "modules/_sidebar";
 @import "modules/_result";
-@import "modules/forms";
+@import "modules/_forms";
 @import "modules/_profile";
-@import "modules/_brake";
-@import "modules/_adjudicators";
 @import "modules/_post";
 @import "modules/_tabs";
 @import "modules/_presentation";
-@import "modules/_popups";
 @import "modules/_import";
-@import "modules/_feedback";
 @import "modules/_pickdate";
+
+// на рефакторинг и удаление
+@import "modules/_deprecate";

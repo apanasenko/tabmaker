@@ -2,7 +2,7 @@
 
 .button {
     display: inline-block;
-    font-family: "Roboto Mono";
+    font-family: "Roboto";
     font-weight: 700;
 	border: none;
 	color: white;
@@ -135,7 +135,6 @@
         width: auto;
         line-height: 1;
         padding: .75em .8em;
-        @include shadow;
         border-radius: 4px;
     }
 
@@ -191,13 +190,32 @@
 }
 
 
+
+
+// benners
+
+.banner {
+    position: fixed;
+    bottom: 0;
+
+    &__action, &__close {
+        width:22px;
+        height:22px;
+        margin-left: 8px;
+    }
+}
+
+
+
+
 // notifications
 
 @mixin notification {
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 10px;
     max-width: 800px;
-    margin: 10px auto;
+    margin: 20px;
     line-height: 1.7;
     padding-left: 20px;
 }
@@ -224,93 +242,6 @@
         background-color: lighten($warning, 25%);
         border: 2px solid $warning;
         color: $warning;
-    }
-}
-
-@mixin banner {
-    box-sizing: border-box;
-    display: block;
-    width: 100%;
-
-    @include respond-to(large) {
-        padding: 40px;
-    }
-    @include respond-to(tablets) {
-        padding: 20px;
-    }
-    @include respond-to(mobile) {
-        padding: 20px;
-    }
-}
-
-
-
-
-// benners
-
-.b-banner {
-
-    &__button {
-        display: inline-block;
-        margin-top: 10px;
-    }
-
-    &__close {
-        position: absolute;
-        top: 9%;
-        right: 3%;
-        color: white;
-    }
-
-    &-red, &-yellow, &-green {
-        @include banner;
-        position: relative;
-
-        p {
-            color: white;
-            line-height: 1.4;
-            display: inline-block;
-
-            @include respond-to(large) {
-                width: 60%;
-            }
-            @include respond-to(tablets) {
-                width: 100%;
-            }
-            @include respond-to(mobile) {
-                width: 100%;
-            }
-        }
-
-    }
-
-    &-red {
-        background-color: orangered;
-    }
-
-    &-green {
-        background-color: green;
-    }
-
-    &-yellow {
-        background-color: gold;
-    }
-}
-
-
-// баннер сверху страницы
-
-.topbanner {
-    background-color: $prime;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &__text {
-        color: white;
-        font-family: "Roboto Mono";
-        font-weight: 700;
-        letter-spacing: 1px;
     }
 }
 
@@ -356,6 +287,27 @@
     }
 }
 
+
+
+
+//
+
 .reverse {
     background-color: $grey;
+}
+
+#new_admin {
+    a {
+        display: block;
+        margin-top: 10px;
+        text-align: center;
+
+        @include respond-to(tablets) {
+            max-width: 220px;
+        }
+
+        @include respond-to(large) {
+            max-width: 220px;
+        }
+    }
 }

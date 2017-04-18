@@ -10,12 +10,21 @@
     </div>
 {% endblock page_title %}
 
-<div class="content-tablepage">
     {% if error %}
         <div class="errors">
-            {{ error }}
+            <div class="banner">
+                <div class="notification-red">
+                    {{ error }}
+                    <i class="material-icons banner__close">close</i>
+                </div>
+            </div>
         </div>
     {% endif %}
+
+    <div class="section">
+        <a class="button button--max button--prime" href="{% url "tournament:edit" tournament.id %}">Изменить количество команд в play-off</a>
+        <button type="submit" class="button button--max button--prime">Далее</button>
+    </div>
 
     <form action="{% url "tournament:break" tournament.id %}" method="post">
         {% csrf_token %}
@@ -39,10 +48,6 @@
                 </tr>
             {% endfor %}
         </table>
-        <div class="content-textpage content-textpage--bottom">
-            <a class="button button--min button--prime" href="{% url "tournament:edit" tournament.id %}">Изменить количество команд play-off</a>
-            <button type="submit" class="button button--min button--prime">Далее</button>
-        </div>
     </form>
-</div>
+
 {% endblock content %}

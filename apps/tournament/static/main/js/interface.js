@@ -3,11 +3,10 @@
 // показать и скрыть баннер
 
 $(function() {
-    $('.b-banner__close').click(function() {
-        $('.b-banner-red, .b-banner-yellow, .b-banner-green').hide();
+    $('.banner__close').click(function() {
+        $('.banner').hide();
     });
 });
-
 
 
 
