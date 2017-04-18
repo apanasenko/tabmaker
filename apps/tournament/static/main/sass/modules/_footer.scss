@@ -1,5 +1,5 @@
 footer {
-	background-color: $dark;
+	background-color: $prime;
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
@@ -34,13 +34,13 @@ footer {
 			font-weight: 700;
 			font-size: 14px;
 			font-family: "Roboto Mono";
-			color: $grey;
+			color: $dark;
 			margin-right: 20px;
 			letter-spacing: 2px;
 			text-transform: uppercase;
 
 			a {
-				color: $grey;
+				color: white;
 
 				&:hover {
 					color: lighten($grey, 10%);

@@ -1,17 +1,19 @@
 {% if tab|length > 1 %}
+    <div class="content-tablepage">
     <table class="b-table">
     <tbody>
 
     {% for tr in tab %}
         <tr class="b-table__row">
             {% for td in tr %}
-                <td>{{ td }}</td>
+                <td class="b-table__row">{{ td }}</td>
             {% endfor %}
         </tr>
     {% endfor %}
 
     </tbody>
     </table>
+    </div>
 {% else %}
 
     <h3>Результатов нет</h3>

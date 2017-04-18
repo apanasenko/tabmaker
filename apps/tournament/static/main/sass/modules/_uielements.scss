@@ -1,5 +1,6 @@
 // buttons
 
+
 .button {
     display: inline-block;
     font-family: "Roboto";
@@ -9,6 +10,7 @@
 	background-color: $prime;
 	box-sizing: border-box;
     cursor: pointer;
+    border-radius: 3px;
 
     a {
         color: white;
@@ -47,11 +49,23 @@
     &--prime {
         background-color: $prime;
         color: white;
+        transition: 0.2s ease background-color;
+
+        &:hover {
+            background-color: darken($prime, 8%);
+            transition: 0.2s ease background-color;
+        }
     }
 
     &--sec {
         background-color: $sec;
         color: white;
+        transition: 0.2s ease background-color;
+
+        &:hover {
+            background-color: darken($sec, 8%);
+            transition: 0.2s ease background-color;
+        }
     }
 
     &--white {
@@ -169,8 +183,9 @@
     min-width: 160px;
     box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
     border: 1px solid $back;
+    border-radius: 2px;
     z-index: 999;
-    margin:10px 0 0 0;
+    margin: 10px 0 0 0;
 }
 
 .dropdown-content a {
@@ -178,11 +193,12 @@
     padding: 14px 16px;
     display: block;
     text-transform: none;
+    max-width: 200px;
+    line-height: 1.4;
 }
 
 .dropdown-content a:hover {
-    background-color: $sec;
-    color: white;
+    background-color: $back;
 }
 
 .is-shown {
@@ -254,15 +270,21 @@
     display: flex;
     width: 100%;
     justify-content: center;
+    align-items: center;
 
     &__prev, &__next, &__numbers {
         box-sizing: border-box;
-        display: inline-block;
+        display: flex;
+        align-items: center;
         cursor: pointer;
         padding: 20px 0;
 
         i, a {
             color: $prime;
+        }
+
+        i {
+            font-size: 18px;
         }
     }
 
@@ -273,7 +295,14 @@
         }
     }
 
-    &__prev, &__numbers {
+    &__prev {
+
+        i {
+            margin-right: 20px;
+        }
+    }
+
+    &__prev {
         margin-right: 20px;
     }
 
@@ -281,7 +310,8 @@
 
         span {
             color: $prime;
-            margin-right: 10px;
+            margin-right: 20px;
+            font-size: 18px;
         }
 
     }

@@ -65,13 +65,12 @@
 		margin: 0 0 15px 0;
 
 		&__heading {
-			background-color: $sec;
 			display: flex;
 			align-items: center;
+			border: 1px solid $grey;
 
 			h3 {
 				margin:0 0 0 10px;
-				color: white;
 
 				@include respond-to(mobile) {
 					font-size: 16px;

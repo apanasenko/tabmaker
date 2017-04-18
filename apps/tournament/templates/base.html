@@ -86,8 +86,8 @@
 
             <div class="header__buttons">
                 {% if request.user.is_authenticated %}
-                    <a class="button button--max button--sec" href="{% url 'tournament:new' %}">Создать турнир</a>
                     <a class="button button--max button--prime" href="{% url 'account_logout' %}">Выйти</a>
+                    <a class="button button--max button--sec" href="{% url 'tournament:new' %}">Создать турнир</a>
                 {% else %}
                     <a class="button button--max button--prime" href="{% url 'account_login' %}">Войти</a>
                     <a class="button button--max button--prime" href="{% url 'account_signup' %}">Зарегистрироваться</a>
@@ -95,35 +95,6 @@
             </div>
 
         </header>
-
-{#        <div class="pagename">#}
-{#            {% block header %}#}
-{#                <h3>#}
-{#                    {% block page_title %} Название страницы{% endblock page_title %}#}
-{#                </h3>#}
-{#            {% endblock header %}#}
-{#        </div>#}
-
-{#            <aside>#}
-{#                <div class="b-sidebar" id="sidebar1">#}
-{##}
-{#                    {% block sidebar1%}#}
-{##}
-{#                    {% include 'account/sidebar.html' %}#}
-{##}
-{#                    {% endblock sidebar1 %}#}
-{#                </div>#}
-{##}
-{#                {% block sidebar2%}#}
-{##}
-{#                    <a class="button__createcup"#}
-{#                       onclick="yaCounter35208810.reachGoal('newBegin'); return true;"#}
-{#                       href="{% url 'tournament:new' %}">Создать турнир#}
-{#                    </a>#}
-{##}
-{#                {% endblock sidebar2 %}#}
-{#            </aside>#}
-
 
         <div class="content">
 

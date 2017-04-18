@@ -28,6 +28,7 @@
 
     <form action="{% url "tournament:break" tournament.id %}" method="post">
         {% csrf_token %}
+        <div class="content-tablepage">
         <table class="b-table">
             <tr class="b-table__row">
                 <td>Отобрать</td>
@@ -48,6 +49,7 @@
                 </tr>
             {% endfor %}
         </table>
+        </div>
     </form>
 
 {% endblock content %}

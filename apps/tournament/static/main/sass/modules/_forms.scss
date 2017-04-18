@@ -1,13 +1,14 @@
 input, select, textarea {
-	padding: 5px 0px 5px 10px;
+	padding: 7px;
 	line-height: 20px;
 	font-size: 14px;
 	color: $dark;
 	background-color: transparent;
 	border: 2px solid $grey;
 	box-sizing: border-box;
-	font-family: "PT Sans", Arial, sans-serif;
+	font-family: "Roboto", Arial, sans-serif;
 	width:100%;
+    border-radius: 3px;
 
 	&:focus {
 		border: 2px solid $prime;
@@ -129,6 +130,7 @@ input[type="checkbox"], input[type="radio"] {
         &__label {
             font-size: 16px;
             font-weight: bold;
+            color: $prime;
         }
 
         &__input, &__select, &__option {
@@ -270,5 +272,5 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .star {
-    color: red;
+    color: $error;
 }

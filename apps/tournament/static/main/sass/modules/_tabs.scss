@@ -1,60 +1,3 @@
-.b-tabs {
-    background-color: shade($prime, 50%);
-
-    &__label {
-        display: inline-block;
-        padding: 15px 20px;
-        font-weight: 600;
-        text-align: center;
-        color: $grey;
-
-        @include respond-to(tablets) {
-            padding: 15px 7px;
-            font-size: 14px;
-        }
-
-        @include respond-to(mobile) {
-            padding: 15px 7px;
-            font-size: 12px;
-        }
-    }
-
-    &__label:hover {
-        cursor: pointer;
-        color: white;
-        height: 15px;
-        background-color: $sec;
-        transition: 0.2s ease color background-color;
-    }
-
-    &__input:checked + label {
-        background-color: $sec;
-        color: white;
-        height: 15px;
-    }
-
-    &__input {
-        display: none;
-    }
-
-    &__one, &__two, &__three, &__four, &__five, &__common{
-        display: none;
-        background: white;
-        float: left;
-        width: 100%;
-    }
-}
-
-#tab1:checked ~ .b-tabs__one,
-#tab2:checked ~ .b-tabs__two,
-#tab3:checked ~ .b-tabs__three,
-#tab4:checked ~ .b-tabs__four,
-#tab5:checked ~ .b-tabs__five {
-    display: block;
-}
-
-
-
 // новая верстка табов
 
 .accordion-tabs {
@@ -95,5 +38,6 @@
       display: none;
       width: 100%;
       float: left;
+      border-top: 1px solid $grey;
   }
 }

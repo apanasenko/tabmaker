@@ -78,14 +78,18 @@ $desctop: 1200px;
 }
 
 .content {
-	display: flex;
+    display: flex;
     flex-direction: column;
-	flex: 1;
+    flex: 1;
     margin: 0 auto;
     width: 100%;
 
+    &__center {
+        justify-content: center;
+    }
+
 	&-textpage {
-		padding: 0 20px 20px 20px;
+		padding: 20px 20px 20px 20px;
         max-width: 960px;
 		margin:0 auto;
         width: 100%;
@@ -107,7 +111,9 @@ $desctop: 1200px;
 	&-tablepage {
 		overflow-x: auto;
         overflow-y: hidden;
-        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
 	}
 
 	&-datapage {
@@ -132,6 +138,10 @@ $desctop: 1200px;
     width:100%;
     border-bottom: 1px solid $grey;
     box-sizing: border-box;
+
+    &__notop {
+        padding: 0 20px 20px 20px;
+    }
 }
 
 
