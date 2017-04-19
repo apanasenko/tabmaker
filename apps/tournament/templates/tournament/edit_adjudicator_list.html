@@ -51,17 +51,17 @@
 
     <div class="content-tablepage">
 
-    <table class="b-table">
+    <table class="table">
     <tbody>
-    <tr class="b-table__headrow">
+    <tr class="table__headrow">
         <th>Судья</th>
         <th>Статус</th>
     </tr>
     {% for rel in user_tournament_rels %}
         <div id="message_{{ rel.id }}"></div>
         <div id="user_{{ rel.id }}">
-            <tr class="b-table__row">
-                <td class="b-table__row--max">
+            <tr class="table__row">
+                <td class="table__row--max">
                     <a href="{% url 'profile:main' rel.user.id%}">{{ rel.user|name }}</a>
                 </td>
                 <td>

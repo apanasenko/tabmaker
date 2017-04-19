@@ -18,15 +18,15 @@
 
 {% block content %}
     <div class="content-tablepage">
-    <table id="answers" class="tablesorter b-table">
-        <tr class="b-table__headrow">
+    <table id="answers" class="tablesorter table">
+        <tr class="table__headrow">
         {% for name in column_names %}
             <th>{{ name }}</th>
         {% endfor %}
         </tr>
 
         {% for row in rows %}
-            <tr class="b-table__row">
+            <tr class="table__row">
             {% for values in row %}
                 <td>{{ values }}</td>
             {% endfor %}

@@ -1,6 +1,6 @@
-<table class="b-table content-tablepage">
+<table class="table content-tablepage">
     <tbody>
-        <tr class="b-table__headrow">
+        <tr class="table__headrow">
             <th>Судья</th>
             <th>Статус</th>
             {% if is_owner %}
@@ -8,7 +8,7 @@
             {% endif %}
         </tr>
     {% for rel in objects %}
-        <tr class="b-table__row">
+        <tr class="table__row">
             <td>
                 <a id="adjudicator_{{ rel.id }}" href="{% url 'tournament:show' rel.tournament.id %}">{{ rel.tournament.name }}</a>
             </td>

@@ -41,9 +41,9 @@
                 <a href="javascript:void(0)" class="tab-link">Комнаты</a>
                 <div class="tab-content">
                     <div class="content-tablepage">
-                        <table class="b-table">
+                        <table class="table">
                             <tbody>
-                                <tr class="b-table__headrow">
+                                <tr class="table__headrow">
                                     <th>Cудья</th>
                                     <th>Аудитория</th>
                                     <th>1П</th>
@@ -52,7 +52,7 @@
                                     <th>20</th>
                                 </tr>
                                 {% for room in rooms %}
-                                    <tr class="b-table__row">
+                                    <tr class="table__row">
                                         <td><span class="wrap">{{ room.game.chair|name }}</span></td>
                                         <td>{{ room.place.place }}</td>
                                         <td>{{ room.game.og.name }}</td>

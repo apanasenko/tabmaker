@@ -17,6 +17,10 @@
       &__first {
           margin-left:20px;
       }
+
+      label {
+          color: $prime;
+      }
   }
 
   .tab-link {
@@ -25,7 +29,6 @@
       margin-right: 20px;
       display: inline-block;
       font-size: 16px;
-      text-transform: uppercase;
       font-weight: 700;
   }
 

@@ -29,8 +29,8 @@
     <form action="{% url "tournament:break" tournament.id %}" method="post">
         {% csrf_token %}
         <div class="content-tablepage">
-        <table class="b-table">
-            <tr class="b-table__row">
+        <table class="table">
+            <tr class="table__row">
                 <td>Отобрать</td>
                 {% for td in header  %}
                     <td>{{ td }}</td>
@@ -38,7 +38,7 @@
             </tr>
 
             {% for team in teams %}
-                <tr class="b-table__row">
+                <tr class="table__row">
                     <td>
                         {{ team.checkbox.is_check }}
                         {{ team.checkbox.id }}

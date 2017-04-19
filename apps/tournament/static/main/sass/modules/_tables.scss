@@ -1,10 +1,11 @@
-.b-table {
+.table {
     font-size: 14px;
     text-align: left;
+    min-width: 860px;
 
     &__headrow {
-        background-color: $prime;
-        color: white;
+        background-color: $back;
+        color: darken($grey, 30%);
 
         th {
             font-weight: 700;
@@ -15,7 +16,7 @@
     }
 
     &__row {
-        border-bottom: 1px solid $grey;
+        border-bottom: 1px solid $back;
         min-height: 40px;
 
         &:hover {
@@ -25,10 +26,7 @@
         td {
             text-align: left;
             padding:8px;
-        }
-
-        &--max {
-            width:80%;
+            color: darken($grey, 50%);
         }
     }
 }
