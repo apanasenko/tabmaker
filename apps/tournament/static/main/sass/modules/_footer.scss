@@ -1,11 +1,12 @@
 footer {
-	background-color: $prime;
+	background-color: $back;
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
     justify-content: center;
 	width: 100%;
-	height: 180px;
+	height: 60px;
+	border-top: 1px solid $grey;
 
 	@include respond-to(mobile) {
 		padding: 30px 10px;
@@ -31,19 +32,15 @@ footer {
 
 		li {
 			display: inline;
-			font-weight: 700;
+			font-weight: 400;
 			font-size: 14px;
-			font-family: "Roboto Mono";
-			color: $dark;
 			margin-right: 20px;
-			letter-spacing: 2px;
-			text-transform: uppercase;
 
 			a {
-				color: white;
+				color: darken($grey, 40%);
 
 				&:hover {
-					color: lighten($grey, 10%);
+					color: darken($grey, 30%);
 				}
 			}
 

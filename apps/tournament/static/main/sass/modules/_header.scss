@@ -1,9 +1,10 @@
 .header {
     height: 60px;
-    background-color: $prime;
+    background-color: $back;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 1px solid $grey;
 
     &__logo {
         display: flex;
@@ -14,7 +15,7 @@
 
         span {
             font-family: 'Roboto Mono';
-            color: white;
+            color: $prime;
             font-size: 24px;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -50,7 +51,7 @@
         width: 100%;
 
         .dropbtn {
-            color: white;
+            color: $prime;
         }
     }
 }
