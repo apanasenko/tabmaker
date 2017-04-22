@@ -4,6 +4,7 @@
     list-style-type: none;
     max-width: 860px;
     margin: 0 auto;
+    width:100%;
 
     &-item {
         display: flex;
@@ -29,5 +30,9 @@
                 margin-right: 20px;
             }
         }
+    }
+
+    &--min {
+        padding: 15px;
     }
 }

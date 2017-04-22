@@ -29,44 +29,38 @@
     </div>
 {% endif %}
 
-<div class="content-textpage">
-
-    <input id="place_update_url" type="hidden" value="{% url 'tournament:place_update' tournament.id %}">
-
-    <div class="place form-elem form-elem--max" id="temp">
-        <div class="errors"></div>
-        <input id="place_id" type="hidden">
-        <input class="place_checkbox" type="checkbox">
-        <span class="place_name"></span>
-        <a class='button button--min button--sec' onclick="remove_place(this, '{% url 'tournament:place_remove' tournament.id %}')">Удалить</a>
-    </div>
-
-    <script>
-    function init() {
-        {% for place in places %}
-        generate_place_block(
-                '{{ place.place }}',
-                '{{ place.id }}',
-                parseBool('{{ place.is_active }}')
-        );
-        {% endfor %}
-    }
-    </script>
-
-    <div class="form-elem form-elem--max" id="new_place">
-        <div class="errors notification-red"></div>
-        {# <label for="add_place_input">Добавить аудиторию</label> #}
-        <input class="form-elem__input" id="add_place_input" placeholder="Название аудитории">
-        <a class="button button--min button--prime" onclick="save_place('{% url 'tournament:place_add' tournament.id %}')">Добавить аудиторию</a>
-{#        TODO сделать проверку, что нельзя добавить пустую аудиторию (то есть ничего не ввести на добавить аудиторию) #}
-    </div>
-
+<div class="section--novert" id="new_place">
+    <div class="errors"></div>
+    <input class="form-elem form-elem--mid form-elem__input" id="add_place_input" placeholder="Название аудитории" required>
+    <a class="button button--mid button--prime" onclick="save_place('{% url 'tournament:place_add' tournament.id %}')">Добавить аудиторию</a>
     {% if is_check_page %}
-        <div id="check_warning" class="notification-red">
+        <div id="check_warning" class="notification-red notification--top">
             Количество доступных аудиторий должно быть не меньше {{ places_need }}
         </div>
         <input id="places_need" value="{{ places_need }}" type="hidden">
     {% endif %}
-
 </div>
+
+<div class="place list list--min" id="temp">
+    <div class="errors"></div>
+    <input id="place_id" type="hidden">
+    <input class="place_checkbox" type="checkbox">
+    <span class="place_name"></span>
+    <a class='button button--min button--prime' onclick="remove_place(this, '{% url 'tournament:place_remove' tournament.id %}')">Удалить</a>
+</div>
+
+<input id="place_update_url" type="hidden" value="{% url 'tournament:place_update' tournament.id %}">
+
+<script>
+function init() {
+    {% for place in places %}
+    generate_place_block(
+            '{{ place.place }}',
+            '{{ place.id }}',
+            parseBool('{{ place.is_active }}')
+    );
+    {% endfor %}
+}
+</script>
+
 {% endblock content %}

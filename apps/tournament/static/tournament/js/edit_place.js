@@ -28,7 +28,7 @@ function update_button(){
 
 function generate_place_block(name, id, is_active){
     var new_block = $('#temp').clone();
-    new_block.insertBefore($('#new_place'));
+    new_block.insertAfter($('#new_place'));
     new_block.find('#place_id').val(id);
     new_block.find('.place_name').html(name);
     new_block.attr('id', id);
