@@ -29,9 +29,9 @@
     </div>
 {% endif %}
 
-<div class="section--novert" id="new_place">
-    <div class="errors"></div>
-    <input class="form-elem form-elem--mid form-elem__input" id="add_place_input" placeholder="Название аудитории" required>
+<div class="section" id="new_place">
+    <div class="errors notification-red"></div>
+        <input class="form-elem form-elem--nomargin form-elem--mid form-elem__input" id="add_place_input" placeholder="Название аудитории" required>
     <a class="button button--mid button--prime" onclick="save_place('{% url 'tournament:place_add' tournament.id %}')">Добавить аудиторию</a>
     {% if is_check_page %}
         <div id="check_warning" class="notification-red notification--top">

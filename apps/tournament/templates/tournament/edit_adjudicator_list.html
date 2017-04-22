@@ -24,6 +24,26 @@
         </div>
     {% endblock page_title %}
 
+    <div class="section">
+        {% with statuses=statuses %}
+            {% include 'tournament/count_by_role.html' %}
+        {% endwith %}
+    </div>
+
+    <div class="section">
+        <div id="new_adjudicator" class="form-elem form-elem--max form-elem--inline form-elem--nomargin">
+            <div class="errors"></div>
+            <input class="form-elem__input form-elem--low form-elem--nomargin" id="add_adjudicator_input" type="email" placeholder="e-mail судьи">
+            <a class="button button--mid button--prime button--inline button--nomarin" onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить судью</a>
+        </div>
+
+        {% if is_check_page %}
+            <div id="check_warning" class="notification-red">
+                <p>Количество участников со статусом "{{ chair_role.role }}"  должно быть не меньше {{ chair_need }}</p>
+            </div>
+        {% endif %}
+    </div>
+
     {% if is_check_page %}
         <div class="section">
             <input id="chair_id" value="{{ chair_role.id }}" type="hidden">
@@ -32,70 +52,49 @@
                 Далее
             </button>
         </div>
-
     {% endif %}
-
-    <div class="section--novert">
-        <div id="new_adjudicator" class="form-elem form-elem--max form-elem--inline">
-            <div class="errors"></div>
-            <input class="form-elem__input form-elem--low" id="add_adjudicator_input" type="email" placeholder="e-mail судьи">
-            <a class="button button--mid button--prime button--inline" onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить судью</a>
-        </div>
-
-{#        {% with statuses=statuses %}#}
-{#            {% include 'tournament/count_by_role.html' %}#}
-{#    TODO починить отображение фильтра команд по статусам #}
-{#        {% endwith %}#}
-
-        {% if is_check_page %}
-            <div id="check_warning" class="notification-red">
-                <p>Количество участников со статусом "{{ chair_role.role }}"  должно быть не меньше {{ chair_need }}</p>
-            </div>
-        {% endif %}
-
-    </div>
 
     <div class="content-tablepage">
 
-    <table class="table">
-    <tbody>
-    <tr class="table__headrow">
-        <th>Судья</th>
-        <th>Статус</th>
-    </tr>
-    {% for rel in user_tournament_rels %}
-        <div id="message_{{ rel.id }}"></div>
-        <div id="user_{{ rel.id }}">
-            <tr class="table__row">
-                <td class="table__row--max">
-                    <a href="{% url 'profile:main' rel.user.id%}">{{ rel.user|name }}</a>
-                </td>
-                <td>
-                    <select class="roles"
-                        onchange="update_status(
-                                '{% url 'tournament:update_adjudicator_role' tournament.id%}',
-                                this,
-                                '{{ rel.id }}',
-                                'message_{{ rel.id }}'
-                                )"
-                        onfocus="on_focus(this)"
-                        >
-                        {% for status in statuses %}
-                            <option {% if status.id == rel.role.id %} selected {% endif %} value="{{ status.id }}">
-                                {{ status.role }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-        </div>
+        <table class="table">
+        <tbody>
+        <tr class="table__headrow">
+            <th>Судья</th>
+            <th>Статус</th>
+        </tr>
+        {% for rel in user_tournament_rels %}
+            <div id="message_{{ rel.id }}"></div>
+            <div id="user_{{ rel.id }}">
+                <tr class="table__row">
+                    <td class="table__row--max">
+                        <a href="{% url 'profile:main' rel.user.id%}">{{ rel.user|name }}</a>
+                    </td>
+                    <td>
+                        <select class="roles"
+                            onchange="update_status(
+                                    '{% url 'tournament:update_adjudicator_role' tournament.id%}',
+                                    this,
+                                    '{{ rel.id }}',
+                                    'message_{{ rel.id }}'
+                                    )"
+                            onfocus="on_focus(this)"
+                            >
+                            {% for status in statuses %}
+                                <option {% if status.id == rel.role.id %} selected {% endif %} value="{{ status.id }}">
+                                    {{ status.role }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+            </div>
 
-    {% empty %}
-        <h3>Нет зарегистрированных судей</h3>
-    {% endfor %}
+        {% empty %}
+            <h3>Нет зарегистрированных судей</h3>
+        {% endfor %}
 
-    </tbody>
-    </table>
+        </tbody>
+        </table>
     </div>
 
 {% endblock content %}

@@ -73,6 +73,11 @@
         color: $prime;
     }
 
+    &--nomarin {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
     &__text {
 
         &--prime {
@@ -265,6 +270,7 @@
 
     &--top {
         margin-top:20px;
+        margin-bottom: 0;
     }
 }
 
