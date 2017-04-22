@@ -112,8 +112,10 @@ $desctop: 1200px;
 		overflow-x: auto;
         overflow-y: hidden;
         display: flex;
+        margin: 20px auto;
         justify-content: center;
-        margin: 20px 0;
+        flex-direction: column;
+        max-width: 960px;
 	}
 
 	&-datapage {
@@ -133,14 +135,24 @@ $desctop: 1200px;
 
 // секция на странице
 
-.section {
-    padding: 20px;
+@mixin section {
     width:100%;
     border-bottom: 1px solid $grey;
     box-sizing: border-box;
+}
 
-    &__notop {
+.section {
+    @include section;
+    padding: 20px;
+
+    &--notop {
+        @include section;
         padding: 0 20px 20px 20px;
+    }
+
+    &--novert {
+        @include section;
+        padding:0 20px;
     }
 }
 

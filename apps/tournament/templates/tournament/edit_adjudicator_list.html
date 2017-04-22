@@ -24,11 +24,22 @@
         </div>
     {% endblock page_title %}
 
-    <div class="content-formpage">
+    {% if is_check_page %}
+        <div class="section">
+            <input id="chair_id" value="{{ chair_role.id }}" type="hidden">
+            <input id="chair_need" value="{{ chair_need }}" type="hidden">
+            <button id="check_button" class="button button--prime button--max" disabled onclick="redirect('{% url 'tournament:place_check' tournament.id %}')">
+                Далее
+            </button>
+        </div>
+
+    {% endif %}
+
+    <div class="section--novert">
         <div id="new_adjudicator" class="form-elem form-elem--max form-elem--inline">
             <div class="errors"></div>
             <input class="form-elem__input form-elem--low" id="add_adjudicator_input" type="email" placeholder="e-mail судьи">
-            <a class="button button--min button--prime button--inline" onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить судью</a>
+            <a class="button button--mid button--prime button--inline" onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить судью</a>
         </div>
 
 {#        {% with statuses=statuses %}#}
@@ -40,11 +51,6 @@
             <div id="check_warning" class="notification-red">
                 <p>Количество участников со статусом "{{ chair_role.role }}"  должно быть не меньше {{ chair_need }}</p>
             </div>
-            <input id="chair_id" value="{{ chair_role.id }}" type="hidden">
-            <input id="chair_need" value="{{ chair_need }}" type="hidden">
-            <button id="check_button" class="button button--prime button--max" disabled onclick="redirect('{% url 'tournament:place_check' tournament.id %}')">
-                Далее
-            </button>
         {% endif %}
 
     </div>
