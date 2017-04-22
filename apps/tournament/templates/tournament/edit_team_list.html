@@ -69,7 +69,7 @@
                         <a href="{% url 'profile:main' rel.team.speaker_2.id%}">{{ rel.team.speaker_2|name }}</a>
                     </td>
                     <td>
-                        <select
+                        <select class="roles"
                             onchange="update_status(
                                     '{% url 'tournament:update_team_role' tournament.id%}',
                                     this,

@@ -3,6 +3,11 @@
     text-align: left;
     min-width: 860px;
 
+    tbody {
+        min-width: 860px;
+        display: table;
+    }
+
     &__headrow {
         background-color: $back;
         color: darken($grey, 30%);

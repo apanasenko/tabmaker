@@ -165,10 +165,8 @@
 .dropbtn {
     display: flex;
     align-items: center;
-
-    &:hover {
-        color: $prime;
-    }
+    color: $prime;
+    cursor: pointer;
 
     i {
         margin-left: 4px;
