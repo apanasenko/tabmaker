@@ -67,6 +67,20 @@ aside {
 			}
 		}
 
+        &--flex {
+            display: flex;
+        }
+
+        &--icon {
+            margin-right:10px;
+
+            i {
+                &:hover {
+                    color: white;
+                }
+            }
+        }
+
 		&:hover {
 			background-color: $buttondark;
 			transition: background-color 0.3s ease;
