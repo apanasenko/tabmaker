@@ -40,8 +40,28 @@ class TeamRegistrationForm(forms.ModelForm):
 
     def clean(self):
         super(TeamRegistrationForm, self).clean()
-        if self.is_valid() and self.cleaned_data['speaker_1'] == self.cleaned_data['speaker_2']:
+
+        if not self.is_valid():
+            return
+
+        if self.cleaned_data['speaker_1'] == self.cleaned_data['speaker_2']:
             raise forms.ValidationError(u'Email первого и второго спикера должны различаться')
+
+        team_exists = Team.objects.filter(
+            speaker_1__email=self.cleaned_data['speaker_1'],
+            speaker_2__email=self.cleaned_data['speaker_2']
+        ).exists()
+
+        team_exists |= Team.objects.filter(
+            speaker_1__email=self.cleaned_data['speaker_2'],
+            speaker_2__email=self.cleaned_data['speaker_1']
+        ).exists()
+
+        if team_exists:
+            raise forms.ValidationError(u'Команда с этими спикерами уже зарегистрированна в турнире')
+
+        if Team.objects.filter(name=self.cleaned_data['name']).exists():
+            raise forms.ValidationError(u'Команда таким названием уже зарегистрированна в турнире')
 
     def save(self, commit=True):
         team = super(TeamRegistrationForm, self).save(commit=False)
