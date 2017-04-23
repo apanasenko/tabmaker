@@ -1,63 +1,4 @@
-// показать результаты по румам
-
-.b-result-show {
-	margin: 0 0 15px 0;
-
-	&__heading {
-		background-color: $sec;
-		padding: 10px;
-		color: white;
-		box-sizing: content-box;
-		display: block;
-		margin: 0;
-
-		@include respond-to(mobile) {
-			font-size: 16px;
-		}
-
-		@include respond-to(tablets) {
-			font-size: 16px;
-		}
-	}
-
-	&__room {
-		display: flex;
-		flex-wrap: wrap;
-	}
-
-	&__team {
-		flex-grow: 1;
-		border-right: 1px solid $grey;
-		border-left: 1px solid $grey;
-		border-bottom: 1px solid $grey;
-		width:49%;
-		padding: 15px;
-		box-sizing: border-box;
-
-		@include respond-to(mobile) {
-			width:100%;
-		}
-
-		h3 {
-			margin: 0 0 5px 0;
-
-			@include respond-to(mobile) {
-				font-size: 16px;
-			}
-
-			@include respond-to(tablets) {
-				font-size: 16px;
-			}
-		}
-
-		p {
-			margin-bottom:5px;
-		}
-	}
-}
-
-
-// внести результаты раунда
+// результаты раунда
 
 .b-result {
 
@@ -68,6 +9,7 @@
 			display: flex;
 			align-items: center;
 			border: 1px solid $grey;
+			min-height: 50px;
 
 			h3 {
 				margin:0 0 0 10px;
@@ -101,12 +43,11 @@
 
 		&__team {
 			flex-grow: 1;
-			border-right: 1px solid $grey;
-			border-bottom: 1px solid $grey;
-			border-left: 1px solid $grey;
 			width:49%;
 			padding: 15px;
     		box-sizing: border-box;
+			line-height: 1.4;
+			border-bottom: 1px solid $grey;
 
 			@include respond-to(mobile) {
 				width:100%;
@@ -115,7 +56,17 @@
 
 			h3 {
 				font-size: 16px;
+				margin-top: 0;
 			}
+		}
+
+		&__team:nth-child(odd) {
+			border-right: 1px solid $grey;
+			border-left: 1px solid $grey;
+		}
+
+		&__team:nth-child(even) {
+			border-right: 1px solid $grey;
 		}
 
 		&__position {

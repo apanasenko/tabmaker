@@ -35,4 +35,8 @@
     &--min {
         padding: 15px;
     }
+
+    &:last-child {
+        margin-bottom: 10px;
+    }
 }

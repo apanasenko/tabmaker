@@ -20,35 +20,32 @@
         </div>
     {% endblock page_title %}
 
-    <div class="b-tabs">
-
     {% for i in results %}
 
-        <input id="tab{{ i.round.number }}" type="radio" name="tabs" class="b-tabs__input round_tabs" value="tab_{{ i.round.number }}">
-        <label for="tab{{ i.round.number }}" class="b-tabs__label">Раунд {{ i.round.number }}</label>
+        <input id="tab{{ i.round.number }}" type="radio" name="tabs" class="round_tabs" value="tab_{{ i.round.number }}">
+        <label for="tab{{ i.round.number }}">Раунд {{ i.round.number }}</label>
 
     {% endfor %}
 
-    </div>
-
+    <div class="content-formpage">
     {% for i in results %}
 
-        <section id="tab_{{ i.round.number }}" class="b-tabs__common">
+        <section id="tab_{{ i.round.number }}">
 
         {% for room in i.rooms %}
 
             {% with g=room.game r=room.result %}
 
-                <div class="b-result-show room">
+                <div class="b-result-enter room">
 
-                    <div>
-                        <h3 class="b-result-show__heading">{{ g.chair|name }}</h3> {# добавить аудиторию #}
+                    <div class="b-result-enter__heading">
+                        <h3>{{ g.chair|name }}</h3> {# добавить аудиторию #}
                     </div>
 
-                    <div class="b-result-show__room game">
+                    <div class="b-result-enter__room game">
 
                         {# ======   OG   ====== #}
-                        <div class="b-result-show__team team og">
+                        <div class="b-result-enter__team team og">
                             <h3>Первое правительство</h3>
                             {% with place=r.og speaker_1=r.pm s1_exist=r.pm_exist speaker_2=r.dpm s2_exist=r.dpm_exist is_rev=r.og_rev team=g.og %}
                                 {% include 'tournament/result_team_show.html' %}
@@ -56,7 +53,7 @@
                         </div>
 
                         {# ======   OO   ====== #}
-                        <div class="b-result-show__team team oo">
+                        <div class="b-result-enter__team team oo">
                             <h3>Первая оппозиция</h3>
                             {% with place=r.oo speaker_1=r.lo s1_exist=r.lo_exist speaker_2=r.dlo s2_exist=r.dlo_exist is_rev=r.oo_rev team=g.oo %}
                                 {% include 'tournament/result_team_show.html' %}
@@ -64,7 +61,7 @@
                         </div>
 
                         {# ======   CG   ====== #}
-                        <div class="b-result-show__team team cg">
+                        <div class="b-result-enter__team team cg">
                             <h3>Второе правительство</h3>
                             {% with place=r.cg speaker_1=r.mg s1_exist=r.mg_exist speaker_2=r.gw s2_exist=r.gw_exist is_rev=r.cg_rev team=g.cg %}
                                 {% include 'tournament/result_team_show.html' %}
@@ -72,7 +69,7 @@
                         </div>
 
                         {# ======   CO   ====== #}
-                        <div class="b-result-show__team team co">
+                        <div class="b-result-enter__team team co">
                             <h3>Вторая оппозиция</h3>
                             {% with place=r.co speaker_1=r.mo s1_exist=r.mo_exist speaker_2=r.ow s2_exist=r.ow_exist is_rev=r.co_rev team=g.co %}
                                 {% include 'tournament/result_team_show.html' %}
@@ -89,6 +86,7 @@
         </section>
 
     {% endfor %}
+    </div>
 
 
 {% endblock content %}
