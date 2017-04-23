@@ -125,7 +125,7 @@
                 {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
-                    <button type="submit" class="button button--max button--prime" onclick="yaCounter35208810.reachGoal('signinConfirmed'); return true;">
+                    <button type="submit" class="button button--max button--prime button--inline">
                         {% if is_edit_form %}
                             Сохранить
                         {% else %}
@@ -133,7 +133,7 @@
                         {% endif %}
                     </button>
                 {% if is_edit_form %}
-                    <button class="button button--max button--prime">
+                    <button class="button button--max button--prime button--inline">
                         <a href="{% url 'account_change_password' %}">Изменить пароль</a>
                     </button>
                 {% endif %}

@@ -17,12 +17,12 @@
                 {{ team_tournament_rel.team.name }}
             </td>
             <td>
-                <a href="{% url 'profile:main' team_tournament_rel.team.speaker_1.id%}">
+                <a class="link" target="_blank" href="{% url 'profile:main' team_tournament_rel.team.speaker_1.id%}">
                     {{ team_tournament_rel.team.speaker_1|name }}
                 </a>
             </td>
             <td>
-                <a href="{% url 'profile:main' team_tournament_rel.team.speaker_2.id%}">
+                <a class="link" target="_blank" href="{% url 'profile:main' team_tournament_rel.team.speaker_2.id%}">
                     {{ team_tournament_rel.team.speaker_2|name }}
                 </a>
             </td>

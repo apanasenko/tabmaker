@@ -1,19 +1,30 @@
+// links
+
+.link {
+    color: $dark;
+    cursor: pointer;
+    border-bottom: 1px solid $dark;
+}
+
+
+
 // buttons
 
 
 .button {
     display: inline-block;
-    font-family: "Roboto";
-    font-weight: 700;
+    font-weight: 500;
 	border: none;
 	color: white;
 	background-color: $prime;
 	box-sizing: border-box;
     cursor: pointer;
-    border-radius: 3px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
 
-    a {
-        color: white;
+    i {
+        margin-right:10px;
     }
 
     &--max {
@@ -38,7 +49,8 @@
     }
 
     &--inline {
-        margin-bottom: 8px;
+        margin-left: 8px;
+        display: inline-block;
     }
 
     &--upper {
@@ -47,14 +59,9 @@
     }
 
     &--prime {
-        background-color: $prime;
-        color: white;
-        transition: 0.2s ease background-color;
-
-        &:hover {
-            background-color: darken($prime, 8%);
-            transition: 0.2s ease background-color;
-        }
+        background-color: transparent;
+        border: 1px solid $prime;
+        color: $prime;
     }
 
     &--sec {
@@ -257,9 +264,9 @@
     }
 
     &-green {
-        background-color: lighten($sec, 25%);
-        border: 2px solid $sec;
-        color: $sec;
+        background-color: lighten($submit, 25%);
+        border: 2px solid $submit;
+        color: $submit;
     }
 
     &-yellow {

@@ -34,7 +34,7 @@
         <div id="new_adjudicator" class="form-elem form-elem--max form-elem--inline form-elem--nomargin">
             <div class="errors"></div>
             <input class="form-elem__input form-elem--low form-elem--nomargin" id="add_adjudicator_input" type="email" placeholder="e-mail судьи">
-            <a class="button button--mid button--prime button--inline button--nomarin" onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить судью</a>
+            <a class="button button--mid button--prime button--nomarin" onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить судью</a>
         </div>
 
         {% if is_check_page %}
@@ -66,8 +66,8 @@
             <div id="message_{{ rel.id }}"></div>
             <div id="user_{{ rel.id }}">
                 <tr class="table__row">
-                    <td class="table__row--max">
-                        <a href="{% url 'profile:main' rel.user.id%}">{{ rel.user|name }}</a>
+                    <td>
+                        <a class="link" target="_blank" href="{% url 'profile:main' rel.user.id%}">{{ rel.user|name }}</a>
                     </td>
                     <td>
                         <select class="roles"

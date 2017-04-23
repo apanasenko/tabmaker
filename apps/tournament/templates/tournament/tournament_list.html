@@ -21,26 +21,26 @@
 
             </div>
 
-            <div class="list-item__container">
+            <div class="list-item__container--row">
 
                 {% if tournament|is_status_registration %}
 
-                    <a class="button button--max button--prime" href="{% url "tournament:registration_team" tournament.id %}">
+                    <a class="button button--mid button--sec button--inline" href="{% url "tournament:registration_team" tournament.id %}">
                         Участвовать
                     </a>
-                    <a class="button button--max button--prime" href="{% url "tournament:registration_adjudicator" tournament.id %}">
+                    <a class="button button--mid button--sec button--inline" href="{% url "tournament:registration_adjudicator" tournament.id %}">
                         Судить
                     </a>
 
                 {% elif tournament|is_status_started or tournament|is_status_playoff%}
 
-                    <a class="button button--max button--prime" href="{% url "tournament:show_round" tournament.id %}">
+                    <a class="button button--mid button--prime button--inline" href="{% url "tournament:show_round" tournament.id %}">
                         Текущий раунд
                     </a>
 
                 {% else %}
 
-                <a class="button button--max button--prime" href="{% url "tournament:result" tournament.id %}">
+                <a class="button button--mid button--sec button--inline" href="{% url "tournament:result" tournament.id %}">
                     Результаты
                 </a>
 

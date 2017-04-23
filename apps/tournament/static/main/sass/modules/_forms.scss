@@ -16,9 +16,9 @@ input, select, textarea {
 }
 
 select {
-	-webkit-appearance: none;
 	height: 35px;
 	min-width: 170px;
+    max-width: 220px;
 }
 
 input:focus, textarea:focus {

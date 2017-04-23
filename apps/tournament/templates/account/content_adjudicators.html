@@ -10,7 +10,7 @@
     {% for rel in objects %}
         <tr class="table__row">
             <td>
-                <a id="adjudicator_{{ rel.id }}" href="{% url 'tournament:show' rel.tournament.id %}">{{ rel.tournament.name }}</a>
+                <a class="link" target="_blank" id="adjudicator_{{ rel.id }}" href="{% url 'tournament:show' rel.tournament.id %}">{{ rel.tournament.name }}</a>
             </td>
             <td>
                 {{ rel.role.role }}

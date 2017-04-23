@@ -63,10 +63,10 @@
                 <tr class="table__row">
                     <td>{{ rel.team.name }}</td>
                     <td>
-                        <a href="{% url 'profile:main' rel.team.speaker_1.id%}">{{ rel.team.speaker_1|name }}</a>
+                        <a class="link" target="_blank" href="{% url 'profile:main' rel.team.speaker_1.id%}">{{ rel.team.speaker_1|name }}</a>
                     </td>
                     <td>
-                        <a href="{% url 'profile:main' rel.team.speaker_2.id%}">{{ rel.team.speaker_2|name }}</a>
+                        <a class="link" target="_blank" href="{% url 'profile:main' rel.team.speaker_2.id%}">{{ rel.team.speaker_2|name }}</a>
                     </td>
                     <td>
                         <select class="roles"

@@ -26,8 +26,15 @@
             display: flex;
 
             &--item {
-                color: darken($grey, 20%);
+                color: $dark;
                 margin-right: 20px;
+            }
+        }
+
+        &__container {
+            &--row {
+                display: flex;
+                flex-direction: row;
             }
         }
     }

@@ -79,7 +79,9 @@
 
             <div class="header__buttons">
                 {% if request.user.is_authenticated %}
-                    <a class="button button--max button--prime" href="{% url 'account_logout' %}">Выйти</a>
+                    <a class="button button--max button--prime" href="{% url 'account_logout' %}">
+                        <i class="material-icons">exit_to_app</i>Выйти
+                    </a>
                     <a class="button button--max button--sec" href="{% url 'tournament:new' %}">Создать турнир</a>
                 {% else %}
                     <a class="button button--max button--prime" href="{% url 'account_login' %}">Войти</a>
