@@ -12,13 +12,13 @@
         </div>
 
         <div id="message_back">
-            <a class="button button--mid button--prime button--inline" href="
+            <a class="button button--mid button--prime " href="
                 {% if url %}
                     {{ url }}
                 {% else %}
                     javascript:history.back()
                 {% endif %}">Назад</a>
-            <a class="button button--mid button--prime button--inline" href="{% url "main:index" %}">На главную</a>
+            <a class="button button--mid button--prime " href="{% url "main:index" %}">На главную</a>
         </div>
     </div>
 

@@ -20,6 +20,7 @@
 	box-sizing: border-box;
     cursor: pointer;
     border-radius: 2px;
+    margin-left: 5px;
 
     i {
         margin-right:10px;
@@ -215,6 +216,7 @@
     text-transform: none;
     max-width: 200px;
     line-height: 1.4;
+    border-bottom: 1px solid $back;
 }
 
 .dropdown-content a:hover {
