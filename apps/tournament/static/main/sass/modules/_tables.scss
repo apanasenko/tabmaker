@@ -1,7 +1,6 @@
 .table {
     font-size: 14px;
     text-align: left;
-    min-width: 860px;
     margin: 0 auto;
 
     tbody {
@@ -15,7 +14,7 @@
         th {
             font-weight: 700;
             text-align: left;
-            padding:8px;
+            padding:12px 8px;
             border-bottom: 1px solid $prime;
         }
 
@@ -31,7 +30,7 @@
 
         td {
             text-align: left;
-            padding:8px;
+            padding:12px 8px;
             color: darken($grey, 50%);
         }
     }

@@ -203,27 +203,6 @@ aside {
 
 }
 
-.count-by-role {
-
-    &__buttons {
-        list-style-type: none;
-    }
-
-	&__confirm {
-		margin-bottom: 20px;
-		margin-top: 20px;
-
-        &:disabled {
-            background-color: $grey;
-			opacity: 0.5;
-        }
-	}
-
-	&__changestatus {
-		border: 1px solid $grey;
-	}
-}
-
 
 
 // список команд в добавлении команд

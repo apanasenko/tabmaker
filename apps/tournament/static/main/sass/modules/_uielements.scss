@@ -20,11 +20,10 @@
 	box-sizing: border-box;
     cursor: pointer;
     border-radius: 2px;
-    display: flex;
-    align-items: center;
 
     i {
         margin-right:10px;
+        vertical-align: sub;
     }
 
     &--max {
@@ -167,6 +166,17 @@
     input:checked + .button-group-item {
         box-shadow: none;
         opacity:0.5;
+    }
+}
+
+
+.group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &-item {
+        margin-right: 20px;
     }
 }
 
@@ -360,4 +370,8 @@
             max-width: 220px;
         }
     }
+}
+
+.show_checkbox {
+    display: none;
 }

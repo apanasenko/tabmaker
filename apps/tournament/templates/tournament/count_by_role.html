@@ -1,6 +1,6 @@
-<div id="message">
+<div id="message" class="group">
     {% for status in statuses %}
-        <label>
+        <label class="group-item">
             <input id="{{ status.id }}" class="show_checkbox" type="checkbox" name="button-group" value="item" checked>
             <span>
                 {{ status.role }}:
