@@ -36,3 +36,5 @@ ACCOUNT_LOGOUT_ON_GET = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 SOCIALACCOUNT_ADAPTER = 'apps.tournament.socialaccount_adapter.SocialAccountAdapter'
+
+SOCIALACCOUNT_EMAIL_VERIFICATION = "optional"

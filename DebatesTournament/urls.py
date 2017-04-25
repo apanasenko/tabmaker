@@ -11,9 +11,9 @@ urlpatterns = [
     url(r'^telegram/', include('django_telegrambot.urls'))
 ]
 
-# if settings.DEBUG:
-#     import debug_toolbar
-#     urlpatterns += [
-#         url(r'', include('apps.tester.urls', namespace='tester')),
-#         url(r'^__debug__/', include(debug_toolbar.urls)),
-#     ]
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        url(r'', include('apps.tester.urls', namespace='tester')),
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ]

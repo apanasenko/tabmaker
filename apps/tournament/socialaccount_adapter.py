@@ -16,4 +16,4 @@ class SocialAccountAdapter(DefaultSocialAccountAdapter):
             user = User.objects.get(email=sociallogin.user.email)
             sociallogin.connect(request, user)
         except User.DoesNotExist:
-            sociallogin.state['next'] = reverse('profile:edit', args=[sociallogin.user.id])
+            sociallogin.state['next'] = reverse('profile:edit')

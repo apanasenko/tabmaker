@@ -1356,25 +1356,24 @@ def show_profile(request, user_id):
     )
 
 
-def edit_profile(request, user_id):
-    user = get_object_or_404(User, pk=user_id)
-    if not request.user.is_authenticated() or request.user != user:
+def edit_profile(request):
+    if not request.user.is_authenticated():
         raise Http404
     is_success = False
     if request.method == 'POST':
-        form = EditForm(request.POST, instance=user)
+        form = EditForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
             is_success = True
     else:
-        form = EditForm(instance=user)
+        form = EditForm(instance=request.user)
     return render(
         request,
         'account/signup.html',
         {
             'is_edit_form': True,
             'is_success': is_success,
-            'user': user,
+            'user': request.user,
             'form': form,
         }
     )

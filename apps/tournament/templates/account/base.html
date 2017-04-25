@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends "main/base.html" %}
 
 {% load staticfiles %}
 
 {% block extra_head %}
-    <link rel="stylesheet" href="{% static "main/css/main.css" media="screen,projection" %}">
+    {{ block.super }}
     <meta name="robots" content="noindex">
 {% endblock extra_head %}
