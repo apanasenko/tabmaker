@@ -37,7 +37,7 @@
         </div>
 
         {% if request.user == user %}
-            <a class="b-profile__button" href="{% url 'profile:edit' user.id%}">Редактировать</a>
+            <a class="b-profile__button" href="{% url 'profile:edit' %}">Редактировать</a>
         {% endif %}
     </div>
 </section>

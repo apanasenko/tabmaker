@@ -19,7 +19,7 @@
 {% block content %}
 
     <form class="content-formpage" id="signup_form" method="post"
-            {% if is_edit_form %} action="{% url 'profile:edit' user.id %}"
+            {% if is_edit_form %} action="{% url 'profile:edit' %}"
             {% else %} action="{% url 'account_signup' %}"
             {% endif %}
     >
