@@ -28,14 +28,11 @@ input:focus, textarea:focus {
 input[type='time'],
 input[type='date'] {
 	height: 35px;
-}
+    max-width: 160px;
 
-input[type='date'] {
-	max-width: 160px;
-}
-
-input[type='time'] {
-	max-width: 100px;
+    @include respond-to(mobile) {
+        max-width: none;
+    }
 }
 
 input[type="checkbox"], input[type="radio"] {
@@ -58,7 +55,14 @@ input[type="checkbox"], input[type="radio"] {
         margin-top: 20px;
         margin-right: 20px;
 
+        @include respond-to(mobile) {
+            margin-right: 0;
+            width:300px;
+            padding: 0;
+        }
+
         // размеры полей форм
+
 
         &--max {
             max-width: 800px;
@@ -83,10 +87,24 @@ input[type="checkbox"], input[type="radio"] {
             opacity:0.3;
         }
 
+        &--max, &--mid, &--low, &--min {
+            @include respond-to(mobile) {
+                max-width: none;
+            }
+        }
+
         &--inline {
             display: flex;
             align-items: flex-end;
             flex-wrap: wrap;
+
+            @include respond-to(mobile) {
+                display: block;
+            }
+
+            @include respond-to(tablets) {
+                display: block;
+            }
         }
 
         &--nomargin {
@@ -132,12 +150,20 @@ input[type="checkbox"], input[type="radio"] {
             font-size: 16px;
             font-weight: bold;
             color: $prime;
+
+            @include respond-to(mobile) {
+                margin: 0 0 10px 0;
+            }
         }
 
         &__input, &__select, &__option {
             width: 100%;
             margin-right: 20px;
             min-width: 150px;
+
+            @include respond-to(mobile) {
+                margin: 0 0 10px 0;
+            }
 
             &--short {
                 width:50%;
