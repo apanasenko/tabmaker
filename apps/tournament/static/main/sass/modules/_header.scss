@@ -38,6 +38,14 @@
         flex-direction: row-reverse;
         min-width: 360px;
 
+        @include respond-to(mobile) {
+            display: none;
+        }
+
+        @include respond-to(tablets) {
+            display: none;
+        }
+
         .button {
             margin-right: 15px;
         }
@@ -49,6 +57,14 @@
         align-items: center;
         display: flex;
         width: 100%;
+
+        @include respond-to(mobile) {
+            padding: 0 10px;
+        }
+
+        @include respond-to(tablets) {
+            padding: 0 10px;
+        }
 
         .dropbtn {
             color: $prime;
@@ -63,5 +79,31 @@
     &-item {
         margin-right: 30px;
         font-weight: 500;
+    }
+}
+
+
+.burger {
+
+    @include respond-to(large) {
+        display: none;
+    }
+
+    &-menu {
+        position: absolute;
+        width: 100%;
+        top: 60px;
+        left: 0;
+        border-bottom: 1px solid $grey;
+
+        &__item {
+            padding:15px 0 15px 10px;
+            background-color: $back;
+            border-top: 1px solid $grey;
+        }
+    }
+
+    &__button {
+        margin-right:10px;
     }
 }

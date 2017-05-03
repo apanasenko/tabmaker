@@ -46,3 +46,11 @@ $(document).ready(function() {
         menuItem.toggle();
     });
 });
+
+
+$(document).ready(function() {
+    $('.burger-menu').hide();
+    $('.burger__button').click(function () {
+        $('.burger-menu').toggle();
+    });
+});
