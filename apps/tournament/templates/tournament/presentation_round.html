@@ -49,19 +49,19 @@
                     </div>
                     <div class="b-presentation__room_og">
                          <p>Первое правительство</p>
-                         <h3>{{ room.game.og.name }}</h3>
+                         <h3>{{ room.game.og.name|truncatechars:30 }}</h3>
                     </div>
                     <div class="b-presentation__room_oo">
                         <p>Первая оппозиция</p>
-                        <h3>{{ room.game.oo.name }}</h3>
+                        <h3>{{ room.game.oo.name|truncatechars:30 }}</h3>
                     </div>
                     <div class="b-presentation__room_cg">
                         <p>Второе правительство</p>
-                        <h3>{{ room.game.cg.name }}</h3>
+                        <h3>{{ room.game.cg.name|truncatechars:30 }}</h3>
                     </div>
                     <div class="b-presentation__room_co">
                         <p>Вторая оппозиция</p>
-                        <h3>{{ room.game.co.name }}</h3>
+                        <h3>{{ room.game.co.name|truncatechars:30 }}</h3>
                     </div>
                 </div>
 
