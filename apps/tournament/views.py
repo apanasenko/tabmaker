@@ -748,7 +748,7 @@ def registration_team(request, tournament):
         questions = None
 
     if request.method == 'POST':
-        team_form = RegistrationForm(questions, request.POST)
+        team_form = RegistrationForm(tournament, questions, request.POST)
         if team_form.is_valid():
             team = team_form.save(speaker_1=request.user)
             TeamTournamentRel.objects.create(
@@ -762,7 +762,7 @@ def registration_team(request, tournament):
             return _show_message(request, MSG_TEAM_SUCCESS_REGISTERED_pp % (team.name, tournament.name))
 
     else:
-        team_form = RegistrationForm(questions, initial={'speaker_1': request.user.email})
+        team_form = RegistrationForm(tournament, questions, initial={'speaker_1': request.user.email})
 
     return render(
         request,
@@ -784,7 +784,7 @@ def add_team(request, tournament):
 
     saved_team = None
     if request.method == 'POST':
-        team_form = TeamRegistrationForm(request.POST)
+        team_form = TeamRegistrationForm(tournament, request.POST)
         if team_form.is_valid():
             team = team_form.save()
             TeamTournamentRel.objects.create(
@@ -793,9 +793,9 @@ def add_team(request, tournament):
                 role=ROLE_TEAM_REGISTERED
             )
             saved_team = team.name
-            team_form = TeamRegistrationForm()
+            team_form = TeamRegistrationForm(tournament)
     else:
-        team_form = TeamRegistrationForm()
+        team_form = TeamRegistrationForm(tournament)
 
     return render(
         request,

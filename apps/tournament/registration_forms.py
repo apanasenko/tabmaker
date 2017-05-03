@@ -1,7 +1,7 @@
 from collections import OrderedDict
 
 from django import forms
-from .models import Team, User
+from apps.tournament.models import Team, Tournament, User
 from apps.tournament.consts import \
     FIELD_ALIAS_ADJUDICATOR, \
     FIELD_ALIAS_SPEAKER_1, \
@@ -21,6 +21,12 @@ class TeamRegistrationForm(forms.ModelForm):
 
     speaker_1 = forms.EmailField(label='E-mail первого спикера')
     speaker_2 = forms.EmailField(label='E-mail второго спикера')
+
+    tournament = None
+
+    def __init__(self, tournament: Tournament, *args, **kwargs):
+        self.tournament = tournament
+        super(TeamRegistrationForm, self).__init__(*args, **kwargs)
 
     def clean_speaker_1(self):
         speaker_1 = self.cleaned_data['speaker_1']
@@ -47,12 +53,12 @@ class TeamRegistrationForm(forms.ModelForm):
         if self.cleaned_data['speaker_1'] == self.cleaned_data['speaker_2']:
             raise forms.ValidationError(u'Email первого и второго спикера должны различаться')
 
-        team_exists = Team.objects.filter(
+        team_exists = self.tournament.team_members.filter(
             speaker_1__email=self.cleaned_data['speaker_1'],
             speaker_2__email=self.cleaned_data['speaker_2']
         ).exists()
 
-        team_exists |= Team.objects.filter(
+        team_exists |= self.tournament.team_members.filter(
             speaker_1__email=self.cleaned_data['speaker_2'],
             speaker_2__email=self.cleaned_data['speaker_1']
         ).exists()
@@ -60,7 +66,7 @@ class TeamRegistrationForm(forms.ModelForm):
         if team_exists:
             raise forms.ValidationError(u'Команда с этими спикерами уже зарегистрированна в турнире')
 
-        if Team.objects.filter(name=self.cleaned_data['name']).exists():
+        if self.tournament.team_members.filter(name=self.cleaned_data['name']).exists():
             raise forms.ValidationError(u'Команда таким названием уже зарегистрированна в турнире')
 
     def save(self, commit=True):
@@ -74,9 +80,9 @@ class TeamRegistrationForm(forms.ModelForm):
 
 class TeamWithSpeakerRegistrationForm(TeamRegistrationForm):
 
-    def __init__(self, questions=None, *args, **kwargs):
+    def __init__(self, tournament: Tournament, questions=None, *args, **kwargs):
         # :questions: - Для единого интерфейса с CustomTeamRegistrationForm
-        super(TeamRegistrationForm, self).__init__(*args, **kwargs)
+        super(TeamWithSpeakerRegistrationForm, self).__init__(tournament, *args, **kwargs)
         self.fields['speaker_1'].widget.attrs['readonly'] = True
         self.fields['speaker_1'].label = 'Ваш e-mail'
         self.fields['speaker_2'].label = 'E-mail вашего напарника'
@@ -135,8 +141,8 @@ class CustomTeamRegistrationForm(TeamWithSpeakerRegistrationForm, CustomForm):
         FIELD_ALIAS_SPEAKER_2.name: 'speaker_2',
     }
 
-    def __init__(self, questions, *args, **kwargs):
-        super(CustomTeamRegistrationForm, self).__init__(questions, *args, **kwargs)
+    def __init__(self, tournament: Tournament, questions, *args, **kwargs):
+        super(CustomTeamRegistrationForm, self).__init__(tournament, questions, *args, **kwargs)
         self.init_custom_fields(questions)
 
 
