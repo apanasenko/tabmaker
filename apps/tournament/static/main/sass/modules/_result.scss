@@ -80,8 +80,10 @@
 	}
 
 	&__confirm {
-		margin: 0 15px;
 		display: inline-block;
+        @include respond-to(mobile) {
+            margin: 0 15px;
+        }
 	}
 }
 
@@ -134,6 +136,10 @@
 		box-sizing: border-box;
 		border-bottom: 1px solid $grey;
 		border-right: 1px solid $grey;
+
+        p, span {
+            line-height: 1.4;
+        }
 	}
 
 	&__submit {

@@ -299,6 +299,14 @@
     line-height: 1.7;
     padding-left: 20px;
     margin-bottom: 20px;
+
+    @include respond-to(mobile) {
+        width:260px;
+        margin:0 auto;
+        padding:10px;
+        line-height: 1.4;
+        font-size: 14px;
+    }
 }
 
 .notification {
