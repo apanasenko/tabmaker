@@ -35,11 +35,11 @@ def motion(bot, update):
 
 
 def echo(bot, update):
-    bot.sendMessage(update.message.chat_id, text=update.message.text)
+    bot.sendMessage(update.message.chat_id, text=('Я запомнил твой ID: %d' % update.message.from_user.id))
 
 
 def error(bot, update, error):
-    logger.warn('Update "%s" caused error "%s"' % (update, error))
+    logger.warning('Update "%s" caused error "%s"' % (update, error))
 
 
 def main():
@@ -56,10 +56,10 @@ def main():
     dp.add_handler(CommandHandler("motion", motion))
 
     # on noncommand i.e message - echo the message on Telegram
-    dp.add_handler(MessageHandler([Filters.text], echo))
+    dp.add_handler(MessageHandler(Filters.text, echo))
 
     # log all errors
     dp.add_error_handler(error)
 
     # log all errors
-    dp.addErrorHandler(error)
+    dp.add_error_handler(error)
