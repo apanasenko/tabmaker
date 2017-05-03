@@ -29,6 +29,24 @@
         @include respond-to(tablets) {
             display: none;
         }
+
+        &--mobile {
+            span {
+                font-family: 'Roboto Mono';
+                color: $prime;
+                font-size: 24px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-weight: 700;
+                padding: 0 15px;
+                margin-right: 10px;
+                border-right: 1px solid $grey;
+            }
+
+            @include respond-to(large) {
+                display: none;
+            }
+        }
     }
 
     &__buttons {
