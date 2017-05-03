@@ -11,7 +11,7 @@ class TournamentStatus(models.Model):
 
 
 class TournamentRole(models.Model):
-    name = models.CharField(max_length=100, name='role')
+    role = models.CharField(max_length=100)  # TODO rename to 'name'
 
     def __str__(self):
         return self.role
