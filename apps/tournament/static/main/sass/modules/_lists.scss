@@ -6,10 +6,26 @@
     margin: 0 auto;
     width:100%;
 
+    @include respond-to(mobile) {
+        padding: 10px 0;
+    }
+
+    @include respond-to(tablets) {
+        padding: 10px 0;
+    }
+
     &-item {
         display: flex;
         align-items: center;
         justify-content: space-between;
+
+        @include respond-to(mobile) {
+            display: block;
+        }
+
+        @include respond-to(tablets) {
+            display: block;
+        }
 
         &__heading {
             margin: 0 20px 8px 0;
@@ -25,9 +41,22 @@
             margin: 10px 0;
             display: flex;
 
+            @include respond-to(mobile) {
+                display: block;
+            }
+
+            @include respond-to(tablets) {
+                display: block;
+            }
+
             &--item {
                 color: $dark;
                 margin-right: 20px;
+                line-height:1.3;
+
+                @include respond-to(tablets) {
+                    display: inline-block;
+                }
             }
         }
 
