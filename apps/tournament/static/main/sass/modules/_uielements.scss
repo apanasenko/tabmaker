@@ -11,6 +11,12 @@
 // buttons
 
 
+@mixin mobile-button {
+    margin: 10px 0 0 0;
+    width: 100%;
+    text-align: center;
+}
+
 .button {
     display: inline-block;
     font-weight: 500;
@@ -197,6 +203,20 @@
     }
 }
 
+.menu {
+    @include respond-to(mobile) {
+        display: block !important;
+    }
+}
+
+.menu-item {
+    &__block {
+        @include respond-to(mobile) {
+            margin: 0 0 20px 0 !important;
+        }
+    }
+}
+
 .dropdown-content {
     display: none;
     position: absolute;
@@ -207,6 +227,13 @@
     border-radius: 2px;
     z-index: 999;
     margin: 10px 0 0 0;
+
+    @include respond-to(mobile) {
+        position: inherit;
+        box-shadow: none;
+        border: 1px solid $grey;
+        border-bottom: none;
+    }
 }
 
 .dropdown-content a {
@@ -217,6 +244,12 @@
     max-width: 200px;
     line-height: 1.4;
     border-bottom: 1px solid $back;
+
+    @include respond-to(mobile) {
+        border-bottom: 1px solid $grey;
+        max-width: none;
+        background-color: $back;
+    }
 }
 
 .dropdown-content a:hover {

@@ -27,8 +27,8 @@
 
                     {% if tournament|is_status_registration %}
 
-                        <a class="button button--mid button--prime" href="{% url "tournament:registration_team" tournament.id %}">Играть</a>
-                        <a class="button button--mid button--prime" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
+                        <a class="button button--mid button--sec" href="{% url "tournament:registration_team" tournament.id %}">Играть</a>
+                        <a class="button button--mid button--sec" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
 
                     {% elif tournament|is_status_preparation %}
 
@@ -36,9 +36,9 @@
 
                     {% elif tournament|is_status_started or tournament|is_status_playoff %}
 
-                        <a class="button button--mid button--prime" href="{% url "tournament:show_round" tournament.id %}">Текущий раунд</a>
-                        <a class="button button--mid button--prime" href="{% url 'tournament:result' tournament.id%}">Баллы команд и спикеров</a>
-                        <a class="button button--mid button--prime" href="{% url 'tournament:result_all' tournament.id%}">Результаты по комнатам</a>
+                        <a class="button button--mid button--sec" href="{% url "tournament:show_round" tournament.id %}">Текущий раунд</a>
+                        <a class="button button--mid button--sec" href="{% url 'tournament:result' tournament.id%}">Баллы команд и спикеров</a>
+                        <a class="button button--mid button--sec" href="{% url 'tournament:result_all' tournament.id%}">Результаты по комнатам</a>
 
                     {% endif %}
 
@@ -51,7 +51,7 @@
         <div class="section">
             <ul class="menu">
 
-                <li class="menu-item dropdown">
+                <li class="menu-item dropdown menu-item__block">
                     <p class="dropbtn">Регистрация<i class="material-icons">keyboard_arrow_down</i></p>
                     <div class="dropdown-content">
                         <a href="{% url 'tournament:custom_form_edit' tournament.id 'team' %}">Анкета регистрации</a>
@@ -65,7 +65,7 @@
                     </div>
                 </li>
 
-                <li class="menu-item dropdown">
+                <li class="menu-item dropdown menu-item__block">
                     <p class="dropbtn">Команды<i class="material-icons">keyboard_arrow_down</i></p>
                     <div class="dropdown-content">
                         {% if not tournament|is_status_finished %}
@@ -76,7 +76,7 @@
                     </div>
                 </li>
 
-                <li class="menu-item dropdown">
+                <li class="menu-item dropdown menu-item__block">
                     <p class="dropbtn">Судьи<i class="material-icons">keyboard_arrow_down</i></p>
                     <div class="dropdown-content">
                         {% if not tournament|is_status_finished %}
@@ -86,7 +86,7 @@
                     </div>
                 </li>
 
-                <li class="menu-item dropdown">
+                <li class="menu-item dropdown menu-item__block">
                     <p class="dropbtn">Настройки турнира<i class="material-icons">keyboard_arrow_down</i></p>
                     <div class="dropdown-content">
                         {% if not tournament|is_status_finished %}
@@ -100,7 +100,7 @@
 
                 {% if tournament|is_status_preparation or tournament|is_status_started or tournament|is_status_playoff %}
 
-                <li class="menu-item dropdown">
+                <li class="menu-item dropdown menu-item__block">
                     <p class="dropbtn">Ведение турнира<i class="material-icons">keyboard_arrow_down</i></p>
                     <div class="dropdown-content">
 
@@ -128,7 +128,7 @@
 
                 {% if tournament|is_status_started or tournament|is_status_playoff %}
 
-                    <li class="menu-item dropdown">
+                    <li class="menu-item dropdown menu-item__block">
                         <p class="dropbtn">Раунды<i class="material-icons">keyboard_arrow_down</i></p>
                         <div class="dropdown-content">
                             <a  href="{% url 'tournament:next_round' tournament.id%}">Создать следующий раунд </a>

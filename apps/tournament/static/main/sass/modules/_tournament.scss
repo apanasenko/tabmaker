@@ -3,6 +3,11 @@
     width:100%;
     border-bottom: 1px solid $grey;
 
+    @include respond-to(mobile) {
+        padding: 20px 0;
+    }
+
+
     &-container {
         display: flex;
         flex-direction: row;
@@ -12,6 +17,15 @@
 
         @include respond-to(mobile) {
             margin:0 10px;
+            display: block;
+
+            .title-container {
+                margin:0;
+
+                .button {
+                    @include mobile-button;
+                }
+            }
         }
 
         @include respond-to(tablets) {
@@ -24,7 +38,6 @@
     }
 
     &__name {
-        font-family: "Roboto";
         margin:0;
     }
 }
@@ -37,10 +50,23 @@
     &-container {
         display: flex;
         margin:0 20px;
+
+        @include respond-to(mobile) {
+            display: block;
+        }
+
+        @include respond-to(tablets) {
+            display: block;
+        }
     }
 
     &__elem {
         line-height: 2;
         margin-right: 25px;
+
+        @include respond-to(mobile) {
+            line-height: 1.4;
+            margin: 0 0 15px 0;
+        }
     }
 }
