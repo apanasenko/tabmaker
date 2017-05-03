@@ -9,7 +9,7 @@
 
     @include respond-to(mobile) {
         padding: 10px 0;
-        min-width: none;
+        min-width: 0;
     }
 
     @include respond-to(tablets) {
