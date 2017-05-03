@@ -203,6 +203,37 @@
     }
 }
 
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+    border: 1px solid $back;
+    border-radius: 2px;
+    z-index: 999;
+    margin: 10px 0 0 0;
+}
+
+.dropdown-content a {
+    color: $prime;
+    padding: 14px 16px;
+    display: block;
+    text-transform: none;
+    max-width: 200px;
+    line-height: 1.4;
+    border-bottom: 1px solid $back;
+}
+
+.dropdown-content a:hover {
+    background-color: $back;
+}
+
+.is-shown {
+    display: block;
+}
+
+
 .menu {
     @include respond-to(mobile) {
         display: block !important;
@@ -214,50 +245,24 @@
         @include respond-to(mobile) {
             margin: 0 0 20px 0 !important;
         }
+
+        .dropdown-content {
+            @include respond-to(mobile) {
+                position: inherit;
+                box-shadow: none;
+                border: 1px solid $grey;
+                border-bottom: none;
+            }
+
+            a {
+                @include respond-to(mobile) {
+                    border-bottom: 1px solid $grey;
+                    max-width: none;
+                    background-color: $back;
+                }
+            }
+        }
     }
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    min-width: 160px;
-    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
-    border: 1px solid $back;
-    border-radius: 2px;
-    z-index: 999;
-    margin: 10px 0 0 0;
-
-    @include respond-to(mobile) {
-        position: inherit;
-        box-shadow: none;
-        border: 1px solid $grey;
-        border-bottom: none;
-    }
-}
-
-.dropdown-content a {
-    color: $prime;
-    padding: 14px 16px;
-    display: block;
-    text-transform: none;
-    max-width: 200px;
-    line-height: 1.4;
-    border-bottom: 1px solid $back;
-
-    @include respond-to(mobile) {
-        border-bottom: 1px solid $grey;
-        max-width: none;
-        background-color: $back;
-    }
-}
-
-.dropdown-content a:hover {
-    background-color: $back;
-}
-
-.is-shown {
-    display: block;
 }
 
 
