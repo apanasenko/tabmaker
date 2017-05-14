@@ -78,7 +78,7 @@ class User(AbstractUser):
 
     @staticmethod
     def get_or_create(email: str, full_name: str, is_test=False):
-        user = User.objects.filter(email=email).last()
+        user = User.objects.filter(email__iexact=email).last()
         if user:
             return user, True
         else:

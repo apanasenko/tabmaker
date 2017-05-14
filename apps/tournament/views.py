@@ -947,7 +947,7 @@ def registration_adjudicator(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='team/adju. add')
 def add_adjudicator(request, tournament):
-    user = User.objects.filter(email=request.POST.get('email', '')).first()
+    user = User.objects.filter(email__iexact=request.POST.get('email', '')).first()
 
     if not user:
         return json_response(MSG_JSON_BAD, MSG_USER_NOT_EXIST_p % request.POST.get('email', ''))
@@ -1021,7 +1021,7 @@ def list_admin(request, tournament: Tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='edit', only_owner=True)
 def add_admin(request, tournament):
-    user = User.objects.filter(email=request.POST.get('email', '')).first()
+    user = User.objects.filter(email__iexact=request.POST.get('email', '')).first()
 
     if not user:
         return json_response(

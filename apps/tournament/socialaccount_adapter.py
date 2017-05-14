@@ -13,7 +13,7 @@ class SocialAccountAdapter(DefaultSocialAccountAdapter):
         if not sociallogin.user.email:
             raise OAuth2Error('Для авторицации необходимо дать доступ к электронному адресу')
         try:
-            user = User.objects.get(email=sociallogin.user.email)
+            user = User.objects.get(email__iexact=sociallogin.user.email)
             sociallogin.connect(request, user)
         except User.DoesNotExist:
             sociallogin.state['next'] = reverse('profile:edit')

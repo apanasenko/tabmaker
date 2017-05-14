@@ -31,7 +31,7 @@ class TeamRegistrationForm(forms.ModelForm):
     def clean_speaker_1(self):
         speaker_1 = self.cleaned_data['speaker_1']
 
-        if not User.objects.filter(email=speaker_1).count():
+        if not User.objects.filter(email__iexact=speaker_1).count():
             raise forms.ValidationError(u'Пользователь с таким email не зарегистрировался на сайте')
 
         return speaker_1
@@ -39,7 +39,7 @@ class TeamRegistrationForm(forms.ModelForm):
     def clean_speaker_2(self):
         speaker_2 = self.cleaned_data['speaker_2']
 
-        if not User.objects.filter(email=speaker_2).count():
+        if not User.objects.filter(email__iexact=speaker_2).count():
             raise forms.ValidationError(u'Пользователь с таким email не зарегистрировался на сайте')
 
         return speaker_2
@@ -54,13 +54,13 @@ class TeamRegistrationForm(forms.ModelForm):
             raise forms.ValidationError(u'Email первого и второго спикера должны различаться')
 
         team_exists = self.tournament.team_members.filter(
-            speaker_1__email=self.cleaned_data['speaker_1'],
-            speaker_2__email=self.cleaned_data['speaker_2']
+            speaker_1__email__iexact=self.cleaned_data['speaker_1'],
+            speaker_2__email__iexact=self.cleaned_data['speaker_2']
         ).exists()
 
         team_exists |= self.tournament.team_members.filter(
-            speaker_1__email=self.cleaned_data['speaker_2'],
-            speaker_2__email=self.cleaned_data['speaker_1']
+            speaker_1__email__iexact=self.cleaned_data['speaker_2'],
+            speaker_2__email__iexact=self.cleaned_data['speaker_1']
         ).exists()
 
         if team_exists:
@@ -71,8 +71,8 @@ class TeamRegistrationForm(forms.ModelForm):
 
     def save(self, commit=True):
         team = super(TeamRegistrationForm, self).save(commit=False)
-        team.speaker_1 = User.objects.get(email=self.cleaned_data['speaker_1'])
-        team.speaker_2 = User.objects.get(email=self.cleaned_data['speaker_2'])
+        team.speaker_1 = User.objects.get(email__iexact=self.cleaned_data['speaker_1'])
+        team.speaker_2 = User.objects.get(email__iexact=self.cleaned_data['speaker_2'])
         if commit:
             team.save()
         return team
