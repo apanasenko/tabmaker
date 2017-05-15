@@ -57,8 +57,8 @@ input[type="checkbox"], input[type="radio"] {
 
         @include respond-to(mobile) {
             margin-right: 0;
-            width:300px;
-            padding: 0;
+            padding:0 10px;
+            box-sizing: border-box;
         }
 
         // размеры полей форм
@@ -144,6 +144,7 @@ input[type="checkbox"], input[type="radio"] {
         &__description, &__error {
             display: block;
             font-size: 14px;
+            line-height: 1.4;
         }
 
         &__label {

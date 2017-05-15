@@ -16,14 +16,6 @@
 
       &__first {
           margin-left:20px;
-
-          @include respond-to(mobile) {
-              margin:0 10px;
-          }
-
-          @include respond-to(tablets) {
-              margin:0 10px;
-          }
       }
 
       label {
