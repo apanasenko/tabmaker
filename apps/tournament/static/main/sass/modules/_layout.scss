@@ -166,6 +166,10 @@ a {
     @include section;
     padding: 20px;
 
+    @include respond-to(mobile) {
+        padding:10px;
+    }
+
     &--notop {
         @include section;
         padding: 0 20px 20px 20px;
@@ -174,6 +178,11 @@ a {
     &--novert {
         @include section;
         padding:0 20px;
+    }
+
+    &--center {
+        margin: 0 auto;
+        max-width: 890px;
     }
 }
 

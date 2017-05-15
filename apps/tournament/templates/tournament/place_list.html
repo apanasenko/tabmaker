@@ -29,10 +29,13 @@
     </div>
 {% endif %}
 
-<div class="section" id="new_place">
+<div class="section section--center" id="new_place">
     <div class="errors notification-red"></div>
-        <input class="form-elem form-elem--nomargin form-elem--mid form-elem__input" id="add_place_input" placeholder="Название аудитории" required>
+    <div class="form-elem form-elem--mid form-elem--nomargin">
+    <input class="form-elem__input" id="add_place_input" placeholder="Название аудитории" required>
     <a class="button button--mid button--prime" onclick="save_place('{% url 'tournament:place_add' tournament.id %}')">Добавить аудиторию</a>
+    </div>
+
     {% if is_check_page %}
         <div id="check_warning" class="notification-red notification--top">
             Количество доступных аудиторий должно быть не меньше {{ places_need }}
@@ -41,7 +44,7 @@
     {% endif %}
 </div>
 
-<div class="place list list--min" id="temp">
+<div class="place list" id="temp">
     <div class="errors"></div>
     <input id="place_id" type="hidden">
     <input class="place_checkbox" type="checkbox">
