@@ -31,8 +31,8 @@
 
 <div class="section section--center" id="new_place">
     <div class="errors notification-red"></div>
-    <div class="form-elem form-elem--mid form-elem--nomargin">
-    <input class="form-elem__input" id="add_place_input" placeholder="Название аудитории" required>
+    <div>
+    <input class="form-elem__input form-elem__input--short" id="add_place_input" placeholder="Название аудитории" required>
     <a class="button button--mid button--prime" onclick="save_place('{% url 'tournament:place_add' tournament.id %}')">Добавить аудиторию</a>
     </div>
 

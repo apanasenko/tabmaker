@@ -31,7 +31,7 @@
     </div>
 
     <div class="section">
-        <div id="new_adjudicator" class="form-elem form-elem--max form-elem--inline form-elem--nomargin">
+        <div id="new_adjudicator">
             <div class="errors"></div>
             <input class="form-elem__input form-elem--low form-elem--nomargin" id="add_adjudicator_input" type="email" placeholder="e-mail судьи">
             <a class="button button--mid button--prime button--nomarin" onclick="save_adjudicator('{% url 'tournament:add_adjudicator' tournament.id %}')">Добавить судью</a>

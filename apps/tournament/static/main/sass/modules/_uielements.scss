@@ -183,8 +183,18 @@
     flex-direction: row;
     align-items: center;
 
+    @include respond-to(mobile) {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     &-item {
         margin-right: 20px;
+
+        @include respond-to(mobile) {
+            margin-bottom: 10px;
+        }
     }
 }
 

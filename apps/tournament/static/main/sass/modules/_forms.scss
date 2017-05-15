@@ -108,8 +108,12 @@ input[type="checkbox"], input[type="radio"] {
         }
 
         &--nomargin {
-            margin-top: 0px;
-            margin-bottom: 0px !important;
+
+            @include respond-to(large) {
+                margin-top: 0px;
+                margin-bottom: 0px !important;
+            }
+
         }
 
 
@@ -168,6 +172,7 @@ input[type="checkbox"], input[type="radio"] {
 
             &--short {
                 width:50%;
+                min-width: 300px;
             }
         }
 
