@@ -7,6 +7,10 @@
         padding: 20px 0;
     }
 
+    @include respond-to(tablets) {
+        padding: 20px 0;
+    }
+
 
     &-container {
         display: flex;
@@ -30,6 +34,15 @@
 
         @include respond-to(tablets) {
             margin:0 10px;
+            display: block;
+
+            .title-container {
+                margin:0;
+
+                .button {
+                    @include mobile-button;
+                }
+            }
         }
 
         .button {
@@ -65,6 +78,11 @@
         margin-right: 25px;
 
         @include respond-to(mobile) {
+            line-height: 1.4;
+            margin: 0 0 15px 0;
+        }
+
+        @include respond-to(tablets) {
             line-height: 1.4;
             margin: 0 0 15px 0;
         }

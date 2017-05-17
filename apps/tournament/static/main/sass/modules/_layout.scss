@@ -1,6 +1,6 @@
 // responsivness
 
-$small: 320px;
+$small: 375px;
 $middle: 768px;
 $large: 960px;
 $desctop: 1200px;
@@ -18,6 +18,13 @@ $desctop: 1200px;
     @else if $media == desctop {
         @media only screen and (min-width: $desctop) { @content; }
     }
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 html, body {
@@ -38,11 +45,11 @@ h1, h3, h5, p, li, label, span {
 	color: $dark;
 
     @include respond-to(mobile) {
-        font-size: 14px;
+        font-size: 1em;
     }
 
     @include respond-to(tablets) {
-        font-size: 14px;
+        font-size: 1em;
     }
 }
 

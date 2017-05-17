@@ -25,7 +25,7 @@
 	background-color: $prime;
 	box-sizing: border-box;
     cursor: pointer;
-    border-radius: 3px;
+    border-radius: 20px;
     margin-right: 5px;
     white-space: nowrap;
 
@@ -189,10 +189,20 @@
         align-items: flex-start;
     }
 
+    @include respond-to(tablets) {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     &-item {
         margin-right: 20px;
 
         @include respond-to(mobile) {
+            margin-bottom: 10px;
+        }
+
+        @include respond-to(tablets) {
             margin-bottom: 10px;
         }
     }
@@ -249,11 +259,19 @@
     @include respond-to(mobile) {
         display: block !important;
     }
+
+    @include respond-to(tablets) {
+        display: block !important;
+    }
 }
 
 .menu-item {
     &__block {
         @include respond-to(mobile) {
+            margin: 0 0 20px 0 !important;
+        }
+
+        @include respond-to(tablets) {
             margin: 0 0 20px 0 !important;
         }
 
@@ -265,8 +283,21 @@
                 border-bottom: none;
             }
 
+            @include respond-to(tablets) {
+                position: inherit;
+                box-shadow: none;
+                border: 1px solid $grey;
+                border-bottom: none;
+            }
+
             a {
                 @include respond-to(mobile) {
+                    border-bottom: 1px solid $grey;
+                    max-width: none;
+                    background-color: $back;
+                }
+
+                @include respond-to(tablets) {
                     border-bottom: 1px solid $grey;
                     max-width: none;
                     background-color: $back;

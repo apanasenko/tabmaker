@@ -9,15 +9,15 @@
 			display: flex;
 			align-items: center;
 			border: 1px solid $grey;
-			min-height: 50px;
+			background-color: $back;
 
             @include respond-to(mobile) {
 				display: block;
-                padding:10px 0 0 0;
 			}
 
 			h3 {
-				margin:0 0 0 10px;
+				margin:15px 0 15px 10px;
+				font-size: 18px;
 			}
 		}
 

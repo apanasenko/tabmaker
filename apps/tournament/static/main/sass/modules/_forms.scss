@@ -26,7 +26,8 @@ input:focus, textarea:focus {
 }
 
 input[type='time'],
-input[type='date'] {
+input[type='date'],
+input[type="number"] {
 	height: 35px;
     max-width: 160px;
 
@@ -61,6 +62,12 @@ input[type="checkbox"], input[type="radio"] {
             box-sizing: border-box;
         }
 
+        @include respond-to(tablets) {
+            margin-right: 0;
+            padding:0 10px;
+            box-sizing: border-box;
+        }
+
         // размеры полей форм
 
 
@@ -89,6 +96,10 @@ input[type="checkbox"], input[type="radio"] {
 
         &--max, &--mid, &--low, &--min {
             @include respond-to(mobile) {
+                max-width: none;
+            }
+
+            @include respond-to(tablets) {
                 max-width: none;
             }
         }
@@ -168,6 +179,12 @@ input[type="checkbox"], input[type="radio"] {
 
             @include respond-to(mobile) {
                 margin: 0 0 10px 0;
+                display: block;
+            }
+
+            @include respond-to(tablets) {
+                margin: 0 0 10px 0;
+                display: block;
             }
 
             &--short {
