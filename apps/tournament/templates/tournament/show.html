@@ -56,7 +56,7 @@
                     <div class="dropdown-content">
                         <a href="{% url 'tournament:custom_form_edit' tournament.id 'team' %}">Анкета регистрации</a>
                         <a href="{% url 'tournament:custom_form_answers' tournament.id 'team' %}">Ответы на анкету</a>
-                        <a href="#">Импорт команд</a>
+                        <a href="{% url 'tournament:import_team' tournament.id %}">Импорт команд</a>
                         {% if tournament|is_status_registration %}
                             <a  href="{% url "tournament:registration_closing" tournament.id %}">Закрыть регистрацию</a>
                         {% elif tournament|is_status_preparation %}
