@@ -54,7 +54,7 @@
                 <li class="menu-item dropdown menu-item__block">
                     <p class="dropbtn">Регистрация<i class="material-icons">keyboard_arrow_down</i></p>
                     <div class="dropdown-content">
-                        <a href="{% url 'tournament:custom_form_edit' tournament.id 'team' %}">Анкета регистрации</a>
+                        <a href="{% url 'tournament:custom_form_edit' tournament.id 'team' %}">Изменить анкету регистрации</a>
                         <a href="{% url 'tournament:custom_form_answers' tournament.id 'team' %}">Ответы на анкету</a>
                         <a href="{% url 'tournament:import_team' tournament.id %}">Импорт команд</a>
                         {% if tournament|is_status_registration %}
@@ -81,6 +81,8 @@
                     <div class="dropdown-content">
                         {% if not tournament|is_status_finished %}
                             <a  href="{% url "tournament:edit_adjudicator_list" tournament.id %}">Список судей</a>
+                            <a href="{% url 'tournament:custom_form_edit' tournament.id 'feedback' %}">Форма обратной связи</a>
+                            <a href="{% url 'tournament:custom_form_answers' tournament.id 'feedback' %}">Смотреть обратную связь</a>
                         {% endif %}
 {#                        <a  href="#">Добавить судью</a>#}
                     </div>
