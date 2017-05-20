@@ -6,12 +6,20 @@
 
 {% block content %}
 
-    <div id="message" class="b-message">
-        <p>{{ message }}</p>
-    </div>
+    <div class="content-textpage content-textpage--center content-textpage--top">
+        <div id="message">
+            <p class="paragraph__heading">{{ message }}</p>
+        </div>
 
-    <div id="message_back" class="b-message__back">
-        <a class="button" href="{% if url %}{{ url }}{% else %}javascript:history.back(){% endif %}">Назад</a>
+        <div id="message_back">
+            <a class="button button--mid button--prime " href="
+                {% if url %}
+                    {{ url }}
+                {% else %}
+                    javascript:history.back()
+                {% endif %}">Назад</a>
+            <a class="button button--mid button--prime " href="{% url "main:index" %}">На главную</a>
+        </div>
     </div>
 
 {% endblock content %}

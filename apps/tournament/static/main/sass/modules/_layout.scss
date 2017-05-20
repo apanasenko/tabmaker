@@ -1,15 +1,38 @@
-$susy: (
-  columns: 12,
-  gutters: 1/6,
-  container: 100%,
-);
+// responsivness
+
+$small: 375px;
+$middle: 768px;
+$large: 960px;
+$desctop: 1200px;
+
+@mixin respond-to($media) {
+	@if $media == mobile {
+    	@media only screen and (max-width: $small) { @content; }
+  	}
+  	@else if $media == tablets {
+    	@media only screen and (min-width: $small + 1) and (max-width: $large - 1) { @content; }
+  	}
+  	@else if $media == large {
+    	@media only screen and (min-width: $large) { @content; }
+  	}
+    @else if $media == desctop {
+        @media only screen and (min-width: $desctop) { @content; }
+    }
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
 
 html, body {
   height: 100%;
 }
 
 body {
-	font-family: "PT Sans", Arial, "Helvetica Neue", sans-serif;
+	font-family: "Arial", sans-serif;
 }
 
 ul, a {
@@ -20,15 +43,24 @@ ul, a {
 
 h1, h3, h5, p, li, label, span {
 	color: $dark;
+
+    @include respond-to(mobile) {
+        font-size: 1em;
+    }
+
+    @include respond-to(tablets) {
+        font-size: 1em;
+    }
 }
 
 h1, h2, h3 {
 	font-weight: 700;
 	margin-top: 10px;
+    color: $prime;
 }
 
 h1 {
-	font-size: 28px;
+	font-size: 30px;
 }
 
 h2 {
@@ -38,72 +70,81 @@ h2 {
 h3 {
 	font-size: 20px;
     margin-bottom: 10px;
+
+    @include respond-to(mobile) {
+        font-size: 15px;
+    }
+
+    @include respond-to(tablets) {
+        font-size: 17px;
+    }
 }
 
 a {
 	text-decoration: none;
-	color: $dark;
+	color: $prime;
 }
 
-i {
-	margin-right: 8px;
-	margin-bottom: 2px;
-}
+
+
+
+// стили шаблонов страниц
 
 .page_wrapper {
 	display: flex;
     flex-direction: column;
-}
-
-.content_conteiner {
-	display: flex;
-    flex: 1;
-    height: 100%;
-
-	@include respond-to(mobile) {
-    	padding: 60px 0 0 0 !important;
-	}
-
-	@include respond-to(tablets) {
-		padding: 0;
-		min-height: auto;
-	}
+    justify-content: space-between;
+    min-height: 100vh;
 }
 
 .content {
-	display: inline-block;
-	width: calc(100% - 250px);
-	min-height: calc(100vh - 160px);
-	border-radius: 3px;
-	vertical-align: top;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 0 auto;
+    width: 100%;
 
-	@include respond-to(large) {
-		min-width: 710px;
-	}
-
-	@include respond-to(mobile) {
-		width: 100%;
-		overflow-y: auto;
-	}
-
-	@include respond-to(tablets) {
-		width: 100%;
-		overflow-y: auto;
-	}
+    &__center {
+        justify-content: center;
+    }
 
 	&-textpage {
-		padding: 20px 20px 40px 20px;
-		max-width: 800px;
+		padding: 20px;
+        max-width: 960px;
+		margin:0 auto;
+        min-width: 300px;
+        font-size: 15px;
 
         @include respond-to(mobile) {
-            padding: 10px 10px 20px 10px;
+            padding:10px;
+        }
+
+        @include respond-to(tablets) {
+            padding:10px;
+        }
+
+		&--top {
+			padding-top: 20px;
+		}
+
+        &--bottom {
+			padding-bottom: 20px;
+		}
+
+        &--center {
+            text-align: center;
         }
 	}
 
 	&-tablepage {
 		overflow-x: auto;
         overflow-y: hidden;
-        width: 100%;
+        display: flex;
+        margin: 20px auto;
+        justify-content: center;
+        flex-direction: column;
+        max-width: 960px;
+        width:100%;
 	}
 
 	&-datapage {
@@ -115,14 +156,52 @@ i {
 	}
 
     &-formpage {
-        margin: 20px;
-		max-width: 600px;
+        margin: 20px auto;
+        max-width: 800px;
     }
 }
 
+// секция на странице
+
+@mixin section {
+    width:100%;
+    border-bottom: 1px solid $grey;
+    box-sizing: border-box;
+}
+
+.section {
+    @include section;
+    padding: 20px;
+
+    @include respond-to(mobile) {
+        padding:10px;
+    }
+
+    &--notop {
+        @include section;
+        padding: 0 20px 20px 20px;
+    }
+
+    &--novert {
+        @include section;
+        padding:0 20px;
+    }
+
+    &--center {
+        margin: 0 auto;
+        max-width: 890px;
+    }
+}
+
+
+
+
+// стили параграфов текста
+
 .paragraph {
-	line-height: 1.4;
+	line-height: 1.6;
 	margin-bottom: 30px;
+    display: block;
 
 	&__link {
 		border-bottom: 1px dashed $dark;
@@ -135,6 +214,7 @@ i {
         margin-bottom: 0;
 	}
 }
+
 
 
 

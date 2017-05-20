@@ -1,66 +1,37 @@
-.b-table {
-	font-size: 13px;
-    width: 100%;
+.table {
+    font-size: 14px;
+    text-align: left;
+    width:100%;
+    line-height:1.4;
 
-    &__headrow, &__row {
-		color: $grey;
-		border-bottom: 1px solid $background-page;
-		min-height: 40px;
-	}
+    tbody {
+        min-width: 860px;
+    }
 
-	&__headstring {
+    &__headrow {
+        color: $prime;
 
-		&_half, &_thirty, &_narrow {
-			background-color: $beige;
-			color: $dark;
-
-		}
-	}
-
-	&__headstring, &__string {
-
-		&_half, &_thirty, &_narrow {
-            padding: 8px 10px;
+        th {
+            font-weight: 700;
+            text-align: left;
+            padding:12px 8px;
+            border-bottom: 1px solid $prime;
         }
 
-        &_half {
-			width: 50%;
-			min-width: 40px;
+    }
 
-			.wrap {
-				padding-left: 20px;
-			}
+    &__row {
+        border-bottom: 1px solid darken($back, 10%);
+        min-height: 40px;
 
-		}
+        &:hover {
+            background-color: $back;
+        }
 
-		&_thirty {
-			width: 16%;
-			text-align: center;
-			min-width: 40px;
-		}
-
-		&_narrow {
-			text-align: center;
-			min-width: 40px;
-		}
-
-	}
-
-	&__headrow {
-		background-color: $lightbeige;
-		color: $dark;
-
-		th {
-			font-weight: 700;
-		}
-
-	}
-
-	&__row {
-
-		&:hover {
-			background-color: $hovergrey;
-		}
-	}
-
+        td {
+            text-align: left;
+            padding:12px 8px;
+            color: darken($grey, 50%);
+        }
+    }
 }

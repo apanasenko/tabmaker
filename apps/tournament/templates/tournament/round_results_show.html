@@ -3,96 +3,92 @@
 {% load staticfiles %}
 {% load profile_extras %}
 
-
-{% block page_title %}
-    Результаты раундов
-{% endblock page_title %}
-
-
 {% block extra_head %}
     {{ block.super }}
     <script type="text/javascript" src="{% static "tournament/js/tabs_init.js" %}"></script>
 {% endblock %}
 
-
-{% block sidebar2%}
-    {% if is_owner %}
-        {% include 'tournament/sidebar.html' %}
-    {% endif %}
-{% endblock sidebar2 %}
-
-
 {% block content %}
 
-    <div class="b-tabs">
+    {% block page_title %}
+        <div class="title">
+            <div class="title-container">
+                <h3 class="title__name">
+                    Результаты по комнатам
+                </h3>
+            </div>
+        </div>
+    {% endblock page_title %}
 
-    {% for i in results %}
+    <ul class="accordion-tabs">
+        {% for i in results %}
+            <li class="tab-header-and-content tab-header-and-content__first">
+                <a href="javascript:void(0)" class="tab-link">Раунд {{ i.round.number }}</a>
 
-        <input id="tab{{ i.round.number }}" type="radio" name="tabs" class="b-tabs__input round_tabs" value="tab_{{ i.round.number }}">
-        <label for="tab{{ i.round.number }}" class="b-tabs__label">Раунд {{ i.round.number }}</label>
+                <div class="tab-content">
+                    <div class="content-formpage">
 
-    {% endfor %}
+                        {% for room in i.rooms %}
+                        {% with g=room.game r=room.result %}
 
-    </div>
+                            <div class="b-result-enter room">
+                                <div class="b-result-enter__heading">
+                                    <h3>{{ g.chair|name }}</h3> {# добавить аудиторию #}
+                                </div>
+                                <div class="b-result-enter__room game">
 
-    {% for i in results %}
+                                    {# ======   OG   ====== #}
+                                    <div class="b-result-enter__team team og">
+                                        <h3>Первое правительство</h3>
+                                        {% with place=r.og speaker_1=r.pm s1_exist=r.pm_exist speaker_2=r.dpm s2_exist=r.dpm_exist is_rev=r.og_rev team=g.og %}
+                                            {% include 'tournament/result_team_show.html' %}
+                                        {% endwith %}
+                                    </div>
 
-        <section id="tab_{{ i.round.number }}" class="b-tabs__common">
+                                    {# ======   OO   ====== #}
+                                    <div class="b-result-enter__team team oo">
+                                        <h3>Первая оппозиция</h3>
+                                        {% with place=r.oo speaker_1=r.lo s1_exist=r.lo_exist speaker_2=r.dlo s2_exist=r.dlo_exist is_rev=r.oo_rev team=g.oo %}
+                                            {% include 'tournament/result_team_show.html' %}
+                                        {% endwith %}
+                                    </div>
 
-        {% for room in i.rooms %}
+                                    {# ======   CG   ====== #}
+                                    <div class="b-result-enter__team team cg">
+                                        <h3>Второе правительство</h3>
+                                        {% with place=r.cg speaker_1=r.mg s1_exist=r.mg_exist speaker_2=r.gw s2_exist=r.gw_exist is_rev=r.cg_rev team=g.cg %}
+                                            {% include 'tournament/result_team_show.html' %}
+                                        {% endwith %}
+                                    </div>
 
-            {% with g=room.game r=room.result %}
+                                    {# ======   CO   ====== #}
+                                    <div class="b-result-enter__team team co">
+                                        <h3>Вторая оппозиция</h3>
+                                        {% with place=r.co speaker_1=r.mo s1_exist=r.mo_exist speaker_2=r.ow s2_exist=r.ow_exist is_rev=r.co_rev team=g.co %}
+                                            {% include 'tournament/result_team_show.html' %}
+                                        {% endwith %}
+                                    </div>
 
-                <div class="b-result-show room">
+                                </div>
+                            </div>
 
-                    <div>
-                        <h3 class="b-result-show__heading">{{ g.chair|name }}</h3> {# добавить аудиторию #}
-                    </div>
-
-                    <div class="b-result-show__room game">
-
-                        {# ======   OG   ====== #}
-                        <div class="b-result-show__team team og">
-                            <h3>Первое правительство</h3>
-                            {% with place=r.og speaker_1=r.pm s1_exist=r.pm_exist speaker_2=r.dpm s2_exist=r.dpm_exist is_rev=r.og_rev team=g.og %}
-                                {% include 'tournament/result_team_show.html' %}
-                            {% endwith %}
-                        </div>
-
-                        {# ======   OO   ====== #}
-                        <div class="b-result-show__team team oo">
-                            <h3>Первая оппозиция</h3>
-                            {% with place=r.oo speaker_1=r.lo s1_exist=r.lo_exist speaker_2=r.dlo s2_exist=r.dlo_exist is_rev=r.oo_rev team=g.oo %}
-                                {% include 'tournament/result_team_show.html' %}
-                            {% endwith %}
-                        </div>
-
-                        {# ======   CG   ====== #}
-                        <div class="b-result-show__team team cg">
-                            <h3>Второе правительство</h3>
-                            {% with place=r.cg speaker_1=r.mg s1_exist=r.mg_exist speaker_2=r.gw s2_exist=r.gw_exist is_rev=r.cg_rev team=g.cg %}
-                                {% include 'tournament/result_team_show.html' %}
-                            {% endwith %}
-                        </div>
-
-                        {# ======   CO   ====== #}
-                        <div class="b-result-show__team team co">
-                            <h3>Вторая оппозиция</h3>
-                            {% with place=r.co speaker_1=r.mo s1_exist=r.mo_exist speaker_2=r.ow s2_exist=r.ow_exist is_rev=r.co_rev team=g.co %}
-                                {% include 'tournament/result_team_show.html' %}
-                            {% endwith %}
-                        </div>
+                        {% endwith %}
+                        {% endfor %}
 
                     </div>
                 </div>
 
-            {% endwith %}
-
+            </li>
         {% endfor %}
+    </ul>
 
-        </section>
 
-    {% endfor %}
+
+
+
+
+
+
 
 
 {% endblock content %}

@@ -17,18 +17,18 @@
 
 
 {% block content %}
-<div class="b-admin">
+<div class="content-formpage">
 
-    <div class="owner b-admin__owner">
-        <p class="owner_name">Владелец турнира: {{ owner|name }}</p>
+    <div class="owner form-elem">
+        <h3 class="owner_name">Владелец турнира: {{ owner|name }}</h3>
     </div>
 
-    <div class="admin b-admin__admin" id="temp">
+    <div class="admin form-elem" id="temp">
         <div class="errors"></div>
         <input id="rel_id" type="hidden">
-        <p class="admin_name b-admin__admin_name"></p>
-        <a class="button b-admin__button" onclick="remove_admin(this, '{% url 'tournament:admin_remove' tournament.id %}')">Удалить</a>
-        <a class="button b-admin__button"
+        <p class="admin_name paragraph__heading"></p>
+        <a class="button button--sec button--min" onclick="remove_admin(this, '{% url 'tournament:admin_remove' tournament.id %}')">Удалить</a>
+        <a class="button button--sec button--min"
                 onclick="improve_to_owner(
                         this,
                         '{% url 'tournament:owner_change' tournament.id %}',
@@ -47,10 +47,10 @@
     </script>
 
 
-    <div id="new_admin">
+    <div class="form-elem form-elem--mid" id="new_admin">
         <div class="errors notification-red"></div>
-        <input class="b-admin__input" id="add_admin_input" type="email" placeholder="e-mail администратора">
-        <a class="button" onclick="save_admin('{% url 'tournament:admin_add' tournament.id %}')">Добавить администратора</a>
+        <input class="" id="add_admin_input" type="email" placeholder="e-mail администратора">
+        <a class="button button--min button--prime" onclick="save_admin('{% url 'tournament:admin_add' tournament.id %}')">Добавить администратора</a>
     </div>
 
 </div>

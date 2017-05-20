@@ -1,0 +1,90 @@
+.title {
+    padding: 20px 0;
+    width:100%;
+    border-bottom: 1px solid $grey;
+
+    @include respond-to(mobile) {
+        padding: 20px 0;
+    }
+
+    @include respond-to(tablets) {
+        padding: 20px 0;
+    }
+
+
+    &-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin:0 20px;
+
+        @include respond-to(mobile) {
+            margin:0 10px;
+            display: block;
+
+            .title-container {
+                margin:0;
+
+                .button {
+                    @include mobile-button;
+                }
+            }
+        }
+
+        @include respond-to(tablets) {
+            margin:0 10px;
+            display: block;
+
+            .title-container {
+                margin:0;
+
+                .button {
+                    @include mobile-button;
+                }
+            }
+        }
+
+        .button {
+            margin-left: 10px
+        }
+    }
+
+    &__name {
+        margin:0;
+    }
+}
+
+.stats {
+    padding: 20px 0;
+    background-color: white;
+    width:100%;
+
+    &-container {
+        display: flex;
+        margin:0 20px;
+
+        @include respond-to(mobile) {
+            display: block;
+        }
+
+        @include respond-to(tablets) {
+            display: block;
+        }
+    }
+
+    &__elem {
+        line-height: 2;
+        margin-right: 25px;
+
+        @include respond-to(mobile) {
+            line-height: 1.4;
+            margin: 0 0 15px 0;
+        }
+
+        @include respond-to(tablets) {
+            line-height: 1.4;
+            margin: 0 0 15px 0;
+        }
+    }
+}

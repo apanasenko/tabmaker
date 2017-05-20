@@ -1,17 +1,20 @@
 {% if tab|length > 1 %}
-    <table class="b-table">
-    <tbody>
+    <div class="content-tablepage">
 
-    {% for tr in tab %}
-        <tr class="b-table__row">
-            {% for td in tr %}
-                <td class="b-table__string_narrow">{{ td }}</td>
+        <table class="table">
+            <tbody>
+
+            {% for tr in tab %}
+                <tr class="table__row">
+                    {% for td in tr %}
+                        <td>{{ td }}</td>
+                    {% endfor %}
+                </tr>
             {% endfor %}
-        </tr>
-    {% endfor %}
 
-    </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 {% else %}
 
     <h3>Результатов нет</h3>

@@ -1,38 +1,47 @@
 {% extends "tournament/owner_base.html" %}
 
+{% block content %}
+
 {% block page_title %}
-    Тема на новый раунд
+    <div class="title">
+        <div class="title-container">
+            <h3 class="title__name">Тема нового раунда</h3>
+        </div>
+    </div>
 {% endblock page_title %}
 
+<form class="content-formpage" action="{% url "tournament:next_round" tournament.id %}" method="post">
+    {% csrf_token %}
+    {{ motion_form.non_field_errors }}
+    {{ round_form.non_field_errors }}
 
-{% block content %}
-    <form class="content-formpage" action="{% url "tournament:next_round" tournament.id %}" method="post">
-        {% csrf_token %}
-        {{ motion_form.non_field_errors }}
-        {{ round_form.non_field_errors }}
-        <div class="b-next-block">
-            {{ motion_form.motion.errors }}
-            <h3>{{ motion_form.motion.label_tag }}</h3>
-            {{ motion_form.motion }}
-        </div>
-        <div class="b-next-block">
-            {{ motion_form.infoslide.errors }}
-            <h3>{{ motion_form.infoslide.label_tag }}</h3>
-            {{ motion_form.infoslide }}
-        </div>
+    <div class="form-elem--max form-elem">
+        {{ motion_form.motion.errors }}
+        {{ motion_form.motion.label_tag}}
+        {{ motion_form.motion }}
+    </div>
 
-        <div class="b-next-block">
-            {{ round_form.start_round_time.errors }}
-            {{ round_form.start_round_time.label_tag }}
-            {{ round_form.start_round_time }}
-            {{ round_form.is_closed.errors }}
-        <div class="b-next-block__closed">
-            {{ round_form.is_closed }}
-            {{ round_form.is_closed.label_tag }}
-        </div>
-        </div>
-        <div class="b-next-block__button">
-            <button type="submit" class="button">Далее</button>
-        </div>
-    </form>
+    <div class="form-elem--max form-elem">
+        {{ motion_form.infoslide.errors }}
+        {{ motion_form.infoslide.label_tag }}
+        {{ motion_form.infoslide }}
+    </div>
+
+    <div class="form-elem--max form-elem">
+        {{ round_form.start_round_time.errors }}
+        {{ round_form.start_round_time.label_tag }}
+        {{ round_form.start_round_time }}
+        {{ round_form.is_closed.errors }}
+    </div>
+
+    <div class="form-elem--max form-elem">
+        {{ round_form.is_closed.label_tag }}
+        {{ round_form.is_closed }}
+    </div>
+
+    <div class="form-elem--max form-elem">
+        <button type="submit" class="button button--max button--prime">Далее</button>
+    </div>
+</form>
+
 {% endblock content %}

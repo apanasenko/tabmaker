@@ -1,15 +1,7 @@
 {% extends "main/base.html" %}
 
-{% block page_title %}
-    {% if is_owner %}
-        Мои турниры
-    {% else %}
-        Турниры
-    {% endif %}
-{% endblock page_title %}
-
 {% block content %}
-    <div>
+{#    <div>#}
 {#        {% if is_main_page %}#}
 {#            <a href="{% url "main:index" %}{% if is_short %}?list=all{% endif %}">#}
 {#                {% if is_short %}#}
@@ -19,15 +11,27 @@
 {#                {% endif %}#}
 {#            </a>#}
 {#        {% endif %}#}
-    </div>
+{#    </div>#}
 
-    <section>
-        <ul>
-            {% with objects=objects %}
-                {% include "tournament/tournament_list.html" %}
-            {% endwith %}
-        </ul>
-    </section>
+    {% block page_title %}
+        <div class="title">
+            <div class="title-container">
+                <h3 class="title__name">
+                {% if is_owner %}
+                    Мои турниры
+                {% else %}
+                    Турниры
+                {% endif %}
+                </h3>
+            </div>
+        </div>
+    {% endblock page_title %}
+
+    <div class="content-textpage">
+    {% with objects=objects %}
+        {% include "tournament/tournament_list.html" %}
+    {% endwith %}
+    </div>
 
     {% with objects=objects %}
         {% include 'main/paging.html' %}

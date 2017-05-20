@@ -1,87 +1,236 @@
 input, select, textarea {
-	padding: 5px 0px 5px 10px;
-	border-radius: 4px;
+	padding: 6px;
 	line-height: 20px;
 	font-size: 14px;
 	color: $dark;
 	background-color: transparent;
-	border: 2px solid $background-page;
+	border: 2px solid $grey;
 	box-sizing: border-box;
-	font-family: "PT Sans", Arial, sans-serif;
+	font-family: "Roboto", Arial, sans-serif;
+	width:100%;
+    border-radius: 3px;
 
 	&:focus {
-		border: 2px solid $dark;
+		border: 2px solid $prime;
 	}
 }
 
 select {
-	-webkit-appearance: none;
 	height: 35px;
 	min-width: 170px;
+    max-width: 220px;
 }
 
 input:focus, textarea:focus {
     outline: 1px solid $dark;
 }
 
-label {
-	display: block;
-}
-
 input[type='time'],
-input[type='date'] {
+input[type='date'],
+input[type="number"] {
 	height: 35px;
+    max-width: 160px;
+
+    @include respond-to(mobile) {
+        max-width: none;
+    }
 }
 
-input[type='date'] {
-	max-width: 160px;
-}
-
-input[type='time'] {
-	max-width: 100px;
-}
-
-input[type="checkbox"] {
+input[type="checkbox"], input[type="radio"] {
 	width: 15px;
 	height: 15px;
+    margin-right: 10px;
 }
 
-input[type="number"] {
-	max-width: 100px;
+
+
+
+.form {
+
+    &-section {
+        margin-bottom: 40px;
+    }
+
+    &-elem {
+        width:100%;
+        margin-top: 20px;
+        margin-right: 20px;
+
+        @include respond-to(mobile) {
+            margin-right: 0;
+            padding:0 10px;
+            box-sizing: border-box;
+        }
+
+        @include respond-to(tablets) {
+            margin-right: 0;
+            padding:0 10px;
+            box-sizing: border-box;
+        }
+
+        // размеры полей форм
+
+
+        &--max {
+            max-width: 800px;
+        }
+
+        &--mid {
+            max-width: 420px;
+        }
+
+        &--low {
+            max-width: 220px;
+        }
+
+        &--min {
+            max-width: 150px;
+        }
+
+        // состояния полей форм
+
+        &--disabled {
+            cursor: not-allowed;
+            opacity:0.3;
+        }
+
+        &--max, &--mid, &--low, &--min {
+            @include respond-to(mobile) {
+                max-width: none;
+            }
+
+            @include respond-to(tablets) {
+                max-width: none;
+            }
+        }
+
+        &--inline {
+            display: flex;
+            align-items: flex-end;
+            flex-wrap: wrap;
+
+            @include respond-to(mobile) {
+                display: block;
+            }
+
+            @include respond-to(tablets) {
+                display: block;
+            }
+        }
+
+        &--nomargin {
+
+            @include respond-to(large) {
+                margin-top: 0px;
+                margin-bottom: 0px !important;
+            }
+
+        }
+
+
+
+
+        // модификаторы текстов
+
+        &--error {
+            color: $error;
+        }
+
+        &--success {
+            color: $sec;
+        }
+
+
+
+        // элементы форм
+
+        &__group {
+            display: flex;
+        }
+
+        &__label, &__input, &__radio, &__description, &__error {
+            margin-bottom: 8px;
+        }
+
+        &__label, &__input, &__radio {
+            display: inline-block;
+        }
+
+        &__description, &__error {
+            display: block;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        &__label {
+            font-size: 16px;
+            font-weight: bold;
+            color: $prime;
+
+            @include respond-to(mobile) {
+                margin: 0 0 10px 0;
+            }
+        }
+
+        &__input, &__select, &__option {
+            width: 100%;
+            margin-right: 20px;
+            min-width: 150px;
+
+            @include respond-to(mobile) {
+                margin: 0 0 10px 0;
+                display: block;
+            }
+
+            @include respond-to(tablets) {
+                margin: 0 0 10px 0;
+                display: block;
+            }
+
+            &--short {
+                width:50%;
+                min-width: 300px;
+            }
+        }
+
+        &__map {
+            border: 1px solid $grey;
+            margin-top: 10px;
+        }
+
+        &__area {
+            width:100%;
+            height:150px;
+
+            &--short {
+                height: 80px;
+                width:100%;
+            }
+
+            &--long {
+                height: 240px;
+                width:100%;
+            }
+        }
+    }
 }
 
-.b-form-item {
-	margin-bottom: 20px;
 
-	input[type='text'],
-    input[type='url'],
-	textarea {
-		width: 100%;
-		display: inline-block;
-		margin-bottom: 10px;
-	}
 
-	&__map {
-		border: 1px solid $grey;
-		margin-top: 10px;
-	}
-
-	&__wrapper {
-		display: block;
-		width: 100%;
-	}
-}
 
 .errorlist {
 	display: block;
+	margin-bottom: 20px;
 
 	li {
-		color: red;
+		color: $error;
 		font-size: 14px;
-		width: 180px;
     	display: inline-block;
 	}
 }
+
+
+
 
 // autocomplete
 
@@ -96,77 +245,6 @@ input[type="number"] {
     }
 }
 
-.ui-menu-item {
-    font-size: 14px;
-    max-width: 100%;
-    padding: 10px 1em 10px .4em;
-    line-height: 1.4;
-
-    .region {
-        font-size: 11px;
-        color: $grey;
-    }
-
-    a {
-        color: #58697A;
-        font-size: 14px;
-    }
-}
-
-.ui-widget-content {
-    border: 1px solid $grey;
-}
-
-
-// зарегистрироваться
-
-.b-signup {
-    max-width: 350px;
-
-    @include respond-to(mobile) {
-        max-width: 280px;
-    }
-
-	&__item {
-
-		input, select, textarea {
-			min-width: 200px;
-			width: 100%;
-		}
-
-		input[type="checkbox"] {
-			width: 20px;
-		}
-
-		span {
-			margin-top: 10px;
-    		display: inline-block;
-		}
-	}
-}
-
-.b-password-change {
-	margin-bottom: 10px !important;
-
-	label {
-		margin-bottom: 5px;
-		font-weight: 700;
-	}
-
-	input {
-		width: 25%;
-	}
-}
-
-
-// создать турнир
-
-.tournament-new {
-
-    &__count {
-        max-width: 190px !important;
-    }
-}
 
 
 
@@ -198,7 +276,7 @@ input[type="number"] {
     }
 
     i::before {
-        color: $buttondark;
+        color: $prime;
     }
 }
 
@@ -238,33 +316,11 @@ input[type="number"] {
 
 }
 
-.comment {
-    font-size: 14px;
-    color: $grey;
-    max-width: 90%;
-    line-height: 1.3;
-    width: 100%;
-}
-
 .question {
     max-width: 90%;
     width: 100%;
 }
 
 .star {
-    color: red;
-}
-
-
-.b-form-custom {
-	min-width: 300px;
-
-	&__help {
-		margin-bottom: 10px;
-		color: $dark;
-	}
-
-	&__button {
-		margin-top: 20px;
-	}
+    color: $error;
 }

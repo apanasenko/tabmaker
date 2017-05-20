@@ -6,13 +6,15 @@
 
 {% block content %}
 
-    <div id="message" class="b-message">
-        <p>Похоже, такой страницы не существует.</p>
-    </div>
+    <div class="content-textpage">
+        <div id="message">
+            <p>Похоже, такой страницы не существует.</p>
+        </div>
 
-    <div id="message_back" class="b-message__back">
-        <a class="button" href="javascript:history.back()">Назад</a>
-        <a class="button" href="{% url "main:index" %}">На главную</a>
+        <div id="message_back"">
+            <a class="button button--mid button--prime " href="javascript:history.back()">Назад</a>
+            <a class="button button--mid button--prime " href="{% url "main:index" %}">На главную</a>
+        </div>
     </div>
 
 {% endblock content %}

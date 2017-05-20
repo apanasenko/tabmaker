@@ -13,50 +13,59 @@
 
 {% block content %}
 
-    <form class="content-formpage" action="{% if show_speaker_1 %}
-                        {% url "tournament:add_team" tournament.id %}
-                  {% else %}
-                        {% url "tournament:registration_team" tournament.id %}
-                  {% endif %}
-    " method="post">
-        {% csrf_token %}
-        {{ form.non_field_errors }}
+    <div class="content-formpage">
+        <form action="{% if show_speaker_1 %}
+                            {% url "tournament:add_team" tournament.id %}
+                      {% else %}
+                            {% url "tournament:registration_team" tournament.id %}
+                      {% endif %}
+        " method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
 
-        {% if not show_speaker_1 %}
-            <p class="b-registration__attention"> * Для регистрации команды ваш тимейт должен быть зарегистрирован у нас на сайте.</p>
-        {% endif %}
+            {% if not show_speaker_1 %}
+                <p class="notification-red">Для регистрации команды ваш тимейт должен быть зарегистрирован у нас на сайте.</p>
+            {% endif %}
 
-        {% if saved_team %}
-            <h3>Команда {{ saved_team }} была успешно добавлена в турнир {{ tournament.name }}</h3>
-        {% endif %}
+            {% if saved_team %}
+                <p class="notification-green">Команда {{ saved_team }} была успешно добавлена на "{{ tournament.name }}"</p>
+            {% endif %}
 
-        <div class="b-form-item">
-            <label for="id_name"> <h3 class="b-form-item__heading b-registration__heading">Название команды</h3></label>
-            <span>{{ form.name }}</span>
-            <span>{{ form.name.errors }}</span>
+            <div class="form-elem form-elem--low">
+                <label for="id_name" class="form-elem__label">Название команды</label>
+                <span>{{ form.name }}</span>
+                <span>{{ form.name.errors }}</span>
+            </div>
 
             {% if show_speaker_1 %}
 
-                <label for="id_speaker_1"><h3 class="b-form-item__heading b-registration__heading">E-mail первого спикера</h3></label>
-                <span>{{ form.speaker_1 }}</span>
-                {{ form.speaker_1.errors }}
+                <div class="form-elem form-elem--low">
+                    <label class="form-elem__label" for="id_speaker_1">E-mail первого спикера</label>
+                    <span>{{ form.speaker_1 }}</span>
+                    {{ form.speaker_1.errors }}
+                </div>
 
-                <label for="id_speaker_2"><h3 class="b-form-item__heading b-registration__heading">E-mail второго спикера</h3></label>
+                <div class="form-elem form-elem--low">
+                    <label class="form-elem__label" for="id_speaker_2">E-mail второго спикера</label>
             {% else %}
 
                 {{ form.speaker_1 }}
-                <label for="id_speaker_2"><h3 class="b-form-item__heading b-registration__heading">E-mail вашего напарника</h3></label>
+                <label class="form-elem__label" for="id_speaker_2">E-mail вашего напарника</label>
+                </div>
 
             {% endif %}
 
-            <span>{{ form.speaker_2 }}</span>
-            <span>{{ form.speaker_2.errors }}</span>
+            <div class="form-elem--low">
+                <span>{{ form.speaker_2 }}</span>
+                <span>{{ form.speaker_2.errors }}</span>
+            </div>
 
-        </div>
-
-        <button type="submit" class="button" value="Отправить">
-            {% if not show_speaker_1 %} Участвовать {% else %} Добавить {% endif %}
-        </button>
-    </form>
+            <div class="form-elem form-elem--low">
+                <button type="submit" class="button button--max button--prime" value="Отправить">
+                    {% if not show_speaker_1 %} Участвовать {% else %} Добавить {% endif %}
+                </button>
+            </div>
+        </form>
+    </div>
 
 {% endblock content %}

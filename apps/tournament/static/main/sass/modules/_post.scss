@@ -15,7 +15,6 @@
 
         &__superheading {
             margin: 30px 0;
-            text-align: center;
             line-height: 1.4;
         }
 
@@ -61,20 +60,6 @@
             display: inline;
             border-bottom: 1px dashed $grey;
             padding-bottom: 3px;
-        }
-    }
-}
-
-.b-postlist {
-
-    &-item {
-
-        &__heading {
-
-        }
-
-        &__more {
-            @include button;
         }
     }
 }

@@ -53,17 +53,17 @@
 
         &_add {
             @include status;
-            background-color: $success_message;
+            background-color: $sec;
         }
 
         &_error {
             @include status;
-            background-color: $error_message;
+            background-color: $error;
         }
 
         &_exist {
             @include status;
-            background-color: $warning_message;
+            background-color: $warning;
         }
     }
 

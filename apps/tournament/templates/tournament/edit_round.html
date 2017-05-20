@@ -18,13 +18,14 @@
     <form class="content-formpage" {% url "tournament:edit_round" tournament.id %} " method="post">
 
         {% if warning %}
-            <div class="disclaimer-red">
-            <p>Для некоторых румов уже внесены результаты. При их редактировании незультаты рума будут удалены.</p>
+            <div class="notification-red">
+                Для некоторых румов уже внесены результаты.
+                При их редактировании результаты рума будут удалены.
             </div>
         {% endif %}
-        <div class="info disclaimer-green">
-            <p>Для перемещения команд между румами кликнете сначала на команду,
-            которую хотите переместить, а затем на позицию, куда хотите переместить</p>
+        <div class="info notification-green">
+            Для перемещения команд между румами нажмите сначала на команду,
+            которую хотите переместить, а затем на позицию, куда хотите переместить.
         </div>
 
 
@@ -87,8 +88,8 @@
         </div>
         {% endfor %}
 
-        <div>
-            <button type="submit" class="button b-result-edit__submit">Далее</button>
+        <div class="form-elem b-result__confirm">
+            <button type="submit" class="button button--max button--prime">Далее</button>
         </div>
 
     </form>

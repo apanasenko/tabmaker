@@ -1,49 +1,13 @@
 {% load tournament_extras %}
 
-<div class="content-textpage">
-
-    <div class="paragraph">
-
-        {% if tournament|is_status_registration %}
-
-            <a class="button" href="{% url "tournament:registration_team" tournament.id %}">Участовать</a>
-            <a class="button" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
-            <p>Регистрация до {{ tournament.close_reg|date:"d M Y" }}</p>
-
-        {% elif tournament|is_status_preparation %}
-
-            <h3 class="paragraph__heading">Регистрация уже закончилась</h3>
-
-        {% else %}
-            {% if tournament|is_status_started or tournament|is_status_playoff%}
-
-                <a class="button" href="{% url "tournament:show_round" tournament.id %}">Текущий раунд</a>
-
-            {% else %}
-
-                <a class="button" href="{% url 'tournament:result_all' tournament.id%}">Подробные результаты по румам</a>
-
-            {% endif %}
-
-            <a class="button" href="{% url "tournament:result" tournament.id %}">Результаты турнира</a>
-
-        {% endif %}
-
-        {% if is_chair %}
-            <a class="button" href="{% url "tournament:result_round" tournament.id %}">
-                Ввести результаты
-            </a>
-        {% endif %}
-
-    </div>
-
+<div class="content-textpage content-textpage--top">
     <h3 class="paragraph__heading">Cтатус</h3>
     <ul class="paragraph">
-        <li class="b-tournament-info__status">Начало турнира: {{ tournament.start_tour|date:"d M Y"}} в {{ tournament.start_tour|time:"H:i"}} </li>
-        <li class="b-tournament-info__status">Место проведения: {{ tournament.location }} {# TODO получить адрес по координатам #}</li>
-        <li class="b-tournament-info__status">Максимум команд: {{ tournament.count_teams }}</li>
-        <li class="b-tournament-info__status">Раунды: {{ tournament.count_rounds }} отборочных</li>
-        <li class="b-tournament-info__status">Выходят в плей-офф: {{ tournament.count_teams_in_break }} команд</li>
+        <li class="stats__elem">Начало турнира: {{ tournament.start_tour|date:"d M Y"}} в {{ tournament.start_tour|time:"H:i"}} </li>
+        <li class="stats__elem">Место проведения: {{ tournament.location }} {# TODO получить адрес по координатам #}</li>
+        <li class="stats__elem">Максимум команд: {{ tournament.count_teams }}</li>
+        <li class="stats__elem">Раунды: {{ tournament.count_rounds }} отборочных</li>
+        <li class="stats__elem">Выходят в плей-офф: {{ tournament.count_teams_in_break }} команд</li>
         <input id="id_location_lon" type="hidden" value={{ tournament.location_lon }}>
         <input id="id_location_lat" type="hidden" value={{ tournament.location_lat }}>
     </ul>
@@ -52,6 +16,6 @@
     <p class="paragraph">{{ tournament.info }}</p>
 
     <h3 class="paragraph__heading">Подробности</h3>
-    <a class="paragraph paragraph__link" href="{{ tournament.link }}">{{ tournament.link }}</a>
+    <a class="paragraph" href="{{ tournament.link }}">{{ tournament.link }}</a>
 
 </div>

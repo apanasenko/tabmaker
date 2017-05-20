@@ -1,17 +1,17 @@
 {% load page_extras %}
 
-<div>
-    <div class="b-paging">
+<div class="section--notop">
+    <div class="paging">
 
     {% if objects.paginator.num_pages > 1 %}
 
         {% if objects.has_previous %}
-            <div class="b-paging__prev">
-                <i class="fa fa-long-arrow-left"></i><a href="?page={{ objects.previous_page_number }}"> Назад </a>
+            <div class="paging__prev">
+                <i class="material-icons">arrow_back</i><a href="?page={{ objects.previous_page_number }}"> Назад </a>
             </div>
         {% endif %}
 
-        <div class="b-paging__numbers">
+        <div class="paging__numbers">
             <span><a href="?page=1">1</a></span>
             {% if objects.number|is_split_first %}
                 <span>...</span>
@@ -25,8 +25,8 @@
         </div>
 
         {% if objects.has_next %}
-            <div class="b-paging__next">
-                <a href="?page={{ objects.next_page_number }}">Вперед</a><i class="fa fa-long-arrow-right"></i>
+            <div class="paging__next">
+                <a href="?page={{ objects.next_page_number }}">Вперед</a><i class="material-icons">arrow_forward</i>
             </div>
         {% endif %}
     {% endif %}

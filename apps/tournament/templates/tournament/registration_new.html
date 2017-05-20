@@ -7,25 +7,29 @@
 {% block content %}
 
     <div class="content-formpage">
-    <form class="b-form-custom" action="{% url action_url tournament.id %}" method="post">
+    <form action="{% url action_url tournament.id %}" method="post">
         {% csrf_token %}
         {{ form.non_field_errors }}
 
-        <div class="b-form-item">
+
         {% for field in form %}
-            <h3 class="b-form-item__heading b-registration__heading">
-                {{ field.label }}
+            <div class="form-elem form-elem--low">
+                <span class="form-elem__label">
+                    {{ field.label }}
+                </span>
                 {% if field.field.required %}
                     <span class="star" style="display: inline;">*</span>
                 {% endif %}
-            </h3>
-            <div class="b-form-custom__help">{{ field.help_text }}</div>
-            <span>{{ field }}</span>
-            <span>{{ field.errors }}</span>
+
+                <div class="form-elem__description">{{ field.help_text }}</div>
+                {{ field }}
+                {{ field.errors }}
+            </div>
         {% endfor %}
-        <button type="submit" class="button b-form-custom__button">
-            {{ submit_title }}
-        </button>
+        <div class="form-elem">
+            <button type="submit" class="button button--prime button--max">
+                {{ submit_title }}
+            </button>
         </div>
     </form>
     </div>

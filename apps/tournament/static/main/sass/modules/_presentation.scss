@@ -26,7 +26,7 @@
 		&_teams {
 			margin: 0 auto;
 			height: 80%;
-			@include container(80%);
+			width: 80%;
 		}
 
 		&_og, &_cg, &_oo, &_co {
@@ -81,7 +81,7 @@
 		}
 
 		&_chair {
-			@include span(100% no-gutters);
+			width:100%;
 			text-align: center;
 			font-size: 2em;
 			font-weight: 700;

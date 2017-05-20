@@ -3,11 +3,6 @@
 {% load staticfiles %}
 {% load profile_extras %}
 
-{% block page_title %}
-    Аудитории турнира
-{% endblock page_title %}
-
-
 {% block extra_head %}
     {{ block.super }}
     <script type="text/javascript" src="{% static "main/js/cookie.js" %}"></script>
@@ -17,49 +12,58 @@
 
 
 {% block content %}
-<div class="content-textpage">
 
-    <input id="place_update_url" type="hidden" value="{% url 'tournament:place_update' tournament.id %}">
-
-   <h3>Список аудиторий</h3>
-    <div class="place b-places__item" id="temp">
-        <div class="errors"></div>
-        <input id="place_id" type="hidden">
-        <p>
-            <input class="place_checkbox" type="checkbox">
-            <span class="place_name"></span>
-            <a class='b-places__delete' onclick="remove_place(this, '{% url 'tournament:place_remove' tournament.id %}')">Удалить</a>
-        </p>
+{% block page_title %}
+    <div class="title">
+        <div class="title-container">
+            <h3 class="title__name">Аудитории турнира</h3>
+        </div>
     </div>
+{% endblock page_title %}
 
-    <script>
-    function init() {
-        {% for place in places %}
-        generate_place_block(
-                '{{ place.place }}',
-                '{{ place.id }}',
-                parseBool('{{ place.is_active }}')
-        );
-        {% endfor %}
-    }
-    </script>
+{% if is_check_page %}
+    <div class="section">
+        <button id="check_button" class="button button--prime button--max" disabled onclick="redirect('{% url 'tournament:show' tournament.id %}')">
+            Начать турнир
+        </button>
+    </div>
+{% endif %}
 
-    <div id="new_place">
-        <div class="errors notification-red"></div>
-        {# <label for="add_place_input">Добавить аудиторию</label> #}
-        <input id="add_place_input" class="b-places__add" placeholder="Название аудитории">
-        <a class="button" onclick="save_place('{% url 'tournament:place_add' tournament.id %}')">Добавить аудиторию</a>
+<div class="section section--center" id="new_place">
+    <div class="errors notification-red"></div>
+    <div>
+    <input class="form-elem__input form-elem__input--short" id="add_place_input" placeholder="Название аудитории" required>
+    <a class="button button--mid button--prime" onclick="save_place('{% url 'tournament:place_add' tournament.id %}')">Добавить аудиторию</a>
     </div>
 
     {% if is_check_page %}
-        <div id="check_warning" class="disclaimer-red">
-            <p>Количество доступных аудиторий должно быть не меньше {{ places_need }}</p>
+        <div id="check_warning" class="notification-red notification--top">
+            Количество доступных аудиторий должно быть не меньше {{ places_need }}
         </div>
         <input id="places_need" value="{{ places_need }}" type="hidden">
-        <button id="check_button" class="button count-by-role__confirm" disabled onclick="redirect('{% url 'tournament:start' tournament.id %}')">
-            Начать турнир
-        </button>
     {% endif %}
-
 </div>
+
+<div class="place list" id="temp">
+    <div class="errors"></div>
+    <input id="place_id" type="hidden">
+    <input class="place_checkbox" type="checkbox">
+    <span class="place_name"></span>
+    <a class='button button--min button--prime' onclick="remove_place(this, '{% url 'tournament:place_remove' tournament.id %}')">Удалить</a>
+</div>
+
+<input id="place_update_url" type="hidden" value="{% url 'tournament:place_update' tournament.id %}">
+
+<script>
+function init() {
+    {% for place in places %}
+    generate_place_block(
+            '{{ place.place }}',
+            '{{ place.id }}',
+            parseBool('{{ place.is_active }}')
+    );
+    {% endfor %}
+}
+</script>
+
 {% endblock content %}

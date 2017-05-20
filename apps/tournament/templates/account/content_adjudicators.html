@@ -1,38 +1,43 @@
-<section class="b-profile">
-    <ul>
-        {% for rel in objects %}
+<div class="content-tablepage">
+<table class="table">
+    <tbody>
+        <tr class="table__headrow">
+            <th>Судья</th>
+            <th>Статус</th>
+            {% if is_owner %}
+                <th>Действия</th>
+            {% endif %}
+        </tr>
+    {% for rel in objects %}
+        <tr class="table__row">
+            <td>
+                <a class="link" target="_blank" id="adjudicator_{{ rel.id }}" href="{% url 'tournament:show' rel.tournament.id %}">{{ rel.tournament.name }}</a>
+            </td>
+            <td>
+                {{ rel.role.role }}
+                <div class="errorinlist" id="errors_{{ rel.id }}"></div>
+            </td>
+            {% if is_owner %}
+                <td>
+                    <button class="button button--min button--prime" onclick="remove_adjudicator(
+                        '{% url 'profile:adjudicator_remove' %}',
+                        '{{ rel.id }}',
+                        'adjudicator_{{ rel.id }}',
+                        'errors_{{ rel.id }}'
+                        )">
+                        Отказаться от судейства
+                    </button>
 
-            <div class="errorinlist" id="errors_{{ rel.id }}"></div>
+                </td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
 
-            <li class="list" id="adjudicator_{{ rel.id }}">
-
-                <div class="list-item">
-
-                    <h3 class="list-item__heading"><a href="{% url 'tournament:show' rel.tournament.id %}">{{ rel.tournament.name }}</a></h3>
-
-                    <div class="list-item__block">
-                        <span class="nolink">{{ rel.role.role }}</span>
-                    </div>
-
-                    {% if is_owner %}
-                        <button class="list-item__button" onclick="remove_adjudicator(
-                            '{% url 'profile:adjudicator_remove' %}',
-                            '{{ rel.id }}',
-                            'adjudicator_{{ rel.id }}',
-                            'errors_{{ rel.id }}'
-                            )">
-                            Отказаться от судейства
-
-                        </button>
-{#                                <button class="b-tournamentlist-current__result_tounamentlist">#}
-{#                                    <span>Подтвердить участие</span>#}
-{#                                </button>#}
-                    {% endif %}
-
-                </div>
-            </li>
-        {% empty %}
-            <p class="b-profile__zero"> Не судил ни в одном турнире </p>
-        {% endfor %}
-    </ul>
-</section>
+{#    <div class="content-textpage">#}
+{#        <div class="paragraph">#}
+{#            <h3>Пока не судил ни на одном турнире</h3>#}
+{#        </div>#}
+{#    </div>#}

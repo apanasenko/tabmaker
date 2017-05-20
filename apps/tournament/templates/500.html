@@ -6,17 +6,19 @@
 
 {% block content %}
 
-    <div id="message" class="b-message">
-        <p>
-            Похоже, что-то пошло не так.
-            {% with vk_title='Вконтакте' %}
-                Отправьте нам email на debate.tabmaker@gmail.com или напишите нам в {% include 'main/vk.html' %}
-            {% endwith %}
-        </p>
-    </div>
+    <div class="content-textpage">
+        <div id="message">
+            <p>
+                Похоже, что-то пошло не так.
+                {% with vk_title='Вконтакте' %}
+                    Отправьте нам email на debate.tabmaker@gmail.com или напишите нам в {% include 'main/vk.html' %}
+                {% endwith %}
+            </p>
+        </div>
 
-    <div id="message_back" class="b-message__back">
-        <a class="button" href="{% url "main:index" %}">На главную</a>
+        <div id="message_back">
+            <a class="button button--min button--prime" href="{% url "main:index" %}">На главную</a>
+        </div>
     </div>
 
 {% endblock content %}

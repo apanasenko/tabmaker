@@ -8,63 +8,195 @@
     {{ block.super }}
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script type="text/javascript" src="{% static "tournament/js/map.js" %}"></script>
+    <script type="text/javascript" src="{% static "tournament/js/confirmation.js" %}"></script>
 {% endblock extra_head %}
-
-{% block sidebar2%}
-    {% if is_owner %}
-        {% include 'tournament/sidebar.html' %}
-    {% endif %}
-{% endblock sidebar2 %}
-
-{% block page_title %}
-    {{ tournament.name }}
-{% endblock page_title %}
 
 {% block content %}
 
-<div class="b-tabs">
+    {% block page_title %}
+        <div class="title">
+            <div class="title-container">
+                <h3 class="title__name">{{ tournament.name }}</h3>
+                <div class="title-container">
 
-    <input id="tab1" type="radio" name="tabs" class="b-tabs__input" checked>
-    <label for="tab1" class="b-tabs__label" title="Информация">Информация</label>
+                     {% if is_chair %}
+                        <a class="button button--mid button--sec" href="{% url "tournament:result_round" tournament.id %}">
+                            Ввести результаты
+                        </a>
+                    {% endif %}
 
-    <input id="tab2" type="radio" name="tabs" class="b-tabs__input">
-    <label for="tab2" class="b-tabs__label" title="Команды">Команды</label>
+                    {% if tournament|is_status_registration %}
 
-    <input id="tab3" type="radio" name="tabs" class="b-tabs__input">
-    <label for="tab3" class="b-tabs__label" title="Судьи">Судьи</label>
+                        <a class="button button--mid button--sec" href="{% url "tournament:registration_team" tournament.id %}">Играть</a>
+                        <a class="button button--mid button--sec" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
 
-    <input id="tab4" type="radio" name="tabs" class="b-tabs__input">
-    <label for="tab4" class="b-tabs__label" title="Место">Место</label>
+                    {% elif tournament|is_status_preparation %}
 
-    <section class="b-tabs__one">
-        {% with tournament=tournament is_chair=is_chair %}
-            {% include "tournament/tournament_info.html" %}
-        {% endwith %}
-    </section>
+                        <h3>Регистрация уже закончилась</h3>
 
-    <section class="b-tabs__two">
-        {% if tournament.is_registration_hidden and not is_owner and tournament|is_status_registration %}
-            <div class="b-message">
-                <h3 class="b-teamlist__heading">Информация закрыта</h3>
-                <p>Организаторы турнира скрыли информацию о уже зарегистрированных командах</p>
+                    {% elif tournament|is_status_started or tournament|is_status_playoff %}
+
+                        <a class="button button--mid button--sec" href="{% url "tournament:show_round" tournament.id %}">Текущий раунд</a>
+                        <a class="button button--mid button--sec" href="{% url 'tournament:result' tournament.id%}">Баллы команд и спикеров</a>
+                        <a class="button button--mid button--sec" href="{% url 'tournament:result_all' tournament.id%}">Результаты по комнатам</a>
+
+                    {% endif %}
+
+                </div>
             </div>
-        {% else %}
-            {% with team_tournament_rels=team_tournament_rels %}
-                {% include "tournament/team_list.html" %}
-            {% endwith %}
-        {% endif %}
-    </section>
+        </div>
+    {% endblock page_title %}
 
-    <section class="b-tabs__three">
-        {% with adjudicators=adjudicators %}
-            {% include "tournament/adjudicator_list.html" %}
-        {% endwith %}
-    </section>
+    {% if is_owner %}
+        <div class="section">
+            <ul class="menu">
 
-    <section class="b-tabs__four">
-        <div id="map" style="width: 100%; height: 400px"></div>
-    </section>
+                <li class="menu-item dropdown menu-item__block">
+                    <p class="dropbtn">Регистрация<i class="material-icons">keyboard_arrow_down</i></p>
+                    <div class="dropdown-content">
+                        <a href="{% url 'tournament:custom_form_edit' tournament.id 'team' %}">Анкета регистрации</a>
+                        <a href="{% url 'tournament:custom_form_answers' tournament.id 'team' %}">Ответы на анкету</a>
+                        <a href="#">Импорт команд</a>
+                        {% if tournament|is_status_registration %}
+                            <a  href="{% url "tournament:registration_closing" tournament.id %}">Закрыть регистрацию</a>
+                        {% elif tournament|is_status_preparation %}
+                            <a  href="{% url "tournament:registration_opening" tournament.id %}">Открыть регистрацию</a>
+                        {% endif %}
+                    </div>
+                </li>
 
-</div>
+                <li class="menu-item dropdown menu-item__block">
+                    <p class="dropbtn">Команды<i class="material-icons">keyboard_arrow_down</i></p>
+                    <div class="dropdown-content">
+                        {% if not tournament|is_status_finished %}
+                            <a  href="{% url "tournament:edit_team_list" tournament.id %}">Список команд</a>
+                        {% endif %}
+                        <a href="{% url 'tournament:add_team' tournament.id %}">Добавить команду</a>
+                        <a href="{% url 'tournament:print' tournament.id %}">Печать списка команд</a>
+                    </div>
+                </li>
+
+                <li class="menu-item dropdown menu-item__block">
+                    <p class="dropbtn">Судьи<i class="material-icons">keyboard_arrow_down</i></p>
+                    <div class="dropdown-content">
+                        {% if not tournament|is_status_finished %}
+                            <a  href="{% url "tournament:edit_adjudicator_list" tournament.id %}">Список судей</a>
+                        {% endif %}
+{#                        <a  href="#">Добавить судью</a>#}
+                    </div>
+                </li>
+
+                <li class="menu-item dropdown menu-item__block">
+                    <p class="dropbtn">Настройки турнира<i class="material-icons">keyboard_arrow_down</i></p>
+                    <div class="dropdown-content">
+                        {% if not tournament|is_status_finished %}
+                            <a  href="{% url "tournament:edit" tournament.id %}">Параметры</a>
+                            <a  href="{% url "tournament:place_list" tournament.id %}">Аудитории</a>
+                            <a  href="{% url "tournament:admin_list" tournament.id %}">Администраторы</a>
+                        {% endif %}
+                        <a  href="{% url "tournament:remove" tournament.id %}">Удалить турнир</a>
+                    </div>
+                </li>
+
+                {% if tournament|is_status_preparation or tournament|is_status_started or tournament|is_status_playoff %}
+
+                <li class="menu-item dropdown menu-item__block">
+                    <p class="dropbtn">Ведение турнира<i class="material-icons">keyboard_arrow_down</i></p>
+                    <div class="dropdown-content">
+
+                        {% if tournament|is_status_preparation %}
+
+                            <a  href="{% url "tournament:check_team_list" tournament.id %}">Начать турнир</a>
+
+                        {% elif tournament|is_status_started %}
+
+                            <a  href="{% url "tournament:break" tournament.id %}">Объявить брейк</a>
+                            <a  href="{% url "tournament:finished" tournament.id %}">Завершить турнир</a>
+                            <a  href="{% url "tournament:registration_closing" tournament.id %}">Отменить начало турнира</a>
+
+                        {% elif tournament|is_status_playoff %}
+
+                            <a  href="{% url "tournament:finished" tournament.id %}">Завершить турнир</a>
+                            <a  href="{% url "tournament:start" tournament.id %}">Отменить брейк</a>
+
+                        {% endif %}
+
+                    </div>
+                </li>
+
+                {% endif %}
+
+                {% if tournament|is_status_started or tournament|is_status_playoff %}
+
+                    <li class="menu-item dropdown menu-item__block">
+                        <p class="dropbtn">Раунды<i class="material-icons">keyboard_arrow_down</i></p>
+                        <div class="dropdown-content">
+                            <a  href="{% url 'tournament:next_round' tournament.id%}">Создать следующий раунд </a>
+                            <a  href="{% url 'tournament:publish_round' tournament.id%}"> Опубликовать тему и комнаты </a>
+                            <a  href="{% url 'tournament:presentation_round' tournament.id %}"> Презентация раунда </a>
+                            {% if tournament.cur_round > 0 %}
+                                <a  href="{% url 'tournament:result_round' tournament.id%}"> Ввести результаты </a>
+                                <a  onclick="confirm_remove_round('{% url 'tournament:remove_round' tournament.id %}')">Удалить последний раунд</a>
+                            {% endif %}
+                        </div>
+                    </li>
+
+                {% endif %}
+
+            </ul>
+        </div>
+
+        <div class="stats section">
+            <div class="stats-container">
+                <p class="stats__elem">Играющие команды: {{ tournament.count_members }} ({{ tournament.count_registered_teams }} зарегистрировано)</p>
+                <p class="stats__elem">Количество сыграных раундов: {{ tournament.cur_round }}</p>
+                <p class="stats__elem">Команд делающих брейк: {{ tournament.count_teams_in_break }}</p>
+                <p class="stats__elem">Статус: {{ tournament.status.name }}</p>
+            </div>
+        </div>
+
+    {% else %}
+
+        <ul class="accordion-tabs">
+            <li class="tab-header-and-content tab-header-and-content__first">
+                <a href="javascript:void(0)" class="is-active tab-link">О турнире</a>
+                <div class="tab-content">
+                    {% with tournament=tournament is_chair=is_chair %}
+                        {% include "tournament/tournament_info.html" %}
+                    {% endwith %}
+                </div>
+            </li>
+            <li class="tab-header-and-content">
+                <a href="javascript:void(0)" class="tab-link">Участники</a>
+                <div class="tab-content">
+                    {% if tournament.is_registration_hidden and not is_owner and tournament|is_status_registration %}
+                        <div class="content-textpage content-textpage--center content-textpage--top">
+                            <h3>Информация закрыта</h3>
+                            <p>Организаторы турнира скрыли инфомацию о уже зарегистрированных командах</p>
+                        </div>
+                    {% else %}
+                        {% with team_tournament_rels=team_tournament_rels %}
+                            {% include "tournament/team_list.html" %}
+                        {% endwith %}
+                    {% endif %}
+                </div>
+            </li>
+            <li class="tab-header-and-content">
+                <a href="javascript:void(0)" class="tab-link">Судьи</a>
+                <div class="tab-content">
+                    {% with adjudicators=adjudicators %}
+                        {% include "tournament/adjudicator_list.html" %}
+                    {% endwith %}
+                </div>
+            </li>
+            <li class="tab-header-and-content">
+                <a href="javascript:void(0)" class="tab-link">На карте</a>
+                <div class="tab-content">
+                    <div id="map" style="width: 100%; height: 400px"></div>
+                </div>
+            </li>
+        </ul>
+
+    {% endif %}
 
 {% endblock content %}

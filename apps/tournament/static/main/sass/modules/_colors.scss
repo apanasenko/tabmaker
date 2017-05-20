@@ -1,38 +1,11 @@
-$background-page: #ECEEF1;
-$background-block: #ffffff;
-$hovergrey: #F6F6F6;
-$green: #27b758;
-$dark-green: #054b2b;
-$light-green: #189A66;
-$deep-dark: #0C152A;
-$dark: #58697A;
-$grey: #aeb8bc;
-$hover: #FEFFD9;
-$lightbeige: #FDFDEE;
-$buttondark: #424E5A;
-$orange: #ffa312;
+$prime: #262C30;
+$sec: #00C84B;
 
-$lightbeige: #EBE8E3;
-$beige: #E2DFDA;
-$darkbeige: #636361;
-$backbeige: #7A7A7A;
-$disabled_button: #95989a;
-$success_message: #188b38;
-$error_message: #ff706d;
-$warning_message: #ffe837;
-
-$button-gradient: linear-gradient(to bottom,#fff,#eee);
-$green-gradient: linear-gradient(to bottom, $light-green, $dark-green);
-$button-backgroud: #f7f7f7;
-
-
-// альтернативная цветовая схема
-
-$primary: #79589F;
-$secondary: #189A66;
+$dark: #253858;
+$grey: #d3d3d5;
 $back: #f7f7f7;
 
-$blue: #408fec;
-$success: #189A66;
-$warning: #ffe837;
-$error: red;
+$error: #ff4054;
+$warning: #ffa312;
+$submit: green;
+

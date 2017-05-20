@@ -53,9 +53,9 @@ class TournamentForm(forms.ModelForm):
             }),
             'location_lon': forms.HiddenInput(),
             'location_lat': forms.HiddenInput(),
-            'count_rounds': forms.NumberInput(attrs={'min': '0', 'placeholder': 'Количество отборочных', 'class': 'form-elem__input'}),
-            'count_teams': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Максимум команд', 'class': 'form-elem__input'}),
-            'count_teams_in_break': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Выходят в плей-офф', 'class': 'form-elem__input'}),
+            'count_rounds': forms.NumberInput(attrs={'min': '0', 'placeholder': 'Количество отборочных', 'class': 'form-elem__input form-elem--low'}),
+            'count_teams': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Максимум команд', 'class': 'form-elem__input form-elem--low'}),
+            'count_teams_in_break': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Выходят в плей-офф', 'class': 'form-elem__input form-elem--low'}),
             'link': forms.URLInput(attrs={'class': 'validate form-elem__input', 'placeholder': 'Cсылка в социальных сетях'}),
             'info': forms.Textarea(attrs={'class': 'validate form-elem__area', 'placeholder': 'О турнире'}),
             'is_registration_hidden': forms.CheckboxInput(),
@@ -330,8 +330,8 @@ class MotionForm(forms.ModelForm):
         }
 
         widgets = {
-            'motion': forms.Textarea(attrs={'cols': '80', 'rows':'3'}),
-            'infoslide': forms.Textarea(attrs={'cols': '80', 'rows':'6'}),
+            'motion': forms.Textarea(attrs={'class': 'form-elem__input', 'cols': '80', 'rows': '2'}),
+            'infoslide': forms.Textarea(attrs={'class': 'form-elem__input', 'cols': '80', 'rows': '6'}),
         }
 
 
@@ -372,12 +372,30 @@ class ProfileForm(forms.ModelForm):
         }
 
         widgets = {
-            'first_name': forms.TextInput(attrs={'class': 'validate'}),
-            'last_name': forms.TextInput(attrs={'class': 'validate'}),
-            'phone': forms.TextInput(attrs={'class': 'validate', 'type': 'tel', 'placeholder': '+7914 123 45 67'}),
-            'link': forms.URLInput(attrs={'class': 'validate', 'placeholder': 'Например, https://vk.com/id0'}),
-            'player_experience': forms.Textarea(attrs={'class': 'validate', 'placeholder': 'Опыт в дебатах', 'rows': '5'}),
-            'adjudicator_experience': forms.Textarea(attrs={'class': 'validate', 'placeholder': 'Опыт судейства дебатов', 'rows': '5'}),
+            'first_name': forms.TextInput(attrs={
+                'class': 'validate form-elem__input'
+            }),
+            'last_name': forms.TextInput(attrs={
+                'class': 'validate form-elem__input'
+            }),
+            'phone': forms.TextInput(attrs={
+                'class': 'validate form-elem__input',
+                'type': 'tel',
+                'placeholder': '+7914 123 45 67'
+            }),
+            'link': forms.URLInput(attrs={
+                'class': 'validate form-elem__input',
+                'placeholder': 'Например, http://vk.com/id0'
+            }),
+            'player_experience': forms.Textarea(attrs={
+                'class': 'validate form-elem__input',
+                'placeholder': 'Опыт в дебатах',
+                'rows': '5'
+            }),
+            'adjudicator_experience': forms.Textarea(attrs={
+                'class': 'validate form-elem__input',
+                'placeholder': 'Опыт судейства дебатов', 'rows': '5'
+            }),
             'is_show_phone': forms.CheckboxInput(),
             'is_show_email': forms.CheckboxInput(),
         }
@@ -422,7 +440,7 @@ class SignupForm(ProfileForm):
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
-        self.fields['email'].widget = forms.EmailInput(attrs={'class': 'validate', 'placeholder': 'ilove@debate.org'})
+        self.fields['email'].widget = forms.EmailInput(attrs={'class': 'validate form-elem__input', 'placeholder': 'ilove@debate.org'})
         del self.fields['password1'].widget.attrs['placeholder']
         del self.fields['password2'].widget.attrs['placeholder']
 

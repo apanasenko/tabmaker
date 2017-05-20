@@ -8,37 +8,29 @@
 
 <form class="b-form content-formpage" action="{% url "main:feedback" %}" method="post">
     {% csrf_token %}
-    <div class="b-form-item">
-        <h1>Как нам улучшить Tabmaker?</h1>
-        <p>
-            Расскажите нам, как впечатления от сайта, что вам понравилось и что можно улучшить.
-            Нам очень пригодится эта информация, чтобы сделать сайт максимально полезным для дебатеров.
-        </p>
+    <div class="form-elem">
+        <h3 class="form-elem__heading">Что сделано хорошо?</h3>
+        <p class="paragraph">Напишите, что вам понравилось в Tabmaker, чтобы мы знали, за что дебатеры ценят проект.</p>
+        <textarea class="form-elem__input" cols="40" rows="5" name="already_good"></textarea class="form-elem__input">
     </div>
-    <div class="b-form-item b-feedback-item">
-        <h3 class="b-form-item__heading">Что в Tabmaker сделано хорошо?</h3>
-        <p>Напишите, что вам понравилось в Tabmaker, чтобы мы сделали это еще лучше =)</p>
-        <textarea cols="40" rows="5" name="already_good"></textarea>
-    </div>
-    <div class="b-form-item b-feedback-item">
-        <h3 class="b-form-item__heading">Что в Tabmaker можно улучшить?</h3>
-        <p>
+    <div class="form-elem">
+        <h3 class="form-elem__heading">Что можно улучшить?</h3>
+        <p class="paragraph">
             Расскажите, что можно сделать удобнее и понятнее.
             Или причины, по которым сейчас сложно использовать сайт для ведения турниров.
         </p>
-        <textarea cols="40" rows="5" name="can_be_batter"></textarea>
+        <textarea class="form-elem__input" cols="40" rows="5" name="can_be_batter"></textarea class="form-elem__input">
     </div>
-    <div class="b-form-item b-feedback-item">
-        <h3 class="b-form-item__heading">Предложения или пожелания разработчикам</h3>
-        <p>
-            Расскажите, что можно сделать удобнее и понятнее.
-            Или причины, по которым сейчас сложно использовать сайт для ведения турниров.
+    <div class="form-elem">
+        <h3 class="form-elem__heading">Предложения или пожелания</h3>
+        <p class="paragraph">
+            Прислушаемся с любым идеям, советам и предложениям.
         </p>
-        <textarea cols="40" rows="5" name="what_you_want"></textarea>
+        <textarea class="form-elem__input" cols="40" rows="5" name="what_you_want"></textarea class="form-elem__input">
     </div>
-    <div class="b-form-item b-feedback-item">
-        <h3 class="b-form-item__heading">Посоветуете Tabmaker другим дебатерам?</h3>
-        <ul class="b-feedback-item__list">
+    <div class="form-elem">
+        <h3 class="form-elem__heading">Посоветуете Tabmaker другим дебатерам?</h3>
+        <ul class="paragraph">
             <li><label><input type="radio" name="nps" value="0">0 (ни за что)</label></li>
             <li><label><input type="radio" name="nps" value="1">1</label></li>
             <li><label><input type="radio" name="nps" value="2">2</label></li>
@@ -53,7 +45,7 @@
         </ul>
 
     </div>
-    <button type="submit" class="button">
+    <button type="submit" class="button button--max button--prime">
         Отправить
     </button>
 

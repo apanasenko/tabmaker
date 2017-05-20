@@ -2,58 +2,54 @@
 
 {% load profile_extras %}
 
-{% block page_title %}
-    {% if is_owner %}
-        Мой профиль
-    {% else %}
-        {{ user|name }}
-    {% endif %}
-
-{% endblock page_title %}
-
 {% block content %}
 
-<div class="b-profile">
+    {% block page_title %}
+        <div class="title">
+            <div class="title-container">
+                <h3 class="title__name">
+                {% if is_owner %}
+                    Мой профиль
+                {% else %}
+                    {{ user|name }}
+                {% endif %}
+                </h3>
+            </div>
+        </div>
+    {% endblock page_title %}
 
-    <div class="b-tabs">
+    <ul class="accordion-tabs">
 
-        <input id="tab1" type="radio" name="tabs" class="b-tabs__input" checked>
-        <label for="tab1" class="b-tabs__label" title="Информация">Информация</label>
+        <li class="tab-header-and-content tab-header-and-content__first">
+            <a href="javascript:void(0)" class="is-active tab-link">Информация</a>
+            <div class="tab-content">
+                {% with user=user %}
+                    {% include 'account/content_info.html' %}
+                {% endwith %}
+            </div>
+        </li>
 
-        <input id="tab2" type="radio" name="tabs" class="b-tabs__input">
-        <label for="tab2" class="b-tabs__label" title="Команды">Команды</label>
+        <li class="tab-header-and-content">
+            <a href="javascript:void(0)" class="tab-link">Команды</a>
+            <div class="tab-content">
+                {% with objects=teams_objects is_owner=is_owner %}
+                    {% include 'account/content_teams.html' %}
+                {% endwith %}
+            </div>
+        </li>
 
-{#        <input id="tab3" type="radio" name="tabs" class="b-tabs__input">#}
-{#        <label for="tab3" class="b-tabs__label">Результаты</label>#}
+        <li class="tab-header-and-content">
+            <a href="javascript:void(0)" class="tab-link">Судейство</a>
+            <div class="tab-content">
+                {% with objects=adjudicators_objects is_owner=is_owner %}
+                    {% include 'account/content_adjudicators.html' %}
+                {% endwith %}
+            </div>
+        </li>
 
-        <input id="tab4" type="radio" name="tabs" class="b-tabs__input">
-        <label for="tab4" class="b-tabs__label">Судейство</label>
+    </ul>
 
-        <section class="b-tabs__one">
-            {% with user=user %}
-                {% include 'account/content_info.html' %}
-            {% endwith %}
-        </section>
 
-        <section class="b-tabs__two">
-            {% with objects=teams_objects is_owner=is_owner %}
-                {% include 'account/content_teams.html' %}
-            {% endwith %}
-        </section>
-
-{#        <section class="b-tabs__three">#}
-{#            {% include 'account/user_result.html' with user=user %}#}
-{#        </section>#}
-
-        <section class="b-tabs__four">
-            {% with objects=adjudicators_objects is_owner=is_owner %}
-                {% include 'account/content_adjudicators.html' %}
-            {% endwith %}
-        </section>
-
-    </div>
-
-</div>
 
 
 {% endblock content %}

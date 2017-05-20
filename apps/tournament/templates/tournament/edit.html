@@ -1,10 +1,6 @@
 {% extends "tournament/owner_base.html" %}
 {% load staticfiles %}
 
-{% block page_title %}
-    {{ tournament.name }}
-{% endblock page_title %}
-
 {% block extra_head %}
     {{ block.super }}
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
@@ -17,36 +13,19 @@
 
 {% block content %}
 
-<div class="b-tabs">
+    {% block page_title %}
+        <div class="title">
+            <div class="title-container">
+                <h3 class="title__name">{{ tournament.name }}</h3>
+            </div>
+        </div>
+    {% endblock page_title %}
 
-    <input id="tab1" type="radio" name="tabs" class="b-tabs__input" checked>
-    <label for="tab1" class="b-tabs__label" title="Информация">Информация</label>
-
-    <input id="tab2" type="radio" name="tabs" class="b-tabs__input">
-    <label for="tab2" class="b-tabs__label" title="Регистрация команд">Анкета для команд</label>
-
-    <input id="tab3" type="radio" name="tabs" class="b-tabs__input">
-    <label for="tab3" class="b-tabs__label" title="Регистрация судей">Анкета для судей</label>
-
-    <section class="b-tabs__one">
-        <form class="content-formpage" action="{% url "tournament:edit" tournament.id %}" method="post">
-             {% include "tournament/edit_form.html" %}
-             <button type="submit" class="button">Сохранить</button>
-        </form>
-    </section>
-
-    <section class="b-tabs__two" id="teams">
-        {% with form=team_form questions=team_questions parent_id='#teams' %}
-            {% include "tournament/custom_form_questions.html" %}
-        {% endwith %}
-    </section>
-
-    <section class="b-tabs__three" id="adjudicators">
-        {% with form=adjudicator_form questions=adjudicator_questions parent_id='#adjudicators' %}
-            {% include "tournament/custom_form_questions.html" %}
-        {% endwith %}
-    </section>
-
-</div>
+    <form class="content-formpage" action="{% url "tournament:edit" tournament.id %}" method="post">
+        {% include "tournament/edit_form.html" %}
+        <div class="form-elem">
+            <button type="submit" class="button button--min button--prime">Сохранить</button>
+        </div>
+    </form>
 
 {% endblock content %}
