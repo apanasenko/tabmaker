@@ -365,9 +365,9 @@
     }
 
     &-green {
-        background-color: lighten($submit, 25%);
-        border: 2px solid $submit;
-        color: $submit;
+        background-color: $submit;
+        border: 2px solid darken($submit, 20%);
+        color: darken($submit, 20%);
     }
 
     &-yellow {
