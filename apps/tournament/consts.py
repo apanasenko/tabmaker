@@ -36,10 +36,10 @@ STATUS_FINISHED = TournamentStatus.objects.filter(name_en='Finished').first()
 
 TEAM_ROLES_NAMES = [
     'Registered',
-    'In tab',
-    'Wait list',
-    'Verified',
-    'Approved',
+    # 'In tab',
+    # 'Wait list',
+    # 'Verified',
+    # 'Approved',
     'Member',
 ]
 
