@@ -67,7 +67,7 @@
                         <li class="menu-item dropdown">
                             <p class="dropbtn">Профиль<i class="material-icons">keyboard_arrow_down</i></p>
                             <div class="dropdown-content">
-                              <a href="{% url 'profile:edit' user.id %}">Профиль</a>
+                              <a href="{% url 'profile:edit' %}">Профиль</a>
                               <a href="{% url 'profile:teams' request.user.id %}">Заявки на участие</a>
                               <a href="{% url 'profile:adjudicator' request.user.id %}">Заявки на судейство</a>
                               <a href="{% url 'profile:tournaments' request.user.id %}">Мои турниры</a>
