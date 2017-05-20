@@ -45,7 +45,7 @@ TEAM_ROLES_NAMES = [
 
 ADJUDICATOR_ROLES_NAMES = [
     'Registered adjudicator',
-    'Approved adjudicator',
+    # 'Approved adjudicator',
     'Wing',
     'Chair',
 ]
