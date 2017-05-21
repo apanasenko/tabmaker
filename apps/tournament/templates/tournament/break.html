@@ -1,14 +1,10 @@
 {% extends "tournament/owner_base.html" %}
 
-{% block content %}
-
 {% block page_title %}
-    <div class="title">
-        <div class="title-container">
-            <h3 class="title__name">Выход из отборочных</h3>
-        </div>
-    </div>
+    Выход из отборочных
 {% endblock page_title %}
+
+{% block content %}
 
     {% if error %}
         <div class="errors">

@@ -8,17 +8,11 @@
     <script type="text/javascript" src="{% static "tournament/js/tabs_init.js" %}"></script>
 {% endblock %}
 
-{% block content %}
+{% block page_title %}
+    Результаты по комнатам
+{% endblock page_title %}
 
-    {% block page_title %}
-        <div class="title">
-            <div class="title-container">
-                <h3 class="title__name">
-                    Результаты по комнатам
-                </h3>
-            </div>
-        </div>
-    {% endblock page_title %}
+{% block content %}
 
     <ul class="accordion-tabs">
         {% for i in results %}

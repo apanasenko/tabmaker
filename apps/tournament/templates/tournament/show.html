@@ -11,42 +11,42 @@
     <script type="text/javascript" src="{% static "tournament/js/confirmation.js" %}"></script>
 {% endblock extra_head %}
 
-{% block content %}
-
-    {% block page_title %}
-        <div class="title">
+{% block title %}
+    <div class="title">
+        <div class="title-container">
+            <h3 class="title__name">{{ tournament.name }}</h3>
             <div class="title-container">
-                <h3 class="title__name">{{ tournament.name }}</h3>
-                <div class="title-container">
 
-                     {% if is_chair %}
-                        <a class="button button--mid button--sec" href="{% url "tournament:result_round" tournament.id %}">
-                            Ввести результаты
-                        </a>
-                    {% endif %}
+                {% if is_chair %}
+                    <a class="button button--mid button--sec" href="{% url "tournament:result_round" tournament.id %}">
+                        Ввести результаты
+                    </a>
+                {% endif %}
 
-                    {% if tournament|is_status_registration %}
+                {% if tournament|is_status_registration %}
 
-                        <a class="button button--mid button--sec" href="{% url "tournament:registration_team" tournament.id %}">Играть</a>
-                        <a class="button button--mid button--sec" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
+                    <a class="button button--mid button--sec" href="{% url "tournament:registration_team" tournament.id %}">Играть</a>
+                    <a class="button button--mid button--sec" href="{% url "tournament:registration_adjudicator" tournament.id %}">Судить</a>
 
-                    {% elif tournament|is_status_preparation %}
+                {% elif tournament|is_status_preparation %}
 
-                        <h3>Регистрация уже закончилась</h3>
+                    <h3>Регистрация уже закончилась</h3>
 
-                    {% elif tournament|is_status_started or tournament|is_status_playoff %}
+                {% elif tournament|is_status_started or tournament|is_status_playoff %}
 
-                        <a class="button button--mid button--sec" href="{% url "tournament:show_round" tournament.id %}">Текущий раунд</a>
-                        <a class="button button--mid button--sec" href="{% url 'tournament:result' tournament.id%}">Баллы команд и спикеров</a>
-                        <a class="button button--mid button--sec" href="{% url 'tournament:result_all' tournament.id%}">Результаты по комнатам</a>
-                        <a class="button button--mid button--sec" href="#">Обратная связь на судью</a>
+                    <a class="button button--mid button--sec" href="{% url "tournament:show_round" tournament.id %}">Текущий раунд</a>
+                    <a class="button button--mid button--sec" href="{% url 'tournament:result' tournament.id%}">Баллы команд и спикеров</a>
+                    <a class="button button--mid button--sec" href="{% url 'tournament:result_all' tournament.id%}">Результаты по комнатам</a>
+                    <a class="button button--mid button--sec" href="#">Обратная связь на судью</a>
 
-                    {% endif %}
+                {% endif %}
 
-                </div>
             </div>
         </div>
-    {% endblock page_title %}
+    </div>
+{% endblock title %}
+
+{% block content %}
 
     {% if is_owner %}
         <div class="section">

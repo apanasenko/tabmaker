@@ -11,15 +11,11 @@
 {% endblock extra_head %}
 
 
-{% block content %}
+{% block page_title %}
+    {{ tournament.name }}
+{% endblock page_title %}
 
-    {% block page_title %}
-        <div class="title">
-            <div class="title-container">
-                <h3 class="title__name">{{ tournament.name }}</h3>
-            </div>
-        </div>
-    {% endblock page_title %}
+{% block content %}
 
     <form class="content-formpage" action="{% url "tournament:edit" tournament.id %}" method="post">
         {% include "tournament/edit_form.html" %}

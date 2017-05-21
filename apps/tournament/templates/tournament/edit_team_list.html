@@ -10,6 +10,10 @@
     <script type="text/javascript" src="{% static "tournament/js/edit_roles.js" %}"></script>
 {% endblock extra_head %}
 
+{% block page_title %}
+    Изменить список участников
+{% endblock page_title %}
+
 {% block content %}
 
     {% if is_check_page %}
@@ -20,14 +24,6 @@
             </div>
         </div>
     {% endif %}
-
-    {% block page_title %}
-        <div class="title">
-            <div class="title-container">
-                <h3 class="title__name">Изменить список участников</h3>
-            </div>
-        </div>
-    {% endblock page_title %}
 
     <div class="section">
 

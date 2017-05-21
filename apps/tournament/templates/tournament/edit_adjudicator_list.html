@@ -11,18 +11,14 @@
     <script type="text/javascript" src="{% static "tournament/js/add_adjudicators.js" %}"></script>
 {% endblock extra_head %}
 
+{% block page_title %}
+    Изменить список судей
+{% endblock page_title %}
+
 {% block content %}
 
 {#        <a class="button button--prime button--min" href="{% url 'tournament:custom_form_edit' tournament.id 'adjudicator' %}">Изменить форму регистрации</a>#}
 {#        <a class="button button--prime button--min" href="{% url 'tournament:custom_form_answers' tournament.id 'adjudicator' %}">Посмотреть ответы</a>#}
-
-    {% block page_title %}
-        <div class="title">
-            <div class="title-container">
-                <h3 class="title__name">Изменить список судей</h3>
-            </div>
-        </div>
-    {% endblock page_title %}
 
     <div class="section">
         {% with statuses=statuses %}

@@ -126,6 +126,17 @@
 
         <div class="content">
 
+        {% block title %}
+            <div class="title">
+                <div class="title-container">
+                    <h3 class="title__name">
+                        {% block page_title %}
+                        {% endblock page_title %}
+                    </h3>
+                </div>
+            </div>
+        {% endblock title %}
+
         {% block content %}
         {% endblock content %}
 
