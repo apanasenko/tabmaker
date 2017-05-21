@@ -47,10 +47,16 @@ $(document).ready(function() {
     });
 });
 
-
 $(document).ready(function() {
     $('.burger-menu').hide();
     $('.burger__button').click(function () {
         $('.burger-menu').toggle();
     });
 });
+
+$(document).ready(function() {
+    $('.advert__close').click(function () {
+        $('.advert').hide();
+    });
+});
+

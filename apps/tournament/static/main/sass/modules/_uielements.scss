@@ -330,6 +330,50 @@
 }
 
 
+.advert {
+    padding: 20px;
+    background-color: $sec;
+
+    &-container {
+        max-width: 880px;
+        margin: 0 auto;
+
+        p {
+            color: white;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+
+        * {
+            margin-right: 20px;
+        }
+
+        &--hide {
+            color: white;
+            font-size: 14px;
+            border: none;
+        }
+
+        @include respond-to(mobile) {
+            display: block;
+        }
+    }
+
+    &__close {
+        position: absolute;
+        top: 5px;
+        right:5px;
+        color: white;
+        cursor: pointer;
+    }
+}
+
+
 
 
 // notifications

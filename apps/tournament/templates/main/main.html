@@ -1,5 +1,28 @@
 {% extends "main/base.html" %}
 
+{% block advert %}
+    <div class="advert">
+        <i class="material-icons advert__close">close</i>
+        <div class="advert-container">
+            <p class="advert__text">
+                Будем рады небольшому денежному переводу на оплату сервера и развитие сайта.
+            </p>
+            <div class="advert__actions">
+                <iframe
+                    frameborder="0"
+                    allowtransparency="true"
+                    scrolling="no"
+                    src="https://money.yandex.ru/quickpay/button-widget?account=410013865474770&quickpay=small&yamoney-payment-type=on&button-text=06&button-size=s&button-color=white&targets=%D0%9F%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B0+Tabmaker&default-sum=150&fio=on&mail=on&successURL=tabmaker.info"
+                    width="145"
+                    height="25">
+                </iframe>
+                <span class="advert__actions--hide">Больше не показывать</span>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
 {% block content %}
 {#    <div>#}
 {#        {% if is_main_page %}#}
