@@ -58,41 +58,48 @@
         <header class="header">
 
             <a class="header__logo" href="/"><span>Tabmaker</span></a>
-
             <a class="header__logo--mobile" href="/"><span>T</span></a>
 
-            <div class="header__menu">
+            <div class="header__wrapper">
 
-                <ul class="menu">
+                <div class="header__container">
+                    <div class="header__menu">
+                        <ul class="menu">
+                            {% if request.user.is_authenticated %}
+                                <li class="menu-item dropdown">
+                                    <p class="dropbtn">Профиль<i class="material-icons">keyboard_arrow_down</i></p>
+                                    <div class="dropdown-content">
+                                      <a href="{% url 'profile:edit' %}">Обо мне</a>
+                                      <a href="{% url 'profile:teams' request.user.id %}">Заявки на участие</a>
+                                      <a href="{% url 'profile:adjudicator' request.user.id %}">Заявки на судейство</a>
+                                      <a href="{% url 'profile:tournaments' request.user.id %}">Мои турниры</a>
+                                    </div>
+                                </li>
+                            {% endif %}
+                            <li class="menu-item dropdown">
+                                <p class="dropbtn">Помощь<i class="material-icons">keyboard_arrow_down</i></p>
+                                <div class="dropdown-content">
+                                    <a href="{% url 'main:support' %}">Написать нам</a>
+                                    <a href="{% url 'main:faq' %}">Инструкция</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
+                <div class="header__buttons">
                     {% if request.user.is_authenticated %}
-
-                        <li class="menu-item dropdown">
-                            <p class="dropbtn">Профиль<i class="material-icons">keyboard_arrow_down</i></p>
-                            <div class="dropdown-content">
-                              <a href="{% url 'profile:edit' %}">Обо мне</a>
-                              <a href="{% url 'profile:teams' request.user.id %}">Заявки на участие</a>
-                              <a href="{% url 'profile:adjudicator' request.user.id %}">Заявки на судейство</a>
-                              <a href="{% url 'profile:tournaments' request.user.id %}">Мои турниры</a>
-                            </div>
-                        </li>
+                        <a class="button button--max button--prime" href="{% url 'account_logout' %}">
+                            <i class="material-icons">exit_to_app</i>Выйти
+                        </a>
+                        <a class="button button--max button--sec" href="{% url 'tournament:new' %}">Создать турнир</a>
+                    {% else %}
+                        <a class="button button--max button--prime" href="{% url 'account_login' %}">Войти</a>
+                        <a class="button button--max button--sec" href="{% url 'account_signup' %}">Зарегистрироваться</a>
                     {% endif %}
+                </div>
 
-                </ul>
-
-            </div>
-
-            <div class="header__buttons">
-                {% if request.user.is_authenticated %}
-                    <a class="button button--max button--prime" href="{% url 'account_logout' %}">
-                        <i class="material-icons">exit_to_app</i>Выйти
-                    </a>
-                    <a class="button button--max button--sec" href="{% url 'tournament:new' %}">Создать турнир</a>
-                {% else %}
-                    <a class="button button--max button--prime" href="{% url 'account_login' %}">Войти</a>
-                    <a class="button button--max button--sec" href="{% url 'account_signup' %}">Зарегистрироваться</a>
-                {% endif %}
-            </div>
+             </div>
 
             <div class="burger">
                 <i class="material-icons burger__button">menu</i>
@@ -120,19 +127,15 @@
 
         {% block footer %}
         <footer>
-                <div class="b-footer">
-                    <ul class="b-footer__info">
-                        <li><a href="{% url 'main:about' %}">О проекте</a></li>
-{#                        <li><a href="{% url 'main:faq' %}">Как провести турнир</a></li>#}
-{#                    TODO обновить руководство под новый UI #}
-        {#                <li><a href="{% url 'main:soon' %}">Что мы планируем</a></li>#}
-        {#                <li><a href="{% url 'main:news' %}">Список изменений</a></li>#}
-                        <li><a href="{% url 'main:feedback' %}">Обратная связь</a></li>
-                        <li>
-                            {% with vk_title='Tabmaker Вконтакте' %}{% include 'main/vk.html'%}{% endwith %}
-                        </li>
-                    </ul>
-                </div>
+            <div class="b-footer">
+                <ul class="b-footer__info">
+                    <li><a href="{% url 'main:about' %}">О проекте</a></li>
+                    <li><a href="{% url 'main:feedback' %}">Обратная связь</a></li>
+                    <li>
+                        {% with vk_title='Tabmaker Вконтакте' %}{% include 'main/vk.html'%}{% endwith %}
+                    </li>
+                </ul>
+            </div>
         </footer>
         <div class="liveinternet">
             {% include 'LiveInternetImage.html' %}

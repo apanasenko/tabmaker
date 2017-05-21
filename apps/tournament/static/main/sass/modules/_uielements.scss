@@ -351,12 +351,21 @@
 
         * {
             margin-right: 20px;
+
+            @include respond-to(mobile) {
+                display: block;
+            }
         }
 
         &--hide {
             color: white;
             font-size: 14px;
             border: none;
+            cursor: pointer;
+
+            @include respond-to(mobile) {
+                margin-top: 10px;
+            }
         }
 
         @include respond-to(mobile) {

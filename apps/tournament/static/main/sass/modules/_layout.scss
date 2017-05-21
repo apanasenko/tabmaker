@@ -219,6 +219,10 @@ a {
 	margin-bottom: 30px;
     display: block;
 
+    &--nobottom {
+        margin: 0;
+    }
+
 	&__link {
 		border-bottom: 1px dashed $dark;
 		padding-bottom: 3px;
