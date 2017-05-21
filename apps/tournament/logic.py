@@ -761,14 +761,16 @@ def remove_playoff(tournament: Tournament):
     return True
 
 
-def get_games_by_user(tournament: Tournament, user: User) -> [Game]:
+def get_rooms_by_user(tournament: Tournament, user: User) -> [Room]:
     team = tournament.team_members.filter(Q(speaker_1=user) | Q(speaker_2=user))
     if not team.count():
         return []
 
-    return Game.objects.filter(
-        Q(og=team) | Q(oo=team) | Q(cg=team) | Q(co=team),
-    ).select_related('chair')
+    return Room.objects.filter(
+        Q(game__og=team) | Q(game__oo=team) | Q(game__cg=team) | Q(game__co=team),
+        round__number__gt=0,
+        round__is_playoff=False
+    ).select_related('game', 'game__chair', 'round').order_by('round__number')
 
 
 def user_can_edit_tournament(tournament: Tournament, user: User, only_owner=False):

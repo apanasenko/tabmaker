@@ -1,28 +1,20 @@
-{% extends "main/base.html" %}
+{% extends "tournament/registration_new.html" %}
 
-{% block content %}
+{% block page_title %}
+    Обратная связь на судью
+{% endblock page_title %}
 
-    {% block page_title %}
-        <div class="title">
-            <div class="title-container">
-                <h3 class="title__name">Обратная связь на судью</h3>
-            </div>
-        </div>
-    {% endblock page_title %}
+{% block additional_block %}
 
     <div class="section section__flex">
-        <p>Судья: Иван Иванов</p>
-        <select name="" id="" class="form-elem__select">
-            <option value="">Раунд 1</option>
-            <option value="">Раунд 2</option>
-            <option value="">Раунд 3</option>
+        <select name="" id="" >
+            {% for room in rooms %}
+                <option value="{{ room.round.id }}" {% if forloop.last %} selected {% endif %}>
+                    Раунд №{{ room.round.number }} ({{ room.game.chair.name }})
+                </option>
+            {% endfor %}
         </select>
     </div>
 
-    <div class="content-formpage">
-        <div class="form-elem">
-            <input type="text" class="form-elem__input" placeholder="Здесь должна быть кастомная форма для фидбека">
-        </div>
-    </div>
+{% endblock additional_block %}
 
-{% endblock content %}

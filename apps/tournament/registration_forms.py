@@ -1,7 +1,6 @@
 from collections import OrderedDict
-
 from django import forms
-from apps.tournament.models import Team, Tournament, User
+from apps.tournament.models import Team, Tournament, User, FeedbackAnswer
 from apps.tournament.consts import \
     FIELD_ALIAS_ADJUDICATOR, \
     FIELD_ALIAS_SPEAKER_1, \
@@ -161,4 +160,10 @@ class CustomAdjudicatorRegistrationForm(forms.Form, CustomForm):
         self.fields['adjudicator'].widget.attrs['readonly'] = True
         self.init_custom_fields(questions)
         self.fields['adjudicator'].widget.attrs['class'] = 'form-elem__input'
-        # self.
+
+
+class CustomFeedbackForm(forms.Form, CustomForm):
+
+    def __init__(self, questions, *args, **kwargs):
+        super(CustomFeedbackForm, self).__init__(*args, **kwargs)
+        self.init_custom_fields(questions)

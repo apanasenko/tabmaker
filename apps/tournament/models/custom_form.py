@@ -1,4 +1,7 @@
 from django.db import models
+
+from . round import Round
+from . profile import User
 from . tournament import Tournament
 
 
@@ -59,3 +62,8 @@ class CustomFormAnswers(models.Model):
             lambda x: json.loads(x.answers),
             CustomFormAnswers.objects.filter(form=custom_form).order_by('id')
         ))
+
+
+class FeedbackAnswer(CustomFormAnswers):
+    user = models.ForeignKey(User)
+    round = models.ForeignKey(Round)

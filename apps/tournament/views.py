@@ -50,7 +50,7 @@ from .logic import \
     generate_playoff, \
     get_all_rounds_and_rooms, \
     get_games_and_results, \
-    get_games_by_user, \
+    get_rooms_by_user, \
     get_motions, \
     get_rooms_from_last_round, \
     get_tab, \
@@ -1156,7 +1156,8 @@ from apps.tournament.consts import CUSTOM_FORM_TYPES
 from apps.tournament.models import \
     CustomForm, \
     CustomFormAnswers, \
-    CustomQuestion
+    CustomQuestion, \
+    FeedbackAnswer
 
 
 @ensure_csrf_cookie
@@ -1473,5 +1474,30 @@ def index(request):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='')
 def team_feedback(request, tournament):
-    games = get_games_by_user(tournament, request.user)
-    return render(request, 'tournament/team_feedback.html')
+    from .registration_forms import CustomFeedbackForm
+
+    rooms = get_rooms_by_user(tournament, request.user)
+
+    custom_form = CustomForm.objects.filter(tournament=tournament, form_type=FORM_FEEDBACK_TYPE).first()
+    questions = CustomQuestion.objects.filter(form=custom_form).select_related('alias').order_by('position')
+
+    if request.method == 'POST':
+        feedback_form = CustomFeedbackForm(questions, request.POST)
+        if feedback_form.is_valid():
+            pass
+
+    else:
+        feedback_form = CustomFeedbackForm(questions)
+
+    return render(
+        request,
+        'tournament/team_feedback.html',
+        {
+            'rooms': rooms,
+            'title': 'Обратная связь на судью',
+            'submit_title': 'Оставить Feedback',
+            'action_url': 'tournament:team_feedback',
+            'form': feedback_form,
+            'tournament': tournament,
+        }
+    )
