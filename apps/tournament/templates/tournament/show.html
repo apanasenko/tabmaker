@@ -54,8 +54,10 @@
                 <li class="menu-item dropdown menu-item__block">
                     <p class="dropbtn">Регистрация<i class="material-icons">keyboard_arrow_down</i></p>
                     <div class="dropdown-content">
-                        <a href="{% url 'tournament:custom_form_edit' tournament.id 'team' %}">Изменить анкету регистрации</a>
-                        <a href="{% url 'tournament:custom_form_answers' tournament.id 'team' %}">Ответы на анкету</a>
+                        <a href="{% url 'tournament:custom_form_edit' tournament.id 'team' %}">Изменить анкету команд</a>
+                        <a href="{% url 'tournament:custom_form_answers' tournament.id 'team' %}">Ответы на анкету для команд</a>
+                        <a href="{% url 'tournament:custom_form_edit' tournament.id 'adjudicator' %}">Изменить анкету судей</a>
+                        <a href="{% url 'tournament:custom_form_answers' tournament.id 'adjudicator' %}">Ответы на анкету для судей</a>
                         <a href="{% url 'tournament:import_team' tournament.id %}">Импорт команд</a>
                         {% if tournament|is_status_registration %}
                             <a  href="{% url "tournament:registration_closing" tournament.id %}">Закрыть регистрацию</a>

@@ -238,12 +238,13 @@
 
 .dropdown-content a {
     color: $prime;
-    padding: 14px 16px;
+    padding: 12px 14px;
     display: block;
     text-transform: none;
     max-width: 200px;
     line-height: 1.4;
     border-bottom: 1px solid $back;
+    font-size:14px;
 }
 
 .dropdown-content a:hover {
