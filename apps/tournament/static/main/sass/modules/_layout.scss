@@ -162,6 +162,8 @@ a {
     }
 }
 
+
+
 // секция на странице
 
 @mixin section {
@@ -191,6 +193,20 @@ a {
     &--center {
         margin: 0 auto;
         max-width: 890px;
+    }
+
+    &__flex {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        * {
+            margin-right:10px;
+        }
+
+        @include respond-to(mobile) {
+            display: block;
+        }
     }
 }
 
