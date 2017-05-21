@@ -50,6 +50,7 @@ from .logic import \
     generate_playoff, \
     get_all_rounds_and_rooms, \
     get_games_and_results, \
+    get_games_by_user, \
     get_motions, \
     get_rooms_from_last_round, \
     get_tab, \
@@ -1472,4 +1473,5 @@ def index(request):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='')
 def team_feedback(request, tournament):
+    games = get_games_by_user(tournament, request.user)
     return render(request, 'tournament/team_feedback.html')

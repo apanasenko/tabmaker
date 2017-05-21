@@ -761,6 +761,16 @@ def remove_playoff(tournament: Tournament):
     return True
 
 
+def get_games_by_user(tournament: Tournament, user: User) -> [Game]:
+    team = tournament.team_members.filter(Q(speaker_1=user) | Q(speaker_2=user))
+    if not team.count():
+        return []
+
+    return Game.objects.filter(
+        Q(og=team) | Q(oo=team) | Q(cg=team) | Q(co=team),
+    ).select_related('chair')
+
+
 def user_can_edit_tournament(tournament: Tournament, user: User, only_owner=False):
     roles = [ROLE_OWNER] if only_owner else [ROLE_OWNER, ROLE_ADMIN, ROLE_CHIEF_ADJUDICATOR]
     return user.is_authenticated() and tournament.usertournamentrel_set.filter(
