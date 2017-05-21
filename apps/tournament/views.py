@@ -1467,3 +1467,9 @@ def index(request):
             )
         }
     )
+
+
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='')
+def team_feedback(request, tournament):
+    return render(request, 'tournament/team_feedback.html')

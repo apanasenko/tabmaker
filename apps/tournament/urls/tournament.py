@@ -38,6 +38,7 @@ urlpatterns = [
     url(r'^(?P<tournament_id>\d+)/team/list[/]$', views.edit_team_list, name='edit_team_list'),
     url(r'^(?P<tournament_id>\d+)/team/check[/]$', views.edit_team_list, name='check_team_list'),
     url(r'^(?P<tournament_id>\d+)/team/edit/role[/]$', views.team_role_update, name='update_team_role'),
+    url(r'^(?P<tournament_id>\d+)/team/feedback[/]$', views.team_feedback, name='team_feedback'),
 
     # Management of adjudicator
     url(
