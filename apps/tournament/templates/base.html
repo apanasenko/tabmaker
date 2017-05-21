@@ -76,7 +76,7 @@
                                     </div>
                                 </li>
                             {% endif %}
-                            <li class="menu-item dropdown">
+                            <li class="menu-item dropdown help">
                                 <p class="dropbtn">Помощь<i class="material-icons">keyboard_arrow_down</i></p>
                                 <div class="dropdown-content">
                                     <a href="{% url 'main:support' %}">Написать нам</a>
@@ -112,6 +112,12 @@
                         <li class="burger-menu__item"><a href="{% url 'account_login' %}">Войти</a></li>
                         <li class="burger-menu__item"><a href="{% url 'account_signup' %}">Зарегистрироваться</a></li>
                     {% endif %}
+                    <li class="burger-menu__item">
+                        <a href="{% url 'main:support' %}">Написать нам</a>
+                    </li>
+                    <li class="burger-menu__item">
+                        <a href="{% url 'main:faq' %}">Инструкция</a>
+                    </li>
                 </ul>
 
             </div>

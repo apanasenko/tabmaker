@@ -81,18 +81,6 @@
         }
     }
 
-    &__help {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        flex-direction: row;
-
-        * {
-            margin-right: 8px;
-            color: $prime;
-        }
-    }
-
     &__buttons {
         margin:0 10px;
         display: flex;
@@ -147,5 +135,15 @@
 
     &__button {
         margin-right:10px;
+    }
+}
+
+.help {
+    @include respond-to(mobile) {
+        display: none;
+    }
+
+    @include respond-to(tablets) {
+        display: none;
     }
 }

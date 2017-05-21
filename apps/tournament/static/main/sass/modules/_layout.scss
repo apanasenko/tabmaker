@@ -219,6 +219,14 @@ a {
 	margin-bottom: 30px;
     display: block;
 
+    @include respond-to(mobile) {
+        padding:0 10px;
+    }
+
+    @include respond-to(tablets) {
+        padding:0 10px;
+    }
+
     &--nobottom {
         margin: 0;
     }
