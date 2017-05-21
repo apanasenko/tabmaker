@@ -21,34 +21,35 @@
         </div>
     {% endif %}
 
-    <div class="section">
-        <a class="button button--max button--prime" href="{% url "tournament:edit" tournament.id %}">Изменить количество команд в play-off</a>
-        <button type="submit" class="button button--max button--prime">Далее</button>
-    </div>
-
     <form action="{% url "tournament:break" tournament.id %}" method="post">
         {% csrf_token %}
-        <div class="content-tablepage">
-        <table class="table">
-            <tr class="table__row">
-                <td>Отобрать</td>
-                {% for td in header  %}
-                    <td>{{ td }}</td>
-                {% endfor %}
-            </tr>
 
-            {% for team in teams %}
-                <tr class="table__row">
-                    <td>
-                        {{ team.checkbox.is_check }}
-                        {{ team.checkbox.id }}
-                    </td>
-                    {% for td in team.result %}
-                        <td>{{ td }}</td>
+        <div class="content-tablepage">
+            <table class="table">
+                <tr class="table__headrow">
+                    <th>Отобрать</th>
+                    {% for td in header  %}
+                        <th>{{ td }}</th>
                     {% endfor %}
                 </tr>
-            {% endfor %}
-        </table>
+
+                {% for team in teams %}
+                    <tr class="table__row">
+                        <td>
+                            {{ team.checkbox.is_check }}
+                            {{ team.checkbox.id }}
+                        </td>
+                        {% for td in team.result %}
+                            <td>{{ td }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div class="content-textpage">
+            <a class="button button--max button--prime" href="{% url "tournament:edit" tournament.id %}">Изменить количество команд в play-off</a>
+            <button type="submit" class="button button--max button--prime">Далее</button>
         </div>
     </form>
 

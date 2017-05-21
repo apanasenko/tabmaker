@@ -83,9 +83,4 @@ urlpatterns = [
         views.custom_form_show_answers,
         name='custom_form_answers'
     ),
-    # url(
-    #     r'^(?P<tournament_id>\d+)/custom_form_page[/]$',
-    #     TemplateView.as_view(template_name='tournament/custom_form_page.html'),
-    #     name='custom_form_page'
-    # ),
 ]

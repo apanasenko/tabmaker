@@ -114,7 +114,7 @@ class CustomForm:
                 field_name = 'question_%s' % question.position
                 self.fields[field_name] = forms.CharField(
                     label=question.question,
-                    widget=forms.TextInput(attrs={'class': 'form-elem__input'}),
+                    widget=forms.Textarea(attrs={'class': 'form-elem__input', 'rows': '5'}),
                     help_text=question.comment,
                     required=question.required,
                 )

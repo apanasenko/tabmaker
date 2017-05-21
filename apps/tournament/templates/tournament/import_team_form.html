@@ -14,60 +14,58 @@
     {% if message %}
         <p>{{ message }}</p>
     {% endif %}
-    <form class="b-form" action="{% url "tournament:import_team" tournament.id %}" method="post">
+
+    <form class="content-formpage" action="{% url "tournament:import_team" tournament.id %}" method="post">
         {% csrf_token %}
-        <h3 class="b-import__heading">Импорт команд из Google Drive</h3>
-        <div class="b-import__disclaimer">
-            <p class="b-import__description">
-                Чтобы Tabmaker смог импортировать данные,
-                вы должны в таблице на Google Drive дать доступ с правами на редактирование для пользователя:
-            </p>
-            <p class="b-import__link b-import__description">
-                <a href="mailto:import@debate-tabmaker.iam.gserviceaccount.com">
-                    import@debate-tabmaker.iam.gserviceaccount.com
-                </a>
-            </p>
-            <p  class="b-import__description">
+        <div class="form-elem">
+            <p class="form-elem__label">Импорт команд из Google Drive</p>
+            <p class="form-elem__description">
+                Чтобы Tabmaker смог импортировать данные, вы должны в таблице на Google Drive
+                дать доступ с правами на редактирование для пользователя: <span class="link">import@debate-tabmaker.iam.gserviceaccount.com</span>
                 Процесс получения данных может занять некоторое время (1-2 минуты). Дождтесь окончания загрузки данных.
             </p>
-            <a class="b-import__link b-import__disclaimer" href="https://support.google.com/drive/answer/2494822?hl=ru" >
+            <p class="form-elem__description">
+                <a class="link" href="https://support.google.com/drive/answer/2494822?hl=ru" >
                 Как дать доступ к таблице Google Drive?
-            </a>
+                </a>
+            </p>
         </div>
-        <br>
-        <div class="b-form-item">
-            <label class="b-form-item__label b-import__label">{{ form.url.label }}</label>
+
+        <div class="form-elem">
+            <label class="form-elem__label">{{ form.url.label }}</label>
             {{ form.url.errors }}
             {{ form.url }}
         </div>
-        <div class="b-form-item">
-            <label class="b-form-item__label b-import__label">{{ form.team_name.label }}</label>
+        <div class="form-elem">
+            <label class="form-elem__label">{{ form.team_name.label }}</label>
             {{ form.team_name.errors }}
             {{ form.team_name }}
         </div>
-        <div class="b-form-item">
-            <label class="b-form-item__label b-import__label">{{ form.speaker_1_name.label }}</label>
+        <div class="form-elem">
+            <label class="form-elem__label">{{ form.speaker_1_name.label }}</label>
             {{ form.speaker_1_name.errors }}
             {{ form.speaker_1_name }}
         </div>
-        <div class="b-form-item">
-            <label class="b-form-item__label b-import__label">{{ form.speaker_1_email.label }}</label>
+        <div class="form-elem">
+            <label class="form-elem__label">{{ form.speaker_1_email.label }}</label>
             {{ form.speaker_1_email.errors }}
             {{ form.speaker_1_email }}
         </div>
-        <div class="b-form-item">
-            <label class="b-form-item__label b-import__label">{{ form.speaker_2_name.label }}</label>
+        <div class="form-elem">
+            <label class="form-elem__label">{{ form.speaker_2_name.label }}</label>
             {{ form.speaker_2_name.errors }}
             {{ form.speaker_2_name }}
         </div>
-        <div class="b-form-item">
-            <label class="b-form-item__label b-import__label">{{ form.speaker_2_email.label }}</label>
+        <div class="form-elem">
+            <label class="form-elem__label">{{ form.speaker_2_email.label }}</label>
             {{ form.speaker_2_email.errors }}
             {{ form.speaker_2_email }}
         </div>
-        <input type="hidden" value="0" name="is_test" id="check_flag">
-        <button type="submit" class="button" id="check_button">Проверить данные</button>
-        <button type="submit" class="button" id="import_button">Импортировать</button>
+        <div class="form-elem">
+            <input type="hidden" value="0" name="is_test" id="check_flag">
+            <button type="submit" class="button button--mid" id="check_button">Проверить данные</button>
+            <button type="submit" class="button button--mid" id="import_button">Импортировать</button>
+        </div>
     </form>
 
 {% endblock content %}

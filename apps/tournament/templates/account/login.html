@@ -33,6 +33,22 @@
         <div class="form-elem">
              <a class="link" href="{% url 'account_reset_password' %}">Забыли пароль?</a>
         </div>
+
+        <div class="form-elem social-reg">
+            <a href="{% url "facebook_login" %}">
+                <i class="fa fa-facebook-official fa-lg" aria-hidden="true"></i>
+            </a>
+            <a href="{% url "google_login" %}">
+                <i class="fa fa-google-plus fa-lg" aria-hidden="true"></i>
+            </a>
+            <a href="{% url "mailru_login" %}">
+                <i class="fa fa-at fa-lg" aria-hidden="true"></i>
+            </a>
+            <a href="{% url "vk_login" %}">
+                <i class="fa fa-vk fa-lg" aria-hidden="true"></i>
+            </a>
+        </div>
+
     </form>
 
     <div>

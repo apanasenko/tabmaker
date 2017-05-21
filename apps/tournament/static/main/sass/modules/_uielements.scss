@@ -238,12 +238,13 @@
 
 .dropdown-content a {
     color: $prime;
-    padding: 14px 16px;
+    padding: 12px 14px;
     display: block;
     text-transform: none;
     max-width: 200px;
     line-height: 1.4;
     border-bottom: 1px solid $back;
+    font-size:14px;
 }
 
 .dropdown-content a:hover {
@@ -365,9 +366,9 @@
     }
 
     &-green {
-        background-color: lighten($submit, 25%);
-        border: 2px solid $submit;
-        color: $submit;
+        background-color: $submit;
+        border: 2px solid darken($submit, 20%);
+        color: darken($submit, 20%);
     }
 
     &-yellow {
@@ -465,4 +466,11 @@
 
 .show_checkbox {
     display: none;
+}
+
+.social-reg {
+
+    a {
+        margin-right:15px;
+    }
 }
