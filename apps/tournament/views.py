@@ -1491,7 +1491,14 @@ def team_feedback(request, tournament):
     if request.method == 'POST':
         feedback_form = CustomFeedbackForm(questions, request.POST)
         if feedback_form.is_valid():
-            pass
+            feedback_answers = FeedbackAnswer.objects.get_or_create(
+                user=request.user,
+                round_id=int(request.POST.get('round', 0)),
+                form=custom_form
+            )
+            feedback_answers[0].set_answers(feedback_form.get_answers(questions))
+            feedback_answers[0].save()
+            return
 
     else:
         feedback_form = CustomFeedbackForm(questions)

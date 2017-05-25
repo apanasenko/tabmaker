@@ -7,7 +7,7 @@
 {% block additional_block %}
 
     <div class="section section__flex">
-        <select name="" id="" >
+        <select name="round">
             {% for room in rooms %}
                 <option value="{{ room.round.id }}" {% if forloop.last %} selected {% endif %}>
                     Раунд №{{ room.round.number }} ({{ room.game.chair.name }})
