@@ -18,8 +18,14 @@ class TeamRegistrationForm(forms.ModelForm):
             'name': 'Название команды',
         }
 
-    speaker_1 = forms.EmailField(label='E-mail первого спикера', widget=forms.TextInput(attrs={'class': 'form-elem__input'}))
-    speaker_2 = forms.EmailField(label='E-mail второго спикера', widget=forms.TextInput(attrs={'class': 'form-elem__input'}))
+    speaker_1 = forms.EmailField(
+        label='E-mail первого спикера',
+        widget=forms.TextInput(attrs={'class': 'form-elem__input'})
+    )
+    speaker_2 = forms.EmailField(
+        label='E-mail второго спикера',
+        widget=forms.TextInput(attrs={'class': 'form-elem__input'})
+    )
 
     tournament = None
 
