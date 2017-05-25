@@ -4,6 +4,8 @@ from . round import Round
 from . profile import User
 from . tournament import Tournament
 
+import json
+
 
 class CustomFormType(models.Model):
     name = models.CharField(max_length=100)
@@ -50,18 +52,11 @@ class CustomFormAnswers(models.Model):
     form = models.ForeignKey(CustomForm)
     answers = models.TextField()
 
-    @staticmethod
-    def save_answer(custom_form, answers):
-        import json
-        return CustomFormAnswers.objects.create(form=custom_form, answers=json.dumps(answers))
+    def set_answers(self, answers):
+        self.answers = json.dumps(answers)
 
-    @staticmethod
-    def get_answers(custom_form):
-        import json
-        return list(map(
-            lambda x: json.loads(x.answers),
-            CustomFormAnswers.objects.filter(form=custom_form).order_by('id')
-        ))
+    def get_answers(self):
+        return json.loads(self.answers)
 
 
 class FeedbackAnswer(CustomFormAnswers):

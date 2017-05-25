@@ -755,7 +755,10 @@ def registration_team(request, tournament):
                 role=ROLE_TEAM_REGISTERED
             )
             if custom_form:
-                CustomFormAnswers.save_answer(custom_form, team_form.get_answers(questions))
+                custom_form_answers = CustomFormAnswers.objects.create()
+                custom_form_answers.form = custom_form
+                custom_form_answers.set_answers(team_form.get_answers(questions))
+                custom_form_answers.save()
 
             return _show_message(request, MSG_TEAM_SUCCESS_REGISTERED_pp % (team.name, tournament.name))
 
@@ -920,7 +923,10 @@ def registration_adjudicator(request, tournament):
         adjudicator_form = CustomAdjudicatorRegistrationForm(questions, request.POST)
         if adjudicator_form.is_valid():
             if _registration_adjudicator(tournament, request.user):
-                CustomFormAnswers.save_answer(custom_form, adjudicator_form.get_answers(questions))
+                custom_form_answers = CustomFormAnswers.objects.create()
+                custom_form_answers.form = custom_form
+                custom_form_answers.set_answers(adjudicator_form.get_answers(questions))
+                custom_form_answers.save()
                 return _show_message(request, MSG_ADJUDICATOR_SUCCESS_REGISTERED_p % tournament.name)
             else:
                 return _show_message(request, MSG_ADJUDICATOR_ALREADY_REGISTERED_p % tournament.name)
@@ -1308,8 +1314,9 @@ def custom_form_show_answers(request, tournament, form_type):
     title = ''
     column_names = list(map(lambda x: x.question, custom_form.customquestion_set.all().order_by('position')))
     column_values = []
-    for answer in CustomFormAnswers.get_answers(custom_form):
-        column_values.append(list(map(lambda x: answer.get(x, ''), column_names)))
+    for custom_form_answers in CustomFormAnswers.objects.filter(form=custom_form).order_by('id'):
+        answers = custom_form_answers.get_answers()
+        column_values.append(list(map(lambda x: answers.get(x, ''), column_names)))
 
     return render(
         request,
