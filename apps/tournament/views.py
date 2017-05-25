@@ -228,7 +228,7 @@ def _convert_tab_to_speaker_table(table: list, is_show):
 
 def _get_or_check_round_result_forms(request, rooms, is_admin=False, is_playoff=False, is_final=False):
     from .forms import \
-        FinalGameResultForm,\
+        FinalGameResultForm, \
         PlayoffGameResultForm, \
         QualificationGameResultForm
 
@@ -344,8 +344,8 @@ def edit(request, tournament):
     team_questions = CustomQuestion.objects.filter(form=team_form).select_related('alias').order_by('position')
 
     adjudicator_form = CustomForm.get_or_create(tournament, FORM_ADJUDICATOR_TYPE)
-    adjudicator_questions = CustomQuestion.objects.filter(form=adjudicator_form)\
-        .select_related('alias')\
+    adjudicator_questions = CustomQuestion.objects.filter(form=adjudicator_form) \
+        .select_related('alias') \
         .order_by('position')
 
     return render(
