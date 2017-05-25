@@ -66,3 +66,5 @@ MSG_S1_NAME = 'Имена первых спикеров'
 MSG_S2_NAME = 'Имена вторых спикеров'
 
 MSG_CELL_NOT_FOUND_p = '%s не найдена в данной таблице'
+MSG_USER_FEEDBACK_WITHOUT_ROUNDS = 'Вы ещё не сыграли ни одного раунда'
+MSG_FEEDBACK_WITHOUT_QUESTIONS = 'Организаторы турнира не подготовили форму обратной связи'

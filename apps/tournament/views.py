@@ -1164,6 +1164,7 @@ from apps.tournament.models import \
     CustomFormAnswers, \
     CustomQuestion, \
     FeedbackAnswer
+from .registration_forms import CustomFeedbackForm
 
 
 @ensure_csrf_cookie
@@ -1481,12 +1482,17 @@ def index(request):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='')
 def team_feedback(request, tournament):
-    from .registration_forms import CustomFeedbackForm
-
     rooms = get_rooms_by_user(tournament, request.user)
+    if not rooms:
+        return _show_message(request, MSG_USER_FEEDBACK_WITHOUT_ROUNDS)
 
     custom_form = CustomForm.objects.filter(tournament=tournament, form_type=FORM_FEEDBACK_TYPE).first()
-    questions = CustomQuestion.objects.filter(form=custom_form).select_related('alias').order_by('position')
+    questions = CustomQuestion.objects.filter(form=custom_form).select_related('alias').order_by('position') \
+        if custom_form \
+        else None
+
+    if not rooms:
+        return _show_message(request, MSG_FEEDBACK_WITHOUT_QUESTIONS)
 
     if request.method == 'POST':
         feedback_form = CustomFeedbackForm(questions, request.POST)
