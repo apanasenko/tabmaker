@@ -124,8 +124,8 @@ class CustomForm:
                     required=question.required,
                 )
             ordered_questions[field_name] = self.fields[field_name]
-            if answer and answer[0][question.question]:
-                self.initial[field_name] = answer[0][question.question]
+            if answer and answer[question.question]:
+                self.initial[field_name] = answer[question.question]
 
         self.fields = ordered_questions
 
