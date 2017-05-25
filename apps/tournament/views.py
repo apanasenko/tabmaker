@@ -1495,7 +1495,7 @@ def team_feedback(request, tournament):
         return _show_message(request, MSG_FEEDBACK_WITHOUT_QUESTIONS)
 
     if request.method == 'POST':
-        feedback_form = CustomFeedbackForm(questions, request.POST)
+        feedback_form = CustomFeedbackForm(questions, None, request.POST)
         if feedback_form.is_valid():
             feedback_answers = FeedbackAnswer.objects.get_or_create(
                 user=request.user,
@@ -1507,7 +1507,8 @@ def team_feedback(request, tournament):
             return
 
     else:
-        feedback_form = CustomFeedbackForm(questions)
+        feedback_answers = FeedbackAnswer.objects.filter(user=request.user, round=rooms.last().round).first()
+        feedback_form = CustomFeedbackForm(questions, feedback_answers.get_answers() if feedback_answers else None)
 
     return render(
         request,

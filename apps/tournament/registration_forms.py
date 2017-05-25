@@ -107,7 +107,7 @@ class CustomForm:
     :self.cleaned_data
     """
 
-    def init_custom_fields(self, questions):
+    def init_custom_fields(self, questions, answer=None):
         ordered_questions = OrderedDict()
         for question in questions:
             if question.alias and question.alias.name in self._required_fields:
@@ -124,6 +124,8 @@ class CustomForm:
                     required=question.required,
                 )
             ordered_questions[field_name] = self.fields[field_name]
+            if answer and answer[0][question.question]:
+                self.initial[field_name] = answer[0][question.question]
 
         self.fields = ordered_questions
 
@@ -170,6 +172,6 @@ class CustomAdjudicatorRegistrationForm(forms.Form, CustomForm):
 
 class CustomFeedbackForm(forms.Form, CustomForm):
 
-    def __init__(self, questions, *args, **kwargs):
+    def __init__(self, questions, answers, *args, **kwargs):
         super(CustomFeedbackForm, self).__init__(*args, **kwargs)
-        self.init_custom_fields(questions)
+        self.init_custom_fields(questions, answers)
