@@ -755,8 +755,7 @@ def registration_team(request, tournament):
                 role=ROLE_TEAM_REGISTERED
             )
             if custom_form:
-                custom_form_answers = CustomFormAnswers.objects.create()
-                custom_form_answers.form = custom_form
+                custom_form_answers = CustomFormAnswers.objects.create(form=custom_form)
                 custom_form_answers.set_answers(team_form.get_answers(questions))
                 custom_form_answers.save()
 
@@ -923,8 +922,7 @@ def registration_adjudicator(request, tournament):
         adjudicator_form = CustomAdjudicatorRegistrationForm(questions, request.POST)
         if adjudicator_form.is_valid():
             if _registration_adjudicator(tournament, request.user):
-                custom_form_answers = CustomFormAnswers.objects.create()
-                custom_form_answers.form = custom_form
+                custom_form_answers = CustomFormAnswers.objects.create(form=custom_form)
                 custom_form_answers.set_answers(adjudicator_form.get_answers(questions))
                 custom_form_answers.save()
                 return _show_message(request, MSG_ADJUDICATOR_SUCCESS_REGISTERED_p % tournament.name)
