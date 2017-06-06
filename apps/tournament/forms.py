@@ -472,8 +472,8 @@ class SignupForm(ProfileForm):
             'class': 'validate form-elem__input',
             'placeholder': 'ilove@debate.org'
         })
-        del self.fields['password1'].widget.attrs['placeholder']
-        del self.fields['password2'].widget.attrs['placeholder']
+        # del self.fields['password1'].widget.attrs['placeholder']
+        # del self.fields['password2'].widget.attrs['placeholder']
 
     def signup(self, request, user):
         # TODO Добавить проверки (телефон)
