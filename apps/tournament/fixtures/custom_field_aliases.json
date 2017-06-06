@@ -1,0 +1,79 @@
+[
+  {
+    "model": "tournament.customfieldalias",
+    "pk": 1,
+    "fields": {
+      "name": "name"
+    }
+  },
+  {
+    "model": "tournament.customfieldalias",
+    "pk": 2,
+    "fields": {
+      "name": "speaker_1_email"
+    }
+  },
+  {
+    "model": "tournament.customfieldalias",
+    "pk": 3,
+    "fields": {
+      "name": "speaker_1_first_name"
+    }
+  },
+  {
+    "model": "tournament.customfieldalias",
+    "pk": 4,
+    "fields": {
+      "name": "speaker_1_last_name"
+    }
+  },
+  {
+    "model": "tournament.customfieldalias",
+    "pk": 5,
+    "fields": {
+      "name": "speaker_1_university"
+    }
+  },
+  {
+    "model": "tournament.customfieldalias",
+    "pk": 6,
+    "fields": {
+      "name": "speaker_2_email"
+    }
+  },
+  {
+    "model": "tournament.customfieldalias",
+    "pk": 7,
+    "fields": {
+      "name": "speaker_2_first_name"
+    }
+  },
+  {
+    "model": "tournament.customfieldalias",
+    "pk": 8,
+    "fields": {
+      "name": "speaker_2_last_name"
+    }
+  },
+  {
+    "model": "tournament.customfieldalias",
+    "pk": 9,
+    "fields": {
+      "name": "speaker_2_university"
+    }
+  },
+  {
+    "model": "tournament.customfieldalias",
+    "pk": 10,
+    "fields": {
+      "name": "team_name"
+    }
+  },
+  {
+    "model": "tournament.customfieldalias",
+    "pk": 11,
+    "fields": {
+      "name": "adjudicator"
+    }
+  }
+]
