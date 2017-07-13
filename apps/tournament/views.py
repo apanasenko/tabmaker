@@ -311,8 +311,12 @@ def created(request, tournament):
 @access_by_status(name_page='show')
 def show(request, tournament):
     is_chair = request.user.is_authenticated() \
-               and tournament.status in [STATUS_PLAYOFF, STATUS_STARTED] \
-               and get_rooms_from_last_round(tournament, False, request.user).count()
+        and tournament.status in [STATUS_PLAYOFF, STATUS_STARTED] \
+        and get_rooms_from_last_round(tournament, False, request.user).count()
+
+    need_show_feedback_button = request.user.is_authenticated() \
+        and get_rooms_by_user(tournament, request.user) \
+        and CustomForm.objects.filter(tournament=tournament, form_type=FORM_FEEDBACK_TYPE).count()
 
     return render(
         request,
@@ -322,7 +326,8 @@ def show(request, tournament):
             'team_tournament_rels': tournament.get_teams(),
             'adjudicators': tournament.get_users(ADJUDICATOR_ROLES),
             'is_owner': user_can_edit_tournament(tournament, request.user),
-            'is_chair': is_chair
+            'is_chair': is_chair,
+            'need_show_feedback_button': need_show_feedback_button,
         }
     )
 
@@ -1520,7 +1525,7 @@ def team_feedback(request, tournament):
         if custom_form \
         else None
 
-    if not rooms:
+    if not questions:
         return _show_message(request, MSG_FEEDBACK_WITHOUT_QUESTIONS)
 
     if request.method == 'POST':
@@ -1533,7 +1538,8 @@ def team_feedback(request, tournament):
             )
             feedback_answers[0].set_answers(feedback_form.get_answers(questions))
             feedback_answers[0].save()
-            return
+            # TODO add message
+            return _show_message(request, MSG_FEEDBACK_SAVED)
 
     else:
         feedback_answers = FeedbackAnswer.objects.filter(user=request.user, round=rooms.last().round).first()

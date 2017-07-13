@@ -1,5 +1,7 @@
-import random
 import datetime
+import random
+import logging
+
 from django.db.models import Q, Count
 from django.core.exceptions import ObjectDoesNotExist
 from .consts import *
@@ -762,9 +764,19 @@ def remove_playoff(tournament: Tournament):
 
 
 def get_rooms_by_user(tournament: Tournament, user: User) -> [Room]:
-    team = tournament.team_members.filter(Q(speaker_1=user) | Q(speaker_2=user))
-    if not team.count():
+    team_rel = tournament.teamtournamentrel_set.filter(
+        Q(team__speaker_1=user) | Q(team__speaker_2=user),
+        role=ROLE_MEMBER
+    )
+
+    if not team_rel.count():
         return []
+    elif team_rel.count() > 1:
+        logging.getLogger('TeamFeedback').error(
+            'There %d actual teams for user (%d) in tournament (%d)' % (team_rel.count(), user.id, tournament.id)
+        )
+
+    team = team_rel.first().team
 
     return Room.objects.filter(
         Q(game__og=team) | Q(game__oo=team) | Q(game__cg=team) | Q(game__co=team),
