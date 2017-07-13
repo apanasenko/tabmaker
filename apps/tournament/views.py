@@ -476,6 +476,37 @@ def feedback(request):
     )
 
 
+def support(request):
+    from django.core.mail import mail_managers
+
+    if request.method == 'POST':
+        who = '%s (%s)' % (request.user.get_full_name(), request.user.email) \
+            if request.user.is_authenticated() \
+            else 'noname'
+
+        mail_managers(
+            'Tabmaker: Somebody need help!',
+            '''
+            Кто %s \n\n
+            Проблема:\n
+            %s \n\n\n
+            Контакты:\n
+            %s
+            ''' % (
+                who,
+                request.POST.get('contacts', ''),
+                request.POST.get('problem', ''),
+            )
+        )
+
+        return _show_message(request, 'Мы постараемся ответить как можно быстрее')
+
+    return render(
+        request,
+        'main/support.html'
+    )
+
+
 ##################################
 #   Change status of tournament  #
 ##################################
