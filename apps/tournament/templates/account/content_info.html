@@ -29,7 +29,7 @@
 
     <div class="paragraph">
     {% if request.user == user %}
-        <a class="button button--max button--prime" href="{% url 'profile:edit' user.id%}">Редактировать</a>
+        <a class="button button--max button--prime" href="{% url 'profile:edit' %}">Редактировать</a>
     {% endif %}
     </div>
 </div>
