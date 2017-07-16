@@ -657,7 +657,7 @@ def get_rooms_from_last_round(tournament: Tournament, shuffle=False, chair=None)
 
     room = __include_room_related_models(room)
 
-    return room if not shuffle else room.order_by('?')
+    return room.order_by('id') if not shuffle else room.order_by('?')
 
 
 def get_tab(tournament: Tournament):
