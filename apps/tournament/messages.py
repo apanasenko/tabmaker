@@ -42,6 +42,9 @@ LBL_SUM_SPEAKERS = 'Сумма спикерских'
 LBL_ROUND_p = '#Р%s'
 LBL_SPEAKER = 'Спикер'
 
+LBL_ROUND_FEEDBACK = 'Раунд'
+LBL_CHAIR_FEEDBACK = 'Судья'
+
 CONFIRM_MSG_REMOVE = 'Удалить'
 CONFIRM_MSG_FINISHED = 'Завершить'
 

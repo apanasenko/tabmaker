@@ -1348,6 +1348,8 @@ def custom_form_show_answers(request, tournament, form_type):
 
     title = ''
     column_names = list(map(lambda x: x.question, custom_form.customquestion_set.all().order_by('position')))
+    if custom_form.form_type == FORM_FEEDBACK_TYPE:
+        column_names = [LBL_ROUND_FEEDBACK, LBL_CHAIR_FEEDBACK] + column_names
     column_values = []
     for custom_form_answers in CustomFormAnswers.objects.filter(form=custom_form).order_by('id'):
         answers = custom_form_answers.get_answers()
@@ -1531,12 +1533,25 @@ def team_feedback(request, tournament):
     if request.method == 'POST':
         feedback_form = CustomFeedbackForm(questions, None, request.POST)
         if feedback_form.is_valid():
+            round_id = int(request.POST.get('round', 0))
+            answers_from_form = {}
+
+            for room in rooms:
+                if room.round.id == round_id:
+                    answers_from_form = {
+                        LBL_ROUND_FEEDBACK: room.round.number,
+                        LBL_CHAIR_FEEDBACK: room.game.chair.get_full_name(),
+                    }
+                    break
+
+            answers_from_form.update(feedback_form.get_answers(questions))
+
             feedback_answers = FeedbackAnswer.objects.get_or_create(
                 user=request.user,
                 round_id=int(request.POST.get('round', 0)),
                 form=custom_form
             )
-            feedback_answers[0].set_answers(feedback_form.get_answers(questions))
+            feedback_answers[0].set_answers(answers_from_form)
             feedback_answers[0].save()
             # TODO add message
             return _show_message(request, MSG_FEEDBACK_SAVED)
