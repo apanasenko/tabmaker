@@ -13,11 +13,11 @@
 </title>
 
 {% block libs %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/latest/js.cookie.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% include 'lib/jquery.html' %}
+    {% include 'lib/jquery-ui.html' %}
+    {% include 'lib/cookies.html' %}
+    {% include 'lib/font-awesome.html' %}
+
 {% endblock libs %}
 
 {% block extra_head %}

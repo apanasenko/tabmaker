@@ -6,7 +6,7 @@
 
 {% block extra_head %}
     {{ block.super }}
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    {% include 'lib/yandex-map.html' %}
     <script type="text/javascript" src="{% static "tournament/js/map.js" %}"></script>
     <script type="text/javascript" src="{% static "tournament/js/confirmation.js" %}"></script>
 {% endblock extra_head %}

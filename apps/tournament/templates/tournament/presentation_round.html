@@ -7,9 +7,9 @@
 
 {% block extra_head %}
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.fullpage/2.5.9/jquery.fullPage.min.css">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.fullpage/2.5.9/jquery.fullPage.min.js"></script>
+    {% include 'lib/jquery.html' %}
+    {% include 'lib/fullpage.html' %}
+
     <script type="text/javascript" src="{% static "tournament/js/fullpage.js" %}"></script>
 
     <link rel="stylesheet" href="{% static "main/css/main.css" media="screen,projection" %}">

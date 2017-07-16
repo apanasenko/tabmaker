@@ -3,15 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Список участников турнира</title>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.23.5/js/jquery.tablesorter.min.js"></script>
-    <script>
-        $(document).ready(function()
-            {
-                $("#users_list").tablesorter();
-            }
-        );
-    </script>
+    {% include 'lib/jquery.html' %}
+    {% include 'lib/tablesorter.html' %}
+    <script>$(document).ready(function(){$("#users_list").tablesorter();});</script>
 </head>
 <body>
 
