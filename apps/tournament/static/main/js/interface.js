@@ -46,8 +46,12 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    $('.advert__close').click(function () {
-        $('.advert').hide();
-    });
+    if (!Cookies.get('hidden_advent_banner')) {
+        $('.advert').show();
+        $('.advert__close').click(function () {
+            Cookies.set('hidden_advent_banner', 1,  { expires: 1 });
+            $('.advert').hide();
+        });
+    }
 });
 
