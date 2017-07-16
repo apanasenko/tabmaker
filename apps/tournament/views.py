@@ -369,18 +369,6 @@ def edit(request, tournament):
     )
 
 
-@login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='play')
-def play(request, tournament):
-    return render(
-        request,
-        'tournament/play.html',
-        {
-            'tournament': tournament,
-        }
-    )
-
-
 @access_by_status(name_page='result')
 def result(request, tournament):
     is_owner = user_can_edit_tournament(tournament, request.user)

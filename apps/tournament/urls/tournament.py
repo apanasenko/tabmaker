@@ -9,7 +9,6 @@ urlpatterns = [
     url(r'^(?P<tournament_id>\d+)[/]$', views.show, name='show'),
     url(r'^(?P<tournament_id>\d+)/new[/]$', views.created, name='created'),
     url(r'^(?P<tournament_id>\d+)/edit[/]$', views.edit, name='edit'),
-    url(r'^(?P<tournament_id>\d+)/play[/]$', views.play, name='play'),
     url(r'^(?P<tournament_id>\d+)/result[/]$', views.result, name='result'),
     url(r'^(?P<tournament_id>\d+)/result/all[/]$', views.result_all_rounds, name='result_all'),
     url(r'^(?P<tournament_id>\d+)/remove[/]$', views.remove, name='remove'),

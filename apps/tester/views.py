@@ -170,4 +170,4 @@ def restart_tournament(request, tournament_id: int):
         rel.user = request.user
         rel.save()
 
-    return redirect('/tournament/%s/play/' % tournament_id)
+    return redirect('tournament:show', tournament_id=tournament.id)
