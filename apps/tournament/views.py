@@ -1217,6 +1217,7 @@ def custom_form_edit(request, tournament, form_type):
             'questions': questions,
             'required_aliases': REQUIRED_ALIASES,
             'actions': CUSTOM_FORM_AJAX_ACTIONS,
+            'title': CUSTOM_FORM_QUESTIONS_TITLES[CUSTOM_FORM_TYPES[form_type]],
         }
     )
 
@@ -1360,7 +1361,7 @@ def custom_form_show_answers(request, tournament, form_type):
         'tournament/custom_form_answers.html',
         {
             'tournament': tournament,
-            'title': title,
+            'title': CUSTOM_FORM_ANSWERS_TITLES[CUSTOM_FORM_TYPES[form_type]],
             'column_names': column_names,
             'rows': column_values,
         }

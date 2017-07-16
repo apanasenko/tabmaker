@@ -56,13 +56,25 @@ ADJUDICATOR_ROLES = TournamentRole.objects.filter(role_en__in=ADJUDICATOR_ROLES_
 FORM_REGISTRATION_TYPE = CustomFormType.objects.filter(name='teams').first()
 FORM_FEEDBACK_TYPE = CustomFormType.objects.filter(name='feedback').first()
 FORM_ADJUDICATOR_TYPE = CustomFormType.objects.filter(name='adjudicator').first()
-FORM_AUDIENCE_TYPE = CustomFormType.objects.filter(name='audience').first()
+# FORM_AUDIENCE_TYPE = CustomFormType.objects.filter(name='audience').first()
 
 CUSTOM_FORM_TYPES = {
     'team': FORM_REGISTRATION_TYPE,
     'feedback': FORM_FEEDBACK_TYPE,
     'adjudicator': FORM_ADJUDICATOR_TYPE,
-    'audience': FORM_AUDIENCE_TYPE,
+    # 'audience': FORM_AUDIENCE_TYPE,
+}
+
+CUSTOM_FORM_QUESTIONS_TITLES = {
+    FORM_REGISTRATION_TYPE: TITLE_CUSTOM_FORM_QUESTIONS_FOR_TEAM,
+    FORM_ADJUDICATOR_TYPE: TITLE_CUSTOM_FORM_QUESTIONS_FOR_ADJUDICATOR,
+    FORM_FEEDBACK_TYPE: TITLE_CUSTOM_FORM_QUESTIONS_FOR_FEEDBACK,
+}
+
+CUSTOM_FORM_ANSWERS_TITLES = {
+    FORM_REGISTRATION_TYPE: TITLE_CUSTOM_FORM_ANSWERS_FOR_TEAM,
+    FORM_ADJUDICATOR_TYPE: TITLE_CUSTOM_FORM_ANSWERS_FOR_ADJUDICATOR,
+    FORM_FEEDBACK_TYPE: TITLE_CUSTOM_FORM_ANSWERS_FOR_FEEDBACK,
 }
 
 FIELD_ALIAS_SPEAKER_1 = CustomFieldAlias.objects.filter(name='speaker_1_email').first()
