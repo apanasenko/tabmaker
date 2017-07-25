@@ -18,7 +18,10 @@
 
 {% if is_check_page %}
     <div class="section">
-        <button id="check_button" class="button button--prime button--max" disabled onclick="redirect('{% url 'tournament:start' tournament.id %}')">
+        <button id="check_button" class="button button--prime button--max"
+                onclick="redirect('{% url 'tournament:start' tournament.id %}')"
+                disabled
+        >
             Начать турнир
         </button>
     </div>
@@ -27,8 +30,14 @@
 <div class="section section--center" id="new_place">
     <div class="errors notification-red"></div>
     <div>
-    <input class="form-elem__input form-elem__input--short" id="add_place_input" placeholder="Название аудитории" required>
-    <a class="button button--mid button--prime" onclick="save_place('{% url 'tournament:place_add' tournament.id %}')">Добавить аудиторию</a>
+    <input class="form-elem__input form-elem__input--short"
+           id="add_place_input"
+           placeholder="Название аудитории"
+           required
+    >
+    <a class="button button--mid button--prime" onclick="save_place('{% url 'tournament:place_add' tournament.id %}')">
+        Добавить аудиторию
+    </a>
     </div>
 
     {% if is_check_page %}
@@ -44,7 +53,11 @@
     <input id="place_id" type="hidden">
     <input class="place_checkbox" type="checkbox">
     <span class="place_name"></span>
-    <a class='button button--min button--prime' onclick="remove_place(this, '{% url 'tournament:place_remove' tournament.id %}')">Удалить</a>
+    <a class='button button--min button--prime'
+       onclick="remove_place(this, '{% url 'tournament:place_remove' tournament.id %}')"
+    >
+        Удалить
+    </a>
 </div>
 
 <input id="place_update_url" type="hidden" value="{% url 'tournament:place_update' tournament.id %}">
