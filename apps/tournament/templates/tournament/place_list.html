@@ -1,25 +1,20 @@
-{% extends "tournament/owner_base.html" %}
+{% extends "main/base.html" %}
 
 {% load staticfiles %}
 {% load profile_extras %}
 
 {% block extra_head %}
     {{ block.super }}
-    <script type="text/javascript" src="{% static "main/js/cookie.js" %}"></script>
     <script type="text/javascript" src="{% static "main/js/ajaxCSRF.js" %}"></script>
     <script type="text/javascript" src="{% static "tournament/js/edit_place.js" %}"></script>
 {% endblock extra_head %}
 
+{% block page_title %}
+    Аудитории турнира
+{% endblock page_title %}
+
 
 {% block content %}
-
-{% block page_title %}
-    <div class="title">
-        <div class="title-container">
-            <h3 class="title__name">Аудитории турнира</h3>
-        </div>
-    </div>
-{% endblock page_title %}
 
 {% if is_check_page %}
     <div class="section">

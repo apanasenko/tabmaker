@@ -42,6 +42,9 @@ LBL_SUM_SPEAKERS = 'Сумма спикерских'
 LBL_ROUND_p = '#Р%s'
 LBL_SPEAKER = 'Спикер'
 
+LBL_ROUND_FEEDBACK = 'Раунд'
+LBL_CHAIR_FEEDBACK = 'Судья'
+
 CONFIRM_MSG_REMOVE = 'Удалить'
 CONFIRM_MSG_FINISHED = 'Завершить'
 
@@ -66,3 +69,14 @@ MSG_S1_NAME = 'Имена первых спикеров'
 MSG_S2_NAME = 'Имена вторых спикеров'
 
 MSG_CELL_NOT_FOUND_p = '%s не найдена в данной таблице'
+MSG_USER_FEEDBACK_WITHOUT_ROUNDS = 'Вы ещё не сыграли ни одного раунда'
+MSG_FEEDBACK_WITHOUT_QUESTIONS = 'Организаторы турнира не подготовили форму обратной связи'
+MSG_FEEDBACK_SAVED = 'Фитбек сохранён'
+
+TITLE_CUSTOM_FORM_QUESTIONS_FOR_TEAM = 'Анкета для регистрации команд'
+TITLE_CUSTOM_FORM_QUESTIONS_FOR_ADJUDICATOR = 'Анкета для регистрации судей'
+TITLE_CUSTOM_FORM_QUESTIONS_FOR_FEEDBACK = 'Анкета обратной связи на судью'
+
+TITLE_CUSTOM_FORM_ANSWERS_FOR_TEAM = 'Ответы команд при регистрации'
+TITLE_CUSTOM_FORM_ANSWERS_FOR_ADJUDICATOR = 'Ответы судей при регистрации'
+TITLE_CUSTOM_FORM_ANSWERS_FOR_FEEDBACK = 'Обратная связь на судей'

@@ -1,0 +1,20 @@
+{% extends "tournament/registration_new.html" %}
+
+{% block page_title %}
+    Обратная связь на судью
+{% endblock page_title %}
+
+{% block additional_block %}
+
+    <div class="section section__flex">
+        <select name="round">
+            {% for room in rooms %}
+                <option value="{{ room.round.id }}" {% if forloop.last %} selected {% endif %}>
+                    Раунд №{{ room.round.number }} ({{ room.game.chair.name }})
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+{% endblock additional_block %}
+

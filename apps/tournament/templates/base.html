@@ -13,19 +13,11 @@
 </title>
 
 {% block libs %}
-    {% if debug %}
+    {% include 'lib/jquery.html' %}
+    {% include 'lib/jquery-ui.html' %}
+    {% include 'lib/cookies.html' %}
+    {% include 'lib/font-awesome.html' %}
 
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
-        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
-
-    {% else %}
-
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.min.css">
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-
-    {% endif %}
 {% endblock libs %}
 
 {% block extra_head %}
@@ -37,59 +29,76 @@
 
     {% if not debug %}
         {# Google Tag Manager #}
-        <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5H6LKZ"
-                          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        <noscript>
+            <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5H6LKZ"
+                    height="0"
+                    width="0"
+                    style="display:none;visibility:hidden"
+            ></iframe>
+        </noscript>
+        <script>
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-5H6LKZ');</script>
+            })(window,document,'script','dataLayer','GTM-5H6LKZ');
+        </script>
         {# End Google Tag Manager #}
         {% include 'LiveInternetCounter.html' %}
     {% endif %}
 
 {% block body %}
 
+    {% block advert %}
+    {% endblock %}
+
     <div class="page_wrapper">
 
         <header class="header">
 
             <a class="header__logo" href="/"><span>Tabmaker</span></a>
-
             <a class="header__logo--mobile" href="/"><span>T</span></a>
 
-            <div class="header__menu">
+            <div class="header__wrapper">
 
-                <ul class="menu">
+                <div class="header__container">
+                    <div class="header__menu">
+                        <ul class="menu">
+                            {% if request.user.is_authenticated %}
+                                <li class="menu-item dropdown">
+                                    <p class="dropbtn">Профиль<i class="material-icons">keyboard_arrow_down</i></p>
+                                    <div class="dropdown-content">
+                                      <a href="{% url 'profile:main' request.user.id %}">Обо мне</a>
+                                      <a href="{% url 'profile:teams' request.user.id %}">Заявки на участие</a>
+                                      <a href="{% url 'profile:adjudicator' request.user.id %}">Заявки на судейство</a>
+                                      <a href="{% url 'profile:tournaments' request.user.id %}">Мои турниры</a>
+                                    </div>
+                                </li>
+                            {% endif %}
+                            <li class="menu-item dropdown help">
+                                <p class="dropbtn">Помощь<i class="material-icons">keyboard_arrow_down</i></p>
+                                <div class="dropdown-content">
+                                    <a href="{% url 'main:support' %}">Написать нам</a>
+                                    <a href="{% url 'main:faq' %}">Инструкция</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
+                <div class="header__buttons">
                     {% if request.user.is_authenticated %}
-
-                        <li class="menu-item dropdown">
-                            <p class="dropbtn">Профиль<i class="material-icons">keyboard_arrow_down</i></p>
-                            <div class="dropdown-content">
-                              <a href="{% url 'profile:edit' %}">Обо мне</a>
-                              <a href="{% url 'profile:teams' request.user.id %}">Заявки на участие</a>
-                              <a href="{% url 'profile:adjudicator' request.user.id %}">Заявки на судейство</a>
-                              <a href="{% url 'profile:tournaments' request.user.id %}">Мои турниры</a>
-                            </div>
-                        </li>
+                        <a class="button button--max button--prime" href="{% url 'account_logout' %}">
+                            <i class="material-icons">exit_to_app</i>Выйти
+                        </a>
+                        <a class="button button--max button--sec" href="{% url 'tournament:new' %}">Создать турнир</a>
+                    {% else %}
+                        <a class="button button--max button--prime" href="{% url 'account_login' %}">Войти</a>
+                        <a class="button button--max button--sec" href="{% url 'account_signup' %}">Зарегистрироваться</a>
                     {% endif %}
+                </div>
 
-                </ul>
-
-            </div>
-
-            <div class="header__buttons">
-                {% if request.user.is_authenticated %}
-                    <a class="button button--max button--prime" href="{% url 'account_logout' %}">
-                        <i class="material-icons">exit_to_app</i>Выйти
-                    </a>
-                    <a class="button button--max button--sec" href="{% url 'tournament:new' %}">Создать турнир</a>
-                {% else %}
-                    <a class="button button--max button--prime" href="{% url 'account_login' %}">Войти</a>
-                    <a class="button button--max button--sec" href="{% url 'account_signup' %}">Зарегистрироваться</a>
-                {% endif %}
-            </div>
+             </div>
 
             <div class="burger">
                 <i class="material-icons burger__button">menu</i>
@@ -102,6 +111,12 @@
                         <li class="burger-menu__item"><a href="{% url 'account_login' %}">Войти</a></li>
                         <li class="burger-menu__item"><a href="{% url 'account_signup' %}">Зарегистрироваться</a></li>
                     {% endif %}
+                    <li class="burger-menu__item">
+                        <a href="{% url 'main:support' %}">Написать нам</a>
+                    </li>
+                    <li class="burger-menu__item">
+                        <a href="{% url 'main:faq' %}">Инструкция</a>
+                    </li>
                 </ul>
 
             </div>
@@ -110,6 +125,17 @@
 
         <div class="content">
 
+        {% block title %}
+            <div class="title">
+                <div class="title-container">
+                    <h3 class="title__name">
+                        {% block page_title %}
+                        {% endblock page_title %}
+                    </h3>
+                </div>
+            </div>
+        {% endblock title %}
+
         {% block content %}
         {% endblock content %}
 
@@ -117,19 +143,15 @@
 
         {% block footer %}
         <footer>
-                <div class="b-footer">
-                    <ul class="b-footer__info">
-                        <li><a href="{% url 'main:about' %}">О проекте</a></li>
-{#                        <li><a href="{% url 'main:faq' %}">Как провести турнир</a></li>#}
-{#                    TODO обновить руководство под новый UI #}
-        {#                <li><a href="{% url 'main:soon' %}">Что мы планируем</a></li>#}
-        {#                <li><a href="{% url 'main:news' %}">Список изменений</a></li>#}
-                        <li><a href="{% url 'main:feedback' %}">Обратная связь</a></li>
-                        <li>
-                            {% with vk_title='Tabmaker Вконтакте' %}{% include 'main/vk.html'%}{% endwith %}
-                        </li>
-                    </ul>
-                </div>
+            <div class="b-footer">
+                <ul class="b-footer__info">
+                    <li><a href="{% url 'main:about' %}">О проекте</a></li>
+                    <li><a href="{% url 'main:feedback' %}">Обратная связь</a></li>
+                    <li>
+                        {% with vk_title='Tabmaker Вконтакте' %}{% include 'main/vk.html'%}{% endwith %}
+                    </li>
+                </ul>
+            </div>
         </footer>
         <div class="liveinternet">
             {% include 'LiveInternetImage.html' %}

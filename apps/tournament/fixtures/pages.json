@@ -1,0 +1,202 @@
+[
+  {
+    "model": "tournament.page",
+    "pk": 1,
+    "fields": {
+      "name": "show",
+      "is_public": true
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 2,
+    "fields": {
+      "name": "edit",
+      "is_public": false
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 3,
+    "fields": {
+      "name": "play",
+      "is_public": false
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 4,
+    "fields": {
+      "name": "break",
+      "is_public": false
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 5,
+    "fields": {
+      "name": "result",
+      "is_public": true
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 6,
+    "fields": {
+      "name": "round_next",
+      "is_public": false
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 7,
+    "fields": {
+      "name": "round_edit",
+      "is_public": false
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 8,
+    "fields": {
+      "name": "round_result",
+      "is_public": true
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 9,
+    "fields": {
+      "name": "round_remove",
+      "is_public": false
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 11,
+    "fields": {
+      "name": "team/adju. edit",
+      "is_public": false
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 12,
+    "fields": {
+      "name": "team/adju. registration",
+      "is_public": true
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 14,
+    "fields": {
+      "name": "finished",
+      "is_public": false
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 15,
+    "fields": {
+      "name": "remove",
+      "is_public": false
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 16,
+    "fields": {
+      "name": "registration opening",
+      "is_public": false
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 17,
+    "fields": {
+      "name": "registration closing",
+      "is_public": false
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 18,
+    "fields": {
+      "name": "start",
+      "is_public": false
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 19,
+    "fields": {
+      "name": "round_show",
+      "is_public": true
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 20,
+    "fields": {
+      "name": "team/adju. add",
+      "is_public": false
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 21,
+    "fields": {
+      "name": "result_all",
+      "is_public": true
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 22,
+    "fields": {
+      "name": "print",
+      "is_public": false
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 23,
+    "fields": {
+      "name": "round presentation",
+      "is_public": false
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 24,
+    "fields": {
+      "name": "round publish",
+      "is_public": false
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 25,
+    "fields": {
+      "name": "admin edit",
+      "is_public": false
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 26,
+    "fields": {
+      "name": "custom_questions",
+      "is_public": false
+    }
+  },
+  {
+    "model": "tournament.page",
+    "pk": 27,
+    "fields": {
+      "name": "custom_answers",
+      "is_public": false
+    }
+  }
+]

@@ -1,16 +1,11 @@
 {% extends "account/base_include_js.html" %}
 
-{% block content %}
+{% block page_title %}
+    Мои заявки на участие
+{% endblock page_title %}
 
-    {% block page_title %}
-        <div class="title">
-            <div class="title-container">
-                <h3 class="title__name">
-                   Мои заявки на участие
-                </h3>
-            </div>
-        </div>
-    {% endblock page_title %}
+
+{% block content %}
 
     {% with objects=objects is_owner=is_owner %}
         {% include 'account/content_teams.html' %}

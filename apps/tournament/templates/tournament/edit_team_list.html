@@ -1,14 +1,17 @@
-{% extends "tournament/owner_base.html" %}
+{% extends "main/base.html" %}
 
 {% load staticfiles %}
 {% load profile_extras %}
 
 {% block extra_head %}
     {{ block.super }}
-    <script type="text/javascript" src="{% static "main/js/cookie.js" %}"></script>
     <script type="text/javascript" src="{% static "main/js/ajaxCSRF.js" %}"></script>
     <script type="text/javascript" src="{% static "tournament/js/edit_roles.js" %}"></script>
 {% endblock extra_head %}
+
+{% block page_title %}
+    Изменить список участников
+{% endblock page_title %}
 
 {% block content %}
 
@@ -20,14 +23,6 @@
             </div>
         </div>
     {% endif %}
-
-    {% block page_title %}
-        <div class="title">
-            <div class="title-container">
-                <h3 class="title__name">Изменить список участников</h3>
-            </div>
-        </div>
-    {% endblock page_title %}
 
     <div class="section">
 

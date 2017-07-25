@@ -1,14 +1,10 @@
-{% extends "tournament/owner_base.html" %}
-
-{% block content %}
+{% extends "main/base.html" %}
 
 {% block page_title %}
-    <div class="title">
-        <div class="title-container">
-            <h3 class="title__name">Тема нового раунда</h3>
-        </div>
-    </div>
+    Тема нового раунда
 {% endblock page_title %}
+
+{% block content %}
 
 <form class="content-formpage" action="{% url "tournament:next_round" tournament.id %}" method="post">
     {% csrf_token %}

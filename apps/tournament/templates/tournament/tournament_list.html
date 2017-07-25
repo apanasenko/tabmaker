@@ -12,10 +12,19 @@
                 </h3>
 
                 <ul class="list-item__block">
-                    <li class="list-item__block--item">{{ tournament.start_tour|date:"d E Y"}}</li>
-                    <li class="list-item__block--item">{{ tournament|address }}</li>
+                    <li class="list-item__block--item">
+                        <i class="material-icons">date_range</i>
+                        <span>{{ tournament.start_tour|date:"d E Y"}}</span>
+                    </li>
+                    <li class="list-item__block--item">
+                        <i class="material-icons">place</i>
+                        <span>{{ tournament|address }}</span>
+                    </li>
                     {% if not tournament|is_status_registration and not tournament|is_status_preparation %}
-                    <li class="list-item__block--item">Играют {{ tournament.m_count }} команд</li>
+                    <li class="list-item__block--item">
+                        <i class="material-icons">people_outline</i>
+                        <span>Играют {{ tournament.m_count }} команд</span>
+                    </li>
                     {% endif %}
                 </ul>
 

@@ -11,6 +11,8 @@
         {% csrf_token %}
         {{ form.non_field_errors }}
 
+        {% block additional_block %}
+        {% endblock additional_block %}
 
         {% for field in form %}
             <div class="form-elem">

@@ -50,6 +50,7 @@ from .logic import \
     generate_playoff, \
     get_all_rounds_and_rooms, \
     get_games_and_results, \
+    get_rooms_by_user, \
     get_motions, \
     get_rooms_from_last_round, \
     get_tab, \
@@ -227,7 +228,7 @@ def _convert_tab_to_speaker_table(table: list, is_show):
 
 def _get_or_check_round_result_forms(request, rooms, is_admin=False, is_playoff=False, is_final=False):
     from .forms import \
-        FinalGameResultForm,\
+        FinalGameResultForm, \
         PlayoffGameResultForm, \
         QualificationGameResultForm
 
@@ -310,8 +311,12 @@ def created(request, tournament):
 @access_by_status(name_page='show')
 def show(request, tournament):
     is_chair = request.user.is_authenticated() \
-               and tournament.status in [STATUS_PLAYOFF, STATUS_STARTED] \
-               and get_rooms_from_last_round(tournament, False, request.user).count()
+        and tournament.status in [STATUS_PLAYOFF, STATUS_STARTED] \
+        and get_rooms_from_last_round(tournament, False, request.user).count()
+
+    need_show_feedback_button = request.user.is_authenticated() \
+        and get_rooms_by_user(tournament, request.user) \
+        and CustomForm.objects.filter(tournament=tournament, form_type=FORM_FEEDBACK_TYPE).count()
 
     return render(
         request,
@@ -321,7 +326,8 @@ def show(request, tournament):
             'team_tournament_rels': tournament.get_teams(),
             'adjudicators': tournament.get_users(ADJUDICATOR_ROLES),
             'is_owner': user_can_edit_tournament(tournament, request.user),
-            'is_chair': is_chair
+            'is_chair': is_chair,
+            'need_show_feedback_button': need_show_feedback_button,
         }
     )
 
@@ -343,8 +349,8 @@ def edit(request, tournament):
     team_questions = CustomQuestion.objects.filter(form=team_form).select_related('alias').order_by('position')
 
     adjudicator_form = CustomForm.get_or_create(tournament, FORM_ADJUDICATOR_TYPE)
-    adjudicator_questions = CustomQuestion.objects.filter(form=adjudicator_form)\
-        .select_related('alias')\
+    adjudicator_questions = CustomQuestion.objects.filter(form=adjudicator_form) \
+        .select_related('alias') \
         .order_by('position')
 
     return render(
@@ -359,18 +365,6 @@ def edit(request, tournament):
             'adjudicator_questions': adjudicator_questions,
             'required_aliases': REQUIRED_ALIASES,
             'actions': CUSTOM_FORM_AJAX_ACTIONS,
-        }
-    )
-
-
-@login_required(login_url=reverse_lazy('account_login'))
-@access_by_status(name_page='play')
-def play(request, tournament):
-    return render(
-        request,
-        'tournament/play.html',
-        {
-            'tournament': tournament,
         }
     )
 
@@ -472,6 +466,37 @@ def feedback(request):
     return render(
         request,
         'main/tabmaker_feedback.html'
+    )
+
+
+def support(request):
+    from django.core.mail import mail_managers
+
+    if request.method == 'POST':
+        who = '%s (%s)' % (request.user.get_full_name(), request.user.email) \
+            if request.user.is_authenticated() \
+            else 'noname'
+
+        mail_managers(
+            'Tabmaker: Somebody need help!',
+            '''
+            Кто %s \n\n
+            Проблема:\n
+            %s \n\n\n
+            Контакты:\n
+            %s
+            ''' % (
+                who,
+                request.POST.get('contacts', ''),
+                request.POST.get('problem', ''),
+            )
+        )
+
+        return _show_message(request, 'Мы постараемся ответить как можно быстрее')
+
+    return render(
+        request,
+        'main/support.html'
     )
 
 
@@ -754,7 +779,9 @@ def registration_team(request, tournament):
                 role=ROLE_TEAM_REGISTERED
             )
             if custom_form:
-                CustomFormAnswers.save_answer(custom_form, team_form.get_answers(questions))
+                custom_form_answers = CustomFormAnswers.objects.create(form=custom_form)
+                custom_form_answers.set_answers(team_form.get_answers(questions))
+                custom_form_answers.save()
 
             return _show_message(request, MSG_TEAM_SUCCESS_REGISTERED_pp % (team.name, tournament.name))
 
@@ -919,7 +946,9 @@ def registration_adjudicator(request, tournament):
         adjudicator_form = CustomAdjudicatorRegistrationForm(questions, request.POST)
         if adjudicator_form.is_valid():
             if _registration_adjudicator(tournament, request.user):
-                CustomFormAnswers.save_answer(custom_form, adjudicator_form.get_answers(questions))
+                custom_form_answers = CustomFormAnswers.objects.create(form=custom_form)
+                custom_form_answers.set_answers(adjudicator_form.get_answers(questions))
+                custom_form_answers.save()
                 return _show_message(request, MSG_ADJUDICATOR_SUCCESS_REGISTERED_p % tournament.name)
             else:
                 return _show_message(request, MSG_ADJUDICATOR_ALREADY_REGISTERED_p % tournament.name)
@@ -1155,7 +1184,9 @@ from apps.tournament.consts import CUSTOM_FORM_TYPES
 from apps.tournament.models import \
     CustomForm, \
     CustomFormAnswers, \
-    CustomQuestion
+    CustomQuestion, \
+    FeedbackAnswer
+from .registration_forms import CustomFeedbackForm
 
 
 @ensure_csrf_cookie
@@ -1174,6 +1205,7 @@ def custom_form_edit(request, tournament, form_type):
             'questions': questions,
             'required_aliases': REQUIRED_ALIASES,
             'actions': CUSTOM_FORM_AJAX_ACTIONS,
+            'title': CUSTOM_FORM_QUESTIONS_TITLES[CUSTOM_FORM_TYPES[form_type]],
         }
     )
 
@@ -1305,16 +1337,19 @@ def custom_form_show_answers(request, tournament, form_type):
 
     title = ''
     column_names = list(map(lambda x: x.question, custom_form.customquestion_set.all().order_by('position')))
+    if custom_form.form_type == FORM_FEEDBACK_TYPE:
+        column_names = [LBL_ROUND_FEEDBACK, LBL_CHAIR_FEEDBACK] + column_names
     column_values = []
-    for answer in CustomFormAnswers.get_answers(custom_form):
-        column_values.append(list(map(lambda x: answer.get(x, ''), column_names)))
+    for custom_form_answers in CustomFormAnswers.objects.filter(form=custom_form).order_by('id'):
+        answers = custom_form_answers.get_answers()
+        column_values.append(list(map(lambda x: answers.get(x, ''), column_names)))
 
     return render(
         request,
         'tournament/custom_form_answers.html',
         {
             'tournament': tournament,
-            'title': title,
+            'title': CUSTOM_FORM_ANSWERS_TITLES[CUSTOM_FORM_TYPES[form_type]],
             'column_names': column_names,
             'rows': column_values,
         }
@@ -1465,5 +1500,64 @@ def index(request):
             'objects': paging(
                 request, list(tournaments.order_by('-start_tour')), 15
             )
+        }
+    )
+
+
+@login_required(login_url=reverse_lazy('account_login'))
+@access_by_status(name_page='')
+def team_feedback(request, tournament):
+    rooms = get_rooms_by_user(tournament, request.user)
+    if not rooms:
+        return _show_message(request, MSG_USER_FEEDBACK_WITHOUT_ROUNDS)
+
+    custom_form = CustomForm.objects.filter(tournament=tournament, form_type=FORM_FEEDBACK_TYPE).first()
+    questions = CustomQuestion.objects.filter(form=custom_form).select_related('alias').order_by('position') \
+        if custom_form \
+        else None
+
+    if not questions:
+        return _show_message(request, MSG_FEEDBACK_WITHOUT_QUESTIONS)
+
+    if request.method == 'POST':
+        feedback_form = CustomFeedbackForm(questions, None, request.POST)
+        if feedback_form.is_valid():
+            round_id = int(request.POST.get('round', 0))
+            answers_from_form = {}
+
+            for room in rooms:
+                if room.round.id == round_id:
+                    answers_from_form = {
+                        LBL_ROUND_FEEDBACK: room.round.number,
+                        LBL_CHAIR_FEEDBACK: room.game.chair.get_full_name(),
+                    }
+                    break
+
+            answers_from_form.update(feedback_form.get_answers(questions))
+
+            feedback_answers = FeedbackAnswer.objects.get_or_create(
+                user=request.user,
+                round_id=int(request.POST.get('round', 0)),
+                form=custom_form
+            )
+            feedback_answers[0].set_answers(answers_from_form)
+            feedback_answers[0].save()
+            # TODO add message
+            return _show_message(request, MSG_FEEDBACK_SAVED)
+
+    else:
+        feedback_answers = FeedbackAnswer.objects.filter(user=request.user, round=rooms.last().round).first()
+        feedback_form = CustomFeedbackForm(questions, feedback_answers.get_answers() if feedback_answers else None)
+
+    return render(
+        request,
+        'tournament/team_feedback.html',
+        {
+            'rooms': rooms,
+            'title': 'Обратная связь на судью',
+            'submit_title': 'Оставить Feedback',
+            'action_url': 'tournament:team_feedback',
+            'form': feedback_form,
+            'tournament': tournament,
         }
     )

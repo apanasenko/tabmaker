@@ -2,21 +2,15 @@
 
 {% load profile_extras %}
 
-{% block content %}
+{% block page_title %}
+    {% if is_owner %}
+        Мой профиль
+    {% else %}
+        {{ user|name }}
+    {% endif %}
+{% endblock page_title %}
 
-    {% block page_title %}
-        <div class="title">
-            <div class="title-container">
-                <h3 class="title__name">
-                {% if is_owner %}
-                    Мой профиль
-                {% else %}
-                    {{ user|name }}
-                {% endif %}
-                </h3>
-            </div>
-        </div>
-    {% endblock page_title %}
+{% block content %}
 
     <ul class="accordion-tabs">
 

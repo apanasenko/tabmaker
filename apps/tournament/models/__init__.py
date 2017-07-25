@@ -11,7 +11,7 @@
 #   round -> tournament, motion
 #   room -> round, place, game
 #   page -> tournament
-#   custom_form  -> tournament
+#   custom_form  -> tournament, round, profile
 #
 #   bot_users
 #
@@ -50,6 +50,7 @@ from .custom_form import \
     CustomFieldAlias, \
     CustomFormAnswers, \
     CustomFormType, \
-    CustomQuestion
+    CustomQuestion, \
+    FeedbackAnswer
 
 from . bot_users import BotUsers

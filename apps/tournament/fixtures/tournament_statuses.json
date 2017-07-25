@@ -1,0 +1,47 @@
+[
+  {
+    "model": "tournament.tournamentstatus",
+    "pk": 1,
+    "fields": {
+      "name": "Регистрация открыта",
+      "name_ru": "Регистрация открыта",
+      "name_en": "Registration open"
+    }
+  },
+  {
+    "model": "tournament.tournamentstatus",
+    "pk": 2,
+    "fields": {
+      "name": "Регистрация закрыта",
+      "name_ru": "Регистрация закрыта",
+      "name_en": "Registration closed"
+    }
+  },
+  {
+    "model": "tournament.tournamentstatus",
+    "pk": 3,
+    "fields": {
+      "name": "Отборочные раунды",
+      "name_ru": "Отборочные раунды",
+      "name_en": "Qualification"
+    }
+  },
+  {
+    "model": "tournament.tournamentstatus",
+    "pk": 4,
+    "fields": {
+      "name": "Окончен",
+      "name_ru": "Окончен",
+      "name_en": "Finished"
+    }
+  },
+  {
+    "model": "tournament.tournamentstatus",
+    "pk": 5,
+    "fields": {
+      "name": "Плейофф",
+      "name_ru": "Плейофф",
+      "name_en": "Playoff"
+    }
+  }
+]

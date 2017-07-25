@@ -1,0 +1,1502 @@
+[
+  {
+    "model": "tournament.accesstopage",
+    "pk": 1,
+    "fields": {
+      "page": 1,
+      "status": 1,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 2,
+    "fields": {
+      "page": 1,
+      "status": 2,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 3,
+    "fields": {
+      "page": 1,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 4,
+    "fields": {
+      "page": 1,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 5,
+    "fields": {
+      "page": 1,
+      "status": 4,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 6,
+    "fields": {
+      "page": 2,
+      "status": 1,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 7,
+    "fields": {
+      "page": 2,
+      "status": 2,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 8,
+    "fields": {
+      "page": 2,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 9,
+    "fields": {
+      "page": 2,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 10,
+    "fields": {
+      "page": 2,
+      "status": 4,
+      "access": false,
+      "message": "Турнир уже завершён, вы не можете вносить изменения",
+      "message_ru": "Турнир уже завершён, вы не можете вносить изменения",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 11,
+    "fields": {
+      "page": 3,
+      "status": 1,
+      "access": false,
+      "message": "Эта страница станет доступной после начала турнира",
+      "message_ru": "Эта страница станет доступной после начала турнира",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 12,
+    "fields": {
+      "page": 3,
+      "status": 2,
+      "access": false,
+      "message": "Эта страница станет доступной после начала турнира",
+      "message_ru": "Эта страница станет доступной после начала турнира",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 13,
+    "fields": {
+      "page": 3,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 14,
+    "fields": {
+      "page": 3,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 15,
+    "fields": {
+      "page": 3,
+      "status": 4,
+      "access": false,
+      "message": "Турнир уже завершён, вы не можете вносить изменения",
+      "message_ru": "Турнир уже завершён, вы не можете вносить изменения",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 16,
+    "fields": {
+      "page": 4,
+      "status": 1,
+      "access": false,
+      "message": "Вы не можете объявить брейк до начала турнира",
+      "message_ru": "Вы не можете объявить брейк до начала турнира",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 17,
+    "fields": {
+      "page": 4,
+      "status": 2,
+      "access": false,
+      "message": "Вы не можете объявить брейк до начала турнира",
+      "message_ru": "Вы не можете объявить брейк до начала турнира",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 18,
+    "fields": {
+      "page": 4,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 19,
+    "fields": {
+      "page": 4,
+      "status": 5,
+      "access": false,
+      "message": "Брейк уже объявлен",
+      "message_ru": "Брейк уже объявлен",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 20,
+    "fields": {
+      "page": 4,
+      "status": 4,
+      "access": false,
+      "message": "Турнир уже завершён, вы не можете объявить брейк",
+      "message_ru": "Турнир уже завершён, вы не можете объявить брейк",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 21,
+    "fields": {
+      "page": 5,
+      "status": 1,
+      "access": false,
+      "message": "Ещё нет сыгранных раундов",
+      "message_ru": "Ещё нет сыгранных раундов",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 22,
+    "fields": {
+      "page": 5,
+      "status": 2,
+      "access": false,
+      "message": "Ещё нет сыгранных раундов",
+      "message_ru": "Ещё нет сыгранных раундов",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 23,
+    "fields": {
+      "page": 5,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 24,
+    "fields": {
+      "page": 5,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 25,
+    "fields": {
+      "page": 5,
+      "status": 4,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 26,
+    "fields": {
+      "page": 6,
+      "status": 1,
+      "access": false,
+      "message": "Для создания раунда необходимо начать турнир",
+      "message_ru": "Для создания раунда необходимо начать турнир",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 27,
+    "fields": {
+      "page": 6,
+      "status": 2,
+      "access": false,
+      "message": "Для создания раунда необходимо начать турнир",
+      "message_ru": "Для создания раунда необходимо начать турнир",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 28,
+    "fields": {
+      "page": 6,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 29,
+    "fields": {
+      "page": 6,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 30,
+    "fields": {
+      "page": 6,
+      "status": 4,
+      "access": false,
+      "message": "Турнир уже завершён, вы не можете создавать новые раунды",
+      "message_ru": "Турнир уже завершён, вы не можете создавать новые раунды",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 31,
+    "fields": {
+      "page": 7,
+      "status": 1,
+      "access": false,
+      "message": "Турнир ещё не начался, вы не можете редактировать раунды",
+      "message_ru": "Турнир ещё не начался, вы не можете редактировать раунды",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 32,
+    "fields": {
+      "page": 7,
+      "status": 2,
+      "access": false,
+      "message": "Турнир ещё не начался, вы не можете редактировать раунды",
+      "message_ru": "Турнир ещё не начался, вы не можете редактировать раунды",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 33,
+    "fields": {
+      "page": 7,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 34,
+    "fields": {
+      "page": 7,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 35,
+    "fields": {
+      "page": 7,
+      "status": 4,
+      "access": false,
+      "message": "Вы не можете редактировать раунды в завершённом турнире",
+      "message_ru": "Вы не можете редактировать раунды в завершённом турнире",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 36,
+    "fields": {
+      "page": 8,
+      "status": 1,
+      "access": false,
+      "message": "Турнир ещё не начался, нет сыгранных раундов",
+      "message_ru": "Турнир ещё не начался, нет сыгранных раундов",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 37,
+    "fields": {
+      "page": 8,
+      "status": 2,
+      "access": false,
+      "message": "Турнир ещё не начался, нет сыгранных раундов",
+      "message_ru": "Турнир ещё не начался, нет сыгранных раундов",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 38,
+    "fields": {
+      "page": 8,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 39,
+    "fields": {
+      "page": 8,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 40,
+    "fields": {
+      "page": 8,
+      "status": 4,
+      "access": false,
+      "message": "Вы не можете исправлять результаты в завершённом турнире",
+      "message_ru": "Вы не можете исправлять результаты в завершённом турнире",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 41,
+    "fields": {
+      "page": 9,
+      "status": 1,
+      "access": false,
+      "message": "Турнир ещё не начался, нет созданных раундов",
+      "message_ru": "Турнир ещё не начался, нет созданных раундов",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 42,
+    "fields": {
+      "page": 9,
+      "status": 2,
+      "access": false,
+      "message": "Турнир ещё не начался, нет созданных раундов",
+      "message_ru": "Турнир ещё не начался, нет созданных раундов",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 43,
+    "fields": {
+      "page": 9,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 44,
+    "fields": {
+      "page": 9,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 45,
+    "fields": {
+      "page": 9,
+      "status": 4,
+      "access": false,
+      "message": "Вы не можете удалить раунд в завершённом турнире",
+      "message_ru": "Вы не можете удалить раунд в завершённом турнире",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 51,
+    "fields": {
+      "page": 11,
+      "status": 1,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 52,
+    "fields": {
+      "page": 11,
+      "status": 2,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 53,
+    "fields": {
+      "page": 11,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 54,
+    "fields": {
+      "page": 11,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 55,
+    "fields": {
+      "page": 11,
+      "status": 4,
+      "access": false,
+      "message": "Турнир уже завершён, вы не можете сменить статус участников",
+      "message_ru": "Турнир уже завершён, вы не можете сменить статус участников",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 56,
+    "fields": {
+      "page": 12,
+      "status": 1,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 57,
+    "fields": {
+      "page": 12,
+      "status": 2,
+      "access": false,
+      "message": "Регистрация уже завершена. Обратитесь к организаторам турнира",
+      "message_ru": "Регистрация уже завершена. Обратитесь к организаторам турнира",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 58,
+    "fields": {
+      "page": 12,
+      "status": 3,
+      "access": false,
+      "message": "Турнир уже стартовал. Для внесения каких либо изменений обратитесь к организаторам турнира",
+      "message_ru": "Турнир уже стартовал. Для внесения каких либо изменений обратитесь к организаторам турнира",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 59,
+    "fields": {
+      "page": 12,
+      "status": 5,
+      "access": false,
+      "message": "Турнир уже стартовал. Для внесения каких либо изменений обратитесь к организаторам турнира",
+      "message_ru": "Турнир уже стартовал. Для внесения каких либо изменений обратитесь к организаторам турнира",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 60,
+    "fields": {
+      "page": 12,
+      "status": 4,
+      "access": false,
+      "message": "Вы не можете регистрироваться в завершённый турнир",
+      "message_ru": "Вы не можете регистрироваться в завершённый турнир",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 66,
+    "fields": {
+      "page": 14,
+      "status": 1,
+      "access": false,
+      "message": "Вы не можете завершить турнир, который ещё не начался",
+      "message_ru": "Вы не можете завершить турнир, который ещё не начался",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 67,
+    "fields": {
+      "page": 14,
+      "status": 2,
+      "access": false,
+      "message": "Вы не можете завершить турнир, который ещё не начался",
+      "message_ru": "Вы не можете завершить турнир, который ещё не начался",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 68,
+    "fields": {
+      "page": 14,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 69,
+    "fields": {
+      "page": 14,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 70,
+    "fields": {
+      "page": 14,
+      "status": 4,
+      "access": false,
+      "message": "Турнир уже завершён",
+      "message_ru": "Турнир уже завершён",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 71,
+    "fields": {
+      "page": 15,
+      "status": 1,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 72,
+    "fields": {
+      "page": 15,
+      "status": 2,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 73,
+    "fields": {
+      "page": 15,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 74,
+    "fields": {
+      "page": 15,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 75,
+    "fields": {
+      "page": 15,
+      "status": 4,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 76,
+    "fields": {
+      "page": 16,
+      "status": 1,
+      "access": false,
+      "message": "Регистрация уже открыта",
+      "message_ru": "Регистрация уже открыта",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 77,
+    "fields": {
+      "page": 16,
+      "status": 2,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 78,
+    "fields": {
+      "page": 16,
+      "status": 3,
+      "access": false,
+      "message": "Для открытия регистрации необходимо отменить старт турнира",
+      "message_ru": "Для открытия регистрации необходимо отменить старт турнира",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 79,
+    "fields": {
+      "page": 16,
+      "status": 5,
+      "access": false,
+      "message": "Для открытия регистрации необходимо отменить старт турнира",
+      "message_ru": "Для открытия регистрации необходимо отменить старт турнира",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 80,
+    "fields": {
+      "page": 16,
+      "status": 4,
+      "access": false,
+      "message": "Невозможно открыть регистрацию в завершённом турнире",
+      "message_ru": "Невозможно открыть регистрацию в завершённом турнире",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 81,
+    "fields": {
+      "page": 17,
+      "status": 1,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 82,
+    "fields": {
+      "page": 17,
+      "status": 2,
+      "access": false,
+      "message": "Регистрация уже закрыта",
+      "message_ru": "Регистрация уже закрыта",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 83,
+    "fields": {
+      "page": 17,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 84,
+    "fields": {
+      "page": 17,
+      "status": 5,
+      "access": false,
+      "message": "Для отмены старта турнира необходимо отменить брейк",
+      "message_ru": "Для отмены старта турнира необходимо отменить брейк",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 85,
+    "fields": {
+      "page": 17,
+      "status": 4,
+      "access": false,
+      "message": "Невозможно отменить старт турнира, когда он завершился",
+      "message_ru": "Невозможно отменить старт турнира, когда он завершился",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 86,
+    "fields": {
+      "page": 18,
+      "status": 1,
+      "access": false,
+      "message": "Для старта турнира необходимо закрыть регистрацию",
+      "message_ru": "Для старта турнира необходимо закрыть регистрацию",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 87,
+    "fields": {
+      "page": 18,
+      "status": 2,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 88,
+    "fields": {
+      "page": 18,
+      "status": 3,
+      "access": false,
+      "message": "Турнир уже идёт",
+      "message_ru": "Турнир уже идёт",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 89,
+    "fields": {
+      "page": 18,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 90,
+    "fields": {
+      "page": 18,
+      "status": 4,
+      "access": false,
+      "message": "Турнир уже завершён",
+      "message_ru": "Турнир уже завершён",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 91,
+    "fields": {
+      "page": 19,
+      "status": 1,
+      "access": false,
+      "message": "К сожалению, раунд ещё не объявлен",
+      "message_ru": "К сожалению, раунд ещё не объявлен",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 92,
+    "fields": {
+      "page": 19,
+      "status": 2,
+      "access": false,
+      "message": "К сожалению, раунд ещё не объявлен",
+      "message_ru": "К сожалению, раунд ещё не объявлен",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 93,
+    "fields": {
+      "page": 19,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 94,
+    "fields": {
+      "page": 19,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 95,
+    "fields": {
+      "page": 19,
+      "status": 4,
+      "access": false,
+      "message": "Турнир уже завершён",
+      "message_ru": "Турнир уже завершён",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 96,
+    "fields": {
+      "page": 20,
+      "status": 1,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 97,
+    "fields": {
+      "page": 20,
+      "status": 2,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 98,
+    "fields": {
+      "page": 20,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 99,
+    "fields": {
+      "page": 20,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 100,
+    "fields": {
+      "page": 20,
+      "status": 4,
+      "access": false,
+      "message": "Турнир уже завершён",
+      "message_ru": "Турнир уже завершён",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 101,
+    "fields": {
+      "page": 21,
+      "status": 1,
+      "access": false,
+      "message": "Нет сыгранных раундов",
+      "message_ru": "Нет сыгранных раундов",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 102,
+    "fields": {
+      "page": 21,
+      "status": 2,
+      "access": false,
+      "message": "Нет сыгранных раундов",
+      "message_ru": "Нет сыгранных раундов",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 103,
+    "fields": {
+      "page": 21,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 104,
+    "fields": {
+      "page": 21,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 105,
+    "fields": {
+      "page": 21,
+      "status": 4,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 106,
+    "fields": {
+      "page": 22,
+      "status": 1,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 107,
+    "fields": {
+      "page": 22,
+      "status": 2,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 108,
+    "fields": {
+      "page": 22,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 109,
+    "fields": {
+      "page": 22,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 110,
+    "fields": {
+      "page": 22,
+      "status": 4,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 111,
+    "fields": {
+      "page": 23,
+      "status": 1,
+      "access": false,
+      "message": "Для создания презентации необходимо начать турнир и создать раунд",
+      "message_ru": "Для создания презентации необходимо начать турнир и создать раунд",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 112,
+    "fields": {
+      "page": 23,
+      "status": 2,
+      "access": false,
+      "message": "Для создания презентации необходимо начать турнир и создать раунд",
+      "message_ru": "Для создания презентации необходимо начать турнир и создать раунд",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 113,
+    "fields": {
+      "page": 23,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 114,
+    "fields": {
+      "page": 23,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 115,
+    "fields": {
+      "page": 23,
+      "status": 4,
+      "access": false,
+      "message": "Турнир уже завершён",
+      "message_ru": "Турнир уже завершён",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 116,
+    "fields": {
+      "page": 24,
+      "status": 1,
+      "access": false,
+      "message": "Для публикации раунда необходимо начать турнир и создать раунд",
+      "message_ru": "Для публикации раунда необходимо начать турнир и создать раунд",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 117,
+    "fields": {
+      "page": 24,
+      "status": 2,
+      "access": false,
+      "message": "Для публикации раунда необходимо начать турнир и создать раунд",
+      "message_ru": "Для публикации раунда необходимо начать турнир и создать раунд",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 118,
+    "fields": {
+      "page": 24,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 119,
+    "fields": {
+      "page": 24,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 120,
+    "fields": {
+      "page": 24,
+      "status": 4,
+      "access": false,
+      "message": "Турнир уже завершён",
+      "message_ru": "Турнир уже завершён",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 121,
+    "fields": {
+      "page": 25,
+      "status": 1,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 122,
+    "fields": {
+      "page": 25,
+      "status": 2,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 123,
+    "fields": {
+      "page": 25,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 124,
+    "fields": {
+      "page": 25,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 125,
+    "fields": {
+      "page": 25,
+      "status": 4,
+      "access": false,
+      "message": "Турнир уже завершён",
+      "message_ru": "Турнир уже завершён",
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 126,
+    "fields": {
+      "page": 26,
+      "status": 1,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 127,
+    "fields": {
+      "page": 26,
+      "status": 2,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 128,
+    "fields": {
+      "page": 26,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 129,
+    "fields": {
+      "page": 26,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 130,
+    "fields": {
+      "page": 26,
+      "status": 4,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 131,
+    "fields": {
+      "page": 27,
+      "status": 1,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 132,
+    "fields": {
+      "page": 27,
+      "status": 2,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 133,
+    "fields": {
+      "page": 27,
+      "status": 3,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 134,
+    "fields": {
+      "page": 27,
+      "status": 5,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  },
+  {
+    "model": "tournament.accesstopage",
+    "pk": 135,
+    "fields": {
+      "page": 27,
+      "status": 4,
+      "access": true,
+      "message": null,
+      "message_ru": null,
+      "message_en": null
+    }
+  }
+]

@@ -1,4 +1,4 @@
-{% extends "tournament/owner_base.html" %}
+{% extends "main/base.html" %}
 
 {% block page_title %}
     {{ title }}
@@ -6,25 +6,21 @@
 
 {% block extra_head %}
     {{ block.super }}
-    <script type="text/javascript"
-            src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js">
-    </script>
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.23.5/js/jquery.tablesorter.min.js">
-    </script>
+    {% include 'lib/tablesorter.html' %}
     <script> $(document).ready(function() { $("#answers").tablesorter(); }); </script>
-
 {% endblock extra_head %}
 
 {% block content %}
     <div class="content-tablepage">
     <table id="answers" class="tablesorter table">
+        <thead>
         <tr class="table__headrow">
         {% for name in column_names %}
             <th>{{ name }}</th>
         {% endfor %}
         </tr>
-
+        </thead>
+        <tbody>
         {% for row in rows %}
             <tr class="table__row">
             {% for values in row %}
@@ -32,6 +28,7 @@
             {% endfor %}
             </tr>
         {% endfor %}
+        </tbody>
     </table>
     </div>
 {% endblock content %}

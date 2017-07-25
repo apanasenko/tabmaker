@@ -1,0 +1,119 @@
+[
+  {
+    "model": "tournament.tournamentrole",
+    "pk": 1,
+    "fields": {
+      "role": "Владелец",
+      "role_ru": "Владелец",
+      "role_en": "Owner"
+    }
+  },
+  {
+    "model": "tournament.tournamentrole",
+    "pk": 2,
+    "fields": {
+      "role": "Администратор",
+      "role_ru": "Администратор",
+      "role_en": "Admin"
+    }
+  },
+  {
+    "model": "tournament.tournamentrole",
+    "pk": 3,
+    "fields": {
+      "role": "Зарегистрированный",
+      "role_ru": "Зарегистрированный",
+      "role_en": "Registered"
+    }
+  },
+  {
+    "model": "tournament.tournamentrole",
+    "pk": 4,
+    "fields": {
+      "role": "В тэбе",
+      "role_ru": "В тэбе",
+      "role_en": "In tab"
+    }
+  },
+  {
+    "model": "tournament.tournamentrole",
+    "pk": 5,
+    "fields": {
+      "role": "Вейт-лист",
+      "role_ru": "Вейт-лист",
+      "role_en": "Wait list"
+    }
+  },
+  {
+    "model": "tournament.tournamentrole",
+    "pk": 6,
+    "fields": {
+      "role": "Команда подтвердила",
+      "role_ru": "Команда подтвердила",
+      "role_en": "Verified"
+    }
+  },
+  {
+    "model": "tournament.tournamentrole",
+    "pk": 7,
+    "fields": {
+      "role": "Организатор подтвердил",
+      "role_ru": "Организатор подтвердил",
+      "role_en": "Approved"
+    }
+  },
+  {
+    "model": "tournament.tournamentrole",
+    "pk": 8,
+    "fields": {
+      "role": "Участник",
+      "role_ru": "Участник",
+      "role_en": "Member"
+    }
+  },
+  {
+    "model": "tournament.tournamentrole",
+    "pk": 9,
+    "fields": {
+      "role": "Зарегистрирован как судья",
+      "role_ru": "Зарегистрирован как судья",
+      "role_en": "Registered adjudicator"
+    }
+  },
+  {
+    "model": "tournament.tournamentrole",
+    "pk": 10,
+    "fields": {
+      "role": "Судья в списке",
+      "role_ru": "Судья в списке",
+      "role_en": "Approved adjudicator"
+    }
+  },
+  {
+    "model": "tournament.tournamentrole",
+    "pk": 11,
+    "fields": {
+      "role": "Судья",
+      "role_ru": "Судья",
+      "role_en": "Chair"
+    }
+  },
+  {
+    "model": "tournament.tournamentrole",
+    "pk": 12,
+    "fields": {
+      "role": "Боковой судья",
+      "role_ru": "Боковой судья",
+      "role_en": "Wing"
+    }
+  },
+  {
+    "model": "tournament.tournamentrole",
+    "pk": 13,
+    "fields": {
+      "role": "Главный судья (турнира)",
+      "role_ru": "Главный судья (турнира)",
+      "role_en": "Chief adjudicator"
+    }
+  }
+]

@@ -46,11 +46,11 @@ footer {
 
 			@include respond-to(mobile) {
 				display: block;
-				line-height: 1.7;
+				line-height: 2;
 			}
 
 			@include respond-to(tablets) {
-				line-height: 1.7;
+				line-height: 2;
 			}
 		}
 	}

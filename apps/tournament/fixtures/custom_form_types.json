@@ -1,0 +1,37 @@
+[
+  {
+    "model": "tournament.customformtype",
+    "pk": 1,
+    "fields": {
+      "name": "teams"
+    }
+  },
+  {
+    "model": "tournament.customformtype",
+    "pk": 2,
+    "fields": {
+      "name": "feedback"
+    }
+  },
+  {
+    "model": "tournament.customformtype",
+    "pk": 3,
+    "fields": {
+      "name": "adjudicator"
+    }
+  },
+  {
+    "model": "tournament.customformtype",
+    "pk": 4,
+    "fields": {
+      "name": "audience"
+    }
+  },
+  {
+    "model": "tournament.customformtype",
+    "pk": 5,
+    "fields": {
+      "name": "registration"
+    }
+  }
+]

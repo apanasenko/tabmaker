@@ -1,25 +1,20 @@
-{% extends "tournament/owner_base.html" %}
+{% extends "main/base.html" %}
 {% load staticfiles %}
 
 {% block extra_head %}
     {{ block.super }}
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    {% include 'lib/yandex-map.html' %}
     <script type="text/javascript" src="{% static "tournament/js/map.js" %}"></script>
-    <script type="text/javascript" src="{% static "main/js/cookie.js" %}"></script>
     <script type="text/javascript" src="{% static "main/js/ajaxCSRF.js" %}"></script>
     <script type="text/javascript" src="{% static "tournament/js/edit_registration_form.js" %}"></script>
 {% endblock extra_head %}
 
 
-{% block content %}
+{% block page_title %}
+    {{ tournament.name }}
+{% endblock page_title %}
 
-    {% block page_title %}
-        <div class="title">
-            <div class="title-container">
-                <h3 class="title__name">{{ tournament.name }}</h3>
-            </div>
-        </div>
-    {% endblock page_title %}
+{% block content %}
 
     <form class="content-formpage" action="{% url "tournament:edit" tournament.id %}" method="post">
         {% include "tournament/edit_form.html" %}

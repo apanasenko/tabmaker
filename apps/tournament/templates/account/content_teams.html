@@ -10,60 +10,56 @@
             <th>Статус</th>
             <th>Первый спикер</th>
             <th>Второй спикер</th>
-            {% if object.tournament|is_status_registration or object.tournament|is_status_preparation %}
-                {% if is_owner %}
-                    <th>Действия</th>
-                {% endif %}
+            {% if is_owner %}
+                <th>Действия</th>
             {% endif %}
         </tr>
     {% for object in objects %}
-        <tr class="table__row">
-
-            <td>
+        <tr>
+            <td colspan="{% if is_owner %}6{% else %}5{% endif %}">
                 <span id="message_{{ object.team.id }}"></span>
-                <span id="team_{{ object.team.id }}"></span>
+            </td>
+        </tr>
+        <tr class="table__row" id="team_{{ object.team.id }}">
+            <td>
                 {{ object.team.name }}
             </td>
-
             <td>
                 {% if object.tournament %}
-                    <a class="link" target="_blank" href="{% url 'tournament:show' object.tournament.id %}">{{ object.tournament.name }}</a>
+                    <a class="link" target="_blank" href="{% url 'tournament:show' object.tournament.id %}">
+                        {{ object.tournament.name }}
+                    </a>
                 {% endif %}
             </td>
-
             <td>
-                {% if object.tournament %}
-                    {{ object.role.role }}
-                {% else %}
-                    Эта команда не зарегистрирована в турнире
-                {% endif %}
+                {{ object.role.role }}
             </td>
-
             <td>
                 <a class="link" target="_blank" href="{% url 'profile:main' object.team.speaker_1.id %}">
                     {{ object.team.speaker_1|name }}
                 </a>
             </td>
-
             <td>
                 <a class="link" target="_blank" href="{% url 'profile:main' object.team.speaker_2.id %}">
                     {{ object.team.speaker_2|name }}
                 </a>
             </td>
-
-            {% if object.tournament|is_status_registration or object.tournament|is_status_preparation %}
-                {% if is_owner %}
-                    <td>
+            {% if is_owner %}
+                <td>
+                    {% if object.tournament|is_status_registration or object.tournament|is_status_preparation %}
+                        <button class="button button--min button--prime" onclick="remove_team(
                                 '{% url 'profile:team_remove' %}',
-                        <button button button--min button--prime onclick="remove_team(
                                 '{{ object.team.id }}',
                                 'team_{{ object.team.id }}',
                                 'message_{{ object.team.id }}'
-                                )">
+                                )"
+                        >
                             Удалить команду
                         </button>
-                    </td>
-                {% endif %}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
             {% endif %}
         </tr>
     {% endfor %}

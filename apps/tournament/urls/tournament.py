@@ -9,7 +9,6 @@ urlpatterns = [
     url(r'^(?P<tournament_id>\d+)[/]$', views.show, name='show'),
     url(r'^(?P<tournament_id>\d+)/new[/]$', views.created, name='created'),
     url(r'^(?P<tournament_id>\d+)/edit[/]$', views.edit, name='edit'),
-    url(r'^(?P<tournament_id>\d+)/play[/]$', views.play, name='play'),
     url(r'^(?P<tournament_id>\d+)/result[/]$', views.result, name='result'),
     url(r'^(?P<tournament_id>\d+)/result/all[/]$', views.result_all_rounds, name='result_all'),
     url(r'^(?P<tournament_id>\d+)/remove[/]$', views.remove, name='remove'),
@@ -38,6 +37,7 @@ urlpatterns = [
     url(r'^(?P<tournament_id>\d+)/team/list[/]$', views.edit_team_list, name='edit_team_list'),
     url(r'^(?P<tournament_id>\d+)/team/check[/]$', views.edit_team_list, name='check_team_list'),
     url(r'^(?P<tournament_id>\d+)/team/edit/role[/]$', views.team_role_update, name='update_team_role'),
+    url(r'^(?P<tournament_id>\d+)/team/feedback[/]$', views.team_feedback, name='team_feedback'),
 
     # Management of adjudicator
     url(

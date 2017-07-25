@@ -11,23 +11,29 @@ from apps.tournament.models import \
     City, \
     University
 
+DATE_ATTRS = {
+    'class': 'datepicker form-elem__input',
+    'type': 'date',
+    'placeholder': 'Дата'
+}
+
+TIME_ATTRS = {
+    'class': 'timepicker form-elem__input',
+    'type': 'time',
+    'placeholder': 'Время'
+}
+
 
 class TournamentForm(forms.ModelForm):
 
-    open_reg_date = forms.DateField(
-        widget=forms.DateInput(attrs={'class': 'datepicker form-elem__input', 'type': 'date', 'placeholder': 'Дата'}), label=u'Дата открытия регистрации')
-    open_reg_time = forms.TimeField(
-        widget=forms.DateInput(attrs={'class': 'timepicker form-elem__input', 'type': 'time', 'placeholder': 'Время'}), label=u'Время открытия регистрации')
+    open_reg_date = forms.DateField(widget=forms.DateInput(attrs=DATE_ATTRS), label=u'Дата открытия регистрации')
+    open_reg_time = forms.TimeField(widget=forms.DateInput(attrs=TIME_ATTRS), label=u'Время открытия регистрации')
 
-    close_reg_date = forms.DateField(
-        widget=forms.DateInput(attrs={'class': 'datepicker form-elem__input', 'type': 'date', 'placeholder': 'Дата'}), label=u'Дата закрытия регистрации')
-    close_reg_time = forms.TimeField(
-        widget=forms.DateInput(attrs={'class': 'timepicker form-elem__input', 'type': 'time', 'placeholder': 'Время'}), label=u'Время закрытия регистрации')
+    close_reg_date = forms.DateField(widget=forms.DateInput(attrs=DATE_ATTRS), label=u'Дата закрытия регистрации')
+    close_reg_time = forms.TimeField(widget=forms.DateInput(attrs=TIME_ATTRS), label=u'Время закрытия регистрации')
 
-    start_tour_date = forms.DateField(
-        widget=forms.DateInput(attrs={'class': 'datepicker form-elem__input', 'type': 'date', 'placeholder': 'Дата'}), label=u'Дата начала турнира')
-    start_tour_time = forms.TimeField(
-        widget=forms.DateInput(attrs={'class': 'timepicker form-elem__input', 'type': 'time', 'placeholder': 'Время'}), label=u'Время начала турнира')
+    start_tour_date = forms.DateField(widget=forms.DateInput(attrs=DATE_ATTRS), label=u'Дата начала турнира')
+    start_tour_time = forms.TimeField(widget=forms.DateInput(attrs=TIME_ATTRS), label=u'Время начала турнира')
 
     class Meta:
         model = Tournament
@@ -45,7 +51,9 @@ class TournamentForm(forms.ModelForm):
         ]
 
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'validate form-elem__input'}),
+            'name': forms.TextInput(attrs={
+                'class': 'validate form-elem__input'
+            }),
             'location': forms.TextInput(attrs={
                 'class': 'validate form-elem__input',
                 'placeholder': 'Укажите место на карте',
@@ -53,11 +61,31 @@ class TournamentForm(forms.ModelForm):
             }),
             'location_lon': forms.HiddenInput(),
             'location_lat': forms.HiddenInput(),
-            'count_rounds': forms.NumberInput(attrs={'min': '0', 'placeholder': 'Количество отборочных', 'class': 'form-elem__input form-elem--low'}),
-            'count_teams': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Максимум команд', 'class': 'form-elem__input form-elem--low'}),
-            'count_teams_in_break': forms.NumberInput(attrs={'min': '0', 'step': 4, 'placeholder': 'Выходят в плей-офф', 'class': 'form-elem__input form-elem--low'}),
-            'link': forms.URLInput(attrs={'class': 'validate form-elem__input', 'placeholder': 'Cсылка в социальных сетях'}),
-            'info': forms.Textarea(attrs={'class': 'validate form-elem__area', 'placeholder': 'О турнире'}),
+            'count_rounds': forms.NumberInput(attrs={
+                'min': '0',
+                'placeholder': 'Количество отборочных',
+                'class': 'form-elem__input form-elem--low'
+            }),
+            'count_teams': forms.NumberInput(attrs={
+                'min': '0',
+                'step': 4,
+                'placeholder': 'Максимум команд',
+                'class': 'form-elem__input form-elem--low'
+            }),
+            'count_teams_in_break': forms.NumberInput(attrs={
+                'min': '0',
+                'step': 4,
+                'placeholder': 'Выходят в плей-офф',
+                'class': 'form-elem__input form-elem--low'
+            }),
+            'link': forms.URLInput(attrs={
+                'class': 'validate form-elem__input',
+                'placeholder': 'Cсылка в социальных сетях'
+            }),
+            'info': forms.Textarea(attrs={
+                'class': 'validate form-elem__area',
+                'placeholder': 'О турнире'
+            }),
             'is_registration_hidden': forms.CheckboxInput(),
         }
 
@@ -440,9 +468,12 @@ class SignupForm(ProfileForm):
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
-        self.fields['email'].widget = forms.EmailInput(attrs={'class': 'validate form-elem__input', 'placeholder': 'ilove@debate.org'})
-        del self.fields['password1'].widget.attrs['placeholder']
-        del self.fields['password2'].widget.attrs['placeholder']
+        self.fields['email'].widget = forms.EmailInput(attrs={
+            'class': 'validate form-elem__input',
+            'placeholder': 'ilove@debate.org'
+        })
+        # del self.fields['password1'].widget.attrs['placeholder']
+        # del self.fields['password2'].widget.attrs['placeholder']
 
     def signup(self, request, user):
         # TODO Добавить проверки (телефон)

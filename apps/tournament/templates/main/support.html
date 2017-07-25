@@ -1,0 +1,52 @@
+{% extends "main/base.html" %}
+
+{% block page_title %}
+    Поддержка
+{% endblock page_title %}
+
+{% block content %}
+
+    <form class="content-formpage" action="{% url "main:support" %}" method="post">
+
+        {% csrf_token %}
+{#        <p class="paragraph paragraph--nobottom">#}
+{#            Напишите, в чем Ваша проблема.#}
+{#            Мы ответим как можно быстрее по e-mail,#}
+{#            который Вы указали при регистрации на сайте.#}
+{#        </p>#}
+
+        <div class="form-elem">
+            <textarea class="form-elem__textarea"
+                      cols="40"
+                      rows="5"
+                      name="contacts"
+                      placeholder="Как с вами связаться?"
+            ></textarea>
+        </div>
+
+        {#        <div class="form-elem">#}
+{#            <select class="form-elem__select" name="" id="">#}
+{#                <option value="" class="form-elem__option">Что-то не работает</option>#}
+{#                <option value="" class="form-elem__option">Я не понимаю, как...</option>#}
+{#            </select>#}
+{#        </div>#}
+
+        <div class="form-elem">
+            <textarea class="form-elem__textarea"
+                      cols="40"
+                      rows="5"
+                      name="problem"
+                      placeholder="Напишите, в чем Ваша проблема"
+            ></textarea>
+        </div>
+
+        <div class="form-elem">
+            <button type="submit" class="button button--max button--prime">
+                Отправить
+            </button>
+        </div>
+
+    </form>
+
+{% endblock content %}
+
