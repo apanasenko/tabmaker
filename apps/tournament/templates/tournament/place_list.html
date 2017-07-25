@@ -18,7 +18,7 @@
 
 {% if is_check_page %}
     <div class="section">
-        <button id="check_button" class="button button--prime button--max" disabled onclick="redirect('{% url 'tournament:show' tournament.id %}')">
+        <button id="check_button" class="button button--prime button--max" disabled onclick="redirect('{% url 'tournament:start' tournament.id %}')">
             Начать турнир
         </button>
     </div>
