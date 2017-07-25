@@ -11,7 +11,7 @@ function update_location(text, lon, lat){
 function init () {
     var lon = $("#id_location_lon").val().replace(',', '.');
     var lat = $("#id_location_lat").val().replace(',', '.');
-    var can_edit = Boolean($("#id_location").size());
+    var can_edit = Boolean($("#id_location").length);
     var map = new ymaps.Map("map", {
         center: [lon, lat],
         zoom: 14

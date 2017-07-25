@@ -64,23 +64,27 @@ class TournamentForm(forms.ModelForm):
             'count_rounds': forms.NumberInput(attrs={
                 'min': '0',
                 'placeholder': 'Количество отборочных',
+                'title': 'Количество отборочных',
                 'class': 'form-elem__input form-elem--low'
             }),
             'count_teams': forms.NumberInput(attrs={
                 'min': '0',
                 'step': 4,
                 'placeholder': 'Максимум команд',
+                'title': 'Максимум команд',
                 'class': 'form-elem__input form-elem--low'
             }),
             'count_teams_in_break': forms.NumberInput(attrs={
                 'min': '0',
                 'step': 4,
                 'placeholder': 'Выходят в плей-офф',
+                'title': 'Выходят в плей-офф',
                 'class': 'form-elem__input form-elem--low'
             }),
             'link': forms.URLInput(attrs={
                 'class': 'validate form-elem__input',
-                'placeholder': 'Cсылка в социальных сетях'
+                'placeholder': 'Cсылка в социальных сетях',
+                'title': 'Cсылка в социальных сетях'
             }),
             'info': forms.Textarea(attrs={
                 'class': 'validate form-elem__area',
