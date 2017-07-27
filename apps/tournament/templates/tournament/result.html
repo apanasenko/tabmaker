@@ -32,16 +32,9 @@
         <li class="tab-header-and-content">
             <a href="javascript:void(0)" class="tab-link">Темы</a>
             <div class="tab-content">
-                <div class="content-textpage">
-                    {% for motion in motions %}
-                        <div class="paragraph">
-                            <p>{{ motion.number }}: {{ motion.motion }}</p>
-                            {% if motion.infoslide %}
-                                <p>{{ motion.infoslide }}</p>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                </div>
+                {% with motions=motions %}
+                    {% include "tournament/tabs/public/motions.html" %}
+                {% endwith %}
             </div>
         </li>
 

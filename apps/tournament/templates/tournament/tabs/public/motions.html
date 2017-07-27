@@ -1,0 +1,10 @@
+<div class="content-textpage">
+    {% for motion in motions %}
+        <div class="paragraph">
+            <p>{{ motion.number }}: {{ motion.motion }}</p>
+            {% if motion.infoslide %}
+                <p>{{ motion.infoslide }}</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
