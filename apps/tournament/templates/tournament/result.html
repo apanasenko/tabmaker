@@ -15,7 +15,7 @@
             <a href="javascript:void(0)" class="is-active tab-link">Команды</a>
             <div class="tab-content">
                  {% with tab=team_tab %}
-                    {% include "tournament/tab.html" %}
+                    {% include "tournament/tabs/public/tab.html" %}
                 {% endwith %}
             </div>
         </li>
@@ -24,7 +24,7 @@
             <a href="javascript:void(0)" class="tab-link">Спикеры</a>
             <div class="tab-content">
                 {% with tab=speaker_tab %}
-                    {% include "tournament/tab.html" %}
+                    {% include "tournament/tabs/public/tab.html" %}
                 {% endwith %}
             </div>
         </li>
