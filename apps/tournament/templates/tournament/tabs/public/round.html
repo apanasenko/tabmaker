@@ -1,6 +1,8 @@
 {% load profile_extras %}
 
-{% if not rooms or not rooms.0.round %}
+{#{% with context=rooms %}#}
+
+{% if not context or not context.0.round %}
     <div class="content-textpage content-textpage--center content-textpage--top">
         <p> К сожалению, раунд ещё не объявлен </p>
     </div>
@@ -13,7 +15,7 @@
             <a href="javascript:void(0)" class="is-active tab-link">Резолюция</a>
             <div class="tab-content">
                 <div class="content-textpage content-textpage--top">
-                    {% with round=rooms.0.round %}
+                    {% with round=context.0.round %}
                         {% if round.motion.infoslide %}
                             <h3 class="paragraph__heading">Инфослайд</h3>
                             <p class="paragraph">{{ round.motion.infoslide }}</p>
@@ -38,7 +40,7 @@
                             <th>2П</th>
                             <th>20</th>
                         </tr>
-                        {% for room in rooms %}
+                        {% for room in context %}
                             <tr class="table__row">
                                 <td><span class="wrap">{{ room.game.chair|name }}</span></td>
                                 <td>{{ room.place.place }}</td>

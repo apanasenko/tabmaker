@@ -1,6 +1,8 @@
 {% load profile_extras %}
 
-{% if team_tournament_rels|length > 1 %}
+{#{% with context=team_tournament_rels %}#}
+
+{% if context|length > 1 %}
 
 <div class="content-tablepage">
 <table class="table">
@@ -11,7 +13,7 @@
         <th>Второй спикер</th>
         <th>Статус команды</th>
     </tr>
-    {% for team_tournament_rel in team_tournament_rels %}
+    {% for team_tournament_rel in context %}
         <tr class="table__row">
             <td>
                 {{ team_tournament_rel.team.name }}

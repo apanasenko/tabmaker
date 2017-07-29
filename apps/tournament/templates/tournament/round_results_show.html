@@ -13,6 +13,8 @@
 
 {% block content %}
 
-    {% include 'tournament/tabs/public/results.html' %}
+    {% with context=results %}
+        {% include 'tournament/tabs/public/results.html' %}
+    {% endwith %}
 
 {% endblock content %}

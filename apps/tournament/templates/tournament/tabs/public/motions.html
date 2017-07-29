@@ -1,5 +1,7 @@
+{#{% with context=motions %}#}
+
 <div class="content-textpage">
-    {% for motion in motions %}
+    {% for motion in context %}
         <div class="paragraph">
             <p>{{ motion.number }}: {{ motion.motion }}</p>
             {% if motion.infoslide %}

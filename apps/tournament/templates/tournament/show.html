@@ -187,7 +187,7 @@
             <li class="tab-header-and-content tab-header-and-content__first">
                 <a href="javascript:void(0)" class="is-active tab-link">О турнире</a>
                 <div class="tab-content">
-                    {% with tournament=tournament is_chair=is_chair %}
+                    {% with context=tournament %}
                         {% include "tournament/tabs/public/info.html" %}
                     {% endwith %}
                 </div>
@@ -201,7 +201,7 @@
                             <p>Организаторы турнира скрыли инфомацию о уже зарегистрированных командах</p>
                         </div>
                     {% else %}
-                        {% with team_tournament_rels=team_tournament_rels %}
+                        {% with context=team_tournament_rels %}
                             {% include "tournament/tabs/public/teams.html" %}
                         {% endwith %}
                     {% endif %}
@@ -210,7 +210,7 @@
             <li class="tab-header-and-content">
                 <a href="javascript:void(0)" class="tab-link">Судьи</a>
                 <div class="tab-content">
-                    {% with adjudicators=adjudicators %}
+                    {% with context=adjudicators %}
                         {% include "tournament/tabs/public/adjudicators.html" %}
                     {% endwith %}
                 </div>
