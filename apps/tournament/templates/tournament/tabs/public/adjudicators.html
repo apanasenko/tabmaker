@@ -2,40 +2,25 @@
 
 {#{% with context=adjudicators %}#}
 
-{% if context|length > 1 %}
-
 <div class="content-tablepage">
-<table class="table">
-    <tbody>
-    <tr class="table__headrow">
-        <th>Судья</th>
-        <th>Статус</th>
-    </tr>
-    {% for adjudicator in context %}
-        <tr class="table__row">
-            <td>
-                <a class="link" target="_blank" href="{% url 'profile:main' adjudicator.user.id%}">
-                    {{ adjudicator.user|name }}
-                </a>
-            </td>
-            <td>
-                {{ adjudicator.role.role }}
-            </td>
-        </tr>
-    {% endfor %}
-
-    </tbody>
-</table>
+    <table class="table">
+        <tbody>
+            <tr class="table__headrow">
+                <th>Судья</th>
+                <th>Статус</th>
+            </tr>
+            {% for adjudicator in context %}
+                <tr class="table__row">
+                    <td>
+                        <a class="link" target="_blank" href="{% url 'profile:main' adjudicator.user.id%}">
+                            {{ adjudicator.user|name }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ adjudicator.role.role }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
-
-{% else %}
-<div class="content-textpage">
-    <div class="paragraph">
-        <h3>Пока никто не зарегистрировался</h3>
-        <p>Вы можете стать первым cудьей</p>
-    </div>
-</div>
-{% endif %}
-
-
-

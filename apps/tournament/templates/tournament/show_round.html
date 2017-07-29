@@ -14,9 +14,13 @@
 
 
 {% block content %}
-
-    {% with context=rooms %}
-        {% include 'tournament/tabs/public/round.html' %}
-    {% endwith %}
-
+    {% if not rooms or not rooms.0.round %}
+        <div class="content-textpage content-textpage--center content-textpage--top">
+            <p> К сожалению, раунд ещё не объявлен </p>
+        </div>
+    {% else %}
+        {% with context=rooms %}
+            {% include 'tournament/tabs/public/round.html' %}
+        {% endwith %}
+    {% endif %}
 {% endblock content %}

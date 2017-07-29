@@ -200,6 +200,13 @@
                             <h3>Информация закрыта</h3>
                             <p>Организаторы турнира скрыли инфомацию о уже зарегистрированных командах</p>
                         </div>
+                    {% elif not team_tournament_rels|length %}
+                        <div class="content-textpage">
+                            <div class="paragraph">
+                                <h3>Пока никто не зарегистрировался</h3>
+                                <p>Вы можете стать первым участником</p>
+                            </div>
+                        </div>
                     {% else %}
                         {% with context=team_tournament_rels %}
                             {% include "tournament/tabs/public/teams.html" %}
@@ -210,9 +217,18 @@
             <li class="tab-header-and-content">
                 <a href="javascript:void(0)" class="tab-link">Судьи</a>
                 <div class="tab-content">
-                    {% with context=adjudicators %}
-                        {% include "tournament/tabs/public/adjudicators.html" %}
-                    {% endwith %}
+                    {% if not adjudicators|length %}
+                        <div class="content-textpage">
+                            <div class="paragraph">
+                                <h3>Пока никто не зарегистрировался</h3>
+                                <p>Вы можете стать первым cудьей</p>
+                            </div>
+                        </div>
+                    {% else %}
+                        {% with context=adjudicators %}
+                            {% include "tournament/tabs/public/adjudicators.html" %}
+                        {% endwith %}
+                    {% endif %}
                 </div>
             </li>
             <li class="tab-header-and-content">
