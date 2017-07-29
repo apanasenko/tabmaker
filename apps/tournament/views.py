@@ -643,8 +643,7 @@ def show_round(request, tournament):
         request,
         'tournament/show_round.html',
         {
-            'rooms': rooms,
-            'round': None if not rooms else rooms[0].round
+            'rooms': rooms
         },
     )
 
