@@ -1,13 +1,13 @@
 {% load profile_extras %}
 
-{#{% with context=rooms %}#}
+{#{% with tab_data=rooms %}#}
 
 <ul class="accordion-tabs">
     <li class="tab-header-and-content tab-header-and-content__first">
         <a href="javascript:void(0)" class="is-active tab-link">Резолюция</a>
         <div class="tab-content">
             <div class="content-textpage content-textpage--top">
-                {% with round=context.0.round %}
+                {% with round=tab_data.0.round %}
                     {% if round.motion.infoslide %}
                         <h3 class="paragraph__heading">Инфослайд</h3>
                         <p class="paragraph">{{ round.motion.infoslide }}</p>
@@ -32,7 +32,7 @@
                         <th>2П</th>
                         <th>20</th>
                     </tr>
-                    {% for room in context %}
+                    {% for room in tab_data %}
                         <tr class="table__row">
                             <td><span class="wrap">{{ room.game.chair|name }}</span></td>
                             <td>{{ room.place.place }}</td>

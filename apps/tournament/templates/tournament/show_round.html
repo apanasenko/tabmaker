@@ -19,7 +19,7 @@
             <p> К сожалению, раунд ещё не объявлен </p>
         </div>
     {% else %}
-        {% with context=rooms %}
+        {% with tab_data=rooms %}
             {% include 'tournament/tabs/public/round.html' %}
         {% endwith %}
     {% endif %}

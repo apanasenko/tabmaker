@@ -1,6 +1,6 @@
 {% load profile_extras %}
 
-{#{% with context=team_tournament_rels %}#}
+{#{% with tab_data=team_tournament_rels %}#}
 
 <div class="content-tablepage">
     <table class="table">
@@ -11,7 +11,7 @@
                 <th>Второй спикер</th>
                 <th>Статус команды</th>
             </tr>
-            {% for team_tournament_rel in context %}
+            {% for team_tournament_rel in tab_data %}
                 <tr class="table__row">
                     <td>
                         {{ team_tournament_rel.team.name }}

@@ -1,31 +1,31 @@
-{#{% with context=tournament %}#}
+{#{% with tab_data=tournament %}#}
 
 <div class="content-textpage content-textpage--top">
     <h3 class="paragraph__heading">Статус</h3>
     <ul class="paragraph">
         <li class="stats__elem">
-            Начало турнира: {{ context.start_tour|date:"d M Y"}} в {{ context.start_tour|time:"H:i"}}
+            Начало турнира: {{ tab_data.start_tour|date:"d M Y"}} в {{ tab_data.start_tour|time:"H:i"}}
         </li>
         <li class="stats__elem">
-            Место проведения: {{ context.location }} {# TODO получить адрес по координатам #}
+            Место проведения: {{ tab_data.location }} {# TODO получить адрес по координатам #}
         </li>
         <li class="stats__elem">
-            Максимум команд: {{ context.count_teams }}
+            Максимум команд: {{ tab_data.count_teams }}
         </li>
         <li class="stats__elem">
-            Раунды: {{ context.count_rounds }} отборочных
+            Раунды: {{ tab_data.count_rounds }} отборочных
         </li>
         <li class="stats__elem">
-            Выходят в плей-офф: {{ context.count_teams_in_break }} команд
+            Выходят в плей-офф: {{ tab_data.count_teams_in_break }} команд
         </li>
-        <input id="id_location_lon" type="hidden" value={{ context.location_lon }}>
-        <input id="id_location_lat" type="hidden" value={{ context.location_lat }}>
+        <input id="id_location_lon" type="hidden" value={{ tab_data.location_lon }}>
+        <input id="id_location_lat" type="hidden" value={{ tab_data.location_lat }}>
     </ul>
 
     <h3 class="paragraph__heading">Описание</h3>
-    <p class="paragraph">{{ context.info }}</p>
+    <p class="paragraph">{{ tab_data.info }}</p>
 
     <h3 class="paragraph__heading">Подробности</h3>
-    <a class="paragraph" href="{{ context.link }}">{{ context.link }}</a>
+    <a class="paragraph" href="{{ tab_data.link }}">{{ tab_data.link }}</a>
 
 </div>

@@ -17,7 +17,7 @@
                 {% if not team_tab|length %}
                     <h3>Результатов нет</h3>
                 {% else %}
-                    {% with context=team_tab %}
+                    {% with tab_data=team_tab %}
                         {% include "tournament/tabs/public/tab.html" %}
                     {% endwith %}
                 {% endif %}
@@ -30,7 +30,7 @@
                 {% if not speaker_tab|length %}
                     <h3>Результатов нет</h3>
                 {% else %}
-                    {% with context=speaker_tab %}
+                    {% with tab_data=speaker_tab %}
                         {% include "tournament/tabs/public/tab.html" %}
                     {% endwith %}
                 {% endif %}
@@ -40,7 +40,7 @@
         <li class="tab-header-and-content">
             <a href="javascript:void(0)" class="tab-link">Темы</a>
             <div class="tab-content">
-                {% with context=motions %}
+                {% with tab_data=motions %}
                     {% include "tournament/tabs/public/motions.html" %}
                 {% endwith %}
             </div>

@@ -1,9 +1,9 @@
 {% load profile_extras %}
 
-{#{% with context=results %}#}
+{#{% with tab_data=results %}#}
 
 <ul class="accordion-tabs">
-    {% for i in context %}
+    {% for i in tab_data %}
         <li class="tab-header-and-content tab-header-and-content__first">
             <a href="javascript:void(0)"
                class="tab-link {% if forloop.first %} is-active {% endif %}"

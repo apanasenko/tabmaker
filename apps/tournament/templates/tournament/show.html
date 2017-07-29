@@ -187,7 +187,7 @@
             <li class="tab-header-and-content tab-header-and-content__first">
                 <a href="javascript:void(0)" class="is-active tab-link">О турнире</a>
                 <div class="tab-content">
-                    {% with context=tournament %}
+                    {% with tab_data=tournament %}
                         {% include "tournament/tabs/public/info.html" %}
                     {% endwith %}
                 </div>
@@ -208,7 +208,7 @@
                             </div>
                         </div>
                     {% else %}
-                        {% with context=team_tournament_rels %}
+                        {% with tab_data=team_tournament_rels %}
                             {% include "tournament/tabs/public/teams.html" %}
                         {% endwith %}
                     {% endif %}
@@ -225,7 +225,7 @@
                             </div>
                         </div>
                     {% else %}
-                        {% with context=adjudicators %}
+                        {% with tab_data=adjudicators %}
                             {% include "tournament/tabs/public/adjudicators.html" %}
                         {% endwith %}
                     {% endif %}
