@@ -10,21 +10,36 @@ $(function() {
 // поведение табов
 $(document).ready(function () {
 
-    $('.accordion-tabs').each(function(index) {
-        $(this).children('li').find('.is-active').next().addClass('is-open').show();
-    });
+    var activeTabs = function (tabs) {
+        while (tabs.length) {
+            var children = tabs.children('li');
+            var activeTab = children.find('.is-active');
 
-    $('.accordion-tabs').on('click', 'li > a.tab-link', function(event) {
-        event.preventDefault();
+            activeTab = activeTab.length
+                ? activeTab.first()
+                : children.first().children('a').addClass('is-active');
 
-        if (!$(this).hasClass('is-active')) {
-            var accordionTabs = $(this).closest('.accordion-tabs');
-            accordionTabs.find('.is-open').removeClass('is-open').hide();
-            $(this).next().toggleClass('is-open').toggle();
-            accordionTabs.find('.is-active').removeClass('is-active');
-            $(this).addClass('is-active');
+            activeTab.next().addClass('is-open').show();
+            tabs = tabs.find('.accordion-tabs')
         }
-    });
+    };
+
+    $('.accordion-tabs')
+        .on('click', 'li > a.tab-link', function(event) {
+            event.preventDefault();
+
+            if (!$(this).hasClass('is-active')) {
+                var accordionTabs = $(this).closest('.accordion-tabs');
+                accordionTabs.find('.is-open').removeClass('is-open').hide();
+                accordionTabs.find('.is-active').removeClass('is-active');
+                $(this).addClass('is-active');
+                activeTabs(accordionTabs);
+            }
+        }).filter(function () {
+            return $(this).parents('.accordion-tabs').length < 1;
+        }).each(function(index) {
+            activeTabs($(this));
+        });
 });
 
 // показ табов
