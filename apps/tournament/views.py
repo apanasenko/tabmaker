@@ -487,8 +487,8 @@ def support(request):
             %s
             ''' % (
                 who,
-                request.POST.get('contacts', ''),
                 request.POST.get('problem', ''),
+                request.POST.get('contacts', ''),
             )
         )
 
