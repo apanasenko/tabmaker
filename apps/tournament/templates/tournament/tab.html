@@ -1,0 +1,24 @@
+{% if tab|length > 1 %}
+    <div class="content-tablepage">
+
+        <table class="table">
+            <tbody>
+
+            {% for tr in tab %}
+                <tr class="table__row">
+                    {% for td in tr %}
+                        <td>{{ td }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+{% else %}
+
+    <div class="content-textpage">
+        <h3>Результатов нет</h3>
+    </div>
+
+{% endif %}

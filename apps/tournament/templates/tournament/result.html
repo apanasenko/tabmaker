@@ -6,6 +6,19 @@
     Результаты
 {% endblock page_title %}
 
+{% block title %}
+    <div class="title">
+        <div class="title-container">
+            <h3 class="title__name">Результаты: {{ tournament.name }}</h3>
+            <div class="title-container">
+                <a class="button button--mid button--sec" href="{% url 'tournament:result_all' tournament.id %}">
+                    Результаты по комнатам
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock title %}
+
 
 {% block content %}
 
