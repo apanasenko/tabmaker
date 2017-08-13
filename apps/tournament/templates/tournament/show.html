@@ -35,11 +35,21 @@
                 {% elif tournament|is_status_started or tournament|is_status_playoff %}
 
                     <a class="button button--mid button--sec" href="{% url "tournament:show_round" tournament.id %}">
-                        Текущий раунд
+                        Тэб текущего раунда
                     </a>
                     <a class="button button--mid button--sec" href="{% url 'tournament:result' tournament.id %}">
                         Баллы команд и спикеров
                     </a>
+                    <a class="button button--mid button--sec" href="{% url 'tournament:result_all' tournament.id %}">
+                        Результаты по комнатам
+                    </a>
+
+                {% else %}
+
+                    <a class="button button--mid button--sec " href="{% url "tournament:result" tournament.id %}">
+                        Результаты
+                    </a>
+
                     <a class="button button--mid button--sec" href="{% url 'tournament:result_all' tournament.id %}">
                         Результаты по комнатам
                     </a>
