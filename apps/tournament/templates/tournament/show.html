@@ -116,7 +116,7 @@
                     <p class="dropbtn">Настройки турнира<i class="material-icons">keyboard_arrow_down</i></p>
                     <div class="dropdown-content">
                         {% if not tournament|is_status_finished %}
-                            <a  href="{% url "tournament:edit" tournament.id %}">Параметры</a>
+                            <a  href="{% url "tournament:edit" tournament.id %}">Редактировать турнир</a>
                             <a  href="{% url "tournament:place_list" tournament.id %}">Аудитории</a>
                             <a  href="{% url "tournament:admin_list" tournament.id %}">Администраторы</a>
                         {% endif %}
