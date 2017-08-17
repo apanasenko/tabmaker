@@ -3,72 +3,24 @@
 {% load profile_extras %}
 
 {% block page_title %}
-    {% if round.is_playoff %}
-        {{ round.number }} Раунд play-off
-    {% elif not round %}
+    {% if not rooms or not rooms.0.round %}
         Раунд ещё не объявлен
+    {% elif rooms.0.round.is_playoff %}
+        {{ rooms.0.round.number }} Раунд play-off
     {% else %}
-        Раунд {{ round.number }}
+        Раунд {{ rooms.0.round.number }}
     {% endif %}
 {% endblock page_title %}
 
 
 {% block content %}
-
-    {% if not round %}
+    {% if not rooms or not rooms.0.round %}
         <div class="content-textpage content-textpage--center content-textpage--top">
             <p> К сожалению, раунд ещё не объявлен </p>
         </div>
-
     {% else %}
-
-        <ul class="accordion-tabs">
-
-            <li class="tab-header-and-content tab-header-and-content__first">
-                <a href="javascript:void(0)" class="is-active tab-link">Комнаты</a>
-                <div class="tab-content">
-                    <div class="content-tablepage">
-                        <table class="table">
-                            <tbody>
-                                <tr class="table__headrow">
-                                    <th>Cудья</th>
-                                    <th>Аудитория</th>
-                                    <th>1П</th>
-                                    <th>1О</th>
-                                    <th>2П</th>
-                                    <th>20</th>
-                                </tr>
-                                {% for room in rooms %}
-                                    <tr class="table__row">
-                                        <td><span class="wrap">{{ room.game.chair|name }}</span></td>
-                                        <td>{{ room.place.place }}</td>
-                                        <td>{{ room.game.og.name }}</td>
-                                        <td>{{ room.game.oo.name }}</td>
-                                        <td>{{ room.game.cg.name }}</td>
-                                        <td>{{ room.game.co.name }}</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </li>
-
-            <li class="tab-header-and-content">
-                <a href="javascript:void(0)" class="tab-link">Резолюция</a>
-                <div class="tab-content">
-                    <div class="content-textpage content-textpage--top">
-                        {% if round.motion.infoslide %}
-                            <h3 class="paragraph__heading">Инфослайд</h3>
-                            <p class="paragraph">{{ round.motion.infoslide }}</p>
-                        {% endif %}
-                            <h3 class="paragraph__heading">Резолюция</h3>
-                            <p class="paragraph">{{ round.motion.motion }}</p>
-                    </div>
-                </div>
-            </li>
-
-        </ul>
-
+        {% with tab_data=rooms %}
+            {% include 'tournament/tabs/public/round.html' %}
+        {% endwith %}
     {% endif %}
 {% endblock content %}
