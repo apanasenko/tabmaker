@@ -53,35 +53,39 @@
         </tr>
 
         {% for rel in team_tournament_rels %}
-            <div id="message_{{ rel.id }}"></div>
-            <div id="team_{{ rel.id }}">
-                <tr class="table__row">
-                    <td>{{ rel.team.name }}</td>
-                    <td>
-                        <a class="link" target="_blank" href="{% url 'profile:main' rel.team.speaker_1.id%}">{{ rel.team.speaker_1|name }}</a>
-                    </td>
-                    <td>
-                        <a class="link" target="_blank" href="{% url 'profile:main' rel.team.speaker_2.id%}">{{ rel.team.speaker_2|name }}</a>
-                    </td>
-                    <td>
-                        <select class="roles"
-                            onchange="update_status(
-                                    '{% url 'tournament:update_team_role' tournament.id%}',
-                                    this,
-                                    '{{ rel.id }}',
-                                    'message_{{ rel.id }}'
-                                    )"
-                            onfocus="on_focus(this)"
-                            >
-                            {% for status in statuses %}
-                                <option {% if status.id == rel.role.id %} selected {% endif %} value="{{ status.id }}">
-                                    {{ status.role }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </td>
-                </tr>
-            </div>
+            <tr>
+                <td id="message_{{ rel.id }}" colspan="4"></td>
+            </tr>
+            <tr class="table__row">
+                <td>{{ rel.team.name }}</td>
+                <td>
+                    <a class="link" target="_blank" href="{% url 'profile:main' rel.team.speaker_1.id%}">
+                        {{ rel.team.speaker_1|name }}
+                    </a>
+                </td>
+                <td>
+                    <a class="link" target="_blank" href="{% url 'profile:main' rel.team.speaker_2.id%}">
+                        {{ rel.team.speaker_2|name }}
+                    </a>
+                </td>
+                <td>
+                    <select class="roles"
+                        onchange="update_status(
+                                '{% url 'tournament:update_team_role' tournament.id%}',
+                                this,
+                                '{{ rel.id }}',
+                                'message_{{ rel.id }}'
+                                )"
+                        onfocus="on_focus(this)"
+                        >
+                        {% for status in statuses %}
+                            <option {% if status.id == rel.role.id %} selected {% endif %} value="{{ status.id }}">
+                                {{ status.role }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
         {% endfor %}
 
         </tbody>

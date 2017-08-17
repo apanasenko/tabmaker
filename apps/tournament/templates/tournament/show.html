@@ -35,11 +35,21 @@
                 {% elif tournament|is_status_started or tournament|is_status_playoff %}
 
                     <a class="button button--mid button--sec" href="{% url "tournament:show_round" tournament.id %}">
-                        Текущий раунд
+                        Тэб текущего раунда
                     </a>
                     <a class="button button--mid button--sec" href="{% url 'tournament:result' tournament.id %}">
                         Баллы команд и спикеров
                     </a>
+                    <a class="button button--mid button--sec" href="{% url 'tournament:result_all' tournament.id %}">
+                        Результаты по комнатам
+                    </a>
+
+                {% else %}
+
+                    <a class="button button--mid button--sec " href="{% url "tournament:result" tournament.id %}">
+                        Результаты
+                    </a>
+
                     <a class="button button--mid button--sec" href="{% url 'tournament:result_all' tournament.id %}">
                         Результаты по комнатам
                     </a>
@@ -116,7 +126,7 @@
                     <p class="dropbtn">Настройки турнира<i class="material-icons">keyboard_arrow_down</i></p>
                     <div class="dropdown-content">
                         {% if not tournament|is_status_finished %}
-                            <a  href="{% url "tournament:edit" tournament.id %}">Параметры</a>
+                            <a  href="{% url "tournament:edit" tournament.id %}">Редактировать турнир</a>
                             <a  href="{% url "tournament:place_list" tournament.id %}">Аудитории</a>
                             <a  href="{% url "tournament:admin_list" tournament.id %}">Администраторы</a>
                         {% endif %}
@@ -187,8 +197,8 @@
             <li class="tab-header-and-content tab-header-and-content__first">
                 <a href="javascript:void(0)" class="is-active tab-link">О турнире</a>
                 <div class="tab-content">
-                    {% with tournament=tournament is_chair=is_chair %}
-                        {% include "tournament/tournament_info.html" %}
+                    {% with tab_data=tournament %}
+                        {% include "tournament/tabs/public/info.html" %}
                     {% endwith %}
                 </div>
             </li>
@@ -200,9 +210,16 @@
                             <h3>Информация закрыта</h3>
                             <p>Организаторы турнира скрыли инфомацию о уже зарегистрированных командах</p>
                         </div>
+                    {% elif not team_tournament_rels|length %}
+                        <div class="content-textpage">
+                            <div class="paragraph">
+                                <h3>Пока никто не зарегистрировался</h3>
+                                <p>Вы можете стать первым участником</p>
+                            </div>
+                        </div>
                     {% else %}
-                        {% with team_tournament_rels=team_tournament_rels %}
-                            {% include "tournament/team_list.html" %}
+                        {% with tab_data=team_tournament_rels %}
+                            {% include "tournament/tabs/public/teams.html" %}
                         {% endwith %}
                     {% endif %}
                 </div>
@@ -210,15 +227,24 @@
             <li class="tab-header-and-content">
                 <a href="javascript:void(0)" class="tab-link">Судьи</a>
                 <div class="tab-content">
-                    {% with adjudicators=adjudicators %}
-                        {% include "tournament/adjudicator_list.html" %}
-                    {% endwith %}
+                    {% if not adjudicators|length %}
+                        <div class="content-textpage">
+                            <div class="paragraph">
+                                <h3>Пока никто не зарегистрировался</h3>
+                                <p>Вы можете стать первым cудьей</p>
+                            </div>
+                        </div>
+                    {% else %}
+                        {% with tab_data=adjudicators %}
+                            {% include "tournament/tabs/public/adjudicators.html" %}
+                        {% endwith %}
+                    {% endif %}
                 </div>
             </li>
             <li class="tab-header-and-content">
                 <a href="javascript:void(0)" class="tab-link">На карте</a>
                 <div class="tab-content">
-                    <div id="map" style="width: 100%; height: 400px"></div>
+                    {% include "tournament/tabs/public/map.html" %}
                 </div>
             </li>
         </ul>

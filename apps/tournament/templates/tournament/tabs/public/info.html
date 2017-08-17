@@ -1,0 +1,31 @@
+{#{% with tab_data=tournament %}#}
+
+<div class="content-textpage content-textpage--top">
+    <h3 class="paragraph__heading">Статус</h3>
+    <ul class="paragraph">
+        <li class="stats__elem">
+            Начало турнира: {{ tab_data.start_tour|date:"d M Y"}} в {{ tab_data.start_tour|time:"H:i"}}
+        </li>
+        <li class="stats__elem">
+            Место проведения: {{ tab_data.location }} {# TODO получить адрес по координатам #}
+        </li>
+        <li class="stats__elem">
+            Максимум команд: {{ tab_data.count_teams }}
+        </li>
+        <li class="stats__elem">
+            Раунды: {{ tab_data.count_rounds }} отборочных
+        </li>
+        <li class="stats__elem">
+            Выходят в плей-офф: {{ tab_data.count_teams_in_break }} команд
+        </li>
+        <input id="id_location_lon" type="hidden" value={{ tab_data.location_lon }}>
+        <input id="id_location_lat" type="hidden" value={{ tab_data.location_lat }}>
+    </ul>
+
+    <h3 class="paragraph__heading">Описание</h3>
+    <p class="paragraph">{{ tab_data.info }}</p>
+
+    <h3 class="paragraph__heading">Подробности</h3>
+    <a class="paragraph" href="{{ tab_data.link }}">{{ tab_data.link }}</a>
+
+</div>

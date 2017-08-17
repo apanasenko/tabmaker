@@ -105,7 +105,7 @@
 
                 <ul class="burger-menu">
                     {% if request.user.is_authenticated %}
-                        <li class="burger-menu__item"><a href="{% url 'account_logout' %}">Выйти</li>
+                        <li class="burger-menu__item"><a href="{% url 'account_logout' %}">Выйти</a></li>
                         <li class="burger-menu__item"><a href="{% url 'tournament:new' %}">Создать турнир</a></li>
                     {% else %}
                         <li class="burger-menu__item"><a href="{% url 'account_login' %}">Войти</a></li>

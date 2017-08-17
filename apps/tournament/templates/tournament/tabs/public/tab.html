@@ -1,0 +1,15 @@
+{#{% with tab_data = team_tab | speaker_tab %}#}
+
+<div class="content-tablepage">
+    <table class="table">
+        <tbody>
+        {% for tr in tab_data %}
+            <tr class="table__row">
+                {% for td in tr %}
+                    <td>{{ td }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

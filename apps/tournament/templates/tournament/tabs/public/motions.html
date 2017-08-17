@@ -1,0 +1,12 @@
+{#{% with tab_data=motions %}#}
+
+<div class="content-textpage">
+    {% for motion in tab_data %}
+        <div class="paragraph">
+            <p>{{ motion.number }}: {{ motion.motion }}</p>
+            {% if motion.infoslide %}
+                <p>{{ motion.infoslide }}</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

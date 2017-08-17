@@ -310,6 +310,10 @@ def created(request, tournament):
 
 @access_by_status(name_page='show')
 def show(request, tournament):
+
+    if request.GET.get('new', None):
+        return show2(request, tournament)
+
     is_chair = request.user.is_authenticated() \
         and tournament.status in [STATUS_PLAYOFF, STATUS_STARTED] \
         and get_rooms_from_last_round(tournament, False, request.user).count()
@@ -328,6 +332,122 @@ def show(request, tournament):
             'is_owner': user_can_edit_tournament(tournament, request.user),
             'is_chair': is_chair,
             'need_show_feedback_button': need_show_feedback_button,
+        }
+    )
+
+
+# @access_by_status(name_page='show')
+def show2(request, tournament):
+
+    # is_chair = request.user.is_authenticated() \
+    #     and tournament.status in [STATUS_PLAYOFF, STATUS_STARTED] \
+    #     and get_rooms_from_last_round(tournament, False, request.user).count()
+    #
+    # need_show_feedback_button = request.user.is_authenticated() \
+    #     and get_rooms_by_user(tournament, request.user) \
+    #     and CustomForm.objects.filter(tournament=tournament, form_type=FORM_FEEDBACK_TYPE).count()
+
+    is_owner = user_can_edit_tournament(tournament, request.user)
+
+    tabs = []
+
+    # Текущий раунд
+    if tournament.status in [STATUS_STARTED, STATUS_PLAYOFF]:
+        tab_config = {'title': 'Раунд'}
+        rooms = get_rooms_from_last_round(tournament, True)
+        if not rooms or not rooms[0].round.is_public:
+            tab_config['message'] = MSG_ROUND_NOT_PUBLIC
+        else:
+            tab_config['data'] = rooms
+            tab_config['template'] = 'tournament/tabs/public/round.html'
+
+        tabs.append(tab_config)
+
+    # Командный теб + Спикерский теб
+    if tournament.status in [STATUS_STARTED, STATUS_PLAYOFF, STATUS_FINISHED]:
+        show_all = tournament.status == STATUS_FINISHED or is_owner
+        results = get_tab(tournament)
+
+        tab_config = {'title': 'Результаты команд'}
+        if not results:
+            tab_config['message'] = 'Результатов нет'
+        else:
+            tab_config['data'] = _convert_tab_to_table(results, show_all)
+            tab_config['template'] = 'tournament/tabs/public/tab.html'
+
+        tabs.append(tab_config)
+
+        if tournament.status == STATUS_FINISHED:
+            tab_config = {'title': 'Результаты спикеров'}
+            if not results:
+                tab_config['message'] = 'Результатов нет'
+            else:
+                tab_config['data'] = _convert_tab_to_speaker_table(results, show_all)
+                tab_config['template'] = 'tournament/tabs/public/tab.html'
+
+            tabs.append(tab_config)
+
+        tabs.append({
+            'title': 'Темы',
+            'data': get_motions(tournament),
+            'template': 'tournament/tabs/public/motions.html',
+        })
+
+        if tournament.status == STATUS_FINISHED:
+            tabs.append({
+                'title': 'Раунды',
+                'data': get_all_rounds_and_rooms(tournament),
+                'template': 'tournament/tabs/public/results.html',
+            })
+
+    tabs.append({
+        'title': 'О турнире',
+        'data': tournament,
+        'template': 'tournament/tabs/public/info.html',
+    })
+
+    tab_config = {'title': 'Команды'}
+    if not is_owner and tournament.status == STATUS_REGISTRATION and tournament.is_registration_hidden:
+        tab_config['message'] = 'Информация закрыта'
+        tab_config['comment'] = 'Организаторы турнира скрыли инфомацию о уже зарегистрированных командах'
+    else:
+        teams = tournament.get_teams()
+        if not len(teams):
+            tab_config['message'] = 'Пока никто не зарегистрировался'
+            tab_config['comment'] = 'Вы можете стать первым участником'
+        else:
+            tab_config['data'] = teams
+            tab_config['template'] = 'tournament/tabs/public/teams.html'
+
+    tabs.append(tab_config)
+
+    tab_config = {'title': 'Судьи'}
+    adjudicators = tournament.get_users(ADJUDICATOR_ROLES)
+    if not len(adjudicators):
+        tab_config['message'] = 'Пока никто не зарегистрировался'
+        tab_config['comment'] = 'Вы можете стать первым cудьей'
+    else:
+        tab_config['data'] = adjudicators
+        tab_config['template'] = 'tournament/tabs/public/adjudicators.html'
+
+    tabs.append(tab_config)
+
+    tabs.append({
+        'title': 'На карте',
+        'data': True,
+        'template': 'tournament/tabs/public/map.html',
+    })
+
+    return render(
+        request,
+        'tournament/show2.html',
+        {
+            'tournament': tournament,
+            'is_owner': is_owner,
+            'tabs': tabs,
+            # 'is_chair': is_chair,
+            # 'need_show_feedback_button': need_show_feedback_button,
+            # 'user_messages': messages.get_messages(request),
         }
     )
 
@@ -487,8 +607,8 @@ def support(request):
             %s
             ''' % (
                 who,
-                request.POST.get('contacts', ''),
                 request.POST.get('problem', ''),
+                request.POST.get('contacts', ''),
             )
         )
 
@@ -643,8 +763,7 @@ def show_round(request, tournament):
         request,
         'tournament/show_round.html',
         {
-            'rooms': rooms,
-            'round': None if not rooms else rooms[0].round
+            'rooms': rooms
         },
     )
 

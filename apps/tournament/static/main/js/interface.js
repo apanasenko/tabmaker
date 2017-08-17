@@ -10,23 +10,36 @@ $(function() {
 // поведение табов
 $(document).ready(function () {
 
-    $('.accordion-tabs').each(function(index) {
-        $(this).children('li').first().children('a').addClass('is-active').next().addClass('is-open').show();
-    });
+    var activeTabs = function (tabs) {
+        while (tabs.length) {
+            var children = tabs.children('li');
+            var activeTab = children.find('.is-active');
 
-    $('.accordion-tabs').on('click', 'li > a.tab-link', function(event) {
-        if (!$(this).hasClass('is-active')) {
-            event.preventDefault();
-            var accordionTabs = $(this).closest('.accordion-tabs');
-            accordionTabs.find('.is-open').removeClass('is-open').hide();
+            activeTab = activeTab.length
+                ? activeTab.first()
+                : children.first().children('a').addClass('is-active');
 
-            $(this).next().toggleClass('is-open').toggle();
-            accordionTabs.find('.is-active').removeClass('is-active');
-            $(this).addClass('is-active');
-        } else {
-            event.preventDefault();
+            activeTab.next().addClass('is-open').show();
+            tabs = tabs.find('.accordion-tabs')
         }
-    });
+    };
+
+    $('.accordion-tabs')
+        .on('click', 'li > a.tab-link', function(event) {
+            event.preventDefault();
+
+            if (!$(this).hasClass('is-active')) {
+                var accordionTabs = $(this).closest('.accordion-tabs');
+                accordionTabs.find('.is-open').removeClass('is-open').hide();
+                accordionTabs.find('.is-active').removeClass('is-active');
+                $(this).addClass('is-active');
+                activeTabs(accordionTabs);
+            }
+        }).filter(function () {
+            return $(this).parents('.accordion-tabs').length < 1;
+        }).each(function(index) {
+            activeTabs($(this));
+        });
 });
 
 // показ табов
@@ -36,6 +49,13 @@ $(document).ready(function() {
         $('.dropdown-content').hide();
         menuItem.toggle();
     });
+});
+
+$(document).mouseup(function (e) {
+    var container = $('.dropdown-content');
+    if (container.has(e.target).length === 0){
+        container.hide();
+    }
 });
 
 $(document).ready(function() {

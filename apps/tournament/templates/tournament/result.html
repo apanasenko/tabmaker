@@ -6,6 +6,19 @@
     Результаты
 {% endblock page_title %}
 
+{% block title %}
+    <div class="title">
+        <div class="title-container">
+            <h3 class="title__name">Результаты: {{ tournament.name }}</h3>
+            <div class="title-container">
+                <a class="button button--mid button--sec" href="{% url 'tournament:result_all' tournament.id %}">
+                    Результаты по комнатам
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock title %}
+
 
 {% block content %}
 
@@ -14,34 +27,35 @@
         <li class="tab-header-and-content tab-header-and-content__first">
             <a href="javascript:void(0)" class="is-active tab-link">Команды</a>
             <div class="tab-content">
-                 {% with tab=team_tab %}
-                    {% include "tournament/tab.html" %}
-                {% endwith %}
+                {% if not team_tab|length %}
+                    <h3>Результатов нет</h3>
+                {% else %}
+                    {% with tab_data=team_tab %}
+                        {% include "tournament/tabs/public/tab.html" %}
+                    {% endwith %}
+                {% endif %}
             </div>
         </li>
 
         <li class="tab-header-and-content">
             <a href="javascript:void(0)" class="tab-link">Спикеры</a>
             <div class="tab-content">
-                {% with tab=speaker_tab %}
-                    {% include "tournament/tab.html" %}
-                {% endwith %}
+                {% if not speaker_tab|length %}
+                    <h3>Результатов нет</h3>
+                {% else %}
+                    {% with tab_data=speaker_tab %}
+                        {% include "tournament/tabs/public/tab.html" %}
+                    {% endwith %}
+                {% endif %}
             </div>
         </li>
 
         <li class="tab-header-and-content">
             <a href="javascript:void(0)" class="tab-link">Темы</a>
             <div class="tab-content">
-                <div class="content-textpage">
-                    {% for motion in motions %}
-                        <div class="paragraph">
-                            <p>{{ motion.number }}: {{ motion.motion }}</p>
-                            {% if motion.infoslide %}
-                                <p>{{ motion.infoslide }}</p>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                </div>
+                {% with tab_data=motions %}
+                    {% include "tournament/tabs/public/motions.html" %}
+                {% endwith %}
             </div>
         </li>
 
