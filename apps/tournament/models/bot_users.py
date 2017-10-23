@@ -2,11 +2,11 @@ from django.db import models
 
 
 class BotUsers(models.Model):
-    user_id = models.PositiveIntegerField()
+    user_id = models.BigIntegerField()
     username = models.CharField(max_length=100)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    chat_id = models.IntegerField(blank=True)
+    chat_id = models.BigIntegerField(blank=True)
     chat_name = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
