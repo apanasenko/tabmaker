@@ -1267,7 +1267,7 @@ def place_update(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='edit')
 def place_add(request, tournament):
-    place_name = request.POST.get('place', '').strip()
+    place_name = request.POST.get('place', '').strip()[:100]  # max length of place name
     place = tournament.place_set.get_or_create(place=place_name, tournament=tournament)
     if not place[1]:
         return json_response(MSG_JSON_BAD, 'уже есть')

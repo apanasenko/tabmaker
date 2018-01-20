@@ -33,6 +33,7 @@
     <input class="form-elem__input form-elem__input--short"
            id="add_place_input"
            placeholder="Название аудитории"
+           maxlength="100"
            required
     >
     <a class="button button--mid button--prime" onclick="save_place('{% url 'tournament:place_add' tournament.id %}')">

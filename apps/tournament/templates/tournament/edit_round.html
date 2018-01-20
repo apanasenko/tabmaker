@@ -58,7 +58,7 @@
                     <select class="place_select b-result-edit__select">
                         {% for place in places %}
                             <option value="{{ place.id }}" {% if place.id ==  form.place_id.value %} selected {% endif %} >
-                                {{ place.place }}
+                                {{ place.place|striptags}}
                             </option>
                         {% endfor %}
                     </select>

@@ -35,7 +35,7 @@
                     {% for room in tab_data %}
                         <tr class="table__row">
                             <td><span class="wrap">{{ room.game.chair|name }}</span></td>
-                            <td>{{ room.place.place }}</td>
+                            <td>{{ room.place.place|safe }}</td>
                             <td>{{ room.game.og.name }}</td>
                             <td>{{ room.game.oo.name }}</td>
                             <td>{{ room.game.cg.name }}</td>
