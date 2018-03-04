@@ -1,7 +1,9 @@
-var FULL_COUNTRY_OPTION_ID = -1;
-var FULL_COUNTRY_OPTION_LABEL = 'Полный список';
-var DEFAULT_COUNTRY_ID = 1;
-var DEFAULT_LANG = 'ru';
+const FULL_COUNTRY_OPTION_ID = -1;
+const FULL_COUNTRY_OPTION_LABEL = 'Полный список';
+const DEFAULT_COUNTRY_ID = 1;
+const DEFAULT_LANG = 'ru';
+const VK_API_VERSION = 5;
+
 var Item = function(selector_id, selector_name, selector_list) {
     return {
         get: function() {
@@ -35,13 +37,8 @@ var Item = function(selector_id, selector_name, selector_list) {
 var country = new Item('#id_country_id', '#id_country_name', '#countries');
 var city = new Item('#id_city_id', '#id_city_name', '#city_list');
 var university = new Item('#id_university_id', '#id_university_name', '#university_list');
-var callback = null;
-
 
 $(document).ready(function() {
-    //VK.init({
-    //    apiId: <apiId>
-    //});
     loadCountries(false);
 });
 
@@ -55,52 +52,45 @@ function getDataFromVK(url){
 
 function loadCountries(need_all) {
     need_all = need_all || country.get().id ? 1 : 0;
-    var count = 1000; // all (max 255)
 
-    callback = function (data) {
-        country.list().empty();
-        data.response.forEach(function(x) {
-            country.list().append(new Option(x.title, x.cid));
-        });
-        if ( ! need_all) {
-            country.list().append(new Option(FULL_COUNTRY_OPTION_LABEL, FULL_COUNTRY_OPTION_ID));
-        }
-        if (country.get().id) {
-            country.list().val(country.get().id);
-        } else {
-            country.list().val(DEFAULT_COUNTRY_ID);
-            country.set(country.list().val(), country.list().find('option:selected').text());
-        }
-        country.list().change(function() {
-            country.set(this.value, this.options[this.selectedIndex].text);
-            city.unset();
-            university.unset();
-            university.disable();
+    $.get(
+        'https://api.vk.com/method/database.getCountries',
+        {
+            need_all: need_all,
+            count: 1000, // all (max 255)
+            lang: DEFAULT_LANG,
+            v: VK_API_VERSION
+        },
+        function (data) {
+            country.list().empty();
+            data.response.items.forEach(function(x) {
+                country.list().append(new Option(x.title, x.id));
+            });
+            if ( ! need_all) {
+                country.list().append(new Option(FULL_COUNTRY_OPTION_LABEL, FULL_COUNTRY_OPTION_ID));
+            }
+            if (country.get().id) {
+                country.list().val(country.get().id);
+            } else {
+                country.list().val(DEFAULT_COUNTRY_ID);
+                country.set(country.list().val(), country.list().find('option:selected').text());
+            }
+            country.list().change(function() {
+                country.set(this.value, this.options[this.selectedIndex].text);
+                city.unset();
+                university.unset();
+                university.disable();
+                loadCities();
+            });
             loadCities();
-        });
-        loadCities();
-    };
-
-    getDataFromVK(
-        'https://api.vk.com/method/database.getCountries' +
-        '?need_all=' + need_all +
-        '&count=' + count +
-        '&lang=' + DEFAULT_LANG +
-        '&callback=callback'
+        },
+        'jsonp'
     );
-    //VK.Api.call(
-    //    'database.getCountries',
-    //    {
-    //        need_all: need_all,
-    //        count: count
-    //    },
-    //    update_country_list
-    //);
 }
 
 
 function loadCities(){
-    if (country.get().id == FULL_COUNTRY_OPTION_ID) {
+    if (parseInt(country.get().id) === FULL_COUNTRY_OPTION_ID) {
         loadCountries(true);
         return;
     }
@@ -108,48 +98,36 @@ function loadCities(){
     city.list().autocomplete({
         minLength: 0,
         source: function(request, response) {
-            //VK.Api.call(
-            //    'database.getCities',
-            //    {
-            //        need_all: 0,
-            //        country_id: country.get().id,
-            //        q: request.term
-            //    },
-            //    updateCityList
-            //);
-            callback = function (data) {
-                if (typeof(data.response) !== 'object'){
-                    return;
-                }
-                response(data.response
-                        .filter(function(x) {
-                            return typeof(x) === 'object';
-                        })
-                        .map(function(x) {
-                            var desc = [];
-                            if (x.area) {
-                                desc.push(x.area);
-                            }
-                            if (x.region) {
-                                desc.push(x.region);
-                            }
-                            return {
-                                id: x.cid,
-                                value: x.title,
-                                label: x.title,
-                                desc: desc.join(', ')
-                            }
-                        })
-                );
-            };
-
-            getDataFromVK(
-                'https://api.vk.com/method/database.getCities' +
-                '?need_all=' + '0' +
-                '&country_id=' + country.get().id +
-                '&q=' + request.term +
-                '&lang=' + DEFAULT_LANG +
-                '&callback=callback'
+            $.get(
+                'https://api.vk.com/method/database.getCities',
+                {
+                    country_id: country.get().id,
+                    q: request.term,
+                    need_all: 0,
+                    lang: DEFAULT_LANG,
+                    v: VK_API_VERSION
+                },
+                function (data) {
+                    if (typeof(data.response) !== 'object') {
+                        return;
+                    }
+                    response(data.response.items.map(function (x) {
+                        var desc = [];
+                        if (x.area) {
+                            desc.push(x.area);
+                        }
+                        if (x.region) {
+                            desc.push(x.region);
+                        }
+                        return {
+                            id: x.id,
+                            value: x.title,
+                            label: x.title,
+                            desc: desc.join(', ')
+                        }
+                    }));
+                },
+                'jsonp'
             );
         },
         focus: function() {
@@ -189,42 +167,30 @@ function loadUniversities() {
     university.list().autocomplete({
         minLength: 0,
         source: function(request, response) {
-            callback = function (data) {
-                if (typeof(data.response) !== 'object'){
-                    return;
-                }
-                response(data.response
-                        .filter(function(x) {
-                            return typeof(x) === 'object';
-                        })
-                        .map(function(x) {
-                            return {
-                                id: x.id,
-                                value: x.title,
-                                label: x.title
-                            }
-                        })
-                );
-            };
-            getDataFromVK(
-                'https://api.vk.com/method/database.getUniversities' +
-                '?need_all=' + '0' +
-                '&country_id=' + country.get().id +
-                '&city_id=' + city.get().id +
-                '&q=' + request.term +
-                '&lang=' + DEFAULT_LANG +
-                '&callback=callback'
+            $.get(
+                'https://api.vk.com/method/database.getUniversities',
+                {
+                    country_id: country.get().id,
+                    city_id: city.get().id,
+                    q: request.term,
+                    need_all: 0,
+                    lang: DEFAULT_LANG,
+                    v: VK_API_VERSION
+                },
+                function (data) {
+                    if (typeof(data.response) !== 'object'){
+                        return;
+                    }
+                    response(data.response.items.map(function(x) {
+                        return {
+                            id: x.id,
+                            value: x.title,
+                            label: x.title
+                        }
+                    }));
+                },
+                'jsonp'
             );
-            //VK.Api.call(
-            //    'database.getUniversities',
-            //    {
-            //        need_all: 0,
-            //        country_id: country.get().id,
-            //        city_id: city.get().id,
-            //        q: request.term
-            //    },
-            //    updateCityList
-            //);
         },
         select: function(event, ui) {
             university.set(ui.item.id, ui.item.value);
