@@ -8,8 +8,12 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^profile/', include('apps.tournament.urls.account')),
     url(r'^tournament/', include('apps.tournament.urls.tournament', namespace='tournament')),
-    url(r'^telegram/', include('django_telegrambot.urls'))
 ]
+
+if settings.TELEGRAM_BOT_ENABLE:
+    urlpatterns += [
+        url(r'^', include('django_telegrambot.urls')),
+    ]
 
 if settings.DEBUG:
     import debug_toolbar
