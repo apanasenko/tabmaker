@@ -18,9 +18,9 @@ def motion(bot, update):
     try:
         user, created = BotUsers.objects.get_or_create(
             user_id=update.message.from_user.id,
-            username=update.message.from_user.username,
-            first_name=update.message.from_user.first_name,
-            last_name=update.message.from_user.last_name,
+            username=update.message.from_user.username or '',
+            first_name=update.message.from_user.first_name or '',
+            last_name=update.message.from_user.last_name or '',
             chat_id=update.message.chat_id,
             chat_name=update.message.chat.title or '',
         )
