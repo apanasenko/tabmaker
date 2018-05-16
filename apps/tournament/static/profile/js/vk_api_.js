@@ -3,6 +3,7 @@ const FULL_COUNTRY_OPTION_LABEL = 'Полный список';
 const DEFAULT_COUNTRY_ID = 1;
 const DEFAULT_LANG = 'ru';
 const VK_API_VERSION = 5;
+const VK_ACCESS_TOKEN = '0932ef530932ef5309e7d4df8b0974d6de009320932ef5351c01737d8ea58da939c9124';
 
 var Item = function(selector_id, selector_name, selector_list) {
     return {
@@ -59,6 +60,7 @@ function loadCountries(need_all) {
             need_all: need_all,
             count: 1000, // all (max 255)
             lang: DEFAULT_LANG,
+            access_token: VK_ACCESS_TOKEN,
             v: VK_API_VERSION
         },
         function (data) {
@@ -105,6 +107,7 @@ function loadCities(){
                     q: request.term,
                     need_all: 0,
                     lang: DEFAULT_LANG,
+                    access_token: VK_ACCESS_TOKEN,
                     v: VK_API_VERSION
                 },
                 function (data) {
@@ -175,6 +178,7 @@ function loadUniversities() {
                     q: request.term,
                     need_all: 0,
                     lang: DEFAULT_LANG,
+                    access_token: VK_ACCESS_TOKEN,
                     v: VK_API_VERSION
                 },
                 function (data) {
