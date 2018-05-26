@@ -1,4 +1,5 @@
 import gspread
+import logging
 from django import forms
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
@@ -69,14 +70,12 @@ class ImportTeam:
             )
             self.worksheet = gspread.authorize(credentials).open_by_url(self.url).sheet1
 
-        except ImportError:
-            raise Exception('Не удалось найти файлы конфигурации')
-
-        except gspread.AuthenticationError:
-            raise Exception('Не пройти проверку подленности при подключении к Google API')
-
         except gspread.SpreadsheetNotFound:
             raise Exception('Не найти документ. Проверьте правильность URL и настройки доступа')
+
+        except Exception as exception:
+            logging.error(str(exception))
+            raise Exception('Неудалось скачать файл')
 
     def read_titles(self):
         for key in self.alias.keys():

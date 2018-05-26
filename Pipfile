@@ -1,12 +1,9 @@
 [[source]]
-
 name = "pypi"
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 
-
 [packages]
-
 django = ">1.11,<2.0"
 django-allauth = "*"
 django-modeltranslation = "*"
@@ -15,17 +12,21 @@ gspread = "*"
 "psycopg2" = "*"
 gunicorn = "*"
 "oauth2client" = "*"
-
+pipenv = "*"
+pip = "*"
+wheel = "*"
+setuptools = "*"
+pew = "*"
 
 [dev-packages]
-
 django-debug-toolbar-template-timings = "*"
 ipython = "*"
 django-debug-toolbar = "*"
 pipdeptree = "*"
 pipenv = "*"
 
-
 [requires]
-
 python_version = "3.6"
+
+[pipenv]
+keep_outdated = true
