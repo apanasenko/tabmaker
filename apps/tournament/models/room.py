@@ -5,8 +5,8 @@ from . round import Round
 
 
 class Room(models.Model):
-    round = models.ForeignKey(Round)
-    game = models.ForeignKey(Game)
+    round = models.ForeignKey(Round, on_delete=models.CASCADE)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
     place = models.ForeignKey(Place, blank=True, null=True, on_delete=models.SET_NULL)
     number = models.IntegerField(blank=True)
 

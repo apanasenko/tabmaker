@@ -46,25 +46,25 @@ class Migration(migrations.Migration):
                 ('link', models.URLField(blank=True, null=True)),
                 ('cur_round', models.PositiveIntegerField(default=0)),
                 ('info', models.TextField()),
-                ('status', models.ForeignKey(null=True, to='tournament.TournamentStatus')),
+                ('status', models.ForeignKey(null=True, to='tournament.TournamentStatus', on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
             name='UserTournamentRel',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
-                ('role', models.ForeignKey(to='tournament.TournamentRole')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
-                ('tournament', models.ForeignKey(to='tournament.Tournament')),
+                ('role', models.ForeignKey(to='tournament.TournamentRole', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
+                ('tournament', models.ForeignKey(to='tournament.Tournament', on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
             name='TeamTournamentRel',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
-                ('role', models.ForeignKey(to='tournament.TournamentRole')),
-                ('team', models.ForeignKey(to='tournament.Team')),
-                ('tournament', models.ForeignKey(to='tournament.Tournament')),
+                ('role', models.ForeignKey(to='tournament.TournamentRole', on_delete=models.CASCADE)),
+                ('team', models.ForeignKey(to='tournament.Team', on_delete=models.CASCADE)),
+                ('tournament', models.ForeignKey(to='tournament.Tournament', on_delete=models.CASCADE)),
             ],
         ),
 

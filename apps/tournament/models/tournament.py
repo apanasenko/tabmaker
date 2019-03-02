@@ -31,7 +31,7 @@ class Tournament(models.Model):
     link = models.URLField(blank=True, null=True)
     user_members = models.ManyToManyField(User, through='UserTournamentRel')
     team_members = models.ManyToManyField(Team, through='TeamTournamentRel')
-    status = models.ForeignKey(TournamentStatus, null=True)
+    status = models.ForeignKey(TournamentStatus, null=True, on_delete=models.CASCADE)
     cur_round = models.PositiveIntegerField(default=0)
     info = models.TextField()
     is_registration_hidden = models.BooleanField(default=False)
@@ -76,18 +76,18 @@ class Tournament(models.Model):
 
 
 class UserTournamentRel(models.Model):
-    user = models.ForeignKey(User)
-    tournament = models.ForeignKey(Tournament)
-    role = models.ForeignKey(TournamentRole)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    role = models.ForeignKey(TournamentRole, on_delete=models.CASCADE)
 
     def __str__(self):
         return '%s: %s - %s' % (self.id, self.user.name(), self.role.role)
 
 
 class TeamTournamentRel(models.Model):
-    team = models.ForeignKey(Team)
-    tournament = models.ForeignKey(Tournament)
-    role = models.ForeignKey(TournamentRole)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    role = models.ForeignKey(TournamentRole, on_delete=models.CASCADE)
 
     def __str__(self):
         return '%s: %s - %s' % (self.id, self.team.name, self.role.role)

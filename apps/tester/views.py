@@ -165,7 +165,7 @@ def restart_tournament(request, tournament_id: int):
     tournament = get_object_or_404(Tournament, pk=tournament_id)
     tournament.status = STATUS_PLAYOFF
     tournament.save()
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         rel = UserTournamentRel.objects.get(tournament=tournament, role=ROLE_OWNER)
         rel.user = request.user
         rel.save()

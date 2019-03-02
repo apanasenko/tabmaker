@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('place', models.CharField(max_length=100)),
                 ('is_active', models.BooleanField(default=True)),
-                ('tournament', models.ForeignKey(to='tournament.Tournament')),
+                ('tournament', models.ForeignKey(to='tournament.Tournament', on_delete=models.CASCADE)),
             ],
         ),
     ]

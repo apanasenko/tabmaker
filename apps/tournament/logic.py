@@ -787,7 +787,7 @@ def get_rooms_by_user(tournament: Tournament, user: User) -> [Room]:
 
 def user_can_edit_tournament(tournament: Tournament, user: User, only_owner=False):
     roles = [ROLE_OWNER] if only_owner else [ROLE_OWNER, ROLE_ADMIN, ROLE_CHIEF_ADJUDICATOR]
-    return user.is_authenticated() and tournament.usertournamentrel_set.filter(
+    return user.is_authenticated and tournament.usertournamentrel_set.filter(
         user=user,
         role__in=roles
     ).count()

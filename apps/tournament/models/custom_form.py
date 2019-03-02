@@ -16,8 +16,8 @@ class CustomFieldAlias(models.Model):
 
 
 class CustomForm(models.Model):
-    tournament = models.ForeignKey(Tournament)
-    form_type = models.ForeignKey(CustomFormType)
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    form_type = models.ForeignKey(CustomFormType, on_delete=models.CASCADE)
 
     @staticmethod
     def get_or_create(tournament: Tournament, form_type: CustomFormType):
@@ -44,12 +44,12 @@ class CustomQuestion(models.Model):
     comment = models.TextField()
     position = models.PositiveIntegerField()
     required = models.BooleanField(default=True)
-    form = models.ForeignKey(CustomForm)
-    alias = models.ForeignKey(CustomFieldAlias, blank=True, null=True)
+    form = models.ForeignKey(CustomForm, on_delete=models.CASCADE)
+    alias = models.ForeignKey(CustomFieldAlias, blank=True, null=True, on_delete=models.SET_NULL)
 
 
 class CustomFormAnswers(models.Model):
-    form = models.ForeignKey(CustomForm)
+    form = models.ForeignKey(CustomForm, on_delete=models.CASCADE)
     answers = models.TextField()
 
     def set_answers(self, answers):
@@ -60,5 +60,5 @@ class CustomFormAnswers(models.Model):
 
 
 class FeedbackAnswer(CustomFormAnswers):
-    user = models.ForeignKey(User)
-    round = models.ForeignKey(Round)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    round = models.ForeignKey(Round, on_delete=models.CASCADE)

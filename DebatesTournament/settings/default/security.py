@@ -4,6 +4,8 @@ SECRET_KEY = '<SECRET_KEY>'  # Set random line
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+DEBUG_TOOLBAR = False
+
 TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = ['*']

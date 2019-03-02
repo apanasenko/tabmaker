@@ -2,6 +2,7 @@ from django.conf.urls import url
 
 from apps.tournament import utils, views
 
+app_name = 'profile'
 urlpatterns = [
     url(r"^(?P<user_id>\d+)[/]$", views.show_profile, name='main'),
     url(r"^edit[/]$", views.edit_profile, name='edit'),
@@ -12,4 +13,3 @@ urlpatterns = [
     url(r"^team/remove[/]$", utils.team_remove, name='team_remove'),
     url(r"^adjudicator/remove[/]$", utils.adjudicator_remove, name='adjudicator_remove'),
 ]
-

@@ -17,8 +17,16 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('name', models.CharField(max_length=100)),
                 ('info', models.TextField(blank=True)),
-                ('speaker_1', models.ForeignKey(related_name='first_speaker', to=settings.AUTH_USER_MODEL)),
-                ('speaker_2', models.ForeignKey(related_name='second_speaker', to=settings.AUTH_USER_MODEL)),
+                ('speaker_1', models.ForeignKey(
+                    related_name='first_speaker',
+                    to=settings.AUTH_USER_MODEL,
+                    on_delete=models.CASCADE
+                )),
+                ('speaker_2', models.ForeignKey(
+                    related_name='second_speaker',
+                    to=settings.AUTH_USER_MODEL,
+                    on_delete=models.CASCADE
+                )),
             ],
         ),
     ]

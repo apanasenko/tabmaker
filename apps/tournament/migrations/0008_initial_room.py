@@ -16,14 +16,14 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('number', models.IntegerField(blank=True)),
-                ('game', models.ForeignKey(to='tournament.Game')),
+                ('game', models.ForeignKey(to='tournament.Game', on_delete=models.CASCADE)),
                 ('place', models.ForeignKey(
                     on_delete=django.db.models.deletion.SET_NULL,
                     blank=True,
                     to='tournament.Place',
                     null=True
                 )),
-                ('round', models.ForeignKey(to='tournament.Round')),
+                ('round', models.ForeignKey(to='tournament.Round', on_delete=models.CASCADE)),
             ],
         ),
     ]

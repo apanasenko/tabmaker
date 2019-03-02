@@ -21,14 +21,14 @@ class University(models.Model):
     class Meta:
         unique_together = ('country', 'city', 'university_id')
 
-    country = models.ForeignKey(to=Country)
-    city = models.ForeignKey(to=City)
+    country = models.ForeignKey(to=Country, on_delete=models.SET_NULL, null=True)
+    city = models.ForeignKey(to=City, on_delete=models.SET_NULL, null=True)
     university_id = models.IntegerField()
     name = models.CharField(max_length=100)
 
 
 class User(AbstractUser):
-    university = models.ForeignKey(to=University, null=True)
+    university = models.ForeignKey(to=University, null=True, on_delete=models.SET_NULL)
     phone = models.CharField(max_length=15)
     link = models.URLField(max_length=100, default='', blank=True)
     player_experience = models.TextField(blank=True)

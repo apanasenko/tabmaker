@@ -36,8 +36,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('university_id', models.IntegerField()),
                 ('name', models.CharField(max_length=100)),
-                ('city', models.ForeignKey(to='tournament.City')),
-                ('country', models.ForeignKey(to='tournament.Country')),
+                ('city', models.ForeignKey(to='tournament.City', on_delete=models.CASCADE)),
+                ('country', models.ForeignKey(to='tournament.Country', on_delete=models.CASCADE)),
             ],
         ),
         migrations.AlterUniqueTogether(
@@ -96,7 +96,7 @@ class Migration(migrations.Migration):
                     related_name='user_set', to='auth.Group', related_query_name='user',
                     blank=True
                 )),
-                ('university', models.ForeignKey(null=True, to='tournament.University')),
+                ('university', models.ForeignKey(null=True, to='tournament.University', on_delete=models.CASCADE)),
                 ('user_permissions', models.ManyToManyField(
                     verbose_name='user permissions',
                     help_text='Specific permissions for this user.',

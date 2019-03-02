@@ -314,11 +314,11 @@ def show(request, tournament):
     if request.GET.get('new', None):
         return show2(request, tournament)
 
-    is_chair = request.user.is_authenticated() \
+    is_chair = request.user.is_authenticated \
         and tournament.status in [STATUS_PLAYOFF, STATUS_STARTED] \
         and get_rooms_from_last_round(tournament, False, request.user).count()
 
-    need_show_feedback_button = request.user.is_authenticated() \
+    need_show_feedback_button = request.user.is_authenticated \
         and get_rooms_by_user(tournament, request.user) \
         and CustomForm.objects.filter(tournament=tournament, form_type=FORM_FEEDBACK_TYPE).count()
 
@@ -339,11 +339,11 @@ def show(request, tournament):
 # @access_by_status(name_page='show')
 def show2(request, tournament):
 
-    # is_chair = request.user.is_authenticated() \
+    # is_chair = request.user.is_authenticated \
     #     and tournament.status in [STATUS_PLAYOFF, STATUS_STARTED] \
     #     and get_rooms_from_last_round(tournament, False, request.user).count()
     #
-    # need_show_feedback_button = request.user.is_authenticated() \
+    # need_show_feedback_button = request.user.is_authenticated \
     #     and get_rooms_by_user(tournament, request.user) \
     #     and CustomForm.objects.filter(tournament=tournament, form_type=FORM_FEEDBACK_TYPE).count()
 
@@ -557,7 +557,7 @@ def feedback(request):
 
     if request.method == 'POST':
         who = ''
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             who = '%s (%s)' % (request.user.get_full_name(), request.user.email)
 
         mail_managers(
@@ -594,7 +594,7 @@ def support(request):
 
     if request.method == 'POST':
         who = '%s (%s)' % (request.user.get_full_name(), request.user.email) \
-            if request.user.is_authenticated() \
+            if request.user.is_authenticated \
             else 'noname'
 
         mail_managers(
@@ -1500,7 +1500,7 @@ def show_profile(request, user_id):
         'account/show.html',
         {
             'user': user,
-            'is_owner': request.user.is_authenticated() and user == request.user,
+            'is_owner': request.user.is_authenticated and user == request.user,
             'teams_objects': teams_rel,
             'adjudicators_objects': adjudicators_rel,
         }
@@ -1508,7 +1508,7 @@ def show_profile(request, user_id):
 
 
 def edit_profile(request):
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         raise Http404
     is_success = False
     if request.method == 'POST':

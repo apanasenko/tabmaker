@@ -28,8 +28,8 @@ class Migration(migrations.Migration):
             name='CustomForm',
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
-                ('form_type', models.ForeignKey(to='tournament.CustomFormType')),
-                ('tournament', models.ForeignKey(to='tournament.Tournament')),
+                ('form_type', models.ForeignKey(to='tournament.CustomFormType', on_delete=models.CASCADE)),
+                ('tournament', models.ForeignKey(to='tournament.Tournament', on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
                 ('answers', models.TextField()),
-                ('form', models.ForeignKey(to='tournament.CustomForm')),
+                ('form', models.ForeignKey(to='tournament.CustomForm', on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -48,8 +48,13 @@ class Migration(migrations.Migration):
                 ('comment', models.TextField()),
                 ('position', models.PositiveIntegerField()),
                 ('required', models.BooleanField(default=True)),
-                ('alias', models.ForeignKey(blank=True, to='tournament.CustomFieldAlias', null=True)),
-                ('form', models.ForeignKey(to='tournament.CustomForm')),
+                ('alias', models.ForeignKey(
+                    blank=True,
+                    to='tournament.CustomFieldAlias',
+                    null=True,
+                    on_delete=models.CASCADE
+                )),
+                ('form', models.ForeignKey(to='tournament.CustomForm', on_delete=models.CASCADE)),
             ],
         ),
 

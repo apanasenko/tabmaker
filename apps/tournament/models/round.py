@@ -4,8 +4,8 @@ from . tournament import Tournament
 
 
 class Round(models.Model):
-    tournament = models.ForeignKey(Tournament)
-    motion = models.ForeignKey(Motion)
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    motion = models.ForeignKey(Motion, on_delete=models.CASCADE)
     number = models.IntegerField()
     start_time = models.DateTimeField()
     is_closed = models.BooleanField(default=False)

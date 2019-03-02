@@ -19,8 +19,8 @@ class Migration(migrations.Migration):
                 ('is_closed', models.BooleanField(default=False)),
                 ('is_public', models.BooleanField(default=True)),
                 ('is_playoff', models.BooleanField(default=False)),
-                ('motion', models.ForeignKey(to='tournament.Motion')),
-                ('tournament', models.ForeignKey(to='tournament.Tournament')),
+                ('motion', models.ForeignKey(to='tournament.Motion', on_delete=models.CASCADE)),
+                ('tournament', models.ForeignKey(to='tournament.Tournament', on_delete=models.CASCADE)),
             ],
         ),
     ]

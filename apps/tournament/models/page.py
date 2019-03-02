@@ -11,8 +11,8 @@ class Page(models.Model):
 
 
 class AccessToPage(models.Model):
-    page = models.ForeignKey(Page)
-    status = models.ForeignKey(TournamentStatus)
+    page = models.ForeignKey(Page, on_delete=models.CASCADE)
+    status = models.ForeignKey(TournamentStatus, on_delete=models.CASCADE)
     access = models.BooleanField(default=True)
     message = models.TextField(blank=True, null=True)
 

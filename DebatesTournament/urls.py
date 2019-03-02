@@ -5,7 +5,7 @@ from apps.tournament.urls import main, account, tournament
 
 urlpatterns = [
     url(r'^', include(main, namespace='main')),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
     url(r'^profile/', include(account)),
     url(r'^tournament/', include(tournament, namespace='tournament')),
 ]

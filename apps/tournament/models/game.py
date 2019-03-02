@@ -10,19 +10,19 @@ from . team import Team
 # CO = Closing Opposition (Member of Opposition & Opposition Whip)
 
 class Game(models.Model):
-    og = models.ForeignKey(Team, related_name='OG')
-    oo = models.ForeignKey(Team, related_name='OO')
-    cg = models.ForeignKey(Team, related_name='CG')
-    co = models.ForeignKey(Team, related_name='CO')
-    chair = models.ForeignKey(User, related_name='chair')
-    wing_left = models.ForeignKey(User, related_name='wing_left', blank=True, null=True)
-    wing_right = models.ForeignKey(User, related_name='wing_right', blank=True, null=True)
-    motion = models.ForeignKey(Motion)
+    og = models.ForeignKey(Team, related_name='OG', on_delete=models.CASCADE)
+    oo = models.ForeignKey(Team, related_name='OO', on_delete=models.CASCADE)
+    cg = models.ForeignKey(Team, related_name='CG', on_delete=models.CASCADE)
+    co = models.ForeignKey(Team, related_name='CO', on_delete=models.CASCADE)
+    chair = models.ForeignKey(User, related_name='chair', on_delete=models.CASCADE)
+    wing_left = models.ForeignKey(User, related_name='wing_left', blank=True, null=True, on_delete=models.CASCADE)
+    wing_right = models.ForeignKey(User, related_name='wing_right', blank=True, null=True, on_delete=models.CASCADE)
+    motion = models.ForeignKey(to=Motion, on_delete=models.CASCADE)
     date = models.DateTimeField()
 
 
 class GameResult(models.Model):
-    game = models.OneToOneField(Game)
+    game = models.OneToOneField(Game, on_delete=models.CASCADE)
 
     # Position of speakers (true - if speakers were in the reverse order)
     og_rev = models.BooleanField(default=False)

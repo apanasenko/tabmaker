@@ -2,6 +2,7 @@ from . import views
 from django.conf.urls import url
 
 
+app_name = 'test'
 urlpatterns = [
     url(
         r'^generate/(?P<tournament_id>\d+)/results[/]$',

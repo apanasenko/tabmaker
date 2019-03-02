@@ -5,10 +5,11 @@ from allauth.socialaccount.providers.vk.urls import urlpatterns as vk_urlpattern
 from allauth.socialaccount.providers.facebook.urls import urlpatterns as facebook_urlpatterns
 from allauth.socialaccount.urls import urlpatterns as socialaccount_urlpatterns
 from django.conf.urls import url, include
+from apps.tournament.urls import profile as profile_url
 
 
 urlpatterns = [
-    url(r"^", include('apps.tournament.urls.profile', namespace='profile')),
+    url(r"^", include(profile_url, namespace='profile')),
 ]
 
 urlpatterns += allauth_urls

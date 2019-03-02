@@ -2,6 +2,7 @@ from apps.tournament import views
 from django.conf.urls import url
 
 
+app_name = 'tournament'
 urlpatterns = [
 
     # Management of tournament

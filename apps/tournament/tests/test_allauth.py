@@ -5,14 +5,13 @@ from allauth.account.forms import BaseSignupForm
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.core import mail
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test import override_settings
 from django.test.client import Client, RequestFactory
 from django.utils.timezone import now
 from allauth.account import app_settings
 from allauth.account.models import EmailConfirmation
 from allauth.account.utils import user_username
-from allauth.compat import is_authenticated
 from allauth.utils import get_user_model
 
 import allauth.account.tests
@@ -126,7 +125,6 @@ class AccountTests(allauth.account.tests.AccountTests):
             url,
             {'password1': 'newpass123',
              'password2': 'newpass123'})
-        self.assertTrue(is_authenticated(user))
         # EmailVerificationMethod.MANDATORY sends us to the confirm-email page
         self.assertRedirects(resp, '/profile/confirm-email/')
 

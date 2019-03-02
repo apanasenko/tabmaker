@@ -26,8 +26,8 @@ class Migration(migrations.Migration):
                 ('message', models.TextField(blank=True, null=True)),
                 ('message_ru', models.TextField(blank=True, null=True)),
                 ('message_en', models.TextField(blank=True, null=True)),
-                ('page', models.ForeignKey(to='tournament.Page')),
-                ('status', models.ForeignKey(to='tournament.TournamentStatus')),
+                ('page', models.ForeignKey(to='tournament.Page', on_delete=models.CASCADE)),
+                ('status', models.ForeignKey(to='tournament.TournamentStatus', on_delete=models.CASCADE)),
             ],
         ),
     ]
