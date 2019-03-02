@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+    db:
+        image: postgres:11.2
+        volumes:
+            - "./pgdata:/var/lib/postgresql/data"
+        ports:
+            - "5432:5432"
+    backend:
+        build:
+            context: .
+            dockerfile: Dockerfile.dev
+        command: python manage.py migrate && python manage.py runserver 0.0.0.0:8000
+        volumes:
+            - .:/source
+        working_dir: /source
+        depends_on:
+            - db
+        ports:
+            - "8000:8000"

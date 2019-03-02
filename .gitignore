@@ -18,3 +18,4 @@ local_*
 .DS_Store
 debatetournament
 *.codekit
+/pgdata/

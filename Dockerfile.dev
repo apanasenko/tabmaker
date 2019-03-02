@@ -1,0 +1,9 @@
+FROM python:3.6.8-slim-stretch
+
+ADD requirements_hard.txt /source/requirements_hard.txt
+ADD requirements_debug.txt /source/requirements_debug.txt
+
+WORKDIR /source
+
+RUN pip install --no-cache-dir -r requirements_hard.txt
+RUN pip install --no-cache-dir -r requirements_debug.txt
