@@ -1,13 +1,16 @@
 version: "3.7"
 
 services:
-    db:
+    tabmaker_postgres:
+        container_name: tabmaker_postgres
         image: postgres:11.2
         volumes:
             - "./pgdata:/var/lib/postgresql/data"
         ports:
             - "5432:5432"
-    backend:
+
+    tabmaker_django:
+        container_name: tabmaker_django
         build:
             context: .
             dockerfile: Dockerfile.dev
@@ -16,6 +19,6 @@ services:
             - .:/source
         working_dir: /source
         depends_on:
-            - db
+            - tabmaker_postgres
         ports:
             - "8000:8000"
