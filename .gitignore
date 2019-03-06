@@ -19,3 +19,4 @@ local_*
 debatetournament
 *.codekit
 /pgdata/
+*node_modules/

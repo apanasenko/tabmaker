@@ -17,6 +17,8 @@ wheel = "*"
 setuptools = "*"
 pew = "*"
 "psycopg2-binary" = "*"
+djangorestframework = "*"
+django-filter = "*"
 
 [dev-packages]
 django-debug-toolbar-template-timings = "*"
