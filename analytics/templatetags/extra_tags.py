@@ -1,7 +1,3 @@
-import pytz
-from urllib.parse import urlencode
-from datetime import datetime
-
 from django import template
 from django.conf import settings
 
@@ -20,4 +16,6 @@ def hmr_script(path):
 
     return format_html(
         mark_safe('<script type="text/javascript" src="{}{}"></script>'),
-        script_origin, static(path))
+        script_origin,
+        static(path)
+    )
