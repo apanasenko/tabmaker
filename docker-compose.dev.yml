@@ -22,3 +22,16 @@ services:
             - tabmaker_postgres
         ports:
             - "8000:8000"
+
+    tabmaker_npm:
+        container_name: tabmaker_npm
+        build:
+            context: .
+            dockerfile: Dockerfile.npm.dev
+#        command: npm run build
+        command: npm run start
+        volumes:
+            - .:/source
+        working_dir: /source/frontend
+        ports:
+            - 3000:3000

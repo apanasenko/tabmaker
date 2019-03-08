@@ -1,0 +1,8 @@
+FROM node:11.11.0-stretch-slim
+
+ADD frontend/package.json /source/frontend/package.json
+ADD frontend/package-lock.json /source/frontend/package-lock.json
+
+WORKDIR /source/frontend
+
+RUN npm install --global
