@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react';
 import MotionElement from './MotionElement';
 import axios from 'axios';

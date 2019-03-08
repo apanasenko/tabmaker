@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react';
 
 class DataGrid extends React.Component {

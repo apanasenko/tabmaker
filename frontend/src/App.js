@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { Component } from "react";
 import { Route, HashRouter } from "react-router-dom";
 import Profile from "./components/profile/Profile";
