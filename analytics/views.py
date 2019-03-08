@@ -1,8 +1,6 @@
-import os
 from collections import defaultdict
 
 from django.db.models import Q
-from django.http import HttpResponse
 from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
@@ -11,7 +9,6 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from DebatesTournament.settings import BASE_DIR, DEBUG
 from analytics.caching import cache_wrapper
 from analytics.filters import MotionAnalysisFilter
 from analytics.serializers import MotionSerializer, UserSerializer
@@ -19,20 +16,7 @@ from apps.tournament.models import Motion, Team, QualificationResult, Game
 
 
 def index(request):
-    if DEBUG:
-        return render(request, 'index.html')
-    try:
-        with open(os.path.join(BASE_DIR, 'frontend', 'build', 'index.html')) as f:
-            return HttpResponse(f.read())
-    except FileNotFoundError:
-        return HttpResponse(
-            """
-            This URL is only used when you have built the production
-            version of the app. Visit http://localhost:3000/ instead, or
-            run `yarn run build` to test the production version.
-            """,
-            status=501,
-        )
+    return render(request, 'index.html')
 
 
 class ProfileAPI(APIView):

@@ -8,15 +8,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="{% static 'css/1.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
     <title>tabmaker analytics</title>
 
 </head>
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root" ></div>
-{% hmr_script "js/bundle.js" %}
-{% hmr_script "js/main.chunk.js" %}
-{% hmr_script "js/1.chunk.js" %}
-{% hmr_script "js/0.chunk.js" %}
+{% hmr_script "js/main.js" %}
+{% hmr_script "js/1.js" %}
+{% hmr_script "js/runtime~main.js" %}
 </body>
 </html>
