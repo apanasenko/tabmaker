@@ -1,0 +1,57 @@
+version: 2
+jobs:
+    build-backend:
+        docker:
+            - image: circleci/node:latest
+        steps:
+            - checkout
+            - setup_remote_docker
+            - run:
+                  name: Build Frontend
+                  command: |
+                      cd frontend
+                      npm install
+                      npm run build
+                      cd ..
+                      mkdir static
+            - run:
+                  name: Set up Settings
+                  command: |
+                      cp DebatesTournament/settings/default/{database.py,security.py,smtp_email.py,static.py,telegram_bot.py} DebatesTournament/settings/
+            - run:
+                  name: Build Backend Image
+                  command: docker build -t mesenev/debates .
+            - deploy:
+                  name: Publish Image
+                  command: |
+                      echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
+                      docker push mesenev/debates
+    deploy-dev:
+        machine: true
+        steps:
+            - checkout
+            - add_ssh_keys:
+                  fingerprints:
+                      - "b7:e8:d7:e8:5d:d6:6b:2a:f6:04:1d:67:a1:8f:71:99"
+            - deploy:
+                  name: Deploy Dev
+                  command: |
+                      scp docker-compose.yml deploy.sh $SSH_USER@$SSH_HOST:~/project
+                      ssh -t $SSH_USER@$SSH_HOST "cd ~/project && bash deploy.sh"
+
+workflows:
+    version: 2
+    main-delivery:
+        jobs:
+            - build-backend:
+                  filters:
+                      branches:
+                          only:
+                              - analytics
+            - hold:
+                  type: approval
+                  requires:
+                      - build-backend
+            - deploy-dev:
+                  requires:
+                      - hold

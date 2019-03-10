@@ -4,8 +4,16 @@ services:
     tabmaker_postgres:
         container_name: tabmaker_postgres
         image: postgres:11.2
+        environment:
+            POSTGRES_MULTIPLE_DATABASES: debates_tournament
+            POSTGRES_USER: tabmaker
+            POSTGRES_PASSWORD: 123456
         volumes:
             - "./pgdata:/var/lib/postgresql/data"
+            - "./configuration/postgres:/docker-entrypoint-initdb.d"
+            - "./dump:/dump"
+        networks:
+            - db-net
         ports:
             - "5432:5432"
 
@@ -18,8 +26,12 @@ services:
         volumes:
             - .:/source
         working_dir: /source
+        networks:
+            - db-net
         depends_on:
             - tabmaker_postgres
+        environment:
+            PYTHONUNBUFFERED: 1
         ports:
             - "8000:8000"
 
@@ -30,8 +42,13 @@ services:
             dockerfile: Dockerfile.npm.dev
 #        command: npm run build
         command: npm run start
+        networks:
+            - db-net
         volumes:
             - .:/source
         working_dir: /source/frontend
         ports:
             - 3000:3000
+
+networks:
+  db-net:
