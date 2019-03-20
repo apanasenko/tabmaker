@@ -1,0 +1,63 @@
+version: "3.7"
+
+services:
+    nginx:
+        image: nginx:alpine
+        restart: always
+        volumes:
+            - "./configuration/nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
+            - "./configuration/nginx/common.conf:/etc/nginx/common.conf:ro"
+            - "./configuration/nginx/server.conf:/etc/nginx/server.conf:ro"
+            - type: volume
+              source: btq-static
+              target: /app/static
+              read_only: true
+              volume:
+                  nocopy: true
+            - type: volume
+              source: btq-media
+              target: /app/media
+              read_only: true
+              volume:
+                  nocopy: true
+        networks:
+            - nginx-net
+        links:
+            - backend
+        ports:
+            - "127.0.0.1:7000:80"
+
+    backend:
+        image: mesenev/debates
+        command: "sh ./configuration/gunicorn/django.sh"
+        volumes:
+            - './settings:/app/DebatesTournament/settings:ro'
+            - btq-media:/app/media
+            - btq-static:/app/static
+        depends_on:
+            - db
+        networks:
+            - db-net
+            - nginx-net
+        environment:
+            PYTHONUNBUFFERED: 1
+    db:
+        image: postgres:11
+        environment:
+            POSTGRES_MULTIPLE_DATABASES: debates_tournament
+            POSTGRES_USER: tabmaker
+            POSTGRES_PASSWORD: 123456
+            PG_DATA: /var/lib/postgresql/data/pgdata
+        volumes:
+            - "./configuration/postgres:/docker-entrypoint-initdb.d"
+            - "./dump:/dump"
+        networks:
+            - db-net
+        ports:
+            - "5432:5432"
+networks:
+    db-net:
+    nginx-net:
+volumes:
+    btq-static:
+    btq-media:

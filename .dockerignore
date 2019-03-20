@@ -1,0 +1,19 @@
+# Tools on developers machine
+    .idea
+    .vscode
+    .git
+    .venv
+    .coverage
+    .cache
+    Dockerfile*
+    docker-compose.yml
+    .pyc
+    __pycache__
+
+# Application data
+    .build/
+    media/
+    frontend/js
+    frontend/legacy
+    frontend/node_modules
+    frontend/scss

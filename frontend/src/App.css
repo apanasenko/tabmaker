@@ -1,0 +1,98 @@
+.App {
+    text-align: center;
+}
+
+dd {
+    margin: 0;
+}
+.legend-wrapper {
+    width: 270px;
+}
+.overall-statistics {
+    display: flex;
+    justify-content: space-around;
+}
+
+.statsContainer {
+    display: flex;
+    flex-flow: column;
+}
+.statsContainer dl {
+    height: 35px;
+}
+.header-name {
+    height: 35px;
+    margin: 16px 0;
+    font-size: 28px;
+}
+.statsDetails {
+    width: 110px;
+    display:flex;
+    flex-flow: row wrap;
+}
+.statsDetails div {
+    margin: 5px;
+}
+
+.chart-container {
+    padding-top: 20px;
+    align-items: center;
+    margin-top: 15px;
+}
+.graphic-wrapper {
+    width: 800px;
+    height: 175px;
+    margin: 0 auto;
+}
+.App-logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 40vmin;
+}
+
+.loader {
+    margin-top: 30px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.content {
+    width: 900px;
+    margin: 100px auto;
+}
+
+.App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+.header__logo span {
+    font-family: 'Roboto Mono';
+    color: #262C30;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+a {
+ text-decoration: none;
+}
+

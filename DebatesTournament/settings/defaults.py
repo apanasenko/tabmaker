@@ -1,3 +1,8 @@
+import os
+
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -8,6 +13,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    'analytics',
     'apps.tester',
     'apps.tournament',
 
@@ -72,3 +78,6 @@ LANGUAGES = (
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 
 AUTH_USER_MODEL = 'tournament.User'
+
+# WEBPACK_DEV_SERVER = 'localhost:3000'
+WEBPACK_DEV_SERVER = None
