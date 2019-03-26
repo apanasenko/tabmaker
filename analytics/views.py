@@ -39,10 +39,10 @@ class ProfileAPI(APIView):
             'CO', 'CO__game', 'CO__game__gameresult', 'CO__game__gameresult__qualificationresult',
         )
         results = QualificationResult.objects.filter(
-            Q(game__og__speaker_1=user.id) | Q(game__og__speaker_2=user.id) |
-            Q(game__oo__speaker_1=user.id) | Q(game__oo__speaker_2=user.id) |
-            Q(game__co__speaker_1=user.id) | Q(game__co__speaker_2=user.id) |
-            Q(game__cg__speaker_1=user.id) | Q(game__cg__speaker_2=user.id)) \
+            Q(game__og__speaker_1=user.id) | Q(game__og__speaker_2=user.id)
+            | Q(game__oo__speaker_1=user.id) | Q(game__oo__speaker_2=user.id)
+            | Q(game__co__speaker_1=user.id) | Q(game__co__speaker_2=user.id)
+            | Q(game__cg__speaker_1=user.id) | Q(game__cg__speaker_2=user.id)) \
             .select_related(
             'game', 'game__og', 'game__oo', 'game__co', 'game__cg'
         ).order_by('id')
