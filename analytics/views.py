@@ -12,7 +12,7 @@ from rest_framework.views import APIView
 from analytics.caching import cache_wrapper
 from analytics.filters import MotionAnalysisFilter
 from analytics.serializers import MotionSerializer, UserSerializer
-from apps.tournament.models import Motion, Team, QualificationResult, Game
+from apps.tournament.models import Motion, Team, QualificationResult, Game, User
 
 
 def index(request):
@@ -28,16 +28,8 @@ class ProfileAPI(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
+        # user = User.objects.get(id=4832)
         user = request.user
-        # user = User.objects.get(id=50)
-        teams = Team.objects.filter(
-            Q(speaker_1=user.id) | Q(speaker_2=user.id)
-        ).prefetch_related(
-            'OG', 'OG__game', 'OG__game__gameresult', 'OG__game__gameresult__qualificationresult',
-            'OO', 'OO__game', 'OO__game__gameresult', 'OO__game__gameresult__qualificationresult',
-            'CG', 'CG__game', 'CG__game__gameresult', 'CG__game__gameresult__qualificationresult',
-            'CO', 'CO__game', 'CO__game__gameresult', 'CO__game__gameresult__qualificationresult',
-        )
         results = QualificationResult.objects.filter(
             Q(game__og__speaker_1=user.id) | Q(game__og__speaker_2=user.id)
             | Q(game__oo__speaker_1=user.id) | Q(game__oo__speaker_2=user.id)
@@ -58,18 +50,17 @@ class ProfileAPI(APIView):
             if user in (res.game.co.speaker_2, res.game.co.speaker_1):
                 position = 'co'
             registered_as_first = getattr(res.game, position).speaker_1 == user
-            is_reversed = getattr(res, f'{position}_rev')
-            spkr = 0
+            speaks = 0
             if position == 'og':
-                spkr = res.pm if registered_as_first and not is_reversed else res.dpm
+                speaks = res.pm if registered_as_first else res.dpm
             if position == 'oo':
-                spkr = res.lo if registered_as_first and not is_reversed else res.dlo
+                speaks = res.lo if registered_as_first else res.dlo
             if position == 'cg':
-                spkr = res.mg if registered_as_first and not is_reversed else res.gw
+                speaks = res.mg if registered_as_first else res.gw
             if position == 'co':
-                spkr = res.mo if registered_as_first and not is_reversed else res.ow
-            answer[position].append((getattr(res, position), spkr))
-            answer['overall'].append((getattr(res, position), spkr))
+                speaks = res.mo if registered_as_first else res.ow
+            answer[position].append((getattr(res, position), speaks))
+            answer['overall'].append((getattr(res, position), speaks))
 
         judgement = list(Game.objects.filter(chair=user))
         answer['judgement'] = len(judgement)
