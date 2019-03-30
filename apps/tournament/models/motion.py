@@ -6,6 +6,9 @@ class Language(models.Model):
     telegram_bot_label = models.TextField(blank=True)
     is_public = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.name
+
 
 class Motion(models.Model):
     motion = models.TextField()

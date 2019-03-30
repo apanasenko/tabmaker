@@ -1,11 +1,13 @@
 import json
+import detectlanguage
+
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.urls import reverse_lazy
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_protect
-from apps.tournament.models import UserTournamentRel, Team
+from apps.tournament.models import UserTournamentRel, Team, Language, Motion
 from apps.tournament.consts import STATUS_REGISTRATION
 
 
@@ -91,3 +93,14 @@ def paging(request, objects, count_objects_in_page=10):
         objects_in_page = paginator.page(paginator.num_pages)
 
     return objects_in_page
+
+
+def detect_motion_language(motion: Motion) -> bool:
+    language = detectlanguage.simple_detect(motion.motion + ' ' + motion.infoslide)
+    if not language:
+        return False
+
+    motion.language = Language.objects.get_or_create(name=language)[0]
+    motion.save()
+
+    return True
