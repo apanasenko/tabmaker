@@ -23,7 +23,7 @@ from . profile import \
     University, \
     User
 
-from . motion import Motion
+from . motion import Language, Motion
 from . team import Team
 from . game import \
     Game, \
