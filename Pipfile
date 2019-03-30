@@ -19,6 +19,7 @@ pew = "*"
 "psycopg2-binary" = "*"
 djangorestframework = "*"
 django-filter = "*"
+detectlanguage = "*"
 
 [dev-packages]
 django-debug-toolbar-template-timings = "*"

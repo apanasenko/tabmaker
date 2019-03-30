@@ -5,3 +5,4 @@ from .allauth import *
 from .smtp_email import *
 from .static import *
 from .telegram_bot import *
+from .detact_language import *
