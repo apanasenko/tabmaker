@@ -27,13 +27,13 @@ def register_user(message, chat=None):
     return user
 
 
-def start(bot, update):
-    register_user(update.message)
-    bot.sendMessage(update.message.chat.id, text='Hi!')
-
-
 def motion(bot, update):
-    user = register_user(update.message)
+    send_motion(bot, update.message.chat_id, register_user(update.message))
+
+
+def send_motion(bot, chat_id, user):
+    logger.debug(chat_id)
+    logger.debug(user)
     motions = Motion.objects.filter(is_public=True)
 
     if user.language:
@@ -47,23 +47,26 @@ def motion(bot, update):
     if motion.infoslide:
         message += '\n' + '\n' + motion.infoslide
 
-    bot.sendMessage(update.message.chat_id, text=message)
+    bot.sendMessage(chat_id, text=message, reply_markup=get_keyboard())
 
 
 def lang(bot, update):
     register_user(update.message)
 
-    def get_lang_button(lang: Language) -> [InlineKeyboardButton]:
-        return [InlineKeyboardButton(
+    def get_lang_button(lang: Language) -> InlineKeyboardButton:
+        return InlineKeyboardButton(
             lang.telegram_bot_label if lang.telegram_bot_label else lang.name,
             callback_data=('LANG_%d' % lang.id)
-        )]
+        )
 
     bot.sendMessage(
         update.message.chat_id,
         text='Choose language:',
         reply_markup=InlineKeyboardMarkup(
-            inline_keyboard=[get_lang_button(lang) for lang in Language.objects.filter(is_public=True)]
+            inline_keyboard=[
+                [get_lang_button(lang) for lang in Language.objects.filter(is_public=True)]
+            ],
+
         )
     )
 
@@ -76,11 +79,21 @@ def callback_query(bot, update):
             user.save()
             bot.sendMessage(
                 update.callback_query.message.chat_id,
-                text=(user.language.telegram_bot_label if user.language.telegram_bot_label else user.language.name)
-             )
+                text=(user.language.telegram_bot_label if user.language.telegram_bot_label else user.language.name),
+                # reply_markup=get_keyboard()
+            )
         except Exception as e:
             logger.error(e)
             pass
+    # elif update.callback_query.data == 'next_motion':
+
+    return send_motion(bot, update.callback_query.message.chat_id, user)
+
+
+def get_keyboard():
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton('Next motion', callback_data='next_motion')],
+    ])
 
 
 def error(bot, update, error):
