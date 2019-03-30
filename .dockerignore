@@ -5,7 +5,6 @@
     .venv
     .coverage
     .cache
-    Dockerfile*
     docker-compose.yml
     .pyc
     __pycache__

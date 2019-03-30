@@ -8,6 +8,7 @@ __pycache__
 */settings/static.py
 */settings/telegram_bot.py
 */settings/google_import.py
+*/settings/detact_language.py
 local_*
 *.sublime-project
 *.sublime-workspace

@@ -3,7 +3,8 @@
 # TODO Сделать диаграмму связей
 # Models dependence:
 #   profile
-#   motion
+#   language
+#   motion -> language
 #   team -> profile
 #   game -> team, profile, motion
 #   tournament -> team, profile
@@ -13,7 +14,7 @@
 #   page -> tournament
 #   custom_form  -> tournament, round, profile
 #
-#   bot_users
+#   bot_users -> language
 #
 #########################
 
@@ -23,7 +24,7 @@ from . profile import \
     University, \
     User
 
-from . motion import Motion
+from . motion import Language, Motion
 from . team import Team
 from . game import \
     Game, \

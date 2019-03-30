@@ -1,65 +1,123 @@
-from telegram.ext import CommandHandler, MessageHandler, Filters
+from telegram.ext import CommandHandler, CallbackQueryHandler
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from django_telegrambot.apps import DjangoTelegramBot
-from .models import Motion, BotUsers
+from . models import Motion, BotUsers, Language
 
+import re
 import logging
-logger = logging.getLogger('TelegramBot')
+
+class TabmakerBot:
+
+    __CALLBACK_NEXT_MOTION_ACTION = 'next_motion'
+    __CALLBACK_CHANGE_LANGUAGE_ACTION = 'LANG_'
+
+    def __init__(self, logger):
+        self.logger = logger
 
 
-# Define a few command handlers. These usually take the two arguments bot and
-# update. Error handlers also receive the raised TelegramError object in error.
-def start(bot, update):
-    bot.sendMessage(update.message.chat_id, text='Hi!')
+    def motion_handler(self, bot, update):
+        self.__send_motion(bot, update.message.chat_id, self.__get_or_create_user(update.message))
 
 
-def motion(bot, update):
-    m = Motion.objects.filter(is_public=True).order_by('?').first()
-    message = m.motion
-    try:
-        user, created = BotUsers.objects.get_or_create(
-            user_id=update.message.from_user.id,
-            username=update.message.from_user.username or '',
-            first_name=update.message.from_user.first_name or '',
-            last_name=update.message.from_user.last_name or '',
-            chat_id=update.message.chat_id,
-            chat_name=update.message.chat.title or '',
+    def language_handler(self, bot, update):
+        self.__get_or_create_user(update.message)
+
+        bot.sendMessage(
+            update.message.chat_id,
+            text='Choose language:',
+            reply_markup=InlineKeyboardMarkup(
+                inline_keyboard=[
+                    [self.__build_language_buttons(language) for language in Language.objects.filter(is_public=True)]
+                ],
+            )
         )
-        logger.info('{} // {} | {} | {}'.format(user, m.id, m.motion, m.infoslide))
-    except Exception as e:
-        logger.error(e)
-
-    if m.infoslide:
-        message += '\n' + '\n' + m.infoslide
-
-    bot.sendMessage(update.message.chat_id, text=message)
 
 
-def echo(bot, update):
-    bot.sendMessage(update.message.chat_id, text=('Я запомнил твой ID: %d' % update.message.from_user.id))
+    def callback_query_handler(self, bot, update):
+        user = self.__get_or_create_user(update.callback_query, update.callback_query.message.chat)
+        lang_parser = re.match(
+            self.__CALLBACK_CHANGE_LANGUAGE_ACTION + '(?P<lang_id>[0-9]+)',
+            update.callback_query.data
+        )
+
+        if lang_parser:
+            try:
+                user.language = Language.objects.get(id=int(lang_parser.group('lang_id')))
+                user.save()
+                bot.sendMessage(
+                    update.callback_query.message.chat_id,
+                    text=(user.language.telegram_bot_label if user.language.telegram_bot_label else user.language.name),
+                    # reply_markup=get_keyboard()
+                )
+            except Exception as e:
+                self.logger.error(e)
+                pass
+        # elif update.callback_query.data == self.__CALLBACK_NEXT_MOTION_ACTION:
+
+        return self.__send_motion(bot, update.callback_query.message.chat_id, user)
 
 
-def error(bot, update, error):
-    logger.warning('Update "%s" caused error "%s"' % (update, error))
+    def error_handler(self, bot, update, error):
+        self.logger.warning('Update "%s" caused error "%s"' % (update, error))
+
+
+    def __get_or_create_user(self, message, chat=None):
+        chat = chat or message.chat
+
+        try:
+            user, created = BotUsers.objects.get_or_create(
+                user_id=message.from_user.id,
+                username=message.from_user.username or '',
+                first_name=message.from_user.first_name or '',
+                last_name=message.from_user.last_name or '',
+                chat_id=chat.id or 0,
+                chat_name=chat.title or '',
+            )
+        except Exception as e:
+            user = None
+            self.logger.error(e)
+
+        return user
+
+
+    def __send_motion(self, bot, chat_id, user):
+        motions = Motion.objects.filter(is_public=True)
+
+        if user.language:
+            motions = motions.filter(language=user.language)
+
+        motion = motions.order_by('?').first()
+
+        self.logger.info('{} // {} | {} | {}'.format(user, motion.id, motion.motion, motion.infoslide))
+
+        message = motion.motion
+        if motion.infoslide:
+            message += '\n' + '\n' + motion.infoslide
+
+        bot.sendMessage(chat_id, text=message, reply_markup=self.__build_motion_keyboard())
+
+
+    def __build_language_buttons(self, language: Language) -> InlineKeyboardButton:
+        return InlineKeyboardButton(
+            language.telegram_bot_label if language.telegram_bot_label else language.name,
+            callback_data=self.__CALLBACK_CHANGE_LANGUAGE_ACTION + str(language.id)
+        )
+
+
+    def __build_motion_keyboard(self) -> InlineKeyboardMarkup:
+        return InlineKeyboardMarkup([
+            [InlineKeyboardButton('Next motion', callback_data=self.__CALLBACK_NEXT_MOTION_ACTION)],
+        ])
 
 
 def main():
-    logger.debug("Loading handlers for telegram bot")
+    logger = logging.getLogger('TelegramBot')
+    logger.debug('Loading handlers for telegram bot')
 
-    # Default dispatcher (this is related to the first bot in settings.TELEGRAM_BOT_TOKENS)
+    telegram_bot = TabmakerBot(logger)
     dp = DjangoTelegramBot.dispatcher
-    # To get Dispatcher related to a specific bot
-    # dp = DjangoTelegramBot.getDispatcher('BOT_n_token')     #get by bot token
-    # dp = DjangoTelegramBot.getDispatcher('BOT_n_username')  #get by bot username
-
-    # on different commands - answer in Telegram
-    dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("motion", motion))
-
-    # on noncommand i.e message - echo the message on Telegram
-    dp.add_handler(MessageHandler(Filters.text, echo))
-
-    # log all errors
-    dp.add_error_handler(error)
-
-    # log all errors
-    dp.add_error_handler(error)
+    dp.add_handler(CommandHandler('start', telegram_bot.language_handler))
+    dp.add_handler(CommandHandler('language', telegram_bot.language_handler))
+    dp.add_handler(CommandHandler('motion', telegram_bot.motion_handler))
+    dp.add_handler(CallbackQueryHandler(telegram_bot.callback_query_handler))
+    dp.add_error_handler(telegram_bot.error_handler)
