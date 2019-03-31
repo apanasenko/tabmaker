@@ -1,7 +1,7 @@
 from telegram.ext import CommandHandler, CallbackQueryHandler
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from django_telegrambot.apps import DjangoTelegramBot
-from . models import Motion, BotUsers, Language
+from . models import Motion, BotUsers, BotChat, Language
 
 import re
 import logging
@@ -16,11 +16,12 @@ class TabmakerBot:
 
 
     def motion_handler(self, bot, update):
-        self.__send_motion(bot, update.message.chat_id, self.__get_or_create_user(update.message))
+        user, chat = self.__get_or_create_user(update.message.from_user, update.message.chat)
+        self.__send_motion(bot, update.message.chat_id, user, chat)
 
 
     def language_handler(self, bot, update):
-        self.__get_or_create_user(update.message)
+        self.__get_or_create_user(update.message.from_user, update.message.chat)
 
         bot.sendMessage(
             update.message.chat_id,
@@ -34,7 +35,7 @@ class TabmakerBot:
 
 
     def callback_query_handler(self, bot, update):
-        user = self.__get_or_create_user(update.callback_query, update.callback_query.message.chat)
+        user, chat = self.__get_or_create_user(update.callback_query.from_user, update.callback_query.message.chat)
         lang_parser = re.match(
             self.__CALLBACK_CHANGE_LANGUAGE_ACTION + '(?P<lang_id>[0-9]+)',
             update.callback_query.data
@@ -42,11 +43,17 @@ class TabmakerBot:
 
         if lang_parser:
             try:
-                user.language = Language.objects.get(id=int(lang_parser.group('lang_id')))
-                user.save()
+                language = Language.objects.get(id=int(lang_parser.group('lang_id')))
+                if chat:
+                    chat.language = language
+                    chat.save()
+                else:
+                    user.language = language
+                    user.save()
+
                 bot.sendMessage(
                     update.callback_query.message.chat_id,
-                    text=(user.language.telegram_bot_label if user.language.telegram_bot_label else user.language.name),
+                    text=(language.telegram_bot_label if language.telegram_bot_label else language.name),
                     # reply_markup=get_keyboard()
                 )
             except Exception as e:
@@ -54,41 +61,47 @@ class TabmakerBot:
                 pass
         # elif update.callback_query.data == self.__CALLBACK_NEXT_MOTION_ACTION:
 
-        return self.__send_motion(bot, update.callback_query.message.chat_id, user)
+        return self.__send_motion(bot, update.callback_query.message.chat_id, user, chat)
 
 
     def error_handler(self, bot, update, error):
         self.logger.warning('Update "%s" caused error "%s"' % (update, error))
 
 
-    def __get_or_create_user(self, message, chat=None):
-        chat = chat or message.chat
+    def __get_or_create_user(self, from_user, from_chat):
+        user = None
+        chat = None
 
         try:
-            user, created = BotUsers.objects.get_or_create(
-                user_id=message.from_user.id,
-                username=message.from_user.username or '',
-                first_name=message.from_user.first_name or '',
-                last_name=message.from_user.last_name or '',
-                chat_id=chat.id or 0,
-                chat_name=chat.title or '',
+            user, created = BotUsers.objects.update_or_create(
+                id=from_user.id,
+                username=from_user.username or '',
+                first_name=from_user.first_name or '',
+                last_name=from_user.last_name or '',
             )
+
+            if from_chat.id != from_user.id:
+                chat, created = BotChat.objects.update_or_create(
+                    id=from_chat.id,
+                    title=from_chat.title,
+                )
+
         except Exception as e:
-            user = None
             self.logger.error(e)
 
-        return user
+        return user, chat
 
 
-    def __send_motion(self, bot, chat_id, user):
+    def __send_motion(self, bot, chat_id, user, chat):
         motions = Motion.objects.filter(is_public=True)
 
-        if user.language:
-            motions = motions.filter(language=user.language)
+        language = chat.language if chat else user.language
+        if language:
+            motions = motions.filter(language=language)
 
         motion = motions.order_by('?').first()
 
-        self.logger.info('{} // {} | {} | {}'.format(user, motion.id, motion.motion, motion.infoslide))
+        self.logger.info('{} {} // {} | {} | {}'.format(user, chat, motion.id, motion.motion, motion.infoslide))
 
         message = motion.motion
         if motion.infoslide:
