@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^analytics/', include(analytics_urls, namespace='analytics'))
 ]
 
-if settings.TELEGRAM_BOT_ENABLE:
+if settings.TELEGRAM_BOT_TOKEN:
     from django_telegrambot import urls as django_telegrambot_urls
     urlpatterns += [
         url(r'^', include(django_telegrambot_urls)),
