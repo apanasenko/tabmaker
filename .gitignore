@@ -2,14 +2,13 @@
 *.iml
 __pycache__
 *.pyc
-*/settings/database.py
+*.env
 */settings/security.py
 */settings/smtp_email.py
 */settings/static.py
 */settings/telegram_bot.py
 */settings/google_import.py
 */settings/detact_language.py
-local_*
 *.sublime-project
 *.sublime-workspace
 *.sass-cache
@@ -19,5 +18,4 @@ local_*
 .DS_Store
 debatetournament
 *.codekit
-/pgdata/
 *node_modules/
