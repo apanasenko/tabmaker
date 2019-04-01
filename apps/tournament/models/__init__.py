@@ -54,4 +54,4 @@ from .custom_form import \
     CustomQuestion, \
     FeedbackAnswer
 
-from . bot_users import BotUsers
+from . bot_users import BotChat, BotUsers
