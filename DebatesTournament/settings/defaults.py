@@ -94,3 +94,6 @@ MANAGERS = [
     (os.getenv('DJANGO_MANAGER_NAME_' + str(i), ''), os.getenv('DJANGO_MANAGER_EMAIL_' + str(i), ''))
     for i in range(1, int(os.getenv('DJANGO_MANAGERS_COUNT', 0)))
 ]
+
+YANDEX_VERIFICATION = os.getenv('YANDEX_VERIFICATION', 0)
+GOOGLE_VERIFICATION = os.getenv('GOOGLE_VERIFICATION', 0)
