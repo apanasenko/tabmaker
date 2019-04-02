@@ -10,6 +10,5 @@ __pycache__
 /media/
 /static/
 .DS_Store
-debatetournament
 *.codekit
 *node_modules/
