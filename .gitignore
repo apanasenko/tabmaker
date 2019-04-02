@@ -3,7 +3,6 @@
 __pycache__
 *.pyc
 *.env
-*/settings/google_import.py
 *.sublime-project
 *.sublime-workspace
 *.sass-cache
