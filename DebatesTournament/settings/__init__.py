@@ -7,3 +7,4 @@ from .static import *
 from .telegram_bot import *
 from .detact_language import *
 from .debug import *
+from .logging import *
