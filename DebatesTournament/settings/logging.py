@@ -14,24 +14,34 @@ if os.getenv('DJANGO_LOG', 'OFF') == 'ON':
             },
         },
         'handlers': {
-            'file': {
+            'bot_log_file': {
                 'level': 'DEBUG',
                 'class': 'logging.FileHandler',
-                'filename': os.getenv('DJANGO_LOG_FILE', os.path.join(BASE_DIR, 'django.log')),
+                'encoding': 'utf-8',
+                'filename': os.getenv('TELEGRAM_BOT_LOG_FILE', os.path.join(BASE_DIR, 'logs', 'bot.log')),
+                'formatter': 'verbose',
             },
-            'console': {
+            'mail_admins': {
+                'class': 'django.utils.log.AdminEmailHandler',
+                'level': 'ERROR',
+                'include_html': True,
+            },
+            'django_log_file': {
+                'class': 'logging.handlers.WatchedFileHandler',
+                'encoding': 'utf-8',
+                'filename': os.getenv('DJANGO_LOG_FILE', os.path.join(BASE_DIR, 'logs', 'django.log')),
                 'level': 'DEBUG',
-                'class': 'logging.StreamHandler',
+                'formatter': 'verbose',
             },
         },
         'loggers': {
-            '': {
-                'handlers': ['console'],
-                'level': 'DEBUG',
-            },
             'TelegramBot': {
-                'handlers': ['console'],
-                'level': 'DEBUG',
+                'handlers': ['bot_log_file'],
+                'level': 'INFO',
+            },
+            '': {
+                'handlers': ['django_log_file', 'mail_admins'],
+                'level': 'INFO',
             },
         },
     }
