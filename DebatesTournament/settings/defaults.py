@@ -1,3 +1,4 @@
+from urllib.parse import urlparse
 import os
 
 BASE_DIR = os.getenv('DJANGO_BASE_DIR', os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -78,3 +79,18 @@ MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 AUTH_USER_MODEL = 'tournament.User'
 
 WEBPACK_DEV_SERVER = os.getenv('WEBPACK_DEV_SERVER', None)
+
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'secret')
+
+ALLOWED_HOSTS = [urlparse(os.getenv('MAIN_SITE')).hostname]
+
+# TODO подумать, может можно лучше
+ADMINS = [
+    (os.getenv('DJANGO_ADMIN_NAME_' + str(i), ''), os.getenv('DJANGO_ADMIN_EMAIL_' + str(i), ''))
+    for i in range(1, int(os.getenv('DJANGO_ADMINS_COUNT', 0)))
+]
+
+MANAGERS = [
+    (os.getenv('DJANGO_MANAGER_NAME_' + str(i), ''), os.getenv('DJANGO_MANAGER_EMAIL_' + str(i), ''))
+    for i in range(1, int(os.getenv('DJANGO_MANAGERS_COUNT', 0)))
+]

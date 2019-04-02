@@ -3,7 +3,6 @@
 __pycache__
 *.pyc
 *.env
-*/settings/security.py
 */settings/google_import.py
 *.sublime-project
 *.sublime-workspace
