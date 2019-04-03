@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from analytics.filters import MotionAnalysisFilter
+from analytics.models import MotionAnalysis
 from analytics.serializers import (
     MotionSerializer, UserAnalyticsSerializer, DefaultUserSerializer
 )
@@ -79,6 +80,19 @@ class ProfileAPI(APIView):
 
 # TODO: add proper signal to models to make this thing available again
 # cached_profile = cache_wrapper(ProfileAPI.as_view())
+
+class MotionAPI(APIView):
+    def get(self, request, *args, **kwargs):
+        pk = kwargs['pk']
+        motion = Motion.objects.select_related('analysis').get(id=pk)
+        if not motion.is_public:
+            return Response(status=200)  # TODO: provide proper workaround
+        if not hasattr(motion, 'analysis'):
+            analysis = MotionAnalysis()
+            analysis.generate_analysis(motion)
+            motion.analysis = analysis
+        data = MotionSerializer(motion).data
+        return Response(status=200, data=data)
 
 
 class MotionList(generics.ListAPIView):
