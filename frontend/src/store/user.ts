@@ -1,4 +1,4 @@
-import {Module, Mutation, VuexModule} from 'vuex-module-decorators';
+import { Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import store from '@/store';
 
 @Module({

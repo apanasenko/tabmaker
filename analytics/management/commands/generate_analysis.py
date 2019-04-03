@@ -4,19 +4,7 @@ from analytics.models import MotionAnalysis
 from apps.tournament.models import Motion, QualificationResult
 
 
-def generate_analysis(motion):
-    instance = MotionAnalysis()
-    games = motion.game_set.all()
-    for _ in games:
-        for result in QualificationResult.objects.filter(game=_):
-            try:
-                instance.government_score += 8 - result.og - result.cg
-                instance.opposition_score += 8 - result.oo - result.co
-            except Exception:
-                print(f'BUGGED {result.id}')
 
-    instance.motion = motion
-    instance.save()
 
 
 class Command(BaseCommand):
