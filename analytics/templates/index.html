@@ -1,23 +1,20 @@
-{% load staticfiles %}
 {% load extra_tags %}
 
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang=en>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="{% static 'css/1.css' %}" rel="stylesheet">
-    <link href="{% static 'css/main.css' %}" rel="stylesheet">
-    <title>tabmaker analytics</title>
-
+    <meta charset=utf-8>
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <meta name=viewport content="width=device-width,initial-scale=1">
+    <link rel=icon href=/analytics/favicon.ico>
+    <title>Tabmaker-analytics</title>
+    {% existing_style 'styles/app.css' %}
 </head>
 <body>
-<noscript>You need to enable JavaScript to run this app.</noscript>
-<div id="root" ></div>
-{% hmr_script "js/main.js" %}
-{% hmr_script "js/1.js" %}
-{% hmr_script "js/runtime~main.js" %}
+<noscript><strong>We're sorry but analytics doesn't work properly without JavaScript enabled. Please enable it
+    to continue.</strong></noscript>
+<div id=app></div>
+{% hmr_script "chunk-vendors.js" %}
+{% hmr_script "app.js" %}
 </body>
 </html>

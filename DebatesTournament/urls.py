@@ -3,9 +3,11 @@ from django.conf import settings
 from django.contrib import admin
 from apps.tournament.urls import main, account, tournament
 from analytics import urls as analytics_urls
+from common import urls as common_urls
 
 urlpatterns = [
     url(r'^', include(main, namespace='main')),
+    url(r'^api/', include(common_urls, namespace='main')),
     url(r'^admin/', admin.site.urls),
     url(r'^profile/', include(account)),
     url(r'^tournament/', include(tournament, namespace='tournament')),

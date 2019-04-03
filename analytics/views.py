@@ -68,8 +68,8 @@ class ProfileAPI(APIView):
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
-
-cached_profile = cache_wrapper(ProfileAPI.as_view())
+# TODO: add proper signal to models to make this thing available again
+# cached_profile = cache_wrapper(ProfileAPI.as_view())
 
 
 class MotionList(generics.ListAPIView):
