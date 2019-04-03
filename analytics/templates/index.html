@@ -1,5 +1,4 @@
 {% load extra_tags %}
-{% load staticfiles %}
 
 <!DOCTYPE html>
 <html lang=en>
@@ -7,20 +6,13 @@
     <meta charset=utf-8>
     <meta http-equiv=X-UA-Compatible content="IE=edge">
     <meta name=viewport content="width=device-width,initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="{% static 'main/img/favicon.ico' %}" />
+    <link rel=icon href=/analytics/favicon.ico>
     <title>Tabmaker-analytics</title>
     {% existing_style 'styles/app.css' %}
 </head>
 <body>
-<noscript>
-    <strong>
-        We're sorry but analytics doesn't work properly without JavaScript enabled.
-        Please enable it to continue.
-    </strong>
-</noscript>
-<script type="text/javascript">
-    window.userData = {{ user_data | safe }};
-</script>
+<noscript><strong>We're sorry but analytics doesn't work properly without JavaScript enabled. Please enable it
+    to continue.</strong></noscript>
 <div id=app></div>
 {% hmr_script "chunk-vendors.js" %}
 {% hmr_script "app.js" %}

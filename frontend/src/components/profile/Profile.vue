@@ -28,10 +28,17 @@ export default class Profile extends Vue {
 
     loaded: boolean = false;
 
+    endpoint: string = '/analytics/api/profile';
+
+    placeholder: string = 'Loading...';
+
+    toLogin: boolean = false;
+
+    posStats = posStats;
+
     async fetchProfile() {
       const response = await axios.get(
-        '/analytics/api/profile',
-        { paramsSerializer: qs.stringify },
+        this.endpoint, { paramsSerializer: qs.stringify },
       );
       this.profile = response.data;
       this.loaded = true;
