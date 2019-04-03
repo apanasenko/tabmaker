@@ -1,7 +1,8 @@
+import json
 from collections import defaultdict
 
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
@@ -9,14 +10,22 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from analytics.caching import cache_wrapper
 from analytics.filters import MotionAnalysisFilter
-from analytics.serializers import MotionSerializer, UserSerializer
-from apps.tournament.models import Motion, Team, QualificationResult, Game, User
+from analytics.serializers import (
+    MotionSerializer, UserAnalyticsSerializer, DefaultUserSerializer
+)
+from apps.tournament.models import Motion, QualificationResult, Game, User
 
 
 def index(request):
-    return render(request, 'index.html')
+    if request.user.is_anonymous:
+        return redirect(f'/profile/login/?next={request.path}')
+    user = User.objects.get(pk=request.user.id)
+    user_data = json.dumps(DefaultUserSerializer(instance=user).data)
+    render_data = dict(
+        user_data=user_data,
+    )
+    return render(request, 'index.html', context=render_data)
 
 
 class ProfileAPI(APIView):
@@ -28,7 +37,6 @@ class ProfileAPI(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        # user = User.objects.get(id=4832)
         user = request.user
         results = QualificationResult.objects.filter(
             Q(game__og__speaker_1=user.id) | Q(game__og__speaker_2=user.id)
@@ -65,8 +73,9 @@ class ProfileAPI(APIView):
         judgement = list(Game.objects.filter(chair=user))
         answer['judgement'] = len(judgement)
         user.analytics = answer
-        serializer = UserSerializer(user)
+        serializer = UserAnalyticsSerializer(user)
         return Response(serializer.data)
+
 
 # TODO: add proper signal to models to make this thing available again
 # cached_profile = cache_wrapper(ProfileAPI.as_view())

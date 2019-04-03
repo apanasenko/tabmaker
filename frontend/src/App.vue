@@ -1,11 +1,19 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { getModule } from 'vuex-module-decorators';
+import User from './store/user';
+
+const userState = getModule(User);
 
 @Component
 export default class App extends Vue {
+  public get user(): object|null {
+    return userState.user;
+  }
+
   async created() {
-    if (!false && this.$route.path !== '/login') {
-      window.location.assign('/profile/login');
+    if (!this.user) {
+      window.location.assign(`/profile/login?next=/analytics${this.$route.path}`);
     }
   }
 }
