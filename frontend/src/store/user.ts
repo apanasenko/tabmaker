@@ -1,16 +1,13 @@
-import { Module, Mutation, VuexModule } from 'vuex-module-decorators';
-import store from '@/store';
+import {Action, Module, Mutation, VuexModule} from 'vuex-module-decorators';
+import Store from "../store";
+import {AxiosResponse} from 'axios';
 
 @Module({
-  name: 'user',
-  store,
-  namespaced: true,
   dynamic: true,
+  store: Store,
+  name: "user",
+  namespaced: true,
 })
 export default class UserModule extends VuexModule {
-  public user: object | null = null;
-
-  @Mutation receiveUser(user: object) {
-    this.user = user;
-  }
+  public user: object = {};
 }
