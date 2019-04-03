@@ -3,8 +3,8 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-});
+interface StoreType {
+  user: any,
+}
+
+export default new Vuex.Store<StoreType>({});
