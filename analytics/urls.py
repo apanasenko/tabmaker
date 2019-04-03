@@ -1,12 +1,12 @@
 from django.conf.urls import url
 from django.urls import path
 
-from analytics.views import index, MotionList, ProfileAPI, cached_profile
+from analytics.views import index, MotionList, ProfileAPI
 
 app_name = "analytics"
 
 urlpatterns = [
-    path(r'', index),
-    path(r'api/profile', cached_profile),
+    path(r'api/profile', ProfileAPI.as_view()),
+    url('', index),
     # url(r'^api/motions/', MotionList.as_view())
 ]

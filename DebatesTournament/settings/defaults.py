@@ -11,6 +11,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'rest_framework',
+    'rest_framework.authtoken',
 
     'analytics',
     'apps.tester',
@@ -78,7 +80,7 @@ MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 
 AUTH_USER_MODEL = 'tournament.User'
 
-WEBPACK_DEV_SERVER = os.getenv('WEBPACK_DEV_SERVER', None)
+#WEBPACK_DEV_SERVER = os.getenv('WEBPACK_DEV_SERVER', None)
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'secret')
 
