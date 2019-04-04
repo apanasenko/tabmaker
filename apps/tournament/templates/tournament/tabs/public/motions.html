@@ -7,6 +7,11 @@
             {% if motion.infoslide %}
                 <p>{{ motion.infoslide }}</p>
             {% endif %}
+            {% if not motion.is_playoff %}
+                <a href="/analytics/motion/{{ motion.id }}/">
+                    <i class="fas fa-chart-area" style="color: #253858;"></i>
+                </a>
+            {% endif %}
         </div>
     {% endfor %}
 </div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import { getModule } from 'vuex-module-decorators';
 import User from './store/user';
 
@@ -20,8 +20,13 @@ export default class App extends Vue {
 </script>
 
 <template>
-  <div id="app">
-    <router-view />
+  <div>
+    <div class="header">
+      <a href="/">На главную</a>
+    </div>
+    <div id="app">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -34,6 +39,15 @@ export default class App extends Vue {
     color #2c3e50
     width 900px
     margin 50px auto
+  .header
+    a
+      -webkit-font-smoothing antialiased
+      -moz-osx-font-smoothing grayscale
+      color #2c3e50
+      font-family 'Avenir', Helvetica, Arial, sans-serif
+      font-size 1.5em
+      font-weight bold
+      text-decoration none
 
   #nav
     padding 30px
