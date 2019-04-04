@@ -9,7 +9,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
   <div>
     <h1>Портал аналитики</h1>
     <router-link :to="{name:'profile-analytics'}">Аналитика профиля</router-link>
-    <router-link :to="{name:'motion-analytics'}">Аналитика профиля</router-link>
   </div>
 </template>
 

@@ -3,10 +3,16 @@
 <div class="content-textpage">
     {% for motion in tab_data %}
         <div class="paragraph">
-            <p>{{ motion.number }}: {{ motion.motion }}</p>
+            <p>{{ motion.number }}: {{ motion.motion }}
+            </p>
             {% if motion.infoslide %}
                 <p>{{ motion.infoslide }}</p>
             {% endif %}
+        {% if not motion.is_playoff %}
+            <a href="/analytics/motion/{{ motion.id }}/">
+                <i class="fas fa-chart-area" style="color: #253858;"></i>
+            </a>
+        {% endif %}
         </div>
     {% endfor %}
 </div>

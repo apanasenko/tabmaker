@@ -15,7 +15,7 @@ from analytics.models import MotionAnalysis
 from analytics.serializers import (
     MotionSerializer, UserAnalyticsSerializer, DefaultUserSerializer
 )
-from apps.tournament.models import Motion, QualificationResult, Game, User
+from apps.tournament.models import Motion, QualificationResult, Game, User, TournamentStatus
 
 
 def index(request):
@@ -39,6 +39,8 @@ class ProfileAPI(APIView):
 
     def get(self, request):
         user = request.user
+        # finished_status = TournamentStatus.objects.get(name='finished')
+        finished_status = TournamentStatus.objects.get(id=4)
         results = QualificationResult.objects.filter(
             Q(game__og__speaker_1=user.id) | Q(game__og__speaker_2=user.id)
             | Q(game__oo__speaker_1=user.id) | Q(game__oo__speaker_2=user.id)
@@ -46,7 +48,9 @@ class ProfileAPI(APIView):
             | Q(game__cg__speaker_1=user.id) | Q(game__cg__speaker_2=user.id)) \
             .select_related(
             'game', 'game__og', 'game__oo', 'game__co', 'game__cg'
-        ).order_by('id')
+        ).order_by('id').filter(
+            game__motion__round__tournament__status_id=finished_status
+        )
         answer = defaultdict(list)
         for res in results:
             position = ''

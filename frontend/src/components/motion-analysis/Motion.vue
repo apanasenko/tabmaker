@@ -13,14 +13,13 @@ export default class MotionAnalysis extends Vue {
 
     loaded: boolean = false;
 
-    @Prop(Number) motionId: number;
+    @Prop(Number) motionId!: number;
 
     async fetchMotionAnalysis() {
       const response = await axios.get(
         `/analytics/api/motion/${this.motionId}/`,
         { paramsSerializer: qs.stringify },
       );
-      debugger;
       this.motion = response.data;
       this.loaded = true;
     }
@@ -39,8 +38,8 @@ export default class MotionAnalysis extends Vue {
   <div v-else>
     <h1>{{ motion.motion }}</h1>
     <p>{{ motion.infoslide }}</p>
-    <p> Правительство выйграло: {{ motion.analysis.government_score }}</p>
-    <p> Оппозиция выграла: {{ motion.analysis.opposition_score }}</p>
+    <p> Правительство: {{ motion.analysis.government_score }}</p>
+    <p> Оппозиция: {{ motion.analysis.opposition_score }}</p>
   </div>
 </template>
 
