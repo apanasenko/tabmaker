@@ -20,6 +20,7 @@ pew = "*"
 djangorestframework = "*"
 django-filter = "*"
 detectlanguage = "*"
+django-dotenv = "*"
 
 [dev-packages]
 django-debug-toolbar-template-timings = "*"
