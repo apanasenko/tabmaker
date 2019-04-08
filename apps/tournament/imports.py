@@ -63,11 +63,8 @@ class ImportTeam:
 
     def connect_to_worksheet(self):
         try:
-            from DebatesTournament.settings.google_import import SCOPE, SETTINGS_FILE
-            credentials = ServiceAccountCredentials.from_json_keyfile_name(
-                'DebatesTournament/settings/import_settings.json',
-                SCOPE
-            )
+            from DebatesTournament.settings.google_import import SCOPE, GOOGLE_IMPORT_SETTINGS_FILE
+            credentials = ServiceAccountCredentials.from_json_keyfile_name(GOOGLE_IMPORT_SETTINGS_FILE, SCOPE)
             self.worksheet = gspread.authorize(credentials).open_by_url(self.url).sheet1
 
         except gspread.SpreadsheetNotFound:

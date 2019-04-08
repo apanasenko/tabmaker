@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load settings_extras %}
 
 <!DOCTYPE html>
 
@@ -6,6 +7,8 @@
 <head lang="ru">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="{% settings_value 'GOOGLE_VERIFICATION' %}" />
+<meta name='yandex-verification' content='{% settings_value 'YANDEX_VERIFICATION' %}' />
 <link rel="shortcut icon" type="image/png" href="{% static 'main/img/favicon.ico' %}"/>
 
 <title>
