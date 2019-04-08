@@ -22,7 +22,8 @@ from . profile import \
     City, \
     Country, \
     University, \
-    User
+    User, \
+    TelegramToken
 
 from . motion import Language, Motion
 from . team import Team

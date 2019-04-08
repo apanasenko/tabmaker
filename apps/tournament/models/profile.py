@@ -5,7 +5,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.db import models
 from django.template import Context
 from django.template.loader import get_template
-
+from .bot_users  import BotUsers
 
 class Country(models.Model):
     country_id = models.IntegerField(unique=True)
@@ -35,6 +35,7 @@ class User(AbstractUser):
     adjudicator_experience = models.TextField(blank=True)
     is_show_phone = models.BooleanField(default=True)
     is_show_email = models.BooleanField(default=True)
+    telegram = models.ForeignKey(BotUsers, models.SET_NULL, null=True)
 
     def name(self):
         return "%s %s" % (self.first_name, self.last_name) \
@@ -106,3 +107,9 @@ class User(AbstractUser):
                 user.confirmation()
 
             return user, False
+
+
+class TelegramToken(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    value = models.TextField(max_length=64)
+    expire = models.DateTimeField()
