@@ -3,7 +3,7 @@ from collections import defaultdict
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
@@ -19,7 +19,7 @@ from analytics.serializers import (
 )
 from apps.tournament.consts import STATUS_FINISHED
 from apps.tournament.models import (
-    Motion, QualificationResult, Game, User, TournamentStatus
+    Motion, QualificationResult, Game, User
 )
 
 

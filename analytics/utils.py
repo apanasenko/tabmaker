@@ -49,6 +49,7 @@ def cg_res_collector(user: User, team: Team):
 
     return game_proc
 
+
 def co_res_collector(user: User, team: Team):
     first_speaker = team.speaker_1 == user
 
