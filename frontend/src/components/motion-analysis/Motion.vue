@@ -33,7 +33,7 @@ export default class MotionAnalysis extends Vue {
 <template>
  <div v-if="!loaded" class="loader">
     <cube-shadow />
-    <span>Collecting your data...</span>
+    <span>Собираем данные...</span>
   </div>
   <div v-else>
     <h1>{{ motion.motion }}</h1>
@@ -43,10 +43,11 @@ export default class MotionAnalysis extends Vue {
   </div>
 </template>
 
-<style lang="stylus">
-  .loader
-    margin 0 auto
-    width 150px
-    display flex
-    flex-flow column
+<style lang="scss">
+  .loader {
+    margin: 0 auto;
+    width: 150px;
+    display: flex;
+    flex-flow: column;
+  }
 </style>

@@ -1,22 +1,16 @@
 <template>
   <div class="stats-container">
-      <span class="score">
+    <div class="stats-header">
+      <strong class="score">
         {{ overall }}
-      </span>
-      <span class="score-description">{{ text }}</span>
+      </strong>
+    <span class="score-description">{{ text }}</span>
+    </div>
     <div class="stats-details">
-      <table cellSpacing="15">
-        <tbody>
-        <tr>
-          <td>{{ og }}</td>
-          <td>{{ oo }}</td>
-        </tr>
-        <tr>
-          <td>{{ cg }}</td>
-          <td>{{ co }}</td>
-        </tr>
-        </tbody>
-      </table>
+          <div>{{ og }}</div>
+          <div>{{ oo }}</div>
+          <div>{{ cg }}</div>
+          <div>{{ co }}</div>
     </div>
   </div>
 </template>
@@ -52,10 +46,32 @@ export default class DataGrid extends Vue {
 }
 </script>
 
-<style scoped lang="stylus">
-  .stats-container
-    display flex
-    flex-flow column
-  .stats-details
-    align-self center
+<style scoped lang="scss">
+  strong {
+    font-weight: 900;
+  }
+
+  .stats-container {
+    display: flex;
+    flex-flow: column;
+
+    .stats-header {
+      display: flex;
+      flex-flow: column;
+      height: 35px;
+    }
+  }
+
+  .stats-details {
+     align-self: center;
+      display: flex;
+      flex-flow: row wrap;
+      align-content: space-around;
+      justify-content: space-between;
+      height: 60px;
+
+      div {
+        flex: 1 0 50%;
+      }
+}
 </style>

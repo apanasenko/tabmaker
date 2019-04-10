@@ -16,13 +16,13 @@ function posStats(arr: any): any {
   return { amount, rate: rate.toFixed(2), speaker: speaker.toFixed(2) };
 }
 
-  @Component({
-    components: {
-      CubeShadow,
-      DataGrid,
-      LineChart,
-    },
-  })
+@Component({
+  components: {
+    CubeShadow,
+    DataGrid,
+    LineChart,
+  },
+})
 export default class Profile extends Vue {
     profile: any = {};
 
@@ -77,35 +77,27 @@ export default class Profile extends Vue {
 <template>
   <div v-if="!loaded" class="loader">
     <cube-shadow />
-    <span>Collecting your data...</span>
+    <span>Собираем ваши данные...</span>
   </div>
   <div v-else class="profile-wrapper">
     <div class="overall-statistics">
       <div class="legend-wrapper">
         <div class="header-name">
-          {{ profile.first_name }} {{ profile.last_name }}
+          <strong>{{ profile.first_name }} {{ profile.last_name }}</strong>
         </div>
-        <div class="legend-wrapper__table">
-          <table cellSpacing="15">
-            <tbody>
-            <tr>
-              <td>ОП</td>
-              <td>ОО</td>
-            </tr>
-            <tr>
-              <td>ЗП</td>
-              <td>ЗО</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="general-stats">
-          <span>Всего игр отсужено: {{ profile.analytics.judgement }}</span>
+        <div class="legend-wrapper__grid">
+          <div>ОП</div>
+          <div>ОО</div>
+          <div>ЗП</div>
+          <div>ЗО</div>
         </div>
       </div>
       <data-grid :stats="getStatsName('amount')" text="Всего игр сыграно" />
       <data-grid :stats="getStatsName('rate')" text="Среднее место" />
       <data-grid :stats="getStatsName('speaker')" text="Средний спикерский" />
+    </div>
+    <div class="general-stats">
+      <span>Всего игр отсужено: </span><strong>{{ profile.analytics.judgement }}</strong>
     </div>
     <div class="chart-wrapper">
       <h2>Спикерские баллы по отборочным играм</h2>
@@ -114,32 +106,57 @@ export default class Profile extends Vue {
   </div>
 </template>
 
-<style lang="stylus">
-  .loader
-    margin 0 auto
-    width 150px
-    display flex
-    flex-flow column
+<style scoped lang="scss">
+  strong {
+    font-weight: 900;
+  }
+  .loader {
+    margin: 0 auto;
+    width: 150px;
+    display: flex;
+    flex-flow: column;
+  }
 
-  .overall-statistics
-    display flex
-    justify-content space-around
+  .overall-statistics {
+    display: flex;
+    justify-content: space-around;
+  }
 
-  .legend-wrapper
-    width 270px
-    display flex
-    flex-flow column
+  .general-stats {
+    display: flex;
+    margin: 15px;
+    span {
+      margin-right: 5px;
+    }
+  }
 
-    .legend-wrapper__table
-      align-self center
+  .legend-wrapper {
+    display: flex;
+    flex-flow: column;
 
-    .header-name
-      height 35px
-      font-size 28px
+    &__grid {
+      align-self: center;
+      display: flex;
+      flex-flow: row wrap;
+      align-content: space-around;
+      justify-content: space-between;
+      width: 70px;
+      height: 60px;
 
-  .general-stats
-    display flex
-    margin-left 40px
-  .chart-wrapper
-    max-height 300px
+      div {
+        flex: 1 0 50%;
+      }
+    }
+
+    .header-name {
+      height: 35px;
+      font-size: 28px;
+      align-content: center;
+    }
+
+
+    .chart-wrapper {
+      max-height: 300px;
+    }
+  }
 </style>

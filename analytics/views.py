@@ -1,8 +1,10 @@
 import json
 from collections import defaultdict
 
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
@@ -15,12 +17,14 @@ from analytics.models import MotionAnalysis
 from analytics.serializers import (
     MotionSerializer, UserAnalyticsSerializer, DefaultUserSerializer
 )
-from apps.tournament.models import Motion, QualificationResult, Game, User, TournamentStatus
+from apps.tournament.consts import STATUS_FINISHED
+from apps.tournament.models import (
+    Motion, QualificationResult, Game, User, TournamentStatus
+)
 
 
+@login_required(login_url=reverse_lazy('account_login'))
 def index(request):
-    if request.user.is_anonymous:
-        return redirect(f'/profile/login/?next={request.path}')
     user = User.objects.get(pk=request.user.id)
     user_data = json.dumps(DefaultUserSerializer(instance=user).data)
     render_data = dict(
@@ -30,8 +34,6 @@ def index(request):
 
 
 class ProfileAPI(APIView):
-    # TODO: count only finished tournaments
-    # TODO: add judging stats
     # TODO: add cache
     # TODO: add user as param
     renderer_classes = (JSONRenderer,)
@@ -39,8 +41,6 @@ class ProfileAPI(APIView):
 
     def get(self, request):
         user = request.user
-        # finished_status = TournamentStatus.objects.get(name='finished')
-        finished_status = TournamentStatus.objects.get(id=4)
         results = QualificationResult.objects.filter(
             Q(game__og__speaker_1=user.id) | Q(game__og__speaker_2=user.id)
             | Q(game__oo__speaker_1=user.id) | Q(game__oo__speaker_2=user.id)
@@ -49,7 +49,7 @@ class ProfileAPI(APIView):
             .select_related(
             'game', 'game__og', 'game__oo', 'game__co', 'game__cg'
         ).order_by('id').filter(
-            game__motion__round__tournament__status_id=finished_status
+            game__motion__round__tournament__status_id=STATUS_FINISHED
         )
         answer = defaultdict(list)
         for res in results:

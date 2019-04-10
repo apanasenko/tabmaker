@@ -7,7 +7,7 @@ const userState = getModule(User);
 
 @Component
 export default class App extends Vue {
-  public get user(): object|null {
+  public get user(): object | null {
     return userState.user;
   }
 
@@ -30,32 +30,40 @@ export default class App extends Vue {
   </div>
 </template>
 
-<style lang="stylus">
-  #app
-    font-family 'Avenir', Helvetica, Arial, sans-serif
-    -webkit-font-smoothing antialiased
-    -moz-osx-font-smoothing grayscale
-    text-align center
-    color #2c3e50
-    width 900px
-    margin 50px auto
-  .header
-    a
-      -webkit-font-smoothing antialiased
-      -moz-osx-font-smoothing grayscale
-      color #2c3e50
-      font-family 'Avenir', Helvetica, Arial, sans-serif
-      font-size 1.5em
-      font-weight bold
-      text-decoration none
+<style scoped lang="scss">
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    width: 900px;
+    margin: 50px auto;
+  }
 
-  #nav
-    padding 30px
+  .header {
+    padding: 0 20px;
+    a {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      color: #2c3e50;
+      font-family: 'Avenir', Helvetica, Arial, sans-serif;
+      font-size: 1.5em;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  }
 
-    a
-      font-weight bold
-      color #2c3e50
+  #nav {
+    padding: 30px;
 
-      &.router-link-exact-active
-        color #42b983
+    a {
+      font-weight: bold;
+      color: #2c3e50;
+
+      &.router-link-exact-active {
+        color: #42b983;
+      }
+    }
+  }
 </style>
