@@ -1,5 +1,4 @@
-// @flow
-import { isFunction, mapValues} from 'lodash';
+import { isFunction, mapValues } from 'lodash';
 
 
 export const mapProps = (props = {}) => (route: any) => {
