@@ -7,5 +7,4 @@ ADD requirements_debug.txt /source/requirements_debug.txt
 WORKDIR /source
 
 RUN pip3 install pipenv
-RUN pipenv install --system
-RUN pip install --no-cache-dir -r requirements_debug.txt
+RUN pipenv install --dev --system

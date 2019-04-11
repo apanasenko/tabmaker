@@ -11,4 +11,8 @@ import Store from '../store';
 })
 export default class UserModule extends VuexModule {
   public user: object = {};
+
+  @Mutation receiveUser(user: object) {
+    this.user = user;
+  }
 }

@@ -8,7 +8,7 @@
                 <p>{{ motion.infoslide }}</p>
             {% endif %}
             {% if not motion.is_playoff %}
-                <a href="/analytics/motion/{{ motion.id }}/">
+                <a href="{% url 'analytics:motion' pk=motion.id %}">
                     <i class="fas fa-chart-area paragraph__analytics_icon" ></i>
                 </a>
             {% endif %}
