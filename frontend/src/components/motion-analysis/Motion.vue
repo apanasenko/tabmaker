@@ -13,6 +13,8 @@ export default class MotionAnalysis extends Vue {
 
     loaded: boolean = false;
 
+    error: boolean = false;
+
     @Prop(Number) motionId!: number;
 
     async fetchMotionAnalysis() {
@@ -21,6 +23,7 @@ export default class MotionAnalysis extends Vue {
         { paramsSerializer: qs.stringify },
       );
       this.motion = response.data;
+      if (!this.motion.hasOwnProperty('id')) this.error = true;
       this.loaded = true;
     }
 
@@ -31,9 +34,18 @@ export default class MotionAnalysis extends Vue {
 </script>
 
 <template>
- <div v-if="!loaded" class="loader">
-    <cube-shadow />
-    <span>Собираем данные...</span>
+  <div v-if="!loaded" class="loader">
+     <cube-shadow />
+     <span>Собираем данные...</span>
+  </div>
+  <div v-else-if="error">
+    <el-alert
+      title="Ошибка"
+      type="error"
+      description="Тема для раунда не поддаётся анализу"
+      center
+      :closable="false"
+      show-icon/>
   </div>
   <div v-else>
     <h1>{{ motion.motion }}</h1>

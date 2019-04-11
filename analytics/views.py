@@ -4,7 +4,7 @@ from collections import defaultdict
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, get_resolver
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
@@ -24,7 +24,7 @@ from apps.tournament.models import (
 
 
 @login_required(login_url=reverse_lazy('account_login'))
-def index(request):
+def index(request, *args, **kwargs):
     user = User.objects.get(pk=request.user.id)
     user_data = json.dumps(DefaultUserSerializer(instance=user).data)
     render_data = dict(
@@ -86,11 +86,17 @@ class ProfileAPI(APIView):
 # cached_profile = cache_wrapper(ProfileAPI.as_view())
 
 class MotionAPI(APIView):
+    queryset = Motion.objects.select_related('analysis') \
+            .filter(round__tournament__status_id=STATUS_FINISHED)
+
     def get(self, request, *args, **kwargs):
         pk = kwargs['pk']
-        motion = Motion.objects.select_related('analysis').get(id=pk)
-        if not motion.is_public:
-            return Response(status=200)  # TODO: provide proper workaround
+        try:
+            motion = self.queryset.get(id=pk)
+        except Motion.DoesNotExist:
+            motion = None
+        if not motion:
+            return Response(status=200, data={})
         if not hasattr(motion, 'analysis'):
             analysis = MotionAnalysis()
             analysis.generate_analysis(motion)
