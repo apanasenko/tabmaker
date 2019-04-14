@@ -2,7 +2,6 @@ FROM python:3.7.2-slim-stretch
 
 ADD Pipfile /source/Pipfile
 ADD Pipfile.lock /source/Pipfile.lock
-ADD requirements_debug.txt /source/requirements_debug.txt
 
 WORKDIR /source
 
