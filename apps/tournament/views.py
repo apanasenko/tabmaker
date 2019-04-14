@@ -64,6 +64,7 @@ from .models import \
     AccessToPage, \
     Tournament, \
     TeamTournamentRel, \
+    TelegramToken, \
     UserTournamentRel, \
     User
 
@@ -1528,6 +1529,20 @@ def edit_profile(request):
             'form': form,
         }
     )
+
+@login_required(login_url=reverse_lazy('account_login'))
+def connect_telegram(request):
+    from django_telegrambot.apps import DjangoTelegramBot
+    import string, random, datetime
+
+    token = TelegramToken(
+        user=request.user,
+        expire=datetime.datetime.now() + timedelta(days=3),
+        value=(''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(30)))
+    )
+    token.save()
+
+    return redirect('https://telegram.me/%s?start=%s' % (DjangoTelegramBot.getBot().username, token.value))
 
 
 def show_tournaments_of_user(request, user_id):
