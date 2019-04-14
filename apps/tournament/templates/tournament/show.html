@@ -167,7 +167,11 @@
                         <p class="dropbtn">Раунды<i class="material-icons">keyboard_arrow_down</i></p>
                         <div class="dropdown-content">
                             <a  href="{% url 'tournament:next_round' tournament.id%}">Создать следующий раунд </a>
-                            <a  href="{% url 'tournament:publish_round' tournament.id%}"> Опубликовать тему и комнаты </a>
+                            <a  href="{% url 'tournament:publish_round' tournament.id%}"
+                                onclick="return confirm('Раунд уже объявлен? Участники турнира увидят тему и позиции в румах')"
+                            >
+                                Опубликовать тему и комнаты
+                            </a>
                             <a  href="{% url 'tournament:presentation_round' tournament.id %}"> Презентация раунда </a>
                             {% if tournament.cur_round > 0 %}
                                 <a  href="{% url 'tournament:result_round' tournament.id%}"> Ввести результаты </a>
