@@ -1,9 +1,9 @@
 FROM python:3.7.2-slim-stretch
 
-ADD requirements_hard.txt /source/requirements_hard.txt
-ADD requirements_debug.txt /source/requirements_debug.txt
+ADD Pipfile /source/Pipfile
+ADD Pipfile.lock /source/Pipfile.lock
 
 WORKDIR /source
 
-RUN pip install --no-cache-dir -r requirements_hard.txt
-RUN pip install --no-cache-dir -r requirements_debug.txt
+RUN pip3 install pipenv
+RUN pipenv install --dev --system

@@ -594,7 +594,10 @@ def get_motions(tournament: Tournament):
     # и количество результатор, для опубликования этой темы в тэбе
     # >>>
     query_set = Room.objects.filter(round__tournament=tournament, round__number__gt=0) \
-        .values('round__motion__motion', 'round__motion__infoslide', 'round__number', 'round__is_playoff') \
+        .values(
+            'round__motion__motion', 'round__motion__infoslide',
+            'round__number', 'round__is_playoff', 'round__motion__id'
+        ) \
         .annotate(count_game=Count('game_id'), count_results=Count('game__gameresult__id')) \
         .order_by('round__number', 'round__is_playoff')
     # >>>
@@ -606,6 +609,8 @@ def get_motions(tournament: Tournament):
         new_motion = {
             'motion': motion['round__motion__motion'],
             'infoslide': motion['round__motion__infoslide'],
+            'id': motion['round__motion__id'],
+            'is_playoff': motion['round__is_playoff'],
         }
         if motion['round__is_playoff']:
             new_motion['number'] = 'Финал' \

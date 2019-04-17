@@ -41,8 +41,15 @@
             </div>
         </li>
 
+        {% if is_owner %}
+            <li class="tab-header-and-content">
+                <a href="{% url 'analytics:profile' %}" class="link-to-analytics">
+                    {# <i class="fas fa-chart-area"></i> #}
+                    Аналитика
+                </a>
+            </li>
+        {% endif %}
     </ul>
-
 
 
 

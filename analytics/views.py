@@ -1,7 +1,10 @@
+import json
 from collections import defaultdict
 
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render
+from django.urls import reverse_lazy, get_resolver
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
@@ -9,26 +12,34 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from analytics.caching import cache_wrapper
 from analytics.filters import MotionAnalysisFilter
-from analytics.serializers import MotionSerializer, UserSerializer
-from apps.tournament.models import Motion, Team, QualificationResult, Game, User
+from analytics.models import MotionAnalysis
+from analytics.serializers import (
+    MotionSerializer, UserAnalyticsSerializer, DefaultUserSerializer
+)
+from apps.tournament.consts import STATUS_FINISHED
+from apps.tournament.models import (
+    Motion, QualificationResult, Game, User
+)
 
 
-def index(request):
-    return render(request, 'index.html')
+@login_required(login_url=reverse_lazy('account_login'))
+def index(request, *args, **kwargs):
+    user = User.objects.get(pk=request.user.id)
+    user_data = json.dumps(DefaultUserSerializer(instance=user).data)
+    render_data = dict(
+        user_data=user_data,
+    )
+    return render(request, 'index.html', context=render_data)
 
 
 class ProfileAPI(APIView):
-    # TODO: count only finished tournaments
-    # TODO: add judging stats
     # TODO: add cache
     # TODO: add user as param
     renderer_classes = (JSONRenderer,)
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        # user = User.objects.get(id=4832)
         user = request.user
         results = QualificationResult.objects.filter(
             Q(game__og__speaker_1=user.id) | Q(game__og__speaker_2=user.id)
@@ -37,7 +48,9 @@ class ProfileAPI(APIView):
             | Q(game__cg__speaker_1=user.id) | Q(game__cg__speaker_2=user.id)) \
             .select_related(
             'game', 'game__og', 'game__oo', 'game__co', 'game__cg'
-        ).order_by('id')
+        ).order_by('id').filter(
+            game__motion__round__tournament__status_id=STATUS_FINISHED
+        )
         answer = defaultdict(list)
         for res in results:
             position = ''
@@ -65,11 +78,31 @@ class ProfileAPI(APIView):
         judgement = list(Game.objects.filter(chair=user))
         answer['judgement'] = len(judgement)
         user.analytics = answer
-        serializer = UserSerializer(user)
+        serializer = UserAnalyticsSerializer(user)
         return Response(serializer.data)
 
 
-cached_profile = cache_wrapper(ProfileAPI.as_view())
+# TODO: add proper signal to models to make this thing available again
+# cached_profile = cache_wrapper(ProfileAPI.as_view())
+
+class MotionAPI(APIView):
+    queryset = Motion.objects.select_related('analysis') \
+            .filter(round__tournament__status_id=STATUS_FINISHED)
+
+    def get(self, request, *args, **kwargs):
+        pk = kwargs['pk']
+        try:
+            motion = self.queryset.get(id=pk)
+        except Motion.DoesNotExist:
+            motion = None
+        if not motion:
+            return Response(status=200, data={})
+        if not hasattr(motion, 'analysis'):
+            analysis = MotionAnalysis()
+            analysis.generate_analysis(motion)
+            motion.analysis = analysis
+        data = MotionSerializer(motion).data
+        return Response(status=200, data=data)
 
 
 class MotionList(generics.ListAPIView):
