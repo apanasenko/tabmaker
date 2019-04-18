@@ -1,6 +1,7 @@
 {% extends "account/base.html" %}
 
 {% load staticfiles %}
+{% load settings_extras %}
 
 {% block extra_head %}
 
@@ -143,3 +144,18 @@
     </form>
 
 {% endblock content %}
+
+{% block extra_body %}
+    <script type="text/javascript">
+        _NBSettings = {
+            acceptedMessage: "Проверено",
+            loadingMessage: "Проверяем...",
+            rejectedMessage: "Проверьте правильность написания",
+            softRejectMessage: "Введите email",
+            throttleRejectMessage: "Слишком много запросов, попробуйте позже",
+            apiKey: '{% settings_value 'NEVER_BOUNCE_KEY' %}',
+            displayPoweredBy: false,
+        };
+    </script>
+    {% include 'lib/never-bounce.html' %}
+{% endblock extra_body %}
