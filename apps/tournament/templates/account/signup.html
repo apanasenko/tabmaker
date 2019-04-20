@@ -155,6 +155,7 @@
             throttleRejectMessage: "Слишком много запросов, попробуйте позже",
             apiKey: '{% settings_value 'NEVER_BOUNCE_KEY' %}',
             displayPoweredBy: false,
+            acceptedStatusCodes: [0],
         };
     </script>
     {% include 'lib/never-bounce.html' %}
