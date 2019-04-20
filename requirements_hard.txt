@@ -1,15 +1,15 @@
 -i https://pypi.python.org/simple
 asn1crypto==0.24.0
 certifi==2019.3.9
-cffi==1.12.2
+cffi==1.12.3
 chardet==3.0.4
 cryptography==2.6.1
-defusedxml==0.5.0
+defusedxml==0.6.0
 detectlanguage==1.3.0
 django-allauth==0.39.1
 django-dotenv==1.4.2
 django-filter==2.1.0
-django-modeltranslation==0.13
+django-modeltranslation==0.13.1
 django-telegrambot==1.0.1
 django==2.2
 djangorestframework==3.9.2
@@ -34,7 +34,7 @@ requests==2.21.0
 rsa==4.0
 six==1.12.0
 sqlparse==0.3.0
-urllib3==1.24.1
+urllib3==1.24.2
 virtualenv-clone==0.5.3
 virtualenv==16.4.3
 wheel==0.33.1
