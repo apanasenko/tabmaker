@@ -20,6 +20,9 @@ class Game(models.Model):
     motion = models.ForeignKey(to=Motion, on_delete=models.CASCADE)
     date = models.DateTimeField()
 
+    def get_teams(self) -> [Team]:
+        return [self.og, self.oo, self.cg, self.co];
+
 
 class GameResult(models.Model):
     game = models.OneToOneField(Game, on_delete=models.CASCADE)

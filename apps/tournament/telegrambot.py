@@ -3,7 +3,7 @@ from typing import Optional
 from telegram.ext import CommandHandler, CallbackQueryHandler
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from django_telegrambot.apps import DjangoTelegramBot
-from . models import Motion, BotUsers, BotChat, Language, TelegramToken, User
+from . models import Motion, BotUsers, BotChat, Language, TelegramToken, User, Round, Room
 
 import re
 import logging
@@ -83,6 +83,30 @@ class TabmakerBot:
 
     def error_handler(self, bot, update, error):
         self.logger.warning('Update "%s" caused error "%s"' % (update, error))
+
+
+    @staticmethod
+    def send_round_notifications(bot, cur_round: Round, rooms: [Room]):
+        motion = cur_round.motion.infoslide + '\n\n' + cur_round.motion.motion if cur_round.motion.infoslide \
+            else cur_round.motion.motion
+
+        for room in rooms:
+            room_message = \
+                '1П: ' + room.game.og.name + '\n' + \
+                '1О: ' + room.game.oo.name + '\n' + \
+                '2П: ' + room.game.cg.name + '\n' + \
+                '2О: ' + room.game.co.name + '\n\n' + \
+                'Судья: ' + room.game.chair.name() + '\n\n' + \
+                'Аудитория: ' + room.place.place + '\n\n' + \
+                motion
+
+            for team in room.game.get_teams():
+                for speaker in team.get_speakers():
+                    if not speaker.telegram_id:
+                        continue
+                    bot.sendMessage(speaker.telegram_id, text=room_message)
+                    logging.info(speaker.telegram_id)
+                    logging.info(room_message)
 
 
     def __get_or_create_user(self, from_user, from_chat):
