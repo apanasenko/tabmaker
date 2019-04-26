@@ -1,3 +1,5 @@
+import string, random, datetime
+
 from allauth.account.models import EmailAddress
 from DebatesTournament.settings.smtp_email import EMAIL_HOST_USER
 from django.contrib.auth.models import AbstractUser
@@ -113,3 +115,13 @@ class TelegramToken(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     value = models.TextField(max_length=64)
     expire = models.DateTimeField()
+
+    @staticmethod
+    def generate(user: User):
+        token = TelegramToken(
+            user=user,
+            expire=datetime.datetime.now() + datetime.timedelta(days=3),
+            value=(''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(30)))
+        )
+        token.save()
+        return token
