@@ -27,9 +27,18 @@
         {{ user.adjudicator_experience }}
     </div>
 
-    <div class="paragraph">
     {% if request.user == user %}
-        <a class="button button--max button--prime" href="{% url 'profile:edit' %}">Редактировать</a>
+        <div class="paragraph">
+            <a class="button button--max button--prime" href="{% url 'profile:edit' %}">Редактировать</a>
+        </div>
+        <div class="paragraph">
+            <a class="button button--max button--prime" target="_blank" href="{% url 'profile:connect_telegram' %}">
+                Хочу получать уведомления о играх в Telegram
+            </a>
+            <br>
+            После публикации раунда наш бот отправит вам сообщение с темой,
+            позицией в руме, месте раунда и временем начала.
+            {# TODO убрать в pop up #}
+        </div>
     {% endif %}
-    </div>
 </div>

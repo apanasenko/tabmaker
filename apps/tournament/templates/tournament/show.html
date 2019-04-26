@@ -8,7 +8,6 @@
     {{ block.super }}
     {% include 'lib/yandex-map.html' %}
     <script type="text/javascript" src="{% static "tournament/js/map.js" %}"></script>
-    <script type="text/javascript" src="{% static "tournament/js/confirmation.js" %}"></script>
 {% endblock extra_head %}
 
 {% block title %}
@@ -168,11 +167,19 @@
                         <p class="dropbtn">Раунды<i class="material-icons">keyboard_arrow_down</i></p>
                         <div class="dropdown-content">
                             <a  href="{% url 'tournament:next_round' tournament.id%}">Создать следующий раунд </a>
-                            <a  href="{% url 'tournament:publish_round' tournament.id%}"> Опубликовать тему и комнаты </a>
+                            <a  href="{% url 'tournament:publish_round' tournament.id%}"
+                                onclick="return confirm('Раунд уже объявлен? Участники турнира увидят тему и позиции в румах')"
+                            >
+                                Опубликовать тему и комнаты
+                            </a>
                             <a  href="{% url 'tournament:presentation_round' tournament.id %}"> Презентация раунда </a>
                             {% if tournament.cur_round > 0 %}
                                 <a  href="{% url 'tournament:result_round' tournament.id%}"> Ввести результаты </a>
-                                <a  onclick="confirm_remove_round('{% url 'tournament:remove_round' tournament.id %}')">Удалить последний раунд</a>
+                                <a  href="{% url 'tournament:remove_round' tournament.id %}"
+                                    onclick="return confirm('Удалить последний раунд? Все результаты и комнаты раунда будут удалены')"
+                                >
+                                    Удалить последний раунд
+                                </a>
                             {% endif %}
                         </div>
                     </li>

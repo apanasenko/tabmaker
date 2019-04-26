@@ -22,9 +22,11 @@ from . profile import \
     City, \
     Country, \
     University, \
-    User
+    User, \
+    TelegramToken
 
-from . motion import Language, Motion
+from . language import Language
+from . motion import Motion
 from . team import Team
 from . game import \
     Game, \

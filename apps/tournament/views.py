@@ -1,4 +1,6 @@
 import random
+import logging
+
 from datetime import date, timedelta
 
 # from django.db.models import Count, Q
@@ -64,6 +66,7 @@ from .models import \
     AccessToPage, \
     Tournament, \
     TeamTournamentRel, \
+    TelegramToken, \
     UserTournamentRel, \
     User
 
@@ -785,8 +788,18 @@ def presentation_round(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='round_edit')
 def publish_round(request, tournament):
-    if not publish_last_round(tournament):
-        _show_message(request, MSG_ROUND_NOT_EXIST)
+    cur_round = publish_last_round(tournament)
+    if not cur_round:
+        return _show_message(request, MSG_ROUND_NOT_EXIST)
+
+    try:
+        from . telegrambot import TabmakerBot
+        from django_telegrambot.apps import DjangoTelegramBot
+
+        rooms = get_rooms_from_last_round(tournament)
+        TabmakerBot.send_round_notifications(DjangoTelegramBot.getBot(), cur_round, rooms),
+    except Exception as exception :
+        logging.error(exception)
 
     return redirect('tournament:show', tournament_id=tournament.id)
 
@@ -1528,6 +1541,15 @@ def edit_profile(request):
             'form': form,
         }
     )
+
+@login_required(login_url=reverse_lazy('account_login'))
+def connect_telegram(request):
+    from django_telegrambot.apps import DjangoTelegramBot
+
+    return redirect('https://telegram.me/%s?start=%s' % (
+        DjangoTelegramBot.getBot().username,
+        TelegramToken.generate(request.user).value
+    ))
 
 
 def show_tournaments_of_user(request, user_id):

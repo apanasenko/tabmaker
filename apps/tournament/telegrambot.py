@@ -1,10 +1,13 @@
+from typing import Optional
+
 from telegram.ext import CommandHandler, CallbackQueryHandler
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from django_telegrambot.apps import DjangoTelegramBot
-from . models import Motion, BotUsers, BotChat, Language
+from . models import Motion, BotUsers, BotChat, Language, TelegramToken, User, Round, Room
 
 import re
 import logging
+import datetime
 
 class TabmakerBot:
 
@@ -18,6 +21,20 @@ class TabmakerBot:
     def motion_handler(self, bot, update):
         user, chat = self.__get_or_create_user(update.message.from_user, update.message.chat)
         self.__send_motion(bot, update.message.chat_id, user, chat)
+
+
+    def start_handler(self, bot, update):
+        user, chat = self.__get_or_create_user(update.message.from_user, update.message.chat)
+
+        token = update.message.text.split('/start')[1].strip()
+        if token:
+            connected_user = self.__connect_user(user, chat, token)
+            bot.sendMessage(
+                update.message.chat_id,
+                text=('Канал привязан к пользователю %s' % connected_user.name()),
+            )
+
+        # TODO print help
 
 
     def language_handler(self, bot, update):
@@ -66,6 +83,30 @@ class TabmakerBot:
 
     def error_handler(self, bot, update, error):
         self.logger.warning('Update "%s" caused error "%s"' % (update, error))
+
+
+    @staticmethod
+    def send_round_notifications(bot, cur_round: Round, rooms: [Room]):
+        motion = cur_round.motion.infoslide + '\n\n' + cur_round.motion.motion if cur_round.motion.infoslide \
+            else cur_round.motion.motion
+
+        for room in rooms:
+            room_message = \
+                '1П: ' + room.game.og.name + '\n' + \
+                '1О: ' + room.game.oo.name + '\n' + \
+                '2П: ' + room.game.cg.name + '\n' + \
+                '2О: ' + room.game.co.name + '\n\n' + \
+                'Судья: ' + room.game.chair.name() + '\n\n' + \
+                'Аудитория: ' + room.place.place + '\n\n' + \
+                motion
+
+            for team in room.game.get_teams():
+                for speaker in team.get_speakers():
+                    if not speaker.telegram_id:
+                        continue
+                    bot.sendMessage(speaker.telegram_id, text=room_message)
+                    logging.info(speaker.telegram_id)
+                    logging.info(room_message)
 
 
     def __get_or_create_user(self, from_user, from_chat):
@@ -123,13 +164,33 @@ class TabmakerBot:
         ])
 
 
+    def __connect_user(self, bot_user: BotUsers, chat: BotChat, token: str) -> Optional[User]:
+        if chat is not None:
+            self.logger.warning('')
+            return None
+
+        token: TelegramToken = TelegramToken.objects.filter(value=token).first()
+
+        if token is None:
+            self.logger.warning('')
+            return None
+
+        if token.expire < datetime.datetime.now():
+            raise Exception('Время жизни токена закончилось, попробуйте заново')
+
+        token.user.telegram = bot_user
+        token.user.save()
+
+        return token.user
+
+
 def main():
     logger = logging.getLogger('TelegramBot')
     logger.debug('Loading handlers for telegram bot')
 
     telegram_bot = TabmakerBot(logger)
     dp = DjangoTelegramBot.dispatcher
-    dp.add_handler(CommandHandler('start', telegram_bot.language_handler))
+    dp.add_handler(CommandHandler('start', telegram_bot.start_handler))
     dp.add_handler(CommandHandler('language', telegram_bot.language_handler))
     dp.add_handler(CommandHandler('motion', telegram_bot.motion_handler))
     dp.add_handler(CallbackQueryHandler(telegram_bot.callback_query_handler))

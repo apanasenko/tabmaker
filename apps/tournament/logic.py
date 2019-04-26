@@ -735,10 +735,10 @@ def get_teams_by_user(user: User, tournament: Tournament, roles=[ROLE_MEMBER]):
 def publish_last_round(tournament: Tournament):
     last_round = _get_last_round(tournament)
     if not last_round:
-        return False
+        return None
 
     last_round.publish()
-    return True
+    return last_round
 
 
 def remove_last_round(tournament: Tournament):
