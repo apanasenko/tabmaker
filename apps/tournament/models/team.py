@@ -12,4 +12,4 @@ class Team(models.Model):
         return [self.speaker_1, self.speaker_2]
 
     def __str__(self):
-        return "%s  %s" % (self.id, self.name)
+        return "%s %s" % (self.id, self.name)
