@@ -792,6 +792,9 @@ def publish_round(request, tournament):
     if not cur_round:
         return _show_message(request, MSG_ROUND_NOT_EXIST)
 
+    if cur_round.is_public:
+        return _show_message(request, MSG_ROUND_ALREADY_PUBLISHED)
+
     try:
         from . telegrambot import TabmakerBot
         from django_telegrambot.apps import DjangoTelegramBot
