@@ -100,13 +100,21 @@ class TabmakerBot:
                 'Аудитория: ' + room.place.place + '\n\n' + \
                 motion
 
+            speakers = [
+                room.game.chair
+            ]
+
             for team in room.game.get_teams():
                 for speaker in team.get_speakers():
-                    if not speaker.telegram_id:
-                        continue
-                    bot.sendMessage(speaker.telegram_id, text=room_message)
-                    logging.info(speaker.telegram_id)
-                    logging.info(room_message)
+                    speakers.append(speaker)
+
+            for speaker in speakers:
+                if not speaker.telegram_id:
+                    continue
+
+                bot.sendMessage(speaker.telegram_id, text=room_message)
+                logging.info(speaker.telegram_id)
+                logging.info(room_message)
 
 
     def __get_or_create_user(self, from_user, from_chat):
