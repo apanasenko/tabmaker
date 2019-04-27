@@ -2,6 +2,7 @@
 
 {% load staticfiles %}
 {% load profile_extras %}
+{% load common_extras %}
 
 {% block extra_head %}
     {{ block.super }}
@@ -69,19 +70,27 @@
             <div class="b-result-edit__room">
                 <div class="b-result-edit__team team">
                     {{ form.og }}
-                    <p>1П: <span class="team_name">{{ form.game.og.name }}</span></p>
+                    <p>1П: <span class="team_name">
+                        {{ form.game.og.name }} ({{ team_results|index:form.game.og.id }})
+                    </span></p>
                 </div>
                 <div class="b-result-edit__team team">
                     {{ form.oo }}
-                    <p>1O: <span class="team_name">{{ form.game.oo.name }}</span></p>
+                    <p>1O: <span class="team_name">
+                        {{ form.game.oo.name }} ({{ team_results|index:form.game.oo.id }})
+                    </span></p>
                 </div>
                 <div class="b-result-edit__team team">
                     {{ form.cg }}
-                   <p>2П: <span class="team_name">{{ form.game.cg.name }}</span></p>
+                    <p>2П: <span class="team_name">
+                        {{ form.game.cg.name }} ({{ team_results|index:form.game.cg.id }})
+                    </span></p>
                 </div>
                 <div class="b-result-edit__team team">
                     {{ form.co }}
-                    <p>2O: <span class="team_name">{{ form.game.co.name }}</span></p>
+                    <p>2O: <span class="team_name">
+                        {{ form.game.co.name }} ({{ team_results|index:form.game.co.id }})
+                    </span></p>
                 </div>
             </div>
 

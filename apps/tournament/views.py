@@ -828,6 +828,10 @@ def edit_round(request, tournament):
     if all_is_valid and request.method == 'POST':
         return redirect('tournament:show', tournament_id=tournament.id)
 
+    team_results = {}
+    for team_result in get_tab(tournament):
+        team_results[team_result.team.id] = team_result.sum_points()
+
     return render(
         request,
         'tournament/edit_round.html',
@@ -837,6 +841,7 @@ def edit_round(request, tournament):
             'warning': check_games_results_exists(list(map(lambda x: x.game, rooms))),
             'adjudicators': tournament.get_users([ROLE_CHAIR, ROLE_CHIEF_ADJUDICATOR, ROLE_WING]),
             'places': tournament.place_set.filter(is_active=True),
+            'team_results': team_results,
         }
     )
 
