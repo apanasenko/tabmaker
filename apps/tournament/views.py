@@ -788,12 +788,10 @@ def presentation_round(request, tournament):
 @login_required(login_url=reverse_lazy('account_login'))
 @access_by_status(name_page='round_edit')
 def publish_round(request, tournament):
-    cur_round = publish_last_round(tournament)
-    if not cur_round:
-        return _show_message(request, MSG_ROUND_NOT_EXIST)
-
-    if cur_round.is_public:
-        return _show_message(request, MSG_ROUND_ALREADY_PUBLISHED)
+    try:
+        cur_round = publish_last_round(tournament)
+    except Exception as exception :
+        return _show_message(request, exception)
 
     try:
         from . telegrambot import TabmakerBot

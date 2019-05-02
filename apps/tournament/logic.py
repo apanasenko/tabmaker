@@ -732,10 +732,13 @@ def get_teams_by_user(user: User, tournament: Tournament, roles=[ROLE_MEMBER]):
     )
 
 
-def publish_last_round(tournament: Tournament):
+def publish_last_round(tournament: Tournament) -> Round:
     last_round = _get_last_round(tournament)
     if not last_round:
-        return None
+        raise Exception(MSG_ROUND_NOT_EXIST)
+
+    if last_round.is_public:
+        raise Exception(MSG_ROUND_ALREADY_PUBLISHED)
 
     last_round.publish()
     return last_round
