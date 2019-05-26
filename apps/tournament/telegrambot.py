@@ -122,18 +122,18 @@ class TabmakerBot:
         chat = None
 
         try:
-            user, created = BotUsers.objects.update_or_create(
-                id=from_user.id,
-                username=from_user.username or '',
-                first_name=from_user.first_name or '',
-                last_name=from_user.last_name or '',
-            )
+            user, created = BotUsers.objects.update_or_create(id=from_user.id)
+
+            user.username = from_user.username or ''
+            user.first_name = from_user.first_name or ''
+            user.last_name = from_user.last_name or ''
+
+            user.save()
 
             if from_chat.id != from_user.id:
-                chat, created = BotChat.objects.update_or_create(
-                    id=from_chat.id,
-                    title=from_chat.title,
-                )
+                chat, created = BotChat.objects.update_or_create(id=from_chat.id)
+                chat.title = from_chat.title or ''
+                chat.save()
 
         except Exception as e:
             self.logger.error(e)
