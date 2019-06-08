@@ -3,7 +3,7 @@ version: "3.7"
 services:
     tabmaker_postgres:
         container_name: tabmaker_postgres
-        image: postgres:11.2
+        image: postgres:12
         env_file: .env
         environment:
             POSTGRES_MULTIPLE_DATABASES: ${DATABASE_NAME}

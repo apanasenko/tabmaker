@@ -1,6 +1,8 @@
+from django.urls import include
 from django.views.generic import TemplateView
 from django.conf.urls import url
 from apps.tournament import views
+from apps.tournament.api import urls as api_urls
 
 app_name = 'main'
 urlpatterns = [
@@ -14,4 +16,5 @@ urlpatterns = [
     url(r'^policy[/]$', TemplateView.as_view(template_name='main/policy.html'), name='policy'),
     url(r'^feedback[/]$', views.feedback, name='feedback'),
     url(r'^support[/]$', views.support, name='support'),
+    url(r'^api/', include(api_urls)),
 ]

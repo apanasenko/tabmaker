@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from .consts import *
 from .messages import *
 from .models import \
-    Tournament,\
+    Tournament, \
     TeamTournamentRel, \
     Round, \
     Room, \
@@ -92,11 +92,11 @@ class TeamResult:
 
     def __gt__(self, other):
         return self.sum_points() > other.sum_points() \
-            or self.sum_points() == other.sum_points() and self.sum_speakers() > other.sum_speakers()
+               or self.sum_points() == other.sum_points() and self.sum_speakers() > other.sum_speakers()
 
     def __lt__(self, other):
         return self.sum_points() < other.sum_points() \
-            or self.sum_points() == other.sum_points() and self.sum_speakers() < other.sum_speakers()
+               or self.sum_points() == other.sum_points() and self.sum_speakers() < other.sum_speakers()
 
     def __str__(self):
         return "(%s) %s points:%s speakers:%s" % (self.team.id, self.team.name, self.sum_points(), self.sum_speakers())
@@ -337,15 +337,30 @@ def _generate_round(tournament: Tournament, cur_round: Round):
 
             i += 1
 
-    chair = list(tournament.get_users([ROLE_CHAIR]).order_by('?'))
+    chairs = list(tournament.get_users([ROLE_CHAIR]).order_by('?'))
+    conflicts = list(tournament.get_conflicts())
     place = list(tournament.place_set.filter(is_active=True).order_by('?'))
     for i in range(len(pools)):
+
+        disallowed = set(
+            x.adjudicator for x in conflicts if x.team in [
+                pools[i]['game'][0].team,
+                pools[i]['game'][1].team,
+                pools[i]['game'][2].team,
+                pools[i]['game'][3].team,
+            ]
+        )
+        try:
+            chair = next(x for x in chairs if x not in disallowed)
+        except StopIteration:
+            chair = chairs.pop().user
+
         game = Game.objects.create(
             og=pools[i]['game'][0].team,
             oo=pools[i]['game'][1].team,
             cg=pools[i]['game'][2].team,
             co=pools[i]['game'][3].team,
-            chair=chair.pop().user,
+            chair=chair,
             date=datetime.datetime.now(),
             motion=cur_round.motion
         )
@@ -430,7 +445,6 @@ def _generate_playoff_round(tournament: Tournament, cur_round: Round):
 ##############################################
 
 def can_change_team_role(rel: TeamTournamentRel, role: TournamentRole) -> [bool, str]:
-
     if role not in [ROLE_IN_TAB, ROLE_MEMBER]:
         return [True, '']
 
@@ -456,8 +470,8 @@ def check_final(tournament: Tournament):
 
 def check_last_round_results(tournament: Tournament):
     # TODO use count .annotate(count_game=Count('game_id'), count_results=Count('game__gameresult__id')) \
-    rooms = Room.objects.filter(round=_get_last_round(tournament))\
-        .select_related('game')\
+    rooms = Room.objects.filter(round=_get_last_round(tournament)) \
+        .select_related('game') \
         .select_related('game__gameresult')
     for room in rooms:
         try:
@@ -524,7 +538,6 @@ def generate_next_round(tournament: Tournament, new_round: Round):
 
 
 def generate_playoff(tournament: Tournament, teams: list):
-
     def _generate_playoff_position(count: int):
         result = [1]
         while len(result) != count:
@@ -595,9 +608,9 @@ def get_motions(tournament: Tournament):
     # >>>
     query_set = Room.objects.filter(round__tournament=tournament, round__number__gt=0) \
         .values(
-            'round__motion__motion', 'round__motion__infoslide',
-            'round__number', 'round__is_playoff', 'round__motion__id'
-        ) \
+        'round__motion__motion', 'round__motion__infoslide',
+        'round__number', 'round__is_playoff', 'round__motion__id'
+    ) \
         .annotate(count_game=Count('game_id'), count_results=Count('game__gameresult__id')) \
         .order_by('round__number', 'round__is_playoff')
     # >>>
@@ -634,7 +647,6 @@ def get_all_rounds_and_rooms(tournament: Tournament):
     rooms = __include_room_related_models(rooms)
 
     for room in rooms.order_by('round_id', 'number'):
-
         try:  # TODO Убрать это
             room.game.gameresult
         except AttributeError:
@@ -682,7 +694,6 @@ def get_tab(tournament: Tournament):
         count_playoff_rounds = _count_playoff_rounds_in_tournament(temp_round.room_set.count() * TEAM_IN_GAME)
 
     for room in rooms.order_by('round_id', 'number'):
-
         # TODO Убрать это
         try:
             room.game.gameresult

@@ -57,3 +57,4 @@ from .custom_form import \
     FeedbackAnswer
 
 from . bot_users import BotChat, BotUsers
+from .conflict import AdjudicatorConflict
