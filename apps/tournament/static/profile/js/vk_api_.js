@@ -2,7 +2,7 @@ const FULL_COUNTRY_OPTION_ID = -1;
 const FULL_COUNTRY_OPTION_LABEL = 'Полный список';
 const DEFAULT_COUNTRY_ID = 1;
 const DEFAULT_LANG = 'ru';
-const VK_API_VERSION = 5;
+const VK_API_VERSION = 5.93;
 const VK_ACCESS_TOKEN = '0932ef530932ef5309e7d4df8b0974d6de009320932ef5351c01737d8ea58da939c9124';
 
 var Item = function(selector_id, selector_name, selector_list) {
