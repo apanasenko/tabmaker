@@ -42,7 +42,7 @@ services:
         environment:
             PYTHONUNBUFFERED: 1
     db:
-        image: postgres:11
+        image: postgres:12
         environment:
             POSTGRES_MULTIPLE_DATABASES: debates_tournament
             POSTGRES_USER: tabmaker

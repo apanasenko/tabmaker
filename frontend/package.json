@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "node_modules/.bin/vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
@@ -11,11 +11,11 @@
   "dependencies": {
     "@types/js-cookie": "^2.2.2",
     "@types/lodash": "^4.14.123",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "chart.js": "^2.8.0",
     "element-ui": "^2.7.0",
     "js-cookie": "^2.2.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "query-string": "^6.4.2",
     "vue": "^2.6.6",
     "vue-chartjs": "^3.4.2",

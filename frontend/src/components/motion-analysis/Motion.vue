@@ -23,7 +23,7 @@ export default class MotionAnalysis extends Vue {
         { paramsSerializer: qs.stringify },
       );
       this.motion = response.data;
-      if (!this.motion.hasOwnProperty('id')) this.error = true;
+      if (!{}.hasOwnProperty.call(this.motion, 'id')) this.error = true;
       this.loaded = true;
     }
 

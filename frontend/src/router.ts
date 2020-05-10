@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import MainPage from './components/MainPage.vue';
 import Profile from './components/profile/Profile.vue';
 import Motion from './components/motion-analysis/Motion.vue';
-import { mapProps } from './utils/routers';
+import mapProps from './utils/routers';
 
 Vue.use(Router);
 

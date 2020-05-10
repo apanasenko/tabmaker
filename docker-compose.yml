@@ -3,7 +3,7 @@ version: "3.7"
 services:
     tabmaker_postgres:
         container_name: tabmaker_postgres
-        image: postgres:11.2
+        image: postgres:12
         env_file: .env
         environment:
             POSTGRES_MULTIPLE_DATABASES: ${DATABASE_NAME}
@@ -11,8 +11,6 @@ services:
             POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
         volumes:
             - "${DATABASE_DATA}:/var/lib/postgresql/data"
-        networks:
-            - db-net
         ports:
             - "${DATABASE_PORT}:5432"
 
@@ -25,8 +23,6 @@ services:
         volumes:
             - .:/source
         working_dir: /source
-        networks:
-            - db-net
         depends_on:
             - tabmaker_postgres
         env_file:
@@ -41,15 +37,9 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.npm.dev
-#        command: npm run build
         command: npm run serve
-        networks:
-            - db-net
         volumes:
             - .:/source
         working_dir: /source/frontend
         ports:
             - 8080:8080
-
-networks:
-  db-net:

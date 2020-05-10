@@ -1,7 +1,6 @@
 import { isFunction, mapValues } from 'lodash';
 
-
-export const mapProps = (props = {}) => (route: any) => {
+const mapProps = (props = {}) => (route: any) => {
   const { params } = route;
   return mapValues(
     props,
@@ -10,3 +9,4 @@ export const mapProps = (props = {}) => (route: any) => {
       : apply),
   );
 };
+export default mapProps;
